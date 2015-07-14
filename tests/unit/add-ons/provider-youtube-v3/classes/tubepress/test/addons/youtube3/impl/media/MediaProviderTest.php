@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_youtube3_impl_media_MediaProvider
  */
-class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_youtube3_impl_media_MediaProvider
@@ -36,10 +36,10 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_tes
 
     public function onSetup()
     {
-        $this->_mockHttpCollector = $this->mock(tubepress_app_api_media_HttpCollectorInterface::_);
-        $this->_mockFeedHandler   = $this->mock(tubepress_app_api_media_HttpFeedHandlerInterface::_);
-        $this->_mockEnvironment   = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
-        $mockBaseUrl              = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $this->_mockHttpCollector = $this->mock(tubepress_api_media_HttpCollectorInterface::_);
+        $this->_mockFeedHandler   = $this->mock(tubepress_api_media_HttpFeedHandlerInterface::_);
+        $this->_mockEnvironment   = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $mockBaseUrl              = $this->mock('tubepress_api_url_UrlInterface');
 
         $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
         $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockBaseUrl);
@@ -56,7 +56,7 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_tes
 
     public function testGallery()
     {
-        $mockMediaPage = $this->mock('tubepress_app_api_media_MediaPage');
+        $mockMediaPage = $this->mock('tubepress_api_media_MediaPage');
 
         $this->_mockHttpCollector->shouldReceive('collectPage')->once()->with(
             45, $this->_mockFeedHandler
@@ -69,7 +69,7 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_tes
 
     public function testSingle()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
 
         $this->_mockHttpCollector->shouldReceive('collectSingle')->once()->with(
             'abc', $this->_mockFeedHandler
@@ -97,22 +97,22 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_tes
     public function testGetMetaOptionNamesToDisplayNames()
     {
         $expected = array(
-            tubepress_app_api_options_Names::META_DISPLAY_TITLE       => tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE,
-            tubepress_app_api_options_Names::META_DISPLAY_LENGTH      => tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
-            tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_URL         => tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL,
-            tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_TITLE       => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+            tubepress_api_options_Names::META_DISPLAY_LENGTH      => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_URL         => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
+            tubepress_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED,
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS  => tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
 
-            tubepress_app_api_options_Names::META_DISPLAY_ID          => tubepress_app_api_media_MediaItem::ATTRIBUTE_ID,
-            tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
+            tubepress_api_options_Names::META_DISPLAY_ID          => tubepress_api_media_MediaItem::ATTRIBUTE_ID,
+            tubepress_api_options_Names::META_DISPLAY_VIEWS       => tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
         );
 
         $this->assertEquals($expected, $this->_sut->getMapOfMetaOptionNamesToAttributeDisplayNames());

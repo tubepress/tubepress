@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_test_http_impl_puzzle_streams_AbstractStreamTest extends tubepress_test_TubePressUnitTest
+abstract class tubepress_test_http_impl_puzzle_streams_AbstractStreamTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

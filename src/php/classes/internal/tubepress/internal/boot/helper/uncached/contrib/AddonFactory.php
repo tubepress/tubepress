@@ -23,15 +23,15 @@ class tubepress_internal_boot_helper_uncached_contrib_AddonFactory extends tubep
     private static $_SECOND_LEVEL_KEY_EXTENSIONS = 'extensions';
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_platform_api_url_UrlFactoryInterface    $urlFactory,
-                                tubepress_platform_api_util_LangUtilsInterface    $langUtils,
-                                tubepress_platform_api_util_StringUtilsInterface  $stringUtils,
-                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
+    public function __construct(tubepress_api_log_LoggerInterface        $logger,
+                                tubepress_api_url_UrlFactoryInterface    $urlFactory,
+                                tubepress_api_util_LangUtilsInterface    $langUtils,
+                                tubepress_api_util_StringUtilsInterface  $stringUtils,
+                                tubepress_api_boot_BootSettingsInterface $bootSettings)
     {
         parent::__construct($logger, $urlFactory, $langUtils, $stringUtils);
 

@@ -15,22 +15,22 @@
 class tubepress_options_ui_impl_fields_templated_single_DropdownField extends tubepress_options_ui_impl_fields_templated_single_SingleOptionField
 {
     /**
-     * @var tubepress_platform_api_util_LangUtilsInterface
+     * @var tubepress_api_util_LangUtilsInterface
      */
     private $_langUtils;
 
     /**
-     * @var tubepress_app_api_options_AcceptableValuesInterface
+     * @var tubepress_api_options_AcceptableValuesInterface
      */
     private $_acceptableValues;
 
     public function __construct($optionName,
-                                tubepress_app_api_options_PersistenceInterface      $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_app_api_options_ReferenceInterface        $optionsReference,
-                                tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues)
+                                tubepress_api_options_PersistenceInterface      $persistence,
+                                tubepress_api_http_RequestParametersInterface   $requestParams,
+                                tubepress_api_options_ReferenceInterface        $optionsReference,
+                                tubepress_api_template_TemplatingInterface      $templating,
+                                tubepress_api_util_LangUtilsInterface           $langUtils,
+                                tubepress_api_options_AcceptableValuesInterface $acceptableValues)
     {
         parent::__construct(
 
@@ -59,7 +59,7 @@ class tubepress_options_ui_impl_fields_templated_single_DropdownField extends tu
     }
 
     /**
-     * @return tubepress_platform_api_util_LangUtilsInterface
+     * @return tubepress_api_util_LangUtilsInterface
      */
     protected function getLangUtils()
     {
@@ -67,7 +67,7 @@ class tubepress_options_ui_impl_fields_templated_single_DropdownField extends tu
     }
 
     /**
-     * @return tubepress_app_api_options_AcceptableValuesInterface
+     * @return tubepress_api_options_AcceptableValuesInterface
      */
     protected function getAcceptableValues()
     {

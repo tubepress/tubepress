@@ -12,25 +12,25 @@
 /**
  *
  */
-class tubepress_array_ioc_ArrayExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_array_ioc_ArrayExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_platform_api_ioc_ContainerBuilderInterface`
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_platform_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
 
-            tubepress_lib_api_array_ArrayReaderInterface::_,
+            tubepress_api_array_ArrayReaderInterface::_,
             'tubepress_array_impl_ArrayReader'
         );
     }

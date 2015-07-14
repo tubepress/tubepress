@@ -12,7 +12,7 @@
 /**
  * Wraps http_response_code() for installations that don't have it.
  */
-class tubepress_http_impl_ResponseCode implements tubepress_lib_api_http_ResponseCodeInterface
+class tubepress_http_impl_ResponseCode implements tubepress_api_http_ResponseCodeInterface
 {
     /**
      * Set a new HTTP response code.

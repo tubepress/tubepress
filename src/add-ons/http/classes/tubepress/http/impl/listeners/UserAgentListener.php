@@ -12,19 +12,19 @@
 class tubepress_http_impl_listeners_UserAgentListener
 {
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_environment = $environment;
     }
 
-    public function onRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onRequest(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $request tubepress_lib_api_http_message_RequestInterface
+         * @var $request tubepress_api_http_message_RequestInterface
          */
         $request = $event->getSubject();
 
@@ -33,7 +33,7 @@ class tubepress_http_impl_listeners_UserAgentListener
 
     private function _getUserAgent()
     {
-        $toReturn = 'tubepress/' . $this->_environment->get(tubepress_app_api_environment_EnvironmentInterface::PROPERTY_VERSION);
+        $toReturn = 'tubepress/' . $this->_environment->get(tubepress_api_environment_EnvironmentInterface::PROPERTY_VERSION);
 
         if (extension_loaded('curl')) {
 

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_logger_impl_HtmlLogger
  */
-class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_logger_impl_HtmlLogger
@@ -31,10 +31,10 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_test_TubePress
 
     public function onSetup()
     {
-        $this->_mockHttpRequestParams = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockContext           = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockHttpRequestParams = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockContext           = $this->mock(tubepress_api_options_ContextInterface::_);
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::DEBUG_ON)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::DEBUG_ON)->andReturn(true);
 
         $this->_mockHttpRequestParams->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn(true);

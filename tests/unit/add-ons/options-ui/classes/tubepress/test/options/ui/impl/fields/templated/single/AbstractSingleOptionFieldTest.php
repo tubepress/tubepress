@@ -18,7 +18,7 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
 
     public final function onAfterTemplateBasedFieldSetup()
     {
-        $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
+        $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
         $optionName                  = $this->getId();
 
         $this->_mockOptionsReference->shouldReceive('optionExists')->atLeast(1)->with($optionName)->andReturn(true);
@@ -90,9 +90,9 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     {
         $sut = $this->getSut();
 
-        if ($sut instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface) {
+        if ($sut instanceof tubepress_api_options_ui_MultiSourceFieldInterface) {
 
-            $mockPersistence = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+            $mockPersistence = $this->mock(tubepress_api_options_PersistenceInterface::_);
             $actual          = $sut->cloneForMultiSource('xyz-456-', $mockPersistence);
             $sutClass        = get_class($sut);
 

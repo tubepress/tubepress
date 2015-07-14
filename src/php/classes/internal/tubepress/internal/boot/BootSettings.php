@@ -12,7 +12,7 @@
 /**
  * Retrieves settings from a PHP file.
  */
-class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boot_BootSettingsInterface
+class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSettingsInterface
 {
     private static $_TOP_LEVEL_KEY_SYSTEM = 'system';
     private static $_TOP_LEVEL_KEY_USER   = 'user';
@@ -33,7 +33,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boo
     private static $_3RD_LEVEL_KEY_URL_USERCONTENT     = 'userContent';
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -83,27 +83,27 @@ class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boo
     private $_serializationEncoding;
 
     /**
-     * @var tubepress_platform_api_url_UrlInterface|null
+     * @var tubepress_api_url_UrlInterface|null
      */
     private $_urlBase;
 
     /**
-     * @var tubepress_platform_api_url_UrlInterface|null
+     * @var tubepress_api_url_UrlInterface|null
      */
     private $_urlAjax;
 
     /**
-     * @var tubepress_platform_api_url_UrlInterface|null
+     * @var tubepress_api_url_UrlInterface|null
      */
     private $_urlUserContent;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
+    public function __construct(tubepress_api_log_LoggerInterface     $logger,
+                                tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_logger     = $logger;
         $this->_shouldLog  = $logger->isEnabled();
@@ -205,7 +205,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boo
      * @api
      * @since 4.0.9
      *
-     * @return tubepress_platform_api_url_UrlInterface|null
+     * @return tubepress_api_url_UrlInterface|null
      */
     public function getUrlBase()
     {
@@ -218,7 +218,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boo
      * @api
      * @since 4.0.9
      *
-     * @return tubepress_platform_api_url_UrlInterface|null
+     * @return tubepress_api_url_UrlInterface|null
      */
     public function getUrlUserContent()
     {
@@ -231,7 +231,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boo
      * @api
      * @since 4.0.9
      *
-     * @return tubepress_platform_api_url_UrlInterface|null
+     * @return tubepress_api_url_UrlInterface|null
      */
     public function getUrlAjaxEndpoint()
     {

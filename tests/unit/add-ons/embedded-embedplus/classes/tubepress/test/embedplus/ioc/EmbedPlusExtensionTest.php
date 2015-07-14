@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_embedplus_ioc_EmbedPlusExtension
  */
-class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     protected function buildSut()
     {
@@ -24,11 +24,11 @@ class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_test
         $this->expectRegistration(
             'tubepress_embedplus_impl_EmbedPlus',
             'tubepress_embedplus_impl_EmbedPlus'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
-        ->withTag('tubepress_lib_api_template_PathProviderInterface')
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withTag('tubepress_spi_embedded_EmbeddedProviderInterface')
+        ->withTag('tubepress_spi_template_PathProviderInterface')
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::GALLERY_INIT_JS,
                 'method'   => 'onGalleryInitJs',
                 'priority' => 94000
             ));
@@ -38,7 +38,7 @@ class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_test
     {
         return array(
 
-            tubepress_platform_api_url_UrlFactoryInterface::_ => tubepress_platform_api_url_UrlFactoryInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_ => tubepress_api_url_UrlFactoryInterface::_,
         );
     }
 }

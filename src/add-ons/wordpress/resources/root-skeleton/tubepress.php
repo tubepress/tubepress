@@ -102,10 +102,10 @@ class tubepress_wordpress_ApiIntegrator
         $serviceContainer = $this->_getServiceContainer();
 
         /**
-         * @var $persistence tubepress_app_api_options_PersistenceInterface
+         * @var $persistence tubepress_api_options_PersistenceInterface
          */
-        $persistence = $serviceContainer->get(tubepress_app_api_options_PersistenceInterface::_);
-        $keyword     = $persistence->fetch(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+        $persistence = $serviceContainer->get(tubepress_api_options_PersistenceInterface::_);
+        $keyword     = $persistence->fetch(tubepress_api_options_Names::SHORTCODE_KEYWORD);
 
         /** @noinspection PhpUndefinedFunctionInspection */
         add_shortcode($keyword, array($this, '__onShortcode'));
@@ -210,7 +210,7 @@ class tubepress_wordpress_ApiIntegrator
     {
         $serviceContainer = $this->_getServiceContainer();
 
-        $logger = $serviceContainer->get(tubepress_platform_api_log_LoggerInterface::_);
+        $logger = $serviceContainer->get(tubepress_api_log_LoggerInterface::_);
 
         $logger->error($e->getMessage());
     }
@@ -230,7 +230,7 @@ class tubepress_wordpress_ApiIntegrator
     }
 
     /**
-     * @return tubepress_platform_api_ioc_ContainerInterface
+     * @return tubepress_api_ioc_ContainerInterface
      */
     private function _getServiceContainer()
     {

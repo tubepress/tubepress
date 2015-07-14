@@ -17,24 +17,24 @@ class tubepress_template_impl_twig_EnvironmentBuilder
     private $_loader;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettingsInterface;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
-    public function __construct(Twig_LoaderInterface                              $loader,
-                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_translation_TranslatorInterface $translator)
+    public function __construct(Twig_LoaderInterface                          $loader,
+                                tubepress_api_boot_BootSettingsInterface      $bootSettings,
+                                tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_loader                = $loader;
         $this->_bootSettingsInterface = $bootSettings;
@@ -56,19 +56,19 @@ class tubepress_template_impl_twig_EnvironmentBuilder
 
     private function _getAutoReload()
     {
-        return (bool) $this->_context->get(tubepress_app_api_options_Names::TEMPLATE_CACHE_AUTORELOAD);
+        return (bool) $this->_context->get(tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD);
     }
 
     private function _getCache()
     {
-        $enabled = $this->_context->get(tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED);
+        $enabled = $this->_context->get(tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED);
 
         if (!$enabled) {
 
             return false;
         }
 
-        $dir = $this->_context->get(tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR);
+        $dir = $this->_context->get(tubepress_api_options_Names::TEMPLATE_CACHE_DIR);
 
         if ($this->_writableDirectory($dir)) {
 

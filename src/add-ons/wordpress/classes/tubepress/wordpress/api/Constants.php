@@ -25,7 +25,7 @@ class tubepress_wordpress_api_Constants
     /**
      * This event is fired after TubePress parses a shortcode.
      *
-     * @subject `tubepress_lib_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
+     * @subject `tubepress_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
      *
      * @api
      * @since 4.1.11

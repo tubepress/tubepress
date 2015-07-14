@@ -12,12 +12,12 @@
 class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_impl_JsPlayerLocation
 {
     /**
-     * @var tubepress_platform_api_url_UrlInterface
+     * @var tubepress_api_url_UrlInterface
      */
     private $_url;
 
     public function __construct($name, $untranslatedDisplayName,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory, $staticTemplateName = null)
+                                tubepress_api_url_UrlFactoryInterface $urlFactory, $staticTemplateName = null)
     {
         parent::__construct($name, $untranslatedDisplayName, $staticTemplateName);
 
@@ -29,7 +29,7 @@ class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_
     /**
      * Get the data required to populate the invoking HTML anchor.
      *
-     * @param tubepress_app_api_media_MediaItem $mediaItem
+     * @param tubepress_api_media_MediaItem $mediaItem
      *
      * @return array An associative array where the keys are HTML <a> attribute names and the values are
      *               the corresponding attribute values. May be empty nut never null.
@@ -37,7 +37,7 @@ class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_
      * @api
      * @since 4.0.0
      */
-    public function getAttributesForInvocationAnchor(tubepress_app_api_media_MediaItem $mediaItem)
+    public function getAttributesForInvocationAnchor(tubepress_api_media_MediaItem $mediaItem)
     {
         $id = $mediaItem->getId();
 

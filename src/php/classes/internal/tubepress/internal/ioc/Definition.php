@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_DefinitionInterface
+class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionInterface
 {
     /**
      * @var ehough_iconic_Definition
@@ -42,7 +42,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param mixed $argument An argument
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -61,7 +61,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param array $arguments An array of arguments
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -81,7 +81,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      * @param integer $index
      * @param mixed   $argument
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @throws OutOfBoundsException When the replaced argument does not exist
      *
@@ -137,7 +137,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      * @param string $method    The method name to call
      * @param array  $arguments An array of arguments to pass to the method call
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @throws InvalidArgumentException on empty $method param
      *
@@ -162,12 +162,12 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
 
     public function convertToIconicReferenceIfNecessary($candidate)
     {
-        return $this->_convertReferences($candidate, 'tubepress_platform_api_ioc_Reference', 'ehough_iconic_Reference');
+        return $this->_convertReferences($candidate, 'tubepress_api_ioc_Reference', 'ehough_iconic_Reference');
     }
 
     public function convertToTubePressReferenceIfNecessary($candidate)
     {
-        return $this->_convertReferences($candidate, 'ehough_iconic_Reference', 'tubepress_platform_api_ioc_Reference');
+        return $this->_convertReferences($candidate, 'ehough_iconic_Reference', 'tubepress_api_ioc_Reference');
     }
 
     /**
@@ -202,7 +202,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      * @param string $name The tag name
      * @param array $attributes An array of attributes
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -219,7 +219,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $name The tag name
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface
+     * @return tubepress_api_ioc_DefinitionInterface
      *
      * @api
      * @since 4.0.0
@@ -234,7 +234,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
     /**
      * Clear the tags for this definition.
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -443,7 +443,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $method The method name to remove
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -460,7 +460,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $class The service class
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -477,7 +477,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param callable $callable A PHP callable
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -495,7 +495,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      * @param null|string $id The decorated service id, use null to remove decoration
      * @param null|string $renamedId The new decorated service id
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @throws InvalidArgumentException In case the decorated service id and the new decorated service id are equals.
      *
@@ -515,7 +515,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $factoryClass The factory class name
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -532,7 +532,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $factoryMethod The factory method name
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -549,7 +549,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $factoryService The factory service id
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -566,7 +566,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param string $file A full pathname to include
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -583,7 +583,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param array $calls An array of method calls
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
      * @since 4.0.0
@@ -634,7 +634,7 @@ class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_De
      *
      * @param array $tags
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface the current instance
+     * @return tubepress_api_ioc_DefinitionInterface the current instance
      *
      * @api
      * @since 4.0.0

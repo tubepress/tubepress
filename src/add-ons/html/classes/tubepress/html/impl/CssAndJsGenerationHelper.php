@@ -15,17 +15,17 @@
 class tubepress_html_impl_CssAndJsGenerationHelper
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
@@ -35,12 +35,12 @@ class tubepress_html_impl_CssAndJsGenerationHelper
     private $_currentThemeService;
 
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_cache;
 
@@ -64,11 +64,11 @@ class tubepress_html_impl_CssAndJsGenerationHelper
      */
     private $_templateNameJs;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_platform_api_contrib_RegistryInterface   $themeRegistry,
-                                tubepress_lib_api_template_TemplatingInterface     $templating,
-                                tubepress_theme_impl_CurrentThemeService           $currentThemeService,
-                                tubepress_app_api_environment_EnvironmentInterface $environment,
+    public function __construct(tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_api_contrib_RegistryInterface        $themeRegistry,
+                                tubepress_api_template_TemplatingInterface     $templating,
+                                tubepress_theme_impl_CurrentThemeService       $currentThemeService,
+                                tubepress_api_environment_EnvironmentInterface $environment,
                                 $eventNameUrlsCss,
                                 $eventNameUrlsJs,
                                 $templateNameCss,
@@ -88,7 +88,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface[]
+     * @return tubepress_api_url_UrlInterface[]
      *
      * @api
      * @since 4.0.0
@@ -99,7 +99,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface[]
+     * @return tubepress_api_url_UrlInterface[]
      *
      * @api
      * @since 4.0.0
@@ -158,7 +158,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
 
     private function _fireEventAndReturnSubject($eventName, $raw)
     {
-        if ($raw instanceof tubepress_lib_api_event_EventInterface) {
+        if ($raw instanceof tubepress_api_event_EventInterface) {
 
             $event = $raw;
 
@@ -172,7 +172,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
         return $event->getSubject();
     }
 
-    private function _recursivelyGetFromTheme(tubepress_app_api_theme_ThemeInterface $theme, $getter)
+    private function _recursivelyGetFromTheme(tubepress_api_theme_ThemeInterface $theme, $getter)
     {
         $toReturn = $theme->$getter(
             $this->_environment->getBaseUrl(),

@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */ 
-class tubepress_test_http_impl_puzzle_MessageTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_puzzle_MessageTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testHasProtocolVersion()
     {
@@ -39,7 +39,7 @@ class tubepress_test_http_impl_puzzle_MessageTest extends tubepress_test_TubePre
         $s = new tubepress_http_impl_puzzle_streams_PuzzleBasedStream(puzzle_stream_Stream::factory('test'));
         $m->setBody($s);
         $actualBody = $m->getBody();
-        $this->assertInstanceOf('tubepress_lib_api_streams_StreamInterface', $actualBody);
+        $this->assertInstanceOf('tubepress_api_streams_StreamInterface', $actualBody);
         $this->assertEquals('test', "$actualBody");
         $this->assertFalse($m->hasHeader('Content-Length'));
     }

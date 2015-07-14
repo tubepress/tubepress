@@ -12,41 +12,41 @@
 class tubepress_player_impl_listeners_PlayerAjaxListener
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_media_CollectorInterface
+     * @var tubepress_api_media_CollectorInterface
      */
     private $_collector;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
 
     /**
-     * @var tubepress_lib_api_http_ResponseCodeInterface
+     * @var tubepress_api_http_ResponseCodeInterface
      */
     private $_responseCode;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_app_api_media_CollectorInterface        $collector,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_http_ResponseCodeInterface      $responseCode,
-                                tubepress_lib_api_template_TemplatingInterface    $templating)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_media_CollectorInterface        $collector,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_http_ResponseCodeInterface      $responseCode,
+                                tubepress_api_template_TemplatingInterface    $templating)
     {
         $this->_logger        = $logger;
         $this->_context       = $context;
@@ -56,7 +56,7 @@ class tubepress_player_impl_listeners_PlayerAjaxListener
         $this->_templating    = $templating;
     }
 
-    public function onAjax(tubepress_lib_api_event_EventInterface $ajaxEvent)
+    public function onAjax(tubepress_api_event_EventInterface $ajaxEvent)
     {
         $isDebugEnabled = $this->_logger->isEnabled();
 
@@ -75,9 +75,9 @@ class tubepress_player_impl_listeners_PlayerAjaxListener
 
         $this->_context->setEphemeralOptions($nvpMap);
 
-        if ($this->_context->get(tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY)) {
+        if ($this->_context->get(tubepress_api_options_Names::EMBEDDED_LAZYPLAY)) {
 
-            $this->_context->setEphemeralOption(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY, true);
+            $this->_context->setEphemeralOption(tubepress_api_options_Names::EMBEDDED_AUTOPLAY, true);
         }
 
         if ($isDebugEnabled) {
@@ -102,7 +102,7 @@ class tubepress_player_impl_listeners_PlayerAjaxListener
 
         $playerHtml = $this->_templating->renderTemplate('gallery/player/ajax', array(
 
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM => $mediaItem
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mediaItem
         ));
 
         $toReturn = array(

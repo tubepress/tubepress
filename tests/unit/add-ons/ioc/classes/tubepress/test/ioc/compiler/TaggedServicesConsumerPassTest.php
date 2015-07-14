@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_ioc_compiler_TaggedServicesConsumerPass<extended>
  */
-class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_ioc_compiler_TaggedServicesConsumerPass
@@ -27,14 +27,14 @@ class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepre
     public function onSetup()
     {
         $this->_sut           = new tubepress_ioc_compiler_TaggedServicesConsumerPass();
-        $this->_mockContainer = $this->mock('tubepress_platform_api_ioc_ContainerBuilderInterface');
+        $this->_mockContainer = $this->mock('tubepress_api_ioc_ContainerBuilderInterface');
     }
 
     public function testProcessMultiple()
     {
-        $mockDefinition = $this->mock('tubepress_platform_api_ioc_DefinitionInterface');
+        $mockDefinition = $this->mock('tubepress_api_ioc_DefinitionInterface');
 
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER)
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER)
             ->andReturn(array('id' => array(array('tag' => 'some-tag', 'method' => 'someMethod'))));
         $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('some-tag')
             ->andReturn(array('some-other-id' => array(array('a' => 'b'))));
@@ -52,9 +52,9 @@ class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepre
     {
         $this->setExpectedException('LogicException', 'Service id must specify tag in its tag data');
 
-        $mockDefinition = $this->mock('tubepress_platform_api_ioc_DefinitionInterface');
+        $mockDefinition = $this->mock('tubepress_api_ioc_DefinitionInterface');
 
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER)
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER)
             ->andReturn(array('id' => array(array())));
 
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('id')->andReturn($mockDefinition);

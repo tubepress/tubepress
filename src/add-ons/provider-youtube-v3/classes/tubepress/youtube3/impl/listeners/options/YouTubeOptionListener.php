@@ -11,23 +11,23 @@
 class tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
 {
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
-    public function __construct(tubepress_platform_api_url_UrlFactoryInterface   $urlFactory,
-                                tubepress_platform_api_util_StringUtilsInterface $stringUtils)
+    public function __construct(tubepress_api_url_UrlFactoryInterface   $urlFactory,
+                                tubepress_api_util_StringUtilsInterface $stringUtils)
     {
         $this->_urlFactory  = $urlFactory;
         $this->_stringUtils = $stringUtils;
     }
 
-    public function onPlaylistValue(tubepress_lib_api_event_EventInterface $event)
+    public function onPlaylistValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeGetPlaylistValueFromUrl($event->getArgument('optionValue'));
         $filteredValue = $this->_maybeRemoveLeadingPL($filteredValue);
@@ -35,21 +35,21 @@ class tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
         $event->setArgument('optionValue', $filteredValue);
     }
 
-    public function onUserOrFavoritesValue(tubepress_lib_api_event_EventInterface $event)
+    public function onUserOrFavoritesValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeConvertUserOrChannel($event->getArgument('optionValue'));
 
         $event->setArgument('optionValue', $filteredValue);
     }
 
-    public function onRelatedToValue(tubepress_lib_api_event_EventInterface $event)
+    public function onRelatedToValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeGetVideoId($event->getArgument('optionValue'));
 
         $event->setArgument('optionValue', $filteredValue);
     }
 
-    public function onListValue(tubepress_lib_api_event_EventInterface $event)
+    public function onListValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_normalizeListValue($event->getArgument('optionValue'));
 

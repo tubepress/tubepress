@@ -12,17 +12,17 @@
 /**
  * Displays a drop-down input for the TubePress theme.
  */
-class tubepress_options_ui_impl_fields_GallerySourceField extends tubepress_options_ui_impl_fields_AbstractField implements tubepress_app_api_options_ui_MultiSourceFieldInterface
+class tubepress_options_ui_impl_fields_GallerySourceField extends tubepress_options_ui_impl_fields_AbstractField implements tubepress_api_options_ui_MultiSourceFieldInterface
 {
     /**
      * @var string
      */
     private $_multiSourcePrefix = '';
 
-    public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
-        parent::__construct(tubepress_app_api_options_Names::GALLERY_SOURCE, $persistence, $requestParams);
+        parent::__construct(tubepress_api_options_Names::GALLERY_SOURCE, $persistence, $requestParams);
     }
 
     /**
@@ -32,7 +32,7 @@ class tubepress_options_ui_impl_fields_GallerySourceField extends tubepress_opti
      */
     public function onSubmit()
     {
-        $optionName    = tubepress_app_api_options_Names::GALLERY_SOURCE;
+        $optionName    = tubepress_api_options_Names::GALLERY_SOURCE;
         $paramName     = $this->_multiSourcePrefix . $optionName;
         $requestParams = $this->getHttpRequestParameters();
 
@@ -75,16 +75,16 @@ class tubepress_options_ui_impl_fields_GallerySourceField extends tubepress_opti
      */
     public function getId()
     {
-        return $this->_multiSourcePrefix . tubepress_app_api_options_Names::GALLERY_SOURCE;
+        return $this->_multiSourcePrefix . tubepress_api_options_Names::GALLERY_SOURCE;
     }
 
     /**
      * @param $prefix
-     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     * @param tubepress_api_options_PersistenceInterface $persistence
      *
-     * @return tubepress_app_api_options_ui_FieldInterface
+     * @return tubepress_api_options_ui_FieldInterface
      */
-    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {
         $toReturn = new self($persistence, $this->getHttpRequestParameters());
 

@@ -12,22 +12,22 @@
 abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_platform_api_util_LangUtilsInterface
+     * @var tubepress_api_util_LangUtilsInterface
      */
     private $_langUtils;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
@@ -68,10 +68,10 @@ abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
      */
     private $_urlsToSettersMap;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
-                                tubepress_platform_api_url_UrlFactoryInterface   $urlFactory,
-                                tubepress_platform_api_util_LangUtilsInterface   $langUtils,
-                                tubepress_platform_api_util_StringUtilsInterface $stringUtils)
+    public function __construct(tubepress_api_log_LoggerInterface       $logger,
+                                tubepress_api_url_UrlFactoryInterface   $urlFactory,
+                                tubepress_api_util_LangUtilsInterface   $langUtils,
+                                tubepress_api_util_StringUtilsInterface $stringUtils)
     {
         $this->_logger           = $logger;
         $this->_urlFactory       = $urlFactory;
@@ -209,7 +209,7 @@ abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
     }
 
     /**
-     * @return tubepress_platform_api_util_LangUtilsInterface
+     * @return tubepress_api_util_LangUtilsInterface
      */
     protected function getLangUtils()
     {
@@ -217,7 +217,7 @@ abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlFactoryInterface
+     * @return tubepress_api_url_UrlFactoryInterface
      */
     protected function getUrlFactory()
     {
@@ -225,7 +225,7 @@ abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
     }
 
     /**
-     * @return tubepress_platform_api_log_LoggerInterface
+     * @return tubepress_api_log_LoggerInterface
      */
     protected function getLogger()
     {
@@ -322,7 +322,7 @@ abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 
         $candidate = $manifestData[$key];
 
-        if ($candidate instanceof tubepress_platform_api_version_Version) {
+        if ($candidate instanceof tubepress_api_version_Version) {
 
             return;
         }
@@ -335,7 +335,7 @@ abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 
         try {
 
-            $manifestData[$key] = tubepress_platform_api_version_Version::parse($candidate);
+            $manifestData[$key] = tubepress_api_version_Version::parse($candidate);
 
         } catch (InvalidArgumentException $e) {
 

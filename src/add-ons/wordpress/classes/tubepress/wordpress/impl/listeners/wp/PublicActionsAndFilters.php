@@ -17,53 +17,53 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     private $_wpFunctions;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
     /**
-     * @var tubepress_app_api_html_HtmlGeneratorInterface
+     * @var tubepress_api_html_HtmlGeneratorInterface
      */
     private $_htmlGenerator;
 
     /**
-     * @var tubepress_lib_api_http_AjaxInterface
+     * @var tubepress_api_http_AjaxInterface
      */
     private $_ajaxHandler;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParameters;
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_urlCache;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
-                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils,
-                                tubepress_app_api_html_HtmlGeneratorInterface      $htmlGenerator,
-                                tubepress_lib_api_http_AjaxInterface               $ajaxHandler,
-                                tubepress_lib_api_http_RequestParametersInterface  $requestParams,
-                                tubepress_lib_api_translation_TranslatorInterface  $translator,
-                                tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions        $wpFunctions,
+                                tubepress_api_util_StringUtilsInterface        $stringUtils,
+                                tubepress_api_html_HtmlGeneratorInterface      $htmlGenerator,
+                                tubepress_api_http_AjaxInterface               $ajaxHandler,
+                                tubepress_api_http_RequestParametersInterface  $requestParams,
+                                tubepress_api_translation_TranslatorInterface  $translator,
+                                tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_wpFunctions       = $wpFunctions;
         $this->_stringUtils       = $stringUtils;
@@ -75,7 +75,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_environment       = $environment;
     }
 
-    public function onAction_widgets_init(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_widgets_init(tubepress_api_event_EventInterface $event)
     {
         if (!$event->hasArgument('unit-testing') && !class_exists('tubepress_wordpress_impl_wp_WpWidget')) {
 
@@ -111,7 +111,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS);
     }
 
-    public function onAction_init(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_init(tubepress_api_event_EventInterface $event)
     {
         /* no need to queue any of this stuff up in the admin section or login page */
         if ($this->_wpFunctions->is_admin() || __FILE__ === 'wp-login.php') {
@@ -131,7 +131,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_enqueueThemeResources($this->_wpFunctions, $version);
     }
 
-    public function onAction_wp_head(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_wp_head(tubepress_api_event_EventInterface $event)
     {
         /* no need to print anything in the head of the admin section */
         if ($this->_wpFunctions->is_admin()) {
@@ -144,14 +144,14 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         print $this->_htmlGenerator->getJS();
     }
 
-    public function onAction_ajax(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_ajax(tubepress_api_event_EventInterface $event)
     {
         $this->_ajaxHandler->handle();
         exit;
     }
 
     private function _enqueueThemeResources(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions,
-                                            tubepress_platform_api_version_Version $version)
+                                            tubepress_api_version_Version $version)
     {
         $callback       = array($this, '__callbackConvertToWpUrlString');
         $stylesUrls     = $this->_htmlGenerator->getUrlsCSS();
@@ -187,7 +187,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         }
     }
 
-    public function __callbackConvertToWpUrlString(tubepress_platform_api_url_UrlInterface $url)
+    public function __callbackConvertToWpUrlString(tubepress_api_url_UrlInterface $url)
     {
         if ($url->isAbsolute()) {
 

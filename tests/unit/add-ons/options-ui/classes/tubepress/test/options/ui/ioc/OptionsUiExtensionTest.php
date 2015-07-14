@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_ioc_OptionsUiExtension
  */
-class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_options_ui_ioc_OptionsUiExtension
@@ -33,10 +33,10 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
 
     protected function getExpectedExternalServicesMap()
     {
-        $logger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $logger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
-        $reference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
+        $reference = $this->mock(tubepress_api_options_ReferenceInterface::_);
         $reference->shouldReceive('optionExists')->atLeast(1)->andReturn(true);
         $reference->shouldReceive('getUntranslatedLabel')->atLeast(1)->andReturnUsing(function ($optionName) {
 
@@ -48,21 +48,21 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
         });
 
         return array(
-            tubepress_app_api_options_PersistenceInterface::_            => tubepress_app_api_options_PersistenceInterface::_,
-            tubepress_lib_api_http_RequestParametersInterface::_         => tubepress_lib_api_http_RequestParametersInterface::_,
-            tubepress_lib_api_template_TemplatingInterface::_ . '.admin' => tubepress_lib_api_template_TemplatingInterface::_,
-            tubepress_app_api_options_ReferenceInterface::_              => $reference,
-            tubepress_platform_api_util_LangUtilsInterface::_            => tubepress_platform_api_util_LangUtilsInterface::_,
-            tubepress_app_api_options_AcceptableValuesInterface::_       => tubepress_app_api_options_AcceptableValuesInterface::_,
-            tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ => tubepress_platform_api_contrib_RegistryInterface::_,
+            tubepress_api_options_PersistenceInterface::_            => tubepress_api_options_PersistenceInterface::_,
+            tubepress_api_http_RequestParametersInterface::_         => tubepress_api_http_RequestParametersInterface::_,
+            tubepress_api_template_TemplatingInterface::_ . '.admin' => tubepress_api_template_TemplatingInterface::_,
+            tubepress_api_options_ReferenceInterface::_              => $reference,
+            tubepress_api_util_LangUtilsInterface::_            => tubepress_api_util_LangUtilsInterface::_,
+            tubepress_api_options_AcceptableValuesInterface::_       => tubepress_api_options_AcceptableValuesInterface::_,
+            tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ => tubepress_api_contrib_RegistryInterface::_,
             'tubepress_html_impl_CssAndJsGenerationHelper.admin'         => 'tubepress_html_impl_CssAndJsGenerationHelper',
-            tubepress_lib_api_event_EventDispatcherInterface::_          => tubepress_lib_api_event_EventDispatcherInterface::_,
-            tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin' => tubepress_platform_api_contrib_RegistryInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_          => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ . '.admin' => tubepress_api_contrib_RegistryInterface::_,
             'tubepress_theme_impl_CurrentThemeService.admin'             => 'tubepress_theme_impl_CurrentThemeService',
-            tubepress_app_api_environment_EnvironmentInterface::_        => tubepress_app_api_environment_EnvironmentInterface::_,
-            tubepress_platform_api_log_LoggerInterface::_                => $logger,
-            tubepress_platform_api_util_StringUtilsInterface::_          => tubepress_platform_api_util_StringUtilsInterface::_,
-            tubepress_lib_api_translation_TranslatorInterface::_         => tubepress_lib_api_translation_TranslatorInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_        => tubepress_api_environment_EnvironmentInterface::_,
+            tubepress_api_log_LoggerInterface::_                => $logger,
+            tubepress_api_util_StringUtilsInterface::_          => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_translation_TranslatorInterface::_         => tubepress_api_translation_TranslatorInterface::_,
         );
     }
     
@@ -73,7 +73,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             'tubepress_api_template_BasePathProvider'
         )->withArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/options-ui/templates'
-        ))->withTag('tubepress_lib_api_template_PathProviderInterface.admin');
+        ))->withTag('tubepress_spi_template_PathProviderInterface.admin');
     }
     
     private function _registerListeners()
@@ -81,9 +81,9 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
         $this->expectRegistration(
             'tubepress_options_ui_impl_listeners_BootstrapIe8Listener',
             'tubepress_options_ui_impl_listeners_BootstrapIe8Listener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::HTML_SCRIPTS_ADMIN,
                 'priority' => 100000,
                 'method'   => 'onAdminScripts',
             ));
@@ -91,17 +91,17 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
         $this->expectRegistration(
             'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener',
             'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => 'tubepress_api_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders'))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => 'tubepress_app_api_media_MediaProviderInterface',
+            ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => 'tubepress_api_media_MediaProviderInterface',
                 'method' => 'setMediaProviders'))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form',
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form',
                 'priority' => 100000,
                 'method'   => 'onOptionsGuiTemplate',
             ));
@@ -110,44 +110,44 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
     private function _registerOptionsUiSingletons()
     {
         $this->expectRegistration(
-            tubepress_app_api_options_ui_FieldBuilderInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_,
             'tubepress_options_ui_impl_FieldBuilder'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_AcceptableValuesInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => tubepress_app_api_media_MediaProviderInterface::__,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_api_media_MediaProviderInterface::__,
                 'method' => 'setMediaProviders'
             ));
 
         $this->expectRegistration(
             'tubepress_html_impl_CssAndJsGenerationHelper.admin',
             'tubepress_html_impl_CssAndJsGenerationHelper'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_theme_impl_CurrentThemeService.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-            ->withArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN)
-            ->withArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN)
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ . '.admin'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_theme_impl_CurrentThemeService.admin'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withArgument(tubepress_api_event_Events::HTML_STYLESHEETS_ADMIN)
+            ->withArgument(tubepress_api_event_Events::HTML_SCRIPTS_ADMIN)
             ->withArgument('options-ui/cssjs/styles')
             ->withArgument('options-ui/cssjs/scripts');
 
         $this->expectRegistration(
-            tubepress_app_api_options_ui_FormInterface::_,
+            tubepress_api_options_ui_FormInterface::_,
             'tubepress_options_ui_impl_Form'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_html_impl_CssAndJsGenerationHelper.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_html_impl_CssAndJsGenerationHelper.admin'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => 'tubepress_api_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders',
             ));
     }
@@ -156,7 +156,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
     {
         $categoryReferences = array();
         $categories = array(
-            array(tubepress_app_api_options_ui_CategoryNames::ADVANCED, 'Advanced'),      //>(translatable)<
+            array(tubepress_api_options_ui_CategoryNames::ADVANCED, 'Advanced'),      //>(translatable)<
         );
         foreach ($categories as $categoryIdAndLabel) {
 
@@ -167,7 +167,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             )->withArgument($categoryIdAndLabel[0])
                 ->withArgument($categoryIdAndLabel[1]);
 
-            $categoryReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+            $categoryReferences[] = new tubepress_api_ioc_Reference($serviceId);
         }
 
         $this->expectRegistration(
@@ -180,23 +180,23 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             ->withArgument($categoryReferences)
             ->withArgument(array())
             ->withArgument(array())
-            ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
     }
 
     private function _registerOptions()
     {
         $this->expectRegistration(
-            'tubepress_app_api_options_Reference__options_ui',
-            'tubepress_app_api_options_Reference'
-        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+            'tubepress_api_options_Reference__options_ui',
+            'tubepress_api_options_Reference'
+        )->withTag(tubepress_api_options_ReferenceInterface::_)
             ->withArgument(array(
 
-                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                    tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null
+                tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                    tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null
                 ),
 
-                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
+                tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                    tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
                 ),
 
             ))->withArgument(array());

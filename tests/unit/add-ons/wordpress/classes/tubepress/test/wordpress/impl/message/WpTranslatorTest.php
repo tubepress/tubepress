@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_translation_WpTranslator
  */
-class tubepress_test_wordpress_impl_message_WpTranslatorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_message_WpTranslatorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_translation_WpTranslator

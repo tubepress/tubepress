@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_theme_impl_CurrentThemeService<extended>
  */
-class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_theme_impl_CurrentThemeService
@@ -31,8 +31,8 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_t
 
     public function onSetup()
     {
-        $this->_mockContext             = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockThemeRegistry       = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
+        $this->_mockContext             = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockThemeRegistry       = $this->mock(tubepress_api_contrib_RegistryInterface::_);
 
         $this->_sut = new tubepress_theme_impl_CurrentThemeService(
             $this->_mockContext,
@@ -47,10 +47,10 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_t
      */
     public function testGetCurrentTheme($storedValue, $expectedIndex)
     {
-        $mockTheme1 = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
-        $mockTheme2 = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
-        $mockTheme3 = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
-        $mockTheme4 = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $mockTheme1 = $this->mock(tubepress_api_theme_ThemeInterface::_);
+        $mockTheme2 = $this->mock(tubepress_api_theme_ThemeInterface::_);
+        $mockTheme3 = $this->mock(tubepress_api_theme_ThemeInterface::_);
+        $mockTheme4 = $this->mock(tubepress_api_theme_ThemeInterface::_);
 
         $mockTheme1->shouldReceive('getName')->once()->andReturn('theme1');
         $mockTheme2->shouldReceive('getName')->once()->andReturn('tubepress/default');

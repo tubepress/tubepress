@@ -23,7 +23,7 @@ class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends t
 
     public function onAfterAbstractFieldSetup()
     {
-        self::$_PARAM_NAME = tubepress_app_api_options_Names::GALLERY_SOURCE;
+        self::$_PARAM_NAME = tubepress_api_options_Names::GALLERY_SOURCE;
 
         $this->_sut = new tubepress_options_ui_impl_fields_GallerySourceField(
             $this->getMockPersistence(),
@@ -33,7 +33,7 @@ class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends t
 
     public function testCloneForMultiSource()
     {
-        $mockPersistence = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+        $mockPersistence = $this->mock(tubepress_api_options_PersistenceInterface::_);
 
         $actual = $this->_sut->cloneForMultiSource('xyz', $mockPersistence);
 
@@ -57,7 +57,7 @@ class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends t
         $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(self::$_PARAM_NAME)->andReturn(true);
         $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with(self::$_PARAM_NAME)->andReturn('a');
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE, 'a')->andReturn('some problem');
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE, 'a')->andReturn('some problem');
 
         $result = $this->_sut->onSubmit();
 
@@ -69,7 +69,7 @@ class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends t
         $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(self::$_PARAM_NAME)->andReturn(true);
         $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with(self::$_PARAM_NAME)->andReturn('a');
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE, 'a')->andReturn(null);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE, 'a')->andReturn(null);
 
         $result = $this->_sut->onSubmit();
 

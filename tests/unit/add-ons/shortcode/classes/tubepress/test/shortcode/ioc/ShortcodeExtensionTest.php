@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_shortcode_ioc_ShortcodeExtension
  */
-class tubepress_test_shortcode_ioc_ShortcodeExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_shortcode_ioc_ShortcodeExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_shortcode_ioc_ShortcodeExtension
@@ -26,24 +26,24 @@ class tubepress_test_shortcode_ioc_ShortcodeExtensionTest extends tubepress_test
     {
         $this->expectRegistration(
 
-            tubepress_app_api_shortcode_ParserInterface::_,
+            tubepress_api_shortcode_ParserInterface::_,
             'tubepress_shortcode_impl_Parser'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_));
     }
 
     protected function getExpectedExternalServicesMap()
     {
-        $logger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $logger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $logger->shouldReceive('isEnabled')->once()->andReturn(true);
 
         return array(
-            tubepress_platform_api_log_LoggerInterface::_       => $logger,
-            tubepress_app_api_options_ContextInterface::_       => tubepress_app_api_options_ContextInterface::_,
-            tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,
-            tubepress_platform_api_util_StringUtilsInterface::_ => tubepress_platform_api_util_StringUtilsInterface::_
+            tubepress_api_log_LoggerInterface::_       => $logger,
+            tubepress_api_options_ContextInterface::_       => tubepress_api_options_ContextInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_ => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_util_StringUtilsInterface::_ => tubepress_api_util_StringUtilsInterface::_
         );
     }
 }

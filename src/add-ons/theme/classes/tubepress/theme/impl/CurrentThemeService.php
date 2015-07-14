@@ -15,12 +15,12 @@
 class tubepress_theme_impl_CurrentThemeService
 {
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -39,8 +39,8 @@ class tubepress_theme_impl_CurrentThemeService
      */
     private $_optionName;
 
-    public function __construct(tubepress_app_api_options_ContextInterface       $context,
-                                tubepress_platform_api_contrib_RegistryInterface $themeRegistry,
+    public function __construct(tubepress_api_options_ContextInterface  $context,
+                                tubepress_api_contrib_RegistryInterface $themeRegistry,
                                 $defaultThemeName,
                                 $optionName)
     {
@@ -51,7 +51,7 @@ class tubepress_theme_impl_CurrentThemeService
     }
 
     /**
-     * @return tubepress_app_api_theme_ThemeInterface
+     * @return tubepress_api_theme_ThemeInterface
      */
     public function getCurrentTheme()
     {

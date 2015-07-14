@@ -12,15 +12,15 @@
 /**
  * Pulls out info from $_GET or $_POST.
  */
-abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_api_http_HttpClientInterface
+abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_http_HttpClientInterface
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -29,8 +29,8 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
      */
     private $_shouldLog;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
-                                tubepress_platform_api_log_LoggerInterface       $logger)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_log_LoggerInterface            $logger)
     {
         $this->_eventDispatcher = $eventDispatcher;
         $this->_logger          = $logger;
@@ -40,11 +40,11 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
     /**
      * Send a GET request
      *
-     * @param string|tubepress_platform_api_url_UrlInterface $url     URL
+     * @param string|tubepress_api_url_UrlInterface $url     URL
      * @param array                                 $options Array of request options to apply.
      *
-     * @return tubepress_lib_api_http_message_ResponseInterface
-     * @throws tubepress_lib_api_http_exception_RequestException When an error is encountered
+     * @return tubepress_api_http_message_ResponseInterface
+     * @throws tubepress_api_http_exception_RequestException When an error is encountered
      *
      * @api
      * @since 4.0.0
@@ -59,16 +59,16 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
     /**
      * Sends a single request
      *
-     * @param tubepress_lib_api_http_message_RequestInterface $request Request to send
+     * @param tubepress_api_http_message_RequestInterface $request Request to send
      *
-     * @return tubepress_lib_api_http_message_ResponseInterface
+     * @return tubepress_api_http_message_ResponseInterface
      * @throws LogicException When the underlying implementation does not populate a response
-     * @throws tubepress_lib_api_http_exception_RequestException When an error is encountered
+     * @throws tubepress_api_http_exception_RequestException When an error is encountered
      *
      * @api
      * @since 4.0.0
      */
-    public function send(tubepress_lib_api_http_message_RequestInterface $request)
+    public function send(tubepress_api_http_message_RequestInterface $request)
     {
         if ($this->_shouldLog) {
 
@@ -88,7 +88,7 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
     }
 
     /**
-     * @return tubepress_lib_api_event_EventDispatcherInterface
+     * @return tubepress_api_event_EventDispatcherInterface
      */
     protected function getEventDispatcher()
     {
@@ -98,22 +98,22 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
     /**
      * Sends a single request
      *
-     * @param tubepress_lib_api_http_message_RequestInterface $request Request to send
+     * @param tubepress_api_http_message_RequestInterface $request Request to send
      *
-     * @return tubepress_lib_api_http_message_ResponseInterface
+     * @return tubepress_api_http_message_ResponseInterface
      * @throws LogicException When the underlying implementation does not populate a response
-     * @throws tubepress_lib_api_http_exception_RequestException When an error is encountered
+     * @throws tubepress_api_http_exception_RequestException When an error is encountered
      */
-    protected abstract function doSend(tubepress_lib_api_http_message_RequestInterface $request);
+    protected abstract function doSend(tubepress_api_http_message_RequestInterface $request);
 
-    private function _dispatchResponseEvent(tubepress_lib_api_http_message_RequestInterface  $request,
-                                            tubepress_lib_api_http_message_ResponseInterface $response)
+    private function _dispatchResponseEvent(tubepress_api_http_message_RequestInterface  $request,
+                                            tubepress_api_http_message_ResponseInterface $response)
     {
         $event = $this->_eventDispatcher->newEventInstance($response, array(
             'request' => $request
         ));
 
-        $this->_eventDispatcher->dispatch(tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_RESPONSE, $event);
 
         if ($this->_shouldLog) {
 
@@ -127,17 +127,17 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
     }
 
     /**
-     * @param tubepress_lib_api_http_message_RequestInterface $request
+     * @param tubepress_api_http_message_RequestInterface $request
      *
-     * @return tubepress_lib_api_http_message_ResponseInterface|null
+     * @return tubepress_api_http_message_ResponseInterface|null
      */
-    private function _getQuickResponse(tubepress_lib_api_http_message_RequestInterface $request)
+    private function _getQuickResponse(tubepress_api_http_message_RequestInterface $request)
     {
         $event = $this->_eventDispatcher->newEventInstance($request, array(
             'response' => null
         ));
 
-        $this->_eventDispatcher->dispatch(tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_REQUEST, $event);
 
         if (!$event->hasArgument('response') || $event->getArgument('response') === null) {
 
@@ -145,11 +145,11 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
         }
 
         /**
-         * @var $response tubepress_lib_api_http_message_ResponseInterface
+         * @var $response tubepress_api_http_message_ResponseInterface
          */
         $response = $event->getArgument('response');
 
-        if (!($response instanceof tubepress_lib_api_http_message_ResponseInterface)) {
+        if (!($response instanceof tubepress_api_http_message_ResponseInterface)) {
 
             return null;
         }
@@ -157,7 +157,7 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_lib_a
         return $response;
     }
 
-    private function _logHeaders(tubepress_lib_api_http_message_MessageInterface $message)
+    private function _logHeaders(tubepress_api_http_message_MessageInterface $message)
     {
         $headers = $message->getHeaders();
 

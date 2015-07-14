@@ -17,22 +17,22 @@ class tubepress_gallery_impl_listeners_PaginationListener
     const DOTS = '<span class="tubepress_pagination_dots">...</span>';
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
     
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
@@ -41,12 +41,12 @@ class tubepress_gallery_impl_listeners_PaginationListener
      */
     private $_currentThemeService;
     
-    public function __construct(tubepress_app_api_options_ContextInterface          $context,
-                                tubepress_platform_api_url_UrlFactoryInterface      $urlFactory,
-                                tubepress_lib_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_theme_impl_CurrentThemeService            $currentThemeService,
-                                tubepress_lib_api_translation_TranslatorInterface   $translator)
+    public function __construct(tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_url_UrlFactoryInterface         $urlFactory,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_theme_impl_CurrentThemeService      $currentThemeService,
+                                tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_context              = $context;
         $this->_urlFactory           = $urlFactory;
@@ -56,17 +56,17 @@ class tubepress_gallery_impl_listeners_PaginationListener
         $this->_translator           = $translator;
     }
 
-    public function onGalleryTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onGalleryTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         $currentTemplateVars = $event->getSubject();
         $mediaPage           = $currentTemplateVars['mediaPage'];
         $pagination          = $this->_getHtml($mediaPage->getTotalResultCount());
         $newTemplateVars     = array_merge($currentTemplateVars, array(
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_HTML     => $pagination,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP =>
-                (bool) $this->_context->get(tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE),
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM =>
-                (bool) $this->_context->get(tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW)
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_HTML     => $pagination,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP =>
+                (bool) $this->_context->get(tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE),
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM =>
+                (bool) $this->_context->get(tubepress_api_options_Names::GALLERY_PAGINATE_BELOW)
         ));
 
         $event->setSubject($newTemplateVars);
@@ -75,11 +75,11 @@ class tubepress_gallery_impl_listeners_PaginationListener
     private function _getHtml($vidCount)
     {
         $currentPage = $this->_requestParams->getParamValueAsInt('tubepress_page', 1);
-        $vidsPerPage = $this->_context->get(tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE);
+        $vidsPerPage = $this->_context->get(tubepress_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE);
 
         if (!$vidsPerPage) {
 
-            $vidsPerPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+            $vidsPerPage = $this->_context->get(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE);
         }
 
         $newurl = $this->_urlFactory->fromCurrent();
@@ -92,7 +92,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
         return $this->_legacyPagination($vidCount, $currentPage, $vidsPerPage, 1, $newurl, 'tubepress_page');
     }
 
-    private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_platform_api_url_UrlInterface $url)
+    private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_api_url_UrlInterface $url)
     {
         $url->removeSchemeAndAuthority();
         $url->getQuery()->set('tubepress_page', '%d');
@@ -100,10 +100,10 @@ class tubepress_gallery_impl_listeners_PaginationListener
         $url  = str_replace('tubepress_page=%25d', 'tubepress_page=%d', "$url");
         $vars = array(
 
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => $currentPage,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_TOTAL_ITEMS         => $totalItems,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_HREF_FORMAT         => "$url",
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_RESULTS_PER_PAGE    => $perPage,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => $currentPage,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_TOTAL_ITEMS         => $totalItems,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_HREF_FORMAT         => "$url",
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_RESULTS_PER_PAGE    => $perPage,
         );
 
         return $this->_templating->renderTemplate('gallery/pagination', $vars);
@@ -149,7 +149,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
      *
      * @return string The HTML for the pagination
      */
-    private function _legacyPagination($totalitems, $page = 1, $limit = 15, $adjacents = 1, tubepress_platform_api_url_UrlInterface $url, $pagestring = '?page=')
+    private function _legacyPagination($totalitems, $page = 1, $limit = 15, $adjacents = 1, tubepress_api_url_UrlInterface $url, $pagestring = '?page=')
     {
         $url->getQuery()->remove('tubepress_page');
 
@@ -260,7 +260,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
         return $pagination;
     }
 
-    private function _buildAnchorOpener(tubepress_platform_api_url_UrlInterface $href, $noFollow, $page)
+    private function _buildAnchorOpener(tubepress_api_url_UrlInterface $href, $noFollow, $page)
     {
         $a = '<a ';
 

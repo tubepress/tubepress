@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_internal_shortcode_Shortcode<extended>
  */
-class tubepress_test_internal_shortcode_ShortcodeTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_internal_shortcode_ShortcodeTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testOtherAttributes()
     {

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_impl_listeners_StringMagicListener
  */
-class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_impl_listeners_StringMagicListener
@@ -26,7 +26,7 @@ class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tube
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher = $this->mock('tubepress_lib_api_event_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->mock('tubepress_api_event_EventDispatcherInterface');
 
         $this->_sut = new tubepress_options_impl_listeners_StringMagicListener(
 
@@ -58,7 +58,7 @@ class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tube
 
     public function testDeepArray()
     {
-        $mockTopEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockTopEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockTopEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn(array(
             'deep' => array(
                 'deeper' => array('true')
@@ -88,7 +88,7 @@ class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tube
 
     private function _buildEvent($incomingValue, $expectedFinalValue)
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         //$mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
         //$mockEvent->shouldReceive('getArgument')->once()->with('optionName')->andReturn('name');
         $mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incomingValue);

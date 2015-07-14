@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_player_impl_SoloOrStaticPlayerLocation<extended>
  */
-class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_player_impl_SoloOrStaticPlayerLocation
@@ -31,8 +31,8 @@ class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepres
 
     public function onSetup()
     {
-        $this->_mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockUrl        = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockUrl        = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($this->_mockUrl);
         $this->_mockUrl->shouldReceive('removeSchemeAndAuthority');
@@ -42,8 +42,8 @@ class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepres
 
     public function testAnchorAttributes()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockQuery     = $this->mock('tubepress_platform_api_url_QueryInterface');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
+        $mockQuery     = $this->mock('tubepress_api_url_QueryInterface');
 
         $mockMediaItem->shouldReceive('getId')->once()->andReturn('abc');
 

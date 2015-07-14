@@ -12,7 +12,7 @@
 /**
  * Puzzle-based HTTP response.
  */
-class tubepress_http_impl_puzzle_PuzzleBasedResponse extends tubepress_http_impl_puzzle_AbstractMessage implements tubepress_lib_api_http_message_ResponseInterface
+class tubepress_http_impl_puzzle_PuzzleBasedResponse extends tubepress_http_impl_puzzle_AbstractMessage implements tubepress_api_http_message_ResponseInterface
 {
     /**
      * @var puzzle_message_ResponseInterface
@@ -20,7 +20,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedResponse extends tubepress_http_impl
     private $_delegate;
 
     /**
-     * @var tubepress_platform_api_url_UrlInterface
+     * @var tubepress_api_url_UrlInterface
      */
     private $_effectiveUrl;
 
@@ -42,7 +42,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedResponse extends tubepress_http_impl
      * Get the effective URL that resulted in this response (e.g. the last
      * redirect URL).
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      *
      * @api
      * @since 4.0.0
@@ -83,14 +83,14 @@ class tubepress_http_impl_puzzle_PuzzleBasedResponse extends tubepress_http_impl
      * Set the effective URL that resulted in this response (e.g. the last
      * redirect URL).
      *
-     * @param tubepress_platform_api_url_UrlInterface $url Effective URL
+     * @param tubepress_api_url_UrlInterface $url Effective URL
      *
-     * @return tubepress_lib_api_http_message_ResponseInterface Self.
+     * @return tubepress_api_http_message_ResponseInterface Self.
      *
      * @api
      * @since 4.0.0
      */
-    public function setEffectiveUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setEffectiveUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_effectiveUrl = $url;
     }

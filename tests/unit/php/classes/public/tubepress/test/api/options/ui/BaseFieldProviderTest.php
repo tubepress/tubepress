@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_api_options_ui_BaseFieldProvider<extended>
  */
-class tubepress_test_api_options_ui_BaseFieldProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_api_options_ui_BaseFieldProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_api_options_ui_BaseFieldProvider
@@ -31,8 +31,8 @@ class tubepress_test_api_options_ui_BaseFieldProviderTest extends tubepress_test
 
     public function onSetup()
     {
-        $this->_mockCategory = $this->mock('tubepress_app_api_options_ui_ElementInterface');
-        $this->_mockField    = $this->mock('tubepress_app_api_options_ui_FieldInterface');
+        $this->_mockCategory = $this->mock('tubepress_api_options_ui_ElementInterface');
+        $this->_mockField    = $this->mock('tubepress_api_options_ui_FieldInterface');
 
         $this->_sut = new tubepress_api_options_ui_BaseFieldProvider(
             'some-id',

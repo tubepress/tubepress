@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
  */
-class tubepress_test_youtube3_impl_listeners_options_YouTubeOptionListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube3_impl_listeners_options_YouTubeOptionListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
@@ -36,9 +36,9 @@ class tubepress_test_youtube3_impl_listeners_options_YouTubeOptionListenerTest e
 
     public function onSetup()
     {
-        $this->_mockUrlFactory  = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockStringUtils = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockEvent       = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockUrlFactory  = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockStringUtils = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockEvent       = $this->mock('tubepress_api_event_EventInterface');
 
         $realUrlFactory = new tubepress_url_impl_puzzle_UrlFactory();
         $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(array($realUrlFactory, 'fromString'));

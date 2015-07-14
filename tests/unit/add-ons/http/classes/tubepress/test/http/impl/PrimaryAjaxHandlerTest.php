@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_PrimaryAjaxHandler
  */
-class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_http_impl_PrimaryAjaxHandler
@@ -46,11 +46,11 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_Tub
 
     public function onSetup()
     {
-        $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockHttpResponseCodeService     = $this->mock(tubepress_lib_api_http_ResponseCodeInterface::_);
-        $this->_mockLogger                      = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockEventDispatcher             = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockTemplating                  = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
+        $this->_mockHttpRequestParameterService = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockHttpResponseCodeService     = $this->mock(tubepress_api_http_ResponseCodeInterface::_);
+        $this->_mockLogger                      = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockEventDispatcher             = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockTemplating                  = $this->mock(tubepress_api_template_TemplatingInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1)->andReturn(true);
@@ -82,10 +82,10 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_Tub
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_action')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_action')->andReturn('xyz');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
-            ->with(tubepress_app_api_event_Events::HTTP_AJAX . '.xyz', $mockEvent);
+            ->with(tubepress_api_event_Events::HTTP_AJAX . '.xyz', $mockEvent);
 
         $mockEvent->shouldReceive('getArguments')->once()->andReturn(array('handled' => true));
 
@@ -99,10 +99,10 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_Tub
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_action')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_action')->andReturn('xyz');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
-            ->with(tubepress_app_api_event_Events::HTTP_AJAX . '.xyz', $mockEvent);
+            ->with(tubepress_api_event_Events::HTTP_AJAX . '.xyz', $mockEvent);
 
         $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(400)->andReturn(400);
 
@@ -121,10 +121,10 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_Tub
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_action')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_action')->andReturn('xyz');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
-            ->with(tubepress_app_api_event_Events::HTTP_AJAX . '.xyz', $mockEvent)->andThrow(new RuntimeException('hi'));
+            ->with(tubepress_api_event_Events::HTTP_AJAX . '.xyz', $mockEvent)->andThrow(new RuntimeException('hi'));
 
         $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);
 
@@ -138,10 +138,10 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_Tub
 
     private function _setupForError()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
             ->with(ehough_mockery_Mockery::type('RuntimeException'))->andReturn($mockEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT,
             $mockEvent);
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('exception/ajax', ehough_mockery_Mockery::type('array'))
             ->andReturn('foobar');

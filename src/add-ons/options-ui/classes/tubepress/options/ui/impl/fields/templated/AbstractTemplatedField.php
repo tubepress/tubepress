@@ -15,14 +15,14 @@
 abstract class tubepress_options_ui_impl_fields_templated_AbstractTemplatedField extends tubepress_options_ui_impl_fields_AbstractField
 {
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     public function __construct($id,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
                                 $untranslatedDisplayName = null,
                                 $untranslatedDescription = null)
     {
@@ -49,7 +49,7 @@ abstract class tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
     }
 
     /**
-     * @return tubepress_lib_api_template_TemplatingInterface
+     * @return tubepress_api_template_TemplatingInterface
      */
     protected function getTemplating()
     {

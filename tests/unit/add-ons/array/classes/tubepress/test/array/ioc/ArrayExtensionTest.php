@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_array_ioc_ArrayExtension
  */
-class tubepress_test_array_ioc_ArrayExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_array_ioc_ArrayExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_array_ioc_ArrayExtension
@@ -26,7 +26,7 @@ class tubepress_test_array_ioc_ArrayExtensionTest extends tubepress_test_platfor
     {
         $this->expectRegistration(
 
-            tubepress_lib_api_array_ArrayReaderInterface::_,
+            tubepress_api_array_ArrayReaderInterface::_,
             'tubepress_array_impl_ArrayReader'
         );
     }

@@ -15,47 +15,47 @@
 class tubepress_gallery_impl_listeners_GalleryListener
 {
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParameters;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_media_CollectorInterface
+     * @var tubepress_api_media_CollectorInterface
      */
     private $_collector;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionsReference;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_app_api_media_CollectorInterface        $collector,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher,
-                                tubepress_app_api_options_ReferenceInterface      $optionsReference)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_media_CollectorInterface        $collector,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_event_EventDispatcherInterface  $eventDispatcher,
+                                tubepress_api_options_ReferenceInterface      $optionsReference)
     {
         $this->_logger            = $logger;
         $this->_context           = $context;
@@ -66,15 +66,15 @@ class tubepress_gallery_impl_listeners_GalleryListener
         $this->_optionsReference  = $optionsReference;
     }
 
-    public function onHtmlGeneration(tubepress_lib_api_event_EventInterface $event)
+    public function onHtmlGeneration(tubepress_api_event_EventInterface $event)
     {
-        $galleryId   = $this->_context->get(tubepress_app_api_options_Names::HTML_GALLERY_ID);
+        $galleryId   = $this->_context->get(tubepress_api_options_Names::HTML_GALLERY_ID);
         $shouldLog   = $this->_logger->isEnabled();
 
         if ($galleryId == '') {
 
             $galleryId = mt_rand();
-            $this->_context->setEphemeralOption(tubepress_app_api_options_Names::HTML_GALLERY_ID, $galleryId);
+            $this->_context->setEphemeralOption(tubepress_api_options_Names::HTML_GALLERY_ID, $galleryId);
         }
 
         if ($shouldLog) {
@@ -116,17 +116,17 @@ class tubepress_gallery_impl_listeners_GalleryListener
         $event->stopPropagation();
     }
 
-    public function onGalleryInitJs(tubepress_lib_api_event_EventInterface $event)
+    public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
         $args                = $event->getSubject();
         $ephemeral           = $this->_context->getEphemeralOptions();
         $optionsToAdd        = array();
         $requiredOptionNames = array(
 
-            tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION,
-            tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
-            tubepress_app_api_options_Names::GALLERY_AUTONEXT,
-            tubepress_app_api_options_Names::HTTP_METHOD,
+            tubepress_api_options_Names::GALLERY_AJAX_PAGINATION,
+            tubepress_api_options_Names::GALLERY_FLUID_THUMBS,
+            tubepress_api_options_Names::GALLERY_AUTONEXT,
+            tubepress_api_options_Names::HTTP_METHOD,
         );
 
 
@@ -149,7 +149,7 @@ class tubepress_gallery_impl_listeners_GalleryListener
         $event->setSubject($args);
     }
 
-    public function onGalleryTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onGalleryTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $existingArgs array
@@ -161,26 +161,26 @@ class tubepress_gallery_impl_listeners_GalleryListener
             $existingArgs = array();
         }
 
-        $galleryId   = $this->_context->get(tubepress_app_api_options_Names::HTML_GALLERY_ID);
-        $thumbWidth  = $this->_context->get(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH);
-        $thumbHeight = $this->_context->get(tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT);
+        $galleryId   = $this->_context->get(tubepress_api_options_Names::HTML_GALLERY_ID);
+        $thumbWidth  = $this->_context->get(tubepress_api_options_Names::GALLERY_THUMB_WIDTH);
+        $thumbHeight = $this->_context->get(tubepress_api_options_Names::GALLERY_THUMB_HEIGHT);
 
-        $existingArgs[tubepress_app_api_template_VariableNames::HTML_WIDGET_ID]              = $galleryId;
-        $existingArgs[tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX]  = $thumbWidth;
-        $existingArgs[tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX] = $thumbHeight;
+        $existingArgs[tubepress_api_template_VariableNames::HTML_WIDGET_ID]              = $galleryId;
+        $existingArgs[tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX]  = $thumbWidth;
+        $existingArgs[tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX] = $thumbHeight;
 
         $event->setSubject($existingArgs);
     }
 
-    public function onPostGalleryTemplateRender(tubepress_lib_api_event_EventInterface $event)
+    public function onPostGalleryTemplateRender(tubepress_api_event_EventInterface $event)
     {
-        $galleryId = $this->_context->get(tubepress_app_api_options_Names::HTML_GALLERY_ID);
+        $galleryId = $this->_context->get(tubepress_api_options_Names::HTML_GALLERY_ID);
         $jsEvent   = $this->_eventDispatcher->newEventInstance(array(), array(
             'mediaPage'  => $event->getArgument('mediaPage'),
             'pageNumber' => $event->getArgument('pageNumber')
         ));
 
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::GALLERY_INIT_JS, $jsEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::GALLERY_INIT_JS, $jsEvent);
 
         $args = $jsEvent->getSubject();
 

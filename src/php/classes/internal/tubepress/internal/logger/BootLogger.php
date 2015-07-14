@@ -12,7 +12,7 @@
 /**
  * Logger that stores messages in memory. Used during boot.
  */
-class tubepress_internal_logger_BootLogger implements tubepress_platform_api_log_LoggerInterface
+class tubepress_internal_logger_BootLogger implements tubepress_api_log_LoggerInterface
 {
     /**
      * @var bool
@@ -95,7 +95,7 @@ class tubepress_internal_logger_BootLogger implements tubepress_platform_api_log
         $this->_store($message, $context, 'error');
     }
 
-    public function flushTo(tubepress_platform_api_log_LoggerInterface $logger)
+    public function flushTo(tubepress_api_log_LoggerInterface $logger)
     {
         foreach ($this->_buffer as $message => $context) {
 

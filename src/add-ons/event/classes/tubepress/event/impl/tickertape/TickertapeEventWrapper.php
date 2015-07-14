@@ -10,17 +10,17 @@
  */
 
 /**
- * Providers a wrapper to allow tubepress_lib_api_event_EventInterface instances to be passed off as
+ * Providers a wrapper to allow tubepress_api_event_EventInterface instances to be passed off as
  * ehough_tickertape_Event instances.
  */
-class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_lib_api_event_EventInterface
+class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_api_event_EventInterface
 {
     /**
-     * @var tubepress_lib_api_event_EventInterface
+     * @var tubepress_api_event_EventInterface
      */
     private $_delegate;
 
-    public function __construct(tubepress_lib_api_event_EventInterface $event = null)
+    public function __construct(tubepress_api_event_EventInterface $event = null)
     {
         if (!$event) {
 
@@ -57,7 +57,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tick
     /**
      * Returns the EventDispatcher that dispatches this Event
      *
-     * @return tubepress_lib_api_event_EventDispatcherInterface
+     * @return tubepress_api_event_EventDispatcherInterface
      *
      * @api
      * @since 4.0.0

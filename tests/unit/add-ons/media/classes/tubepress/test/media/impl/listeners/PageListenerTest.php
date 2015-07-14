@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_media_impl_listeners_PageListener
  */
-class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_media_impl_listeners_PageListener
@@ -56,13 +56,13 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
 
     public function onSetup()
     {
-        $this->_mockContext       = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockLogger        = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockEvent         = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockPage          = $this->mock('tubepress_app_api_media_MediaPage');
+        $this->_mockContext       = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockLogger        = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockEvent         = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockPage          = $this->mock('tubepress_api_media_MediaPage');
         $this->_mockItemArray     = $this->_buildMockItemArray();
-        $this->_mockRequestParams = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockCollector     = $this->mock(tubepress_app_api_media_CollectorInterface::_);
+        $this->_mockRequestParams = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockCollector     = $this->mock(tubepress_api_media_CollectorInterface::_);
 
         $this->_mockPage->shouldReceive('getItems')->andReturn($this->_mockItemArray);
         $this->_mockEvent->shouldReceive('getSubject')->andReturn($this->_mockPage);
@@ -81,18 +81,18 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
     {
         $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('custom-video');
 
-        $mockMediaProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
+        $mockMediaProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
         $mockMediaProvider->shouldReceive('getAttributeNameOfItemId')->atLeast(1)->andReturn('id');
 
-        $video = new tubepress_app_api_media_MediaItem('video-id');
-        $video->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockMediaProvider);
+        $video = new tubepress_api_media_MediaItem('video-id');
+        $video->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockMediaProvider);
 
-        $providerResult = new tubepress_app_api_media_MediaPage();
+        $providerResult = new tubepress_api_media_MediaPage();
         $providerResult->setItems(array($video));
 
         $this->_mockCollector->shouldReceive('collectSingle')->once()->with('custom-video')->andReturn('x');
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->times(2)->andReturn($providerResult);
 
         $this->_sut->prependItems($event);
@@ -104,9 +104,9 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
     {
         $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('');
 
-        $providerResult = new tubepress_app_api_media_MediaPage();
+        $providerResult = new tubepress_api_media_MediaPage();
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_sut->prependItems($event);
 
@@ -116,28 +116,28 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
     public function testBlacklist()
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST)->andReturn('xxx');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST)->andReturn('xxx');
 
-        $mockVideoProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
 
-        $mockVideo1 = new tubepress_app_api_media_MediaItem('p');
-        $mockVideo1->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
+        $mockVideo1 = new tubepress_api_media_MediaItem('p');
+        $mockVideo1->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
 
-        $mockVideo2 = new tubepress_app_api_media_MediaItem('y');
-        $mockVideo2->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
+        $mockVideo2 = new tubepress_api_media_MediaItem('y');
+        $mockVideo2->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
 
-        $mockVideo3 = new tubepress_app_api_media_MediaItem('xxx');
-        $mockVideo3->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
+        $mockVideo3 = new tubepress_api_media_MediaItem('xxx');
+        $mockVideo3->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
 
-        $mockVideo4 = new tubepress_app_api_media_MediaItem('yyy');
-        $mockVideo4->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
+        $mockVideo4 = new tubepress_api_media_MediaItem('yyy');
+        $mockVideo4->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
 
         $videoArray = array($mockVideo1, $mockVideo2, $mockVideo3, $mockVideo4);
 
-        $providerResult = new tubepress_app_api_media_MediaPage();
+        $providerResult = new tubepress_api_media_MediaPage();
         $providerResult->setItems($videoArray);
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->times(2)->andReturn($providerResult);
 
         $this->_sut->blacklist($event);
@@ -149,16 +149,16 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP)->andReturn(888);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)->andReturn(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP)->andReturn(888);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)->andReturn(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES);
 
         $videoArray = array('x', 'y');
 
-        $providerResult = new tubepress_app_api_media_MediaPage();
+        $providerResult = new tubepress_api_media_MediaPage();
         $providerResult->setTotalResultCount(999);
         $providerResult->setItems($videoArray);
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->times(3)->andReturn($providerResult);
 
         $this->_sut->capResults($event);
@@ -168,7 +168,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
 
     public function testPerPageProviderSort()
     {
-        $this->_setSortAndPerPageOrder(tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT, 'sortname');
+        $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, 'sortname');
 
         $this->_mockPage->shouldReceive('setItems')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
 
@@ -180,7 +180,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
 
     public function testPerPageSortNobodyCanHandle()
     {
-        $this->_setSortAndPerPageOrder(tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT, 'x');
+        $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, 'x');
 
         $this->_mockPage->shouldReceive('setItems')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
 
@@ -192,14 +192,14 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
 
     public function testPerPageSortOrderNone()
     {
-        $this->_setSortAndPerPageOrder(tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT, tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NONE);
+        $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE);
 
         $this->_runTest('perPageSort');
     }
 
     public function testPerPageRandom()
     {
-        $this->_setSortAndPerPageOrder(tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT, tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM);
+        $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM);
 
         $this->_mockPage->shouldReceive('setItems')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
 
@@ -218,24 +218,24 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
 
     private function _setSortAndPerPageOrder($feed, $perPage)
     {
-        $this->_mockContext->shouldReceive('get')->with(tubepress_app_api_options_Names::FEED_ORDER_BY)->andReturn($feed);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_PER_PAGE_SORT)->andReturn($perPage);
+        $this->_mockContext->shouldReceive('get')->with(tubepress_api_options_Names::FEED_ORDER_BY)->andReturn($feed);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_PER_PAGE_SORT)->andReturn($perPage);
     }
 
     private function _buildMockItemArray()
     {
         $toReturn = array();
 
-        $mockItem1 = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockItem2 = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockItem3 = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockItem1 = $this->mock('tubepress_api_media_MediaItem');
+        $mockItem2 = $this->mock('tubepress_api_media_MediaItem');
+        $mockItem3 = $this->mock('tubepress_api_media_MediaItem');
 
-        $mockProvider1 = $this->mock('tubepress_app_api_media_MediaProviderInterface');
-        $mockProvider2 = $this->mock('tubepress_app_api_media_MediaProviderInterface');
+        $mockProvider1 = $this->mock('tubepress_api_media_MediaProviderInterface');
+        $mockProvider2 = $this->mock('tubepress_api_media_MediaProviderInterface');
 
-        $mockItem1->shouldReceive('getAttribute')->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider1);
-        $mockItem2->shouldReceive('getAttribute')->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider2);
-        $mockItem3->shouldReceive('getAttribute')->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider2);
+        $mockItem1->shouldReceive('getAttribute')->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider1);
+        $mockItem2->shouldReceive('getAttribute')->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider2);
+        $mockItem3->shouldReceive('getAttribute')->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider2);
 
         $mockProvider1->shouldReceive('getMapOfPerPageSortNamesToUntranslatedLabels')->andReturn(array('sortname' => 'provider1 sort'));
         $mockProvider2->shouldReceive('getMapOfPerPageSortNamesToUntranslatedLabels')->andReturn(array('sortname' => 'provider2 sort'));
@@ -245,8 +245,8 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_tes
         $mockProvider2->shouldReceive('getDisplayName')->andReturn('provider 2 friendly name');
         $mockProvider2->shouldReceive('compareForPerPageSort')->atLeast(1)->with(
 
-            ehough_mockery_Mockery::type('tubepress_app_api_media_MediaItem'),
-            ehough_mockery_Mockery::type('tubepress_app_api_media_MediaItem'),
+            ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'),
+            ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'),
             'sortname'
         )->andReturnUsing(function () {
 

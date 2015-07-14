@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_template_ioc_compiler_TemplatePathProvidersPass<extended>
  */
-class tubepress_test_template_ioc_compiler_TemplatePathProvidersPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_template_ioc_compiler_TemplatePathProvidersPassTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_template_ioc_compiler_TemplatePathProvidersPass
@@ -32,7 +32,7 @@ class tubepress_test_template_ioc_compiler_TemplatePathProvidersPassTest extends
     public function onSetup()
     {
         $this->_sut                        = new tubepress_template_ioc_compiler_TemplatePathProvidersPass();
-        $this->_mockContainer              = $this->mock('tubepress_platform_api_ioc_ContainerBuilderInterface');
+        $this->_mockContainer              = $this->mock('tubepress_api_ioc_ContainerBuilderInterface');
         $this->_mockTwigFsLoaderDefinition = $this->mock('tubepress_platform_api_ioc_Definition');
     }
 
@@ -50,17 +50,17 @@ class tubepress_test_template_ioc_compiler_TemplatePathProvidersPassTest extends
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with('Twig_Loader_Filesystem.admin')->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('Twig_Loader_Filesystem')->andReturn($this->_mockTwigFsLoaderDefinition);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('Twig_Loader_Filesystem.admin')->andReturn($this->_mockTwigFsLoaderDefinition);
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_lib_api_template_PathProviderInterface')
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_spi_template_PathProviderInterface')
             ->andReturn(array(
                 'foo' => array(),
             ));
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_lib_api_template_PathProviderInterface.admin')
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_spi_template_PathProviderInterface.admin')
             ->andReturn(array(
                 'bar' => array()
             ));
 
-        $mockProvider1 = $this->mock('tubepress_lib_api_template_PathProviderInterface');
-        $mockProvider2 = $this->mock('tubepress_lib_api_template_PathProviderInterface');
+        $mockProvider1 = $this->mock('tubepress_spi_template_PathProviderInterface');
+        $mockProvider2 = $this->mock('tubepress_spi_template_PathProviderInterface');
 
         $this->_mockContainer->shouldReceive('get')->once()->with('foo')->andReturn($mockProvider1);
         $this->_mockContainer->shouldReceive('get')->once()->with('bar')->andReturn($mockProvider2);

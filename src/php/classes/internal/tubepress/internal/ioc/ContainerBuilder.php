@@ -13,7 +13,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Container implements tubepress_platform_api_ioc_ContainerBuilderInterface, tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerBuilderInterface, tubepress_spi_ioc_CompilerPassInterface
 {
     /**
      * @var ehough_iconic_ContainerBuilder
@@ -21,12 +21,12 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     private $_delegateContainerBuilder;
 
     /**
-     * @var array An array of tubepress_platform_api_ioc_ContainerExtensionInterface instances
+     * @var array An array of tubepress_spi_ioc_ContainerExtensionInterface instances
      */
     private $_tubePressContainerExtensions = array();
 
     /**
-     * @var array An array of tubepress_platform_api_ioc_CompilerPassInterface instances
+     * @var array An array of tubepress_spi_ioc_CompilerPassInterface instances
      */
     private $_tubePressCompilerPasses = array();
 
@@ -60,7 +60,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     public function compile()
     {
         /**
-         * @var $pass tubepress_platform_api_ioc_CompilerPassInterface
+         * @var $pass tubepress_spi_ioc_CompilerPassInterface
          */
         foreach ($this->_tubePressCompilerPasses as $pass) {
 
@@ -85,9 +85,9 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * @internal
      *
-     * @param tubepress_platform_api_ioc_ContainerExtensionInterface $extension
+     * @param tubepress_spi_ioc_ContainerExtensionInterface $extension
      */
-    public function registerExtension(tubepress_platform_api_ioc_ContainerExtensionInterface $extension)
+    public function registerExtension(tubepress_spi_ioc_ContainerExtensionInterface $extension)
     {
         $this->_tubePressContainerExtensions[] = $extension;
     }
@@ -95,11 +95,11 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * @internal
      *
-     * @param tubepress_platform_api_ioc_CompilerPassInterface $pass
+     * @param tubepress_spi_ioc_CompilerPassInterface $pass
      *
      * @return void
      */
-    public function addCompilerPass(tubepress_platform_api_ioc_CompilerPassInterface $pass)
+    public function addCompilerPass(tubepress_spi_ioc_CompilerPassInterface $pass)
     {
         $this->_tubePressCompilerPasses[] = $pass;
     }
@@ -107,7 +107,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * Adds the service definitions.
      *
-     * @param tubepress_platform_api_ioc_DefinitionInterface[] $definitions An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
      * @return void
      *
@@ -154,7 +154,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
      *
      * @param string $id The service identifier
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface A tubepress_platform_api_ioc_DefinitionInterface instance, or null if the
+     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance, or null if the
      *                                               service does not exist.
      *
      * @api
@@ -177,7 +177,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * Gets all service definitions.
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface[] An array of tubepress_platform_api_ioc_DefinitionInterface instances
+     * @return tubepress_api_ioc_DefinitionInterface[] An array of tubepress_api_ioc_DefinitionInterface instances
      *
      * @api
      * @since 4.0.0
@@ -213,7 +213,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
      * @param string $id    The service identifier
      * @param string $class The service class
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface A tubepress_platform_api_ioc_DefinitionInterface instance
+     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance
      *
      * @api
      * @since 4.0.0
@@ -242,16 +242,16 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
      * Sets a service definition.
      *
      * @param string                                $id         The service identifier
-     * @param tubepress_platform_api_ioc_DefinitionInterface $definition A tubepress_platform_api_ioc_DefinitionInterface instance
+     * @param tubepress_api_ioc_DefinitionInterface $definition A tubepress_api_ioc_DefinitionInterface instance
      *
-     * @return tubepress_platform_api_ioc_DefinitionInterface the service definition
+     * @return tubepress_api_ioc_DefinitionInterface the service definition
      *
      * @throws BadMethodCallException When this ContainerBuilder is frozen
      *
      * @api
      * @since 4.0.0
      */
-    public function setDefinition($id, tubepress_platform_api_ioc_DefinitionInterface $definition)
+    public function setDefinition($id, tubepress_api_ioc_DefinitionInterface $definition)
     {
         try {
 
@@ -269,7 +269,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * Sets the service definitions.
      *
-     * @param tubepress_platform_api_ioc_DefinitionInterface[] $definitions An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
      * @api
      * @since 4.0.0
@@ -284,11 +284,11 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * Based heavily on ehough_iconic_compiler_MergeExtensionConfigurationPass.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $self
+     * @param tubepress_api_ioc_ContainerBuilderInterface $self
      *
      * @api
      */
-    public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $self)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $self)
     {
         $parameters = $this->_delegateContainerBuilder->getParameterBag()->all();
 
@@ -298,7 +298,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
         $definitions = $self->getDefinitions();
 
         /**
-         * @var $extension tubepress_platform_api_ioc_ContainerExtensionInterface
+         * @var $extension tubepress_spi_ioc_ContainerExtensionInterface
          */
         foreach ($this->_tubePressContainerExtensions as $extension) {
 
@@ -346,7 +346,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
         return tubepress_internal_ioc_Definition::fromIconicDefinition($definition);
     }
 
-    public function toIconicDefinition(tubepress_platform_api_ioc_DefinitionInterface $definition)
+    public function toIconicDefinition(tubepress_api_ioc_DefinitionInterface $definition)
     {
         if ($definition instanceof tubepress_internal_ioc_Definition) {
 
@@ -373,7 +373,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
 
     public function convertToIconicReferenceIfNecessary($candidate)
     {
-        if ($candidate instanceof tubepress_platform_api_ioc_Reference) {
+        if ($candidate instanceof tubepress_api_ioc_Reference) {
 
             return new ehough_iconic_Reference("$candidate");
         }

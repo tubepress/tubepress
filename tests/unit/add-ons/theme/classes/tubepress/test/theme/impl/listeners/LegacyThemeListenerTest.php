@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_theme_impl_listeners_LegacyThemeListener
  */
-class tubepress_test_theme_impl_listeners_LegacyThemeListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_theme_impl_listeners_LegacyThemeListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_theme_impl_listeners_LegacyThemeListener
@@ -36,9 +36,9 @@ class tubepress_test_theme_impl_listeners_LegacyThemeListenerTest extends tubepr
 
     public function onSetup()
     {
-        $this->_mockEvent         = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockThemeRegistry = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
-        $this->_mockLogger        = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockEvent         = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockThemeRegistry = $this->mock(tubepress_api_contrib_RegistryInterface::_);
+        $this->_mockLogger        = $this->mock(tubepress_api_log_LoggerInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -54,7 +54,7 @@ class tubepress_test_theme_impl_listeners_LegacyThemeListenerTest extends tubepr
     {
         $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('vimeo3');
 
-        $mockTheme = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $mockTheme = $this->mock(tubepress_api_theme_ThemeInterface::_);
         $mockTheme->shouldReceive('getName')->once()->andReturn('unknown/legacy-vimeo2');
         $mockThemes = array($mockTheme);
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);
@@ -69,7 +69,7 @@ class tubepress_test_theme_impl_listeners_LegacyThemeListenerTest extends tubepr
         $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('vimeo2');
         $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', 'unknown/legacy-vimeo2');
 
-        $mockTheme = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $mockTheme = $this->mock(tubepress_api_theme_ThemeInterface::_);
         $mockTheme->shouldReceive('getName')->once()->andReturn('unknown/legacy-vimeo2');
         $mockThemes = array($mockTheme);
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);

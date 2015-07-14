@@ -12,28 +12,28 @@
 class tubepress_embedded_common_impl_listeners_EmbeddedListener
 {
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     /**
-     * @var tubepress_app_api_embedded_EmbeddedProviderInterface[]
+     * @var tubepress_spi_embedded_EmbeddedProviderInterface[]
      */
     private $_embeddedProviders;
 
-    public function __construct(tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_lib_api_template_TemplatingInterface $templating)
+    public function __construct(tubepress_api_options_ContextInterface     $context,
+                                tubepress_api_template_TemplatingInterface $templating)
     {
         $this->_context    = $context;
         $this->_templating = $templating;
     }
 
-    public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
+    public function onAcceptableValues(tubepress_api_event_EventInterface $event)
     {
         $current = $event->getSubject();
 
@@ -52,13 +52,13 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
         $toAdd = array_merge($current, $toAdd);
         ksort($toAdd);
         $toAdd = array_reverse($toAdd, true);
-        $toAdd[tubepress_app_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED] = 'Provider default';  //>(translatable)<
+        $toAdd[tubepress_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED] = 'Provider default';  //>(translatable)<
         $toAdd = array_reverse($toAdd, true);
 
         $event->setSubject(array_merge($current, $toAdd));
     }
 
-    public function onEmbeddedTemplateSelect(tubepress_lib_api_event_EventInterface $event)
+    public function onEmbeddedTemplateSelect(tubepress_api_event_EventInterface $event)
     {
         if (!$event->hasArgument('embeddedProvider')) {
 
@@ -66,66 +66,66 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
         }
 
         /**
-         * @var $embeddedProvider tubepress_app_api_embedded_EmbeddedProviderInterface
+         * @var $embeddedProvider tubepress_spi_embedded_EmbeddedProviderInterface
          */
         $embeddedProvider = $event->getArgument('embeddedProvider');
 
         $event->setSubject($embeddedProvider->getTemplateName());
     }
 
-    public function onPlayerTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onPlayerTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         $this->onSingleItemTemplatePreRender($event);
     }
 
-    public function onSingleItemTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onSingleItemTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $existingTemplateVars array
          */
         $existingTemplateVars = $event->getSubject();
 
-        if (!isset($existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM])) {
+        if (!isset($existingTemplateVars[tubepress_api_template_VariableNames::MEDIA_ITEM])) {
 
             return;
         }
 
         /**
-         * @var $mediaItem tubepress_app_api_media_MediaItem
+         * @var $mediaItem tubepress_api_media_MediaItem
          */
-        $mediaItem        = $existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM];
+        $mediaItem        = $existingTemplateVars[tubepress_api_template_VariableNames::MEDIA_ITEM];
         $embeddedProvider = $this->_selectEmbeddedProvider($mediaItem);
-        $embedWidth       = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_WIDTH);
-        $embedHeight      = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_HEIGHT);
-        $responsive       = $this->_context->get(tubepress_app_api_options_Names::RESPONSIVE_EMBEDS);
+        $embedWidth       = $this->_context->get(tubepress_api_options_Names::EMBEDDED_WIDTH);
+        $embedHeight      = $this->_context->get(tubepress_api_options_Names::EMBEDDED_HEIGHT);
+        $responsive       = $this->_context->get(tubepress_api_options_Names::RESPONSIVE_EMBEDS);
         $templateVars     = $embeddedProvider->getTemplateVariables($mediaItem);
 
         $embeddedHtml = $this->_templating->renderTemplate('single/embedded', array_merge(array(
 
-            'embeddedProvider'                                           => $embeddedProvider,
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM         => $mediaItem,
-            tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX  => $embedWidth,
-            tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX => $embedHeight,
-            tubepress_app_api_options_Names::RESPONSIVE_EMBEDS           => $responsive,
+            'embeddedProvider'                                       => $embeddedProvider,
+            tubepress_api_template_VariableNames::MEDIA_ITEM         => $mediaItem,
+            tubepress_api_template_VariableNames::EMBEDDED_WIDTH_PX  => $embedWidth,
+            tubepress_api_template_VariableNames::EMBEDDED_HEIGHT_PX => $embedHeight,
+            tubepress_api_options_Names::RESPONSIVE_EMBEDS           => $responsive,
         ), $templateVars));
 
-        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE]    = $embeddedHtml;
-        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX]  = $embedWidth;
-        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX] = $embedHeight;
-        $existingTemplateVars[tubepress_app_api_options_Names::RESPONSIVE_EMBEDS]           = $responsive;
+        $existingTemplateVars[tubepress_api_template_VariableNames::EMBEDDED_SOURCE]    = $embeddedHtml;
+        $existingTemplateVars[tubepress_api_template_VariableNames::EMBEDDED_WIDTH_PX]  = $embedWidth;
+        $existingTemplateVars[tubepress_api_template_VariableNames::EMBEDDED_HEIGHT_PX] = $embedHeight;
+        $existingTemplateVars[tubepress_api_options_Names::RESPONSIVE_EMBEDS]           = $responsive;
 
         $event->setSubject($existingTemplateVars);
     }
 
-    public function onGalleryInitJs(tubepress_lib_api_event_EventInterface $event)
+    public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
         $args             = $event->getSubject();
         $optionsToAdd    = array();
         $optionNamesToAdd = array(
 
-            tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
-            tubepress_app_api_options_Names::EMBEDDED_WIDTH,
-            tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
+            tubepress_api_options_Names::EMBEDDED_HEIGHT,
+            tubepress_api_options_Names::EMBEDDED_WIDTH,
+            tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL,
         );
 
         foreach ($optionNamesToAdd as $optionName) {
@@ -144,7 +144,7 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
     }
 
     /**
-     * @param tubepress_app_api_embedded_EmbeddedProviderInterface[] $providers
+     * @param tubepress_spi_embedded_EmbeddedProviderInterface[] $providers
      */
     public function setEmbeddedProviders(array $providers)
     {
@@ -152,26 +152,26 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $item
+     * @param tubepress_api_media_MediaItem $item
      *
-     * @return tubepress_app_api_embedded_EmbeddedProviderInterface
+     * @return tubepress_spi_embedded_EmbeddedProviderInterface
      *
      * @throws RuntimeException
      */
-    private function _selectEmbeddedProvider(tubepress_app_api_media_MediaItem $item)
+    private function _selectEmbeddedProvider(tubepress_api_media_MediaItem $item)
     {
-        $requestedEmbeddedPlayerName = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL);
+        $requestedEmbeddedPlayerName = $this->_context->get(tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL);
 
         /**
-         * @var $mediaProvider tubepress_app_api_media_MediaProviderInterface
+         * @var $mediaProvider tubepress_api_media_MediaProviderInterface
          */
-        $mediaProvider     = $item->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER);
+        $mediaProvider     = $item->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER);
         $mediaProviderName = $mediaProvider->getName();
 
         /**
          * The user has requested a specific embedded player that is registered. Let's see if the provider agrees.
          */
-        if ($requestedEmbeddedPlayerName !== tubepress_app_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED) {
+        if ($requestedEmbeddedPlayerName !== tubepress_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED) {
 
             foreach ($this->_embeddedProviders as $embeddedProvider) {
 

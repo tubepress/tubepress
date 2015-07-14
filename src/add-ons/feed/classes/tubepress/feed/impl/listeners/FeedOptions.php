@@ -15,21 +15,21 @@
 class tubepress_feed_impl_listeners_FeedOptions
 {
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
-    public function onMode(tubepress_lib_api_event_EventInterface $event)
+    public function onMode(tubepress_api_event_EventInterface $event)
     {
         $this->_handle($event, 'getGallerySourceNames');
     }
 
-    public function onOrderBy(tubepress_lib_api_event_EventInterface $event)
+    public function onOrderBy(tubepress_api_event_EventInterface $event)
     {
         $this->_handle($event, 'getMapOfFeedSortNamesToUntranslatedLabels');
     }
 
-    private function _handle(tubepress_lib_api_event_EventInterface $event, $methodName)
+    private function _handle(tubepress_api_event_EventInterface $event, $methodName)
     {
         $current = $event->getSubject();
 

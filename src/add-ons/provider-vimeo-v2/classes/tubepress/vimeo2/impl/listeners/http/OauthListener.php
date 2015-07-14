@@ -15,26 +15,26 @@
 class tubepress_vimeo2_impl_listeners_http_OauthListener
 {
     /**
-     * @var tubepress_lib_api_http_oauth_v1_ClientInterface
+     * @var tubepress_api_http_oauth_v1_ClientInterface
      */
     private $_oauthClient;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_executionContext;
 
-    public function __construct(tubepress_lib_api_http_oauth_v1_ClientInterface $oauthClient,
-                                tubepress_app_api_options_ContextInterface      $context)
+    public function __construct(tubepress_api_http_oauth_v1_ClientInterface $oauthClient,
+                                tubepress_api_options_ContextInterface      $context)
     {
         $this->_executionContext = $context;
         $this->_oauthClient      = $oauthClient;
     }
 
-    public function onRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onRequest(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $request tubepress_lib_api_http_message_RequestInterface
+         * @var $request tubepress_api_http_message_RequestInterface
          */
         $request  = $event->getSubject();
 
@@ -46,7 +46,7 @@ class tubepress_vimeo2_impl_listeners_http_OauthListener
 
         $clientId          = $this->_executionContext->get(tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY);
         $clientSecret      = $this->_executionContext->get(tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET);
-        $clientCredentials = new tubepress_lib_api_http_oauth_v1_Credentials($clientId, $clientSecret);
+        $clientCredentials = new tubepress_api_http_oauth_v1_Credentials($clientId, $clientSecret);
 
         $this->_oauthClient->signRequest($request, $clientCredentials);
     }

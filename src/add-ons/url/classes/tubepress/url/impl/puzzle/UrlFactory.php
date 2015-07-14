@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_url_impl_puzzle_UrlFactory implements tubepress_platform_api_url_UrlFactoryInterface
+class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFactoryInterface
 {
     private static $_KEY_HTTPS = 'HTTPS';
     private static $_KEY_NAME  = 'SERVER_NAME';
@@ -16,7 +16,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_platform_api_url
     private static $_KEY_URI   = 'REQUEST_URI';
 
     /**
-     * @var tubepress_platform_api_url_UrlInterface
+     * @var tubepress_api_url_UrlInterface
      */
     private $_cachedCurrentUrl;
 
@@ -38,7 +38,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_platform_api_url
     /**
      * @param string $url The URL to parse.
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      *
      * @throws InvalidArgumentException If unable to parse URL.
      */
@@ -55,7 +55,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_platform_api_url
     /**
      * The current URL shown to the user.
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      *
      * @throws RuntimeException If unable to determine current URL.
      *

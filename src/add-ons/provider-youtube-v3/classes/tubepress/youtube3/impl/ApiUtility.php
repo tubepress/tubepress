@@ -140,22 +140,22 @@ class tubepress_youtube3_impl_ApiUtility
     const RESPONSE_ERROR_MSG = 'message';
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_http_HttpClientInterface
+     * @var tubepress_api_http_HttpClientInterface
      */
     private $_httpClient;
 
     /**
-     * @var tubepress_lib_api_array_ArrayReaderInterface
+     * @var tubepress_api_array_ArrayReaderInterface
      */
     private $_arrayReader;
 
@@ -164,10 +164,10 @@ class tubepress_youtube3_impl_ApiUtility
      */
     private $_memoryCache;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface   $logger,
-                                tubepress_app_api_options_ContextInterface   $context,
-                                tubepress_lib_api_http_HttpClientInterface   $httpClient,
-                                tubepress_lib_api_array_ArrayReaderInterface $arrayReader)
+    public function __construct(tubepress_api_log_LoggerInterface        $logger,
+                                tubepress_api_options_ContextInterface   $context,
+                                tubepress_api_http_HttpClientInterface   $httpClient,
+                                tubepress_api_array_ArrayReaderInterface $arrayReader)
     {
         $this->_logger      = $logger;
         $this->_context     = $context;
@@ -177,11 +177,11 @@ class tubepress_youtube3_impl_ApiUtility
     }
 
     /**
-     * @param tubepress_platform_api_url_UrlInterface $url
+     * @param tubepress_api_url_UrlInterface $url
      * @param array $requestOpts
      * @return array
      */
-    public function getDecodedApiResponse(tubepress_platform_api_url_UrlInterface $url, $requestOpts = array())
+    public function getDecodedApiResponse(tubepress_api_url_UrlInterface $url, $requestOpts = array())
     {
         $url->getQuery()->set(self::QUERY_APIKEY, $this->_context->get(tubepress_youtube3_api_Constants::OPTION_API_KEY));
 

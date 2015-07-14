@@ -11,7 +11,7 @@
 
 class tubepress_wordpress_impl_listeners_options_AdminThemeListener
 {
-    public function onDefaultValue(tubepress_lib_api_event_EventInterface $event)
+    public function onDefaultValue(tubepress_api_event_EventInterface $event)
     {
         $event->setSubject('tubepress/wordpress');
     }

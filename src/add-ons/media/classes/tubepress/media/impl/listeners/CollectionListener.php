@@ -14,7 +14,7 @@
 class tubepress_media_impl_listeners_CollectionListener
 {
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
@@ -23,7 +23,7 @@ class tubepress_media_impl_listeners_CollectionListener
         $this->_mediaProviders = $mediaProviders;
     }
 
-    public function onMediaPageRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onMediaPageRequest(tubepress_api_event_EventInterface $event)
     {
         $source   = $event->getSubject();
         $provider = null;
@@ -48,13 +48,13 @@ class tubepress_media_impl_listeners_CollectionListener
 
         foreach ($page->getItems() as $mediaItem) {
 
-            $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
+            $mediaItem->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
         }
 
         $event->setArgument('mediaPage', $page);
     }
 
-    public function onMediaItemRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onMediaItemRequest(tubepress_api_event_EventInterface $event)
     {
         $itemId   = $event->getSubject();
         $provider = null;
@@ -77,7 +77,7 @@ class tubepress_media_impl_listeners_CollectionListener
 
         if ($item !== null) {
 
-            $item->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
+            $item->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
         }
 
         $event->setArgument('mediaItem', $item);

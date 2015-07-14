@@ -15,30 +15,30 @@
 class tubepress_player_impl_listeners_SoloPlayerListener
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
         $this->_logger        = $logger;
         $this->_context       = $context;
         $this->_requestParams = $requestParams;
     }
 
-    public function onHtmlGeneration(tubepress_lib_api_event_EventInterface $event)
+    public function onHtmlGeneration(tubepress_api_event_EventInterface $event)
     {
         if (!$this->_shouldExecute()) {
 
@@ -53,7 +53,7 @@ class tubepress_player_impl_listeners_SoloPlayerListener
      */
     private function _shouldExecute()
     {
-        $playerName  = $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION);
+        $playerName  = $this->_context->get(tubepress_api_options_Names::PLAYER_LOCATION);
         $shouldLog   = $this->_logger->isEnabled();
 
         if ($playerName !== 'solo') {
@@ -82,7 +82,7 @@ class tubepress_player_impl_listeners_SoloPlayerListener
         return true;
     }
 
-    private function _handle(tubepress_lib_api_event_EventInterface $event)
+    private function _handle(tubepress_api_event_EventInterface $event)
     {
         $itemId    = $this->_requestParams->getParamValue('tubepress_item');;
         $shouldLog = $this->_logger->isEnabled();
@@ -92,7 +92,7 @@ class tubepress_player_impl_listeners_SoloPlayerListener
             $this->_logger->debug(sprintf('Building single video with ID %s', $itemId));
         }
 
-        $result = $this->_context->setEphemeralOption(tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID, $itemId);
+        $result = $this->_context->setEphemeralOption(tubepress_api_options_Names::SINGLE_MEDIA_ITEM_ID, $itemId);
 
         if ($result !== null) {
 

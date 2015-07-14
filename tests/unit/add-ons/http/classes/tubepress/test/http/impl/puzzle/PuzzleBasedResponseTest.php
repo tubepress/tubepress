@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_puzzle_PuzzleBasedResponse<extended>
  */
-class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testCanProvideCustomStatusCodeAndReasonPhrase()
     {
@@ -72,13 +72,13 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_
     {
         $r = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(200));
         $this->assertNull($r->getEffectiveUrl());
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $r->setEffectiveUrl($mockUrl);
-        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $r->getEffectiveUrl());
+        $this->assertInstanceOf('tubepress_api_url_UrlInterface', $r->getEffectiveUrl());
 
         $r = new puzzle_message_Response(200);
         $r->setEffectiveUrl('http://bas.foo/sdf');
         $r = new tubepress_http_impl_puzzle_PuzzleBasedResponse($r);
-        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $r->getEffectiveUrl());
+        $this->assertInstanceOf('tubepress_api_url_UrlInterface', $r->getEffectiveUrl());
     }
 }

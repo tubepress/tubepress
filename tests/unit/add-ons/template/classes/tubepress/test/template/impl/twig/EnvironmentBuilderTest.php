@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_template_impl_twig_EnvironmentBuilder<extended>
  */
-class tubepress_test_app_impl_template_twig_EnvironmentBuilderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_template_twig_EnvironmentBuilderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_template_impl_twig_EnvironmentBuilder
@@ -46,10 +46,10 @@ class tubepress_test_app_impl_template_twig_EnvironmentBuilderTest extends tubep
 
     public function onSetup()
     {
-        $this->_mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
+        $this->_mockBootSettings = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
         $this->_mockTwigLoader   = $this->mock('Twig_LoaderInterface');
-        $this->_mockContext      = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockTranslator   = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockContext      = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockTranslator   = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_mockSystemCacheDir = sys_get_temp_dir() . '/environment-builder-test';
         mkdir($this->_mockSystemCacheDir, 0755, true);
@@ -69,9 +69,9 @@ class tubepress_test_app_impl_template_twig_EnvironmentBuilderTest extends tubep
 
     public function testBuild()
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED)->andReturn(true);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR)->andReturn('/abc');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::TEMPLATE_CACHE_AUTORELOAD)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::TEMPLATE_CACHE_DIR)->andReturn('/abc');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD)->andReturn(true);
         $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($this->_mockSystemCacheDir);
 
         $environment = $this->_sut->buildTwigEnvironment();

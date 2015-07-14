@@ -11,15 +11,15 @@
 
 /**
  */
-class tubepress_options_ui_impl_FieldProvider implements tubepress_app_api_options_ui_FieldProviderInterface
+class tubepress_options_ui_impl_FieldProvider implements tubepress_api_options_ui_FieldProviderInterface
 {
     /**
-     * @var tubepress_app_api_options_ui_ElementInterface[]
+     * @var tubepress_api_options_ui_ElementInterface[]
      */
     private $_categories;
 
     /**
-     * @var tubepress_app_api_options_ui_FieldInterface[]
+     * @var tubepress_api_options_ui_FieldInterface[]
      */
     private $_fields;
 
@@ -29,7 +29,7 @@ class tubepress_options_ui_impl_FieldProvider implements tubepress_app_api_optio
     private $_map;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
@@ -53,7 +53,7 @@ class tubepress_options_ui_impl_FieldProvider implements tubepress_app_api_optio
     }
 
     /**
-     * @return tubepress_app_api_options_ui_ElementInterface[] The categories that this field provider supplies.
+     * @return tubepress_api_options_ui_ElementInterface[] The categories that this field provider supplies.
      *
      * @api
      * @since 4.0.0
@@ -64,7 +64,7 @@ class tubepress_options_ui_impl_FieldProvider implements tubepress_app_api_optio
     }
 
     /**
-     * @return tubepress_app_api_options_ui_FieldInterface[] The fields that this field provider provides.
+     * @return tubepress_api_options_ui_FieldInterface[] The fields that this field provider provides.
      *
      * @api
      * @since 4.0.0
@@ -109,7 +109,7 @@ class tubepress_options_ui_impl_FieldProvider implements tubepress_app_api_optio
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

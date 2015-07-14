@@ -12,20 +12,20 @@
 /**
  * Detects TubePress's environment
  */
-class tubepress_environment_impl_Environment implements tubepress_app_api_environment_EnvironmentInterface
+class tubepress_environment_impl_Environment implements tubepress_api_environment_EnvironmentInterface
 {
     /**
-     * tubepress_platform_api_url_UrlInterface The base URL
+     * tubepress_api_url_UrlInterface The base URL
      */
     private static $_PROPERTY_URL_BASE = 'urlBase';
 
     /**
-     * tubepress_platform_api_url_UrlInterface The user content URL
+     * tubepress_api_url_UrlInterface The user content URL
      */
     private static $_PROPERTY_URL_USERCONTENT = 'urlUserContent';
 
     /**
-     * tubepress_platform_api_url_UrlInterface The Ajax endpoint URL
+     * tubepress_api_url_UrlInterface The Ajax endpoint URL
      */
     private static $_PROPERTY_URL_AJAX = 'urlAjax';
 
@@ -40,7 +40,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
     private static $_PROPERTY_IS_PRO = 'isPro';
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
@@ -50,28 +50,28 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
     private $_wpFunctionsInterface;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
-    public function __construct(tubepress_platform_api_url_UrlFactoryInterface    $urlFactory,
-                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
+    public function __construct(tubepress_api_url_UrlFactoryInterface    $urlFactory,
+                                tubepress_api_boot_BootSettingsInterface $bootSettings)
     {
         $this->_urlFactory   = $urlFactory;
         $this->_bootSettings = $bootSettings;
         $this->_properties   = new tubepress_internal_collection_Map();
 
-        $this->_properties->put(self::$_PROPERTY_VERSION, tubepress_platform_api_version_Version::parse('99.99.99'));
+        $this->_properties->put(self::$_PROPERTY_VERSION, tubepress_api_version_Version::parse('99.99.99'));
         $this->_properties->put(self::$_PROPERTY_IS_PRO, false);
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface The base TubePress URL.
+     * @return tubepress_api_url_UrlInterface The base TubePress URL.
      *
      * @throws RuntimeException If the base URL was not set or cannot be determined.
      *
@@ -117,7 +117,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
      *
      * @deprecated Use settings.php instead.
      *
-     * @param string|tubepress_platform_api_url_UrlInterface $url The new base URL.
+     * @param string|tubepress_api_url_UrlInterface $url The new base URL.
      *
      * @throws InvalidArgumentException If unable to parse URL.
      *
@@ -134,7 +134,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface The user content URL.
+     * @return tubepress_api_url_UrlInterface The user content URL.
      *
      * @throws RuntimeException If the user content URL was not set or cannot be determined.
      *
@@ -177,7 +177,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
      *
      * @deprecated Use settings.php instead.
      *
-     * @param string|tubepress_platform_api_url_UrlInterface $url The user content URL.
+     * @param string|tubepress_api_url_UrlInterface $url The user content URL.
      *
      * @throws InvalidArgumentException If unable to parse URL.
      *
@@ -194,7 +194,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface The Ajax endpoint URL.
+     * @return tubepress_api_url_UrlInterface The Ajax endpoint URL.
      *
      * @api
      * @since 4.0.9
@@ -248,7 +248,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
     /**
      * Get the current TubePress version.
      *
-     * @return tubepress_platform_api_version_Version The current version.
+     * @return tubepress_api_version_Version The current version.
      *
      * @api
      * @since 4.0.0
@@ -259,7 +259,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      *
      * @api
      * @since 4.0.0
@@ -286,7 +286,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
 
     private function _toUrl($url)
     {
-        if (!($url instanceof tubepress_platform_api_url_UrlInterface)) {
+        if (!($url instanceof tubepress_api_url_UrlInterface)) {
 
             $url = $this->_urlFactory->fromString($url);
         }

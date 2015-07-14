@@ -15,16 +15,16 @@
 class tubepress_theme_impl_listeners_AcceptableValuesListener
 {
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
-    public function __construct(tubepress_platform_api_contrib_RegistryInterface $themeRegistry)
+    public function __construct(tubepress_api_contrib_RegistryInterface $themeRegistry)
     {
         $this->_themeRegistry = $themeRegistry;
     }
 
-    public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
+    public function onAcceptableValues(tubepress_api_event_EventInterface $event)
     {
         $current = $event->getSubject();
 

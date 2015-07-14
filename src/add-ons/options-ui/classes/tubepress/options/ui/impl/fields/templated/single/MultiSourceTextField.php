@@ -12,15 +12,15 @@
 /**
  * Displays a standard text input.
  */
-class tubepress_options_ui_impl_fields_templated_single_MultiSourceTextField extends tubepress_options_ui_impl_fields_templated_single_TextField implements tubepress_app_api_options_ui_MultiSourceFieldInterface
+class tubepress_options_ui_impl_fields_templated_single_MultiSourceTextField extends tubepress_options_ui_impl_fields_templated_single_TextField implements tubepress_api_options_ui_MultiSourceFieldInterface
 {
     /**
      * @param $prefix
-     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     * @param tubepress_api_options_PersistenceInterface $persistence
      *
-     * @return tubepress_app_api_options_ui_FieldInterface
+     * @return tubepress_api_options_ui_FieldInterface
      */
-    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {
         $optionName      = $this->getOptionName();
         $requestParams   = $this->getHttpRequestParameters();

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_listeners_html_WpHtmlListener
  */
-class tubepress_test_wordpress_impl_listeners_html_WpHtmlListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_html_WpHtmlListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_listeners_html_WpHtmlListener
@@ -26,7 +26,7 @@ class tubepress_test_wordpress_impl_listeners_html_WpHtmlListenerTest extends tu
 
     public function testOnTemplatePreRender()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
         $mockEvent->shouldReceive('setSubject')->once()->with(array(
             'urls' => array()

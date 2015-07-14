@@ -15,29 +15,29 @@
 class tubepress_single_impl_listeners_SingleItemListener
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_media_CollectorInterface
+     * @var tubepress_api_media_CollectorInterface
      */
     private $_collector;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
-                                tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_app_api_media_CollectorInterface     $collector,
-                                tubepress_lib_api_template_TemplatingInterface $templating)
+    public function __construct(tubepress_api_log_LoggerInterface          $logger,
+                                tubepress_api_options_ContextInterface     $context,
+                                tubepress_api_media_CollectorInterface     $collector,
+                                tubepress_api_template_TemplatingInterface $templating)
     {
         $this->_logger     = $logger;
         $this->_context    = $context;
@@ -45,9 +45,9 @@ class tubepress_single_impl_listeners_SingleItemListener
         $this->_templating = $templating;
     }
 
-    public function onHtmlGeneration(tubepress_lib_api_event_EventInterface $event)
+    public function onHtmlGeneration(tubepress_api_event_EventInterface $event)
     {
-        $mediaItemId = $this->_context->get(tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID);
+        $mediaItemId = $this->_context->get(tubepress_api_options_Names::SINGLE_MEDIA_ITEM_ID);
 
         if ($mediaItemId == '') {
 

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_internal_contrib_AbstractContributable implements tubepress_platform_api_contrib_ContributableInterface
+abstract class tubepress_internal_contrib_AbstractContributable implements tubepress_api_contrib_ContributableInterface
 {
     /**
      * Required attributes.
@@ -35,7 +35,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     private static $_PROPERTY_URL_SOURCE        = 'urlSource';
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
@@ -70,7 +70,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_version_Version Required. The version of this contributable.
+     * @return tubepress_api_version_Version Required. The version of this contributable.
      *
      * @api
      * @since 4.0.0
@@ -97,7 +97,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
      *
      *               key 'name'  : required, string
      *               key 'email' : optional, string
-     *               key 'url'   : optional, tubepress_platform_api_url_UrlInterface
+     *               key 'url'   : optional, tubepress_api_url_UrlInterface
      *
      * @api
      * @since 4.0.0
@@ -108,10 +108,10 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface Required. The license which may contain the following
+     * @return tubepress_api_collection_MapInterface Required. The license which may contain the following
      *                                                        property names.
      *
-     *               key 'urls' : required, tubepress_platform_api_url_UrlInterface[]. URL(s) to the license(s) text.
+     *               key 'urls' : required, tubepress_api_url_UrlInterface[]. URL(s) to the license(s) text.
      *               key 'type' : required, string. An identifier to indicate to developer's the general license type.
      *                            Consider using one of http://www.opensource.org/licenses/alphabetical.
      *
@@ -151,7 +151,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the contributable's homepage. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to the contributable's homepage. May be null.
      *
      * @api
      * @since 4.0.0
@@ -162,7 +162,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the contributable's documentation. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to the contributable's documentation. May be null.
      *
      * @api
      * @since 4.0.0
@@ -173,7 +173,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to a live demo of the contributable. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to a live demo of the contributable. May be null.
      *
      * @api
      * @since 4.0.0
@@ -184,7 +184,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to a download URL. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to a download URL. May be null.
      *
      * @api
      * @since 4.0.0
@@ -195,7 +195,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to a bug tracker for this contributable. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to a bug tracker for this contributable. May be null.
      *
      * @api
      * @since 4.0.0
@@ -206,7 +206,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the source code for this contributable. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to the source code for this contributable. May be null.
      *
      * @api
      * @since 4.0.0
@@ -217,7 +217,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the support forum for this contributable. May be null.
+     * @return tubepress_api_url_UrlInterface Optional. A link to the support forum for this contributable. May be null.
      *
      * @api
      * @since 4.0.0
@@ -230,7 +230,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     /**
      * @return array Optional. One or more screenshots of this contributable.
      *
-     *               Each element of this array is an array of two tubepress_platform_api_url_UrlInterface instances
+     *               Each element of this array is an array of two tubepress_api_url_UrlInterface instances
      *               that represent the screenshot.
      *
      *               The first URL points to the thumbnail version of the image pointed to by the second URL.
@@ -246,7 +246,7 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      *
      * @api
      * @since 4.0.0
@@ -271,37 +271,37 @@ abstract class tubepress_internal_contrib_AbstractContributable implements tubep
         $this->_properties->put(self::$_PROPERTY_SCREENSHOTS, $screenshots);
     }
 
-    public function setBugTrackerUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setBugTrackerUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_BUGS, $url);
     }
 
-    public function setDemoUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setDemoUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_DEMO, $url);
     }
 
-    public function setDownloadUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setDownloadUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_DOWNLOAD, $url);
     }
 
-    public function setHomepageUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setHomepageUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_HOMEPAGE, $url);
     }
 
-    public function setDocumentationUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setDocumentationUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_DOCUMENTATION, $url);
     }
 
-    public function setSourceUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setSourceUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_SOURCE, $url);
     }
 
-    public function setForumUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setForumUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_properties->put(self::$_PROPERTY_URL_FORUM, $url);
     }

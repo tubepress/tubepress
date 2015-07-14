@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo2_impl_listeners_media_HttpItemListener
  */
-class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo2_impl_listeners_media_HttpItemListener
@@ -31,8 +31,8 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
 
     public function onSetup()
     {
-        $this->_mockExecutionContext   = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockAttributeFormatter = $this->mock(tubepress_app_api_media_AttributeFormatterInterface::_);
+        $this->_mockExecutionContext   = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockAttributeFormatter = $this->mock(tubepress_api_media_AttributeFormatterInterface::_);
 
         $this->_sut = new tubepress_vimeo2_impl_listeners_media_HttpItemListener(
 
@@ -48,17 +48,17 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
         $this->_sut->onHttpItem($event);
 
         $video = $event->getSubject();
-        $this->assertTrue($video instanceof tubepress_app_api_media_MediaItem);
-        $this->assertEquals('Nunca Silva', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME));
-        $this->assertEquals('nuncasilva', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID));
-        $this->assertEquals('The assumption that most hobby fishermen are individuals of limited fashion sense is groundless, demonstrated by this man who has colour-coordinated his shirt and his hat with the light blue background of the lake.', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION));
-        $this->assertEquals('61', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS));
-        $this->assertEquals('http://vimeo.com/49078748', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL));
-        $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL));
-        $this->assertEquals('1347129000', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE));
-        $this->assertEquals('96321', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT));
-        $this->assertEquals('6', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT));
+        $this->assertTrue($video instanceof tubepress_api_media_MediaItem);
+        $this->assertEquals('Nunca Silva', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME));
+        $this->assertEquals('nuncasilva', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID));
+        $this->assertEquals('The assumption that most hobby fishermen are individuals of limited fashion sense is groundless, demonstrated by this man who has colour-coordinated his shirt and his hat with the light blue background of the lake.', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION));
+        $this->assertEquals('61', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS));
+        $this->assertEquals('http://vimeo.com/49078748', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL));
+        $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL));
+        $this->assertEquals('1347129000', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
+        $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_TITLE));
+        $this->assertEquals('96321', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT));
+        $this->assertEquals('6', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT));
     }
 
     public function singleVideoXml()
@@ -81,10 +81,10 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
 
     private function _prepareEvent($feed, $index)
     {
-        $item = new tubepress_app_api_media_MediaItem('id');
-        $mockProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
+        $item = new tubepress_api_media_MediaItem('id');
+        $mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
         $mockProvider->shouldReceive('getName')->andReturn('vimeo');
-        $item->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockProvider);
+        $item->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockProvider);
 
         $unserialized = @unserialize($feed);
         $videoArray   = array();
@@ -107,17 +107,17 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
         $event->setArgument('zeroBasedIndex', $index);
 
         $this->_mockAttributeFormatter->shouldReceive('formatNumberAttribute')->once()->with($item,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT, tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT, tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT, 0);
         $this->_mockAttributeFormatter->shouldReceive('formatNumberAttribute')->once()->with($item,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, 0);
         $this->_mockAttributeFormatter->shouldReceive('truncateStringAttribute')->once()->with($item,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION, tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION, tubepress_app_api_options_Names::META_DESC_LIMIT);
+            tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION, tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION, tubepress_api_options_Names::META_DESC_LIMIT);
         $this->_mockAttributeFormatter->shouldReceive('formatDurationAttribute')->once()->with($item,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS, tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED);
+            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS, tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED);
         $this->_mockAttributeFormatter->shouldReceive('formatDateAttribute')->once()->with($item,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME, tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED);
+            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME, tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED);
         $this->_mockAttributeFormatter->shouldReceive('implodeArrayAttribute')->once()->with($item,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY, tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ');
+            tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY, tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ');
         
         return $event;
     }

@@ -12,7 +12,7 @@
 class tubepress_wordpress_impl_Callback
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
@@ -22,17 +22,17 @@ class tubepress_wordpress_impl_Callback
     private $_activationHook;
 
     /**
-     * @var tubepress_app_api_html_HtmlGeneratorInterface
+     * @var tubepress_api_html_HtmlGeneratorInterface
      */
     private $_htmlGenerator;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionsReference;
 
@@ -41,11 +41,11 @@ class tubepress_wordpress_impl_Callback
      */
     private $_optionMapCache;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_app_api_options_ContextInterface         $context,
-                                tubepress_app_api_html_HtmlGeneratorInterface      $htmlGenerator,
-                                tubepress_app_api_options_ReferenceInterface       $optionsReference,
-                                tubepress_wordpress_impl_wp_ActivationHook         $activationHook)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_options_ContextInterface       $context,
+                                tubepress_api_html_HtmlGeneratorInterface    $htmlGenerator,
+                                tubepress_api_options_ReferenceInterface     $optionsReference,
+                                tubepress_wordpress_impl_wp_ActivationHook   $activationHook)
     {
         $this->_eventDispatcher  = $eventDispatcher;
         $this->_activationHook   = $activationHook;
@@ -111,7 +111,7 @@ class tubepress_wordpress_impl_Callback
             $innerContent = null;
         }
 
-        $name      = $this->_context->get(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+        $name      = $this->_context->get(tubepress_api_options_Names::SHORTCODE_KEYWORD);
         $shortcode = new tubepress_internal_shortcode_Shortcode($name, $normalizedOptions, $innerContent);
 
         return $this->_eventDispatcher->newEventInstance($shortcode);

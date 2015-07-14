@@ -12,17 +12,17 @@
 /**
  * Finds registered listeners and adds them to the event dispatcher.
  */
-class tubepress_ioc_compiler_TaggedServicesConsumerPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_ioc_compiler_TaggedServicesConsumerPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
      * @since 4.0.0
      */
-    public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $consumerIds = $containerBuilder->findTaggedServiceIds(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER);
+        $consumerIds = $containerBuilder->findTaggedServiceIds(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER);
 
         foreach ($consumerIds as $consumerId => $tags) {
 
@@ -59,7 +59,7 @@ class tubepress_ioc_compiler_TaggedServicesConsumerPass implements tubepress_pla
 
         foreach ($matchingServiceIdsToTagData as $id => $attributes) {
 
-            $references[] = new tubepress_platform_api_ioc_Reference($id);
+            $references[] = new tubepress_api_ioc_Reference($id);
         }
 
         return $references;

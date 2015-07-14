@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
  */
-class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
@@ -51,12 +51,12 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
 
     public function onSetup()
     {
-        $this->_mockEvent                       = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEvent                       = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockWpFunctionWrapper           = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockStorageManager              = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $this->_mockFormHandler                 = $this->mock('tubepress_app_api_options_ui_FormInterface');
-        $this->_mockEnvironmentDetector         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockHttpRequestParameterService = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockStorageManager              = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $this->_mockFormHandler                 = $this->mock('tubepress_api_options_ui_FormInterface');
+        $this->_mockEnvironmentDetector         = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener(
 

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_cache_api_impl_listeners_ApiCacheListener
  */
-class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_cache_api_impl_listeners_ApiCacheListener
@@ -67,14 +67,14 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
     public function onSetup()
     {
         $this->_mockApiCache  = $this->mock('ehough_stash_interfaces_PoolInterface');
-        $this->_mockLogger    = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockContext   = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockEvent     = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockRequest   = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $this->_mockResponse  = $this->mock('tubepress_lib_api_http_message_ResponseInterface');
-        $this->_mockUrl       = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $this->_mockUrl       = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $this->_mockBody      = $this->mock('tubepress_lib_api_streams_StreamInterface');
+        $this->_mockLogger    = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockContext   = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockEvent     = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockRequest   = $this->mock('tubepress_api_http_message_RequestInterface');
+        $this->_mockResponse  = $this->mock('tubepress_api_http_message_ResponseInterface');
+        $this->_mockUrl       = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrl       = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_mockBody      = $this->mock('tubepress_api_streams_StreamInterface');
         $this->_mockCacheItem = $this->mock('ehough_stash_interfaces_ItemInterface');
         $this->_sut           = new tubepress_cache_api_impl_listeners_ApiCacheListener(
 
@@ -89,7 +89,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
      */
     public function testNonApiCall($method, $request)
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_ENABLED)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_ENABLED)->andReturn(true);
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_setupRequestFromEvent($request);
         $this->_mockRequest->shouldReceive('getConfig')->once()->andReturn(array());
@@ -111,7 +111,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
      */
     public function testCacheDisabled($method, $request)
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_ENABLED)->andReturn(false);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_ENABLED)->andReturn(false);
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->once()->with('Skip API cache for debugging.');
         $this->_setupRequestFromEvent($request);
@@ -139,7 +139,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
 
         $this->_mockEvent->shouldReceive('setArgument')->once()->with('response', ehough_mockery_Mockery::on(function ($response) {
 
-            return $response instanceof tubepress_lib_api_http_message_ResponseInterface;
+            return $response instanceof tubepress_api_http_message_ResponseInterface;
         }));
         $this->_mockEvent->shouldReceive('stopPropagation')->once();
 
@@ -162,14 +162,14 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
     {
         $this->_setupForExecution(false);
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR)->andReturn(PHP_INT_MAX);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_CLEANING_FACTOR)->andReturn(PHP_INT_MAX);
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockResponse);
         $this->_mockResponse->shouldReceive('getBody')->once()->andReturn($this->_mockBody);
         $this->_mockBody->shouldReceive('toString')->once()->andReturn('abc');
         $this->_mockLogger->shouldReceive('error')->once()->with('Unable to store data to cache');
         $this->_mockApiCache->shouldReceive('getItem')->once()->with('<url>')->andReturn($this->_mockCacheItem);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS)->andReturn(44);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_LIFETIME_SECONDS)->andReturn(44);
         $this->_mockCacheItem->shouldReceive('set')->once()->with('abc', 44)->andReturn(false);
 
         $this->_mockResponse->shouldReceive('hasHeader')->once()->with('TubePress-API-Cache-Hit')->andReturn(false);
@@ -181,13 +181,13 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
     {
         $this->_setupForExecution(false);
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR)->andReturn(1);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_CLEANING_FACTOR)->andReturn(1);
         $this->_mockApiCache->shouldReceive('flush')->once();
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockResponse);
         $this->_mockResponse->shouldReceive('getBody')->once()->andReturn($this->_mockBody);
         $this->_mockBody->shouldReceive('toString')->once()->andReturn('abc');
         $this->_mockApiCache->shouldReceive('getItem')->once()->with('<url>')->andReturn($this->_mockCacheItem);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS)->andReturn(44);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_LIFETIME_SECONDS)->andReturn(44);
         $this->_mockCacheItem->shouldReceive('set')->once()->with('abc', 44)->andReturn(true);
 
         $this->_mockResponse->shouldReceive('hasHeader')->once()->with('TubePress-API-Cache-Hit')->andReturn(false);
@@ -207,7 +207,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
     private function _setupForExecution($request)
     {
         $this->_setupRequestFromEvent($request);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_ENABLED)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::CACHE_ENABLED)->andReturn(true);
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockEvent->shouldReceive('getArgument')->atLeast(1)->with('request')->andReturn($this->_mockRequest);
         $this->_mockRequest->shouldReceive('getConfig')->once()->andReturn(array('tubepress-remote-api-call' => true));

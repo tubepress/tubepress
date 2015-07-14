@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
  */
-class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
@@ -67,14 +67,14 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockMessageService           = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
-        $this->_mockHtmlGenerator            = $this->mock(tubepress_app_api_html_HtmlGeneratorInterface::_);
-        $this->_mockStringUtils              = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockEventDispatcher          = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockAjaxHandler              = $this->mock(tubepress_lib_api_http_AjaxInterface::_);
-        $this->_mockHttpRequestParams        = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockTranslator               = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
-        $this->_mockEnvironment              = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockMessageService           = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockHtmlGenerator            = $this->mock(tubepress_api_html_HtmlGeneratorInterface::_);
+        $this->_mockStringUtils              = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockEventDispatcher          = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockAjaxHandler              = $this->mock(tubepress_api_http_AjaxInterface::_);
+        $this->_mockHttpRequestParams        = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockTranslator               = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockEnvironment              = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters(
 
@@ -100,7 +100,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_widget_control')->once()->with('tubepress', 'TubePress (legacy)', array($this->_sut, '__fireWidgetControlEvent'));
         $this->_mockWordPressFunctionWrapper->shouldReceive('register_widget')->once()->with('tubepress_wordpress_impl_wp_WpWidget');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('hasArgument')->once()->with('unit-testing')->andReturn(true);
         $this->_sut->onAction_widgets_init($mockEvent);
         $this->assertTrue(true);
@@ -110,7 +110,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
     {
         $this->_mockWordPressFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(true);
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_sut->onAction_wp_head($mockEvent);
         $this->assertTrue(true);
     }
@@ -125,7 +125,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
         $this->expectOutputString('hello theregoodbye now');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_sut->onAction_wp_head($mockEvent);
 
         $this->assertTrue(true);
@@ -143,7 +143,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
     public function testPrintWidgetHtml()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(1))->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
             tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML, $mockEvent);
@@ -155,13 +155,13 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
     public function testInitAction()
     {
-        $mockSysJsUrl        = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockSystemStyleUrl  = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockUserStyleUrl    = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockSystemScriptUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockUserScriptUrl   = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockBaseUrl         = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockUserUrl         = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockSysJsUrl        = $this->mock('tubepress_api_url_UrlInterface');
+        $mockSystemStyleUrl  = $this->mock('tubepress_api_url_UrlInterface');
+        $mockUserStyleUrl    = $this->mock('tubepress_api_url_UrlInterface');
+        $mockSystemScriptUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $mockUserScriptUrl   = $this->mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl         = $this->mock('tubepress_api_url_UrlInterface');
+        $mockUserUrl         = $this->mock('tubepress_api_url_UrlInterface');
 
         $mockBaseUrl->shouldReceive('toString')->once()->andReturn('--base-url--');
         $mockUserUrl->shouldReceive('toString')->once()->andReturn('--user-url--');
@@ -179,7 +179,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
         $themeStyles  = array($mockSystemStyleUrl, $mockUserStyleUrl);
         $themeScripts = array($mockSysJsUrl, $mockSystemScriptUrl, $mockUserScriptUrl);
-        $mockVersion = $this->mock('tubepress_platform_api_version_Version');
+        $mockVersion = $this->mock('tubepress_api_version_Version');
         $mockVersion->shouldReceive('__toString')->atLeast(1)->andReturn('tubepress-version');
 
         $this->_mockEnvironment->shouldReceive('getVersion')->once()->andReturn($mockVersion);
@@ -224,7 +224,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--user-url--/something/user-script-url', '--base-url--/web/')->andReturn(false);
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--user-url--/something/user-script-url', '--user-url--/')->andReturn(true);
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_sut->onAction_init($mockEvent);
         $this->assertTrue(true);
     }

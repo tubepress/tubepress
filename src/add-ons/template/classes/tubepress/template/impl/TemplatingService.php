@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_template_impl_TemplatingService implements tubepress_lib_api_template_TemplatingInterface
+class tubepress_template_impl_TemplatingService implements tubepress_api_template_TemplatingInterface
 {
     /**
      * @var ehough_templating_EngineInterface
@@ -20,12 +20,12 @@ class tubepress_template_impl_TemplatingService implements tubepress_lib_api_tem
     private $_delegate;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(ehough_templating_EngineInterface                $delegate,
-                                tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(ehough_templating_EngineInterface            $delegate,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_delegate        = $delegate;
         $this->_eventDispatcher = $eventDispatcher;
@@ -45,14 +45,14 @@ class tubepress_template_impl_TemplatingService implements tubepress_lib_api_tem
          * First dispatch the template name.
          */
         $nameSelectionEvent = $this->_eventDispatcher->newEventInstance($originalTemplateName, $templateVars);
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_SELECT . ".$originalTemplateName", $nameSelectionEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::TEMPLATE_SELECT . ".$originalTemplateName", $nameSelectionEvent);
         $newTemplateName = $nameSelectionEvent->getSubject();
 
         /**
          * Fire the pre-render event for the original name.
          */
         $preRenderEvent = $this->_eventDispatcher->newEventInstance($nameSelectionEvent->getArguments());
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$originalTemplateName", $preRenderEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::TEMPLATE_PRE_RENDER . ".$originalTemplateName", $preRenderEvent);
 
         if ($originalTemplateName !== $newTemplateName) {
 
@@ -60,7 +60,7 @@ class tubepress_template_impl_TemplatingService implements tubepress_lib_api_tem
              * Fire the pre-render event for the new name.
              */
             $preRenderEvent = $this->_eventDispatcher->newEventInstance($preRenderEvent->getSubject());
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$newTemplateName", $preRenderEvent);
+            $this->_eventDispatcher->dispatch(tubepress_api_event_Events::TEMPLATE_PRE_RENDER . ".$newTemplateName", $preRenderEvent);
         }
 
         /**
@@ -74,7 +74,7 @@ class tubepress_template_impl_TemplatingService implements tubepress_lib_api_tem
              * Fire the post-render event.
              */
             $newPostRenderEvent = $this->_eventDispatcher->newEventInstance($result, $preRenderEvent->getSubject());
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$newTemplateName", $newPostRenderEvent);
+            $this->_eventDispatcher->dispatch(tubepress_api_event_Events::TEMPLATE_POST_RENDER . ".$newTemplateName", $newPostRenderEvent);
             $result = $newPostRenderEvent->getSubject();
         }
 
@@ -82,7 +82,7 @@ class tubepress_template_impl_TemplatingService implements tubepress_lib_api_tem
          * Fire the post-render event.
          */
         $originalPostRenderEvent = $this->_eventDispatcher->newEventInstance($result, $preRenderEvent->getSubject());
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$originalTemplateName", $originalPostRenderEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::TEMPLATE_POST_RENDER . ".$originalTemplateName", $originalPostRenderEvent);
 
         return $originalPostRenderEvent->getSubject();
     }

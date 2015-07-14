@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_logger_impl_HtmlLogger implements tubepress_platform_api_log_LoggerInterface
+class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterface
 {
     /**
      * @var boolean
@@ -34,11 +34,11 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_platform_api_log_Log
      */
     private $_timezone;
 
-    public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
         $loggingRequested         = $requestParams->hasParam('tubepress_debug') && $requestParams->getParamValue('tubepress_debug') === true;
-        $loggingEnabled           = $context->get(tubepress_app_api_options_Names::DEBUG_ON);
+        $loggingEnabled           = $context->get(tubepress_api_options_Names::DEBUG_ON);
         $this->_enabled           = $loggingRequested && $loggingEnabled;
         $this->_bootMessageBuffer = array();
         $this->_shouldBuffer      = true;

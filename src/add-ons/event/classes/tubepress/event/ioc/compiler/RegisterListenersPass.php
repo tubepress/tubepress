@@ -12,23 +12,23 @@
 /**
  * Finds registered listeners and adds them to the event dispatcher.
  */
-class tubepress_event_ioc_compiler_RegisterListenersPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_event_ioc_compiler_RegisterListenersPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
      * @since 4.0.0
      */
-    public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        if (!$containerBuilder->hasDefinition(tubepress_lib_api_event_EventDispatcherInterface::_)) {
+        if (!$containerBuilder->hasDefinition(tubepress_api_event_EventDispatcherInterface::_)) {
 
             return;
         }
 
-        $eventDispatcherDefinition = $containerBuilder->getDefinition(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $listenerServiceIds        = $containerBuilder->findTaggedServiceIds(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER);
+        $eventDispatcherDefinition = $containerBuilder->getDefinition(tubepress_api_event_EventDispatcherInterface::_);
+        $listenerServiceIds        = $containerBuilder->findTaggedServiceIds(tubepress_api_ioc_ServiceTags::EVENT_LISTENER);
 
         foreach ($listenerServiceIds as $serviceId => $events) {
 
@@ -39,7 +39,7 @@ class tubepress_event_ioc_compiler_RegisterListenersPass implements tubepress_pl
                 if (!isset($event['event'])) {
 
                     throw new InvalidArgumentException(sprintf('Service "%s" must define the "event" attribute on "%s" tags.',
-                        $serviceId, tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER));
+                        $serviceId, tubepress_api_ioc_ServiceTags::EVENT_LISTENER));
                 }
 
                 if (!isset($event['method'])) {

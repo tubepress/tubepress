@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_gallery_impl_listeners_PaginationListener
  */
-class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_gallery_impl_listeners_PaginationListener
@@ -20,7 +20,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
     private $_sut;
 
     /**
-     * @var tubepress_app_api_media_MediaPage
+     * @var tubepress_api_media_MediaPage
      */
     private $_mockMediaPage;
 
@@ -71,24 +71,24 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
 
     public function onSetup()
     {
-        $this->_mockContext             = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockUrlFactory          = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockRequestParams       = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
+        $this->_mockContext             = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockUrlFactory          = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockRequestParams       = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockTemplating          = $this->mock(tubepress_api_template_TemplatingInterface::_);
         $this->_mockCurrentThemeService = $this->mock('tubepress_theme_impl_CurrentThemeService');
-        $this->_mockTranslator          = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
-        $this->_mockCurrentTheme        = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $this->_mockTranslator          = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockCurrentTheme        = $this->mock(tubepress_api_theme_ThemeInterface::_);
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE)->andReturn(true);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW)->andReturn(true);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE)->andReturnNull();
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE)->andReturn(4);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_PAGINATE_BELOW)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE)->andReturnNull();
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE)->andReturn(4);
 
-        $this->_mockMediaPage = new tubepress_app_api_media_MediaPage();
+        $this->_mockMediaPage = new tubepress_api_media_MediaPage();
         $this->_mockMediaPage->setTotalResultCount(500);
 
-        $this->_mockFullUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $this->_mockFullQuery = $this->mock('tubepress_platform_api_url_QueryInterface');
+        $this->_mockFullUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_mockFullQuery = $this->mock('tubepress_api_url_QueryInterface');
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($this->_mockFullUrl);
 
         $this->_mockTranslator->shouldReceive('trans')->atLeast(1)->andReturnUsing(function ($original) {
@@ -114,10 +114,10 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
         $this->_mockCurrentTheme->shouldReceive('getParentThemeName')->twice()->andReturn(null);
         $newTemplateVars = array(
 
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => 25,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_TOTAL_ITEMS         => 500,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_HREF_FORMAT         => 'foobar',
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_RESULTS_PER_PAGE    => 4,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => 25,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_TOTAL_ITEMS         => 500,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_HREF_FORMAT         => 'foobar',
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_RESULTS_PER_PAGE    => 4,
         );
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('gallery/pagination', $newTemplateVars)->andReturn('foo');
 
@@ -199,14 +199,14 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
     {
         $initial = array(
             'abc' => 'xyz',
-            tubepress_app_api_template_VariableNames::MEDIA_PAGE => $this->_mockMediaPage,
+            tubepress_api_template_VariableNames::MEDIA_PAGE => $this->_mockMediaPage,
         );
         $final   = array(
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_HTML        => $finalPaginationHtml,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP    => true,
-            tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM => true,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_HTML        => $finalPaginationHtml,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP    => true,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM => true,
         );
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn($initial);
         $event->shouldReceive('getArgument')->with('pageNumber')->andReturn(1);
         $event->shouldReceive('setSubject')->once()->with(array_merge($initial, $final));

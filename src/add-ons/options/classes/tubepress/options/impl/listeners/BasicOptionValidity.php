@@ -15,29 +15,29 @@
 class tubepress_options_impl_listeners_BasicOptionValidity
 {
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionsReference;
 
     /**
-     * @var tubepress_app_api_options_AcceptableValuesInterface
+     * @var tubepress_api_options_AcceptableValuesInterface
      */
     private $_acceptableValues;
 
     /**
-     * @var tubepress_platform_api_util_LangUtilsInterface
+     * @var tubepress_api_util_LangUtilsInterface
      */
     private $_langUtils;
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
-    public function __construct(tubepress_app_api_options_ReferenceInterface        $optionsReference,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
-                                tubepress_lib_api_translation_TranslatorInterface   $translator,
-                                tubepress_platform_api_util_LangUtilsInterface               $langUtils)
+    public function __construct(tubepress_api_options_ReferenceInterface        $optionsReference,
+                                tubepress_api_options_AcceptableValuesInterface $acceptableValues,
+                                tubepress_api_translation_TranslatorInterface   $translator,
+                                tubepress_api_util_LangUtilsInterface           $langUtils)
     {
         $this->_optionsReference = $optionsReference;
         $this->_acceptableValues = $acceptableValues;
@@ -45,7 +45,7 @@ class tubepress_options_impl_listeners_BasicOptionValidity
         $this->_translator       = $translator;
     }
 
-    public function onOption(tubepress_lib_api_event_EventInterface $event)
+    public function onOption(tubepress_api_event_EventInterface $event)
     {
         $errors      = $event->getSubject();
         $optionName  = $event->getArgument('optionName');

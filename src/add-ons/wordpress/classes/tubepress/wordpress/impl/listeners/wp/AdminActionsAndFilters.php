@@ -30,47 +30,47 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
     private $_ignoreExceptions = true;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_httpRequestParams;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_app_api_options_ui_FormInterface
+     * @var tubepress_api_options_ui_FormInterface
      */
     private $_form;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_urlCache;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
-                                tubepress_platform_api_url_UrlFactoryInterface     $urlFactory,
-                                tubepress_lib_api_http_RequestParametersInterface  $requestParams,
-                                tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_app_api_options_ui_FormInterface         $form,
-                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils,
-                                tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions        $wpFunctions,
+                                tubepress_api_url_UrlFactoryInterface          $urlFactory,
+                                tubepress_api_http_RequestParametersInterface  $requestParams,
+                                tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_api_options_ui_FormInterface         $form,
+                                tubepress_api_util_StringUtilsInterface        $stringUtils,
+                                tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_wpFunctions       = $wpFunctions;
         $this->_urlFactory        = $urlFactory;
@@ -84,7 +84,7 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
     /**
      * Filter the content (which may be empty).
      */
-    public function onAction_admin_notices(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_admin_notices(tubepress_api_event_EventInterface $event)
     {
         if (class_exists('TubePressServiceContainer', false)) {
 
@@ -200,7 +200,7 @@ EOT;
     /**
      * Filter the content (which may be empty).
      */
-    public function onAction_admin_menu(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_admin_menu(tubepress_api_event_EventInterface $event)
     {
         $this->_wpFunctions->add_options_page('TubePress Options', 'TubePress', 'manage_options',
             'tubepress', array($this, '__fireOptionsPageEvent'));
@@ -214,7 +214,7 @@ EOT;
     /**
      * Filter the content (which may be empty).
      */
-    public function onAction_admin_head(tubepress_lib_api_event_EventInterface $event)
+    public function onAction_admin_head(tubepress_api_event_EventInterface $event)
     {
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">';
     }
@@ -222,7 +222,7 @@ EOT;
     /**
      * Filter the content (which may be empty).
      */
-    public function onFilter_row_meta(tubepress_lib_api_event_EventInterface $event)
+    public function onFilter_row_meta(tubepress_api_event_EventInterface $event)
     {
         $links = $event->getSubject();
         $args  = $event->getArgument('args');
@@ -244,7 +244,7 @@ EOT;
         $event->setSubject($toReturn);
     }
 
-    public function onFilter_PucRequestInfoQueryArgsTubePress(tubepress_lib_api_event_EventInterface $event)
+    public function onFilter_PucRequestInfoQueryArgsTubePress(tubepress_api_event_EventInterface $event)
     {
         $queryArgs = $event->getSubject();
 
@@ -256,7 +256,7 @@ EOT;
         $event->setSubject($queryArgs);
     }
 
-    public function onFilter_PucRequestInfoResultTubePress(tubepress_lib_api_event_EventInterface $event)
+    public function onFilter_PucRequestInfoResultTubePress(tubepress_api_event_EventInterface $event)
     {
         $pluginInfo = $event->getSubject();
 
@@ -274,7 +274,7 @@ EOT;
     /**
      * Filter the content (which may be empty).
      */
-    public function onAction_admin_enqueue_scripts(tubepress_lib_api_event_EventInterface $eventInterface)
+    public function onAction_admin_enqueue_scripts(tubepress_api_event_EventInterface $eventInterface)
     {
         $args = $eventInterface->getSubject();
         $hook = $args[0];
@@ -304,7 +304,7 @@ EOT;
         }
     }
 
-    public function __callbackConvertToWpUrlString(tubepress_platform_api_url_UrlInterface $url)
+    public function __callbackConvertToWpUrlString(tubepress_api_url_UrlInterface $url)
     {
         if ($url->isAbsolute()) {
 

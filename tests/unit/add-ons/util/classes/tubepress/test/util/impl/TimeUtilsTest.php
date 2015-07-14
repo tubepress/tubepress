@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_util_impl_TimeUtils
  */
-class tubepress_test_util_impl_TimeUtilsTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_util_impl_TimeUtilsTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_util_impl_TimeUtils

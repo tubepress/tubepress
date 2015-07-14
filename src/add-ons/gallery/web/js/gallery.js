@@ -68,7 +68,7 @@
  * {
  *     "galleryId" : 123456789,
  *     "itemId"    : "ekv9384jJD"
- *     "mediaItem" : { ... },            //a dictionary representing the backing tubepress_app_api_media_MediaItem attributes
+ *     "mediaItem" : { ... },            //a dictionary representing the backing tubepress_api_media_MediaItem attributes
  *     "html"      : " ... "             //the HTML for this player
  * }
  */

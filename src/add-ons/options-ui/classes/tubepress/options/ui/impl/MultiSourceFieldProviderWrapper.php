@@ -11,10 +11,10 @@
 
 /**
  */
-class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubepress_app_api_options_ui_FieldProviderInterface
+class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubepress_api_options_ui_FieldProviderInterface
 {
     /**
-     * @var tubepress_app_api_options_ui_FieldProviderInterface
+     * @var tubepress_api_options_ui_FieldProviderInterface
      */
     private $_delegate;
 
@@ -24,11 +24,11 @@ class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubep
     private $_id;
 
     /**
-     * @var tubepress_app_api_options_ui_FieldInterface[]
+     * @var tubepress_api_options_ui_FieldInterface[]
      */
     private $_fields;
 
-    public function __construct(tubepress_app_api_options_ui_FieldProviderInterface $delegate,
+    public function __construct(tubepress_api_options_ui_FieldProviderInterface $delegate,
                                 array $fields)
     {
         $this->_delegate = $delegate;
@@ -48,7 +48,7 @@ class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -81,7 +81,7 @@ class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubep
     }
 
     /**
-     * @return tubepress_app_api_options_ui_ElementInterface[] The categories that this field provider supplies.
+     * @return tubepress_api_options_ui_ElementInterface[] The categories that this field provider supplies.
      *
      * @api
      * @since 4.0.0
@@ -92,7 +92,7 @@ class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubep
     }
 
     /**
-     * @return tubepress_app_api_options_ui_FieldInterface[] The fields that this field provider provides.
+     * @return tubepress_api_options_ui_FieldInterface[] The fields that this field provider provides.
      *
      * @api
      * @since 4.0.0

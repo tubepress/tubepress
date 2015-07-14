@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_embedded_common_impl_listeners_EmbeddedListener
  */
-class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_embedded_common_impl_listeners_EmbeddedListener
@@ -46,11 +46,11 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
 
     public function onSetup()
     {
-        $this->_mockContext           = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockTemplating        = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockEmbeddedProvider1 = $this->mock('tubepress_app_api_embedded_EmbeddedProviderInterface');
-        $this->_mockEmbeddedProvider2 = $this->mock('tubepress_app_api_embedded_EmbeddedProviderInterface');
-        $this->_mockIncomingEvent     = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockContext           = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockTemplating        = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockEmbeddedProvider1 = $this->mock('tubepress_spi_embedded_EmbeddedProviderInterface');
+        $this->_mockEmbeddedProvider2 = $this->mock('tubepress_spi_embedded_EmbeddedProviderInterface');
+        $this->_mockIncomingEvent     = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_sut = new tubepress_embedded_common_impl_listeners_EmbeddedListener(
             $this->_mockContext, $this->_mockTemplating
@@ -67,10 +67,10 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
                                                   array $compatibleNames1,
                                                   array $compatibleNames2)
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL)->andReturn($requestedEmbeddedImplName);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL)->andReturn($requestedEmbeddedImplName);
 
-        $mockMediaItem     = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockMediaProvider = $this->mock('tubepress_app_api_media_MediaProvider');
+        $mockMediaItem     = $this->mock('tubepress_api_media_MediaItem');
+        $mockMediaProvider = $this->mock('tubepress_api_media_MediaProvider');
 
         $this->_mockEmbeddedProvider1->shouldReceive('getName')->atLeast(1)->andReturn('provider-1');
         $this->_mockEmbeddedProvider2->shouldReceive('getName')->atLeast(1)->andReturn('provider-2');
@@ -80,9 +80,9 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
 
         $this->_mockEmbeddedProvider2->shouldReceive('getTemplateVariables')->once()->andReturn(array('foo' => 'bar'));
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_WIDTH)->andReturn('embedded-width');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_HEIGHT)->andReturn('embedded-height');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::RESPONSIVE_EMBEDS)->andReturn('responsive');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_WIDTH)->andReturn('embedded-width');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_HEIGHT)->andReturn('embedded-height');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::RESPONSIVE_EMBEDS)->andReturn('responsive');
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('single/embedded', array(
 
@@ -94,12 +94,12 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
             'foo'              => 'bar',
         ))->andReturn('hiya');
 
-        $mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockMediaProvider);
+        $mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockMediaProvider);
         $mockMediaProvider->shouldReceive('getName')->once()->andReturn($mediaProviderName);
 
         $initialTemplateVars = array(
 
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM => $mockMediaItem,
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mockMediaItem,
         );
 
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn($initialTemplateVars);
@@ -126,10 +126,10 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
 
     public function testOnPlayerTemplatePreRenderError()
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL)->andReturn('provider-2');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL)->andReturn('provider-2');
 
-        $mockMediaItem     = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockMediaProvider = $this->mock('tubepress_app_api_media_MediaProvider');
+        $mockMediaItem     = $this->mock('tubepress_api_media_MediaItem');
+        $mockMediaProvider = $this->mock('tubepress_api_media_MediaProvider');
 
         $this->_mockEmbeddedProvider1->shouldReceive('getName')->twice()->andReturn('provider-1');
         $this->_mockEmbeddedProvider2->shouldReceive('getName')->twice()->andReturn('provider-2');
@@ -140,12 +140,12 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
         $this->setExpectedException('RuntimeException', 'No embedded providers could generate HTML for item abc');
         $mockMediaItem->shouldReceive('getId')->once()->andReturn('abc');
 
-        $mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockMediaProvider);
+        $mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockMediaProvider);
         $mockMediaProvider->shouldReceive('getName')->once()->andReturn('provider-name');
 
         $initialTemplateVars = array(
 
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM => $mockMediaItem,
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mockMediaItem,
         );
 
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn($initialTemplateVars);
@@ -184,7 +184,7 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
         $this->_mockEmbeddedProvider1->shouldReceive('getUntranslatedDisplayName')->once()->andReturn('provider 1');
         $this->_mockEmbeddedProvider2->shouldReceive('getUntranslatedDisplayName')->once()->andReturn('provider 2');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array(
             'foo' => 'bar'
         ));

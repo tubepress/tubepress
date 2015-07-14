@@ -12,12 +12,12 @@
 class tubepress_cache_api_impl_listeners_ApiCacheListener
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -26,19 +26,19 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
      */
     private $_apiCache;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface $logger,
-                                tubepress_app_api_options_ContextInterface $context,
-                                ehough_stash_interfaces_PoolInterface      $apiCache)
+    public function __construct(tubepress_api_log_LoggerInterface      $logger,
+                                tubepress_api_options_ContextInterface $context,
+                                ehough_stash_interfaces_PoolInterface  $apiCache)
     {
         $this->_logger   = $logger;
         $this->_context  = $context;
         $this->_apiCache = $apiCache;
     }
 
-    public function onRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onRequest(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $httpRequest tubepress_lib_api_http_message_RequestInterface
+         * @var $httpRequest tubepress_api_http_message_RequestInterface
          */
         $httpRequest = $event->getSubject();
         
@@ -66,10 +66,10 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
         $event->stopPropagation();
     }
 
-    public function onResponse(tubepress_lib_api_event_EventInterface $event)
+    public function onResponse(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $httpRequest tubepress_lib_api_http_message_RequestInterface
+         * @var $httpRequest tubepress_api_http_message_RequestInterface
          */
         $httpRequest = $event->getArgument('request');
 
@@ -79,7 +79,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
         }
 
         /**
-         * @var $httpResponse tubepress_lib_api_http_message_ResponseInterface
+         * @var $httpResponse tubepress_api_http_message_ResponseInterface
          */
         $httpResponse = $event->getSubject();
 
@@ -94,7 +94,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
         $this->_possiblyClearCache();
 
-        $storedSuccessfully = $result->set($body->toString(), intval($this->_context->get(tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS)));
+        $storedSuccessfully = $result->set($body->toString(), intval($this->_context->get(tubepress_api_options_Names::CACHE_LIFETIME_SECONDS)));
 
         if (!$storedSuccessfully) {
 
@@ -107,7 +107,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
     private function _possiblyClearCache()
     {
-        $cleaningFactor = $this->_context->get(tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR);
+        $cleaningFactor = $this->_context->get(tubepress_api_options_Names::CACHE_CLEANING_FACTOR);
         $cleaningFactor = intval($cleaningFactor);
 
         /**
@@ -120,20 +120,20 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     }
 
     /**
-     * @param tubepress_platform_api_url_UrlInterface $url
+     * @param tubepress_api_url_UrlInterface $url
      *
      * @return ehough_stash_interfaces_ItemInterface
      */
-    private function _getItem(tubepress_platform_api_url_UrlInterface $url)
+    private function _getItem(tubepress_api_url_UrlInterface $url)
     {
         $key = str_replace('/', '~', "$url");
 
         return $this->_apiCache->getItem($key);
     }
 
-    private function _shouldExecute(tubepress_lib_api_http_message_RequestInterface $request)
+    private function _shouldExecute(tubepress_api_http_message_RequestInterface $request)
     {
-        $cacheEnabled   = $this->_context->get(tubepress_app_api_options_Names::CACHE_ENABLED);
+        $cacheEnabled   = $this->_context->get(tubepress_api_options_Names::CACHE_ENABLED);
         $isDebugEnabled = $this->_logger->isEnabled();
 
         if ($isDebugEnabled && !$cacheEnabled) {
@@ -154,11 +154,11 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     }
 
     /**
-     * @param tubepress_platform_api_url_UrlInterface $url
+     * @param tubepress_api_url_UrlInterface $url
      *
      * @return ehough_stash_interfaces_ItemInterface
      */
-    private function _getCachedItem(tubepress_platform_api_url_UrlInterface $url)
+    private function _getCachedItem(tubepress_api_url_UrlInterface $url)
     {
         $isDebugEnabled = $this->_logger->isEnabled();
 

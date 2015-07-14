@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo2_impl_media_FeedHandler
  */
-class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo2_impl_media_FeedHandler
@@ -36,9 +36,9 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        $this->_mockExecutionContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockUrlFactory       = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockExecutionContext = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockUrlFactory       = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockLogger           = $this->mock(tubepress_api_log_LoggerInterface::_);
 
         $this->_sut = new tubepress_vimeo2_impl_media_FeedHandler(
 
@@ -109,7 +109,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getInfo&video_id=444333&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForItem('444333');
@@ -120,15 +120,15 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testExecuteGroup()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_GROUP_VALUE => 'eric',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'random',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'random',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.groups.getVideos&group_id=eric&full_response=true&page=1&per_page=20&sort=random&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -139,16 +139,16 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testExecuteCreditedTo()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_CREDITED,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_CREDITED,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_CREDITED_VALUE => 'eric',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'random',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'random',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -159,15 +159,15 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteAlbum()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_ALBUM,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_ALBUM,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_ALBUM_VALUE => 'eric',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.albums.getVideos&album_id=eric&full_response=true&page=1&per_page=20&format=php')->andReturn($mockUrl);
 
 
@@ -179,14 +179,14 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteChannel()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_CHANNEL_VALUE => 'eric',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.channels.getVideos&channel_id=eric&full_response=true&page=1&per_page=20&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -198,16 +198,16 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteSearch()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SEARCH_VALUE => 'eric hough',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'relevance',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'relevance',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret',
-            tubepress_app_api_options_Names::SEARCH_ONLY_USER => '',
+            tubepress_api_options_Names::SEARCH_ONLY_USER => '',
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.search&query=eric+hough&full_response=true&page=1&per_page=20&sort=relevant&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -218,16 +218,16 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteSearchWithUser()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SEARCH_VALUE => 'eric hough',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'relevance',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'relevance',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret',
-            tubepress_app_api_options_Names::SEARCH_ONLY_USER => 'ehough'
+            tubepress_api_options_Names::SEARCH_ONLY_USER => 'ehough'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.search&query=eric+hough&user_id=ehough&full_response=true&page=1&per_page=20&sort=relevant&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -238,15 +238,15 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteAppearsIn()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE => 'eric',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'oldest',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'oldest',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getAppearsIn&user_id=eric&full_response=true&page=1&per_page=20&sort=oldest&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -257,15 +257,15 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteLikes()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_LIKES,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_LIKES,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_LIKES_VALUE => 'eric',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'rating',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'rating',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getLikes&user_id=eric&full_response=true&page=1&per_page=20&sort=most_liked&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);
@@ -276,15 +276,15 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
     public function testexecuteUploadedBy()
     {
         $this->expectOptions(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
-            tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 20,
+            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'eric',
-            tubepress_app_api_options_Names::FEED_ORDER_BY => 'commentCount',
+            tubepress_api_options_Names::FEED_ORDER_BY => 'commentCount',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY => 'vimeokey',
             tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => 'vimeosecret'
         ));
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getUploaded&user_id=eric&full_response=true&page=1&per_page=20&sort=most_commented&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildUrlForPage(1);

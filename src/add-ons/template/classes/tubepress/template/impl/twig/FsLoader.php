@@ -12,7 +12,7 @@
 class tubepress_template_impl_twig_FsLoader extends Twig_Loader_Filesystem
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -21,7 +21,7 @@ class tubepress_template_impl_twig_FsLoader extends Twig_Loader_Filesystem
      */
     private $_shouldLog;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface $logger, array $paths)
+    public function __construct(tubepress_api_log_LoggerInterface $logger, array $paths)
     {
         parent::__construct($paths);
 

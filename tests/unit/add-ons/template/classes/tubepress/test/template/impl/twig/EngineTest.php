@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_template_impl_twig_Engine<extended>
  */
-class tubepress_test_app_impl_template_twig_EngineTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_template_twig_EngineTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_template_impl_twig_Engine

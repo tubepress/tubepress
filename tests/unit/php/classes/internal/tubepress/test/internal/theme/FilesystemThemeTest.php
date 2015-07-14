@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_internal_theme_FilesystemTheme<extended>
  */
-class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_platform_impl_contrib_AbstractContributableTest
+class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_internal_contrib_AbstractContributableTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -26,8 +26,8 @@ class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_p
 
     public function onSetup()
     {
-        $this->_mockBaseUrl        = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $this->_mockUserContentUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $this->_mockBaseUrl        = $this->mock(tubepress_api_url_UrlInterface::_);
+        $this->_mockUserContentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
     }
 
     public function testParentThemeName()
@@ -54,7 +54,7 @@ class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_p
          */
         $theme = $this->buildContributable();
 
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
 
         $mockUrl->shouldReceive('isAbsolute')->once()->andReturn($isAbsolute);
 

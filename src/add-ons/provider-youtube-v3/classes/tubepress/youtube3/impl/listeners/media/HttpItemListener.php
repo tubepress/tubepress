@@ -15,17 +15,17 @@
 class tubepress_youtube3_impl_listeners_media_HttpItemListener
 {
     /**
-     * @var tubepress_app_api_media_AttributeFormatterInterface
+     * @var tubepress_api_media_AttributeFormatterInterface
      */
     private $_attributeFormatter;
 
     /**
-     * @var tubepress_lib_api_util_TimeUtilsInterface
+     * @var tubepress_api_util_TimeUtilsInterface
      */
     private $_timeUtils;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -35,21 +35,21 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
     private $_apiUtility;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_lib_api_array_ArrayReaderInterface
+     * @var tubepress_api_array_ArrayReaderInterface
      */
     private $_arrayReader;
 
-    public function __construct(tubepress_app_api_media_AttributeFormatterInterface $attributeFormatter,
-                                tubepress_lib_api_util_TimeUtilsInterface           $timeUtils,
-                                tubepress_app_api_options_ContextInterface          $context,
-                                tubepress_youtube3_impl_ApiUtility                  $apiUtility,
-                                tubepress_platform_api_url_UrlFactoryInterface      $urlFactory,
-                                tubepress_lib_api_array_ArrayReaderInterface        $arrayReader)
+    public function __construct(tubepress_api_media_AttributeFormatterInterface $attributeFormatter,
+                                tubepress_api_util_TimeUtilsInterface           $timeUtils,
+                                tubepress_api_options_ContextInterface          $context,
+                                tubepress_youtube3_impl_ApiUtility              $apiUtility,
+                                tubepress_api_url_UrlFactoryInterface           $urlFactory,
+                                tubepress_api_array_ArrayReaderInterface        $arrayReader)
     {
         $this->_attributeFormatter = $attributeFormatter;
         $this->_timeUtils          = $timeUtils;
@@ -59,7 +59,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $this->_arrayReader        = $arrayReader;
     }
 
-    public function onHttpItem(tubepress_lib_api_event_EventInterface $event)
+    public function onHttpItem(tubepress_api_event_EventInterface $event)
     {
         $mediaItem    = $event->getSubject();
         $attributeMap = $this->_buildAttributeMap($event);
@@ -75,59 +75,59 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
     /**
      * Build a map of attribute names => attribute values for the video construction event.
      *
-     * @param tubepress_lib_api_event_EventInterface $event The video construction event.
+     * @param tubepress_api_event_EventInterface $event The video construction event.
      *
      * @return array An associative array of attribute names => attribute values
      */
-    private function _buildAttributeMap(tubepress_lib_api_event_EventInterface $event)
+    private function _buildAttributeMap(tubepress_api_event_EventInterface $event)
     {
         $toReturn = array();
         $metadata = $event->getArgument('metadataAsArray');
         $index    = $event->getArgument('zeroBasedIndex'); // starts at 0
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_UPLOADED)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_UPLOADED)) {
 
             $this->_applyTimePublished($toReturn, $metadata, $index);
         };
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_AUTHOR)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_AUTHOR)) {
 
             $this->_applyAuthor($toReturn, $metadata, $index);
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_TITLE)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_TITLE)) {
 
             $this->_applyTitle($toReturn, $metadata, $index);
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_DESCRIPTION)) {
 
             $this->_applyDescription($toReturn, $metadata, $index);
         }
 
         $this->_applyThumbnail($toReturn, $metadata, $index);
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_KEYWORDS)) {
 
             $this->_applyKeywords($toReturn, $metadata, $index);
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_LENGTH)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_LENGTH)) {
 
             $this->_applyDuration($toReturn, $metadata, $index);
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_CATEGORY)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_CATEGORY)) {
 
             $this->_applyCategory($toReturn, $metadata, $index);
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_URL)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_URL)) {
 
             $this->_applyHomeUrl($event->getSubject(), $toReturn);
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_VIEWS)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_VIEWS)) {
 
             $this->_applyViewCount($toReturn, $metadata, $index);
         }
@@ -166,7 +166,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($value !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
                 $this->_timeUtils->rfc3339toUnixTime($value);;
         }
     }
@@ -187,9 +187,9 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CHANNEL_TITLE
         ));
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]      = $channelId;
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME] = $channelTitle;
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_URL]          =
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]      = $channelId;
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME] = $channelTitle;
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_URL]          =
             sprintf('https://www.youtube.com/channel/%s', $channelId);
     }
 
@@ -201,7 +201,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_TITLE
         ));
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE] = $title;
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_TITLE] = $title;
     }
 
     private function _applyDescription(array &$toReturn, array $json, $index)
@@ -212,7 +212,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_DESCRIPTION
         ));
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION] = nl2br($description);
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION] = nl2br($description);
     }
 
     private function _applyThumbnail(array &$toReturn, array $json, $index)
@@ -225,7 +225,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_THUMBS_URL
         ));
 
-        if ($this->_context->get(tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS)) {
+        if ($this->_context->get(tubepress_api_options_Names::GALLERY_RANDOM_THUMBS)) {
 
             $choices = array('1', '2', '3');
             $new     = $choices[array_rand($choices)];
@@ -239,7 +239,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         $final = str_replace('s://', '://', $final);
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL] = $final;
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL] = $final;
     }
 
     private function _applyKeywords(array &$toReturn, array $json, $index)
@@ -250,7 +250,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_TAGS
         ));
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY] = $tags;
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY] = $tags;
     }
 
     private function _applyDuration(array &$toReturn, array $json, $index)
@@ -279,7 +279,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         $seconds = intval($rawSeconds);
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS] = ((60 * $minutes) + $seconds);
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS] = ((60 * $minutes) + $seconds);
     }
 
     private function _applyCategory(array &$toReturn, array $json, $index)
@@ -307,16 +307,16 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($categoryTitle !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME] = $categoryTitle;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME] = $categoryTitle;
         }
     }
 
-    private function _applyHomeUrl(tubepress_app_api_media_MediaItem $item, array &$toReturn)
+    private function _applyHomeUrl(tubepress_api_media_MediaItem $item, array &$toReturn)
     {
         $id      = $item->getId();
         $homeUrl = sprintf('https://youtu.be/%s', $id);
 
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL] = $homeUrl;
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL] = $homeUrl;
     }
 
     private function _applyViewCount(array &$toReturn, array $json, $index)
@@ -329,7 +329,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($viewCountRaw !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT] = $viewCountRaw;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT] = $viewCountRaw;
         }
     }
 
@@ -343,7 +343,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT] = $count;
         }
     }
 
@@ -357,7 +357,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES] = $count;
         }
     }
 
@@ -371,7 +371,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED] = $count;
         }
     }
 
@@ -385,7 +385,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT] = $count;
         }
     }
 
@@ -395,46 +395,46 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
     private function _formatAttributes($mediaItem)
     {
         $this->_attributeFormatter->formatNumberAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED,
+            tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED, 0);
 
         $this->_attributeFormatter->formatNumberAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED, 0);
 
         //keep this for legacy purposes
         $this->_attributeFormatter->formatNumberAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, 0);
 
         $this->_attributeFormatter->formatNumberAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
+            tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED, 0);
 
         $this->_attributeFormatter->formatNumberAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT,
+            tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED, 0);
 
         $this->_attributeFormatter->formatNumberAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED, 0);
+            tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES,
+            tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED, 0);
 
         $this->_attributeFormatter->truncateStringAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
-            tubepress_app_api_options_Names::META_DESC_LIMIT);
+            tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
+            tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
+            tubepress_api_options_Names::META_DESC_LIMIT);
 
         $this->_attributeFormatter->formatDurationAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED);
+            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
+            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED);
 
         $this->_attributeFormatter->formatDateAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED);
+            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED);
 
         $this->_attributeFormatter->implodeArrayAttribute($mediaItem,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY,
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ');
+            tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY,
+            tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ');
     }
 
     private function _relativeQueryAsString(array $json, $index, array $query, $default = '')

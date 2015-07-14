@@ -12,7 +12,7 @@
 /**
  * Handy string utilities.
  */
-class tubepress_util_impl_StringUtils implements tubepress_platform_api_util_StringUtilsInterface
+class tubepress_util_impl_StringUtils implements tubepress_api_util_StringUtilsInterface
 {
     /**
      * Replaces the first occurence of a string by another string

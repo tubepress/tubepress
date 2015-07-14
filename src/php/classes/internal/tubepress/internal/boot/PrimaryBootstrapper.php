@@ -18,7 +18,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
     const CONTAINER_PARAM_BOOT_ARTIFACTS = 'boot-artifacts';
 
     /**
-     * @var tubepress_platform_api_ioc_ContainerInterface
+     * @var tubepress_api_ioc_ContainerInterface
      */
     private static $_SERVICE_CONTAINER;
 
@@ -38,7 +38,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
     private $_startTime;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
@@ -52,7 +52,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
      *
      * @throws Exception If an error was encountered during boot.
      *
-     * @return tubepress_platform_api_ioc_ContainerInterface
+     * @return tubepress_api_ioc_ContainerInterface
      */
     public function getServiceContainer()
     {
@@ -144,7 +144,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
         /**
          * This should be the common case in production.
          */
-        if (!interface_exists('tubepress_platform_api_ioc_ContainerInterface', false) && file_exists($classConcatenationPath)) {
+        if (!interface_exists('tubepress_api_ioc_ContainerInterface', false) && file_exists($classConcatenationPath)) {
 
             /** @noinspection PhpIncludeInspection */
             require $classConcatenationPath;
@@ -258,9 +258,9 @@ class tubepress_internal_boot_PrimaryBootstrapper
             (($now - $this->_startTime) * 1000.0)));
 
         /**
-         * @var $realLogger tubepress_platform_api_log_LoggerInterface
+         * @var $realLogger tubepress_api_log_LoggerInterface
          */
-        $realLogger = self::$_SERVICE_CONTAINER->get(tubepress_platform_api_log_LoggerInterface::_);
+        $realLogger = self::$_SERVICE_CONTAINER->get(tubepress_api_log_LoggerInterface::_);
 
         /**
          * Flush the boot logger to the real logger.
@@ -309,7 +309,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
         $this->_recursivelyDeleteDirectory($dir, $this->_bootLogger, $shouldLog);
     }
 
-    private function _recursivelyDeleteDirectory($dir, tubepress_platform_api_log_LoggerInterface $logger, $shouldLog)
+    private function _recursivelyDeleteDirectory($dir, tubepress_api_log_LoggerInterface $logger, $shouldLog)
     {
         if (!is_dir($dir)) {
 
@@ -405,11 +405,11 @@ class tubepress_internal_boot_PrimaryBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param tubepress_platform_api_boot_BootSettingsInterface $bcsi The settings file interface.
+     * @param tubepress_api_boot_BootSettingsInterface $bcsi The settings file interface.
      *
      * @internal
      */
-    public function ___setSettingsFileReader(tubepress_platform_api_boot_BootSettingsInterface $bcsi)
+    public function ___setSettingsFileReader(tubepress_api_boot_BootSettingsInterface $bcsi)
     {
         $this->_bootSettings = $bcsi;
     }

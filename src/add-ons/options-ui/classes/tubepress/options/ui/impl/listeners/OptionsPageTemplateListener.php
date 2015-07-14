@@ -20,14 +20,14 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     private static $_TEMPLATE_VAR_MEDIA_PROVIDER_PROPS = 'mediaProviderPropertiesAsJson';
 
     private static $_categorySortMap = array(
-        tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE,
-        tubepress_app_api_options_ui_CategoryNames::THUMBNAILS,
-        tubepress_app_api_options_ui_CategoryNames::EMBEDDED,
-        tubepress_app_api_options_ui_CategoryNames::THEME,
-        tubepress_app_api_options_ui_CategoryNames::META,
-        tubepress_app_api_options_ui_CategoryNames::FEED,
-        tubepress_app_api_options_ui_CategoryNames::CACHE,
-        tubepress_app_api_options_ui_CategoryNames::ADVANCED,
+        tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE,
+        tubepress_api_options_ui_CategoryNames::THUMBNAILS,
+        tubepress_api_options_ui_CategoryNames::EMBEDDED,
+        tubepress_api_options_ui_CategoryNames::THEME,
+        tubepress_api_options_ui_CategoryNames::META,
+        tubepress_api_options_ui_CategoryNames::FEED,
+        tubepress_api_options_ui_CategoryNames::CACHE,
+        tubepress_api_options_ui_CategoryNames::ADVANCED,
     );
 
     private static $_providerSortMap = array(
@@ -40,27 +40,27 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     );
 
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
     /**
-     * @var tubepress_app_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_api_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders;
 
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
@@ -69,9 +69,9 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
      */
     private $_fieldIdToProviderInstanceCache;
 
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment,
-                                tubepress_lib_api_translation_TranslatorInterface  $translator,
-                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils)
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment,
+                                tubepress_api_translation_TranslatorInterface  $translator,
+                                tubepress_api_util_StringUtilsInterface        $stringUtils)
     {
         $this->_environment                    = $environment;
         $this->_translator                     = $translator;
@@ -97,9 +97,9 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
      *
      * 5. Sort the field providers
      *
-     * @param tubepress_lib_api_event_EventInterface $event
+     * @param tubepress_api_event_EventInterface $event
      */
-    public function onOptionsGuiTemplate(tubepress_lib_api_event_EventInterface $event)
+    public function onOptionsGuiTemplate(tubepress_api_event_EventInterface $event)
     {
         $templateVariables = $event->getSubject();
 
@@ -129,9 +129,9 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     {
         foreach ($fieldProviders as $fieldProvider) {
 
-            if (!($fieldProvider instanceof tubepress_app_api_options_ui_FieldProviderInterface)) {
+            if (!($fieldProvider instanceof tubepress_api_options_ui_FieldProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_app_api_options_ui_FieldProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setFieldProviders');
+                throw new InvalidArgumentException('Non tubepress_api_options_ui_FieldProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setFieldProviders');
             }
         }
 
@@ -142,9 +142,9 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     {
         foreach ($mediaProviders as $mediaProvider) {
 
-            if (!($mediaProvider instanceof tubepress_app_api_media_MediaProviderInterface)) {
+            if (!($mediaProvider instanceof tubepress_api_media_MediaProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_app_api_media_MediaProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setMediaProviders');
+                throw new InvalidArgumentException('Non tubepress_api_media_MediaProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setMediaProviders');
             }
         }
 
@@ -244,7 +244,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
     /**
      * @param string                                                   $groupNumber
-     * @param tubepress_app_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
+     * @param tubepress_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
      *
      * @return array
      */
@@ -260,7 +260,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
     /**
      * @param $groupNumber
-     * @param tubepress_app_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
+     * @param tubepress_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
      * @param $gallerySources
      *
      * @return array
@@ -279,13 +279,13 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
             $actualFieldProviderId = $actualFieldProvider->getId();
             $fieldProviderIdToInstanceMap[$actualFieldProviderId] = $actualFieldProvider;
 
-            if ($gallerySources && $actualCategory !== tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE) {
+            if ($gallerySources && $actualCategory !== tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE) {
 
                 //we only want gallery sources
                 continue;
             }
 
-            if (!$gallerySources && $actualCategory === tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE) {
+            if (!$gallerySources && $actualCategory === tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE) {
 
                 //we've already done gallery sources
                 continue;
@@ -310,7 +310,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
         return $wrappedFieldProviders;
     }
 
-    private function _getCategoryIdOfFieldId($fieldId, tubepress_app_api_options_ui_FieldProviderInterface $fieldProvider)
+    private function _getCategoryIdOfFieldId($fieldId, tubepress_api_options_ui_FieldProviderInterface $fieldProvider)
     {
         $map = $fieldProvider->getCategoryIdsToFieldIdsMap();
 
@@ -328,7 +328,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     /**
      * @param $fieldId
      *
-     * @return tubepress_app_api_options_ui_FieldProviderInterface
+     * @return tubepress_api_options_ui_FieldProviderInterface
      */
     private function _findFieldProviderForFieldId($fieldId)
     {
@@ -369,7 +369,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
         foreach ($fields as $fieldId => $field) {
 
-            if (!($field instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface)) {
+            if (!($field instanceof tubepress_api_options_ui_MultiSourceFieldInterface)) {
 
                 continue;
             }
@@ -403,7 +403,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
         $categories = $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES];
 
         /**
-         * @var $category tubepress_app_api_options_ui_ElementInterface
+         * @var $category tubepress_api_options_ui_ElementInterface
          */
         foreach ($categories as $category) {
 
@@ -501,7 +501,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
 
     /**
-     * @param tubepress_app_api_options_ui_FieldProviderInterface[] $multiSourceFieldProviders
+     * @param tubepress_api_options_ui_FieldProviderInterface[] $multiSourceFieldProviders
      *
      * @return array
      */
@@ -570,12 +570,12 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
         }
 
         /**
-         * @var $newCategories tubepress_app_api_options_ui_ElementInterface[]
+         * @var $newCategories tubepress_api_options_ui_ElementInterface[]
          */
         $newCategories = array();
 
         /**
-         * @var $existingCategories tubepress_app_api_options_ui_ElementInterface[]
+         * @var $existingCategories tubepress_api_options_ui_ElementInterface[]
          */
         $existingCategories = $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES];
 

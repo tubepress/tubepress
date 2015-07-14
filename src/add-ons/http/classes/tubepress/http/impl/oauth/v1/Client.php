@@ -12,21 +12,21 @@
 /**
  *
  */
-class tubepress_http_impl_oauth_v1_Client implements tubepress_lib_api_http_oauth_v1_ClientInterface
+class tubepress_http_impl_oauth_v1_Client implements tubepress_api_http_oauth_v1_ClientInterface
 {
     /**
-     * @param tubepress_lib_api_http_message_RequestInterface $request
-     * @param tubepress_lib_api_http_oauth_v1_Credentials       $clientCredentials
-     * @param tubepress_lib_api_http_oauth_v1_Credentials       $tokenCredentials
+     * @param tubepress_api_http_message_RequestInterface $request
+     * @param tubepress_api_http_oauth_v1_Credentials     $clientCredentials
+     * @param tubepress_api_http_oauth_v1_Credentials     $tokenCredentials
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function signRequest(tubepress_lib_api_http_message_RequestInterface     $request,
-                                tubepress_lib_api_http_oauth_v1_Credentials $clientCredentials,
-                                tubepress_lib_api_http_oauth_v1_Credentials $tokenCredentials = null)
+    public function signRequest(tubepress_api_http_message_RequestInterface $request,
+                                tubepress_api_http_oauth_v1_Credentials     $clientCredentials,
+                                tubepress_api_http_oauth_v1_Credentials     $tokenCredentials = null)
     {
         $oAuthParams = $this->_getBaseOAuthParams($clientCredentials);
 
@@ -38,7 +38,7 @@ class tubepress_http_impl_oauth_v1_Client implements tubepress_lib_api_http_oaut
         $this->_sign($request, $oAuthParams, $clientCredentials, $tokenCredentials);
     }
 
-    private function _getBaseOAuthParams(tubepress_lib_api_http_oauth_v1_Credentials $clientCredentials)
+    private function _getBaseOAuthParams(tubepress_api_http_oauth_v1_Credentials $clientCredentials)
     {
         return array(
 
@@ -50,10 +50,10 @@ class tubepress_http_impl_oauth_v1_Client implements tubepress_lib_api_http_oaut
         );
     }
 
-    private function _sign(tubepress_lib_api_http_message_RequestInterface     $httpRequest,
+    private function _sign(tubepress_api_http_message_RequestInterface     $httpRequest,
                            array                                        $oauthParams,
-                           tubepress_lib_api_http_oauth_v1_Credentials $clientCredentials,
-                           tubepress_lib_api_http_oauth_v1_Credentials $tokenCredentials = null)
+                           tubepress_api_http_oauth_v1_Credentials $clientCredentials,
+                           tubepress_api_http_oauth_v1_Credentials $tokenCredentials = null)
     {
         $oauthParams['oauth_signature'] = $this->_getSignature($httpRequest, $oauthParams, $clientCredentials, $tokenCredentials);
         $header                         = 'OAuth ';
@@ -69,10 +69,10 @@ class tubepress_http_impl_oauth_v1_Client implements tubepress_lib_api_http_oaut
         $httpRequest->setHeader('Authorization', $header);
     }
 
-    private function _getSignature(tubepress_lib_api_http_message_RequestInterface     $request,
+    private function _getSignature(tubepress_api_http_message_RequestInterface     $request,
                                    array                                        $baseOAuthParams,
-                                   tubepress_lib_api_http_oauth_v1_Credentials $clientCredentials,
-                                   tubepress_lib_api_http_oauth_v1_Credentials $tokenCredentials = null)
+                                   tubepress_api_http_oauth_v1_Credentials $clientCredentials,
+                                   tubepress_api_http_oauth_v1_Credentials $tokenCredentials = null)
     {
         $url                 = $request->getUrl();
         $existingQueryParams = $url->getQuery()->toArray();
@@ -119,7 +119,7 @@ class tubepress_http_impl_oauth_v1_Client implements tubepress_lib_api_http_oaut
         return $toReturn;
     }
 
-    private function _getNormalizedAuthority(tubepress_platform_api_url_UrlInterface $url)
+    private function _getNormalizedAuthority(tubepress_api_url_UrlInterface $url)
     {
         $scheme = $url->getScheme();
         $port   = $url->getPort();

@@ -15,9 +15,9 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
      */
     private $_delegate;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
-                                puzzle_Client                                    $delegate,
-                                tubepress_platform_api_log_LoggerInterface       $logger)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                puzzle_Client                                $delegate,
+                                tubepress_api_log_LoggerInterface            $logger)
     {
         parent::__construct($eventDispatcher, $logger);
 
@@ -37,17 +37,17 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     }
 
     /**
-     * Create and return a new {@see tubepress_lib_api_http_message_RequestInterface} object.
+     * Create and return a new {@see tubepress_api_http_message_RequestInterface} object.
      *
      * Use an absolute path to override the base path of the client, or a
      * relative path to append to the base path of the client. The URL can
      * contain the query string as well.
      *
      * @param string                                      $method  HTTP method
-     * @param string|array|tubepress_platform_api_url_UrlInterface $url     URL
+     * @param string|array|tubepress_api_url_UrlInterface $url     URL
      * @param array                                       $options Array of request options to apply.
      *
-     * @return tubepress_lib_api_http_message_RequestInterface
+     * @return tubepress_api_http_message_RequestInterface
      *
      * @api
      * @since 4.0.0
@@ -80,13 +80,13 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     /**
      * Sends a single request
      *
-     * @param tubepress_lib_api_http_message_RequestInterface $request Request to send
+     * @param tubepress_api_http_message_RequestInterface $request Request to send
      *
-     * @return tubepress_lib_api_http_message_ResponseInterface
+     * @return tubepress_api_http_message_ResponseInterface
      * @throws LogicException When the underlying adapter does not populate a response
-     * @throws tubepress_lib_api_http_exception_RequestException When an error is encountered
+     * @throws tubepress_api_http_exception_RequestException When an error is encountered
      */
-    protected function doSend(tubepress_lib_api_http_message_RequestInterface $request)
+    protected function doSend(tubepress_api_http_message_RequestInterface $request)
     {
         $tubePressBody = $request->getBody();
         $puzzleBody    = null;
@@ -161,7 +161,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
             'request' => $tubePressRequest
         ));
 
-        $eventDispatcher->dispatch(tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE_HEADERS, $event);
+        $eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_RESPONSE_HEADERS, $event);
     }
 
     public function onError(puzzle_event_ErrorEvent $errorEvent)
@@ -175,11 +175,11 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
             'response' => null
         ));
 
-        $eventDispatcher->dispatch(tubepress_lib_api_http_Events::EVENT_HTTP_ERROR, $event);
+        $eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_ERROR, $event);
 
         $response = $event->getArgument('response');
 
-        if ($response && $response instanceof tubepress_lib_api_http_message_ResponseInterface) {
+        if ($response && $response instanceof tubepress_api_http_message_ResponseInterface) {
 
             $puzzleResponse = new puzzle_message_Response(
 
@@ -219,7 +219,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     /**
      * THIS IS HERE FOR TESTING ONLY.
      */
-    public function ___doSend(tubepress_lib_api_http_message_RequestInterface $request)
+    public function ___doSend(tubepress_api_http_message_RequestInterface $request)
     {
         return $this->doSend($request);
     }

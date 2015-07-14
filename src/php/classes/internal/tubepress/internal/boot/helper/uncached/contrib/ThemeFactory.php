@@ -13,7 +13,7 @@
 class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 {
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -27,12 +27,12 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
     private static $_FIRST_LEVEL_KEY_STYLES  = 'styles';
     private static $_FIRST_LEVEL_KEY_CSS     = 'inlineCSS';
 
-    public function __construct(tubepress_app_api_options_ContextInterface         $context,
-                                tubepress_platform_api_url_UrlFactoryInterface     $urlFactory,
-                                tubepress_platform_api_util_LangUtilsInterface     $langUtils,
-                                tubepress_platform_api_log_LoggerInterface         $log,
-                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils,
-                                ehough_finder_FinderFactoryInterface               $finderFactory)
+    public function __construct(tubepress_api_options_ContextInterface  $context,
+                                tubepress_api_url_UrlFactoryInterface   $urlFactory,
+                                tubepress_api_util_LangUtilsInterface   $langUtils,
+                                tubepress_api_log_LoggerInterface       $log,
+                                tubepress_api_util_StringUtilsInterface $stringUtils,
+                                ehough_finder_FinderFactoryInterface    $finderFactory)
     {
         parent::__construct($log, $urlFactory, $langUtils, $stringUtils);
 

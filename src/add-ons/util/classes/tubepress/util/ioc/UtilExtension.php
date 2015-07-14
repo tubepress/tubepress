@@ -12,34 +12,34 @@
 /**
  *
  */
-class tubepress_util_ioc_UtilExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_util_ioc_UtilExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_platform_api_ioc_ContainerBuilderInterface`
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_platform_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            tubepress_lib_api_util_TimeUtilsInterface::_,
+            tubepress_api_util_TimeUtilsInterface::_,
             'tubepress_util_impl_TimeUtils'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_));
 
         $containerBuilder->register(
-            tubepress_platform_api_util_LangUtilsInterface::_,
+            tubepress_api_util_LangUtilsInterface::_,
             'tubepress_util_impl_LangUtils'
         );
 
         $containerBuilder->register(
-            tubepress_platform_api_util_StringUtilsInterface::_,
+            tubepress_api_util_StringUtilsInterface::_,
             'tubepress_util_impl_StringUtils'
         );
     }

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_url_ioc_UrlExtension
  */
-class tubepress_test_url_ioc_ArrayExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_url_ioc_ArrayExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_url_ioc_UrlExtension
@@ -26,7 +26,7 @@ class tubepress_test_url_ioc_ArrayExtensionTest extends tubepress_test_platform_
     {
         $this->expectRegistration(
 
-            tubepress_platform_api_url_UrlFactoryInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_,
             'tubepress_url_impl_puzzle_UrlFactory'
         );
     }

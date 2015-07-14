@@ -12,10 +12,10 @@
 /**
  *
  */
-class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGeneratorInterface
+class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGeneratorInterface
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
@@ -25,24 +25,24 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
     private $_cssJsGenerationHelper;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_cache;
 
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_lib_api_template_TemplatingInterface     $templating,
+    public function __construct(tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_api_template_TemplatingInterface     $templating,
                                 tubepress_html_impl_CssAndJsGenerationHelper   $cssAndJsGenerationHelper,
-                                tubepress_app_api_environment_EnvironmentInterface $environment)
+                                tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_eventDispatcher       = $eventDispatcher;
         $this->_cssJsGenerationHelper = $cssAndJsGenerationHelper;
@@ -66,7 +66,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
 
             $htmlGenerationEventPre = $this->_eventDispatcher->newEventInstance('');
 
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_GENERATION, $htmlGenerationEventPre);
+            $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_GENERATION, $htmlGenerationEventPre);
 
             /**
              * @var $selected string
@@ -80,7 +80,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
 
             $htmlGenerationEventPost = $this->_eventDispatcher->newEventInstance($html);
 
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_GENERATION_POST, $htmlGenerationEventPost);
+            $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_GENERATION_POST, $htmlGenerationEventPost);
 
             /**
              * @var $html string
@@ -93,7 +93,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
 
             $event = $this->_eventDispatcher->newEventInstance($e);
 
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT, $event);
+            $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT, $event);
 
             $args = array('exception' => $e);
             $html = $this->_templating->renderTemplate('exception/static', $args);
@@ -104,7 +104,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
 
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface[]
+     * @return tubepress_api_url_UrlInterface[]
      *
      * @api
      * @since 4.0.0
@@ -115,7 +115,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface[]
+     * @return tubepress_api_url_UrlInterface[]
      *
      * @api
      * @since 4.0.0
@@ -147,7 +147,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
         return $this->_cssJsGenerationHelper->getJS();
     }
 
-    public function onScripts(tubepress_lib_api_event_EventInterface $event)
+    public function onScripts(tubepress_api_event_EventInterface $event)
     {
         $existingUrls = $event->getSubject();
 

@@ -12,23 +12,23 @@
 /**
  * Base class for HTML fields.
  */
-abstract class tubepress_options_ui_impl_fields_AbstractField extends tubepress_options_ui_impl_BaseElement implements tubepress_app_api_options_ui_FieldInterface
+abstract class tubepress_options_ui_impl_fields_AbstractField extends tubepress_options_ui_impl_BaseElement implements tubepress_api_options_ui_FieldInterface
 {
     protected static $PROPERTY_UNTRANS_DESCRIPTION  = 'untranslatedDescription';
 
     /**
-     * @var tubepress_app_api_options_PersistenceInterface
+     * @var tubepress_api_options_PersistenceInterface
      */
     private $_persistence;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_httpRequestParameters;
 
     public function __construct($id,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParameters,
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParameters,
                                 $untranslatedDisplayName = null,
                                 $untranslatedDescription = null)
     {
@@ -52,7 +52,7 @@ abstract class tubepress_options_ui_impl_fields_AbstractField extends tubepress_
     }
 
     /**
-     * @return tubepress_app_api_options_PersistenceInterface
+     * @return tubepress_api_options_PersistenceInterface
      */
     protected function getOptionPersistence()
     {
@@ -60,7 +60,7 @@ abstract class tubepress_options_ui_impl_fields_AbstractField extends tubepress_
     }
 
     /**
-     * @return tubepress_lib_api_http_RequestParametersInterface
+     * @return tubepress_api_http_RequestParametersInterface
      */
     protected function getHttpRequestParameters()
     {

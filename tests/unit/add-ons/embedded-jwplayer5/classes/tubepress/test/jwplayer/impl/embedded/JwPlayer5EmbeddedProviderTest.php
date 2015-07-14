@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider
  */
-class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider
@@ -37,9 +37,9 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
     public function onSetup() {
 
 
-        $this->_mockUrlFactory  = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockContext     = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockEnvironment = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockUrlFactory  = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockContext     = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockEnvironment = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider(
             $this->_mockContext,
@@ -59,9 +59,9 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
 
     public function testGetTemplateVariables()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockUrl       = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockBaseUrl   = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
+        $mockUrl       = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockBaseUrl   = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
 
@@ -74,13 +74,13 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_jwplayer5_api_OptionNames::COLOR_BACK)->andReturn('back-color');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT)->andReturn('light-color');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)->andReturn('screen-color');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY)->andReturn('autoplay?');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_AUTOPLAY)->andReturn('autoplay?');
 
         $actual   = $this->_sut->getTemplateVariables($mockMediaItem);
         $expected = array(
             'tubePressBaseUrl' => $mockBaseUrl,
             'autostart' => 'autoplay?',
-            tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT => 'front-color',
             tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT => 'light-color',
             tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'screen-color',

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media_HttpFeedHandlerInterface
+class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_api_media_HttpFeedHandlerInterface
 {
     private static $_URL_PARAM_ALBUM_ID      = 'album_id';
     private static $_URL_PARAM_CHANNEL_ID    = 'channel_id';
@@ -44,17 +44,17 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
     private static $_URL_BASE = 'http://vimeo.com/api/rest/v2';
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface Logger.
+     * @var tubepress_api_log_LoggerInterface Logger.
      */
     private $_logger;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -64,9 +64,9 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
 
     private $_invokedAtLeastOnce;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory,
-                                tubepress_app_api_options_ContextInterface     $context)
+    public function __construct(tubepress_api_log_LoggerInterface      $logger,
+                                tubepress_api_url_UrlFactoryInterface  $urlFactory,
+                                tubepress_api_options_ContextInterface $context)
     {
         $this->_logger     = $logger;
         $this->_urlFactory = $urlFactory;
@@ -89,7 +89,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
      *
      * @param int $currentPage The current page number of the gallery.
      *
-     * @return tubepress_platform_api_url_UrlInterface The request URL for this gallery.
+     * @return tubepress_api_url_UrlInterface The request URL for this gallery.
      *
      * @api
      * @since 4.0.0
@@ -97,7 +97,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
     public function buildUrlForPage($currentPage)
     {
         $params = array();
-        $mode   = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
+        $mode   = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
 
         $this->_verifyKeyAndSecretExists();
 
@@ -129,7 +129,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
                 $params[self::$_URL_PARAM_METHOD] = self::$_METHOD_VIDEOS_SEARCH;
                 $params[self::$_URL_PARAM_QUERY]  = $this->_context->get(tubepress_vimeo2_api_Constants::OPTION_VIMEO_SEARCH_VALUE);
 
-                $filter = $this->_context->get(tubepress_app_api_options_Names::SEARCH_ONLY_USER);
+                $filter = $this->_context->get(tubepress_api_options_Names::SEARCH_ONLY_USER);
 
                 if ($filter != '') {
 
@@ -169,9 +169,9 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
         $params[self::$_URL_PARAM_PAGE]          = $currentPage;
 
         if (isset($this->_invokedAtLeastOnce)) {
-            $params[self::$_URL_PARAM_PER_PAGE] = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+            $params[self::$_URL_PARAM_PER_PAGE] = $this->_context->get(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE);
         } else {
-            $params[self::$_URL_PARAM_PER_PAGE] = min($this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.04));
+            $params[self::$_URL_PARAM_PER_PAGE] = min($this->_context->get(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.04));
         }
 
         $sort                                    = $this->_getSort($mode);
@@ -191,7 +191,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
      *
      * @throws InvalidArgumentException If unable to build a URL for the given video.
      *
-     * @return tubepress_platform_api_url_UrlInterface The URL for the single video given.
+     * @return tubepress_api_url_UrlInterface The URL for the single video given.
      *
      * @api
      * @since 4.0.0
@@ -357,9 +357,9 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
             return '';
         }
 
-        $order = $this->_context->get(tubepress_app_api_options_Names::FEED_ORDER_BY);
+        $order = $this->_context->get(tubepress_api_options_Names::FEED_ORDER_BY);
 
-        if ($order === tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT) {
+        if ($order === tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT) {
 
             return $this->_calculateDefaultSortOrder($mode);
         }
@@ -472,7 +472,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
     /**
      * Gather data that might be needed from the feed to build attributes for this media item.
      *
-     * @param tubepress_app_api_media_MediaItem $mediaItemId The media item.
+     * @param tubepress_api_media_MediaItem $mediaItemId The media item.
      * @param int                               $index       The zero-based index.
      *
      * @return array
@@ -480,7 +480,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
      * @api
      * @since 4.0.0
      */
-    public function getNewItemEventArguments(tubepress_app_api_media_MediaItem $mediaItemId, $index)
+    public function getNewItemEventArguments(tubepress_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
             'unserializedFeed' => $this->_unserialized,

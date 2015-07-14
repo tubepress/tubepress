@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_search_impl_listeners_SearchInputTemplateListener
  */
-class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_search_impl_listeners_SearchInputTemplateListener
@@ -36,9 +36,9 @@ class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest exten
 
     public function onSetup()
     {
-        $this->_mockContext       = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockRequestParams = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockUrlFactory    = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
+        $this->_mockContext       = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockRequestParams = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockUrlFactory    = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
 
         $this->_sut = new tubepress_search_impl_listeners_SearchInputTemplateListener(
             $this->_mockContext,
@@ -48,9 +48,9 @@ class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest exten
 
     public function testYouTubeFavorites()
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SEARCH_RESULTS_URL)->andReturn('');
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockQuery = $this->mock('tubepress_platform_api_url_QueryInterface');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SEARCH_RESULTS_URL)->andReturn('');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $mockQuery = $this->mock('tubepress_api_url_QueryInterface');
         $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $mockUrl->shouldReceive('toString')->once()->andReturn('abcabc');
         $mockQuery->shouldReceive('remove')->once()->with('tubepress_page');
@@ -62,12 +62,12 @@ class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest exten
 
         $expected = array(
             'foo'                                                          => 'bar',
-            tubepress_app_api_template_VariableNames::SEARCH_HANDLER_URL   => 'abcabc',
-            tubepress_app_api_template_VariableNames::SEARCH_HIDDEN_INPUTS => array('foo' => 'bar', 'something' => 'else'),
-            tubepress_app_api_template_VariableNames::SEARCH_TERMS         => 'search for something'
+            tubepress_api_template_VariableNames::SEARCH_HANDLER_URL   => 'abcabc',
+            tubepress_api_template_VariableNames::SEARCH_HIDDEN_INPUTS => array('foo' => 'bar', 'something' => 'else'),
+            tubepress_api_template_VariableNames::SEARCH_TERMS         => 'search for something'
         );
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn(array('foo' => 'bar'));
         $event->shouldReceive('setSubject')->once()->with($expected);
 

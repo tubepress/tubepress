@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_jwplayer5_ioc_JwPlayerExtension<extended>
  */
-class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     protected function buildSut()
     {
@@ -33,11 +33,11 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
 
             'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider',
             'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-            ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
-            ->withTag('tubepress_lib_api_template_PathProviderInterface');
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag('tubepress_spi_embedded_EmbeddedProviderInterface')
+            ->withTag('tubepress_spi_template_PathProviderInterface');
     }
 
     private function _expectListeners()
@@ -52,26 +52,26 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
         foreach ($colors as $optionName) {
 
             $this->expectRegistration(
-                'tubepress_app_api_listeners_options_RegexValidatingListener.' . $optionName,
-                'tubepress_app_api_listeners_options_RegexValidatingListener'
-            )->withArgument(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR)
-                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-                ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event' => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                'tubepress_api_listeners_options_RegexValidatingListener.' . $optionName,
+                'tubepress_api_listeners_options_RegexValidatingListener'
+            )->withArgument(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR)
+                ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+                ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+                ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event' => tubepress_api_event_Events::OPTION_SET . ".$optionName",
                     'priority' => 98000,
                     'method'   => 'onOption',
                 ));
 
             $this->expectRegistration(
                 'value_trimmer.' . $optionName,
-                'tubepress_app_api_listeners_options_TrimmingListener'
+                'tubepress_api_listeners_options_TrimmingListener'
             )->withArgument('#')
                 ->withMethodCall('setModeToLtrim', array())
-                ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                     'priority' => 100000,
                     'method'   => 'onOption',
-                    'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName"
+                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName"
                 ));
         }
     }
@@ -79,29 +79,29 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
     private function _expectOptions()
     {
         $this->expectRegistration(
-            'tubepress_app_api_options_Reference',
-            'tubepress_app_api_options_Reference'
+            'tubepress_api_options_Reference__jwplayer5',
+            'tubepress_api_options_Reference'
         )->withArgument(array(
 
-                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'FFFFFF',
                     tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => '000000',
                     tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => '000000',
                     tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => '000000',
                 ),
-                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                     tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color',//>(translatable)<
                     tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => 'Front color',     //>(translatable)<
                     tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => 'Light color',     //>(translatable)<
                     tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    //>(translatable)<
                 ),
-                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                     tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s', "FFFFFF"),   //>(translatable)<
                     tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s', "000000"),   //>(translatable)<
                     tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s', "000000"),   //>(translatable)<
                     tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s', "000000"),   //>(translatable)<
                 )
-            ))->withTag(tubepress_app_api_options_ReferenceInterface::_);
+            ))->withTag(tubepress_api_options_ReferenceInterface::_);
     }
 
     private function _expectOptionsUi()
@@ -121,8 +121,8 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
             $this->expectRegistration(
 
                 'jwplayer_field_' . $fieldIndex++,
-                'tubepress_app_api_options_ui_FieldInterface'
-            )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                'tubepress_api_options_ui_FieldInterface'
+            )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
                 ->withFactoryMethod('newInstance')
                 ->withArgument($color)
                 ->withArgument('spectrum');
@@ -130,12 +130,12 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
 
         $fieldReferences = array();
         for ($x = 0; $x < $fieldIndex; $x++) {
-            $fieldReferences[] = new tubepress_platform_api_ioc_Reference('jwplayer_field_' . $x);
+            $fieldReferences[] = new tubepress_api_ioc_Reference('jwplayer_field_' . $x);
         }
 
         $fieldMap = array(
 
-            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
+            tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
 
                 tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
                 tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
@@ -154,7 +154,7 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()
@@ -167,23 +167,23 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_
             tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN,
         );
 
-        $mockFieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
+        $mockFieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
 
         foreach ($colors as $color) {
 
-            $mockSpectrumField = $this->mock('tubepress_app_api_options_ui_FieldInterface');
+            $mockSpectrumField = $this->mock('tubepress_api_options_ui_FieldInterface');
             $mockFieldBuilder->shouldReceive('newInstance')->once()->with($color, 'spectrum')->andReturn($mockSpectrumField);
         }
 
         return array(
-            tubepress_platform_api_url_UrlFactoryInterface::_ => tubepress_platform_api_url_UrlFactoryInterface::_,
-            tubepress_lib_api_template_TemplatingInterface::_ => tubepress_lib_api_template_TemplatingInterface::_,
-            tubepress_app_api_options_ContextInterface::_ => tubepress_app_api_options_ContextInterface::_,
-            tubepress_app_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
-            tubepress_lib_api_translation_TranslatorInterface::_ => tubepress_lib_api_translation_TranslatorInterface::_,
-            tubepress_platform_api_util_StringUtilsInterface::_ => tubepress_platform_api_util_StringUtilsInterface::_,
-            tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
-            tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_ => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_template_TemplatingInterface::_ => tubepress_api_template_TemplatingInterface::_,
+            tubepress_api_options_ContextInterface::_ => tubepress_api_options_ContextInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
+            tubepress_api_translation_TranslatorInterface::_ => tubepress_api_translation_TranslatorInterface::_,
+            tubepress_api_util_StringUtilsInterface::_ => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_ => tubepress_api_environment_EnvironmentInterface::_,
         );
     }
 }

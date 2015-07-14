@@ -12,7 +12,7 @@
 /**
  * Puzzle-based HTTP request.
  */
-class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_puzzle_AbstractMessage implements tubepress_lib_api_http_message_RequestInterface
+class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_puzzle_AbstractMessage implements tubepress_api_http_message_RequestInterface
 {
     /**
      * @var puzzle_message_RequestInterface
@@ -20,7 +20,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     private $_delegate;
 
     /**
-     * @var tubepress_platform_api_url_UrlInterface
+     * @var tubepress_api_url_UrlInterface
      */
     private $_url;
 
@@ -63,7 +63,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     /**
      * Gets the request URL.
      *
-     * @return tubepress_platform_api_url_UrlInterface Returns the URL.
+     * @return tubepress_api_url_UrlInterface Returns the URL.
      *
      * @api
      * @since 4.0.0
@@ -76,7 +76,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     /**
      * @param array $config The incoming configuration.
      *
-     * @return tubepress_lib_api_http_message_RequestInterface Self.
+     * @return tubepress_api_http_message_RequestInterface Self.
      *
      * @api
      * @since 4.0.0
@@ -92,7 +92,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
      *
      * @param string $method HTTP method
      *
-     * @return tubepress_lib_api_http_message_RequestInterface Self.
+     * @return tubepress_api_http_message_RequestInterface Self.
      *
      * @api
      * @since 4.0.0
@@ -107,14 +107,14 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     /**
      * Sets the request URL.
      *
-     * @param tubepress_platform_api_url_UrlInterface $url Request URL.
+     * @param tubepress_api_url_UrlInterface $url Request URL.
      *
-     * @return tubepress_lib_api_http_message_RequestInterface Self.
+     * @return tubepress_api_http_message_RequestInterface Self.
      *
      * @api
      * @since 4.0.0
      */
-    public function setUrl(tubepress_platform_api_url_UrlInterface $url)
+    public function setUrl(tubepress_api_url_UrlInterface $url)
     {
         $this->_url = $url;
     }

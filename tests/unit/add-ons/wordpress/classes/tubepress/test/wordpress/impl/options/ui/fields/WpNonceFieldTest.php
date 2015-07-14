@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_options_ui_fields_WpNonceField
  */
-class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_options_ui_fields_WpNonceField
@@ -32,7 +32,7 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends t
     public function onSetup()
     {
         $this->_mockWpFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockMessageService = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockMessageService = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_options_ui_fields_WpNonceField($this->_mockWpFunctionWrapper);
     }

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_RequestParameters<extended>
  */
-class tubepress_test_http_impl_RequestParametersTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_RequestParametersTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_http_impl_RequestParameters
@@ -26,7 +26,7 @@ class tubepress_test_http_impl_RequestParametersTest extends tubepress_test_Tube
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_sut = new tubepress_http_impl_RequestParameters($this->_mockEventDispatcher);
     }
@@ -52,15 +52,15 @@ class tubepress_test_http_impl_RequestParametersTest extends tubepress_test_Tube
     {
         $_POST['something'] = array(1, 2, 3);
 
-        $mockExternalEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockExternalEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockExternalEvent->shouldReceive('getSubject')->once()->andReturn('syz');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(1, 2, 3), array('optionName' => 'something'))->andReturn($mockExternalEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockExternalEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockExternalEvent);
 
-        $mockSingleEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockSingleEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockSingleEvent->shouldReceive('getSubject')->once()->andReturn('abc');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('syz', array('optionName' => 'something'))->andReturn($mockSingleEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
 
 
         $result = $this->_sut->getParamValue('something');
@@ -72,15 +72,15 @@ class tubepress_test_http_impl_RequestParametersTest extends tubepress_test_Tube
     {
         $_POST['something'] = array(1, 2, 3);
 
-        $mockExternalEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockExternalEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockExternalEvent->shouldReceive('getSubject')->once()->andReturn(44);
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(1, 2, 3), array('optionName' => 'something'))->andReturn($mockExternalEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockExternalEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockExternalEvent);
 
-        $mockSingleEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockSingleEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockSingleEvent->shouldReceive('getSubject')->once()->andReturn(444);
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(44, array('optionName' => 'something'))->andReturn($mockSingleEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
 
         $result = $this->_sut->getParamValueAsInt('something', 1);
 
@@ -91,15 +91,15 @@ class tubepress_test_http_impl_RequestParametersTest extends tubepress_test_Tube
     {
         $_GET['something'] = array(1, 2, 3);
 
-        $mockExternalEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockExternalEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockExternalEvent->shouldReceive('getSubject')->once()->andReturn('44vb');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(1, 2, 3), array('optionName' => 'something'))->andReturn($mockExternalEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockExternalEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockExternalEvent);
 
-        $mockSingleEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockSingleEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockSingleEvent->shouldReceive('getSubject')->once()->andReturn('44vb777ert');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('44vb', array('optionName' => 'something'))->andReturn($mockSingleEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
 
         $result = $this->_sut->getParamValueAsInt('something', 33);
 

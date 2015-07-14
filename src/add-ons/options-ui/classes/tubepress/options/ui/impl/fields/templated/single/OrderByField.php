@@ -14,16 +14,16 @@
  */
 class tubepress_options_ui_impl_fields_templated_single_OrderByField extends tubepress_options_ui_impl_fields_templated_single_MultiSourceDropdownField
 {
-    public function __construct(tubepress_app_api_options_PersistenceInterface      $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_app_api_options_ReferenceInterface        $optionsReference,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
-                                tubepress_platform_api_util_LangUtilsInterface      $langUtils)
+    public function __construct(tubepress_api_options_PersistenceInterface      $persistence,
+                                tubepress_api_http_RequestParametersInterface   $requestParams,
+                                tubepress_api_template_TemplatingInterface      $templating,
+                                tubepress_api_options_ReferenceInterface        $optionsReference,
+                                tubepress_api_options_AcceptableValuesInterface $acceptableValues,
+                                tubepress_api_util_LangUtilsInterface           $langUtils)
     {
         parent::__construct(
 
-            tubepress_app_api_options_Names::FEED_ORDER_BY,
+            tubepress_api_options_Names::FEED_ORDER_BY,
             $persistence,
             $requestParams,
             $optionsReference,
@@ -37,7 +37,7 @@ class tubepress_options_ui_impl_fields_templated_single_OrderByField extends tub
 
     }
 
-    protected function providerRecognizesChoice(tubepress_app_api_media_MediaProviderInterface $provider, $choice)
+    protected function providerRecognizesChoice(tubepress_api_media_MediaProviderInterface $provider, $choice)
     {
         $map = $provider->getMapOfFeedSortNamesToUntranslatedLabels();
 
@@ -59,11 +59,11 @@ class tubepress_options_ui_impl_fields_templated_single_OrderByField extends tub
 
     /**
      * @param $prefix
-     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     * @param tubepress_api_options_PersistenceInterface $persistence
      *
-     * @return tubepress_app_api_options_ui_FieldInterface
+     * @return tubepress_api_options_ui_FieldInterface
      */
-    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {
         $requestParams    = $this->getHttpRequestParameters();
         $optionsReference = $this->getOptionProvider();

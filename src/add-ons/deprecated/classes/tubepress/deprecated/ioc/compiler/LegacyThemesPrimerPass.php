@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     private static $_LEGACY_TEMPLATE_MAP      = array(
         'gallery/main.tpl.php'  => 'gallery.tpl.php',
@@ -22,12 +22,12 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
     );
 
     /**
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
      * @since 4.0.0
      */
-    public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         if (!$containerBuilder->hasParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)) {
 
@@ -42,7 +42,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         }
 
         $serializedThemes        = $bootArtifacts['themes'];
-        $bootSettings            = $containerBuilder->get(tubepress_platform_api_boot_BootSettingsInterface::_);
+        $bootSettings            = $containerBuilder->get(tubepress_api_boot_BootSettingsInterface::_);
         $serializer              = new tubepress_internal_boot_helper_uncached_Serializer($bootSettings);
         $unserializedThemes      = $serializer->unserialize($serializedThemes);
         $adjustedSystemThemes    = $this->_adjustLegacySystemThemes($containerBuilder, $unserializedThemes);
@@ -55,14 +55,14 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         $containerBuilder->setParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, $bootArtifacts);
     }
 
-    private function _adjustLegacySystemThemes(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, array $allThemes)
+    private function _adjustLegacySystemThemes(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, array $allThemes)
     {
         $toReturn = array();
 
         /**
-         * @var $stringUtils tubepress_platform_api_util_StringUtilsInterface
+         * @var $stringUtils tubepress_api_util_StringUtilsInterface
          */
-        $stringUtils = $containerBuilder->get(tubepress_platform_api_util_StringUtilsInterface::_);
+        $stringUtils = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
 
         foreach ($allThemes as $systemTheme) {
 
@@ -94,7 +94,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         return $toReturn;
     }
 
-    private function _getTemplateMapForLegacyDirectory(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, $path)
+    private function _getTemplateMapForLegacyDirectory(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $path)
     {
         /**
          * @var $finderFactory ehough_finder_FinderFactoryInterface
@@ -102,9 +102,9 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         $finderFactory = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
 
         /**
-         * @var $stringUtils tubepress_platform_api_util_StringUtilsInterface
+         * @var $stringUtils tubepress_api_util_StringUtilsInterface
          */
-        $stringUtils = $containerBuilder->get(tubepress_platform_api_util_StringUtilsInterface::_);
+        $stringUtils = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
         $finder      = $finderFactory->createFinder();
         $templates   = $finder->files()->in($path)->ignoreDotFiles(true)->ignoreVCS(true)->name('*.tpl.php');
         $toReturn    = array();
@@ -143,8 +143,8 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         return $toReturn;
     }
 
-    private function _findUserLegacyThemes(tubepress_platform_api_boot_BootSettingsInterface    $bootSettings,
-                                           tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _findUserLegacyThemes(tubepress_api_boot_BootSettingsInterface    $bootSettings,
+                                           tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $userThemeDir = $bootSettings->getUserContentDirectory() . '/themes';
 

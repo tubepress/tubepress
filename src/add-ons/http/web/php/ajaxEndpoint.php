@@ -14,8 +14,8 @@
 $serviceContainer = require dirname(__FILE__) . '/../../src/php/scripts/boot.php';
 
 /**
- * @var $ajaxHandler tubepress_lib_api_http_AjaxInterface
+ * @var $ajaxHandler tubepress_api_http_AjaxInterface
  */
-$ajaxHandler = $serviceContainer->get(tubepress_lib_api_http_AjaxInterface::_);
+$ajaxHandler = $serviceContainer->get(tubepress_api_http_AjaxInterface::_);
 
 $ajaxHandler->handle();

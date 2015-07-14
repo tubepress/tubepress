@@ -12,10 +12,10 @@
 /**
  * Parses shortcodes.
  */
-class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_ParserInterface
+class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserInterface
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -25,17 +25,17 @@ class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_Par
     private $_shouldLog;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
     
@@ -44,10 +44,10 @@ class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_Par
      */
     private $_lastShortcodeUsed = null;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
-                                tubepress_app_api_options_ContextInterface       $context,
-                                tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
-                                tubepress_platform_api_util_StringUtilsInterface $stringUtils)
+    public function __construct(tubepress_api_log_LoggerInterface            $logger,
+                                tubepress_api_options_ContextInterface       $context,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_util_StringUtilsInterface      $stringUtils)
     {
         $this->_logger          = $logger;
         $this->_shouldLog       = $logger->isEnabled();
@@ -82,7 +82,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_Par
 
     private function _wrappedParse($content)
     {
-        $keyword = $this->_context->get(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+        $keyword = $this->_context->get(tubepress_api_options_Names::SHORTCODE_KEYWORD);
 
         if (!$this->somethingToParse($content, $keyword)) {
 
@@ -199,7 +199,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_Par
 
             $this->_eventDispatcher->dispatch(
 
-                tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT,
+                tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT,
                 $event
             );
 
@@ -211,7 +211,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_Par
 
             $this->_eventDispatcher->dispatch(
 
-                tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT . ".$name",
+                tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT . ".$name",
                 $event
             );
 

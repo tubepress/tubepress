@@ -20,23 +20,23 @@ class tubepress_theme_impl_listeners_LegacyThemeListener
     );
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
-                                tubepress_platform_api_contrib_RegistryInterface $themeRegistry)
+    public function __construct(tubepress_api_log_LoggerInterface       $logger,
+                                tubepress_api_contrib_RegistryInterface $themeRegistry)
     {
         $this->_logger        = $logger;
         $this->_themeRegistry = $themeRegistry;
     }
 
-    public function onPreValidationSet(tubepress_lib_api_event_EventInterface $event)
+    public function onPreValidationSet(tubepress_api_event_EventInterface $event)
     {
         $themeValue = $event->getArgument('optionValue');
         $shouldLog  = $this->_logger->isEnabled();

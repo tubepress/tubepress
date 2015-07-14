@@ -13,7 +13,7 @@
  * @api
  * @since 4.1.0
  */
-class tubepress_array_impl_ArrayReader implements tubepress_lib_api_array_ArrayReaderInterface
+class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReaderInterface
 {
     /**
      * @api

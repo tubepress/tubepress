@@ -21,7 +21,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
 
     public function testCloneForMultiSource()
     {
-        $mockPersistence = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+        $mockPersistence = $this->mock(tubepress_api_options_PersistenceInterface::_);
 
         $actual = $this->getSut()->cloneForMultiSource('foobar', $mockPersistence);
 
@@ -72,8 +72,8 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
 
     protected function onAfterTemplateBasedFieldSetup()
     {
-        $this->_mockContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockAdditionalField = $this->mock('tubepress_app_api_options_ui_FieldInterface');
+        $this->_mockContext = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockAdditionalField = $this->mock('tubepress_api_options_ui_FieldInterface');
     }
 
     protected function getSut()
@@ -101,7 +101,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
      */
     protected function getExpectedTemplateVariables()
     {
-        $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)->andReturn('somethin');
+        $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)->andReturn('somethin');
         $this->_mockAdditionalField->shouldReceive('getWidgetHTML')->once()->andReturn('boo');
 
         return array(

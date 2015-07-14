@@ -15,27 +15,27 @@
 class tubepress_html_impl_listeners_CssJsPostListener
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParameters;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_event_EventDispatcherInterface  $eventDispatcher,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
         $this->_eventDispatcher   = $eventDispatcher;
         $this->_requestParameters = $requestParams;
     }
 
-    public function onPostScriptsTemplateRender(tubepress_lib_api_event_EventInterface $event)
+    public function onPostScriptsTemplateRender(tubepress_api_event_EventInterface $event)
     {
         $jsEvent = $this->_eventDispatcher->newEventInstance(array());
 
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG, $jsEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_GLOBAL_JS_CONFIG, $jsEvent);
 
         $args   = $jsEvent->getSubject();
         $asJson = json_encode($args);
@@ -48,7 +48,7 @@ EOT;
         $event->setSubject($toPrepend . $html);
     }
 
-    public function onPostStylesTemplateRender(tubepress_lib_api_event_EventInterface $event)
+    public function onPostStylesTemplateRender(tubepress_api_event_EventInterface $event)
     {
         $html = $event->getSubject();
 

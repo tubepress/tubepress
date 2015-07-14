@@ -12,7 +12,7 @@
 /**
  * Base class for options pages.
  */
-class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_FormInterface
+class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInterface
 {
     /**
      * @var tubepress_options_impl_Persistence
@@ -20,17 +20,17 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     private $_persistence;
 
     /**
-     * @var tubepress_app_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_api_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
@@ -40,12 +40,12 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     private $_cssAndJsGenerationHelper;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_httpRequestParams;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -55,7 +55,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     private $_shouldLog;
 
     /**
-     * @var tubepress_app_api_options_PersistenceInterface[]
+     * @var tubepress_api_options_PersistenceInterface[]
      */
     private $_multiSourcePersistenceServices;
 
@@ -65,16 +65,16 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     private $_multiSourcePersistenceBackends;
 
     /**
-     * @var tubepress_app_api_options_ui_MultiSourceFieldInterface[]
+     * @var tubepress_api_options_ui_MultiSourceFieldInterface[]
      */
     private $_cachedGroupIds;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_platform_api_util_StringUtilsInterface  $stringUtils,
-                                tubepress_html_impl_CssAndJsGenerationHelper      $cssAndJsGenerationHelper,
-                                tubepress_lib_api_http_RequestParametersInterface $httpRequestParams)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_util_StringUtilsInterface       $stringUtils,
+                                tubepress_html_impl_CssAndJsGenerationHelper  $cssAndJsGenerationHelper,
+                                tubepress_api_http_RequestParametersInterface $httpRequestParams)
     {
         $this->_logger                   = $logger;
         $this->_templating               = $templating;
@@ -113,7 +113,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     public function onSubmit()
     {
         /**
-         * @var tubepress_app_api_options_ui_FieldInterface[] $fields
+         * @var tubepress_api_options_ui_FieldInterface[] $fields
          */
         $fields = $this->_buildFieldsArray(true);
         $errors = array();
@@ -134,7 +134,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface[]
+     * @return tubepress_api_url_UrlInterface[]
      *
      * @api
      * @since 4.0.0
@@ -145,7 +145,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface[]
+     * @return tubepress_api_url_UrlInterface[]
      *
      * @api
      * @since 4.0.0
@@ -178,7 +178,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     }
 
     /**
-     * @param tubepress_app_api_options_ui_FieldProviderInterface[] $providers
+     * @param tubepress_api_options_ui_FieldProviderInterface[] $providers
      */
     public function setFieldProviders(array $providers)
     {
@@ -195,7 +195,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
 
             foreach ($fieldsFromProvider as $fieldFromProvider) {
 
-                if (!($fieldFromProvider instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface)) {
+                if (!($fieldFromProvider instanceof tubepress_api_options_ui_MultiSourceFieldInterface)) {
 
                     $fields[] = $fieldFromProvider;
                 }
@@ -207,7 +207,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
         $toReturn          = array();
 
         /**
-         * @var $fields tubepress_app_api_options_ui_FieldInterface[]
+         * @var $fields tubepress_api_options_ui_FieldInterface[]
          */
         foreach ($fields as $field) {
 
@@ -255,7 +255,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
             $this->_multiSourcePersistenceServices[] = $multiSourcePersistence;
 
             /**
-             * @var $multiSourceFields tubepress_app_api_options_ui_MultiSourceFieldInterface[]
+             * @var $multiSourceFields tubepress_api_options_ui_MultiSourceFieldInterface[]
              */
             foreach ($multiSourceFields as $multiSourceField) {
 
@@ -266,7 +266,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
         $toReturn = array();
 
         /**
-         * @var $fieldClones tubepress_app_api_options_ui_FieldInterface[]
+         * @var $fieldClones tubepress_api_options_ui_FieldInterface[]
          */
         foreach ($fieldClones as $collectedField) {
 
@@ -322,12 +322,12 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
 
     private function _buildMultiSourceFieldsFromStoredSources(array $allPersistedOptions, $hasErrors)
     {
-        if (!isset($allPersistedOptions[tubepress_app_api_options_Names::SOURCES])) {
+        if (!isset($allPersistedOptions[tubepress_api_options_Names::SOURCES])) {
 
             return null;
         }
 
-        $storedSources  = $allPersistedOptions[tubepress_app_api_options_Names::SOURCES];
+        $storedSources  = $allPersistedOptions[tubepress_api_options_Names::SOURCES];
         $decodedSources = json_decode($storedSources, true);
 
         if (!$decodedSources) {
@@ -379,7 +379,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
     }
 
     /**
-     * @return tubepress_app_api_options_ui_MultiSourceFieldInterface[]
+     * @return tubepress_api_options_ui_MultiSourceFieldInterface[]
      */
     private function _getMultiSourceFieldsFromProviders()
     {
@@ -391,7 +391,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
 
             foreach ($fieldsFromProvider as $fieldFromProvider) {
 
-                if ($fieldFromProvider instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface) {
+                if ($fieldFromProvider instanceof tubepress_api_options_ui_MultiSourceFieldInterface) {
 
                     $toReturn[] = $fieldFromProvider;
                 }
@@ -417,7 +417,7 @@ class tubepress_options_ui_impl_Form implements tubepress_app_api_options_ui_For
 
         $sources = json_encode($sources);
 
-        $this->_persistence->queueForSave(tubepress_app_api_options_Names::SOURCES, $sources);
+        $this->_persistence->queueForSave(tubepress_api_options_Names::SOURCES, $sources);
 
         $this->_persistence->flushSaveQueue();
     }

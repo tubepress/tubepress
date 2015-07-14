@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener
  */
-class tubepress_test_vimeo2_impl_listeners_options_VimeoOptionsListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_listeners_options_VimeoOptionsListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener
@@ -36,9 +36,9 @@ class tubepress_test_vimeo2_impl_listeners_options_VimeoOptionsListenerTest exte
 
     public function onSetup()
     {
-        $this->_mockUrlFactory  = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockStringUtils = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockEvent       = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockUrlFactory  = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockStringUtils = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockEvent       = $this->mock('tubepress_api_event_EventInterface');
 
         $realUrlFactory = new tubepress_url_impl_puzzle_UrlFactory();
         $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(array($realUrlFactory, 'fromString'));

@@ -13,14 +13,14 @@
  * Time conversion utilities.
  *
  */
-class tubepress_util_impl_TimeUtils implements tubepress_lib_api_util_TimeUtilsInterface
+class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInterface
 {
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
-    public function __construct(tubepress_platform_api_util_StringUtilsInterface $stringUtils)
+    public function __construct(tubepress_api_util_StringUtilsInterface $stringUtils)
     {
         $this->_stringUtils = $stringUtils;
     }

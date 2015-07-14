@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_youtube3_ioc_YouTubeExtension<extended>
  */
-class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     protected function buildSut()
     {
@@ -35,11 +35,11 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             'tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider',
             'tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider'
 
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
-            ->withTag('tubepress_lib_api_template_PathProviderInterface');
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withTag('tubepress_spi_embedded_EmbeddedProviderInterface')
+            ->withTag('tubepress_spi_template_PathProviderInterface');
     }
 
     private function _expectListeners()
@@ -47,14 +47,14 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->expectRegistration(
             'tubepress_youtube3_impl_listeners_media_HttpItemListener',
             'tubepress_youtube3_impl_listeners_media_HttpItemListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_AttributeFormatterInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_util_TimeUtilsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_ApiUtility'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_array_ArrayReaderInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.youtube_v3',
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_media_AttributeFormatterInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_TimeUtilsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_youtube3_impl_ApiUtility'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_array_ArrayReaderInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.youtube_v3',
                 'method'   => 'onHttpItem',
                 'priority' => 100000
             ));
@@ -62,26 +62,26 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->expectRegistration(
             'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener',
             'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
                 'method'   => 'onPlaylistValue',
                 'priority' => 100000))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE,
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE,
                 'method'  => 'onUserOrFavoritesValue',
                 'priority' => 100000))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
                 'method'  => 'onUserOrFavoritesValue',
                 'priority' => 100000))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE,
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE,
                 'method'  => 'onRelatedToValue',
                 'priority' => 100000))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE,
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE,
                 'method'  => 'onListValue',
                 'priority' => 100000));
 
@@ -111,23 +111,23 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
 
             $this->expectRegistration(
                 "fixed_values.$optionName",
-                'tubepress_app_api_listeners_options_FixedValuesListener'
+                'tubepress_api_listeners_options_FixedValuesListener'
             )->withArgument($values)
-                ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
+                ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
                     'priority' => 100000,
                     'method'   => 'onAcceptableValues'
                 ));
         }
 
         $validators = array(
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
+            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
                 tubepress_youtube3_api_Constants::OPTION_API_KEY,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE
             ),
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
+            tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE
             )
         );
@@ -137,10 +137,10 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
 
                 $this->expectRegistration(
                     "regex_validation.$optionName",
-                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_listeners_options_RegexValidatingListener'
                 )->withArgument($type)
-                    ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-                    ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
+                    ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+                    ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
             }
         }
     }
@@ -150,38 +150,38 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->expectRegistration(
             'tubepress_youtube3_impl_ApiUtility',
             'tubepress_youtube3_impl_ApiUtility'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_HttpClientInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_array_ArrayReaderInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_HttpClientInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_array_ArrayReaderInterface::_));
 
         $this->expectRegistration(
             'tubepress_youtube3_impl_media_FeedHandler',
             'tubepress_youtube3_impl_media_FeedHandler'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_array_ArrayReaderInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_ApiUtility'));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_array_ArrayReaderInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_youtube3_impl_ApiUtility'));
 
         $this->expectRegistration(
             'tubepress_youtube3_impl_media_MediaProvider',
             'tubepress_youtube3_impl_media_MediaProvider'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_HttpCollectorInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-            ->withTag(tubepress_app_api_media_MediaProviderInterface::__);
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_media_HttpCollectorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_api_media_MediaProviderInterface::__);
     }
 
     private function _expectOptions()
     {
         $this->expectRegistration(
-            'tubepress_app_api_options_Reference__youtube',
-            'tubepress_app_api_options_Reference'
-        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+            'tubepress_api_options_Reference__youtube',
+            'tubepress_api_options_Reference'
+        )->withTag(tubepress_api_options_ReferenceInterface::_)
          ->withArgument(array(
 
-                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_youtube3_api_Constants::OPTION_AUTOHIDE                   => tubepress_youtube3_api_Constants::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS,
                     tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS            => false,
                     tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD           => false,
@@ -209,7 +209,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                     tubepress_youtube3_api_Constants::OPTION_RATINGS                    => false,
                 ),
 
-                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                     tubepress_youtube3_api_Constants::OPTION_AUTOHIDE                   => 'Fade progress bar and video controls', //>(translatable)<
                     tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS            => 'Show closed captions by default',       //>(translatable)<
                     tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD           => 'Disable keyboard controls',            //>(translatable)<
@@ -234,7 +234,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                     tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => 'Number of dislikes',
                 ),
 
-                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                     tubepress_youtube3_api_Constants::OPTION_AUTOHIDE               => 'After video playback begins, choose which elements (if any) of the embedded video player to automatically hide.', //>(translatable)<
                     tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING        => 'Hide the YouTube logo from the control area.',                    //>(translatable)<
                     tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED           => 'Toggles the display of related videos after a video finishes.',   //>(translatable)<
@@ -255,7 +255,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                 )))
         ->withArgument(array(
 
-                tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
+                tubepress_api_options_Reference::PROPERTY_PRO_ONLY => array(
 
                     tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS,
                     tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD,
@@ -273,8 +273,8 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->expectRegistration(
 
             'youtube_options_field_' . $fieldIndex++,
-            'tubepress_app_api_options_ui_FieldInterface'
-        )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+            'tubepress_api_options_ui_FieldInterface'
+        )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
             ->withFactoryMethod('newInstance')
             ->withArgument(tubepress_youtube3_api_Constants::OPTION_API_KEY)
             ->withArgument('text')
@@ -312,8 +312,8 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             $this->expectRegistration(
 
                 'youtube_options_subfield_' . $fieldIndex,
-                'tubepress_app_api_options_ui_FieldInterface'
-            )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                'tubepress_api_options_ui_FieldInterface'
+            )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
                 ->withFactoryMethod('newInstance')
                 ->withArgument($gallerySourceFieldArray[2])
                 ->withArgument($gallerySourceFieldArray[1]);
@@ -321,12 +321,12 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             $this->expectRegistration(
 
                 'youtube_options_field_' . $fieldIndex,
-                'tubepress_app_api_options_ui_FieldInterface'
-            )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                'tubepress_api_options_ui_FieldInterface'
+            )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
                 ->withFactoryMethod('newInstance')
                 ->withArgument($gallerySourceFieldArray[0])
                 ->withArgument('gallerySourceRadio')
-                ->withArgument(array('additionalField' => new tubepress_platform_api_ioc_Reference('youtube_options_subfield_' . $fieldIndex++)));
+                ->withArgument(array('additionalField' => new tubepress_api_ioc_Reference('youtube_options_subfield_' . $fieldIndex++)));
         }
 
         $fieldMap = array(
@@ -351,8 +351,8 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             $this->expectRegistration(
 
                 'youtube_options_field_' . $fieldIndex++,
-                'tubepress_app_api_options_ui_FieldInterface'
-            )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                'tubepress_api_options_ui_FieldInterface'
+            )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
                 ->withFactoryMethod('newInstance')
                 ->withArgument($id)
                 ->withArgument($class);
@@ -362,7 +362,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_platform_api_ioc_Reference('youtube_options_field_' . $x);
+            $fieldReferences[] = new tubepress_api_ioc_Reference('youtube_options_field_' . $x);
         }
 
         $this->expectRegistration(
@@ -371,7 +371,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             'tubepress_youtube3_impl_options_ui_FieldProvider'
 
         )->withArgument($fieldReferences)
-            ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
 
     }
 
@@ -380,17 +380,17 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->expectRegistration(
             'tubepress_youtube3_impl_player_YouTubePlayerLocation',
             'tubepress_youtube3_impl_player_YouTubePlayerLocation'
-        )->withTag('tubepress_app_api_player_PlayerLocationInterface');
+        )->withTag('tubepress_spi_player_PlayerLocationInterface');
     }
 
     protected function getExpectedExternalServicesMap()
     {
-        $mockField = $this->mock('tubepress_app_api_options_ui_FieldInterface');
-        $mockFieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
+        $mockField = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $mockFieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
         $mockFieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
-        $mockBaseUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $environment = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $mockBaseUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $environment = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
         $environment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
         $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockBaseUrl);
         $mockBaseUrl->shouldReceive('addPath')->once()->with('/src/add-ons/provider-youtube-v3/web/images/icons/youtube-icon-34w_x_34h.png')->andReturn($mockBaseUrl);
@@ -398,21 +398,21 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
 
         return array(
 
-            tubepress_app_api_options_ContextInterface::_         => tubepress_app_api_options_ContextInterface::_,
-            tubepress_platform_api_util_LangUtilsInterface::_     => tubepress_platform_api_util_LangUtilsInterface::_,
-            tubepress_platform_api_util_StringUtilsInterface::_   => tubepress_platform_api_util_StringUtilsInterface::_,
-            tubepress_platform_api_url_UrlFactoryInterface::_     => tubepress_platform_api_url_UrlFactoryInterface::_,
-            tubepress_lib_api_util_TimeUtilsInterface::_          => tubepress_lib_api_util_TimeUtilsInterface::_,
-            tubepress_platform_api_log_LoggerInterface::_         => tubepress_platform_api_log_LoggerInterface::_,
-            tubepress_lib_api_event_EventDispatcherInterface::_   => tubepress_lib_api_event_EventDispatcherInterface::_,
-            tubepress_app_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
-            tubepress_lib_api_translation_TranslatorInterface::_  => tubepress_lib_api_translation_TranslatorInterface::_,
-            tubepress_app_api_media_AttributeFormatterInterface::_ => tubepress_app_api_media_AttributeFormatterInterface::_,
-            tubepress_app_api_media_HttpCollectorInterface::_ => tubepress_app_api_media_HttpCollectorInterface::_,
-            tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
-            tubepress_lib_api_http_HttpClientInterface::_ => tubepress_lib_api_http_HttpClientInterface::_,
-            tubepress_lib_api_array_ArrayReaderInterface::_ => tubepress_lib_api_array_ArrayReaderInterface::_,
-            tubepress_app_api_environment_EnvironmentInterface::_ => $environment
+            tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
+            tubepress_api_util_LangUtilsInterface::_     => tubepress_api_util_LangUtilsInterface::_,
+            tubepress_api_util_StringUtilsInterface::_   => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_     => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_util_TimeUtilsInterface::_          => tubepress_api_util_TimeUtilsInterface::_,
+            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_   => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
+            tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
+            tubepress_api_media_AttributeFormatterInterface::_ => tubepress_api_media_AttributeFormatterInterface::_,
+            tubepress_api_media_HttpCollectorInterface::_ => tubepress_api_media_HttpCollectorInterface::_,
+            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_http_HttpClientInterface::_ => tubepress_api_http_HttpClientInterface::_,
+            tubepress_api_array_ArrayReaderInterface::_ => tubepress_api_array_ArrayReaderInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_ => $environment
         );
     }
 }

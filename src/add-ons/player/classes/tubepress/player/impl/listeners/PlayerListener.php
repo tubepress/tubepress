@@ -12,12 +12,12 @@
 class tubepress_player_impl_listeners_PlayerListener
 {
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
@@ -28,22 +28,22 @@ class tubepress_player_impl_listeners_PlayerListener
 
     private static $_anchorMap = array(
 
-        'href'   => tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_HREF,
-        'rel'    => tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_REL,
-        'target' => tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_TARGET,
+        'href'   => tubepress_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_HREF,
+        'rel'    => tubepress_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_REL,
+        'target' => tubepress_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_TARGET,
     );
 
-    public function __construct(tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_lib_api_template_TemplatingInterface $templating)
+    public function __construct(tubepress_api_options_ContextInterface     $context,
+                                tubepress_api_template_TemplatingInterface $templating)
     {
         $this->_context    = $context;
         $this->_templating = $templating;
     }
 
-    public function onNewMediaPage(tubepress_lib_api_event_EventInterface $event)
+    public function onNewMediaPage(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $mediaPage tubepress_app_api_media_MediaPage
+         * @var $mediaPage tubepress_api_media_MediaPage
          */
         $mediaPage = $event->getSubject();
         $items     = $mediaPage->getItems();
@@ -78,7 +78,7 @@ class tubepress_player_impl_listeners_PlayerListener
         }
     }
 
-    public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
+    public function onAcceptableValues(tubepress_api_event_EventInterface $event)
     {
         $existing = $event->getSubject();
 
@@ -90,7 +90,7 @@ class tubepress_player_impl_listeners_PlayerListener
         $toAdd = array();
 
         /**
-         * @var $playerLocation tubepress_app_api_player_PlayerLocationInterface
+         * @var $playerLocation tubepress_spi_player_PlayerLocationInterface
          */
         foreach ($this->_playerLocationNameToInstanceMap as $name => $playerLocation) {
 
@@ -104,7 +104,7 @@ class tubepress_player_impl_listeners_PlayerListener
         $event->setSubject($existing);
     }
 
-    public function onGalleryTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onGalleryTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         $activePlayerLocation = $this->_getActivePlayerLocation();
         $staticTemplateName   = $activePlayerLocation->getStaticTemplateName();
@@ -120,7 +120,7 @@ class tubepress_player_impl_listeners_PlayerListener
         $templateVars = $event->getSubject();
 
         /**
-         * @var $mediaPage tubepress_app_api_media_MediaPage
+         * @var $mediaPage tubepress_api_media_MediaPage
          */
         $mediaPage = $templateVars['mediaPage'];
         $items     = $mediaPage->getItems();
@@ -133,17 +133,17 @@ class tubepress_player_impl_listeners_PlayerListener
         $mediaItem = $items[0];
 
         $playerTemplateVars = array(
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM => $mediaItem
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mediaItem
         );
 
         $playerHtml = $this->_templating->renderTemplate('gallery/player/static', $playerTemplateVars);
 
-        $templateVars[tubepress_app_api_template_VariableNames::PLAYER_HTML] = $playerHtml;
+        $templateVars[tubepress_api_template_VariableNames::PLAYER_HTML] = $playerHtml;
 
         $event->setSubject($templateVars);
     }
 
-    public function onStaticPlayerTemplateSelection(tubepress_lib_api_event_EventInterface $event)
+    public function onStaticPlayerTemplateSelection(tubepress_api_event_EventInterface $event)
     {
         $activePlayerLocation = $this->_getActivePlayerLocation();
         $staticTemplateName   = $activePlayerLocation->getStaticTemplateName();
@@ -156,7 +156,7 @@ class tubepress_player_impl_listeners_PlayerListener
         $event->setSubject($staticTemplateName);
     }
 
-    public function onAjaxPlayerTemplateSelection(tubepress_lib_api_event_EventInterface $event)
+    public function onAjaxPlayerTemplateSelection(tubepress_api_event_EventInterface $event)
     {
         $activePlayerLocation = $this->_getActivePlayerLocation();
         $ajaxTemplateName     = $activePlayerLocation->getAjaxTemplateName();
@@ -169,7 +169,7 @@ class tubepress_player_impl_listeners_PlayerListener
         $event->setSubject($ajaxTemplateName);
     }
 
-    public function onGalleryInitJs(tubepress_lib_api_event_EventInterface $event)
+    public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
         $args                 = $event->getSubject();
         $activePlayerLocation = $this->_getActivePlayerLocation();
@@ -180,7 +180,7 @@ class tubepress_player_impl_listeners_PlayerListener
         }
 
         $options = array(
-            tubepress_app_api_options_Names::PLAYER_LOCATION => $activePlayerLocation->getName()
+            tubepress_api_options_Names::PLAYER_LOCATION => $activePlayerLocation->getName()
         );
 
         $args['options'] = array_merge($args['options'], $options);
@@ -189,7 +189,7 @@ class tubepress_player_impl_listeners_PlayerListener
     }
 
     /**
-     * @param tubepress_app_api_player_PlayerLocationInterface[] $playerLocations
+     * @param tubepress_spi_player_PlayerLocationInterface[] $playerLocations
      */
     public function setPlayerLocations(array $playerLocations)
     {
@@ -203,13 +203,13 @@ class tubepress_player_impl_listeners_PlayerListener
     }
 
     /**
-     * @return tubepress_app_api_player_PlayerLocationInterface
+     * @return tubepress_spi_player_PlayerLocationInterface
      *
      * @throws RuntimeException
      */
     private function _getActivePlayerLocation()
     {
-        $playerName = $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION);
+        $playerName = $this->_context->get(tubepress_api_options_Names::PLAYER_LOCATION);
 
         if (!isset($this->_playerLocationNameToInstanceMap[$playerName])) {
 

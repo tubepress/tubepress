@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry implements tubepress_platform_api_contrib_RegistryInterface
+class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry implements tubepress_api_contrib_RegistryInterface
 {
     /**
      * @var
@@ -21,12 +21,12 @@ class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry impleme
     private $_nameToInstanceMap;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     public function __construct(array $bootArtifacts, $key,
-                                tubepress_platform_api_log_LoggerInterface $logger,
+                                tubepress_api_log_LoggerInterface $logger,
                                 tubepress_internal_boot_helper_uncached_Serializer $serializer)
     {
         $this->_logger            = $logger;
@@ -46,7 +46,7 @@ class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry impleme
 
         foreach ($contributables as $contributable) {
 
-            if (!($contributable instanceof tubepress_platform_api_contrib_ContributableInterface)) {
+            if (!($contributable instanceof tubepress_api_contrib_ContributableInterface)) {
 
                 throw new InvalidArgumentException('Unserialized data contained a non contributable');
             }
@@ -57,7 +57,7 @@ class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry impleme
     }
 
     /**
-     * @return tubepress_platform_api_contrib_ContributableInterface[]
+     * @return tubepress_api_contrib_ContributableInterface[]
      *
      * @api
      * @since 4.0.0
@@ -72,7 +72,7 @@ class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry impleme
      *
      * @throws InvalidArgumentException
      *
-     * @return tubepress_platform_api_contrib_ContributableInterface
+     * @return tubepress_api_contrib_ContributableInterface
      *
      * @api
      * @since 4.0.0

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_player_impl_JsPlayerLocation<extended>
  */
-class tubepress_test_player_impl_JsPlayerLocationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_player_impl_JsPlayerLocationTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_player_impl_JsPlayerLocation
@@ -26,7 +26,7 @@ class tubepress_test_player_impl_JsPlayerLocationTest extends tubepress_test_Tub
 
     public function testBasics()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
 
         $this->assertEquals('name', $this->_sut->getName());
         $this->assertEquals('display name', $this->_sut->getUntranslatedDisplayName());

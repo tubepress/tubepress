@@ -10,7 +10,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tubepress_test_TubePressUnitTest
+abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -19,7 +19,7 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
 
     public final function onSetup()
     {
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->doSetup();
     }
@@ -43,15 +43,15 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
 
     private function _setupEventDispatcher($optionName, $incomingValue, $finalValue, array $errors)
     {
-        $mockFirstEvent  = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockSecondEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockThirdEvent  = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockFirstEvent  = $this->mock('tubepress_api_event_EventInterface');
+        $mockSecondEvent = $this->mock('tubepress_api_event_EventInterface');
+        $mockThirdEvent  = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($incomingValue, array(
             'optionName'  => $optionName,
         ))->andReturn($mockFirstEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockFirstEvent
+            tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockFirstEvent
         );
         $mockFirstEvent->shouldReceive('getSubject')->once()->andReturn('abc');
 
@@ -61,7 +61,7 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
             'optionValue' => 'abc'
         ))->andReturn($mockSecondEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_app_api_event_Events::OPTION_SET . '.' . $optionName,
+            tubepress_api_event_Events::OPTION_SET . '.' . $optionName,
             $mockSecondEvent
         );
         $mockSecondEvent->shouldReceive('getSubject')->once()->andReturn($errors);
@@ -73,7 +73,7 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
             'optionValue' => 'xyz'
         ))->andReturn($mockThirdEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_app_api_event_Events::OPTION_SET,
+            tubepress_api_event_Events::OPTION_SET,
             $mockThirdEvent
         );
         $mockThirdEvent->shouldReceive('getSubject')->once()->andReturn($errors);

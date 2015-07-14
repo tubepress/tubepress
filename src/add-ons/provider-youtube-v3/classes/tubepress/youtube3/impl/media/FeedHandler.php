@@ -9,25 +9,25 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_media_HttpFeedHandlerInterface
+class tubepress_youtube3_impl_media_FeedHandler implements tubepress_api_media_HttpFeedHandlerInterface
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_lib_api_array_ArrayReaderInterface
+     * @var tubepress_api_array_ArrayReaderInterface
      */
     private $_arrayReader;
 
@@ -53,11 +53,11 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
     private $_invokedAtLeastOnce;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
-                                tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory,
-                                tubepress_lib_api_array_ArrayReaderInterface   $arrayReader,
-                                tubepress_youtube3_impl_ApiUtility             $apiUtility)
+    public function __construct(tubepress_api_log_LoggerInterface        $logger,
+                                tubepress_api_options_ContextInterface   $context,
+                                tubepress_api_url_UrlFactoryInterface    $urlFactory,
+                                tubepress_api_array_ArrayReaderInterface $arrayReader,
+                                tubepress_youtube3_impl_ApiUtility       $apiUtility)
     {
         $this->_logger      = $logger;
         $this->_context     = $context;
@@ -80,7 +80,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     /**
      * Apply any data that might be needed from the feed to build attributes for this media item.
      *
-     * @param tubepress_app_api_media_MediaItem $mediaItemId The media item.
+     * @param tubepress_api_media_MediaItem $mediaItemId The media item.
      * @param int                               $index       The zero-based index.
      *
      * @return array
@@ -88,7 +88,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      * @api
      * @since 4.0.0
      */
-    public function getNewItemEventArguments(tubepress_app_api_media_MediaItem $mediaItemId, $index)
+    public function getNewItemEventArguments(tubepress_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
 
@@ -103,7 +103,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      *
      * @param int $currentPage The current page number of the gallery.
      *
-     * @return tubepress_platform_api_url_UrlInterface The request URL for this gallery.
+     * @return tubepress_api_url_UrlInterface The request URL for this gallery.
      *
      * @api
      * @since 4.0.0
@@ -112,7 +112,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     {
         $url           = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
         $query         = $url->getQuery();
-        $requestedMode = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
+        $requestedMode = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
 
         switch ($requestedMode) {
 
@@ -155,7 +155,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      *
      * @throws InvalidArgumentException If unable to build a URL for the given video.
      *
-     * @return tubepress_platform_api_url_UrlInterface The URL for the single video given.
+     * @return tubepress_api_url_UrlInterface The URL for the single video given.
      *
      * @api
      * @since 4.0.0
@@ -334,7 +334,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         return $id;
     }
 
-    private function _urlBuildingAddCommonParameters(tubepress_platform_api_url_UrlInterface $url)
+    private function _urlBuildingAddCommonParameters(tubepress_api_url_UrlInterface $url)
     {
         $part = sprintf('%s,%s',
             tubepress_youtube3_impl_ApiUtility::PART_ID,
@@ -555,7 +555,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         throw new InvalidArgumentException(sprintf('%s is not a valid YouTube user or channel', $candidate));
     }
 
-    private function _getChannelIdOrNullFromUrl(tubepress_platform_api_url_UrlInterface $url)
+    private function _getChannelIdOrNullFromUrl(tubepress_api_url_UrlInterface $url)
     {
         $response      = $this->_apiUtility->getDecodedApiResponse($url);
         $responseItems = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
@@ -574,15 +574,15 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         return null;
     }
 
-    private function _urlBuildingPageCommonParams(tubepress_platform_api_url_UrlInterface $url, $currentPage)
+    private function _urlBuildingPageCommonParams(tubepress_api_url_UrlInterface $url, $currentPage)
     {
         if (isset($this->_invokedAtLeastOnce)) {
 
-            $perPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+            $perPage = $this->_context->get(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE);
 
         } else {
 
-            $perPage = min($this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.07));
+            $perPage = min($this->_context->get(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.07));
         }
 
         $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, $perPage);
@@ -619,12 +619,12 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_PAGETOKEN, $nextToken);
     }
 
-    private function _urlBuildingPageSearchOrderBy(tubepress_platform_api_url_UrlInterface $url)
+    private function _urlBuildingPageSearchOrderBy(tubepress_api_url_UrlInterface $url)
     {
-        $requestedSortOrder = $this->_context->get(tubepress_app_api_options_Names::FEED_ORDER_BY);
+        $requestedSortOrder = $this->_context->get(tubepress_api_options_Names::FEED_ORDER_BY);
         $query              = $url->getQuery();
 
-        if ($requestedSortOrder === tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT) {
+        if ($requestedSortOrder === tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT) {
 
             $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE);
             return;
@@ -653,8 +653,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     }
 
     //https://developers.google.com/youtube/v3/docs/videos/list
-    private function _urlBuildingPageVideos(tubepress_platform_api_url_UrlInterface $url,
-                                            tubepress_platform_api_url_QueryInterface $query,
+    private function _urlBuildingPageVideos(tubepress_api_url_UrlInterface $url,
+                                            tubepress_api_url_QueryInterface $query,
                                             $requestedMode)
     {
         $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEOS);
@@ -678,8 +678,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     }
 
     //https://developers.google.com/youtube/v3/docs/playlistItems/list
-    private function _urlBuildingPagePlaylistItems(tubepress_platform_api_url_UrlInterface $url,
-                                                   tubepress_platform_api_url_QueryInterface $query,
+    private function _urlBuildingPagePlaylistItems(tubepress_api_url_UrlInterface $url,
+                                                   tubepress_api_url_QueryInterface $query,
                                                    $requestedMode)
     {
         $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_PLAYLIST_ITEMS);
@@ -720,8 +720,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         }
     }
 
-    private function _urlBuildingPageSearch(tubepress_platform_api_url_UrlInterface $url,
-                                            tubepress_platform_api_url_QueryInterface $query,
+    private function _urlBuildingPageSearch(tubepress_api_url_UrlInterface $url,
+                                            tubepress_api_url_QueryInterface $query,
                                             $requestedMode)
     {
         $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_SEARCH);
@@ -758,7 +758,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
             $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_EMBEDDABLE, 'true');
         }
 
-        $restrictToUser = $this->_context->get(tubepress_app_api_options_Names::SEARCH_ONLY_USER);
+        $restrictToUser = $this->_context->get(tubepress_api_options_Names::SEARCH_ONLY_USER);
 
         if ($restrictToUser) {
 
@@ -870,13 +870,13 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
             $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES) ||
             $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES) ||
             $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES) ||
-            $this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_VIEWS)) {
+            $this->_context->get(tubepress_api_options_Names::META_DISPLAY_VIEWS)) {
 
             $partsToRequest[]  = tubepress_youtube3_impl_ApiUtility::PART_VIDEO_STATISTICS;
             $fieldsToRequest[] = tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS;
         }
 
-        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_LENGTH)) {
+        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_LENGTH)) {
 
             $partsToRequest[]  = tubepress_youtube3_impl_ApiUtility::PART_VIDEO_CONTENT_DETAILS;
             $fieldsToRequest[] = tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS;

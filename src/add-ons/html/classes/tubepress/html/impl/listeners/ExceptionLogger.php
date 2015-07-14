@@ -15,16 +15,16 @@
 class tubepress_html_impl_listeners_ExceptionLogger
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface $logger)
+    public function __construct(tubepress_api_log_LoggerInterface $logger)
     {
         $this->_logger = $logger;
     }
 
-    public function onException(tubepress_lib_api_event_EventInterface $event)
+    public function onException(tubepress_api_event_EventInterface $event)
     {
         if (!$this->_logger->isEnabled()) {
 

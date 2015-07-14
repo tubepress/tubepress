@@ -15,17 +15,17 @@
 class tubepress_http_impl_puzzle_streams_PuzzleStream implements puzzle_stream_StreamInterface
 {
     /**
-     * @var tubepress_lib_api_streams_StreamInterface
+     * @var tubepress_api_streams_StreamInterface
      */
     private $_delegate;
 
-    public function __construct(tubepress_lib_api_streams_StreamInterface $delegate)
+    public function __construct(tubepress_api_streams_StreamInterface $delegate)
     {
         $this->_delegate = $delegate;
     }
 
     /**
-     * @return tubepress_lib_api_streams_StreamInterface
+     * @return tubepress_api_streams_StreamInterface
      */
     public function getUnderlyingTubePressStream()
     {

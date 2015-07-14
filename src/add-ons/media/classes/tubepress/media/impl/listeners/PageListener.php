@@ -17,7 +17,7 @@ class tubepress_media_impl_listeners_PageListener
     private $_logger;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -27,12 +27,12 @@ class tubepress_media_impl_listeners_PageListener
     private $_perPageSortOrder;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
 
     /**
-     * @var tubepress_app_api_media_CollectorInterface
+     * @var tubepress_api_media_CollectorInterface
      */
     private $_collector;
 
@@ -40,29 +40,29 @@ class tubepress_media_impl_listeners_PageListener
 
     private static $_perPageSortMap = array(
 
-        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT =>
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT =>
+            tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
 
-        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST =>
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST =>
+            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
 
-        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST =>
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST =>
+            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
 
-        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION =>
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_DURATION =>
+            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
 
-        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_TITLE =>
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_TITLE =>
+            tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
 
-        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT =>
-            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT =>
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
     );
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_app_api_media_CollectorInterface        $collector)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_media_CollectorInterface        $collector)
     {
         $this->_logger        = $logger;
         $this->_context       = $context;
@@ -70,13 +70,13 @@ class tubepress_media_impl_listeners_PageListener
         $this->_collector     = $collector;
     }
 
-    public function blacklist(tubepress_lib_api_event_EventInterface $event)
+    public function blacklist(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $mediaItems tubepress_app_api_media_MediaItem[]
+         * @var $mediaItems tubepress_api_media_MediaItem[]
          */
         $mediaItems     = $event->getSubject()->getItems();
-        $blacklist      = $this->_context->get(tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST);
+        $blacklist      = $this->_context->get(tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST);
         $itemsToKeep    = array();
         $blacklistCount = 0;
 
@@ -99,7 +99,7 @@ class tubepress_media_impl_listeners_PageListener
         $event->getSubject()->setItems($itemsToKeep);
     }
 
-    public function prependItems(tubepress_lib_api_event_EventInterface $event)
+    public function prependItems(tubepress_api_event_EventInterface $event)
     {
         $customVideoId = $this->_requestParams->getParamValue('tubepress_item');
         $shouldLog     = $this->_logger->isEnabled();
@@ -118,13 +118,13 @@ class tubepress_media_impl_listeners_PageListener
         $this->_prependVideo($customVideoId, $event);
     }
 
-    public function perPageSort(tubepress_lib_api_event_EventInterface $event)
+    public function perPageSort(tubepress_api_event_EventInterface $event)
     {
-        $this->_perPageSortOrder = $this->_context->get(tubepress_app_api_options_Names::FEED_PER_PAGE_SORT);
+        $this->_perPageSortOrder = $this->_context->get(tubepress_api_options_Names::FEED_PER_PAGE_SORT);
         $shouldLog               = $this->_logger->isEnabled();
 
         /** No sort requested? */
-        if ($this->_perPageSortOrder === tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NONE) {
+        if ($this->_perPageSortOrder === tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE) {
 
             if ($shouldLog) {
 
@@ -137,7 +137,7 @@ class tubepress_media_impl_listeners_PageListener
         /** Grab a handle to the videos. */
         $mediaItems = $event->getSubject()->getItems();
 
-        if ($this->_perPageSortOrder === tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM) {
+        if ($this->_perPageSortOrder === tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM) {
 
             if ($shouldLog) {
 
@@ -160,13 +160,13 @@ class tubepress_media_impl_listeners_PageListener
         $event->getSubject()->setItems($mediaItems);
     }
 
-    public function capResults(tubepress_lib_api_event_EventInterface $event)
+    public function capResults(tubepress_api_event_EventInterface $event)
     {
         $totalResults = $event->getSubject()->getTotalResultCount();
         $limit        = isset($this->_invokedAtLeastOnce) ?
-            $this->_context->get(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP) : min(
+            $this->_context->get(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP) : min(
                 ceil((1.1 + 1.0)),
-                $this->_context->get(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP)
+                $this->_context->get(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP)
             );
 
         $firstCut       = $limit == 0 ? $totalResults : min($limit, $totalResults);
@@ -193,10 +193,10 @@ class tubepress_media_impl_listeners_PageListener
         $event->getSubject()->setTotalResultCount($secondCut);
     }
 
-    public function filterDuplicates(tubepress_lib_api_event_EventInterface $event)
+    public function filterDuplicates(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $mediaPage tubepress_app_api_media_MediaPage
+         * @var $mediaPage tubepress_api_media_MediaPage
          */
         $mediaPage = $event->getSubject();
         $items     = $mediaPage->getItems();
@@ -235,7 +235,7 @@ class tubepress_media_impl_listeners_PageListener
 
     private function _calculateRealMax($reported)
     {
-        $mode = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
+        $mode = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
 
         switch ($mode) {
             case 'tag':
@@ -252,7 +252,7 @@ class tubepress_media_impl_listeners_PageListener
         return $reported;
     }
 
-    public function __perPageSort(tubepress_app_api_media_MediaItem $first, tubepress_app_api_media_MediaItem $second)
+    public function __perPageSort(tubepress_api_media_MediaItem $first, tubepress_api_media_MediaItem $second)
     {
         $attributeName = self::$_perPageSortMap[$this->_perPageSortOrder];
 
@@ -266,10 +266,10 @@ class tubepress_media_impl_listeners_PageListener
 
         switch ($this->_perPageSortOrder) {
 
-            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT:
-            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST:
-            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION:
-            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT:
+            case tubepress_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT:
+            case tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST:
+            case tubepress_api_options_AcceptableValues::PER_PAGE_SORT_DURATION:
+            case tubepress_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT:
 
                 $firstAttributeValue  = intval($firstAttributeValue);
                 $secondAttributeValue = intval($secondAttributeValue);
@@ -286,7 +286,7 @@ class tubepress_media_impl_listeners_PageListener
 
                 return -1;
 
-            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST:
+            case tubepress_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST:
 
                 $firstAttributeValue  = intval($firstAttributeValue);
                 $secondAttributeValue = intval($secondAttributeValue);
@@ -319,7 +319,7 @@ class tubepress_media_impl_listeners_PageListener
         }
     }
 
-    private function _prependVideo($id, tubepress_lib_api_event_EventInterface $event)
+    private function _prependVideo($id, tubepress_api_event_EventInterface $event)
     {
         $mediaItemArray = $event->getSubject()->getItems();
 
@@ -346,7 +346,7 @@ class tubepress_media_impl_listeners_PageListener
     private function _moveItemUpFront($mediaItems, $targetId)
     {
         /**
-         * @var $mediaItems tubepress_app_api_media_MediaItem[]
+         * @var $mediaItems tubepress_api_media_MediaItem[]
          */
         for ($x = 0; $x < count($mediaItems); $x++) {
 
@@ -371,7 +371,7 @@ class tubepress_media_impl_listeners_PageListener
     private function _mediaItemArrayAlreadyHasItem($mediaItems, $targetId)
     {
         /**
-         * @var $mediaItem tubepress_app_api_media_MediaItem
+         * @var $mediaItem tubepress_api_media_MediaItem
          */
         foreach ($mediaItems as $mediaItem) {
 

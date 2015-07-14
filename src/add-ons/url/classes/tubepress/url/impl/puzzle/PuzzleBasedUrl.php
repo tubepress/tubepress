@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api_url_UrlInterface
+class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_api_url_UrlInterface
 {
     /**
-     * @var tubepress_platform_api_url_QueryInterface
+     * @var tubepress_api_url_QueryInterface
      */
     private $_query = null;
 
@@ -46,7 +46,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $relativePath Relative path to add
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function addPath($relativePath)
     {
@@ -181,7 +181,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
     }
 
     /**
-     * @return tubepress_platform_api_url_QueryInterface
+     * @return tubepress_api_url_QueryInterface
      */
     public function getQuery()
     {
@@ -221,7 +221,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
     /**
      * Removes dot segments from a URL
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      * @link http://tools.ietf.org/html/rfc3986#section-5.2.4
      */
     public function removeDotSegments()
@@ -238,7 +238,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $fragment Fragment to set
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setFragment($fragment)
     {
@@ -254,7 +254,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $host Host to set (e.g. www.yahoo.com, yahoo.com)
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setHost($host)
     {
@@ -270,7 +270,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $password Password to set
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setPassword($password)
     {
@@ -286,7 +286,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $path Path string to set
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setPath($path)
     {
@@ -302,7 +302,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param int $port Port to set
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setPort($port)
     {
@@ -316,11 +316,11 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
     /**
      * Set the query part of the URL
      *
-     * @param tubepress_platform_api_url_QueryInterface|string|array $query Query string value to set. Can
-     *                                                             be a string that will be parsed into a tubepress_platform_api_url_QueryInterface object, an array
-     *                                                             of key value pairs, or a tubepress_platform_api_url_QueryInterface object.
+     * @param tubepress_api_url_QueryInterface|string|array $query Query string value to set. Can
+     *                                                             be a string that will be parsed into a tubepress_api_url_QueryInterface object, an array
+     *                                                             of key value pairs, or a tubepress_api_url_QueryInterface object.
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      * @throws InvalidArgumentException
      */
     public function setQuery($query)
@@ -334,7 +334,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
             return $this;
         }
 
-        if ($query instanceof tubepress_platform_api_url_QueryInterface) {
+        if ($query instanceof tubepress_api_url_QueryInterface) {
 
             $this->_query = $query;
 
@@ -360,7 +360,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $scheme Scheme to set
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setScheme($scheme)
     {
@@ -376,7 +376,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
      *
      * @param string $username Username to set
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function setUsername($username)
     {
@@ -421,7 +421,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api
     /**
      * Clones the given URL.
      *
-     * @return tubepress_platform_api_url_UrlInterface
+     * @return tubepress_api_url_UrlInterface
      */
     public function getClone()
     {

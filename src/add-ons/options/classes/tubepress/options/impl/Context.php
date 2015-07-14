@@ -14,7 +14,7 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class tubepress_options_impl_Context implements tubepress_app_api_options_ContextInterface
+class tubepress_options_impl_Context implements tubepress_api_options_ContextInterface
 {
     /**
      * The user's "custom" options that differ from what's in storage.
@@ -22,26 +22,26 @@ class tubepress_options_impl_Context implements tubepress_app_api_options_Contex
     private $_ephemeralOptions = array();
 
     /**
-     * @var tubepress_app_api_options_PersistenceInterface
+     * @var tubepress_api_options_PersistenceInterface
      */
     private $_persistence;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionReference;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
      * Constructor.
      */
-    public function __construct(tubepress_app_api_options_PersistenceInterface   $persistence,
-                                tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
-                                tubepress_app_api_options_ReferenceInterface     $reference)
+    public function __construct(tubepress_api_options_PersistenceInterface   $persistence,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_options_ReferenceInterface     $reference)
     {
         $this->_eventDispatcher = $eventDispatcher;
         $this->_persistence     = $persistence;
@@ -159,14 +159,14 @@ class tubepress_options_impl_Context implements tubepress_app_api_options_Contex
             $optionName,
             $externallyCleanedValue,
             array(),
-            tubepress_app_api_event_Events::OPTION_SET . '.' . $optionName
+            tubepress_api_event_Events::OPTION_SET . '.' . $optionName
         );
 
         $event = $this->_dispatchForOptionSet(
             $optionName,
             $event->getArgument('optionValue'),
             $event->getSubject(),
-            tubepress_app_api_event_Events::OPTION_SET
+            tubepress_api_event_Events::OPTION_SET
         );
 
         $optionValue = $event->getArgument('optionValue');
@@ -181,7 +181,7 @@ class tubepress_options_impl_Context implements tubepress_app_api_options_Contex
             'optionName' => $optionName
         ));
 
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
 
         return $event->getSubject();
     }

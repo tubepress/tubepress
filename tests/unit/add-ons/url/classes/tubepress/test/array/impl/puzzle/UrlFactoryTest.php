@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_url_impl_puzzle_UrlFactory<extended>
  */
-class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_url_impl_puzzle_UrlFactory
@@ -27,7 +27,7 @@ class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_test_TubeP
     public function testValid()
     {
         $u = $this->_sut->fromString('https://foo.bar/one/two.php?test=true#frag');
-        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $u);
+        $this->assertInstanceOf('tubepress_api_url_UrlInterface', $u);
         $this->assertEquals('https://foo.bar/one/two.php?test=true#frag', "$u");
     }
 

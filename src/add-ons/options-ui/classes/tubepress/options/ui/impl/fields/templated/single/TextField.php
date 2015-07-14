@@ -20,10 +20,10 @@ class tubepress_options_ui_impl_fields_templated_single_TextField extends tubepr
     private $_size = 20;
 
     public function __construct($optionName,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionReference)
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_ReferenceInterface      $optionReference)
     {
         parent::__construct($optionName,
                             'options-ui/fields/text',

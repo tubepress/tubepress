@@ -12,7 +12,7 @@
 class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
 {
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
@@ -21,12 +21,12 @@ class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
      */
     private $_serverVars;
 
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_environment = $environment;
     }
 
-    public function onAdminScripts(tubepress_lib_api_event_EventInterface $event)
+    public function onAdminScripts(tubepress_api_event_EventInterface $event)
     {
         $urls = $event->getSubject();
 
@@ -52,7 +52,7 @@ class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
     private function _containsBootstrap(array $urls)
     {
         /**
-         * @var $urls tubepress_platform_api_url_UrlInterface[]
+         * @var $urls tubepress_api_url_UrlInterface[]
          */
         foreach ($urls as $url) {
 

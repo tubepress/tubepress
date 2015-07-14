@@ -14,7 +14,7 @@
  */
 class tubepress_feed_impl_listeners_PerPageSort
 {
-    public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
+    public function onAcceptableValues(tubepress_api_event_EventInterface $event)
     {
         $current = $event->getSubject();
 
@@ -24,14 +24,14 @@ class tubepress_feed_impl_listeners_PerPageSort
         }
 
         $result = array(
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NONE          => 'none',                            //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',                   //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST        => 'date published (newest first)',   //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST        => 'date published (oldest first)',   //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION      => 'length',                          //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM        => 'random',                          //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_TITLE         => 'title',                           //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT    => 'view count',                      //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE          => 'none',                            //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',                   //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST        => 'date published (newest first)',   //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST        => 'date published (oldest first)',   //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_DURATION      => 'length',                          //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM        => 'random',                          //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_TITLE         => 'title',                           //>(translatable)<
+            tubepress_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT    => 'view count',                      //>(translatable)<
         );
 
         $toSet = array_merge($current, $result);

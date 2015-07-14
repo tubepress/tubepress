@@ -12,28 +12,28 @@
 /**
  *
  */
-class tubepress_http_ioc_HttpExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_http_ioc_HttpExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_platform_api_ioc_ContainerBuilderInterface`
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_platform_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerClient($containerBuilder);
         $this->_registerMiscServices($containerBuilder);
         $this->_registerListeners($containerBuilder);
     }
 
-    private function _registerClient(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerClient(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $emitterDef = $containerBuilder->register(
             'puzzle_event_Emitter',
@@ -47,57 +47,57 @@ class tubepress_http_ioc_HttpExtension implements tubepress_platform_api_ioc_Con
                 'puzzle_subscriber_Chunked'
             );
 
-            $emitterDef->addMethodCall('attach', array(new tubepress_platform_api_ioc_Reference('puzzle_subscriber_Chunked')));
+            $emitterDef->addMethodCall('attach', array(new tubepress_api_ioc_Reference('puzzle_subscriber_Chunked')));
         }
 
         $containerBuilder->register(
             'puzzle.httpClient',
             'puzzle_Client'
-        )->addArgument(array('emitter' => new tubepress_platform_api_ioc_Reference('puzzle_event_Emitter')));
+        )->addArgument(array('emitter' => new tubepress_api_ioc_Reference('puzzle_event_Emitter')));
 
         $containerBuilder->register(
-            tubepress_lib_api_http_HttpClientInterface::_,
+            tubepress_api_http_HttpClientInterface::_,
             'tubepress_http_impl_puzzle_PuzzleHttpClient'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference('puzzle.httpClient'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_));
     }
 
-    private function _registerMiscServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerMiscServices(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            tubepress_lib_api_http_ResponseCodeInterface::_,
+            tubepress_api_http_ResponseCodeInterface::_,
             'tubepress_http_impl_ResponseCode'
         );
 
         $containerBuilder->register(
-            tubepress_lib_api_http_oauth_v1_ClientInterface::_,
+            tubepress_api_http_oauth_v1_ClientInterface::_,
             'tubepress_http_impl_oauth_v1_Client'
         );
 
         $containerBuilder->register(
-            tubepress_lib_api_http_AjaxInterface::_,
+            tubepress_api_http_AjaxInterface::_,
             'tubepress_http_impl_PrimaryAjaxHandler'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_ResponseCodeInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_ResponseCodeInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_));
 
         $containerBuilder->register(
-         tubepress_lib_api_http_RequestParametersInterface::_,
+         tubepress_api_http_RequestParametersInterface::_,
          'tubepress_http_impl_RequestParameters'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
     }
 
-    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
             'tubepress_http_impl_listeners_UserAgentListener',
             'tubepress_http_impl_listeners_UserAgentListener'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST,
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_api_http_Events::EVENT_HTTP_REQUEST,
             'priority' => 100000,
             'method'   => 'onRequest'
         ));

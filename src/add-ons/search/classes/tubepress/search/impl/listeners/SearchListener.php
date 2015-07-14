@@ -15,34 +15,34 @@
 class tubepress_search_impl_listeners_SearchListener
 {
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
 
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders = array();
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
         $this->_logger        = $logger;
         $this->_context       = $context;
@@ -50,9 +50,9 @@ class tubepress_search_impl_listeners_SearchListener
         $this->_requestParams = $requestParams;
     }
 
-    public function onHtmlGenerationSearchInput(tubepress_lib_api_event_EventInterface $event)
+    public function onHtmlGenerationSearchInput(tubepress_api_event_EventInterface $event)
     {
-        if ($this->_context->get(tubepress_app_api_options_Names::HTML_OUTPUT) !== tubepress_app_api_options_AcceptableValues::OUTPUT_SEARCH_INPUT) {
+        if ($this->_context->get(tubepress_api_options_Names::HTML_OUTPUT) !== tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_INPUT) {
 
             return;
         }
@@ -63,12 +63,12 @@ class tubepress_search_impl_listeners_SearchListener
         $event->stopPropagation();
     }
 
-    public function onHtmlGenerationSearchOutput(tubepress_lib_api_event_EventInterface $event)
+    public function onHtmlGenerationSearchOutput(tubepress_api_event_EventInterface $event)
     {
         $shouldLog   = $this->_logger->isEnabled();
 
         /* not configured at all for search results */
-        if ($this->_context->get(tubepress_app_api_options_Names::HTML_OUTPUT) !== tubepress_app_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS) {
+        if ($this->_context->get(tubepress_api_options_Names::HTML_OUTPUT) !== tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS) {
 
             if ($shouldLog) {
 
@@ -82,7 +82,7 @@ class tubepress_search_impl_listeners_SearchListener
         $rawSearchTerms = $this->_requestParams->getParamValue('tubepress_search');
 
         /* are we set up for a gallery fallback? */
-        $mustShowSearchResults = $this->_context->get(tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY);
+        $mustShowSearchResults = $this->_context->get(tubepress_api_options_Names::SEARCH_RESULTS_ONLY);
         $hasSearchTerms        = $rawSearchTerms != '';
 
         /* the user is not searching and we don't have to show results */
@@ -99,7 +99,7 @@ class tubepress_search_impl_listeners_SearchListener
         $this->_handleSearchOutput($event);
     }
 
-    public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
+    public function onAcceptableValues(tubepress_api_event_EventInterface $event)
     {
         $current = $event->getSubject();
 
@@ -111,7 +111,7 @@ class tubepress_search_impl_listeners_SearchListener
         $toAdd = array();
 
         /**
-         * @var $mediaProvider tubepress_app_api_media_MediaProviderInterface
+         * @var $mediaProvider tubepress_api_media_MediaProviderInterface
          */
         foreach ($this->_mediaProviders as $mediaProvider) {
 
@@ -126,7 +126,7 @@ class tubepress_search_impl_listeners_SearchListener
         $this->_mediaProviders = $providers;
     }
 
-    private function _handleSearchOutput(tubepress_lib_api_event_EventInterface $event)
+    private function _handleSearchOutput(tubepress_api_event_EventInterface $event)
     {
         $rawSearchTerms = $this->_requestParams->getParamValue('tubepress_search');
         $hasSearchTerms = $rawSearchTerms != '';
@@ -154,13 +154,13 @@ class tubepress_search_impl_listeners_SearchListener
         $modeName  = $provider->getSearchModeName();
         $valueName = $provider->getSearchQueryOptionName();
 
-        $this->_context->setEphemeralOption(tubepress_app_api_options_Names::GALLERY_SOURCE, $modeName);
+        $this->_context->setEphemeralOption(tubepress_api_options_Names::GALLERY_SOURCE, $modeName);
         $this->_context->setEphemeralOption($valueName, $rawSearchTerms);
     }
 
     private function _findMediaProvider()
     {
-        $name = $this->_context->get(tubepress_app_api_options_Names::SEARCH_PROVIDER);
+        $name = $this->_context->get(tubepress_api_options_Names::SEARCH_PROVIDER);
 
         foreach ($this->_mediaProviders as $mediaProvider) {
 

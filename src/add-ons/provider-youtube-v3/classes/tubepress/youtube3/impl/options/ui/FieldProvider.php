@@ -12,15 +12,15 @@
 /**
  * 
  */
-class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_api_options_ui_FieldProviderInterface
+class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_api_options_ui_FieldProviderInterface
 {
     /**
-     * @var tubepress_app_api_options_ui_FieldInterface[]
+     * @var tubepress_api_options_ui_FieldInterface[]
      */
     private $_fields;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
@@ -53,7 +53,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
     }
 
     /**
-     * @return tubepress_app_api_options_ui_ElementInterface[] The categories that this field provider supplies.
+     * @return tubepress_api_options_ui_ElementInterface[] The categories that this field provider supplies.
      *
      * @api
      * @since 4.0.0
@@ -64,7 +64,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
     }
 
     /**
-     * @return tubepress_app_api_options_ui_FieldInterface[] The fields that this field provider provides.
+     * @return tubepress_api_options_ui_FieldInterface[] The fields that this field provider provides.
      *
      * @api
      * @since 4.0.0
@@ -85,7 +85,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
     {
         return array(
 
-            tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
+            tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
 
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
@@ -95,7 +95,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
             ),
 
-            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
+            tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
 
                 tubepress_youtube3_api_Constants::OPTION_AUTOHIDE,
                 tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS,
@@ -108,7 +108,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
                 tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS,
             ),
 
-            tubepress_app_api_options_ui_CategoryNames::FEED => array(
+            tubepress_api_options_ui_CategoryNames::FEED => array(
 
                 tubepress_youtube3_api_Constants::OPTION_FILTER,
                 tubepress_youtube3_api_Constants::OPTION_API_KEY,
@@ -140,7 +140,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

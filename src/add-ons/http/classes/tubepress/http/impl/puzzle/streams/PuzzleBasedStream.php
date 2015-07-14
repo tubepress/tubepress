@@ -12,7 +12,7 @@
 /**
  * Delegating stream.
  */
-class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_lib_api_streams_StreamInterface
+class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_api_streams_StreamInterface
 {
     /**
      * @var puzzle_stream_StreamInterface

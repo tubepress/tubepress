@@ -12,14 +12,14 @@
 /**
  *
  */
-class tubepress_options_impl_AcceptableValues implements tubepress_app_api_options_AcceptableValuesInterface
+class tubepress_options_impl_AcceptableValues implements tubepress_api_options_AcceptableValuesInterface
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_eventDispatcher = $eventDispatcher;
     }
@@ -40,7 +40,7 @@ class tubepress_options_impl_AcceptableValues implements tubepress_app_api_optio
         ));
         $this->_eventDispatcher->dispatch(
 
-            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
+            tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
             $event
         );
 

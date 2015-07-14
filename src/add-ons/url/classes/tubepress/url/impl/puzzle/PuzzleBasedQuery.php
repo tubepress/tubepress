@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_api_url_QueryInterface
+class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_api_url_QueryInterface
 {
     /**
      * @var puzzle_Query
@@ -34,7 +34,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      * @param string $key   Key to add
      * @param mixed  $value Value to add to the key
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function add($key, $value)
     {
@@ -48,7 +48,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
     /**
      * Removes all key value pairs
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function clear()
     {
@@ -62,7 +62,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
     /**
      * Iterates over each key value pair in the collection passing them to the
      * callable. If the callable returns true, the current value from input is
-     * returned into the result tubepress_platform_api_url_QueryInterface.
+     * returned into the result tubepress_api_url_QueryInterface.
      *
      * The callable must accept two arguments:
      * - (string) $key
@@ -70,7 +70,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      *
      * @param callable $closure Evaluation function
      *
-     * @return tubepress_platform_api_url_QueryInterface
+     * @return tubepress_api_url_QueryInterface
      */
     public function filter($closure)
     {
@@ -125,7 +125,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
     }
 
     /**
-     * Returns a tubepress_platform_api_url_QueryInterface containing all the elements of the collection after
+     * Returns a tubepress_api_url_QueryInterface containing all the elements of the collection after
      * applying the callback function to each one.
      *
      * The callable should accept three arguments:
@@ -138,7 +138,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      * @param callable $closure Map function to apply
      * @param array    $context Context to pass to the callable
      *
-     * @return tubepress_platform_api_url_QueryInterface
+     * @return tubepress_api_url_QueryInterface
      */
     public function map($closure, array $context = array())
     {
@@ -146,17 +146,17 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
     }
 
     /**
-     * Add and merge in a tubepress_platform_api_url_QueryInterface or array of key value pair data.
+     * Add and merge in a tubepress_api_url_QueryInterface or array of key value pair data.
      *
-     * @param tubepress_platform_api_url_QueryInterface|array $data Associative array of key value pair data
+     * @param tubepress_api_url_QueryInterface|array $data Associative array of key value pair data
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function merge($data)
     {
         $this->_assertNotFrozen();
 
-        if ($data instanceof tubepress_platform_api_url_QueryInterface) {
+        if ($data instanceof tubepress_api_url_QueryInterface) {
 
             $data = $data->toArray();
         }
@@ -172,7 +172,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      *
      * @param array|Traversable $data Values to override over this config
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function overwriteWith($data)
     {
@@ -188,7 +188,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      *
      * @param string $key A key to remove
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function remove($key)
     {
@@ -204,7 +204,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      *
      * @param array $data Associative array of data
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function replace(array $data)
     {
@@ -221,7 +221,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      * @param string $key   Key to set
      * @param mixed  $value Value to set
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      */
     public function set($key, $value)
     {
@@ -237,7 +237,7 @@ class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_a
      *
      * @param string|bool $type One of 'RFC1738', 'RFC3986', or false to disable encoding
      *
-     * @return tubepress_platform_api_url_QueryInterface Self.
+     * @return tubepress_api_url_QueryInterface Self.
      * @throws InvalidArgumentException
      */
     public function setEncodingType($type)

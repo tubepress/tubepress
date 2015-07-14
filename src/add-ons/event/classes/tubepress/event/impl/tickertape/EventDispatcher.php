@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_lib_api_event_EventDispatcherInterface
+class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_api_event_EventDispatcherInterface
 {
     /**
      * @var ehough_tickertape_ContainerAwareEventDispatcher
@@ -63,15 +63,15 @@ class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_lib_a
      * @param string                             $eventName The name of the event to dispatch. The name of
      *                                                      the event is the name of the method that is
      *                                                      invoked on listeners.
-     * @param tubepress_lib_api_event_EventInterface $event     The event to pass to the event handlers/listeners.
+     * @param tubepress_api_event_EventInterface $event     The event to pass to the event handlers/listeners.
      *                                                      If not supplied, an empty event instance is created.
      *
-     * @return tubepress_lib_api_event_EventInterface
+     * @return tubepress_api_event_EventInterface
      *
      * @api
      * @since 4.0.0
      */
-    public function dispatch($eventName, tubepress_lib_api_event_EventInterface $event = null)
+    public function dispatch($eventName, tubepress_api_event_EventInterface $event = null)
     {
         if (!$event || (!($event instanceof ehough_tickertape_Event))) {
 
@@ -129,7 +129,7 @@ class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_lib_a
      * @param string $subject   The event subject.
      * @param array  $arguments The event arguments.
      *
-     * @return tubepress_lib_api_event_EventInterface
+     * @return tubepress_api_event_EventInterface
      *
      * @api
      * @since 4.0.0

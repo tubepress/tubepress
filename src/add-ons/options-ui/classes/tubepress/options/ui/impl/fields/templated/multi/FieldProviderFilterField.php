@@ -17,16 +17,16 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
     const FIELD_ID = 'provider_filter_field';
 
     /**
-     * @var tubepress_app_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_api_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders = array();
 
-    public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionsReference)
+    public function __construct(tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_ReferenceInterface      $optionsReference)
     {
-        $optionName = tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS;
+        $optionName = tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS;
 
         parent::__construct(
 
@@ -40,7 +40,7 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
     }
 
     /**
-     * @param tubepress_app_api_options_ui_FieldProviderInterface[] $providers
+     * @param tubepress_api_options_ui_FieldProviderInterface[] $providers
      */
     public function setFieldProviders(array $providers)
     {
@@ -52,7 +52,7 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
      */
     protected function getCurrentlySelectedValues()
     {
-        $optionName      = tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS;
+        $optionName      = tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS;
         $currentHides    = explode(';', $this->getOptionPersistence()->fetch($optionName));
         $providerNameMap = $this->_getFieldProvidersIdToDisplayNameMap();
         $currentShows    = array();
@@ -84,7 +84,7 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
         $providerIds = array_keys($this->_getFieldProvidersIdToDisplayNameMap());
         $newValue    = implode(';', $providerIds);
 
-        return $this->getOptionPersistence()->queueForSave(tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS, $newValue);
+        return $this->getOptionPersistence()->queueForSave(tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS, $newValue);
     }
 
     /**
@@ -94,7 +94,7 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
      */
     protected function onSubmitMixed(array $values)
     {
-        $optionName            = tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS;
+        $optionName            = tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS;
         $allFieldProviderNames = array_keys($this->_getFieldProvidersIdToDisplayNameMap());
 
         $toHide = array();

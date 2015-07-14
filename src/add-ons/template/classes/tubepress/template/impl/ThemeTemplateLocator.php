@@ -15,12 +15,12 @@
 class tubepress_template_impl_ThemeTemplateLocator
 {
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
@@ -30,7 +30,7 @@ class tubepress_template_impl_ThemeTemplateLocator
     private $_currentThemeService;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -44,10 +44,10 @@ class tubepress_template_impl_ThemeTemplateLocator
      */
     private $_currentThemeNameToTemplateNameToThemeInstanceCache = array();
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
-                                tubepress_app_api_options_ContextInterface       $context,
-                                tubepress_platform_api_contrib_RegistryInterface $themeRegistry,
-                                tubepress_theme_impl_CurrentThemeService         $currentThemeService)
+    public function __construct(tubepress_api_log_LoggerInterface        $logger,
+                                tubepress_api_options_ContextInterface   $context,
+                                tubepress_api_contrib_RegistryInterface  $themeRegistry,
+                                tubepress_theme_impl_CurrentThemeService $currentThemeService)
     {
         $this->_themeRegistry       = $themeRegistry;
         $this->_context             = $context;
@@ -136,7 +136,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
     /**
      * @param $templateName
-     * @return null|tubepress_app_api_theme_ThemeInterface
+     * @return null|tubepress_api_theme_ThemeInterface
      */
     private function _findThemeForTemplate($templateName)
     {
@@ -256,7 +256,7 @@ class tubepress_template_impl_ThemeTemplateLocator
         return null;
     }
 
-    private function _loggerPostfix(tubepress_app_api_theme_ThemeInterface $theme)
+    private function _loggerPostfix(tubepress_api_theme_ThemeInterface $theme)
     {
         return sprintf('Theme <code>%s</code> version <code>%s</code>', $theme->getName(), $theme->getVersion());
     }

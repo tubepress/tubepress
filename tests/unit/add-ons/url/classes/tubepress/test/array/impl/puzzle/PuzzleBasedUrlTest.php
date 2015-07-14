@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_url_impl_puzzle_PuzzleBasedUrl<extended>
  */
-class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_test_TubePressUnitTest
 {
     const RFC3986_BASE = "http://a/b/c/d;p?q";
 
@@ -21,7 +21,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_test_T
      */
     public function testToString($url, $expectedAsString)
     {
-        if (!($url instanceof tubepress_platform_api_url_UrlInterface)) {
+        if (!($url instanceof tubepress_api_url_UrlInterface)) {
 
             $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
             $url        = $urlFactory->fromString($url);

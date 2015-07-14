@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_impl_listeners_LoggingListener<extended>
  */
-class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -41,8 +41,8 @@ class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepres
 
     public function onSetup()
     {
-        $this->_mockLogger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockStringUtils  = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
+        $this->_mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockStringUtils  = $this->mock(tubepress_api_util_StringUtilsInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
 
@@ -80,7 +80,7 @@ class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepres
      */
     private function _getMockEvent($value, $subject)
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn($subject);
         $mockEvent->shouldReceive('getArgument')->once()->with('optionName')->andReturn('name');
         $mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($value);

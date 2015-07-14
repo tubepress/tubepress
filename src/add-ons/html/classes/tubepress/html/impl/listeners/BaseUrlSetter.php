@@ -15,16 +15,16 @@
 class tubepress_html_impl_listeners_BaseUrlSetter
 {
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_environment = $environment;
     }
 
-    public function onGlobalJsConfig(tubepress_lib_api_event_EventInterface $event)
+    public function onGlobalJsConfig(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $config array

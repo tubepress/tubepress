@@ -14,16 +14,16 @@
 class tubepress_media_impl_listeners_DispatchingListener
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_eventDispatcher = $eventDispatcher;
     }
 
-    public function onMediaPageRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onMediaPageRequest(tubepress_api_event_EventInterface $event)
     {
         if (!$event->hasArgument('mediaPage')) {
 
@@ -37,12 +37,12 @@ class tubepress_media_impl_listeners_DispatchingListener
             'pageNumber' => $pageNumber
         ));
 
-        $page = $this->_dispatchAndReturnSubject($event, tubepress_app_api_event_Events::MEDIA_PAGE_NEW);
+        $page = $this->_dispatchAndReturnSubject($event, tubepress_api_event_Events::MEDIA_PAGE_NEW);
 
         $event->setArgument('mediaPage', $page);
     }
 
-    public function onMediaItemRequest(tubepress_lib_api_event_EventInterface $event)
+    public function onMediaItemRequest(tubepress_api_event_EventInterface $event)
     {
         if (!$event->hasArgument('mediaItem')) {
 
@@ -51,12 +51,12 @@ class tubepress_media_impl_listeners_DispatchingListener
 
         $item  = $event->getArgument('mediaItem');
         $event = $this->_eventDispatcher->newEventInstance($item);
-        $item  = $this->_dispatchAndReturnSubject($event, tubepress_app_api_event_Events::MEDIA_ITEM_NEW);
+        $item  = $this->_dispatchAndReturnSubject($event, tubepress_api_event_Events::MEDIA_ITEM_NEW);
 
         $event->setArgument('mediaItem', $item);
     }
 
-    private function _dispatchAndReturnSubject(tubepress_lib_api_event_EventInterface $event, $eventName)
+    private function _dispatchAndReturnSubject(tubepress_api_event_EventInterface $event, $eventName)
     {
         $this->_eventDispatcher->dispatch($eventName, $event);
 

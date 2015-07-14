@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_impl_AcceptableValues<extended>
  */
-class tubepress_test_options_impl_AcceptableValuesTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_AcceptableValuesTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_impl_AcceptableValues
@@ -26,18 +26,18 @@ class tubepress_test_options_impl_AcceptableValuesTest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
         $this->_sut = new tubepress_options_impl_AcceptableValues($this->_mockEventDispatcher);
     }
 
     public function testGetAcceptableValues()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('foo'));
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(null, array('optionName' => 'name'))->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.name',
+            tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.name',
             $mockEvent
         );
         $result = $this->_sut->getAcceptableValues('name');

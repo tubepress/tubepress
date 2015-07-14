@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_event_impl_tickertape_EventDispatcher
  */
-class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_event_impl_tickertape_EventDispatcher
@@ -74,7 +74,7 @@ class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress
 
     public function testDispatchNonTickertapeEvent()
     {
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', ehough_mockery_Mockery::on(function ($event) {
 

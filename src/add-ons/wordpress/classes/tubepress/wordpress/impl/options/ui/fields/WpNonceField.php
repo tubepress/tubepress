@@ -12,7 +12,7 @@
 /**
  * WP nonce field.
  */
-class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepress_app_api_options_ui_FieldInterface
+class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepress_api_options_ui_FieldInterface
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
@@ -20,7 +20,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     private $_wpFunctions;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
@@ -91,7 +91,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

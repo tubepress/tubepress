@@ -12,7 +12,7 @@
 /**
  * Embedded player command for native Vimeo
  */
-class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_app_api_embedded_EmbeddedProviderInterface, tubepress_lib_api_template_PathProviderInterface
+class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
 {
     private static $_URL_PARAM_AUTOPLAY  = 'autoplay';
     private static $_URL_PARAM_TITLE     = 'title';
@@ -24,23 +24,23 @@ class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_
     private static $_URL_PARAM_PLAYER_ID = 'player_id';
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_platform_api_util_LangUtilsInterface
+     * @var tubepress_api_util_LangUtilsInterface
      */
     private $_langUtils;
 
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_platform_api_util_LangUtilsInterface $langUtils,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
+    public function __construct(tubepress_api_options_ContextInterface $context,
+                                tubepress_api_util_LangUtilsInterface  $langUtils,
+                                tubepress_api_url_UrlFactoryInterface  $urlFactory)
     {
         $this->_context    = $context;
         $this->_langUtils  = $langUtils;
@@ -83,18 +83,18 @@ class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $mediaItem
+     * @param tubepress_api_media_MediaItem $mediaItem
      *
      * @return array
      *
      * @api
      * @since 4.0.0
      */
-    public function getTemplateVariables(tubepress_app_api_media_MediaItem $mediaItem)
+    public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
         return array(
 
-            tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $this->_getDataUrl($mediaItem),
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $this->_getDataUrl($mediaItem),
         );
     }
 
@@ -123,11 +123,11 @@ class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_
         );
     }
 
-    private function _getDataUrl(tubepress_app_api_media_MediaItem $mediaItem)
+    private function _getDataUrl(tubepress_api_media_MediaItem $mediaItem)
     {
-        $autoPlay = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY);
-        $showInfo = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO);
-        $loop     = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_LOOP);
+        $autoPlay = $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY);
+        $showInfo = $this->_context->get(tubepress_api_options_Names::EMBEDDED_SHOW_INFO);
+        $loop     = $this->_context->get(tubepress_api_options_Names::EMBEDDED_LOOP);
         $color    = $this->_context->get(tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR);
 
         /* build the data URL based on these options */

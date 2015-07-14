@@ -10,7 +10,6 @@
 	<testsuites>
 	   <testsuite name="unit">
            <directory>./add-ons</directory>
-           <directory>./platform</directory>
            <directory>./php</directory>
 	   </testsuite>
         <testsuite name="translations">

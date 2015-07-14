@@ -12,55 +12,55 @@
 /**
  *
  */
-class tubepress_options_ui_impl_FieldBuilder implements tubepress_app_api_options_ui_FieldBuilderInterface
+class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui_FieldBuilderInterface
 {
     /**
-     * @var tubepress_app_api_options_PersistenceInterface
+     * @var tubepress_api_options_PersistenceInterface
      */
     private $_persistence;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionReference;
 
     /**
-     * @var tubepress_platform_api_util_LangUtilsInterface
+     * @var tubepress_api_util_LangUtilsInterface
      */
     private $_langUtils;
 
     /**
-     * @var tubepress_app_api_options_AcceptableValuesInterface
+     * @var tubepress_api_options_AcceptableValuesInterface
      */
     private $_acceptableValues;
 
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders = array();
 
-    public function __construct(tubepress_app_api_options_PersistenceInterface      $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_app_api_options_ReferenceInterface        $optionReference,
-                                tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
-                                tubepress_platform_api_contrib_RegistryInterface    $themeRegistry)
+    public function __construct(tubepress_api_options_PersistenceInterface      $persistence,
+                                tubepress_api_http_RequestParametersInterface   $requestParams,
+                                tubepress_api_template_TemplatingInterface      $templating,
+                                tubepress_api_options_ReferenceInterface        $optionReference,
+                                tubepress_api_util_LangUtilsInterface           $langUtils,
+                                tubepress_api_options_AcceptableValuesInterface $acceptableValues,
+                                tubepress_api_contrib_RegistryInterface         $themeRegistry)
     {
         $this->_persistence      = $persistence;
         $this->_requestParams    = $requestParams;
@@ -78,7 +78,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_app_api_option
      * @param string $type    The type of the field. (e.g. text, radio, dropdown, multi, etc)
      * @param array  $options An optional array of options to contruct the field.
      *
-     * @return tubepress_app_api_options_ui_FieldInterface A new instance of the field.
+     * @return tubepress_api_options_ui_FieldInterface A new instance of the field.
      *
      * @throws InvalidArgumentException If unable to build the given type.
      *

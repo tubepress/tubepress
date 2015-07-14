@@ -12,99 +12,99 @@
 /**
  *
  */
-class tubepress_meta_ioc_MetaExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_platform_api_ioc_ContainerBuilderInterface`
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_platform_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerListeners($containerBuilder);
         $this->_registerOptions($containerBuilder);
         $this->_registerOptionsUi($containerBuilder);
     }
 
-    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
             'tubepress_meta_impl_listeners_MetaDisplayListener',
             'tubepress_meta_impl_listeners_MetaDisplayListener'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_app_api_media_MediaProviderInterface::__,
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_api_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'priority' => 98000,
             'method'   => 'onPreTemplate'))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'priority' => 98000,
             'method'   => 'onPreTemplate'));
     }
 
-    private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_app_api_options_Reference__meta',
-            'tubepress_app_api_options_Reference'
-        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+            'tubepress_api_options_Reference__meta',
+            'tubepress_api_options_Reference'
+        )->addTag(tubepress_api_options_ReferenceInterface::_)
          ->addArgument(array(
 
-            tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                tubepress_app_api_options_Names::META_DATEFORMAT          => 'M j, Y',
-                tubepress_app_api_options_Names::META_DESC_LIMIT          => 80,
-                tubepress_app_api_options_Names::META_DISPLAY_AUTHOR      => false,
-                tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => false,
-                tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => false,
-                tubepress_app_api_options_Names::META_DISPLAY_ID          => false,
-                tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS    => false,
-                tubepress_app_api_options_Names::META_DISPLAY_LENGTH      => true,
-                tubepress_app_api_options_Names::META_DISPLAY_TITLE       => true,
-                tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => false,
-                tubepress_app_api_options_Names::META_DISPLAY_URL         => false,
-                tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => true,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES      => false,
+            tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_api_options_Names::META_DATEFORMAT          => 'M j, Y',
+                tubepress_api_options_Names::META_DESC_LIMIT          => 80,
+                tubepress_api_options_Names::META_DISPLAY_AUTHOR      => false,
+                tubepress_api_options_Names::META_DISPLAY_CATEGORY    => false,
+                tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => false,
+                tubepress_api_options_Names::META_DISPLAY_ID          => false,
+                tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => false,
+                tubepress_api_options_Names::META_DISPLAY_LENGTH      => true,
+                tubepress_api_options_Names::META_DISPLAY_TITLE       => true,
+                tubepress_api_options_Names::META_DISPLAY_UPLOADED    => false,
+                tubepress_api_options_Names::META_DISPLAY_URL         => false,
+                tubepress_api_options_Names::META_DISPLAY_VIEWS       => true,
+                tubepress_api_options_Names::META_RELATIVE_DATES      => false,
             ),
 
-            tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_app_api_options_Names::META_DATEFORMAT          => 'Date format',                //>(translatable)<
-                tubepress_app_api_options_Names::META_DESC_LIMIT          => 'Maximum description length', //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_AUTHOR      => 'Author',           //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => 'Category',         //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => 'Description',      //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_ID          => 'ID',               //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS    => 'Keywords',         //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_LENGTH      => 'Runtime',          //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_TITLE       => 'Title',            //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => 'Date posted',      //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_URL         => 'URL',              //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => 'View count',       //>(translatable)<
-                tubepress_app_api_options_Names::META_RELATIVE_DATES      => 'Use relative dates',         //>(translatable)<
+            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                tubepress_api_options_Names::META_DATEFORMAT          => 'Date format',                //>(translatable)<
+                tubepress_api_options_Names::META_DESC_LIMIT          => 'Maximum description length', //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_AUTHOR      => 'Author',           //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_CATEGORY    => 'Category',         //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => 'Description',      //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_ID          => 'ID',               //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => 'Keywords',         //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_LENGTH      => 'Runtime',          //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_TITLE       => 'Title',            //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_UPLOADED    => 'Date posted',      //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_URL         => 'URL',              //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_VIEWS       => 'View count',       //>(translatable)<
+                tubepress_api_options_Names::META_RELATIVE_DATES      => 'Use relative dates',         //>(translatable)<
 
             ),
 
-            tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_app_api_options_Names::META_DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
-                tubepress_app_api_options_Names::META_DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
-                tubepress_app_api_options_Names::META_RELATIVE_DATES => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
+            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                tubepress_api_options_Names::META_DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
+                tubepress_api_options_Names::META_DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
+                tubepress_api_options_Names::META_RELATIVE_DATES => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
             ),
         ))->addArgument(array());
 
         $toValidate = array(
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
+            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+                tubepress_api_options_Names::META_DESC_LIMIT,
             ),
         );
 
@@ -112,12 +112,12 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_platform_api_ioc_Con
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_listeners_options_RegexValidatingListener'
                 )->addArgument($type)
-                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-                 ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                 ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+                 ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+                 ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
                     'priority' => 100000,
                     'method'   => 'onOption',
                 ));
@@ -125,19 +125,19 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_platform_api_ioc_Con
         }
     }
 
-    private function _registerOptionsUi(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
         $fieldMap = array(
             'boolean' => array(
-                tubepress_app_api_options_Names::META_RELATIVE_DATES,
+                tubepress_api_options_Names::META_RELATIVE_DATES,
             ),
             'fieldProviderFilter' => array(
                 tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID
             ),
             'text' => array(
-                tubepress_app_api_options_Names::META_DATEFORMAT,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
+                tubepress_api_options_Names::META_DATEFORMAT,
+                tubepress_api_options_Names::META_DESC_LIMIT,
             ),
             'metaMultiSelect' => array(
                 'does not matter'
@@ -151,19 +151,19 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_platform_api_ioc_Con
 
                 $containerBuilder->register(
                     $serviceId,
-                    'tubepress_app_api_options_ui_FieldInterface'
-                )->setFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                    'tubepress_api_options_ui_FieldInterface'
+                )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
                  ->setFactoryMethod('newInstance')
                  ->addArgument($id)
                  ->addArgument($type);
 
-                $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+                $fieldReferences[] = new tubepress_api_ioc_Reference($serviceId);
             }
         }
 
         $categoryReferences = array();
         $categories = array(
-            array(tubepress_app_api_options_ui_CategoryNames::META, 'Meta'),          //>(translatable)<
+            array(tubepress_api_options_ui_CategoryNames::META, 'Meta'),          //>(translatable)<
         );
         foreach ($categories as $categoryIdAndLabel) {
 
@@ -174,15 +174,15 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_platform_api_ioc_Con
             )->addArgument($categoryIdAndLabel[0])
              ->addArgument($categoryIdAndLabel[1]);
 
-            $categoryReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+            $categoryReferences[] = new tubepress_api_ioc_Reference($serviceId);
         }
 
         $fieldMap = array(
-            tubepress_app_api_options_ui_CategoryNames::META => array(
+            tubepress_api_options_ui_CategoryNames::META => array(
                 tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField::FIELD_ID,
-                tubepress_app_api_options_Names::META_DATEFORMAT,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
+                tubepress_api_options_Names::META_DATEFORMAT,
+                tubepress_api_options_Names::META_RELATIVE_DATES,
+                tubepress_api_options_Names::META_DESC_LIMIT,
             ),
         );
 
@@ -196,6 +196,6 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_platform_api_ioc_Con
          ->addArgument($categoryReferences)
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
     }
 }

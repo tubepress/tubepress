@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_theme_ioc_compiler_ThemesPrimerPass<extended>
  */
-class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_theme_ioc_compiler_ThemesPrimerPass
@@ -27,26 +27,26 @@ class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tu
     public function onSetup()
     {
         $this->_sut                  = new tubepress_theme_ioc_compiler_ThemesPrimerPass();
-        $this->_mockContainerBuilder = $this->mock(tubepress_platform_api_ioc_ContainerBuilderInterface::_);
+        $this->_mockContainerBuilder = $this->mock(tubepress_api_ioc_ContainerBuilderInterface::_);
     }
 
     public function testProcess()
     {
 //        $mockFinderFactory = $this->mock('ehough_finder_FinderFactoryInterface');
-//        $mockThemeFinder   = $this->mock(tubepress_platform_api_contrib_FilesystemPathFinderInterface::_);
+//        $mockThemeFinder   = $this->mock(tubepress_api_contrib_FilesystemPathFinderInterface::_);
 //
-//        $mockLogger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+//        $mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
 //        $mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 //        $mockLogger->shouldReceive('debug')->atLeast(1);
 //
 //        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('ehough_finder_FinderFactoryInterface')->andReturn($mockFinderFactory);
 //        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('x')->andReturn($mockThemeFinder);
 //        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('tubepress_internal_logger_BootLogger')->andReturn($mockLogger);
-//        $this->_mockContainerBuilder->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_platform_api_contrib_FilesystemPathFinderInterface::_)->andReturn(array(
-//            'x' => array(array('type' => tubepress_app_api_theme_ThemeInterface::_))
+//        $this->_mockContainerBuilder->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_contrib_FilesystemPathFinderInterface::_)->andReturn(array(
+//            'x' => array(array('type' => tubepress_api_theme_ThemeInterface::_))
 //        ));
 //
-//        $mockTheme  = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+//        $mockTheme  = $this->mock(tubepress_api_theme_ThemeInterface::_);
 //        $mockThemes = array($mockTheme);
 //
 //        $mockTheme->shouldReceive('getRootFilesystemPath')->twice()->andReturn('/some/root/yo');

@@ -15,7 +15,7 @@
 class tubepress_internal_boot_helper_uncached_Compiler
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -24,7 +24,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
      */
     private $_shouldLog = false;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface $logger)
+    public function __construct(tubepress_api_log_LoggerInterface $logger)
     {
         $this->_logger    = $logger;
         $this->_shouldLog = $logger->isEnabled();
@@ -82,7 +82,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
         $count = count($addons);
 
         /**
-         * @var $addon tubepress_platform_api_addon_AddonInterface
+         * @var $addon tubepress_api_contrib_AddonInterface
          */
         foreach ($addons as $addon) {
 
@@ -123,7 +123,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
         $compilerPassArray = array();
 
         /**
-         * @var $addon tubepress_platform_api_addon_AddonInterface
+         * @var $addon tubepress_api_contrib_AddonInterface
          */
         foreach ($addons as $addon) {
 
@@ -186,7 +186,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
      * @param                                           $count
      * @param                                           $addon
      */
-    private function _registerModernExtension(tubepress_internal_ioc_ContainerBuilder $container, $extensionClassName, $index, $count, tubepress_platform_api_addon_AddonInterface $addon)
+    private function _registerModernExtension(tubepress_internal_ioc_ContainerBuilder $container, $extensionClassName, $index, $count, tubepress_api_contrib_AddonInterface $addon)
     {
         try {
 

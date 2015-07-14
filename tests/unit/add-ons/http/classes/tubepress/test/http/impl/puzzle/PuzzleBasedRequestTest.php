@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_puzzle_PuzzleBasedRequest<extended>
  */
-class tubepress_test_http_impl_puzzle_PuzzleBasedRequestTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_puzzle_PuzzleBasedRequestTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testConfig()
     {
@@ -61,7 +61,7 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedRequestTest extends tubepress_t
     {
         $r = new puzzle_message_Request('GET', 'http://test.com/test');
         $r = new tubepress_http_impl_puzzle_PuzzleBasedRequest($r);
-        $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $mockUrl->shouldReceive('getHost')->once()->andReturn('baz.com');
         $mockUrl->shouldReceive('getPath')->once()->andReturn('/bar');
         $mockUrl->shouldReceive('getScheme')->once()->andReturn('https');
@@ -76,7 +76,7 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedRequestTest extends tubepress_t
         $r = new puzzle_message_Request('GET', 'http://www.foo.com?baz=bar');
         $r = new tubepress_http_impl_puzzle_PuzzleBasedRequest($r);
         $this->assertEquals('baz=bar', $r->getUrl()->getQuery()->toString());
-        $this->assertInstanceOf('tubepress_platform_api_url_QueryInterface', $r->getUrl()->getQuery());
+        $this->assertInstanceOf('tubepress_api_url_QueryInterface', $r->getUrl()->getQuery());
     }
 
     public function testQueryCanChange()

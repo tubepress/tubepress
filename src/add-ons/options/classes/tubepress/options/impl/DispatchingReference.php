@@ -12,15 +12,15 @@
 /**
  *
  */
-class tubepress_options_impl_DispatchingReference implements tubepress_app_api_options_ReferenceInterface
+class tubepress_options_impl_DispatchingReference implements tubepress_api_options_ReferenceInterface
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface[]
+     * @var tubepress_api_options_ReferenceInterface[]
      */
     private $_delegateReferences = array();
 
@@ -29,7 +29,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_app_api_o
      */
     private $_nameToReferenceMap;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_eventDispatcher = $eventDispatcher;
     }
@@ -70,7 +70,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_app_api_o
      * @param string $optionName   The option name.
      * @param string $propertyName The property name.
      *
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      *
      * @throws InvalidArgumentException If the option name does not exist, or no such property for the option.
      *
@@ -138,7 +138,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_app_api_o
         $raw = $this->_nameToReferenceMap[$optionName]->getDefaultValue($optionName);
 
         return $this->_dispatchEventAndReturnSubject($optionName, $raw,
-            tubepress_app_api_event_Events::OPTION_DEFAULT_VALUE);
+            tubepress_api_event_Events::OPTION_DEFAULT_VALUE);
     }
 
     /**
@@ -159,7 +159,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_app_api_o
         $raw = $this->_nameToReferenceMap[$optionName]->getUntranslatedDescription($optionName);
 
         return $this->_dispatchEventAndReturnSubject($optionName, $raw,
-            tubepress_app_api_event_Events::OPTION_DESCRIPTION);
+            tubepress_api_event_Events::OPTION_DESCRIPTION);
     }
 
     /**
@@ -180,7 +180,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_app_api_o
         $raw = $this->_nameToReferenceMap[$optionName]->getUntranslatedLabel($optionName);
 
         return $this->_dispatchEventAndReturnSubject($optionName, $raw,
-            tubepress_app_api_event_Events::OPTION_LABEL);
+            tubepress_api_event_Events::OPTION_LABEL);
     }
 
     /**

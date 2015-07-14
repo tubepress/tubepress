@@ -14,7 +14,7 @@
  */
 class tubepress_wordpress_impl_listeners_html_WpHtmlListener
 {
-    public function onScriptsStylesTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onScriptsStylesTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         $templateVars = $event->getSubject();
 

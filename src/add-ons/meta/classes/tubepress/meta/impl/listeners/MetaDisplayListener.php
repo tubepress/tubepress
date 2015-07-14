@@ -13,23 +13,23 @@
  * This listener is responsible for populating the template with the following
  * variables:
  *
- * tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW
- * tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS
+ * tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW
+ * tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS
  */
 class tubepress_meta_impl_listeners_MetaDisplayListener
 {
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionReference;
 
@@ -38,14 +38,14 @@ class tubepress_meta_impl_listeners_MetaDisplayListener
      */
     private $_cacheOfMetaOptionNamesToAttributeDisplayNames;
 
-    public function __construct(tubepress_app_api_options_ContextInterface   $context,
-                                tubepress_app_api_options_ReferenceInterface $optionReference)
+    public function __construct(tubepress_api_options_ContextInterface   $context,
+                                tubepress_api_options_ReferenceInterface $optionReference)
     {
         $this->_context         = $context;
         $this->_optionReference = $optionReference;
     }
 
-    public function onPreTemplate(tubepress_lib_api_event_EventInterface $event)
+    public function onPreTemplate(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $templateVars array
@@ -59,8 +59,8 @@ class tubepress_meta_impl_listeners_MetaDisplayListener
 
         $vars = array(
 
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS   => $this->_getLabelMap(),
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => $this->_getToShowMap()
+            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS   => $this->_getLabelMap(),
+            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => $this->_getToShowMap()
         );
 
         $templateVars = array_merge($templateVars, $vars);
@@ -124,11 +124,11 @@ class tubepress_meta_impl_listeners_MetaDisplayListener
                 /**
                  * The description is best kept as the last element.
                  */
-                if (isset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION])) {
+                if (isset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_api_options_Names::META_DISPLAY_DESCRIPTION])) {
 
-                    $oldVal = $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION];
-                    unset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION]);
-                    $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION] = $oldVal;
+                    $oldVal = $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_api_options_Names::META_DISPLAY_DESCRIPTION];
+                    unset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_api_options_Names::META_DISPLAY_DESCRIPTION]);
+                    $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_api_options_Names::META_DISPLAY_DESCRIPTION] = $oldVal;
                 }
             }
         }

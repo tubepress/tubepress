@@ -12,10 +12,10 @@
 /**
  * Handles incoming Ajax requests and outputs a response.
  */
-class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_lib_api_http_AjaxInterface
+class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxInterface
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface Logger.
+     * @var tubepress_api_log_LoggerInterface Logger.
      */
     private $_logger;
 
@@ -25,30 +25,30 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_lib_api_http_A
     private $_isDebugEnabled;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParameters;
 
     /**
-     * @var tubepress_lib_api_http_ResponseCodeInterface
+     * @var tubepress_api_http_ResponseCodeInterface
      */
     private $_responseCode;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_http_ResponseCodeInterface      $responseCode,
-                                tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher,
-                                tubepress_lib_api_template_TemplatingInterface    $templating)
+    public function __construct(tubepress_api_log_LoggerInterface             $logger,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_http_ResponseCodeInterface      $responseCode,
+                                tubepress_api_event_EventDispatcherInterface  $eventDispatcher,
+                                tubepress_api_template_TemplatingInterface    $templating)
     {
         $this->_logger            = $logger;
         $this->_isDebugEnabled    = $logger->isEnabled();
@@ -84,7 +84,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_lib_api_http_A
 
         try {
 
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTTP_AJAX . ".$actionName", $ajaxEvent);
+            $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTTP_AJAX . ".$actionName", $ajaxEvent);
 
         } catch (Exception $e) {
 
@@ -106,7 +106,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_lib_api_http_A
 
         $event = $this->_eventDispatcher->newEventInstance($e);
 
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT, $event);
 
         $args = array(
 

@@ -15,9 +15,9 @@
 abstract class tubepress_options_ui_impl_fields_templated_multi_AbstractMultiSelectField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
 {
     public function __construct($id,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
                                 $untranslatedDisplayName = null,
                                 $untranslatedDescription = null)
     {

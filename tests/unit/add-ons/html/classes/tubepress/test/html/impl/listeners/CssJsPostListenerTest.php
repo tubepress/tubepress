@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_html_impl_listeners_CssJsPostListener
  */
-class tubepress_test_html_impl_listeners_CssJsPostListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_listeners_CssJsPostListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -36,9 +36,9 @@ class tubepress_test_html_impl_listeners_CssJsPostListenerTest extends tubepress
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockEvent           = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockRequestParams   = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockEvent           = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockRequestParams   = $this->mock(tubepress_api_http_RequestParametersInterface::_);
 
         $this->_sut = new tubepress_html_impl_listeners_CssJsPostListener(
             $this->_mockEventDispatcher,
@@ -76,11 +76,11 @@ class tubepress_test_html_impl_listeners_CssJsPostListenerTest extends tubepress
     {
         $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
 
-        $mockInternalEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockInternalEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockInternalEvent->shouldReceive('getSubject')->once()->andReturn($fakeArgs);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array())->andReturn($mockInternalEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG, $mockInternalEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::HTML_GLOBAL_JS_CONFIG, $mockInternalEvent);
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('hello');
 

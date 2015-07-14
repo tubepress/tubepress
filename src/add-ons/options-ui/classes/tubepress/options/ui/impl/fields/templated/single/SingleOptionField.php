@@ -15,7 +15,7 @@
 class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
 {
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionProvider;
 
@@ -35,10 +35,10 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     private $_optionName;
 
     public function __construct($optionName, $templateName,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionReference)
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_ReferenceInterface      $optionReference)
     {
         $this->_optionProvider    = $optionReference;
         $this->_templateName      = $templateName;
@@ -129,7 +129,7 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     }
 
     /**
-     * @return tubepress_app_api_options_ReferenceInterface
+     * @return tubepress_api_options_ReferenceInterface
      */
     protected function getOptionProvider()
     {

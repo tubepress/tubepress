@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider
  */
-class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider
@@ -41,11 +41,11 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
 
     public function onSetup()
     {
-        $this->_mockUrlFactory     = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockContext        = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockLangUtils      = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
-        $this->_mockUrlFactory     = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockMediaItem      = $this->mock('tubepress_app_api_media_MediaItem');
+        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockContext        = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockLangUtils      = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockMediaItem      = $this->mock('tubepress_api_media_MediaItem');
 
         $this->_sut = new tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider(
             $this->_mockContext,
@@ -65,17 +65,17 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
 
     public function testGetDataUrl()
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY)->andReturn(true);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_LOOP)->andReturn(false);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_AUTOPLAY)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_LOOP)->andReturn(false);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_SHOW_INFO)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube3_api_Constants::OPTION_AUTOHIDE)->andReturn(tubepress_youtube3_api_Constants::AUTOHIDE_HIDE_BOTH);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube3_api_Constants::OPTION_FULLSCREEN)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED)->andReturn(false);
 
-        $mockFullUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockUrl2 = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockQuery = $this->mock('tubepress_platform_api_url_QueryInterface');
+        $mockFullUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $mockUrl2 = $this->mock('tubepress_api_url_UrlInterface');
+        $mockQuery = $this->mock('tubepress_api_url_QueryInterface');
         $mockUrl2->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $mockFullUrl->shouldReceive('getScheme')->once()->andReturn('sdy');
         $mockFullUrl->shouldReceive('getHost')->once()->andReturn('too.net');
@@ -97,7 +97,7 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
         $expected = array(
-            tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2
         );
 
         $actual = $this->_sut->getTemplateVariables($this->_mockMediaItem);

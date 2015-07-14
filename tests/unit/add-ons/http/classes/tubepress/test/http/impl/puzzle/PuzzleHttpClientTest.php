@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_puzzle_PuzzleHttpClient
  */
-class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_http_impl_puzzle_PuzzleHttpClient
@@ -41,10 +41,10 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_tes
 
     public function onSetup()
     {
-        $this->_mockLogger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockEmitter = $this->mock('puzzle_event_EmitterInterface');
         $this->_mockPuzzleClient = $this->mock('puzzle_Client');
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_mockPuzzleClient->shouldReceive('setDefaultOption')->once()->with('verify', TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cacert.pem');
 
@@ -82,9 +82,9 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_tes
 
     public function testSendException()
     {
-        $mockBody           = $this->mock('tubepress_lib_api_streams_StreamInterface');
-        $mockRequest        = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $mockUrl            = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockBody           = $this->mock('tubepress_api_streams_StreamInterface');
+        $mockRequest        = $this->mock('tubepress_api_http_message_RequestInterface');
+        $mockUrl            = $this->mock('tubepress_api_url_UrlInterface');
         $mockPuzzleResponse = $this->mock('puzzle_message_ResponseInterface');
         $mockPuzzleRequest  = $this->mock('puzzle_message_RequestInterface');
 
@@ -111,11 +111,11 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_tes
         try {
 
             $this->_sut->___doSend($mockRequest);
-        } catch (tubepress_lib_api_http_exception_RequestException $e) {
+        } catch (tubepress_api_http_exception_RequestException $e) {
 
             $this->assertEquals('something bad', $e->getMessage());
-            $this->assertTrue($e->getRequest() instanceof tubepress_lib_api_http_message_RequestInterface);
-            $this->assertTrue($e->getResponse() instanceof tubepress_lib_api_http_message_ResponseInterface);
+            $this->assertTrue($e->getRequest() instanceof tubepress_api_http_message_RequestInterface);
+            $this->assertTrue($e->getResponse() instanceof tubepress_api_http_message_ResponseInterface);
             return;
         }
 
@@ -147,22 +147,22 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_tes
 
         $this->_mockEmitter->shouldReceive('attach')->once()->with(ehough_mockery_Mockery::type('puzzle_subscriber_Prepare'));
 
-        $mockRequestEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockRequestEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockRequestEvent->shouldReceive('hasArgument')->once()->with('response')->andReturn(true);
         $mockRequestEvent->shouldReceive('getArgument')->once()->with('response')->andReturnNull();
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::type('tubepress_http_impl_puzzle_PuzzleBasedRequest'), array('response' => null))->andReturn($mockRequestEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST, $mockRequestEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_http_Events::EVENT_HTTP_REQUEST, $mockRequestEvent);
 
-        $mockTubePressResponse = $this->mock('tubepress_lib_api_http_message_ResponseInterface');
+        $mockTubePressResponse = $this->mock('tubepress_api_http_message_ResponseInterface');
 
-        $mockResponseEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockResponseEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockResponseEvent->shouldReceive('getSubject')->once()->andReturn($mockTubePressResponse);
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::type('tubepress_http_impl_puzzle_PuzzleBasedResponse'), ehough_mockery_Mockery::on(function ($arr) {
 
-            return is_array($arr) && $arr['request'] instanceof tubepress_lib_api_http_message_RequestInterface;
+            return is_array($arr) && $arr['request'] instanceof tubepress_api_http_message_RequestInterface;
 
         }))->andReturn($mockResponseEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE, $mockResponseEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_http_Events::EVENT_HTTP_RESPONSE, $mockResponseEvent);
 
         $response = $this->_sut->get('http://foo.bar/z/y.php?test=false#frag', array('one' => 2));
 
@@ -175,7 +175,7 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_tes
 
         $request = $this->_sut->createRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2));
 
-        $this->assertInstanceOf('tubepress_lib_api_http_message_RequestInterface', $request);
+        $this->assertInstanceOf('tubepress_api_http_message_RequestInterface', $request);
         $this->assertEquals('http://foo.bar/z/y.php?test=false#frag', $request->getUrl()->toString());
         $this->assertEquals('GET', $request->getMethod());
     }

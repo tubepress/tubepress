@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_theme_ioc_ThemeExtension
  */
-class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_theme_ioc_ThemeExtension
@@ -35,11 +35,11 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
         $this->expectRegistration(
             'tubepress_internal_boot_helper_uncached_Serializer',
             'tubepress_internal_boot_helper_uncached_Serializer'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_));
 
         $parallelServices = array(
-            array('',       '',       tubepress_app_api_options_Names::THEME),
-            array('.admin', 'admin-', tubepress_app_api_options_Names::THEME_ADMIN),
+            array('',       '',       tubepress_api_options_Names::THEME),
+            array('.admin', 'admin-', tubepress_api_options_Names::THEME_ADMIN),
         );
 
         foreach ($parallelServices as $serviceInfo) {
@@ -49,18 +49,18 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
             $optionName     = $serviceInfo[2];
 
             $this->expectRegistration(
-                tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix,
+                tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ . $serviceSuffix,
                 'tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry'
             )->withArgument(sprintf('%%%s%%', tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
                 ->withArgument($artifactPrefix . 'themes')
-                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_internal_boot_helper_uncached_Serializer'));
+                ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+                ->withArgument(new tubepress_api_ioc_Reference('tubepress_internal_boot_helper_uncached_Serializer'));
 
             $this->expectRegistration(
                 'tubepress_theme_impl_CurrentThemeService' . $serviceSuffix,
                 'tubepress_theme_impl_CurrentThemeService'
-            )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix))
+            )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+                ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ . $serviceSuffix))
                 ->withArgument('tubepress/' . $artifactPrefix . 'default')
                 ->withArgument($optionName);
         }
@@ -76,10 +76,10 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
         $this->expectRegistration(
             'tubepress_theme_impl_listeners_LegacyThemeListener',
             'tubepress_theme_impl_listeners_LegacyThemeListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_app_api_options_Names::THEME,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_api_options_Names::THEME,
                 'priority' => 100000,
                 'method'   => 'onPreValidationSet'
             ));
@@ -87,9 +87,9 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
         $this->expectRegistration(
             'tubepress_theme_impl_listeners_AcceptableValuesListener',
             'tubepress_theme_impl_listeners_AcceptableValuesListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::THEME,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::THEME,
                 'priority' => 100000,
                 'method'   => 'onAcceptableValues'
             ));
@@ -97,9 +97,9 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
         $this->expectRegistration(
             'tubepress_theme_impl_listeners_AcceptableValuesListener.admin',
             'tubepress_theme_impl_listeners_AcceptableValuesListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::THEME_ADMIN,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ . '.admin'))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::THEME_ADMIN,
                 'priority' => 100000,
                 'method'   => 'onAcceptableValues'
             ));
@@ -108,17 +108,17 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
     private function _expectOptions()
     {
         $this->expectRegistration(
-            'tubepress_app_api_options_Reference__theme',
-            'tubepress_app_api_options_Reference'
-        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+            'tubepress_api_options_Reference__theme',
+            'tubepress_api_options_Reference'
+        )->withTag(tubepress_api_options_ReferenceInterface::_)
             ->withArgument(array(
 
-                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                    tubepress_app_api_options_Names::THEME       => 'tubepress/default',
-                    tubepress_app_api_options_Names::THEME_ADMIN => 'tubepress/admin-default',
+                tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                    tubepress_api_options_Names::THEME       => 'tubepress/default',
+                    tubepress_api_options_Names::THEME_ADMIN => 'tubepress/admin-default',
                 ),
-                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_app_api_options_Names::THEME => 'Theme',  //>(translatable)<
+                tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                    tubepress_api_options_Names::THEME => 'Theme',  //>(translatable)<
                 ),
             ));
     }
@@ -127,25 +127,25 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
     {
         $this->expectRegistration(
             'theme_field',
-            'tubepress_app_api_options_ui_FieldInterface'
-        )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+            'tubepress_api_options_ui_FieldInterface'
+        )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
             ->withFactoryMethod('newInstance')
-            ->withArgument(tubepress_app_api_options_Names::THEME)
+            ->withArgument(tubepress_api_options_Names::THEME)
             ->withArgument('theme');
 
-        $fieldReferences = array(new tubepress_platform_api_ioc_Reference('theme_field'));
+        $fieldReferences = array(new tubepress_api_ioc_Reference('theme_field'));
 
         $this->expectRegistration(
             'theme_category',
             'tubepress_options_ui_impl_BaseElement'
-        )->withArgument(tubepress_app_api_options_ui_CategoryNames::THEME)
+        )->withArgument(tubepress_api_options_ui_CategoryNames::THEME)
             ->withArgument('Theme'); //>(translatable)<
 
-        $categoryReferences = array(new tubepress_platform_api_ioc_Reference('theme_category'));
+        $categoryReferences = array(new tubepress_api_ioc_Reference('theme_category'));
 
         $fieldMap = array(
-            tubepress_app_api_options_ui_CategoryNames::THEME => array(
-                tubepress_app_api_options_Names::THEME
+            tubepress_api_options_ui_CategoryNames::THEME => array(
+                tubepress_api_options_Names::THEME
             ),
         );
 
@@ -179,18 +179,18 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
 
     protected function getExpectedExternalServicesMap()
     {
-        $mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
+        $mockBootSettings = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
         $mockBootSettings->shouldReceive('getSerializationEncoding')->twice()->andReturn('base64');
 
-        $fieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
-        $mockField    = $this->mock('tubepress_app_api_options_ui_FieldInterface');
+        $fieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
+        $mockField    = $this->mock('tubepress_api_options_ui_FieldInterface');
         $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
         return array(
-            tubepress_platform_api_boot_BootSettingsInterface::_  => $mockBootSettings,
-            tubepress_platform_api_log_LoggerInterface::_         => tubepress_platform_api_log_LoggerInterface::_,
-            tubepress_app_api_options_ContextInterface::_         => tubepress_app_api_options_ContextInterface::_,
-            tubepress_app_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
+            tubepress_api_boot_BootSettingsInterface::_  => $mockBootSettings,
+            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
         );
     }
 }

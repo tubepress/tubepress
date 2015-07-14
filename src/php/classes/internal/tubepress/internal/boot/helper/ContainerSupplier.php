@@ -15,12 +15,12 @@
 class tubepress_internal_boot_helper_ContainerSupplier
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
@@ -39,8 +39,8 @@ class tubepress_internal_boot_helper_ContainerSupplier
      */
     private $_temporaryClassLoader;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
+    public function __construct(tubepress_api_log_LoggerInterface        $logger,
+                                tubepress_api_boot_BootSettingsInterface $bootSettings)
     {
         $this->_logger       = $logger;
         $this->_bootSettings = $bootSettings;
@@ -48,7 +48,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     }
 
     /**
-     * @return tubepress_platform_api_ioc_ContainerInterface The fully constructed service container for TubePress.
+     * @return tubepress_api_ioc_ContainerInterface The fully constructed service container for TubePress.
      */
     public function getServiceContainer()
     {
@@ -131,7 +131,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     }
 
     /**
-     * @return tubepress_platform_api_ioc_ContainerInterface
+     * @return tubepress_api_ioc_ContainerInterface
      */
     private function _getTubePressContainerFromCache()
     {
@@ -164,7 +164,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     }
 
     /**
-     * @return tubepress_platform_api_ioc_ContainerInterface
+     * @return tubepress_api_ioc_ContainerInterface
      */
     private function _getNewTubePressContainer()
     {
@@ -186,13 +186,13 @@ class tubepress_internal_boot_helper_ContainerSupplier
         return $tubePressContainer;
     }
 
-    private function _setEphemeralServicesToContainer(tubepress_platform_api_ioc_ContainerInterface $tubePressContainer,
+    private function _setEphemeralServicesToContainer(tubepress_api_ioc_ContainerInterface $tubePressContainer,
                                                       ehough_iconic_ContainerInterface              $iconicContainer)
     {
-        $tubePressContainer->set('tubepress_platform_api_ioc_ContainerInterface',      $tubePressContainer);
+        $tubePressContainer->set('tubepress_api_ioc_ContainerInterface',      $tubePressContainer);
         $tubePressContainer->set('ehough_iconic_ContainerInterface',                   $iconicContainer);
         $tubePressContainer->set('tubepress_internal_logger_BootLogger',             $this->_logger);
-        $tubePressContainer->set(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_bootSettings);
+        $tubePressContainer->set(tubepress_api_boot_BootSettingsInterface::_, $this->_bootSettings);
     }
 
     private function _getPathToContainerCacheFile()

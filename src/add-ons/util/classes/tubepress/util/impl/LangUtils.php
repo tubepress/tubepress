@@ -12,7 +12,7 @@
 /**
  * PHP language utilities.
  */
-class tubepress_util_impl_LangUtils implements tubepress_platform_api_util_LangUtilsInterface
+class tubepress_util_impl_LangUtils implements tubepress_api_util_LangUtilsInterface
 {
     /**
      * @param mixed $candidate

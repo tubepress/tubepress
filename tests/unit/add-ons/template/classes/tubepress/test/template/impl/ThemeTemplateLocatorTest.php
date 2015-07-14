@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_template_impl_ThemeTemplateLocator<extended>
  */
-class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_template_impl_ThemeTemplateLocator
@@ -51,12 +51,12 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
 
     public function onSetup()
     {
-        $this->_mockLogger              = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockContext             = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockThemeRegistry       = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
+        $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockContext             = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockThemeRegistry       = $this->mock(tubepress_api_contrib_RegistryInterface::_);
         $this->_mockCurrentThemeService = $this->mock('tubepress_theme_impl_CurrentThemeService');
-        $this->_mockChildTheme          = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
-        $this->_mockParentTheme         = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $this->_mockChildTheme          = $this->mock(tubepress_api_theme_ThemeInterface::_);
+        $this->_mockParentTheme         = $this->mock(tubepress_api_theme_ThemeInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -78,7 +78,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockCurrentThemeService->shouldReceive('getCurrentTheme')->once()->andReturn($this->_mockChildTheme);
         $this->_mockChildTheme->shouldReceive('hasTemplateSource')->once()->with('template-name')->andReturn($fresh);
         $this->_mockChildTheme->shouldReceive('getName')->atLeast(1)->andReturn('abc');
-        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_platform_api_version_Version::parse('1.2.3'));
+        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_api_version_Version::parse('1.2.3'));
 
         if ($fresh) {
 
@@ -103,7 +103,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockCurrentThemeService->shouldReceive('getCurrentTheme')->once()->andReturn($this->_mockChildTheme);
         $this->_mockChildTheme->shouldReceive('hasTemplateSource')->once()->with('template-name')->andReturn($fresh);
         $this->_mockChildTheme->shouldReceive('getName')->atLeast(1)->andReturn('abc');
-        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_platform_api_version_Version::parse('1.2.3'));
+        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_api_version_Version::parse('1.2.3'));
 
         if ($fresh) {
 
@@ -128,7 +128,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockCurrentThemeService->shouldReceive('getCurrentTheme')->once()->andReturn($this->_mockChildTheme);
         $this->_mockChildTheme->shouldReceive('hasTemplateSource')->once()->with('template-name')->andReturn($exists);
         $this->_mockChildTheme->shouldReceive('getName')->atLeast(1)->andReturn('abc');
-        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_platform_api_version_Version::parse('1.2.3'));
+        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_api_version_Version::parse('1.2.3'));
 
         if ($exists) {
 
@@ -157,7 +157,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockChildTheme->shouldReceive('getVersion')->twice()->andReturn('1.2.3');
         $this->_mockThemeRegistry->shouldReceive('getInstanceByName')->with('xyz')->andReturn($this->_mockParentTheme);
         $this->_mockParentTheme->shouldReceive('hasTemplateSource')->twice()->with('template-name')->andReturn($exists);
-        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_platform_api_version_Version::parse('1.2.3'));
+        $this->_mockChildTheme->shouldReceive('getVersion')->atLeast(1)->andReturn(tubepress_api_version_Version::parse('1.2.3'));
 
         if (!$exists) {
 

@@ -12,10 +12,10 @@
 /**
  * Displays a single radio input.
  */
-class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField implements tubepress_app_api_options_ui_MultiSourceFieldInterface
+class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField implements tubepress_api_options_ui_MultiSourceFieldInterface
 {
     /**
-     * @var tubepress_app_api_options_ui_FieldInterface
+     * @var tubepress_api_options_ui_FieldInterface
      */
     private $_additionalField;
 
@@ -30,10 +30,10 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     private $_modeName;
 
     public function __construct($modeName,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ui_FieldInterface       $additionalField = null)
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_ui_FieldInterface       $additionalField = null)
     {
         parent::__construct(
 
@@ -71,7 +71,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
      */
     protected function getTemplateVariables()
     {
-        $currentMode = $this->getOptionPersistence()->fetch(tubepress_app_api_options_Names::GALLERY_SOURCE);
+        $currentMode = $this->getOptionPersistence()->fetch(tubepress_api_options_Names::GALLERY_SOURCE);
 
         return array(
 
@@ -138,20 +138,20 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
 
     /**
      * @param $prefix
-     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     * @param tubepress_api_options_PersistenceInterface $persistence
      *
-     * @return tubepress_app_api_options_ui_FieldInterface
+     * @return tubepress_api_options_ui_FieldInterface
      */
-    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {
         $httpRequestParams = $this->getHttpRequestParameters();
         $templating        = $this->getTemplating();
         $additionalField   = null;
 
-        if ($this->_additionalField && $this->_additionalField instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface) {
+        if ($this->_additionalField && $this->_additionalField instanceof tubepress_api_options_ui_MultiSourceFieldInterface) {
 
             /**
-             * @var $temp tubepress_app_api_options_ui_MultiSourceFieldInterface
+             * @var $temp tubepress_api_options_ui_MultiSourceFieldInterface
              */
             $temp = $this->_additionalField;
 

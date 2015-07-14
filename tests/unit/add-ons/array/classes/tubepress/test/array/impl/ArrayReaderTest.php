@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_array_impl_ArrayReader
  */
-class tubepress_test_array_impl_ArrayReaderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_array_impl_ArrayReaderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_array_impl_ArrayReader

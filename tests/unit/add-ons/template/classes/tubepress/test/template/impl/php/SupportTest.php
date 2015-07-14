@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_template_impl_php_Support<extended>
  */
-class tubepress_test_app_impl_template_php_SupportTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_template_php_SupportTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_template_impl_php_Support

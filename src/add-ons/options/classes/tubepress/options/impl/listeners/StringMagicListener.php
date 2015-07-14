@@ -15,16 +15,16 @@
 class tubepress_options_impl_listeners_StringMagicListener
 {
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_eventDispatcher = $eventDispatcher;
     }
 
-    public function onExternalInput(tubepress_lib_api_event_EventInterface $event)
+    public function onExternalInput(tubepress_api_event_EventInterface $event)
     {
         $value = $event->getSubject();
 
@@ -33,7 +33,7 @@ class tubepress_options_impl_listeners_StringMagicListener
         $event->setSubject($value);
     }
 
-    public function onSet(tubepress_lib_api_event_EventInterface $event)
+    public function onSet(tubepress_api_event_EventInterface $event)
     {
         $value = $event->getArgument('optionValue');
 

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_wp_TemplatePathProvider implements tubepress_lib_api_template_PathProviderInterface
+class tubepress_wordpress_impl_wp_TemplatePathProvider implements tubepress_spi_template_PathProviderInterface
 {
     /**
      * @return string[] A set of absolute filesystem directory paths

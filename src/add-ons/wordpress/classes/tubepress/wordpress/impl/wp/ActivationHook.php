@@ -12,7 +12,7 @@
 class tubepress_wordpress_impl_wp_ActivationHook
 {
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
@@ -21,7 +21,7 @@ class tubepress_wordpress_impl_wp_ActivationHook
      */
     private $_fs;
 
-    public function __construct(tubepress_platform_api_boot_BootSettingsInterface $bootSettings,
+    public function __construct(tubepress_api_boot_BootSettingsInterface $bootSettings,
                                 ehough_filesystem_FilesystemInterface    $fileSystem)
     {
         $this->_bootSettings = $bootSettings;

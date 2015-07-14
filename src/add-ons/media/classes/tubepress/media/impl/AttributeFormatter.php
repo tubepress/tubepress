@@ -13,26 +13,26 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media_AttributeFormatterInterface
+class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_AttributeFormatterInterface
 {
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_util_TimeUtilsInterface
+     * @var tubepress_api_util_TimeUtilsInterface
      */
     private $_timeUtils;
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
-    public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_util_TimeUtilsInterface         $timeUtils,
-                                tubepress_lib_api_translation_TranslatorInterface $translator)
+    public function __construct(tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_util_TimeUtilsInterface         $timeUtils,
+                                tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_context    = $context;
         $this->_timeUtils  = $timeUtils;
@@ -40,12 +40,12 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $item
+     * @param tubepress_api_media_MediaItem $item
      * @param string                            $sourceAttributeName
      * @param string                            $destinationAttributeName
      * @param string                            $optionName
      */
-    public function truncateStringAttribute(tubepress_app_api_media_MediaItem $item, $sourceAttributeName,
+    public function truncateStringAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                                $destinationAttributeName, $optionName)
     {
         if (!$item->hasAttribute($sourceAttributeName)) {
@@ -72,12 +72,12 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $item
+     * @param tubepress_api_media_MediaItem $item
      * @param string                            $sourceAttributeName
      * @param string                            $destinationAttributeName
      * @param int                               $precision
      */
-    public function formatNumberAttribute(tubepress_app_api_media_MediaItem $item, $sourceAttributeName,
+    public function formatNumberAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                              $destinationAttributeName, $precision)
     {
         if (!$item->hasAttribute($sourceAttributeName)) {
@@ -91,11 +91,11 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $item
+     * @param tubepress_api_media_MediaItem $item
      * @param string                            $sourceAttributeName
      * @param string                            $destinationAttributeName
      */
-    public function formatDateAttribute(tubepress_app_api_media_MediaItem $item, $sourceAttributeName,
+    public function formatDateAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                            $destinationAttributeName)
     {
         if (!$item->hasAttribute($sourceAttributeName)) {
@@ -108,8 +108,8 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media
          */
         $this->_translator->trans('');
 
-        $dateFormat = $this->_context->get(tubepress_app_api_options_Names::META_DATEFORMAT);
-        $relative   = $this->_context->get(tubepress_app_api_options_Names::META_RELATIVE_DATES);
+        $dateFormat = $this->_context->get(tubepress_api_options_Names::META_DATEFORMAT);
+        $relative   = $this->_context->get(tubepress_api_options_Names::META_RELATIVE_DATES);
 
         $unixTime  = $item->getAttribute($sourceAttributeName);
         $formatted = $this->_timeUtils->unixTimeToHumanReadable($unixTime, $dateFormat, $relative);
@@ -118,11 +118,11 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $item
+     * @param tubepress_api_media_MediaItem $item
      * @param string                            $sourceAttributeName
      * @param string                            $destinationAttributeName
      */
-    public function formatDurationAttribute(tubepress_app_api_media_MediaItem $item, $sourceAttributeName,
+    public function formatDurationAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                                $destinationAttributeName)
     {
         if (!$item->hasAttribute($sourceAttributeName)) {
@@ -137,12 +137,12 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media
     }
 
     /**
-     * @param tubepress_app_api_media_MediaItem $item
+     * @param tubepress_api_media_MediaItem $item
      * @param string                            $sourceAttributeName
      * @param string                            $destinationAttributeName
      * @param string                            $glue
      */
-    public function implodeArrayAttribute(tubepress_app_api_media_MediaItem $item, $sourceAttributeName,
+    public function implodeArrayAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                              $destinationAttributeName, $glue)
     {
         if (!$item->hasAttribute($sourceAttributeName)) {

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_meta_impl_listeners_MetaDisplayListener
  */
-class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -41,10 +41,10 @@ class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepre
     
     public function onSetup()
     {
-        $this->_mockIncomingEvent    = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $this->_mockContext          = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockMediaProvider    = $this->mock(tubepress_app_api_media_MediaProviderInterface::__);
+        $this->_mockIncomingEvent    = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockContext          = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockMediaProvider    = $this->mock(tubepress_api_media_MediaProviderInterface::__);
 
         $this->_sut = new tubepress_meta_impl_listeners_MetaDisplayListener(
             $this->_mockContext,
@@ -72,11 +72,11 @@ class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepre
         $this->_mockContext->shouldReceive('get')->once()->with('meta2')->andReturn(true);
 
         $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(array(
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS   => array(
+            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS   => array(
                 'attribute1' => 'meta1 label',
                 'attribute2' => 'meta2 label',
             ),
-            tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => array(
+            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => array(
                 'attribute2'
             )
         ));

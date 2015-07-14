@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_event_ioc_EventExtension
  */
-class tubepress_test_event_ioc_EventExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_event_ioc_EventExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_event_ioc_EventExtension
@@ -29,14 +29,14 @@ class tubepress_test_event_ioc_EventExtensionTest extends tubepress_test_platfor
             'ehough_tickertape_ContainerAwareEventDispatcher',
             'ehough_tickertape_ContainerAwareEventDispatcher'
 
-        )->withArgument(new tubepress_platform_api_ioc_Reference('ehough_iconic_ContainerInterface'));
+        )->withArgument(new tubepress_api_ioc_Reference('ehough_iconic_ContainerInterface'));
 
         $this->expectRegistration(
 
-            tubepress_lib_api_event_EventDispatcherInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_,
             'tubepress_event_impl_tickertape_EventDispatcher'
 
-        )->withArgument(new tubepress_platform_api_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
+        )->withArgument(new tubepress_api_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
     }
 
     protected function getExpectedExternalServicesMap()

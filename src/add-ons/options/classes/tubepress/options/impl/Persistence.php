@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_options_impl_Persistence implements tubepress_app_api_options_PersistenceInterface
+class tubepress_options_impl_Persistence implements tubepress_api_options_PersistenceInterface
 {
     /**
      * @var array
@@ -31,27 +31,27 @@ class tubepress_options_impl_Persistence implements tubepress_app_api_options_Pe
     private $_flagCheckedForMissingOptions = false;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionsReference;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     private $_backend;
 
-    public function __construct(tubepress_app_api_options_ReferenceInterface          $reference,
-                                tubepress_lib_api_event_EventDispatcherInterface      $eventDispatcher,
-                                tubepress_app_api_options_PersistenceBackendInterface $backend)
+    public function __construct(tubepress_api_options_ReferenceInterface          $reference,
+                                tubepress_api_event_EventDispatcherInterface      $eventDispatcher,
+                                tubepress_api_options_PersistenceBackendInterface $backend)
     {
         $this->_eventDispatcher  = $eventDispatcher;
         $this->_optionsReference = $reference;
         $this->_backend          = $backend;
     }
 
-    public function getCloneWithCustomBackend(tubepress_app_api_options_PersistenceBackendInterface $persistenceBackend)
+    public function getCloneWithCustomBackend(tubepress_api_options_PersistenceBackendInterface $persistenceBackend)
     {
         return new self($this->_optionsReference, $this->_eventDispatcher, $persistenceBackend);
     }
@@ -232,11 +232,11 @@ class tubepress_options_impl_Persistence implements tubepress_app_api_options_Pe
             $optionName,
             $externallyCleanedValue,
             array(),
-            tubepress_app_api_event_Events::OPTION_SET . '.' . $optionName
+            tubepress_api_event_Events::OPTION_SET . '.' . $optionName
         );
         $event = $this->_dispatch($optionName,
             $event->getArgument('optionValue'),
-            $event->getSubject(), tubepress_app_api_event_Events::OPTION_SET
+            $event->getSubject(), tubepress_api_event_Events::OPTION_SET
         );
 
         $optionValue = $event->getArgument('optionValue');
@@ -249,7 +249,7 @@ class tubepress_options_impl_Persistence implements tubepress_app_api_options_Pe
      * @param $optionValue
      * @param array $errors
      * @param $eventName
-     * @return tubepress_lib_api_event_EventInterface
+     * @return tubepress_api_event_EventInterface
      */
     private function _dispatch($optionName, $optionValue, array $errors, $eventName)
     {
@@ -271,7 +271,7 @@ class tubepress_options_impl_Persistence implements tubepress_app_api_options_Pe
             'optionName' => $optionName
         ));
 
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
 
         return $event->getSubject();
     }

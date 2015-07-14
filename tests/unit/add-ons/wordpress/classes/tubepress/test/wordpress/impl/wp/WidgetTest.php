@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_wp_Widget
  */
-class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_WidgetTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_wp_Widget
@@ -76,17 +76,17 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
 
     public function onSetup()
     {
-        $this->_mockEvent           = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockTranslator      = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
-        $this->_mockContext         = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockEnvironment     = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
-        $this->_mockTemplating      = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockShortcodeParser = $this->mock(tubepress_app_api_shortcode_ParserInterface::_);
-        $this->_mockRequestParams   = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockHtmlGenerator   = $this->mock(tubepress_app_api_html_HtmlGeneratorInterface::_);
-        $this->_mockPersistence     = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+        $this->_mockEvent           = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockTranslator      = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockContext         = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockEnvironment     = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockTemplating      = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockShortcodeParser = $this->mock(tubepress_api_shortcode_ParserInterface::_);
+        $this->_mockRequestParams   = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockHtmlGenerator   = $this->mock(tubepress_api_html_HtmlGeneratorInterface::_);
+        $this->_mockPersistence     = $this->mock(tubepress_api_options_PersistenceInterface::_);
         $this->_mockWpFunctions     = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockStringUtils     = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
+        $this->_mockStringUtils     = $this->mock(tubepress_api_util_StringUtilsInterface::_);
 
         $this->_mockTranslator->shouldReceive('trans')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";
@@ -133,21 +133,21 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
     public function testPrintWidget()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE)->andReturn('shortcode string');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::THEME)->andReturn('theme');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::THEME)->andReturn('theme');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE)->andReturn('widget title');
-        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH => 22135));
+        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_api_options_Names::GALLERY_THUMB_WIDTH => 22135));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
-            tubepress_app_api_options_Names::META_DISPLAY_VIEWS                  => false,
-            tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION            => true,
-            tubepress_app_api_options_Names::META_DESC_LIMIT          => 50,
-            tubepress_app_api_options_Names::PLAYER_LOCATION => 'shadowbox',
-            tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT        => 105,
-            tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH         => 22135,
-            tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE      => false,
-            tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW      => false,
-            tubepress_app_api_options_Names::THEME               => 'tubepress/default',
-            tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS        => false
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
+            tubepress_api_options_Names::META_DISPLAY_VIEWS                  => false,
+            tubepress_api_options_Names::META_DISPLAY_DESCRIPTION            => true,
+            tubepress_api_options_Names::META_DESC_LIMIT          => 50,
+            tubepress_api_options_Names::PLAYER_LOCATION => 'shadowbox',
+            tubepress_api_options_Names::GALLERY_THUMB_HEIGHT        => 105,
+            tubepress_api_options_Names::GALLERY_THUMB_WIDTH         => 22135,
+            tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE      => false,
+            tubepress_api_options_Names::GALLERY_PAGINATE_BELOW      => false,
+            tubepress_api_options_Names::THEME               => 'tubepress/default',
+            tubepress_api_options_Names::GALLERY_FLUID_THUMBS        => false
         ));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array());
 

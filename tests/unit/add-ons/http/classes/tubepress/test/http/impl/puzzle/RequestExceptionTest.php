@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_puzzle_RequestException
  */
-class tubepress_test_http_impl_puzzle_RequestExceptionTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_puzzle_RequestExceptionTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var puzzle_exception_RequestException
@@ -53,14 +53,14 @@ class tubepress_test_http_impl_puzzle_RequestExceptionTest extends tubepress_tes
     {
         $request = $this->_sut->getRequest();
 
-        $this->assertInstanceOf('tubepress_lib_api_http_message_RequestInterface', $request);
+        $this->assertInstanceOf('tubepress_api_http_message_RequestInterface', $request);
     }
 
     public function testGetResponse()
     {
         $request = $this->_sut->getResponse();
 
-        $this->assertInstanceOf('tubepress_lib_api_http_message_ResponseInterface', $request);
+        $this->assertInstanceOf('tubepress_api_http_message_ResponseInterface', $request);
 
         $url = $request->getEffectiveUrl();
         $this->assertEquals('http://bar.foo/z/y.php?test=true#frag', "$url");

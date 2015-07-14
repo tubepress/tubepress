@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_html_impl_listeners_ExceptionLogger
  */
-class tubepress_test_html_impl_listeners_ExceptionLoggerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_listeners_ExceptionLoggerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -31,8 +31,8 @@ class tubepress_test_html_impl_listeners_ExceptionLoggerTest extends tubepress_t
 
     public function onSetup()
     {
-        $this->_mockLogger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockEvent  = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockEvent  = $this->mock('tubepress_api_event_EventInterface');
         $this->_sut        = new tubepress_html_impl_listeners_ExceptionLogger(
             $this->_mockLogger
         );

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_translations_SynchronizationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_translations_SynchronizationTest extends tubepress_api_test_TubePressUnitTest
 {
     private static $_LOCALE_MAP = array(
 

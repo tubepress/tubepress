@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_html_impl_CssAndJsGenerationHelper
  */
-class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_html_impl_CssAndJsGenerationHelper
@@ -46,11 +46,11 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_te
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher     = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockThemeRegistry       = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
-        $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
+        $this->_mockEventDispatcher     = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockThemeRegistry       = $this->mock(tubepress_api_contrib_RegistryInterface::_);
+        $this->_mockTemplating          = $this->mock(tubepress_api_template_TemplatingInterface::_);
         $this->_mockCurrentThemeService = $this->mock('tubepress_theme_impl_CurrentThemeService');
-        $this->_mockEnvironment         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockEnvironment         = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_html_impl_CssAndJsGenerationHelper(
 
@@ -105,21 +105,21 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_te
     {
         $js = $getter === 'getUrlsJS';
 
-        $mockBaseUrl        = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockUserContentUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockBaseUrl        = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockUserContentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
-        $mockThemeUrl1 = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockThemeUrl2 = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockThemeUrl1 = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockThemeUrl2 = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockThemeUrls = array($mockThemeUrl1, $mockThemeUrl2);
 
-        $mockParentUrl1 = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockParentUrl2 = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockParentUrl1 = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockParentUrl2 = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockParentUrls = array($mockParentUrl1, $mockParentUrl2);
 
-        $mockCurrentTheme = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
-        $mockParentTheme  = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $mockCurrentTheme = $this->mock(tubepress_api_theme_ThemeInterface::_);
+        $mockParentTheme  = $this->mock(tubepress_api_theme_ThemeInterface::_);
 
-        $mockUrlEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockUrlEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $finalUrls = array_merge($mockParentUrls, $mockThemeUrls);
 

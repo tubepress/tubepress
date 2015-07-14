@@ -15,23 +15,23 @@
 class tubepress_options_impl_listeners_LoggingListener
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
-                                tubepress_platform_api_util_StringUtilsInterface $stringUtils)
+    public function __construct(tubepress_api_log_LoggerInterface       $logger,
+                                tubepress_api_util_StringUtilsInterface $stringUtils)
     {
         $this->_logger      = $logger;
         $this->_stringUtils = $stringUtils;
     }
 
-    public function onOptionSet(tubepress_lib_api_event_EventInterface $event)
+    public function onOptionSet(tubepress_api_event_EventInterface $event)
     {
         if (!$this->_logger->isEnabled()) {
 

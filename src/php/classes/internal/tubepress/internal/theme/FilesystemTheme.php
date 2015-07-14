@@ -112,33 +112,33 @@ class tubepress_internal_theme_FilesystemTheme extends tubepress_internal_theme_
     }
 
     /**
-     * @param tubepress_platform_api_url_UrlInterface $baseUrl        The TubePress base URL.
-     * @param tubepress_platform_api_url_UrlInterface $userContentUrl The user content URL.
+     * @param tubepress_api_url_UrlInterface $baseUrl        The TubePress base URL.
+     * @param tubepress_api_url_UrlInterface $userContentUrl The user content URL.
      *
-     * @return tubepress_platform_api_url_UrlInterface[] An array, which may be empty but never null, of script URLs for
+     * @return tubepress_api_url_UrlInterface[] An array, which may be empty but never null, of script URLs for
      *                                                   this theme.
      *
      * @api
      * @since 4.0.0
      */
-    public function getUrlsJS(tubepress_platform_api_url_UrlInterface $baseUrl,
-                              tubepress_platform_api_url_UrlInterface $userContentUrl)
+    public function getUrlsJS(tubepress_api_url_UrlInterface $baseUrl,
+                              tubepress_api_url_UrlInterface $userContentUrl)
     {
         return $this->_getStylesOrScripts($baseUrl, $userContentUrl, 'getUrlsJS');
     }
 
     /**
-     * @param tubepress_platform_api_url_UrlInterface $baseUrl        The TubePress base URL.
-     * @param tubepress_platform_api_url_UrlInterface $userContentUrl The user content URL.
+     * @param tubepress_api_url_UrlInterface $baseUrl        The TubePress base URL.
+     * @param tubepress_api_url_UrlInterface $userContentUrl The user content URL.
      *
-     * @return tubepress_platform_api_url_UrlInterface[] An array, which may be empty but never null, of stylesheet URLs
+     * @return tubepress_api_url_UrlInterface[] An array, which may be empty but never null, of stylesheet URLs
      *                                                   for this theme.
      *
      * @api
      * @since 4.0.0
      */
-    public function getUrlsCSS(tubepress_platform_api_url_UrlInterface $baseUrl,
-                               tubepress_platform_api_url_UrlInterface $userContentUrl)
+    public function getUrlsCSS(tubepress_api_url_UrlInterface $baseUrl,
+                               tubepress_api_url_UrlInterface $userContentUrl)
     {
         return $this->_getStylesOrScripts($baseUrl, $userContentUrl, 'getUrlsCSS');
     }
@@ -160,8 +160,8 @@ class tubepress_internal_theme_FilesystemTheme extends tubepress_internal_theme_
         return $map[$name];
     }
 
-    private function _getStylesOrScripts(tubepress_platform_api_url_UrlInterface $baseUrl,
-                                         tubepress_platform_api_url_UrlInterface $userContentUrl,
+    private function _getStylesOrScripts(tubepress_api_url_UrlInterface $baseUrl,
+                                         tubepress_api_url_UrlInterface $userContentUrl,
                                          $getter)
     {
         $toReturn = parent::$getter($baseUrl, $userContentUrl);
@@ -186,9 +186,9 @@ class tubepress_internal_theme_FilesystemTheme extends tubepress_internal_theme_
         return $toReturn;
     }
 
-    private function _convertRelativeUrlToAbsolute(tubepress_platform_api_url_UrlInterface $baseUrl,
-                                                   tubepress_platform_api_url_UrlInterface $userContentUrl,
-                                                   tubepress_platform_api_url_UrlInterface $candidate)
+    private function _convertRelativeUrlToAbsolute(tubepress_api_url_UrlInterface $baseUrl,
+                                                   tubepress_api_url_UrlInterface $userContentUrl,
+                                                   tubepress_api_url_UrlInterface $candidate)
     {
         $toReturn     = null;
         $properties   = $this->getProperties();

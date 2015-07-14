@@ -12,7 +12,7 @@
 class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -37,7 +37,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     private $_containerDumper;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
@@ -61,11 +61,11 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
      */
     private $_serializer;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface                          $logger,
+    public function __construct(tubepress_api_log_LoggerInterface                              $logger,
                                 tubepress_internal_boot_helper_uncached_contrib_ManifestFinder $manifestFinder,
                                 tubepress_internal_boot_helper_uncached_contrib_AddonFactory   $addonFactory,
                                 tubepress_internal_boot_helper_uncached_Compiler               $ici,
-                                tubepress_platform_api_boot_BootSettingsInterface                   $sfri)
+                                tubepress_api_boot_BootSettingsInterface                       $sfri)
     {
         $this->_logger         = $logger;
         $this->_shouldLog      = $logger->isEnabled();
@@ -82,10 +82,10 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
             $this->_containerBuilder = new tubepress_internal_ioc_ContainerBuilder();
         }
 
-        $this->_containerBuilder->set('tubepress_platform_api_ioc_ContainerInterface',      $this->_containerBuilder);
+        $this->_containerBuilder->set('tubepress_api_ioc_ContainerInterface',      $this->_containerBuilder);
         $this->_containerBuilder->set('ehough_iconic_ContainerInterface',                   $this->_containerBuilder->getDelegateContainerBuilder());
         $this->_containerBuilder->set('tubepress_internal_logger_BootLogger',             $this->_logger);
-        $this->_containerBuilder->set(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_bootSettings);
+        $this->_containerBuilder->set(tubepress_api_boot_BootSettingsInterface::_, $this->_bootSettings);
 
         $addons = $this->_findAllAddons();
 
@@ -294,7 +294,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         $toReturn = array();
 
         /**
-         * @var $addon tubepress_platform_api_addon_AddonInterface
+         * @var $addon tubepress_api_contrib_AddonInterface
          */
         foreach ($addons as $addon) {
 

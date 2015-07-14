@@ -15,21 +15,21 @@
 class tubepress_options_ui_impl_fields_templated_single_ThemeField extends tubepress_options_ui_impl_fields_templated_single_DropdownField
 {
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_api_contrib_RegistryInterface
      */
     private $_themeRegistry;
 
-    public function __construct(tubepress_app_api_options_PersistenceInterface      $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_app_api_options_ReferenceInterface        $optionReference,
-                                tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                tubepress_platform_api_contrib_RegistryInterface    $themeRegistry,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues)
+    public function __construct(tubepress_api_options_PersistenceInterface      $persistence,
+                                tubepress_api_http_RequestParametersInterface   $requestParams,
+                                tubepress_api_options_ReferenceInterface        $optionReference,
+                                tubepress_api_template_TemplatingInterface      $templating,
+                                tubepress_api_util_LangUtilsInterface           $langUtils,
+                                tubepress_api_contrib_RegistryInterface         $themeRegistry,
+                                tubepress_api_options_AcceptableValuesInterface $acceptableValues)
     {
         parent::__construct(
 
-            tubepress_app_api_options_Names::THEME,
+            tubepress_api_options_Names::THEME,
             $persistence,
             $requestParams,
             $optionReference,
@@ -95,7 +95,7 @@ class tubepress_options_ui_impl_fields_templated_single_ThemeField extends tubep
         return $a > $b;
     }
 
-    private function _buildThemeData(tubepress_app_api_theme_ThemeInterface $theme)
+    private function _buildThemeData(tubepress_api_theme_ThemeInterface $theme)
     {
         $raw = array(
 
@@ -131,7 +131,7 @@ class tubepress_options_ui_impl_fields_templated_single_ThemeField extends tubep
             return $element;
         }
 
-        if ($element instanceof tubepress_platform_api_collection_MapInterface) {
+        if ($element instanceof tubepress_api_collection_MapInterface) {
 
             $keys     = $element->keySet();
             $toReturn = array();

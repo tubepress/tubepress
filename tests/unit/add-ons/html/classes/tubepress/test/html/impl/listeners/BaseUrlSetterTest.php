@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_html_impl_listeners_BaseUrlSetter
  */
-class tubepress_test_html_impl_listeners_BaseUrlSetterTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_listeners_BaseUrlSetterTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -31,8 +31,8 @@ class tubepress_test_html_impl_listeners_BaseUrlSetterTest extends tubepress_tes
 
     public function onSetup()
     {
-        $this->_mockEvent               = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockEnvironmentDetector = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockEvent               = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockEnvironmentDetector = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
         $this->_sut                     = new tubepress_html_impl_listeners_BaseUrlSetter(
             $this->_mockEnvironmentDetector
         );
@@ -40,9 +40,9 @@ class tubepress_test_html_impl_listeners_BaseUrlSetterTest extends tubepress_tes
 
     public function testOnGlobalJsConfig()
     {
-        $mockBaseUrl        = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockUserContentUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockAjaxUrl        = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockBaseUrl        = $this->mock('tubepress_api_url_UrlInterface');
+        $mockUserContentUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $mockAjaxUrl        = $this->mock('tubepress_api_url_UrlInterface');
 
         $mockBaseUrl->shouldReceive('__toString')->once()->andReturn('mockBaseUrl');
         $mockUserContentUrl->shouldReceive('__toString')->once()->andReturn('mock-user-url');

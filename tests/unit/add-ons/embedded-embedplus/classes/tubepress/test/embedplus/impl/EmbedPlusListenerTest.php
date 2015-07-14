@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_embedplus_impl_EmbedPlus
  */
-class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_embedplus_impl_EmbedPlus
@@ -26,27 +26,27 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePre
 
     public function onSetup() {
 
-        $this->_mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
 
         $this->_sut = new tubepress_embedplus_impl_EmbedPlus($this->_mockUrlFactory);
     }
 
     public function testGalleryInit()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array(
             'options' => array(
-                tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL => 'embedplus',
-                tubepress_app_api_options_Names::EMBEDDED_HEIGHT      => 44,
+                tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'embedplus',
+                tubepress_api_options_Names::EMBEDDED_HEIGHT      => 44,
             )
         ));
 
         $mockEvent->shouldReceive('setSubject')->once()->with(
             array(
                 'options' => array(
-                    tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL => 'embedplus',
-                    tubepress_app_api_options_Names::EMBEDDED_HEIGHT      => 74,
+                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'embedplus',
+                    tubepress_api_options_Names::EMBEDDED_HEIGHT      => 74,
                 )
             )
         );
@@ -57,11 +57,11 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePre
 
     public function testGalleryInitWrongImpl()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array(
             'options' => array(
-                tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL => 'xyz'
+                tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'xyz'
             )
         ));
 
@@ -71,7 +71,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePre
 
     public function testGalleryInitJsNotSet()
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
 
@@ -81,8 +81,8 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePre
 
     public function testGetVariables()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
-        $mockUrl       = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
+        $mockUrl       = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $mockMediaItem->shouldReceive('getId')->once()->andReturn('abc');
 
@@ -92,7 +92,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePre
 
         $actual   = $this->_sut->getTemplateVariables($mockMediaItem);
         $expected = array(
-            tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl
         );
 
         $this->assertEquals($expected, $actual);

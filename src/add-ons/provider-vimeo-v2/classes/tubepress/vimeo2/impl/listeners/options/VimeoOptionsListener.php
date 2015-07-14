@@ -11,37 +11,37 @@
 class tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener
 {
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
-    public function __construct(tubepress_platform_api_url_UrlFactoryInterface   $urlFactory,
-                                tubepress_platform_api_util_StringUtilsInterface $stringUtils)
+    public function __construct(tubepress_api_url_UrlFactoryInterface   $urlFactory,
+                                tubepress_api_util_StringUtilsInterface $stringUtils)
     {
         $this->_urlFactory  = $urlFactory;
         $this->_stringUtils = $stringUtils;
     }
 
-    public function onAlbumValue(tubepress_lib_api_event_EventInterface $event)
+    public function onAlbumValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeConvertUrl($event->getArgument('optionValue'), 'album');
 
         $event->setArgument('optionValue', $filteredValue);
     }
 
-    public function onChannelValue(tubepress_lib_api_event_EventInterface $event)
+    public function onChannelValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeConvertUrl($event->getArgument('optionValue'), 'channels');
 
         $event->setArgument('optionValue', $filteredValue);
     }
 
-    public function onGroupValue(tubepress_lib_api_event_EventInterface $event)
+    public function onGroupValue(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeConvertUrl($event->getArgument('optionValue'), 'groups');
 

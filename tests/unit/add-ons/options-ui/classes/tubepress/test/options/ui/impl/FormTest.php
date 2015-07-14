@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_Form<extended>
  */
-class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_ui_impl_Form
@@ -72,14 +72,14 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
     public function onSetup()
     {
         $this->_mockPersistence         = $this->mock('tubepress_options_impl_Persistence');
-        $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockStringUtils         = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
+        $this->_mockTemplating          = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockStringUtils         = $this->mock(tubepress_api_util_StringUtilsInterface::_);
         $this->_mockCssAndJsHelper      = $this->mock('tubepress_html_impl_CssAndJsGenerationHelper');
-        $this->_mockRequestParams       = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockLogger              = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockSingleSourceField   = $this->mock('tubepress_app_api_options_ui_FieldInterface');
-        $this->_mockMultiSourceField    = $this->mock('tubepress_app_api_options_ui_MultiSourceFieldInterface');
-        $this->_mockFieldProvider       = $this->mock('tubepress_app_api_options_ui_FieldProviderInterface');
+        $this->_mockRequestParams       = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockSingleSourceField   = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $this->_mockMultiSourceField    = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
+        $this->_mockFieldProvider       = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -117,10 +117,10 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
             'stored' => 'option',
         ));
 
-        $mockNewPersistence1 = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $mockNewPersistence2 = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $mockMultiClone1     = $this->mock('tubepress_app_api_options_ui_MultiSourceFieldInterface');
-        $mockMultiClone2     = $this->mock('tubepress_app_api_options_ui_MultiSourceFieldInterface');
+        $mockNewPersistence1 = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $mockNewPersistence2 = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $mockMultiClone1     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
+        $mockMultiClone2     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
 
         $this->_mockPersistence->shouldReceive('getCloneWithCustomBackend')->twice()
             ->with(ehough_mockery_Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
@@ -150,7 +150,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
         $mockNewPersistence1->shouldReceive('flushSaveQueue')->once()->andReturnNull();
         $mockNewPersistence2->shouldReceive('flushSaveQueue')->once()->andReturnNull();
 
-        $this->_mockPersistence->shouldReceive('queueForSave')->once()->with(tubepress_app_api_options_Names::SOURCES, '[[],[]]');
+        $this->_mockPersistence->shouldReceive('queueForSave')->once()->with(tubepress_api_options_Names::SOURCES, '[[],[]]');
         $this->_mockPersistence->shouldReceive('flushSaveQueue')->once()->andReturnNull();
 
         $result = $this->_sut->onSubmit();
@@ -206,13 +206,13 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
         );
 
         $this->_mockPersistence->shouldReceive('fetchAll')->once()->andReturn(array(
-            tubepress_app_api_options_Names::SOURCES => json_encode($sources),
+            tubepress_api_options_Names::SOURCES => json_encode($sources),
         ));
 
-        $mockNewPersistence1 = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $mockNewPersistence2 = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $mockMultiClone1     = $this->mock('tubepress_app_api_options_ui_MultiSourceFieldInterface');
-        $mockMultiClone2     = $this->mock('tubepress_app_api_options_ui_MultiSourceFieldInterface');
+        $mockNewPersistence1 = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $mockNewPersistence2 = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $mockMultiClone1     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
+        $mockMultiClone2     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
 
         $this->_mockPersistence->shouldReceive('getCloneWithCustomBackend')->twice()
             ->with(ehough_mockery_Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
@@ -255,8 +255,8 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
     {
         $this->_mockPersistence->shouldReceive('fetchAll')->once()->andReturn(array('foo' => 'bar'));
 
-        $mockNewPersistence = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $mockMultiClone     = $this->mock('tubepress_app_api_options_ui_MultiSourceFieldInterface');
+        $mockNewPersistence = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $mockMultiClone     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
 
         $this->_mockPersistence->shouldReceive('getCloneWithCustomBackend')->once()
             ->with(ehough_mockery_Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))

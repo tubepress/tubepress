@@ -21,12 +21,12 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
     private $_shouldLog;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
@@ -53,9 +53,9 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
     public function __construct($systemStartingPoint,
                                 $userStartingPoint,
                                 $manifestName,
-                                tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings,
-                                ehough_finder_FinderFactoryInterface              $finderFactory)
+                                tubepress_api_log_LoggerInterface        $logger,
+                                tubepress_api_boot_BootSettingsInterface $bootSettings,
+                                ehough_finder_FinderFactoryInterface     $finderFactory)
     {
         $this->_shouldLog           = $logger->isEnabled();
         $this->_logger              = $logger;

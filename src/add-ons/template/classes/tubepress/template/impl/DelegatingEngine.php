@@ -12,7 +12,7 @@
 class tubepress_template_impl_DelegatingEngine extends ehough_templating_DelegatingEngine
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -21,7 +21,7 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
      */
     private $_shouldLog;
 
-    public function __construct(array $engines = array(), tubepress_platform_api_log_LoggerInterface $logger)
+    public function __construct(array $engines = array(), tubepress_api_log_LoggerInterface $logger)
     {
         parent::__construct($engines);
 

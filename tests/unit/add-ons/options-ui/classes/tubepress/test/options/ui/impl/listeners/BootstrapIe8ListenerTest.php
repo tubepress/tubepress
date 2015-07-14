@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_listeners_BootstrapIe8Listener
  */
-class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_ui_impl_listeners_BootstrapIe8Listener
@@ -31,8 +31,8 @@ class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends 
 
     public function onSetup()
     {
-        $this->_mockEnvironment   = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
-        $this->_mockIncomingEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEnvironment   = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockIncomingEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_sut = new tubepress_options_ui_impl_listeners_BootstrapIe8Listener(
             $this->_mockEnvironment
@@ -41,19 +41,19 @@ class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends 
 
     public function testBootstrap()
     {
-        $mockBootstrapUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockBootstrapUrl = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockBootstrapUrl->shouldReceive('getPath')->once()->andReturn('/some/path/bootstrap/');
 
-        $mockShivUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockShivUrl = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockShivUrl->shouldReceive('setPath')->once()->with('/web/admin-themes/admin-default/vendor/html5-shiv-3.7.0/html5shiv.js');
         $mockShivUrl->shouldReceive('freeze')->once();
 
-        $mockRespondUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockRespondUrl = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockRespondUrl->shouldReceive('setPath')->once()->with('/web/admin-themes/admin-default/vendor/respond-1.4.2/respond.min.js');
         $mockRespondUrl->shouldReceive('freeze')->once();
         $mockRespondUrl->shouldReceive('getClone')->once()->andReturn($mockShivUrl);
 
-        $mockBaseUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockBaseUrl = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockRespondUrl);
 
         $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);

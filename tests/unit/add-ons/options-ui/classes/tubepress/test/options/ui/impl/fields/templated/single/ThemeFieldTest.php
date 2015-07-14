@@ -31,7 +31,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
 
     public function testGetThemeDataAsJson()
     {
-        $mockTheme  = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $mockTheme  = $this->mock(tubepress_api_theme_ThemeInterface::_);
         $mockThemes = array($mockTheme);
 
         $mockTheme->shouldReceive('getName')->once()->andReturn('theme name');
@@ -73,9 +73,9 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
 
     protected function onAfterSingleFieldSetup()
     {
-        $this->_mockLangUtils        = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
-        $this->_mockAcceptableValues = $this->mock(tubepress_app_api_options_AcceptableValuesInterface::_);
-        $this->_mockThemeRegistry  = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
+        $this->_mockLangUtils        = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockAcceptableValues = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
+        $this->_mockThemeRegistry  = $this->mock(tubepress_api_contrib_RegistryInterface::_);
     }
 
     protected function getId()

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_internal_translation_AbstractTranslator
  */
-class tubepress_test_internal_translation_AbstractTranslatorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_internal_translation_AbstractTranslatorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_test_lib_impl_translation_AbstractTranslatorTest__translator

@@ -9,21 +9,21 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_template_ioc_compiler_TemplatePathProvidersPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_template_ioc_compiler_TemplatePathProvidersPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
      * @since 4.0.0
      */
-    public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_doProcess($containerBuilder, '');
         $this->_doProcess($containerBuilder, '.admin');
     }
 
-    private function _doProcess(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, $serviceSuffix)
+    private function _doProcess(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $serviceSuffix)
     {
         if (!$containerBuilder->hasDefinition('Twig_Loader_Filesystem' . $serviceSuffix)) {
 
@@ -31,12 +31,12 @@ class tubepress_template_ioc_compiler_TemplatePathProvidersPass implements tubep
         }
 
         $twigFsLoaderDefinition = $containerBuilder->getDefinition('Twig_Loader_Filesystem' . $serviceSuffix);
-        $providerIds            = $containerBuilder->findTaggedServiceIds('tubepress_lib_api_template_PathProviderInterface' . $serviceSuffix);
+        $providerIds            = $containerBuilder->findTaggedServiceIds('tubepress_spi_template_PathProviderInterface' . $serviceSuffix);
 
         foreach ($providerIds as $providerId => $tags) {
 
             /**
-             * @var $provider tubepress_lib_api_template_PathProviderInterface
+             * @var $provider tubepress_spi_template_PathProviderInterface
              */
             $provider    = $containerBuilder->get($providerId);
             $directories = $provider->getTemplateDirectories();

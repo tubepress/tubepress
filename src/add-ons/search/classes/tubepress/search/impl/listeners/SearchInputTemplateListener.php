@@ -15,36 +15,36 @@
 class tubepress_search_impl_listeners_SearchInputTemplateListener
 {
     /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
+     * @var tubepress_api_url_UrlFactoryInterface
      */
     private $_urlFactory;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
 
-    public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_platform_api_url_UrlFactoryInterface    $urlFactory,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_url_UrlFactoryInterface         $urlFactory,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
         $this->_context       = $context;
         $this->_urlFactory    = $urlFactory;
         $this->_requestParams = $requestParams;
     }
 
-    public function onSearchInputTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    public function onSearchInputTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $existingTemplateVars array
          */
         $existingTemplateVars = $event->getSubject();
-        $resultsUrl           = $this->_context->get(tubepress_app_api_options_Names::SEARCH_RESULTS_URL);
+        $resultsUrl           = $this->_context->get(tubepress_api_options_Names::SEARCH_RESULTS_URL);
         $url                  = '';
 
         try {
@@ -77,9 +77,9 @@ class tubepress_search_impl_listeners_SearchInputTemplateListener
 
         /* apply the template variables */
         $newVars = array(
-            tubepress_app_api_template_VariableNames::SEARCH_HANDLER_URL   => $url->toString(),
-            tubepress_app_api_template_VariableNames::SEARCH_HIDDEN_INPUTS => $params->toArray(),
-            tubepress_app_api_template_VariableNames::SEARCH_TERMS         => $searchTerms,
+            tubepress_api_template_VariableNames::SEARCH_HANDLER_URL   => $url->toString(),
+            tubepress_api_template_VariableNames::SEARCH_HIDDEN_INPUTS => $params->toArray(),
+            tubepress_api_template_VariableNames::SEARCH_TERMS         => $searchTerms,
         );
 
         $existingTemplateVars = array_merge($existingTemplateVars, $newVars);

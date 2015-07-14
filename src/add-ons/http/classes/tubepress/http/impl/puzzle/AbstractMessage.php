@@ -12,7 +12,7 @@
 /**
  * Puzzle-based stream.
  */
-abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_lib_api_http_message_MessageInterface
+abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_api_http_message_MessageInterface
 {
     /**
      * @var puzzle_message_MessageInterface
@@ -31,7 +31,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
      * @param string $header Header name to add
      * @param string $value  Value of the header
      *
-     * @return tubepress_lib_api_http_message_MessageInterface Self.
+     * @return tubepress_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0
@@ -54,7 +54,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
      *
      * @param array $headers Associative array of headers to add to the message
      *
-     * @return tubepress_lib_api_http_message_MessageInterface Self.
+     * @return tubepress_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0
@@ -69,7 +69,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
     /**
      * Get the body of the message
      *
-     * @return tubepress_lib_api_streams_StreamInterface|null
+     * @return tubepress_api_streams_StreamInterface|null
      *
      * @api
      * @since 4.0.0
@@ -170,7 +170,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
      *
      * @param string $header Case-insensitive header name.
      *
-     * @return tubepress_lib_api_http_message_MessageInterface Self.
+     * @return tubepress_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0
@@ -185,17 +185,17 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
     /**
      * Sets the body of the message.
      *
-     * The body MUST be a tubepress_lib_api_streams_StreamInterface object. Setting the body to null MUST
+     * The body MUST be a tubepress_api_streams_StreamInterface object. Setting the body to null MUST
      * remove the existing body.
      *
-     * @param tubepress_lib_api_streams_StreamInterface|null $tubePressBody Body.
+     * @param tubepress_api_streams_StreamInterface|null $tubePressBody Body.
      *
-     * @return tubepress_lib_api_http_message_MessageInterface Self.
+     * @return tubepress_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0
      */
-    public function setBody(tubepress_lib_api_streams_StreamInterface $tubePressBody = null)
+    public function setBody(tubepress_api_streams_StreamInterface $tubePressBody = null)
     {
         $puzzleBody = null;
 
@@ -225,7 +225,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
      * @param string       $header Header name
      * @param string|array $value  Header value(s)
      *
-     * @return tubepress_lib_api_http_message_MessageInterface Self.
+     * @return tubepress_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0
@@ -246,7 +246,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_l
      *
      * @param array $headers Headers to set.
      *
-     * @return tubepress_lib_api_http_message_MessageInterface Self.
+     * @return tubepress_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0

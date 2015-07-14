@@ -12,66 +12,66 @@
 /**
  *
  */
-class tubepress_single_ioc_SingleExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_single_ioc_SingleExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_platform_api_ioc_ContainerBuilderInterface`
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_platform_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerListeners($containerBuilder);
         $this->_registerTemplatePathProvider($containerBuilder);
         $this->_registerOptions($containerBuilder);
     }
 
-    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
             'tubepress_single_impl_listeners_SingleItemListener',
             'tubepress_single_impl_listeners_SingleItemListener'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_CollectorInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_app_api_event_Events::HTML_GENERATION,
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_media_CollectorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 94000,
             'method'   => 'onHtmlGeneration'
         ));
     }
 
-    private function _registerTemplatePathProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerTemplatePathProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
             'tubepress_api_template_BasePathProvider__single',
             'tubepress_api_template_BasePathProvider'
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/single/templates',
-        ))->addTag('tubepress_lib_api_template_PathProviderInterface');
+        ))->addTag('tubepress_spi_template_PathProviderInterface');
     }
 
-    private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_app_api_options_Reference__single',
-            'tubepress_app_api_options_Reference'
-        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+            'tubepress_api_options_Reference__single',
+            'tubepress_api_options_Reference'
+        )->addTag(tubepress_api_options_ReferenceInterface::_)
          ->addArgument(array(
-            tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID => null,
+            tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_api_options_Names::SINGLE_MEDIA_ITEM_ID => null,
             ),
         ))->addArgument(array(
-            tubepress_app_api_options_Reference::PROPERTY_NO_PERSIST => array(
-                tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID,
+            tubepress_api_options_Reference::PROPERTY_NO_PERSIST => array(
+                tubepress_api_options_Names::SINGLE_MEDIA_ITEM_ID,
             ),
         ));
     }

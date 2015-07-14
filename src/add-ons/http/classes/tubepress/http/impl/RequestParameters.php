@@ -12,7 +12,7 @@
 /**
  * Pulls out info from $_GET or $_POST.
  */
-class tubepress_http_impl_RequestParameters implements tubepress_lib_api_http_RequestParametersInterface
+class tubepress_http_impl_RequestParameters implements tubepress_api_http_RequestParametersInterface
 {
     /**
      * @var array A merged array of $_GET and $_POST for this request.
@@ -20,11 +20,11 @@ class tubepress_http_impl_RequestParameters implements tubepress_lib_api_http_Re
     private $_cachedMergedGetAndPostArray;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_eventDispatcher = $eventDispatcher;
     }
@@ -60,7 +60,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_lib_api_http_Re
 
         $this->_eventDispatcher->dispatch(
 
-            tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT,
+            tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT,
             $event
         );
 
@@ -69,7 +69,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_lib_api_http_Re
         ));
         $this->_eventDispatcher->dispatch(
 
-            tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT . ".$name",
+            tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT . ".$name",
             $event
         );
 

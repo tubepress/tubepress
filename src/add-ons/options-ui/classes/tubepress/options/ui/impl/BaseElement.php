@@ -11,12 +11,12 @@
 
 /**
  */
-class tubepress_options_ui_impl_BaseElement implements tubepress_app_api_options_ui_ElementInterface
+class tubepress_options_ui_impl_BaseElement implements tubepress_api_options_ui_ElementInterface
 {
     protected static $PROPERTY_ID                   = 'id';
     protected static $PROPERTY_UNTRANS_DISPLAY_NAME = 'untranslatedDisplayName';
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
@@ -49,7 +49,7 @@ class tubepress_options_ui_impl_BaseElement implements tubepress_app_api_options
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

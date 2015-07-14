@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_impl_DispatchingReference<extended>
  */
-class tubepress_test_options_impl_DispatchingReferenceTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_DispatchingReferenceTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_impl_DispatchingReference
@@ -36,9 +36,9 @@ class tubepress_test_options_impl_DispatchingReferenceTest extends tubepress_tes
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher    = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockDelegateReference1 = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $this->_mockDelegateReference2 = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
+        $this->_mockEventDispatcher    = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockDelegateReference1 = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockDelegateReference2 = $this->mock(tubepress_api_options_ReferenceInterface::_);
 
         $this->_sut = new tubepress_options_impl_DispatchingReference($this->_mockEventDispatcher);
 
@@ -89,9 +89,9 @@ class tubepress_test_options_impl_DispatchingReferenceTest extends tubepress_tes
     {
         return array(
 
-            array('getDefaultValue', tubepress_app_api_event_Events::OPTION_DEFAULT_VALUE),
-            array('getUntranslatedDescription', tubepress_app_api_event_Events::OPTION_DESCRIPTION),
-            array('getUntranslatedLabel', tubepress_app_api_event_Events::OPTION_LABEL),
+            array('getDefaultValue', tubepress_api_event_Events::OPTION_DEFAULT_VALUE),
+            array('getUntranslatedDescription', tubepress_api_event_Events::OPTION_DESCRIPTION),
+            array('getUntranslatedLabel', tubepress_api_event_Events::OPTION_LABEL),
         );
     }
 
@@ -141,7 +141,7 @@ class tubepress_test_options_impl_DispatchingReferenceTest extends tubepress_tes
 
     private function _setupEventDispatcher($optionName, $subject, $eventName)
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($subject, array('optionName' => $optionName))->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with("$eventName.$optionName", $mockEvent);

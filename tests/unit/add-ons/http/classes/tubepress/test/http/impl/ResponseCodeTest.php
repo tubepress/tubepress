@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_ResponseCode
  */
-class tubepress_test_http_impl_ResponseCodeTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_ResponseCodeTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_http_impl_ResponseCode

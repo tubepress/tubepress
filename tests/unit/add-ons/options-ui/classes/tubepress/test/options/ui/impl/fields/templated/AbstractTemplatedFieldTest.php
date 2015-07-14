@@ -21,7 +21,7 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_AbstractTempl
 
     protected function onAfterAbstractFieldSetup()
     {
-        $this->_mockTemplating = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
+        $this->_mockTemplating = $this->mock(tubepress_api_template_TemplatingInterface::_);
 
         $this->onAfterTemplateBasedFieldSetup();
     }

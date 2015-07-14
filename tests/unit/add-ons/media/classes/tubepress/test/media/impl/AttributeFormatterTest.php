@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_media_impl_AttributeFormatter
  */
-class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_media_impl_AttributeFormatter
@@ -36,9 +36,9 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        $this->_mockContext    = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockTimeUtils  = $this->mock(tubepress_lib_api_util_TimeUtilsInterface::_);
-        $this->_mockTranslator = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockContext    = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockTimeUtils  = $this->mock(tubepress_api_util_TimeUtilsInterface::_);
+        $this->_mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_media_impl_AttributeFormatter(
 
@@ -50,7 +50,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testImplodeArray()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn(array('one', 'two', 'three'));
         $mockMediaItem->shouldReceive('setAttribute')->once()->with('dest', 'onextwoxthree');
@@ -61,7 +61,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testFormatDuration()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn(123456);
         $mockMediaItem->shouldReceive('setAttribute')->once()->with('dest', 'hi');
@@ -76,14 +76,14 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testFormatDate()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn(1406217118);
         $mockMediaItem->shouldReceive('setAttribute')->once()->with('dest', 'hi');
 
         $this->_mockTranslator->shouldReceive('trans')->once()->with('')->andReturn('does not matter');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::META_DATEFORMAT)->andReturn('abc');
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::META_RELATIVE_DATES)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::META_DATEFORMAT)->andReturn('abc');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::META_RELATIVE_DATES)->andReturn(true);
         $this->_mockTimeUtils->shouldReceive('unixTimeToHumanReadable')->once()->with(
             1406217118, 'abc', true
         )->andReturn('hi');
@@ -95,7 +95,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testFormatNumber()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn('123.123456');
         $mockMediaItem->shouldReceive('setAttribute')->once()->with('dest', '123.123');
@@ -107,7 +107,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testTruncate()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn('abc');
         $mockMediaItem->shouldReceive('setAttribute')->once()->with('dest', 'ab...');
@@ -120,7 +120,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testTruncateShorty()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn('abc');
         $this->_mockContext->shouldReceive('get')->once()->with('option')->andReturn('300');
@@ -132,7 +132,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
 
     public function testTruncateNoLimit()
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with('option')->andReturn('0');
 
@@ -146,7 +146,7 @@ class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_Tu
      */
     public function testTruncateNoSuchAttribute($method)
     {
-        $mockMediaItem = $this->mock('tubepress_app_api_media_MediaItem');
+        $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
         $mockMediaItem->shouldReceive('hasAttribute')->once()->with('source')->andReturn(false);
 
         $this->_sut->$method($mockMediaItem, 'source', 'dest', 'option');

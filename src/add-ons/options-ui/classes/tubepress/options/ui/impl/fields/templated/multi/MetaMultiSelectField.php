@@ -17,12 +17,12 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     const FIELD_ID = 'meta-dropdown';
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionsReference;
 
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_api_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
@@ -31,11 +31,11 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
      */
     private $_cachedMetaOptionNames;
 
-    public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionsReference,
-                                array                                             $mediaProviders)
+    public function __construct(tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_http_RequestParametersInterface $requestParams,
+                                tubepress_api_template_TemplatingInterface    $templating,
+                                tubepress_api_options_ReferenceInterface      $optionsReference,
+                                array                                         $mediaProviders)
     {
         parent::__construct(
 
@@ -182,7 +182,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
         return $this->_mediaProviders;
     }
 
-    public function providerRecognizesChoice(tubepress_app_api_media_MediaProviderInterface $mp, $choice)
+    public function providerRecognizesChoice(tubepress_api_media_MediaProviderInterface $mp, $choice)
     {
         $metaNames = $mp->getMapOfMetaOptionNamesToAttributeDisplayNames();
 

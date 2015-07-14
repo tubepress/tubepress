@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_FieldBuilder<extended>
  */
-class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_ui_impl_FieldBuilder
@@ -56,13 +56,13 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_test
 
     public function onSetup()
     {
-        $this->_mockPersistence      = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $this->_mockRequestParams    = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockTemplating       = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $this->_mockLangUtils        = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
-        $this->_mockAcceptableValues = $this->mock(tubepress_app_api_options_AcceptableValuesInterface::_);
-        $this->_mockThemeRegistry    = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
+        $this->_mockPersistence      = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $this->_mockRequestParams    = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockTemplating       = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockLangUtils        = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockAcceptableValues = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
+        $this->_mockThemeRegistry    = $this->mock(tubepress_api_contrib_RegistryInterface::_);
 
         $this->_sut = new tubepress_options_ui_impl_FieldBuilder(
             $this->_mockPersistence,
@@ -83,7 +83,7 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_test
 
     public function testGallerySource()
     {
-        $field = $this->_sut->newInstance('t', 'gallerySourceRadio', array('additionalField' => $this->mock('tubepress_app_api_options_ui_FieldInterface')));
+        $field = $this->_sut->newInstance('t', 'gallerySourceRadio', array('additionalField' => $this->mock('tubepress_api_options_ui_FieldInterface')));
 
         $this->assertInstanceOf('tubepress_options_ui_impl_fields_templated_GallerySourceRadioField', $field);
     }

@@ -12,21 +12,21 @@
 /**
  *
  */
-class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_platform_api_ioc_ContainerBuilderInterface`
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_platform_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerListeners($containerBuilder);
         $this->_registerOptions($containerBuilder);
@@ -34,82 +34,82 @@ class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc
         $this->_registerTemplatePathProvider($containerBuilder);
     }
 
-    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
             'tubepress_search_impl_listeners_SearchListener',
             'tubepress_search_impl_listeners_SearchListener'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_app_api_media_MediaProviderInterface::__,
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
+         ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_api_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_app_api_event_Events::HTML_GENERATION,
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>  tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 100000,
             'method'   => 'onHtmlGenerationSearchInput'))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_app_api_event_Events::HTML_GENERATION,
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>  tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 96000,
             'method'   => 'onHtmlGenerationSearchOutput'))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::SEARCH_PROVIDER,
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>  tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::SEARCH_PROVIDER,
             'priority' => 100000,
             'method'   => 'onAcceptableValues'));
 
         $containerBuilder->register(
             'tubepress_search_impl_listeners_SearchInputTemplateListener',
             'tubepress_search_impl_listeners_SearchInputTemplateListener'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
+         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
             'priority' => 100000,
             'method'   => 'onSearchInputTemplatePreRender'));
     }
 
-    private function _registerTemplatePathProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerTemplatePathProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
             'tubepress_api_template_BasePathProvider__search',
             'tubepress_api_template_BasePathProvider'
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/search/templates',
-        ))->addTag('tubepress_lib_api_template_PathProviderInterface');
+        ))->addTag('tubepress_spi_template_PathProviderInterface');
     }
 
-    private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_app_api_options_Reference__search',
-            'tubepress_app_api_options_Reference'
-        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+            'tubepress_api_options_Reference__search',
+            'tubepress_api_options_Reference'
+        )->addTag(tubepress_api_options_ReferenceInterface::_)
          ->addArgument(array(
 
-            tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER    => null,
-                tubepress_app_api_options_Names::SEARCH_PROVIDER     => 'youtube',
-                tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY => false,
-                tubepress_app_api_options_Names::SEARCH_RESULTS_URL  => null,
+            tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_api_options_Names::SEARCH_ONLY_USER    => null,
+                tubepress_api_options_Names::SEARCH_PROVIDER     => 'youtube',
+                tubepress_api_options_Names::SEARCH_RESULTS_ONLY => false,
+                tubepress_api_options_Names::SEARCH_RESULTS_URL  => null,
             ),
 
-            tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER => 'Restrict search results to videos from author', //>(translatable)<
+            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                tubepress_api_options_Names::SEARCH_ONLY_USER => 'Restrict search results to videos from author', //>(translatable)<
 
             ),
 
-            tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
+            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                tubepress_api_options_Names::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
 
             ),
         ))->addArgument(array());
 
         $toValidate = array(
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER
+            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
+                tubepress_api_options_Names::SEARCH_ONLY_USER
             ),
         );
 
@@ -117,12 +117,12 @@ class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_listeners_options_RegexValidatingListener'
                 )->addArgument($type)
-                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-                 ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                 ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+                 ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+                 ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
                     'priority' => 100000,
                     'method'   => 'onOption',
                 ));
@@ -130,12 +130,12 @@ class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc
         }
     }
 
-    private function _registerOptionsUi(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
         $fieldMap = array(
             'multiSourceText' => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER
+                tubepress_api_options_Names::SEARCH_ONLY_USER
             ),
         );
 
@@ -146,19 +146,19 @@ class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc
 
                 $containerBuilder->register(
                     $serviceId,
-                    'tubepress_app_api_options_ui_FieldInterface'
-                )->setFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                    'tubepress_api_options_ui_FieldInterface'
+                )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
                  ->setFactoryMethod('newInstance')
                  ->addArgument($id)
                  ->addArgument($type);
 
-                $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+                $fieldReferences[] = new tubepress_api_ioc_Reference($serviceId);
             }
         }
 
         $fieldMap = array(
-            tubepress_app_api_options_ui_CategoryNames::FEED => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
+            tubepress_api_options_ui_CategoryNames::FEED => array(
+                tubepress_api_options_Names::SEARCH_ONLY_USER,
             ),
         );
 
@@ -172,6 +172,6 @@ class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
     }
 }

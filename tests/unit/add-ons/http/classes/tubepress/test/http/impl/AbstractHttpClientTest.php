@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_http_impl_AbstractHttpClient<extended>
  */
-class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -26,8 +26,8 @@ class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_test_Tube
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockLogger          = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockLogger          = $this->mock(tubepress_api_log_LoggerInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -35,12 +35,12 @@ class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_test_Tube
 
     public function testSlowSend()
     {
-        $mockResponse    = $this->mock('tubepress_lib_api_http_message_ResponseInterface');
-        $mockRequest     = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $mockUrl         = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockAfterEvent  = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockBeforeEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockBodyStream  = $this->mock('tubepress_lib_api_streams_StreamInterface');
+        $mockResponse    = $this->mock('tubepress_api_http_message_ResponseInterface');
+        $mockRequest     = $this->mock('tubepress_api_http_message_RequestInterface');
+        $mockUrl         = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockAfterEvent  = $this->mock('tubepress_api_event_EventInterface');
+        $mockBeforeEvent = $this->mock('tubepress_api_event_EventInterface');
+        $mockBodyStream  = $this->mock('tubepress_api_streams_StreamInterface');
 
         $client = new tubepress_test_lib_http_impl_AbstractHttpClientTest__noErrorClient($this->_mockEventDispatcher, $this->_mockLogger, $mockResponse);
 
@@ -51,13 +51,13 @@ class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_test_Tube
         $mockUrl->shouldReceive('__toString')->times(3)->andReturn('url as string');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockRequest, array('response' => null))->andReturn($mockBeforeEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST, $mockBeforeEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_http_Events::EVENT_HTTP_REQUEST, $mockBeforeEvent);
 
         $mockBeforeEvent->shouldReceive('hasArgument')->once()->with('response')->andReturn(true);
         $mockBeforeEvent->shouldReceive('getArgument')->once()->with('response')->andReturn(null);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockResponse, array('request' => $mockRequest))->andReturn($mockAfterEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE, $mockAfterEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_http_Events::EVENT_HTTP_RESPONSE, $mockAfterEvent);
 
         $mockResponse->shouldReceive('getHeaders')->once()->andReturn(array('bar' => array('xx')));
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockBodyStream);
@@ -73,12 +73,12 @@ class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_test_Tube
 
     public function testQuickSend()
     {
-        $mockResponse    = $this->mock('tubepress_lib_api_http_message_ResponseInterface');
-        $mockRequest     = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $mockUrl         = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockAfterEvent  = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockBeforeEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockBodyStream  = $this->mock('tubepress_lib_api_streams_StreamInterface');
+        $mockResponse    = $this->mock('tubepress_api_http_message_ResponseInterface');
+        $mockRequest     = $this->mock('tubepress_api_http_message_RequestInterface');
+        $mockUrl         = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockAfterEvent  = $this->mock('tubepress_api_event_EventInterface');
+        $mockBeforeEvent = $this->mock('tubepress_api_event_EventInterface');
+        $mockBodyStream  = $this->mock('tubepress_api_streams_StreamInterface');
 
         $client = new tubepress_test_lib_http_impl_AbstractHttpClientTest__noErrorClient($this->_mockEventDispatcher, $this->_mockLogger, $mockResponse);
 
@@ -89,13 +89,13 @@ class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_test_Tube
         $mockUrl->shouldReceive('__toString')->times(3)->andReturn('url as string');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockRequest, array('response' => null))->andReturn($mockBeforeEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST, $mockBeforeEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_http_Events::EVENT_HTTP_REQUEST, $mockBeforeEvent);
 
         $mockBeforeEvent->shouldReceive('hasArgument')->once()->with('response')->andReturn(true);
         $mockBeforeEvent->shouldReceive('getArgument')->twice()->with('response')->andReturn($mockResponse);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockResponse, array('request' => $mockRequest))->andReturn($mockAfterEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE, $mockAfterEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_http_Events::EVENT_HTTP_RESPONSE, $mockAfterEvent);
 
         $mockResponse->shouldReceive('getHeaders')->once()->andReturn(array('bar' => array('xx')));
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockBodyStream);
@@ -128,20 +128,20 @@ if (!class_exists('tubepress_test_lib_impl_http_AbstractHttpClientTest__client')
         /**
          * Sends a single request
          *
-         * @param tubepress_lib_api_http_message_RequestInterface $request Request to send
+         * @param tubepress_api_http_message_RequestInterface $request Request to send
          *
-         * @return tubepress_lib_api_http_message_ResponseInterface
+         * @return tubepress_api_http_message_ResponseInterface
          * @throws LogicException When the underlying implementation does not populate a response
-         * @throws tubepress_lib_api_http_exception_RequestException When an error is encountered
+         * @throws tubepress_api_http_exception_RequestException When an error is encountered
          */
-        protected function doSend(tubepress_lib_api_http_message_RequestInterface $request)
+        protected function doSend(tubepress_api_http_message_RequestInterface $request)
         {
             return $this->_response;
         }
 
         public function createRequest($method, $url = null, array $options = array())
         {
-            return ehough_mockery_Mockery::mock('tubepress_lib_api_http_message_RequestInterface');
+            return ehough_mockery_Mockery::mock('tubepress_api_http_message_RequestInterface');
         }
 
         public function getDefaultOption($keyOrPath = null) {}

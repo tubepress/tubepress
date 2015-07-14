@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo2_impl_options_ui_FieldProvider<extended>
  */
-class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo2_impl_options_ui_FieldProvider
@@ -26,7 +26,7 @@ class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_
 
     public function onSetup()
     {
-        $this->_mockField      = $this->mock('tubepress_app_api_options_ui_FieldInterface');
+        $this->_mockField      = $this->mock('tubepress_api_options_ui_FieldInterface');
         $map = array(
             'x' => array('a', 'b', 'c')
         );

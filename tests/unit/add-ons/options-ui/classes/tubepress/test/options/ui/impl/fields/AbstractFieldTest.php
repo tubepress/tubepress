@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_fields_AbstractOptionsPageField
  */
-abstract class tubepress_test_app_impl_options_ui_fields_AbstractFieldTest extends tubepress_test_TubePressUnitTest
+abstract class tubepress_test_app_impl_options_ui_fields_AbstractFieldTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -26,8 +26,8 @@ abstract class tubepress_test_app_impl_options_ui_fields_AbstractFieldTest exten
 
     public final function onSetup()
     {
-        $this->_mockPersistence       = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $this->_mockHttpRequestParams = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
+        $this->_mockPersistence       = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $this->_mockHttpRequestParams = $this->mock(tubepress_api_http_RequestParametersInterface::_);
 
         $this->onAfterAbstractFieldSetup();
     }

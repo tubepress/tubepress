@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo2_impl_player_VimeoPlayerLocation
  */
-class tubepress_test_vimeo2_impl_player_VimeoPlayerLocationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_player_VimeoPlayerLocationTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo2_impl_player_VimeoPlayerLocation

@@ -17,72 +17,72 @@ interface tubepress_api_const_options_names_Meta
     /**
      * @deprecated
      */
-    const AUTHOR = tubepress_app_api_options_Names::META_DISPLAY_AUTHOR;
+    const AUTHOR = tubepress_api_options_Names::META_DISPLAY_AUTHOR;
 
     /**
      * @deprecated
      */
-    const CATEGORY = tubepress_app_api_options_Names::META_DISPLAY_CATEGORY;
+    const CATEGORY = tubepress_api_options_Names::META_DISPLAY_CATEGORY;
 
     /**
      * @deprecated
      */
-    const DESCRIPTION = tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION;
+    const DESCRIPTION = tubepress_api_options_Names::META_DISPLAY_DESCRIPTION;
 
     /**
      * @deprecated
      */
-    const ID = tubepress_app_api_options_Names::META_DISPLAY_ID;
+    const ID = tubepress_api_options_Names::META_DISPLAY_ID;
 
     /**
      * @deprecated
      */
-    const KEYWORDS = tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS;
+    const KEYWORDS = tubepress_api_options_Names::META_DISPLAY_KEYWORDS;
 
     /**
      * @deprecated
      */
-    const LENGTH = tubepress_app_api_options_Names::META_DISPLAY_LENGTH;
+    const LENGTH = tubepress_api_options_Names::META_DISPLAY_LENGTH;
 
     /**
      * @deprecated
      */
-    const TITLE = tubepress_app_api_options_Names::META_DISPLAY_TITLE;
+    const TITLE = tubepress_api_options_Names::META_DISPLAY_TITLE;
 
     /**
      * @deprecated
      */
-    const UPLOADED = tubepress_app_api_options_Names::META_DISPLAY_UPLOADED;
+    const UPLOADED = tubepress_api_options_Names::META_DISPLAY_UPLOADED;
 
     /**
      * @deprecated
      */
-    const URL = tubepress_app_api_options_Names::META_DISPLAY_URL;
+    const URL = tubepress_api_options_Names::META_DISPLAY_URL;
 
     /**
      * @deprecated
      */
-    const VIEWS = tubepress_app_api_options_Names::META_DISPLAY_VIEWS;
+    const VIEWS = tubepress_api_options_Names::META_DISPLAY_VIEWS;
 
     /**
      * @deprecated
      */
-    const DATEFORMAT = tubepress_app_api_options_Names::META_DATEFORMAT;
+    const DATEFORMAT = tubepress_api_options_Names::META_DATEFORMAT;
 
     /**
      * @deprecated
      */
-    const DESC_LIMIT = tubepress_app_api_options_Names::META_DESC_LIMIT;
+    const DESC_LIMIT = tubepress_api_options_Names::META_DESC_LIMIT;
 
     /**
      * @deprecated
      */
-    const RELATIVE_DATES = tubepress_app_api_options_Names::META_RELATIVE_DATES;
+    const RELATIVE_DATES = tubepress_api_options_Names::META_RELATIVE_DATES;
 
     /**
      * @deprecated
      */
-    const TAGS = tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS;
+    const TAGS = tubepress_api_options_Names::META_DISPLAY_KEYWORDS;
 
     /**
      * @deprecated

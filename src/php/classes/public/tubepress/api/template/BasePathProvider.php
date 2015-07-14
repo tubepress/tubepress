@@ -13,7 +13,7 @@
  * @api
  * @since 4.2.0
  */
-class tubepress_api_template_BasePathProvider implements tubepress_lib_api_template_PathProviderInterface
+class tubepress_api_template_BasePathProvider implements tubepress_spi_template_PathProviderInterface
 {
     /**
      * @var string[]

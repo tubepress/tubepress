@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_Callback
  */
-class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_CallbackTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -46,11 +46,11 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher  = $this->mock('tubepress_lib_api_event_EventDispatcherInterface');
+        $this->_mockEventDispatcher  = $this->mock('tubepress_api_event_EventDispatcherInterface');
         $this->_mockActivationHook   = $this->mock('tubepress_wordpress_impl_wp_ActivationHook');
-        $this->_mockHtmlGenerator    = $this->mock(tubepress_app_api_html_HtmlGeneratorInterface::_);
-        $this->_mockContext          = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
+        $this->_mockHtmlGenerator    = $this->mock(tubepress_api_html_HtmlGeneratorInterface::_);
+        $this->_mockContext          = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_Callback(
 
@@ -69,12 +69,12 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
         $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html for shortcode');
 
         $this->_mockContext->shouldReceive('setEphemeralOptions')->twice()->with(array());
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::on(function ($shortcode) {
 
-            return $shortcode instanceof tubepress_lib_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
+            return $shortcode instanceof tubepress_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
                 && $shortcode->getInnerContent() === 'shortcode content' && $shortcode->getAttributes() === array();
 
         }))->andReturn($mockEvent);
@@ -93,12 +93,12 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
 
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array('foO' => 'bar'));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array());
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::on(function ($shortcode) {
 
-            return $shortcode instanceof tubepress_lib_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
+            return $shortcode instanceof tubepress_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
             && $shortcode->getInnerContent() === 'shortcode content' && $shortcode->getAttributes() === array('foO' => 'bar');
 
         }))->andReturn($mockEvent);
@@ -115,7 +115,7 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
     {
         $args = array(1, 'two', array('three'));
 
-        $mockFilterEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockFilterEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockFilterEvent->shouldReceive('getSubject')->once()->andReturn('abc');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(1, array('args' => array('two', array('three'))))->andReturn($mockFilterEvent);
@@ -128,7 +128,7 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
 
     public function testAction()
     {
-        $mockActionEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockActionEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $args = array(1, 'two', array('three'));
 
@@ -151,7 +151,7 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
 
     public function __callback($event)
     {
-        return $event instanceof tubepress_lib_api_event_EventInterface
+        return $event instanceof tubepress_api_event_EventInterface
         && $event->getSubject() === array(1, 'two', array('three'));
     }
 }

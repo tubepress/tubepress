@@ -12,7 +12,7 @@
 /**
  * Plays videos with jqmodal.
  */
-class tubepress_vimeo2_impl_player_VimeoPlayerLocation implements tubepress_app_api_player_PlayerLocationInterface
+class tubepress_vimeo2_impl_player_VimeoPlayerLocation implements tubepress_spi_player_PlayerLocationInterface
 {
     /**
      * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.
@@ -39,7 +39,7 @@ class tubepress_vimeo2_impl_player_VimeoPlayerLocation implements tubepress_app_
     /**
      * Get the data required to populate the invoking HTML anchor.
      *
-     * @param tubepress_app_api_media_MediaItem $mediaItem
+     * @param tubepress_api_media_MediaItem $mediaItem
      *
      * @return array An associative array where the keys are HTML <a> attribute names and the values are
      *               the corresponding attribute values. May be empty nut never null.
@@ -47,7 +47,7 @@ class tubepress_vimeo2_impl_player_VimeoPlayerLocation implements tubepress_app_
      * @api
      * @since 4.0.0
      */
-    public function getAttributesForInvocationAnchor(tubepress_app_api_media_MediaItem $mediaItem)
+    public function getAttributesForInvocationAnchor(tubepress_api_media_MediaItem $mediaItem)
     {
         return array(
             'target' => '_blank',

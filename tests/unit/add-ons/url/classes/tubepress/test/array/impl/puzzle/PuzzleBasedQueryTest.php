@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_url_impl_puzzle_PuzzleBasedQuery<extended>
  */
-class tubepress_test_url_impl_puzzle_PuzzleBasedQueryTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_url_impl_puzzle_PuzzleBasedQueryTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testCanCastToString()
     {

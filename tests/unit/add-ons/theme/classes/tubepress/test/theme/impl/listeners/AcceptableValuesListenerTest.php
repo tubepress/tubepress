@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_theme_impl_listeners_AcceptableValuesListener
  */
-class tubepress_test_theme_impl_listeners_AcceptableValuesListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_theme_impl_listeners_AcceptableValuesListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_theme_impl_listeners_AcceptableValuesListener
@@ -26,13 +26,13 @@ class tubepress_test_theme_impl_listeners_AcceptableValuesListenerTest extends t
 
     public function onSetup()
     {
-        $this->_mockThemeRegistry = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
+        $this->_mockThemeRegistry = $this->mock(tubepress_api_contrib_RegistryInterface::_);
         $this->_sut               = new tubepress_theme_impl_listeners_AcceptableValuesListener($this->_mockThemeRegistry);
     }
 
     public function testOnAcceptableValues()
     {
-        $mockTheme  = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
+        $mockTheme  = $this->mock(tubepress_api_theme_ThemeInterface::_);
         $mockThemes = array($mockTheme);
 
         $mockTheme->shouldReceive('getName')->once()->andReturn('theme-name');
@@ -40,7 +40,7 @@ class tubepress_test_theme_impl_listeners_AcceptableValuesListenerTest extends t
 
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);
 
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('aaa' => 'display name'));
         $mockEvent->shouldReceive('setSubject')->once()->with(array(
             'aaa'        => 'display name',

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_util_ioc_UtilExtension
  */
-class tubepress_test_util_ioc_UtilExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_util_ioc_UtilExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
     /**
      * @return tubepress_util_ioc_UtilExtension
@@ -25,17 +25,17 @@ class tubepress_test_util_ioc_UtilExtensionTest extends tubepress_test_platform_
     protected function prepareForLoad()
     {
         $this->expectRegistration(
-            tubepress_lib_api_util_TimeUtilsInterface::_,
+            tubepress_api_util_TimeUtilsInterface::_,
             'tubepress_util_impl_TimeUtils'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_));
 
         $this->expectRegistration(
-            tubepress_platform_api_util_LangUtilsInterface::_,
+            tubepress_api_util_LangUtilsInterface::_,
             'tubepress_util_impl_LangUtils'
         );
 
         $this->expectRegistration(
-            tubepress_platform_api_util_StringUtilsInterface::_,
+            tubepress_api_util_StringUtilsInterface::_,
             'tubepress_util_impl_StringUtils'
         );
     }

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_MultiSourceFieldProviderWrapper<extended>
  */
-class tubepress_test_app_impl_options_ui_MultiSourceFieldProviderWrapperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_impl_options_ui_MultiSourceFieldProviderWrapperTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_options_ui_impl_MultiSourceFieldProviderWrapper
@@ -25,8 +25,8 @@ class tubepress_test_app_impl_options_ui_MultiSourceFieldProviderWrapperTest ext
 
     public function onSetup()
     {
-        $this->_mockDelegate = $this->mock('tubepress_app_api_options_ui_FieldProviderInterface');
-        $this->_mockFields   = array($this->mock('tubepress_app_api_options_ui_FieldInterface'));
+        $this->_mockDelegate = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
+        $this->_mockFields   = array($this->mock('tubepress_api_options_ui_FieldInterface'));
 
         $this->_mockDelegate->shouldReceive('getId')->once()->andReturn('foobar');
 

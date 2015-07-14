@@ -12,11 +12,11 @@
 class tubepress_internal_boot_helper_uncached_Serializer
 {
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
-    public function __construct(tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
+    public function __construct(tubepress_api_boot_BootSettingsInterface $bootSettings)
     {
         $this->_bootSettings = $bootSettings;
     }
@@ -70,7 +70,7 @@ class tubepress_internal_boot_helper_uncached_Serializer
     /**
      * @param string $serializedString
      *
-     * @return tubepress_platform_api_contrib_ContributableInterface[]
+     * @return tubepress_api_contrib_ContributableInterface[]
      *
      * @throws InvalidArgumentException
      */

@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for YouTube.
  */
-class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_media_MediaProviderInterface
+class tubepress_youtube3_impl_media_MediaProvider implements tubepress_api_media_MediaProviderInterface
 {
     private static $_SOURCE_NAMES = array(
 
@@ -36,23 +36,23 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
     );
 
     /**
-     * @var tubepress_app_api_media_HttpCollectorInterface
+     * @var tubepress_api_media_HttpCollectorInterface
      */
     private $_httpCollector;
 
     /**
-     * @var tubepress_app_api_media_HttpFeedHandlerInterface
+     * @var tubepress_api_media_HttpFeedHandlerInterface
      */
     private $_feedHandler;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
-    public function __construct(tubepress_app_api_media_HttpCollectorInterface     $httpCollector,
-                                tubepress_app_api_media_HttpFeedHandlerInterface   $feedHandler,
-                                tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_api_media_HttpCollectorInterface     $httpCollector,
+                                tubepress_api_media_HttpFeedHandlerInterface   $feedHandler,
+                                tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_httpCollector = $httpCollector;
         $this->_feedHandler   = $feedHandler;
@@ -69,7 +69,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
      *
      * @param int $pageNumber The page number.
      *
-     * @return tubepress_app_api_media_MediaPage The media gallery page, never null.
+     * @return tubepress_api_media_MediaPage The media gallery page, never null.
      *
      * @api
      * @since 4.0.0
@@ -84,7 +84,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
      *
      * @param string $id The media item ID to fetch.
      *
-     * @return tubepress_app_api_media_MediaItem The media item, or null not found.
+     * @return tubepress_api_media_MediaItem The media item, or null not found.
      *
      * @api
      * @since 4.0.0
@@ -181,22 +181,22 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
     {
         return array(
 
-            tubepress_app_api_options_Names::META_DISPLAY_TITLE       => tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE,
-            tubepress_app_api_options_Names::META_DISPLAY_LENGTH      => tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
-            tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_app_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_URL         => tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL,
-            tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_TITLE       => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+            tubepress_api_options_Names::META_DISPLAY_LENGTH      => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_URL         => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
+            tubepress_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED,
-            tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS  => tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
 
-            tubepress_app_api_options_Names::META_DISPLAY_ID          => tubepress_app_api_media_MediaItem::ATTRIBUTE_ID,
-            tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
-            tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
+            tubepress_api_options_Names::META_DISPLAY_ID          => tubepress_api_media_MediaItem::ATTRIBUTE_ID,
+            tubepress_api_options_Names::META_DISPLAY_VIEWS       => tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
         );
     }
 
@@ -204,7 +204,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
      * @api
      * @since 4.1.11
      *
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

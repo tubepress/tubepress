@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_search_impl_listeners_SearchListener
  */
-class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_search_impl_listeners_SearchListener
@@ -56,13 +56,13 @@ class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_
 
     public function onSetup()
     {
-        $this->_mockEvent            = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockMediaProvider1   = $this->mock(tubepress_app_api_media_MediaProviderInterface::__);
-        $this->_mockMediaProvider2   = $this->mock(tubepress_app_api_media_MediaProviderInterface::__);
-        $this->_mockExecutionContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockTemplating       = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockRequestParams    = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
+        $this->_mockEvent            = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockMediaProvider1   = $this->mock(tubepress_api_media_MediaProviderInterface::__);
+        $this->_mockMediaProvider2   = $this->mock(tubepress_api_media_MediaProviderInterface::__);
+        $this->_mockExecutionContext = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockTemplating       = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockLogger           = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockRequestParams    = $this->mock(tubepress_api_http_RequestParametersInterface::_);
 
         $this->_sut = new tubepress_search_impl_listeners_SearchListener(
             $this->_mockLogger,
@@ -76,7 +76,7 @@ class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_
 
     public function testNoSearchInput()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_app_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS);
 
         $this->_sut->onHtmlGenerationSearchInput($this->_mockEvent);
 
@@ -85,7 +85,7 @@ class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_
 
     public function testSearchInput()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_app_api_options_AcceptableValues::OUTPUT_SEARCH_INPUT);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_INPUT);
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('search/input', array())->andReturn('bla');
 

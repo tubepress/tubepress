@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<?php /** @var $video tubepress_app_api_media_MediaItem */ ?>
+<?php /** @var $video tubepress_api_media_MediaItem */ ?>
 <div class="tubepress_single_video">
 
     <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::TITLE]): ?>

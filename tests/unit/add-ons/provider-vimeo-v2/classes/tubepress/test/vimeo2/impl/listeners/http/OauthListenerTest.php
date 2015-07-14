@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo2_impl_listeners_http_OauthListener
  */
-class tubepress_test_vimeo2_impl_listeners_http_OauthListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_listeners_http_OauthListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo2_impl_listeners_http_OauthListener
@@ -31,8 +31,8 @@ class tubepress_test_vimeo2_impl_listeners_http_OauthListenerTest extends tubepr
 
     public function onSetup()
     {
-        $this->_mockOauthClient = $this->mock(tubepress_lib_api_http_oauth_v1_ClientInterface::_);
-        $this->_mockExecContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockOauthClient = $this->mock(tubepress_api_http_oauth_v1_ClientInterface::_);
+        $this->_mockExecContext = $this->mock(tubepress_api_options_ContextInterface::_);
 
 
         $this->_sut = new tubepress_vimeo2_impl_listeners_http_OauthListener(
@@ -43,9 +43,9 @@ class tubepress_test_vimeo2_impl_listeners_http_OauthListenerTest extends tubepr
 
     public function testVimeoUrl()
     {
-        $mockHttpRequest = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $mockUrl         = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockEvent       = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockHttpRequest = $this->mock('tubepress_api_http_message_RequestInterface');
+        $mockUrl         = $this->mock('tubepress_api_url_UrlInterface');
+        $mockEvent       = $this->mock('tubepress_api_event_EventInterface');
 
         $mockEvent->shouldReceive('getSubject')->once()->andReturn($mockHttpRequest);
         $mockHttpRequest->shouldReceive('getUrl')->once()->andReturn($mockUrl);
@@ -63,9 +63,9 @@ class tubepress_test_vimeo2_impl_listeners_http_OauthListenerTest extends tubepr
 
     public function testNonVimeoUrl()
     {
-        $mockHttpRequest = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $mockUrl         = $this->mock('tubepress_platform_api_url_UrlInterface');
-        $mockEvent       = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockHttpRequest = $this->mock('tubepress_api_http_message_RequestInterface');
+        $mockUrl         = $this->mock('tubepress_api_url_UrlInterface');
+        $mockEvent       = $this->mock('tubepress_api_event_EventInterface');
 
         $mockEvent->shouldReceive('getSubject')->once()->andReturn($mockHttpRequest);
         $mockHttpRequest->shouldReceive('getUrl')->once()->andReturn($mockUrl);
@@ -78,7 +78,7 @@ class tubepress_test_vimeo2_impl_listeners_http_OauthListenerTest extends tubepr
 
     public function __callbackVerifyCredentials($credentials)
     {
-        return $credentials instanceof tubepress_lib_api_http_oauth_v1_Credentials && $credentials->getIdentifier() === 'id'
+        return $credentials instanceof tubepress_api_http_oauth_v1_Credentials && $credentials->getIdentifier() === 'id'
             && $credentials->getSecret() === 'secret';
     }
 }

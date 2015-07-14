@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_media_impl_HttpCollector
  */
-class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -46,11 +46,11 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
 
     public function onSetup()
     {
-        $this->_mockHttpClient      = $this->mock(tubepress_lib_api_http_HttpClientInterface::_);
-        $this->_mockLogger          = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockFeedHandler     = $this->mock(tubepress_app_api_media_HttpFeedHandlerInterface::_);
-        $this->_mockUrl             = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $this->_mockHttpClient      = $this->mock(tubepress_api_http_HttpClientInterface::_);
+        $this->_mockLogger          = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockFeedHandler     = $this->mock(tubepress_api_media_HttpFeedHandlerInterface::_);
+        $this->_mockUrl             = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -64,7 +64,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
 
     public function testFetchSingle()
     {
-        $this->_setupHttpClient(tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_URL, array(
+        $this->_setupHttpClient(tubepress_api_event_Events::MEDIA_ITEM_HTTP_URL, array(
 
             'itemId'   => 'item fun',
         ));
@@ -76,13 +76,13 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
         $this->_mockFeedHandler->shouldReceive('getReasonUnableToUseItemAtIndex')->once()->with(0)->andReturnNull();
         $this->_mockFeedHandler->shouldReceive('getIdForItemAtIndex')->once()->with(0)->andReturn('some cool item');
         $this->_mockFeedHandler->shouldReceive('getNewItemEventArguments')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_app_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
+            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
         $this->_mockFeedHandler->shouldReceive('onAnalysisComplete')->once();
 
         $this->_setupNewHttpItemEvent();
 
         /**
-         * @var $result tubepress_app_api_media_MediaItem
+         * @var $result tubepress_api_media_MediaItem
          */
         $result = $this->_sut->collectSingle('item fun', $this->_mockFeedHandler);
 
@@ -91,7 +91,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
 
     public function testFetchPage()
     {
-        $this->_setupHttpClient(tubepress_app_api_event_Events::MEDIA_PAGE_HTTP_URL, array(
+        $this->_setupHttpClient(tubepress_api_event_Events::MEDIA_PAGE_HTTP_URL, array(
 
             'pageNumber' => 33,
         ));
@@ -104,7 +104,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
         $this->_mockFeedHandler->shouldReceive('getReasonUnableToUseItemAtIndex')->once()->with(0)->andReturnNull();
         $this->_mockFeedHandler->shouldReceive('getIdForItemAtIndex')->once()->with(0)->andReturn('some cool item');
         $this->_mockFeedHandler->shouldReceive('getNewItemEventArguments')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_app_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
+            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
         $this->_mockFeedHandler->shouldReceive('onAnalysisComplete')->once();
 
         $this->_setupNewHttpItemEvent();
@@ -117,14 +117,14 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
 
     private function _setupNewHttpItemEvent()
     {
-        $mockNewItemEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockNewItemEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_app_api_media_MediaItem'), array('event' => 'args'))
+            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'), array('event' => 'args'))
             ->andReturn($mockNewItemEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.feedhandlername', $mockNewItemEvent
+            tubepress_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.feedhandlername', $mockNewItemEvent
         );
 
         $mockNewItemEvent->shouldReceive('getSubject')->once()->andReturn('hiya');
@@ -132,14 +132,14 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
 
     private function _setupNewHttpPageEvent()
     {
-        $mockNewPageEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockNewPageEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_app_api_media_MediaPage'), array('pageNumber' => 33))
+            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaPage'), array('pageNumber' => 33))
             ->andReturn($mockNewPageEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_app_api_event_Events::MEDIA_PAGE_HTTP_NEW . '.feedhandlername', $mockNewPageEvent
+            tubepress_api_event_Events::MEDIA_PAGE_HTTP_NEW . '.feedhandlername', $mockNewPageEvent
         );
 
         $mockNewPageEvent->shouldReceive('getSubject')->once()->andReturn('greetings');
@@ -147,11 +147,11 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePre
 
     private function _setupHttpClient($eventName, array $eventArgs)
     {
-        $mockUrlEvent     = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockUrlEvent     = $this->mock('tubepress_api_event_EventInterface');
 
-        $mockHttpRequest  = $this->mock('tubepress_lib_api_http_message_RequestInterface');
-        $mockHttpResponse = $this->mock('tubepress_lib_api_http_message_ResponseInterface');
-        $mockStream       = $this->mock('tubepress_lib_api_streams_StreamInterface');
+        $mockHttpRequest  = $this->mock('tubepress_api_http_message_RequestInterface');
+        $mockHttpResponse = $this->mock('tubepress_api_http_message_ResponseInterface');
+        $mockStream       = $this->mock('tubepress_api_streams_StreamInterface');
 
         $mockHttpRequest->shouldReceive('getConfig')->once()->andReturn(array('hi' => 'there'));
         $mockHttpRequest->shouldReceive('setConfig')->once()->with(array(

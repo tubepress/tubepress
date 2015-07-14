@@ -9,23 +9,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_event_ioc_compiler_LoggingPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_event_ioc_compiler_LoggingPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
      * @since 4.0.0
      */
-    public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        if (!$containerBuilder->hasDefinition(tubepress_lib_api_event_EventDispatcherInterface::_) ||
+        if (!$containerBuilder->hasDefinition(tubepress_api_event_EventDispatcherInterface::_) ||
             !$containerBuilder->has('tubepress_internal_logger_BootLogger')) {
 
             return;
         }
 
-        $eventDispatcherDefinition = $containerBuilder->getDefinition(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $eventDispatcherDefinition = $containerBuilder->getDefinition(tubepress_api_event_EventDispatcherInterface::_);
         $logger                    = $containerBuilder->get('tubepress_internal_logger_BootLogger');
 
         $clazz = $eventDispatcherDefinition->getClass();

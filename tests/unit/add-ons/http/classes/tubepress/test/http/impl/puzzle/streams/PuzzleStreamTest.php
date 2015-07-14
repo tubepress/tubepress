@@ -16,7 +16,7 @@ class tubepress_test_http_impl_puzzle_streams_PuzzleStreamTest extends tubepress
 {
     protected function getExpectedDelegateClass()
     {
-        return 'tubepress_lib_api_streams_StreamInterface';
+        return 'tubepress_api_streams_StreamInterface';
     }
 
     protected  function getSutClass()

@@ -12,10 +12,10 @@
 /**
  * Simple media item collector.
  */
-class tubepress_media_impl_Collector implements tubepress_app_api_media_CollectorInterface
+class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInterface
 {
     /**
-     * @var tubepress_platform_api_log_LoggerInterface Logger.
+     * @var tubepress_api_log_LoggerInterface Logger.
      */
     private $_logger;
 
@@ -25,24 +25,24 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
     private $_shouldLog;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_lib_api_event_EventDispatcherInterface
+     * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
     /*
-     * tubepress_app_api_environment_EnvironmentInterface
+     * tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface         $logger,
-                                tubepress_app_api_options_ContextInterface         $context,
-                                tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_api_log_LoggerInterface              $logger,
+                                tubepress_api_options_ContextInterface         $context,
+                                tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_context         = $context;
         $this->_eventDispatcher = $eventDispatcher;
@@ -54,14 +54,14 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
     /**
      * Collects a media gallery page.
      *
-     * @return tubepress_app_api_media_MediaPage The media gallery page, never null.
+     * @return tubepress_api_media_MediaPage The media gallery page, never null.
      *
      * @api
      * @since 4.0.0
      */
     public function collectPage($currentPage)
     {
-        $modeValueFromContext     = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
+        $modeValueFromContext     = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
         $originalEphemeralOptions = $this->_context->getEphemeralOptions();
         $isPro                    = $this->_environment->isPro();
 
@@ -78,7 +78,7 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
         /**
          * Did the user include mode in their ephemeral options?
          */
-        if (isset($originalEphemeralOptions[tubepress_app_api_options_Names::GALLERY_SOURCE])) {
+        if (isset($originalEphemeralOptions[tubepress_api_options_Names::GALLERY_SOURCE])) {
 
             if ($this->_shouldLog) {
 
@@ -89,7 +89,7 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
             return $this->_collectPage($modeValueFromContext, $currentPage);
         }
 
-        $jsonEncodedSources = $this->_context->get(tubepress_app_api_options_Names::SOURCES);
+        $jsonEncodedSources = $this->_context->get(tubepress_api_options_Names::SOURCES);
 
         if (!$jsonEncodedSources) {
 
@@ -122,14 +122,14 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
 
         $newEphemeralOptions = array_merge($originalEphemeralOptions, $decodedSources[0]);
 
-        if (!isset($newEphemeralOptions[tubepress_app_api_options_Names::GALLERY_SOURCE])) {
+        if (!isset($newEphemeralOptions[tubepress_api_options_Names::GALLERY_SOURCE])) {
 
-            $newEphemeralOptions[tubepress_app_api_options_Names::GALLERY_SOURCE] = $modeValueFromContext;
+            $newEphemeralOptions[tubepress_api_options_Names::GALLERY_SOURCE] = $modeValueFromContext;
         }
 
         $this->_context->setEphemeralOptions($newEphemeralOptions);
 
-        $page = $this->_collectPage($newEphemeralOptions[tubepress_app_api_options_Names::GALLERY_SOURCE], $currentPage);
+        $page = $this->_collectPage($newEphemeralOptions[tubepress_api_options_Names::GALLERY_SOURCE], $currentPage);
 
         if ($this->_shouldLog) {
 
@@ -149,7 +149,7 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
 
         $collectionEvent = $this->_eventDispatcher->newEventInstance($modeValue, $eventArgs);
 
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST, $collectionEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::MEDIA_PAGE_REQUEST, $collectionEvent);
 
         if (!$collectionEvent->hasArgument('mediaPage')) {
 
@@ -164,7 +164,7 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
      *
      * @param string $id The media item ID to fetch.
      *
-     * @return tubepress_app_api_media_MediaItem The media item, or null not found.
+     * @return tubepress_api_media_MediaItem The media item, or null not found.
      *
      * @api
      * @since 4.0.0
@@ -177,7 +177,7 @@ class tubepress_media_impl_Collector implements tubepress_app_api_media_Collecto
         }
 
         $collectionEvent = $this->_eventDispatcher->newEventInstance($id);
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::MEDIA_ITEM_REQUEST, $collectionEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_Events::MEDIA_ITEM_REQUEST, $collectionEvent);
 
         if (!$collectionEvent->hasArgument('mediaItem')) {
 

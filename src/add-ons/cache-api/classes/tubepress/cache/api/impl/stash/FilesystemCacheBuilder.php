@@ -15,17 +15,17 @@
 class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 {
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_platform_api_boot_BootSettingsInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_bootSettings;
 
     /**
-     * @var tubepress_platform_api_log_LoggerInterface
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 
@@ -34,9 +34,9 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
      */
     private $_shouldLog;
 
-    public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings,
-                                tubepress_platform_api_log_LoggerInterface        $logger)
+    public function __construct(tubepress_api_options_ContextInterface   $context,
+                                tubepress_api_boot_BootSettingsInterface $bootSettings,
+                                tubepress_api_log_LoggerInterface        $logger)
     {
         $this->_context      = $context;
         $this->_bootSettings = $bootSettings;
@@ -46,7 +46,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 
     public function buildFilesystemDriver()
     {
-        $dir = $this->_context->get(tubepress_app_api_options_Names::CACHE_DIRECTORY);
+        $dir = $this->_context->get(tubepress_api_options_Names::CACHE_DIRECTORY);
 
         if ($this->_shouldLog) {
 

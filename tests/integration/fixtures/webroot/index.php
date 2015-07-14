@@ -24,23 +24,23 @@ if (isset($_GET['options'])) {
 }
 
 /**
- * @var $context tubepress_app_api_options_ContextInterface
+ * @var $context tubepress_api_options_ContextInterface
  */
-$context = $container->get(tubepress_app_api_options_ContextInterface::_);
+$context = $container->get(tubepress_api_options_ContextInterface::_);
 
 foreach ($options as $name => $val) {
     $context->setEphemeralOption($name, $val);
 }
 
 /**
- * @var $html tubepress_app_api_html_HtmlGeneratorInterface
+ * @var $html tubepress_api_html_HtmlGeneratorInterface
  */
-$html = $container->get(tubepress_app_api_html_HtmlGeneratorInterface::_);
+$html = $container->get(tubepress_api_html_HtmlGeneratorInterface::_);
 
 /**
- * @var $env tubepress_app_api_environment_EnvironmentInterface
+ * @var $env tubepress_api_environment_EnvironmentInterface
  */
-$env = $container->get(tubepress_app_api_environment_EnvironmentInterface::_);
+$env = $container->get(tubepress_api_environment_EnvironmentInterface::_);
 $env->setBaseUrl('http://localhost:54321/tubepress');
 $footer = $html->getJS();
 $header = $html->getCSS();

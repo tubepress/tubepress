@@ -9,10 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_app_api_options_ui_FieldProviderInterface
+class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_api_options_ui_FieldProviderInterface
 {
     /**
-     * @var tubepress_app_api_options_ui_FieldInterface[]
+     * @var tubepress_api_options_ui_FieldInterface[]
      */
     private $_fields;
 
@@ -45,7 +45,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     }
 
     /**
-     * @return tubepress_app_api_options_ui_ElementInterface[] The categories that this field provider supplies.
+     * @return tubepress_api_options_ui_ElementInterface[] The categories that this field provider supplies.
      */
     public function getCategories()
     {
@@ -53,7 +53,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     }
 
     /**
-     * @return tubepress_app_api_options_ui_FieldInterface[] The fields that this field provider provides.
+     * @return tubepress_api_options_ui_FieldInterface[] The fields that this field provider provides.
      */
     public function getFields()
     {
@@ -67,8 +67,8 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     public function getCategoryIdsToFieldIdsMap()
     {
         return array(
-            tubepress_app_api_options_ui_CategoryNames::ADVANCED => array(
-                tubepress_app_api_options_Names::SHORTCODE_KEYWORD
+            tubepress_api_options_ui_CategoryNames::ADVANCED => array(
+                tubepress_api_options_Names::SHORTCODE_KEYWORD
             )
         );
     }
@@ -90,7 +90,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_gallery_impl_listeners_GalleryListener<extended>
  */
-class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_gallery_impl_listeners_GalleryListener
@@ -71,16 +71,16 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
 
     public function onSetup()
     {
-        $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockExecutionContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockRequestParams    = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockCollector        = $this->mock(tubepress_app_api_media_CollectorInterface::_);
-        $this->_mockTemplating       = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockEventDispatcher  = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $this->_mockEvent            = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockMediaPage        = $this->mock('tubepress_app_api_media_MediaPage');
-        $this->_mockMediaItem        = $this->mock('tubepress_app_api_media_MediaItem');
+        $this->_mockLogger           = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockExecutionContext = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockRequestParams    = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockCollector        = $this->mock(tubepress_api_media_CollectorInterface::_);
+        $this->_mockTemplating       = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockEventDispatcher  = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockEvent            = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockMediaPage        = $this->mock('tubepress_api_media_MediaPage');
+        $this->_mockMediaItem        = $this->mock('tubepress_api_media_MediaItem');
 
         $this->_sut = new tubepress_gallery_impl_listeners_GalleryListener(
 
@@ -96,10 +96,10 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
 
     public function testGalleryInitJs()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION)->andReturn(true);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS)->andReturn(false);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_AUTONEXT)->andReturn(true);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::HTTP_METHOD)->andReturn('HELLO');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_AJAX_PAGINATION)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_FLUID_THUMBS)->andReturn(false);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_AUTONEXT)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTTP_METHOD)->andReturn('HELLO');
         $this->_mockExecutionContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array('yo' => 'mamma'));
@@ -109,10 +109,10 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
 
             'options' => array(
 
-                tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION => true,
-                tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS    => false,
-                tubepress_app_api_options_Names::GALLERY_AUTONEXT        => true,
-                tubepress_app_api_options_Names::HTTP_METHOD             => 'HELLO',
+                tubepress_api_options_Names::GALLERY_AJAX_PAGINATION => true,
+                tubepress_api_options_Names::GALLERY_FLUID_THUMBS    => false,
+                tubepress_api_options_Names::GALLERY_AUTONEXT        => true,
+                tubepress_api_options_Names::HTTP_METHOD             => 'HELLO',
             ),
 
             'ephemeral' => array(
@@ -130,22 +130,22 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
     public function testOnGalleryTemplatePreRender()
     {
         $expected = array(
-            tubepress_app_api_template_VariableNames::HTML_WIDGET_ID              => 47,
-            tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX  => 556,
-            tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX => 984,
+            tubepress_api_template_VariableNames::HTML_WIDGET_ID              => 47,
+            tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX  => 556,
+            tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX => 984,
         );
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array('mediaPage' => $this->_mockMediaPage));
         $this->_mockEvent->shouldReceive('setSubject')->once()->with(array_merge(array(
             'mediaPage' => $this->_mockMediaPage,
-            tubepress_app_api_template_VariableNames::HTML_WIDGET_ID => 47,
-            tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX => 556,
-            tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX => 984,
+            tubepress_api_template_VariableNames::HTML_WIDGET_ID => 47,
+            tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX => 556,
+            tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX => 984,
         ), $expected));
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::HTML_GALLERY_ID)->andReturn(47);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH)->andReturn(556);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT)->andReturn(984);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_GALLERY_ID)->andReturn(47);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_THUMB_WIDTH)->andReturn(556);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_THUMB_HEIGHT)->andReturn(984);
 
         $this->_sut->onGalleryTemplatePreRender($this->_mockEvent);
 
@@ -154,23 +154,23 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
 
     public function testOnPostGalleryTemplateRender()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::HTML_GALLERY_ID)->andReturn('gallery-id');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_GALLERY_ID)->andReturn('gallery-id');
 
         $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
 
-        $internalEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $internalEvent = $this->mock('tubepress_api_event_EventInterface');
         $internalEvent->shouldReceive('getSubject')->once()->andReturn($fakeArgs);
 
-        $mockPage = $this->mock('tubepress_app_api_media_MediaPage');
+        $mockPage = $this->mock('tubepress_api_media_MediaPage');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(), array(
             'mediaPage'  => $mockPage,
             'pageNumber' => 12
         ))->andReturn($internalEvent);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::GALLERY_INIT_JS, $internalEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::GALLERY_INIT_JS, $internalEvent);
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn('hello');
         $event->shouldReceive('getArgument')->once()->with('mediaPage')->andReturn($mockPage);
         $event->shouldReceive('getArgument')->once()->with('pageNumber')->andReturn(12);

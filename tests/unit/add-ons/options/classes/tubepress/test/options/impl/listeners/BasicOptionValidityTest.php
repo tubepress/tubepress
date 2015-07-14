@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_impl_listeners_BasicOptionValidity<extended>
  */
-class tubepress_test_options_impl_listeners_BasicOptionValidityTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_listeners_BasicOptionValidityTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -41,10 +41,10 @@ class tubepress_test_options_impl_listeners_BasicOptionValidityTest extends tube
 
     public function onSetup()
     {
-        $this->_mockTranslator = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
-        $this->_mockReference  = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $this->_mockAcceptableValues  = $this->mock(tubepress_app_api_options_AcceptableValuesInterface::_);
-        $this->_mockLangUtils  = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
+        $this->_mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockReference  = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockAcceptableValues  = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
+        $this->_mockLangUtils  = $this->mock(tubepress_api_util_LangUtilsInterface::_);
 
         $this->_sut = new tubepress_options_impl_listeners_BasicOptionValidity(
 
@@ -104,7 +104,7 @@ class tubepress_test_options_impl_listeners_BasicOptionValidityTest extends tube
      */
     private function _getMockEvent($value)
     {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
         $mockEvent->shouldReceive('getArgument')->once()->with('optionName')->andReturn('name');
         $mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($value);

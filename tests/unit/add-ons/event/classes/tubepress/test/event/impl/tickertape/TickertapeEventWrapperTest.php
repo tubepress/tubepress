@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_event_impl_tickertape_TickertapeEventWrapper
  */
-class tubepress_test_event_impl_tickertape_TickertapeEventWrapperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_event_impl_tickertape_TickertapeEventWrapperTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_event_impl_tickertape_TickertapeEventWrapper
@@ -26,7 +26,7 @@ class tubepress_test_event_impl_tickertape_TickertapeEventWrapperTest extends tu
 
     public function onSetup()
     {
-        $this->_mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_sut = new tubepress_event_impl_tickertape_TickertapeEventWrapper($this->_mockEvent);
     }
