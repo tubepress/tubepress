@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter
+class tubepress_html_impl_listeners_BaseUrlSetter
 {
     /**
      * @var tubepress_app_api_environment_EnvironmentInterface

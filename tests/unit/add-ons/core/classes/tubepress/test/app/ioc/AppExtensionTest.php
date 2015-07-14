@@ -88,10 +88,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $listenerData = array(
 
 
-            'tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => array(
-                tubepress_app_api_environment_EnvironmentInterface::_
-            ),
-
 
             /**
              * OPTIONS VALUES
@@ -111,12 +107,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         );
 
         $listeners = array(
-
-
-
-            tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
-                100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
-            ),
 
 
             /**

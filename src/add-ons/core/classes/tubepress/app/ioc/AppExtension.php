@@ -37,16 +37,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
     {
         $listenerData = array(
 
-            /**
-             * HTML
-             */
-
-
-            'tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => array(
-                tubepress_app_api_environment_EnvironmentInterface::_
-            ),
-
-
 
             /**
              * OPTIONS VALUES
@@ -70,9 +60,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
 
 
 
-            tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
-                100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
-            ),
 
 
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_ORDER_BY => array(

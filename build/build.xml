@@ -127,6 +127,7 @@
             <log msg="Staging web assets from add-ons" />
             <move file="${staging-directory}/src/add-ons/core/web"      tofile="${staging-directory}/web" />
             <move file="${staging-directory}/src/add-ons/gallery/web"   tofile="${staging-directory}/web" />
+            <move file="${staging-directory}/src/add-ons/html/web"      tofile="${staging-directory}/web" />
             <move file="${staging-directory}/src/add-ons/http/web"      tofile="${staging-directory}/web" />
             <move file="${staging-directory}/src/add-ons/wordpress/web" tofile="${staging-directory}/web" />
 

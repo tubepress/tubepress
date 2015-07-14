@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter
+ * @covers tubepress_html_impl_listeners_BaseUrlSetter
  */
 class tubepress_test_app_impl_listeners_html_jsconfig_BaseUrlSetterTest extends tubepress_test_TubePressUnitTest
 {
@@ -25,7 +25,7 @@ class tubepress_test_app_impl_listeners_html_jsconfig_BaseUrlSetterTest extends 
     private $_mockEvent;
 
     /**
-     * @var tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter
+     * @var tubepress_html_impl_listeners_BaseUrlSetter
      */
     private $_sut;
 
@@ -33,7 +33,7 @@ class tubepress_test_app_impl_listeners_html_jsconfig_BaseUrlSetterTest extends 
     {
         $this->_mockEvent               = $this->mock('tubepress_lib_api_event_EventInterface');
         $this->_mockEnvironmentDetector = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
-        $this->_sut                     = new tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter(
+        $this->_sut                     = new tubepress_html_impl_listeners_BaseUrlSetter(
             $this->_mockEnvironmentDetector
         );
     }

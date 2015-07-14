@@ -34,7 +34,7 @@ return array(
     'tubepress_app_api_options_ReferenceInterface',
     'tubepress_app_api_shortcode_ParserInterface',
     'tubepress_app_api_theme_ThemeInterface',
-    'tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter',
+    'tubepress_html_impl_listeners_BaseUrlSetter',
     'tubepress_shortcode_impl_Parser',
     'tubepress_environment_impl_Environment',
     'tubepress_event_impl_tickertape_EventBase',

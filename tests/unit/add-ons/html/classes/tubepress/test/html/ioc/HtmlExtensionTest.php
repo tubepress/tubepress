@@ -79,6 +79,16 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
                 'event'    => tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts',
                 'priority' => 100000,
                 'method'   => 'onPostScriptsTemplateRender'));
+
+        $this->expectRegistration(
+            'tubepress_html_impl_listeners_BaseUrlSetter',
+            'tubepress_html_impl_listeners_BaseUrlSetter'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG,
+                'priority' => 100000,
+                'method'   => 'onGlobalJsConfig'
+            ));
     }
 
     private function _registerPathProvider()
