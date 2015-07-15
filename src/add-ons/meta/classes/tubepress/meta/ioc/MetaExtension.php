@@ -187,7 +187,7 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
         );
 
         $containerBuilder->register(
-            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider__meta',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->addArgument('field-provider-meta')
          ->addArgument('Meta')

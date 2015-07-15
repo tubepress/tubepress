@@ -183,7 +183,7 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
         );
 
         $this->expectRegistration(
-            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider__meta',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->withArgument('field-provider-meta')
             ->withArgument('Meta')

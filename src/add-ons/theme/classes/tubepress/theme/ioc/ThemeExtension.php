@@ -162,6 +162,8 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerE
          ->addArgument(false)
          ->addArgument($categoryReferences)
          ->addArgument($fieldReferences)
-         ->addArgument($fieldMap);
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+
     }
 }
