@@ -33,7 +33,7 @@ class tubepress_http_impl_listeners_UserAgentListener
 
     private function _getUserAgent()
     {
-        $toReturn = 'tubepress/' . $this->_environment->get(tubepress_api_environment_EnvironmentInterface::PROPERTY_VERSION);
+        $toReturn = (string) 'tubepress/' . $this->_environment->getVersion();
 
         if (extension_loaded('curl')) {
 
