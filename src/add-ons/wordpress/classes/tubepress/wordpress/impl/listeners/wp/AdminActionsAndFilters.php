@@ -304,6 +304,26 @@ EOT;
         }
     }
 
+    public function onAction_admin_print_scripts(tubepress_api_event_EventInterface $event)
+    {
+        $version = $this->_wpFunctions->wp_version();
+
+        if (floatval($version) >= 3.6) {
+
+            return;
+        }
+
+        $wpScripts = $this->_wpFunctions->wp_scripts();
+
+        $wpScripts->remove('jquery');
+        $wpScripts->remove('jquery-core');
+        $wpScripts->remove('jquery-migrate');
+
+        $wpScripts->add('jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.11.3' );
+        $wpScripts->add('jquery-core', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js', array(), '1.11.3');
+        $wpScripts->add('jquery-migrate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js', array(), '1.2.1');
+    }
+
     public function __callbackConvertToWpUrlString(tubepress_api_url_UrlInterface $url)
     {
         if ($url->isAbsolute()) {
