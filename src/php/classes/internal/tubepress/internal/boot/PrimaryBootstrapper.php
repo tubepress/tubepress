@@ -139,7 +139,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _01_loadMinimalClasses()
     {
-        $classConcatenationPath = TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php';
+        $classConcatenationPath = TUBEPRESS_ROOT . '/src/php/scripts/classloading/classes.php';
 
         /**
          * This should be the common case in production.
