@@ -31,8 +31,19 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     );
 
     private static $_providerSortMap = array(
-
-        'field-provider-core',
+        'field-provider-htmlcache',
+        'field-provider-cache-api',
+        'field-provider-player',
+        'field-provider-embedded-common',
+        'field-provider-feed',
+        'field-provider-gallery',
+        'field-provider-html',
+        'field-provider-logger',
+        'field-provider-meta',
+        'field-provider-options-ui',
+        'field-provider-search',
+        'field-provider-template',
+        'field-provider-theme',
         'field-provider-youtube',
         'field-provider-vimeo',
         'field-provider-jwplayer5',
