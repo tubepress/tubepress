@@ -10,9 +10,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 -->
-<project name="tubepress-free" default="package" basedir=".">
+<project name="tubepress-free" default="deploy" basedir=".">
 
-    <import file="include/common.xml" />
+    <!-- ######################################################################################## -->
+    <!-- ## TARGETS                                                                               -->
+    <!-- ######################################################################################## -->
 
     <target name="clean" description="Cleans build environment">
         <log msg="Deleting dist and stage" />
@@ -20,23 +22,9 @@
         <delete dir="stage" />
     </target>
 
-    <target name="package" description="Builds the free version of TubePress">
-
-        <__common__ />
-        <antcall target="compress-js" />
-        <antcall target="compress-css" />
-        <stage-web-assets />
-        <copy-locale-fallbacks />
-        <package-starter-theme />
-        <final-package />
-
-    </target>
-
     <target name="stage">
-
-        <__common__ />
+        <common-build-jobs />
         <stage-web-assets />
-
     </target>
 
     <target name="deploy" depends="stage">
@@ -49,10 +37,24 @@
         </exec>
     </target>
 
-    <macrodef name="__common__" description="internal use only">
+    <target name="package" description="Builds a distributable version of TubePress">
+        <common-build-jobs />
+        <compress-js />
+        <compress-css />
+        <stage-web-assets />
+        <copy-locale-fallbacks />
+        <package-starter-theme />
+        <final-package />
+    </target>
+
+    <!-- ######################################################################################## -->
+    <!-- ## MACROS                                                                                -->
+    <!-- ######################################################################################## -->
+
+    <macrodef name="common-build-jobs" description="internal use only">
         <sequential>
-            <init />
-            <copy-all-to-staging-directory />
+            <prepare-build-environment />
+            <copy-tubepress-to-staging-directory />
             <copy-user-content-skeleton-into-wp />
             <move-wordpress-skeleton />
             <suppress-directory-listings />
@@ -64,17 +66,17 @@
         </sequential>
     </macrodef>
 
-    <macrodef name="init" description="Cleans and preps the build directory for a new build">
+    <macrodef name="prepare-build-environment" description="Cleans and preps the build directory for a new build">
         <sequential>
-            <delete dir="dist" />
             <log msg="Creating empty directories at dist and stage" />
+            <delete dir="dist" />
             <mkdir dir="dist" />
             <mkdir dir="stage" />
-            <__init-properties />
+            <initialize-properties />
         </sequential>
     </macrodef>
 
-    <macrodef name="copy-all-to-staging-directory" description="Copies over TubePress into the staging directory for processing">
+    <macrodef name="copy-tubepress-to-staging-directory" description="Copies over TubePress into the staging directory for processing">
         <sequential>
             <log msg="Copying files into ${staging-directory}" />
             <exec executable="rsync">
@@ -89,7 +91,7 @@
 
     <macrodef name="copy-user-content-skeleton-into-wp" description="Stages the user content skeleton into WP for the activation hook">
         <sequential>
-            <log msg="Copying user content skeleton into WP add-on for activation hook purposes" />
+            <log msg="Copying user content skeleton into WP add-on for the activation hook" />
             <copy todir="${staging-directory}/src/add-ons/wordpress/resources/user-content-skeleton">
                 <fileset dir="resources/user-content-skeleton" />
             </copy>
@@ -110,7 +112,7 @@
     <macrodef name="suppress-directory-listings" description="Adds empty index.php files to various areas">
         <sequential>
             <log msg="Suppressing directory listing" />
-            <copy verbose="true" file="resources/directory-listing-suppressor.php" tofile="${staging-directory}/index.php" />
+            <copy file="resources/directory-listing-suppressor.php" tofile="${staging-directory}/index.php" />
         </sequential>
     </macrodef>
 
@@ -145,7 +147,7 @@
                     <include name="**" />
                 </fileset>
             </move>
-            <delete dir="${staging-directory}/src/themes" verbose="true" />
+            <delete dir="${staging-directory}/src/themes" />
 
         </sequential>
     </macrodef>
@@ -208,17 +210,19 @@
 
     <macrodef name="build-boot-classes-file">
         <sequential>
+            <log msg="Building classes.php" />
             <exec dir="bin" failonerror="true" searchpath="true" executable="php">
                 <arg value="./ClassCollectionBuilder.php" />
             </exec>
             <move file="../src/php/scripts/classloading/classes.php"
-                  tofile="${staging-directory}/src/php/scripts/classloading/classes.php" verbose="true"/>
+                  tofile="${staging-directory}/src/php/scripts/classloading/classes.php" />
         </sequential>
     </macrodef>
 
     <macrodef name="copy-locale-fallbacks">
         <sequential>
-            <copy verbose="true" file="${staging-directory}/src/translations/tubepress-es_ES.mo"
+            <log msg="Copying locale fallbacks" />
+            <copy file="${staging-directory}/src/translations/tubepress-es_ES.mo"
                   tofile="${staging-directory}/src/translations/tubepress-es_MX.mo" />
         </sequential>
     </macrodef>
@@ -227,7 +231,7 @@
         <sequential>
             <log msg="Zipping up starter theme" />
             <mkdir dir="${staging-directory}/web/themes/temp" />
-            <copy verbose="true" todir="${staging-directory}/web/themes/temp/starter">
+            <copy todir="${staging-directory}/web/themes/temp/starter">
                 <fileset dir="${staging-directory}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter" />
             </copy>
             <zip destfile="${staging-directory}/web/themes/starter-theme.zip" basedir="${staging-directory}/web/themes/temp" />
@@ -237,12 +241,56 @@
 
     <macrodef name="final-package">
         <sequential>
+            <log msg="Performing final zip" />
             <zip destfile="dist/${tubepress.stage-directory-basename}_${tubepress.version.major}_${tubepress.version.minor}_${tubepress.version.micro}.zip" basedir="stage" />
         </sequential>
     </macrodef>
 
-    <macrodef name="__init-properties">
+    <macrodef name="compress-js" description="Compresses JS files">
         <sequential>
+            <save-dev-copies-of-files path-to-file-list="${jscompresslist}" suffix=".js" />
+            <yui path-to-file-list="${jscompresslist}" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="compress-css" description="Compresses CSS files">
+        <sequential>
+            <save-dev-copies-of-files path-to-file-list="${csscompresslist}" suffix=".css" />
+            <yui path-to-file-list="${csscompresslist}" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="save-dev-copies-of-files">
+        <attribute name="path-to-file-list" />
+        <attribute name="suffix" />
+        <sequential>
+            <log msg="Saving dev copies of files in @{path-to-file-list}" />
+            <copy todir="${staging-directory}">
+                <fileset dir="${staging-directory}/" includesfile="@{path-to-file-list}"/>
+                <mapper type="glob" from="*@{suffix}" to="*-dev@{suffix}" />
+            </copy>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="yui" description="Compresses CSS and JS files">
+        <attribute name="path-to-file-list" />
+        <sequential>
+            <log msg="Invoking YUI Compressor for files in @{path-to-file-list}" />
+            <apply executable="java" parallel="false" dir="${staging-directory}" relative="true">
+                <fileset dir="${staging-directory}/" includesfile="@{path-to-file-list}"/>
+                <arg line="-jar"/>
+                <arg path="bin/yuicompressor-2.4.8.jar"/>
+                <srcfile />
+                <arg line="-o" />
+                <mapper type="identity" />
+                <targetfile />
+            </apply>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="initialize-properties">
+        <sequential>
+            <property file="config/custom.properties" />
             <property file="config/default.properties" />
             <property name="staging-directory" value="stage/${tubepress.stage-directory-basename}" />
             <property name="jscompresslist"    value="config/lists/js-to-compress.txt" />
