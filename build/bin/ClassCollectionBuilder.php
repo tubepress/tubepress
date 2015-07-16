@@ -30,12 +30,46 @@ class tubepress_build_ClassCollectionBuilder
             $classes = array_merge($classes, require $filename);
         }
 
-        self::load(
+        $classes = self::load(
             $classes,
             TUBEPRESS_ROOT . '/src/php/scripts/classloading',
             'classes',
             false
         );
+
+        $classNames = array();
+
+        /**
+         * @var $classes ReflectionClass[]
+         */
+        foreach ($classes as $class) {
+
+            $path         = realpath($class->getFileName());
+            $relativePath = str_replace(TUBEPRESS_ROOT . '/', '', $path);
+            $stagedPath   = realpath(__DIR__) . '/../stage/tubepress/' . $relativePath;
+            $classNames[] = preg_quote($class->getName());
+
+            if (file_exists($stagedPath)) {
+
+                unlink($stagedPath);
+            }
+        }
+
+        $classMapContents   = file(TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php');
+        $implodedClassNames = implode('|', $classNames);
+        $linesToKeep        = array();
+
+        foreach ($classMapContents as $line) {
+
+            $shouldDeleteLine = preg_match_all('~^\s*\'(?:' . $implodedClassNames . ')\'\s+=>\s+~', $line, $matches) === 1;
+
+            if (!$shouldDeleteLine) {
+
+                $linesToKeep[] = $line;
+            }
+        }
+
+        file_put_contents(realpath(__DIR__) . '/../stage/tubepress/src/php/scripts/classloading/classmap.php', $linesToKeep);
     }
 
     /**
@@ -150,6 +184,8 @@ EOT;
             // save the resources
             self::writeCacheFile($metadata, serialize(array($files, $classes)));
         }
+
+        return $orderedClasses;
     }
 
     private static function _addedConditionalsIfNeeded(ReflectionClass $class, $currentContent)
