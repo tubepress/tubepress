@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ui_FieldProviderInterface extends tubepress_api_options_ui_ElementInterface
+interface tubepress_api_options_ui_FieldProviderInterface extends tubepress_api_options_ui_ElementInterface, tubepress_app_api_options_ui_FieldProviderInterface
 {
 
     /**

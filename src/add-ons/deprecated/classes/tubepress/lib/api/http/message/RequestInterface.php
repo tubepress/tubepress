@@ -10,14 +10,23 @@
  */
 
 /**
- * Generic HTTP request interface.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_message_RequestInterface instead.
+ * @deprecated Use tubepress_api_http_message_RequestInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_http_message_RequestInterface.
+ *
+ * @see tubepress_api_http_message_RequestInterface
  */
-interface tubepress_lib_api_http_message_RequestInterface extends tubepress_api_http_message_RequestInterface
+interface tubepress_lib_api_http_message_RequestInterface
 {
-
+    const METHOD_CONNECT = 'CONNECT';
+    const METHOD_DELETE  = 'DELETE';
+    const METHOD_GET     = 'GET';
+    const METHOD_HEAD    = 'HEAD';
+    const METHOD_OPTIONS = 'OPTIONS';
+    const METHOD_PATCH   = 'PATCH';
+    const METHOD_POST    = 'POST';
+    const METHOD_PUT     = 'PUT';
+    const METHOD_TRACE   = 'TRACE';
 }

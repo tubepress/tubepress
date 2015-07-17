@@ -1,114 +1,114 @@
 {
-    "name"        : "tubepress/tubepress",
-    "description" : "Modern video galleries for the web.",
-    "homepage"    : "https://github.com/tubepress/tubepress",
-    "license"     : "MPL-2.0",
-    "authors" : [
-        {
-            "name"     : "TubePress LLC",
-            "email"    : "eric@tubepress.com",
-            "homepage" : "http://tubepress.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "ehough/finder"                      : "~2.5.0",
-        "ehough/iconic"                      : "~2.5.0",
-        "ehough/pulsar"                      : "~2.5.0",
-        "ehough/stash"                       : "~0.12.0",
-        "ehough/tickertape"                  : "~2.5.0",
-        "ehough/templating"                  : "~2.5.0",
-        "puzzlehttp/puzzle"                  : "~4.2.0",
-        "twig/twig"                          : "1.*",
-        "yahnis-elsts/plugin-update-checker" : "dev-master"
-    },
-    "require-dev": {
-        "ehough/mockery"       : "~0.8",
-        "phpunit/phpunit"      : "~3.0",
-        "symfony/class-loader" : "dev-master",
-        "symfony/dom-crawler"  : "dev-master",
-        "symfony/css-selector" : "dev-master"
-    },
-    "autoload": {
-        "psr-0": {
-
-            "tubepress_array_"           : "src/add-ons/array/classes",
-            "tubepress_cache_api_"       : "src/add-ons/cache-api/classes",
-            "tubepress_cache_html_"      : "src/add-ons/cache-html/classes",
-            "tubepress_embedded_common_" : "src/add-ons/embedded-common/classes",
-            "tubepress_embedplus_"       : "src/add-ons/embedded-embedplus/classes",
-            "tubepress_environment_"     : "src/add-ons/environment/classes",
-            "tubepress_event_"           : "src/add-ons/event/classes",
-            "tubepress_feed_"            : "src/add-ons/feed/classes",
-            "tubepress_gallery_"         : "src/add-ons/gallery/classes",
-            "tubepress_html_"            : "src/add-ons/html/classes",
-            "tubepress_http_"            : "src/add-ons/http/classes",
-            "tubepress_ioc_"             : "src/add-ons/ioc/classes",
-            "tubepress_jwplayer5_"       : "src/add-ons/embedded-jwplayer5/classes",
-            "tubepress_logger_"          : "src/add-ons/logger/classes",
-            "tubepress_media_"           : "src/add-ons/media/classes",
-            "tubepress_meta_"            : "src/add-ons/meta/classes",
-            "tubepress_options_"         : "src/add-ons/options/classes",
-            "tubepress_options_ui_"      : "src/add-ons/options-ui/classes",
-            "tubepress_player_"          : "src/add-ons/player/classes",
-            "tubepress_search_"          : "src/add-ons/search/classes",
-            "tubepress_shortcode_"       : "src/add-ons/shortcode/classes",
-            "tubepress_single_"          : "src/add-ons/single/classes",
-            "tubepress_template_"        : "src/add-ons/template/classes",
-            "tubepress_theme_"           : "src/add-ons/theme/classes",
-            "tubepress_url_"             : "src/add-ons/url/classes",
-            "tubepress_util_"            : "src/add-ons/util/classes",
-            "tubepress_vimeo2_"          : "src/add-ons/provider-vimeo-v2/classes",
-            "tubepress_wordpress_"       : "src/add-ons/wordpress/classes",
-            "tubepress_youtube3_"        : "src/add-ons/provider-youtube-v3/classes",
-
-            "tubepress_api_" : "src/php/classes/public",
-            "tubepress_spi_" : "src/php/classes/public",
-
-            "tubepress_internal_" : "src/php/classes/internal",
-
-            "tubepress_addons_"     : "src/add-ons/deprecated/classes",
-            "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
-            "tubepress_app_"        : "src/add-ons/deprecated/classes",
-            "tubepress_deprecated_" : "src/add-ons/deprecated/classes",
-            "tubepress_lib_"        : "src/add-ons/deprecated/classes",
-            "tubepress_platform_"   : "src/add-ons/deprecated/classes"
-        }
-    },
-    "autoload-dev" : {
-        "psr-0" : {
-
-            "tubepress_test_api_"      : "tests/unit/php/classes/public",
-            "tubepress_test_internal_" : "tests/unit/php/classes/internal",
-
-            "tubepress_test_array_"           : "tests/unit/add-ons/array/classes",
-            "tubepress_test_cache_html_"      : "tests/unit/add-ons/cache-html/classes",
-            "tubepress_test_cache_api_"       : "tests/unit/add-ons/cache-api/classes",
-            "tubepress_test_embedded_common_" : "tests/unit/add-ons/embedded-common/classes",
-            "tubepress_test_embedplus_"       : "tests/unit/add-ons/embedded-embedplus/classes",
-            "tubepress_test_environment_"     : "tests/unit/add-ons/environment/classes",
-            "tubepress_test_event_"           : "tests/unit/add-ons/event/classes",
-            "tubepress_test_feed_"            : "tests/unit/add-ons/feed/classes",
-            "tubepress_test_gallery_"         : "tests/unit/add-ons/gallery/classes",
-            "tubepress_test_html_"            : "tests/unit/add-ons/html/classes",
-            "tubepress_test_http_"            : "tests/unit/add-ons/http/classes",
-            "tubepress_test_ioc_"             : "tests/unit/add-ons/ioc/classes",
-            "tubepress_test_jwplayer5_"       : "tests/unit/add-ons/embedded-jwplayer5/classes",
-            "tubepress_test_logger_"          : "tests/unit/add-ons/logger/classes",
-            "tubepress_test_media_"           : "tests/unit/add-ons/media/classes",
-            "tubepress_test_meta_"            : "tests/unit/add-ons/meta/classes",
-            "tubepress_test_options_"         : "tests/unit/add-ons/options/classes",
-            "tubepress_test_options_ui_"      : "tests/unit/add-ons/options-ui/classes",
-            "tubepress_test_player_"          : "tests/unit/add-ons/player/classes",
-            "tubepress_test_search_"          : "tests/unit/add-ons/search/classes",
-            "tubepress_test_shortcode_"       : "tests/unit/add-ons/shortcode/classes",
-            "tubepress_test_single_"          : "tests/unit/add-ons/single/classes",
-            "tubepress_test_template_"        : "tests/unit/add-ons/template/classes",
-            "tubepress_test_theme_"           : "tests/unit/add-ons/theme/classes",
-            "tubepress_test_url_"             : "tests/unit/add-ons/url/classes",
-            "tubepress_test_util_"            : "tests/unit/add-ons/util/classes",
-
-            "tubepress_test_scripts_boot_" : "tests/unit/php/scripts/fixtures/mock-user-content-dir/add-ons/bootmocks/classes"
-        }
+  "name"        : "tubepress/tubepress",
+  "description" : "Modern video galleries for the web.",
+  "homepage"    : "http://tubepress.com/",
+  "keywords"    : [ "video", "galleries", "youtube", "vimeo", "embed", "embeds", "embedding", "media" ],
+  "license"     : "MPL-2.0",
+  "authors" : [
+    {
+      "name"     : "TubePress LLC",
+      "email"    : "eric@tubepress.com",
+      "homepage" : "http://tubepress.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "ehough/finder"                      : "~2.5.0",
+    "ehough/iconic"                      : "~2.5.0",
+    "ehough/pulsar"                      : "~2.5.0",
+    "ehough/stash"                       : "~0.12.0",
+    "ehough/tickertape"                  : "~2.5.0",
+    "ehough/templating"                  : "~2.5.0",
+    "puzzlehttp/puzzle"                  : "~4.2.0",
+    "twig/twig"                          : "1.*",
+    "yahnis-elsts/plugin-update-checker" : "~2.1"
+  },
+  "require-dev": {
+    "ehough/mockery"       : "~0.8",
+    "phpunit/phpunit"      : "~3.0",
+    "symfony/class-loader" : "dev-master",
+    "symfony/dom-crawler"  : "dev-master",
+    "symfony/css-selector" : "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "tubepress_array_"           : "src/add-ons/array/classes",
+      "tubepress_cache_api_"       : "src/add-ons/cache-api/classes",
+      "tubepress_cache_html_"      : "src/add-ons/cache-html/classes",
+      "tubepress_embedded_common_" : "src/add-ons/embedded-common/classes",
+      "tubepress_embedplus_"       : "src/add-ons/embedded-embedplus/classes",
+      "tubepress_environment_"     : "src/add-ons/environment/classes",
+      "tubepress_event_"           : "src/add-ons/event/classes",
+      "tubepress_feed_"            : "src/add-ons/feed/classes",
+      "tubepress_gallery_"         : "src/add-ons/gallery/classes",
+      "tubepress_html_"            : "src/add-ons/html/classes",
+      "tubepress_http_"            : "src/add-ons/http/classes",
+      "tubepress_ioc_"             : "src/add-ons/ioc/classes",
+      "tubepress_jwplayer5_"       : "src/add-ons/embedded-jwplayer5/classes",
+      "tubepress_logger_"          : "src/add-ons/logger/classes",
+      "tubepress_media_"           : "src/add-ons/media/classes",
+      "tubepress_meta_"            : "src/add-ons/meta/classes",
+      "tubepress_options_"         : "src/add-ons/options/classes",
+      "tubepress_options_ui_"      : "src/add-ons/options-ui/classes",
+      "tubepress_player_"          : "src/add-ons/player/classes",
+      "tubepress_search_"          : "src/add-ons/search/classes",
+      "tubepress_shortcode_"       : "src/add-ons/shortcode/classes",
+      "tubepress_single_"          : "src/add-ons/single/classes",
+      "tubepress_template_"        : "src/add-ons/template/classes",
+      "tubepress_theme_"           : "src/add-ons/theme/classes",
+      "tubepress_url_"             : "src/add-ons/url/classes",
+      "tubepress_util_"            : "src/add-ons/util/classes",
+      "tubepress_vimeo2_"          : "src/add-ons/provider-vimeo-v2/classes",
+      "tubepress_wordpress_"       : "src/add-ons/wordpress/classes",
+      "tubepress_youtube3_"        : "src/add-ons/provider-youtube-v3/classes",
+
+      "tubepress_api_" : "src/php/classes/public",
+      "tubepress_spi_" : "src/php/classes/public",
+
+      "tubepress_internal_" : "src/php/classes/internal",
+
+      "tubepress_addons_"     : "src/add-ons/deprecated/classes",
+      "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
+      "tubepress_app_"        : "src/add-ons/deprecated/classes",
+      "tubepress_deprecated_" : "src/add-ons/deprecated/classes",
+      "tubepress_lib_"        : "src/add-ons/deprecated/classes",
+      "tubepress_platform_"   : "src/add-ons/deprecated/classes"
+    }
+  },
+  "autoload-dev" : {
+    "psr-0" : {
+
+      "tubepress_test_api_"      : "tests/unit/php/classes/public",
+      "tubepress_test_internal_" : "tests/unit/php/classes/internal",
+
+      "tubepress_test_array_"           : "tests/unit/add-ons/array/classes",
+      "tubepress_test_cache_html_"      : "tests/unit/add-ons/cache-html/classes",
+      "tubepress_test_cache_api_"       : "tests/unit/add-ons/cache-api/classes",
+      "tubepress_test_embedded_common_" : "tests/unit/add-ons/embedded-common/classes",
+      "tubepress_test_embedplus_"       : "tests/unit/add-ons/embedded-embedplus/classes",
+      "tubepress_test_environment_"     : "tests/unit/add-ons/environment/classes",
+      "tubepress_test_event_"           : "tests/unit/add-ons/event/classes",
+      "tubepress_test_feed_"            : "tests/unit/add-ons/feed/classes",
+      "tubepress_test_gallery_"         : "tests/unit/add-ons/gallery/classes",
+      "tubepress_test_html_"            : "tests/unit/add-ons/html/classes",
+      "tubepress_test_http_"            : "tests/unit/add-ons/http/classes",
+      "tubepress_test_ioc_"             : "tests/unit/add-ons/ioc/classes",
+      "tubepress_test_jwplayer5_"       : "tests/unit/add-ons/embedded-jwplayer5/classes",
+      "tubepress_test_logger_"          : "tests/unit/add-ons/logger/classes",
+      "tubepress_test_media_"           : "tests/unit/add-ons/media/classes",
+      "tubepress_test_meta_"            : "tests/unit/add-ons/meta/classes",
+      "tubepress_test_options_"         : "tests/unit/add-ons/options/classes",
+      "tubepress_test_options_ui_"      : "tests/unit/add-ons/options-ui/classes",
+      "tubepress_test_player_"          : "tests/unit/add-ons/player/classes",
+      "tubepress_test_search_"          : "tests/unit/add-ons/search/classes",
+      "tubepress_test_shortcode_"       : "tests/unit/add-ons/shortcode/classes",
+      "tubepress_test_single_"          : "tests/unit/add-ons/single/classes",
+      "tubepress_test_template_"        : "tests/unit/add-ons/template/classes",
+      "tubepress_test_theme_"           : "tests/unit/add-ons/theme/classes",
+      "tubepress_test_url_"             : "tests/unit/add-ons/url/classes",
+      "tubepress_test_util_"            : "tests/unit/add-ons/util/classes",
+
+      "tubepress_test_scripts_boot_" : "tests/unit/php/scripts/fixtures/mock-user-content-dir/add-ons/bootmocks/classes"
+    }
+  }
 }

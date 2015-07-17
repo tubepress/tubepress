@@ -10,12 +10,13 @@
  */
 
 /**
- * Generates HTML.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_html_HtmlGeneratorInterface instead.
+ * @deprecated Use tubepress_api_html_HtmlGeneratorInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_html_HtmlGeneratorInterface.
+ *
+ * @see tubepress_api_html_HtmlGeneratorInterface
  */
 interface tubepress_app_api_html_HtmlGeneratorInterface
 {

@@ -13,9 +13,15 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_contrib_RegistryInterface instead.
+ * @deprecated Use tubepress_api_contrib_RegistryInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_contrib_RegistryInterface.
+ *
+ * @see tubepress_api_contrib_RegistryInterface
  */
-interface tubepress_platform_api_contrib_RegistryInterface extends tubepress_api_contrib_RegistryInterface
+interface tubepress_platform_api_contrib_RegistryInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_contrib_RegistryInterface';
 }

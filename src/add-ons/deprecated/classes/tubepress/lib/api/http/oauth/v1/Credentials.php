@@ -10,14 +10,14 @@
  */
 
 /**
- * OAuth 1.0 credentials, which may be a token or an instance of client credentials.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_oauth_v1_Credentials instead.
+ * @deprecated Use tubepress_api_http_oauth_v1_Credentials instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_http_oauth_v1_Credentials
  */
-class tubepress_lib_api_http_oauth_v1_Credentials extends tubepress_api_http_oauth_v1_Credentials
+class tubepress_lib_api_http_oauth_v1_Credentials
 {
 
 }

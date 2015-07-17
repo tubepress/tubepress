@@ -10,14 +10,14 @@
  */
 
 /**
- * Describes a stream instance.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_streams_StreamInterface instead.
+ * @deprecated Use tubepress_api_streams_StreamInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_streams_StreamInterface
  */
-interface tubepress_lib_api_streams_StreamInterface extends tubepress_api_streams_StreamInterface
+interface tubepress_lib_api_streams_StreamInterface
 {
 
 }

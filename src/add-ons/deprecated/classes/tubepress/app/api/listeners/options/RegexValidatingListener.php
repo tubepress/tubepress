@@ -13,7 +13,10 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_listeners_options_RegexValidatingListener instead.
+ * @deprecated Use tubepress_api_listeners_options_RegexValidatingListener instead. Will be removed in TubePress 5.0.0
+ *             and any constants in this class will be moved to tubepress_api_listeners_options_RegexValidatingListener.
+ *
+ * @see tubepress_api_listeners_options_RegexValidatingListener
  */
 class tubepress_app_api_listeners_options_RegexValidatingListener extends tubepress_api_listeners_options_RegexValidatingListener
 {

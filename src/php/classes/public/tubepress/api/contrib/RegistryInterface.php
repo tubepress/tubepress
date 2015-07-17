@@ -13,13 +13,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_contrib_RegistryInterface
+interface tubepress_api_contrib_RegistryInterface extends tubepress_platform_api_contrib_RegistryInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_contrib_RegistryInterface';
-
     /**
      * @return tubepress_api_contrib_ContributableInterface[]
      *

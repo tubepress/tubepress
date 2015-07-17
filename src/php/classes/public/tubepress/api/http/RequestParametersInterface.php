@@ -15,13 +15,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_RequestParametersInterface
+interface tubepress_api_http_RequestParametersInterface extends tubepress_lib_api_http_RequestParametersInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_http_RequestParametersInterface';
-
     /**
      * Gets the parameter value from PHP's $_GET or $_POST array.
      *

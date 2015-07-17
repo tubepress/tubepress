@@ -15,13 +15,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ui_FieldBuilderInterface
+interface tubepress_api_options_ui_FieldBuilderInterface extends tubepress_app_api_options_ui_FieldBuilderInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_options_ui_FieldBuilderInterface';
-
     /**
      * Builds a new field.
      *

@@ -109,7 +109,14 @@ class tubepress_internal_boot_helper_uncached_Compiler
                         $index, $count, $addon->getName(), $extensionClassName));
                 }
 
-                $this->_registerModernExtension($containerBuilder, $extensionClassName, $index, $count, $addon);
+                if ($this->_isLegacyExtension($extensionClassName)) {
+
+                    $this->_registerLegacyExtension($containerBuilder, $extensionClassName, $index, $count, $addon);
+
+                } else {
+
+                    $this->_registerModernExtension($containerBuilder, $extensionClassName, $index, $count, $addon);
+                }
             }
 
             $index++;
@@ -206,6 +213,104 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
                 $this->_logger->error(sprintf('(Add-on %d of %d: %s) Failed to load %s as an IoC container extension: %s', $index, $count, $addon->getName(), $extensionClassName, $e->getMessage()));
             }
+        }
+    }
+
+    private function _isLegacyExtension($extensionClassName)
+    {
+        try {
+
+            $ref            = new ReflectionClass($extensionClassName);
+            $interfaceNames = $ref->getInterfaceNames();
+            $isLegacy       = in_array('tubepress_platform_api_ioc_ContainerExtensionInterface', $interfaceNames);
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('%s is a legacy extension? %s', $extensionClassName, $isLegacy ? 'yes' : 'no'));
+            }
+
+            return $isLegacy;
+
+        } catch (Exception $e) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->error(sprintf('Failed to inspect %s: %s', $extensionClassName, $e->getMessage()));
+            }
+
+            return false;
+        }
+    }
+
+    private function _registerLegacyExtension(tubepress_internal_ioc_ContainerBuilder $container, $extensionClassName,
+                                             $index, $count, tubepress_api_contrib_AddonInterface $addon)
+    {
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Converting %s', $extensionClassName));
+        }
+
+        try {
+            $ref          = new ReflectionClass($extensionClassName);
+            $path         = realpath($ref->getFileName());
+            $fileContents = file_get_contents($path);
+
+            if ($fileContents === false) {
+
+                if ($this->_shouldLog) {
+
+                    $this->_logger->error(sprintf('Failed to read %s for %s', $path, $extensionClassName));
+                }
+
+                return;
+            }
+
+            $search = array(
+                'tubepress_platform_api_ioc_ContainerBuilderInterface',
+                'tubepress_platform_api_ioc_ContainerExtensionInterface',
+                'tubepress_platform_api_ioc_DefinitionInterface',
+                'tubepress_platform_api_ioc_Reference',
+                'tubepress_app_api_options_ui_FieldInterface',
+                'tubepress_app_api_options_ui_FieldProviderInterface',
+            );
+
+            $replace = array(
+                'tubepress_api_ioc_ContainerBuilderInterface',
+                'tubepress_spi_ioc_ContainerExtensionInterface',
+                'tubepress_api_ioc_DefinitionInterface',
+                'tubepress_api_ioc_Reference',
+                'tubepress_api_options_ui_FieldInterface',
+                'tubepress_api_options_ui_FieldProviderInterface',
+            );
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('Successfully read %s for %s. Now converting.', $path, $extensionClassName));
+            }
+
+            $fileContents = str_replace('<?php', '', $fileContents);
+            $fileContents = preg_replace('/class\s+([^\s]+)\s+implements\s+tubepress_platform_api_ioc_ContainerExtensionInterface\s+/',
+                'class ${1}__converted implements tubepress_platform_api_ioc_ContainerExtensionInterface ', $fileContents);
+
+            $newContents = str_replace($search, $replace, $fileContents);
+
+            $evalResult = @eval($newContents);
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('Successfully loaded converted class? %s', $evalResult === null ? 'yes' : 'no'));
+            }
+
+            $this->_registerModernExtension($container, $extensionClassName . '__converted', $index, $count, $addon);
+
+        } catch (Exception $e) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->error(sprintf('Failed to convert %s: %s', $extensionClassName, $e->getMessage()));
+            }
+
+            return false;
         }
     }
 }

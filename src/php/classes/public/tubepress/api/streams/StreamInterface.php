@@ -40,7 +40,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_streams_StreamInterface
+interface tubepress_api_streams_StreamInterface extends tubepress_lib_api_streams_StreamInterface
 {
     /**
      * Closes the stream and any underlying resources.

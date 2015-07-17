@@ -10,16 +10,12 @@
  */
 
 /**
- * An OSGi-based version.
- *
- * http://www.osgi.org/wiki/uploads/Links/SemanticVersioning.pdf
- * http://www.osgi.org/javadoc/r4v43/org/osgi/framework/Version.html
- * http://trac.i2p2.de/browser/src/main/java/org/osgi/framework/Version.java?rev=c113cdcdaa29451f600437c9275762580386dbcf
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_version_Version instead.
+ * @deprecated Use tubepress_api_version_Version instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_version_Version
  */
 class tubepress_platform_api_version_Version extends tubepress_api_version_Version
 {

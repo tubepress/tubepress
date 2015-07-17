@@ -35,12 +35,12 @@
  */
 
 /**
- * HTTP request exception.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_exception_RequestException instead.
+ * @deprecated Use tubepress_api_http_exception_RequestException instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_http_exception_RequestException
  */
 abstract class tubepress_lib_api_http_exception_RequestException extends tubepress_api_http_exception_RequestException
 {

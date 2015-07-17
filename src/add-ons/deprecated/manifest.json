@@ -95,19 +95,16 @@
             "tubepress_platform_api_collection_MapInterface" : "classes/tubepress/platform/api/collection/MapInterface.php",
             "tubepress_platform_api_contrib_ContributableInterface" : "classes/tubepress/platform/api/contrib/ContributableInterface.php",
             "tubepress_platform_api_contrib_RegistryInterface" : "classes/tubepress/platform/api/contrib/RegistryInterface.php",
-            "tubepress_platform_api_ioc_CompilerPassInterface" : "classes/tubepress/platform/api/ioc/CompilerPassInterface.php",
-            "tubepress_platform_api_ioc_ContainerBuilderInterface" : "classes/tubepress/platform/api/ioc/ContainerBuilderInterface.php",
             "tubepress_platform_api_ioc_ContainerExtensionInterface" : "classes/tubepress/platform/api/ioc/ContainerExtensionInterface.php",
-            "tubepress_platform_api_ioc_ContainerInterface" : "classes/tubepress/platform/api/ioc/ContainerInterface.php",
-            "tubepress_platform_api_ioc_DefinitionInterface" : "classes/tubepress/platform/api/ioc/DefinitionInterface.php",
-            "tubepress_platform_api_ioc_Reference" : "classes/tubepress/platform/api/ioc/Reference.php",
             "tubepress_platform_api_log_LoggerInterface" : "classes/tubepress/platform/api/log/LoggerInterface.php",
             "tubepress_platform_api_url_QueryInterface" : "classes/tubepress/platform/api/url/QueryInterface.php",
             "tubepress_platform_api_url_UrlFactoryInterface" : "classes/tubepress/platform/api/url/UrlFactoryInterface.php",
             "tubepress_platform_api_url_UrlInterface" : "classes/tubepress/platform/api/url/UrlInterface.php",
             "tubepress_platform_api_util_LangUtilsInterface" : "classes/tubepress/platform/api/util/LangUtilsInterface.php",
             "tubepress_platform_api_util_StringUtilsInterface" : "classes/tubepress/platform/api/util/StringUtilsInterface.php",
-            "tubepress_platform_api_version_Version" : "classes/tubepress/platform/api/version/Version.php"
+            "tubepress_platform_api_version_Version" : "classes/tubepress/platform/api/version/Version.php",
+
+            "tubepress_platform_impl_collection_Map" : "classes/tubepress/platform/impl/collection/Map.php"
         }
     }
 }

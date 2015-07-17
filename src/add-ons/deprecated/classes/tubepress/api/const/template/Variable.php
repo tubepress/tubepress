@@ -10,7 +10,7 @@
  */
 
 /**
- * @deprecated
+ * @deprecated Will be removed in TubePress 5.0.0.
  */
 interface tubepress_api_const_template_Variable
 {

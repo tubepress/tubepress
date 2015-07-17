@@ -13,7 +13,9 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_event_Events instead.
+ * @deprecated Use tubepress_api_event_Events instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_event_Events
  */
 interface tubepress_app_api_event_Events extends tubepress_api_event_Events
 {

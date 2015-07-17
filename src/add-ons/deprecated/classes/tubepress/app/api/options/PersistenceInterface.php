@@ -10,14 +10,18 @@
  */
 
 /**
- * Handles persistent storage of TubePress options.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_PersistenceInterface instead.
+ * @deprecated Use tubepress_api_options_PersistenceInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_options_PersistenceInterface.
+ *
+ * @see tubepress_api_options_PersistenceInterface
  */
-interface tubepress_app_api_options_PersistenceInterface extends tubepress_api_options_PersistenceInterface
+interface tubepress_app_api_options_PersistenceInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_options_PersistenceInterface';
 }

@@ -13,9 +13,15 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_AcceptableValuesInterface instead.
+ * @deprecated Use tubepress_api_options_AcceptableValuesInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_options_AcceptableValuesInterface.
+ *
+ * @see tubepress_api_options_AcceptableValuesInterface
  */
-interface tubepress_app_api_options_AcceptableValuesInterface extends tubepress_api_options_AcceptableValuesInterface
+interface tubepress_app_api_options_AcceptableValuesInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_options_AcceptableValuesInterface';
 }

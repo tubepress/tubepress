@@ -10,12 +10,12 @@
  */
 
 /**
- * Applies a set of fixed values to the acceptable values of an option.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_listeners_options_FixedValuesListener instead.
+ * @deprecated Use tubepress_api_listeners_options_FixedValuesListener instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_listeners_options_FixedValuesListener
  */
 class tubepress_app_api_listeners_options_FixedValuesListener extends tubepress_api_listeners_options_FixedValuesListener
 {

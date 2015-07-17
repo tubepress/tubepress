@@ -15,13 +15,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_ResponseCodeInterface
+interface tubepress_api_http_ResponseCodeInterface extends tubepress_lib_api_http_ResponseCodeInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_http_ResponseCodeInterface';
-
     /**
      * Set a new HTTP response code.
      *

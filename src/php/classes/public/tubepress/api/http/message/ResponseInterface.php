@@ -40,7 +40,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_message_ResponseInterface extends tubepress_api_http_message_MessageInterface
+interface tubepress_api_http_message_ResponseInterface extends tubepress_api_http_message_MessageInterface, tubepress_lib_api_http_message_ResponseInterface
 {
     /**
      * Get the effective URL that resulted in this response (e.g. the last

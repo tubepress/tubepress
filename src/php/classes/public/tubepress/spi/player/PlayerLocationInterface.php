@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_spi_player_PlayerLocationInterface
+interface tubepress_spi_player_PlayerLocationInterface extends tubepress_app_api_player_PlayerLocationInterface
 {
     /**
      * @return string The name of this player location.

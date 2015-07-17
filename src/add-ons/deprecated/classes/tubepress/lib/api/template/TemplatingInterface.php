@@ -10,14 +10,18 @@
  */
 
 /**
- * @package TubePress\Template
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_template_TemplatingInterface instead.
+ * @deprecated Use tubepress_api_template_TemplatingInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_template_TemplatingInterface.
+ *
+ * @see tubepress_api_template_TemplatingInterface
  */
-interface tubepress_lib_api_template_TemplatingInterface extends tubepress_api_template_TemplatingInterface
+interface tubepress_lib_api_template_TemplatingInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_template_TemplatingInterface';
 }

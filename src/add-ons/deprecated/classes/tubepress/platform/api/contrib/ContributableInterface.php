@@ -10,14 +10,14 @@
  */
 
 /**
- * A TubePress add-on or theme.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_contrib_ContributableInterface instead.
+ * @deprecated Use tubepress_api_contrib_ContributableInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_contrib_ContributableInterface
  */
-interface tubepress_platform_api_contrib_ContributableInterface extends tubepress_api_contrib_ContributableInterface
+interface tubepress_platform_api_contrib_ContributableInterface
 {
 
 }

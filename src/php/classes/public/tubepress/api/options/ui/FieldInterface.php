@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ui_FieldInterface extends tubepress_api_options_ui_ElementInterface
+interface tubepress_api_options_ui_FieldInterface extends tubepress_api_options_ui_ElementInterface, tubepress_app_api_options_ui_FieldInterface
 {
     /**
      * @return string The optional description of this element that is displayed to the user. May be empty or null.

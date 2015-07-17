@@ -10,14 +10,14 @@
  */
 
 /**
- * An item appears on and participates in the options page.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_ui_ElementInterface instead.
+ * @deprecated Use tubepress_api_options_ui_ElementInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_options_ui_ElementInterface
  */
-interface tubepress_app_api_options_ui_ElementInterface extends tubepress_api_options_ui_ElementInterface
+interface tubepress_app_api_options_ui_ElementInterface
 {
 
 }

@@ -10,14 +10,12 @@
  */
 
 /**
- * Represents a set of media items.
- *
- * @package TubePress\Video
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_media_MediaPage instead.
+ * @deprecated Use tubepress_api_media_MediaPage instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_media_MediaPage
  */
 class tubepress_app_api_media_MediaPage extends tubepress_api_media_MediaPage
 {

@@ -13,13 +13,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ReferenceInterface
+interface tubepress_api_options_ReferenceInterface extends tubepress_app_api_options_ReferenceInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_options_ReferenceInterface';
-
     /**
      * Fetch all the option names from this provider.
      *

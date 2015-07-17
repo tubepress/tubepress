@@ -10,14 +10,18 @@
  */
 
 /**
- * oauth v1 client.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_oauth_v1_ClientInterface instead.
+ * @deprecated Use tubepress_api_http_oauth_v1_ClientInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_http_oauth_v1_ClientInterface
  */
-interface tubepress_lib_api_http_oauth_v1_ClientInterface extends tubepress_api_http_oauth_v1_ClientInterface
+interface tubepress_lib_api_http_oauth_v1_ClientInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_http_oauth_v1_ClientInterface';
 
 }

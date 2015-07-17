@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ui_ElementInterface
+interface tubepress_api_options_ui_ElementInterface extends tubepress_app_api_options_ui_ElementInterface
 {
     /**
      * @return string The page-unique identifier for this item.

@@ -10,16 +10,18 @@
  */
 
 /**
- * Logger used in debugging.
- *
- * @package TubePress\Log
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_log_LoggerInterface instead.
+ * @deprecated Use tubepress_api_log_LoggerInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_log_LoggerInterface.
+ *
+ * @see tubepress_api_log_LoggerInterface
  */
-interface tubepress_platform_api_log_LoggerInterface extends tubepress_api_log_LoggerInterface
+interface tubepress_platform_api_log_LoggerInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_log_LoggerInterface';
 }

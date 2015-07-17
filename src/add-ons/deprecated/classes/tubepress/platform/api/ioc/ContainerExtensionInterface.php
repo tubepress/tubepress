@@ -9,17 +9,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
- /**
-  * Allows add-ons to load services into the TubePress service container.
-  *
-  * @package TubePress\IoC
-  *
-  * @api
-  * @since 4.0.0
-  *
-  * @deprecated Use tubepress_spi_ioc_ContainerExtensionInterface instead.
-  */
-interface tubepress_platform_api_ioc_ContainerExtensionInterface extends tubepress_spi_ioc_ContainerExtensionInterface
+/**
+ * @api
+ * @since 4.0.0
+ *
+ * @deprecated Use tubepress_spi_ioc_ContainerExtensionInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_spi_ioc_ContainerExtensionInterface
+ */
+interface tubepress_platform_api_ioc_ContainerExtensionInterface
 {
 
 }

@@ -10,14 +10,18 @@
  */
 
 /**
- * General purpose message abstraction for TubePress
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_translation_TranslatorInterface instead.
+ * @deprecated Use tubepress_api_translation_TranslatorInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_translation_TranslatorInterface.
+ *
+ * @see tubepress_api_translation_TranslatorInterface
  */
-interface tubepress_lib_api_translation_TranslatorInterface extends tubepress_api_translation_TranslatorInterface
+interface tubepress_lib_api_translation_TranslatorInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_translation_TranslatorInterface';
 }

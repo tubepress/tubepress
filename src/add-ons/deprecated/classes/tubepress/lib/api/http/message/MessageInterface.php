@@ -10,14 +10,14 @@
  */
 
 /**
- * Request and response message interface
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_message_MessageInterface instead.
+ * @deprecated Use tubepress_api_http_message_MessageInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_http_message_MessageInterface
  */
-interface tubepress_lib_api_http_message_MessageInterface extends tubepress_api_http_message_MessageInterface
+interface tubepress_lib_api_http_message_MessageInterface
 {
 
 }

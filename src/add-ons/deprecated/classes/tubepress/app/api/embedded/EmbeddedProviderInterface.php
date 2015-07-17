@@ -13,7 +13,9 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_spi_embedded_EmbeddedProviderInterface instead.
+ * @deprecated Use tubepress_spi_embedded_EmbeddedProviderInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_spi_embedded_EmbeddedProviderInterface
  */
 interface tubepress_app_api_embedded_EmbeddedProviderInterface
 {

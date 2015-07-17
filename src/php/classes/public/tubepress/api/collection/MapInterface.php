@@ -39,7 +39,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_collection_MapInterface
+interface tubepress_api_collection_MapInterface extends tubepress_platform_api_collection_MapInterface
 {
     /**
      * Removes all of the mappings from this map. The map will be empty after this call returns.

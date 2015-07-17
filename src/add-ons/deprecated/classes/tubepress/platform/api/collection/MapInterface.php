@@ -10,13 +10,15 @@
  */
 
 /**
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_collection_MapInterface instead.
+ * @deprecated Use tubepress_api_collection_MapInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_collection_MapInterface.
+ *
+ * @see tubepress_api_collection_MapInterface
  */
-interface tubepress_platform_api_collection_MapInterface extends tubepress_api_collection_MapInterface
+interface tubepress_platform_api_collection_MapInterface
 {
 
 }

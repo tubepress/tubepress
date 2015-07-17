@@ -13,9 +13,11 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_spi_player_PlayerLocationInterface instead.
+ * @deprecated Use tubepress_spi_player_PlayerLocationInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_spi_player_PlayerLocationInterface
  */
-interface tubepress_app_api_player_PlayerLocationInterface extends tubepress_spi_player_PlayerLocationInterface
+interface tubepress_app_api_player_PlayerLocationInterface
 {
 
 }

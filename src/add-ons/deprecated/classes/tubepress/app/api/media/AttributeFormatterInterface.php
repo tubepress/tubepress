@@ -13,9 +13,15 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_media_AttributeFormatterInterface instead.
+ * @deprecated Use tubepress_api_media_AttributeFormatterInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_media_AttributeFormatterInterface.
+ *
+ * @see tubepress_api_media_AttributeFormatterInterface
  */
-interface tubepress_app_api_media_AttributeFormatterInterface extends tubepress_api_media_AttributeFormatterInterface
+interface tubepress_app_api_media_AttributeFormatterInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_media_AttributeFormatterInterface';
 }

@@ -15,13 +15,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ContextInterface
+interface tubepress_api_options_ContextInterface extends tubepress_app_api_options_ContextInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_options_ContextInterface';
-
     /**
      * Gets the value of an option. Memory will be checked first, then the option value
      * will be retrieved from persistent storage.

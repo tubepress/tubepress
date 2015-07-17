@@ -10,14 +10,18 @@
  */
 
 /**
- * The options page.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_ui_FormInterface instead.
+ * @deprecated Use tubepress_api_options_ui_FormInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_options_ui_FormInterface.
+ *
+ * @see tubepress_api_options_ui_FormInterface
  */
-interface tubepress_app_api_options_ui_FormInterface extends tubepress_api_options_ui_FormInterface
+interface tubepress_app_api_options_ui_FormInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_options_ui_FormInterface';
 }

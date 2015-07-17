@@ -13,13 +13,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_AcceptableValuesInterface
+interface tubepress_api_options_AcceptableValuesInterface extends tubepress_app_api_options_AcceptableValuesInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_options_AcceptableValuesInterface';
-
     /**
      * @param $optionName string The option name.
      *

@@ -10,14 +10,14 @@
  */
 
 /**
- * A form element that appears and participates in the options page.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_ui_FieldInterface instead.
+ * @deprecated Use tubepress_api_options_ui_FieldInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_options_ui_FieldInterface
  */
-interface tubepress_app_api_options_ui_FieldInterface extends tubepress_api_options_ui_FieldInterface
+interface tubepress_app_api_options_ui_FieldInterface
 {
 
 }

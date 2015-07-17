@@ -13,10 +13,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_PersistenceBackendInterface
+interface tubepress_api_options_PersistenceBackendInterface extends tubepress_app_api_options_PersistenceBackendInterface
 {
-    const _ = 'tubepress_api_options_PersistenceBackendInterface';
-
     /**
      * Creates one or more options in storage, if they don't already exist.
      *

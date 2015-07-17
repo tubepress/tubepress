@@ -10,14 +10,18 @@
  */
 
 /**
- * Pulls out info from $_GET or $_POST.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_RequestParametersInterface instead.
+ * @deprecated Use tubepress_api_http_RequestParametersInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_http_RequestParametersInterface.
+ *
+ * @see tubepress_api_http_RequestParametersInterface
  */
-interface tubepress_lib_api_http_RequestParametersInterface extends tubepress_api_http_RequestParametersInterface
+interface tubepress_lib_api_http_RequestParametersInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_http_RequestParametersInterface';
 }

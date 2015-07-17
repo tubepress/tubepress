@@ -10,14 +10,18 @@
  */
 
 /**
- * Retrieves settings from a PHP file.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_boot_BootSettingsInterface instead.
+ * @deprecated Use tubepress_api_boot_BootSettingsInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_boot_BootSettingsInterface.
+ *
+ * @see tubepress_api_boot_BootSettingsInterface
  */
-interface tubepress_platform_api_boot_BootSettingsInterface extends tubepress_api_boot_BootSettingsInterface
+interface tubepress_platform_api_boot_BootSettingsInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_boot_BootSettingsInterface';
 }

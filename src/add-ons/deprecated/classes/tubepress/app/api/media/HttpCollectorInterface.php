@@ -10,14 +10,18 @@
  */
 
 /**
- * Collects items from providers.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_media_HttpCollectorInterface instead.
+ * @deprecated Use tubepress_api_media_HttpCollectorInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_media_HttpCollectorInterface.
+ *
+ * @see tubepress_api_media_HttpCollectorInterface
  */
-interface tubepress_app_api_media_HttpCollectorInterface extends tubepress_api_media_HttpCollectorInterface
+interface tubepress_app_api_media_HttpCollectorInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_media_HttpCollectorInterface';
 }

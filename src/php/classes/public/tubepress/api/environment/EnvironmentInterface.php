@@ -18,11 +18,6 @@
 interface tubepress_api_environment_EnvironmentInterface extends tubepress_app_api_environment_EnvironmentInterface
 {
     /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_environment_EnvironmentInterface';
-
-    /**
      * Detects if the user is running TubePress Pro.
      *
      * @return boolean True is the user is running TubePress Pro. False otherwise.

@@ -13,9 +13,15 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_url_UrlFactoryInterface instead.
+ * @deprecated Use tubepress_api_url_UrlFactoryInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_url_UrlFactoryInterface.
+ *
+ * @see tubepress_api_url_UrlFactoryInterface
  */
-interface tubepress_platform_api_url_UrlFactoryInterface extends tubepress_api_url_UrlFactoryInterface
+interface tubepress_platform_api_url_UrlFactoryInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_url_UrlFactoryInterface';
 }

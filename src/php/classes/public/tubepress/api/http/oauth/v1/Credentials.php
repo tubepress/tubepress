@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_api_http_oauth_v1_Credentials
+class tubepress_api_http_oauth_v1_Credentials extends tubepress_lib_api_http_oauth_v1_Credentials
 {
     /**
      * @var string

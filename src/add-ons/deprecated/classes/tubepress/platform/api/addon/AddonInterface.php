@@ -10,14 +10,18 @@
  */
 
 /**
- * A TubePress add-on.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_contrib_AddonInterface instead.
+ * @deprecated Use tubepress_api_contrib_AddonInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_contrib_AddonInterface.
+ *
+ * @see tubepress_api_contrib_AddonInterface
  */
-interface tubepress_platform_api_addon_AddonInterface extends tubepress_api_contrib_AddonInterface
+interface tubepress_platform_api_addon_AddonInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_contrib_AddonInterface';
 }

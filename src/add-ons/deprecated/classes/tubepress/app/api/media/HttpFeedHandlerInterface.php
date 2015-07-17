@@ -10,14 +10,18 @@
  */
 
 /**
- * Collects items from providers.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_media_HttpFeedHandlerInterface instead.
+ * @deprecated Use tubepress_api_media_HttpFeedHandlerInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_media_HttpFeedHandlerInterface.
+ *
+ * @see tubepress_api_media_HttpFeedHandlerInterface
  */
-interface tubepress_app_api_media_HttpFeedHandlerInterface extends tubepress_api_media_HttpFeedHandlerInterface
+interface tubepress_app_api_media_HttpFeedHandlerInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_media_HttpFeedHandlerInterface';
 }

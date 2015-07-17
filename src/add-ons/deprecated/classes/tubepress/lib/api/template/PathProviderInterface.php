@@ -13,9 +13,11 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_spi_template_PathProviderInterface instead.
+ * @deprecated Use tubepress_spi_template_PathProviderInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_spi_template_PathProviderInterface
  */
-interface tubepress_lib_api_template_PathProviderInterface extends tubepress_spi_template_PathProviderInterface
+interface tubepress_lib_api_template_PathProviderInterface
 {
 
 }

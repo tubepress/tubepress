@@ -10,14 +10,18 @@
  */
 
 /**
- * Handles and responds to incoming Ajax commands.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_AjaxInterface instead.
+ * @deprecated Use tubepress_api_http_AjaxInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_http_AjaxInterface.
+ *
+ * @see tubepress_api_http_AjaxInterface
  */
-interface tubepress_lib_api_http_AjaxInterface extends tubepress_api_http_AjaxInterface
+interface tubepress_lib_api_http_AjaxInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_http_AjaxInterface';
 }

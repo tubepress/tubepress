@@ -13,7 +13,9 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_listeners_options_TrimmingListener instead.
+ * @deprecated Use tubepress_api_listeners_options_TrimmingListener instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_listeners_options_TrimmingListener
  */
 class tubepress_app_api_listeners_options_TrimmingListener extends tubepress_api_listeners_options_TrimmingListener
 {

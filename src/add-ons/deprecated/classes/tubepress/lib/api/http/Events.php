@@ -10,18 +10,12 @@
  */
 
 /**
- * A detailed list of the core TubePress events.
- *
- * Each event name can be referred to either by its raw name (e.g. `tubepress.core.cssjs.stylesheets`)
- * or as a constant reference (e.g. `tubepress_app_api_const_event_EventNames::CSS_JS_STYLESHEETS`). The latter
- * simply removes undocumented strings from your code and can help to prevent typos.
- *
- * @package TubePress\Const\Event
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_Events instead.
+ * @deprecated Use tubepress_api_http_Events instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_http_Events
  */
 interface tubepress_lib_api_http_Events extends tubepress_api_http_Events
 {

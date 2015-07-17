@@ -10,14 +10,18 @@
  */
 
 /**
- * TubePress theme.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_theme_ThemeInterface instead.
+ * @deprecated Use tubepress_api_theme_ThemeInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_theme_ThemeInterface.
+ *
+ * @see tubepress_api_theme_ThemeInterface
  */
-interface tubepress_app_api_theme_ThemeInterface extends tubepress_api_theme_ThemeInterface
+interface tubepress_app_api_theme_ThemeInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_theme_ThemeInterface';
 }

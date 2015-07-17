@@ -10,17 +10,18 @@
  */
 
 /**
- * The dispatcher that passes events around during TubePress's execution. allows add-ons to listen
- * for and respond to specific events occuring during different phases of TubePress code execution.
- *
- * @package TubePress\Event
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_event_EventDispatcherInterface instead.
+ * @deprecated Use tubepress_api_event_EventDispatcherInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_event_EventDispatcherInterface.
+ *
+ * @see tubepress_api_event_EventDispatcherInterface
  */
-interface tubepress_lib_api_event_EventDispatcherInterface extends tubepress_api_event_EventDispatcherInterface
+interface tubepress_lib_api_event_EventDispatcherInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_event_EventDispatcherInterface';
 }

@@ -15,13 +15,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_util_StringUtilsInterface
+interface tubepress_api_util_StringUtilsInterface extends tubepress_platform_api_util_StringUtilsInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_util_StringUtilsInterface';
-
     /**
      * Replaces the first occurence of a string by another string
      *

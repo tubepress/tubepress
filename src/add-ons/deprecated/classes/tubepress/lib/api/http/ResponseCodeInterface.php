@@ -10,14 +10,18 @@
  */
 
 /**
- * Wraps HTTP response code logic.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_ResponseCodeInterface instead.
+ * @deprecated Use tubepress_api_http_ResponseCodeInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_http_ResponseCodeInterface.
+ *
+ * @see tubepress_api_http_ResponseCodeInterface
  */
-interface tubepress_lib_api_http_ResponseCodeInterface extends tubepress_api_http_ResponseCodeInterface
+interface tubepress_lib_api_http_ResponseCodeInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_http_ResponseCodeInterface';
 }

@@ -10,10 +10,12 @@
  */
 
 /**
- * Array-based implementation of tubepress_api_options_ReferenceInterface. Suggested that all add-ons
- * use this implementation.
+ * @api
+ * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_Reference instead.
+ * @deprecated Use tubepress_api_options_Reference instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_options_Reference
  */
 class tubepress_app_api_options_Reference extends tubepress_api_options_Reference
 {

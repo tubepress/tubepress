@@ -140,9 +140,9 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     {
         foreach ($fieldProviders as $fieldProvider) {
 
-            if (!($fieldProvider instanceof tubepress_api_options_ui_FieldProviderInterface)) {
+            if (!($fieldProvider instanceof tubepress_app_api_options_ui_FieldProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_api_options_ui_FieldProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setFieldProviders');
+                throw new InvalidArgumentException('Non tubepress_app_api_options_ui_FieldProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setFieldProviders');
             }
         }
 

@@ -13,7 +13,9 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_ioc_ServiceTags instead.
+ * @deprecated Use tubepress_api_ioc_ServiceTags instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_ioc_ServiceTags
  */
 interface tubepress_lib_api_ioc_ServiceTags extends tubepress_api_ioc_ServiceTags
 {

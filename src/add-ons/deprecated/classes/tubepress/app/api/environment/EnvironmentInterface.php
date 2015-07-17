@@ -13,7 +13,10 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_environment_EnvironmentInterface instead.
+ * @deprecated Use tubepress_api_environment_EnvironmentInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_environment_EnvironmentInterface.
+ *
+ * @see tubepress_api_environment_EnvironmentInterface
  */
 interface tubepress_app_api_environment_EnvironmentInterface
 {

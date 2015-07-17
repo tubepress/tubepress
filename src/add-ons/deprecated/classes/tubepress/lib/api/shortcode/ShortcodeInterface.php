@@ -13,9 +13,11 @@
  * @api
  * @since 4.1.11
  *
- * @deprecated Use tubepress_api_shortcode_ShortcodeInterface instead.
+ * @deprecated Use tubepress_api_shortcode_ShortcodeInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_shortcode_ShortcodeInterface
  */
-interface tubepress_lib_api_shortcode_ShortcodeInterface extends tubepress_api_shortcode_ShortcodeInterface
+interface tubepress_lib_api_shortcode_ShortcodeInterface
 {
 
 }

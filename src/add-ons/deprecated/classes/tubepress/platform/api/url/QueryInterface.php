@@ -7,17 +7,19 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * A query object.
- *
- * @package TubePress\URL
- *
+ */
+
+/*
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_url_QueryInterface instead.
+ * @deprecated Use tubepress_api_url_QueryInterface instead. Will be removed in TubePress 5.0.0 and any constants
+ *             in this class will be moved to tubepress_api_url_QueryInterface.
+ *
+ * @see tubepress_api_url_QueryInterface
  */
-interface tubepress_platform_api_url_QueryInterface extends tubepress_api_url_QueryInterface
+interface tubepress_platform_api_url_QueryInterface
 {
-
+    const RFC3986_ENCODING = 'RFC3986';
+    const RFC1738_ENCODING = 'RFC1738';
 }

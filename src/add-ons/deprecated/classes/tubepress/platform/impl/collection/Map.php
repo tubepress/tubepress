@@ -10,16 +10,14 @@
  */
 
 /**
- * Provides utility functions used during construction of a {@link tubepress_api_ioc_ContainerInterface} instance.
- *
- * @package TubePress\IoC
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_ioc_ContainerBuilderInterface instead.
+ * @deprecated Use tubepress_internal_collection_Map instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_internal_collection_Map
  */
-interface tubepress_platform_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_ContainerBuilderInterface
+class tubepress_platform_impl_collection_Map extends tubepress_internal_collection_Map
 {
 
 }

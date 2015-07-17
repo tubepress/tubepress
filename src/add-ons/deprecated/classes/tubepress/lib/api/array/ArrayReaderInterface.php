@@ -13,9 +13,15 @@
  * @api
  * @since 4.1.0
  *
- * @deprecated Use tubepress_api_array_ArrayReaderInterface instead.
+ * @deprecated Use tubepress_api_array_ArrayReaderInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_api_array_ArrayReaderInterface.
+ *
+ * @see tubepress_api_array_ArrayReaderInterface
  */
-interface tubepress_lib_api_array_ArrayReaderInterface extends tubepress_api_array_ArrayReaderInterface
+interface tubepress_lib_api_array_ArrayReaderInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_array_ArrayReaderInterface';
 }

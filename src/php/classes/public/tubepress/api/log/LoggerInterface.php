@@ -17,13 +17,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_log_LoggerInterface
+interface tubepress_api_log_LoggerInterface extends tubepress_platform_api_log_LoggerInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_log_LoggerInterface';
-
     /**
      * @return bool True if debugging is active, false otherwise.
      *

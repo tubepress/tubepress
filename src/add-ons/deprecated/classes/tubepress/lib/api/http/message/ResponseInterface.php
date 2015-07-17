@@ -10,14 +10,14 @@
  */
 
 /**
- * Represents an HTTP response message.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_http_message_ResponseInterface instead.
+ * @deprecated Use tubepress_api_http_message_ResponseInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_http_message_ResponseInterface
  */
-interface tubepress_lib_api_http_message_ResponseInterface extends tubepress_api_http_message_ResponseInterface
+interface tubepress_lib_api_http_message_ResponseInterface
 {
 
 }

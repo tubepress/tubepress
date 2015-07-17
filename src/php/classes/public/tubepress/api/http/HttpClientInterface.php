@@ -40,13 +40,8 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_HttpClientInterface
+interface tubepress_api_http_HttpClientInterface extends tubepress_lib_api_http_HttpClientInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_http_HttpClientInterface';
-
     /**
      * Create and return a new {@see tubepress_api_http_message_RequestInterface} object.
      *
