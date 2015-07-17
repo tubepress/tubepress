@@ -12,7 +12,7 @@
 /**
  * Plays videos with JW Player.
  */
-class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
+class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface, tubepress_app_api_embedded_EmbeddedProviderInterface
 {
     /**
      * @var tubepress_api_options_ContextInterface

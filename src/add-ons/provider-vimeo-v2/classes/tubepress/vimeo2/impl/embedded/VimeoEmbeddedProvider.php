@@ -12,7 +12,7 @@
 /**
  * Embedded player command for native Vimeo
  */
-class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
+class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface, tubepress_app_api_embedded_EmbeddedProviderInterface
 {
     private static $_URL_PARAM_AUTOPLAY  = 'autoplay';
     private static $_URL_PARAM_TITLE     = 'title';

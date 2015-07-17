@@ -12,7 +12,7 @@
 /**
  * Plays videos with EmbedPlus.
  */
-class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
+class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface, tubepress_app_api_embedded_EmbeddedProviderInterface
 {
     private static $_OPTIONS = 'options';
 
