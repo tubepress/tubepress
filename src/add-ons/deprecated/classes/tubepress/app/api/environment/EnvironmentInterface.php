@@ -15,7 +15,7 @@
  *
  * @deprecated Use tubepress_api_environment_EnvironmentInterface instead.
  */
-interface tubepress_app_api_environment_EnvironmentInterface extends tubepress_api_environment_EnvironmentInterface
+interface tubepress_app_api_environment_EnvironmentInterface
 {
 
 }
