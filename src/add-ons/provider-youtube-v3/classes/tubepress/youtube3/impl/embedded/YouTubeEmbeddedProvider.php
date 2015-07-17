@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface, tubepress_app_api_embedded_EmbeddedProviderInterface
+class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
 {
     /**
      * @var tubepress_api_options_ContextInterface

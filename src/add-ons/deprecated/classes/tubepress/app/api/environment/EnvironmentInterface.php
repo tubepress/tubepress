@@ -17,5 +17,8 @@
  */
 interface tubepress_app_api_environment_EnvironmentInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_environment_EnvironmentInterface';
 }

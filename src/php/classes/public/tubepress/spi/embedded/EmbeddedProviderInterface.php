@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_spi_embedded_EmbeddedProviderInterface
+interface tubepress_spi_embedded_EmbeddedProviderInterface extends tubepress_app_api_embedded_EmbeddedProviderInterface
 {
     /**
      * @return string[] The names of the media providers that this provider can handle.

@@ -17,7 +17,10 @@
  *
  * @deprecated Use tubepress_api_html_HtmlGeneratorInterface instead.
  */
-interface tubepress_app_api_html_HtmlGeneratorInterface extends tubepress_api_html_HtmlGeneratorInterface
+interface tubepress_app_api_html_HtmlGeneratorInterface
 {
-
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_html_HtmlGeneratorInterface';
 }
