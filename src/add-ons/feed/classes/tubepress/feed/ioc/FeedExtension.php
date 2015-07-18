@@ -47,7 +47,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
             'priority' => 100000,
             'method'   => 'onMode'
         ))->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_api_media_MediaProviderInterface::__,
+            'tag'    => tubepress_spi_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'
         ));
 
@@ -102,10 +102,10 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
         ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
                 tubepress_api_options_Names::FEED_RESULTS_PER_PAGE,
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_api_options_Names::FEED_RESULT_COUNT_CAP,
             ),
         );
@@ -114,7 +114,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -135,7 +135,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
             $containerBuilder->register(
                 'fixed_values.' . $optionName,
-                'tubepress_api_listeners_options_FixedValuesListener'
+                'tubepress_api_options_listeners_FixedValuesListener'
             )->addArgument($valuesMap)
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'priority' => 100000,
@@ -217,6 +217,6 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
          ->addArgument($categoryReferences)
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

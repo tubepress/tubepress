@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_media_MediaProviderInterface extends tubepress_api_media_CollectorInterface, tubepress_app_api_media_MediaProviderInterface
+interface tubepress_spi_media_MediaProviderInterface extends tubepress_api_media_CollectorInterface, tubepress_app_api_media_MediaProviderInterface
 {
     /**
      * @return string The human-readable name of this media provider.

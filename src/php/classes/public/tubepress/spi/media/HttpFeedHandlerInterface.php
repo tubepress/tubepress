@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_media_HttpFeedHandlerInterface extends tubepress_app_api_media_HttpFeedHandlerInterface
+interface tubepress_spi_media_HttpFeedHandlerInterface extends tubepress_app_api_media_HttpFeedHandlerInterface
 {
 
     /**

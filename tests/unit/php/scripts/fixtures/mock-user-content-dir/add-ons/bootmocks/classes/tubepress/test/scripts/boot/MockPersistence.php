@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_scripts_boot_MockPersistence implements tubepress_api_options_PersistenceBackendInterface
+class tubepress_test_scripts_boot_MockPersistence implements tubepress_spi_options_PersistenceBackendInterface
 {
     private $_store = array(
         'foo' => 'bar',

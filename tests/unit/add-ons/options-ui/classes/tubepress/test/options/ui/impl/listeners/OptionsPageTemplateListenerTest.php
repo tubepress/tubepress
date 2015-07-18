@@ -42,7 +42,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockFieldProviderCore;
+    private $_mockFieldProviderPlayer;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -83,10 +83,10 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
     {
         $this->_mockIncomingEvent         = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEnvironment           = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
-        $this->_mockFieldProviderVimeo    = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
-        $this->_mockFieldProviderCore     = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
-        $this->_mockMediaProviderVimeo    = $this->mock('tubepress_api_media_MediaProviderInterface');
-        $this->_mockMediaProviderYouTube  = $this->mock('tubepress_api_media_MediaProviderInterface');
+        $this->_mockFieldProviderVimeo    = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
+        $this->_mockFieldProviderPlayer   = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
+        $this->_mockMediaProviderVimeo    = $this->mock('tubepress_spi_media_MediaProviderInterface');
+        $this->_mockMediaProviderYouTube  = $this->mock('tubepress_spi_media_MediaProviderInterface');
         $this->_mockCategoryEmbedded      = $this->mock('tubepress_api_options_ui_ElementInterface');
         $this->_mockCategoryGallerySource = $this->mock('tubepress_api_options_ui_ElementInterface');
         $this->_mockTranslator            = $this->mock(tubepress_api_translation_TranslatorInterface::_);
@@ -98,7 +98,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             $this->_mockStringUtils
         );
 
-        $this->_sut->setFieldProviders(array($this->_mockFieldProviderVimeo, $this->_mockFieldProviderCore));
+        $this->_sut->setFieldProviders(array($this->_mockFieldProviderVimeo, $this->_mockFieldProviderPlayer));
         $this->_sut->setMediaProviders(array($this->_mockMediaProviderVimeo, $this->_mockMediaProviderYouTube));
     }
 
@@ -212,14 +212,14 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
     private function _prepMockFieldProviders()
     {
         $this->_mockFieldProviderVimeo->shouldReceive('getId')->atLeast(1)->andReturn('field-provider-vimeo');
-        $this->_mockFieldProviderCore->shouldReceive('getId')->atLeast(1)->andReturn('field-provider-core');
+        $this->_mockFieldProviderPlayer->shouldReceive('getId')->atLeast(1)->andReturn('field-provider-player');
 
         $this->_mockFieldProviderVimeo->shouldReceive('getCategories')->atLeast(1)->andReturn(array(
             $this->_mockCategoryEmbedded,
             $this->_mockCategoryGallerySource
         ));
 
-        $this->_mockFieldProviderCore->shouldReceive('getCategories')->atLeast(1)->andReturn(array(
+        $this->_mockFieldProviderPlayer->shouldReceive('getCategories')->atLeast(1)->andReturn(array(
             $this->_mockCategoryGallerySource
         ));
 
@@ -234,7 +234,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             ),
         ));
 
-        $this->_mockFieldProviderCore->shouldReceive('getCategoryIdsToFieldIdsMap')->atLeast(1)->andReturn(array(
+        $this->_mockFieldProviderPlayer->shouldReceive('getCategoryIdsToFieldIdsMap')->atLeast(1)->andReturn(array(
 
             tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
                 'coreGallerySource',
@@ -275,7 +275,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
 
         if ($candidate['categoryIdToProviderIdToFieldsMap'] !== array(
                 tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
-                    'field-provider-core' => array(
+                    'field-provider-player' => array(
                         'coreEmbeddedOption'
                     ),
                     'field-provider-vimeo' => array(
@@ -283,7 +283,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
                     ),
                 ),
                 tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
-                    'field-provider-core' => array(
+                    'field-provider-player' => array(
                         'coreGallerySource'
                     ),
                     'field-provider-vimeo' => array(
@@ -297,7 +297,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
 
         if ($candidate['fieldProviders'] !== array(
                 'field-provider-vimeo' => $this->_mockFieldProviderVimeo,
-                'field-provider-core'  => $this->_mockFieldProviderCore)) {
+                'field-provider-player'  => $this->_mockFieldProviderPlayer)) {
 
             return false;
         }

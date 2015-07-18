@@ -109,6 +109,6 @@ class tubepress_logger_ioc_LoggerExtension implements tubepress_spi_ioc_Containe
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

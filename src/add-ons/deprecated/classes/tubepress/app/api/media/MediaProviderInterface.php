@@ -13,10 +13,10 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_media_MediaProviderInterface instead. Will be removed in TubePress 5.0.0 and any
- *             constants in this class will be moved to tubepress_api_media_MediaProviderInterface.
+ * @deprecated Use tubepress_spi_media_MediaProviderInterface instead. Will be removed in TubePress 5.0.0 and any
+ *             constants in this class will be moved to tubepress_spi_media_MediaProviderInterface.
  *
- * @see tubepress_api_media_MediaProviderInterface
+ * @see tubepress_spi_media_MediaProviderInterface
  */
 interface tubepress_app_api_media_MediaProviderInterface
 {
@@ -24,5 +24,5 @@ interface tubepress_app_api_media_MediaProviderInterface
      * @api
      * @since 4.0.0
      */
-    const __ = 'tubepress_api_media_MediaProviderInterface';
+    const __ = 'tubepress_spi_media_MediaProviderInterface';
 }

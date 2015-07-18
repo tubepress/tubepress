@@ -36,7 +36,7 @@ return array(
     'tubepress_api_http_ResponseCodeInterface',
     'tubepress_api_options_ContextInterface',
     'tubepress_api_options_Names',
-    'tubepress_api_options_PersistenceBackendInterface',
+    'tubepress_spi_options_PersistenceBackendInterface',
     'tubepress_api_options_PersistenceInterface',
     'tubepress_api_options_Reference',
     'tubepress_api_options_ReferenceInterface',

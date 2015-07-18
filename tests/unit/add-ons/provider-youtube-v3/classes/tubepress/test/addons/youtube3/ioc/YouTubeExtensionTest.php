@@ -111,7 +111,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
 
             $this->expectRegistration(
                 "fixed_values.$optionName",
-                'tubepress_api_listeners_options_FixedValuesListener'
+                'tubepress_api_options_listeners_FixedValuesListener'
             )->withArgument($values)
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                     'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
@@ -121,13 +121,13 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
         }
 
         $validators = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
                 tubepress_youtube3_api_Constants::OPTION_API_KEY,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE
             )
         );
@@ -137,7 +137,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
 
                 $this->expectRegistration(
                     "regex_validation.$optionName",
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->withArgument($type)
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
@@ -170,7 +170,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_media_HttpCollectorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-            ->withTag(tubepress_api_media_MediaProviderInterface::__);
+            ->withTag(tubepress_spi_media_MediaProviderInterface::__);
     }
 
     private function _expectOptions()
@@ -371,7 +371,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
             'tubepress_youtube3_impl_options_ui_FieldProvider'
 
         )->withArgument($fieldReferences)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
 
     }
 

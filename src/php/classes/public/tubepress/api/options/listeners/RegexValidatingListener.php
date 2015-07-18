@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_api_listeners_options_RegexValidatingListener
+class tubepress_api_options_listeners_RegexValidatingListener
 {
     const TYPE_INTEGER_POSITIVE                = 'positiveInteger';
     const TYPE_INTEGER_NONNEGATIVE             = 'nonNegativeInteger';

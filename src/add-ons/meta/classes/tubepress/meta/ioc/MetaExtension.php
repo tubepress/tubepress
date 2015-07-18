@@ -42,7 +42,7 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_api_media_MediaProviderInterface::__,
+            'tag'    => tubepress_spi_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
@@ -103,7 +103,7 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
         ))->addArgument(array());
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_api_options_Names::META_DESC_LIMIT,
             ),
         );
@@ -112,7 +112,7 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -196,6 +196,6 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
          ->addArgument($categoryReferences)
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

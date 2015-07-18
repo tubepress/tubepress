@@ -46,11 +46,11 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
 
             ),))->withTag(tubepress_api_options_ReferenceInterface::_);
 
-        $toValidate = array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(tubepress_api_options_Names::SHORTCODE_KEYWORD,),);
+        $toValidate = array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(tubepress_api_options_Names::SHORTCODE_KEYWORD,),);
 
         foreach ($toValidate as $type => $optionNames) {
             foreach ($optionNames as $optionName) {
-                $this->expectRegistration('regex_validator.' . $optionName, 'tubepress_api_listeners_options_RegexValidatingListener')->withArgument($type)->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array('event' => tubepress_api_event_Events::OPTION_SET . ".$optionName", 'priority' => 100000, 'method' => 'onOption',));
+                $this->expectRegistration('regex_validator.' . $optionName, 'tubepress_api_options_listeners_RegexValidatingListener')->withArgument($type)->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array('event' => tubepress_api_event_Events::OPTION_SET . ".$optionName", 'priority' => 100000, 'method' => 'onOption',));
             }
         }
     }
@@ -79,7 +79,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'tubepress_wordpress_impl_options_ui_WpFieldProvider',
             'tubepress_wordpress_impl_options_ui_WpFieldProvider'
         )->withArgument($fieldReferences)
-         ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _registerListeners()
@@ -211,7 +211,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
 
         $this->expectRegistration(
-            tubepress_api_options_PersistenceBackendInterface::_,
+            tubepress_spi_options_PersistenceBackendInterface::_,
             'tubepress_wordpress_impl_options_WpPersistence'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
     }

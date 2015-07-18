@@ -82,7 +82,7 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
     private function _prepareEvent($feed, $index)
     {
         $item = new tubepress_api_media_MediaItem('id');
-        $mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $mockProvider->shouldReceive('getName')->andReturn('vimeo');
         $item->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockProvider);
 

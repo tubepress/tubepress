@@ -13,9 +13,9 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_ui_FieldProviderInterface instead. Will be removed in TubePress 5.0.0.
+ * @deprecated Use tubepress_spi_options_ui_FieldProviderInterface instead. Will be removed in TubePress 5.0.0.
  *
- * @see tubepress_api_options_ui_FieldProviderInterface
+ * @see tubepress_spi_options_ui_FieldProviderInterface
  */
 interface tubepress_app_api_options_ui_FieldProviderInterface
 {

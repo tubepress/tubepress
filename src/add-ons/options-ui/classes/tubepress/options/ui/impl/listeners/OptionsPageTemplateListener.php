@@ -56,12 +56,12 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     private $_environment;
 
     /**
-     * @var tubepress_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_spi_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders;
 
     /**
-     * @var tubepress_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
@@ -153,9 +153,9 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     {
         foreach ($mediaProviders as $mediaProvider) {
 
-            if (!($mediaProvider instanceof tubepress_api_media_MediaProviderInterface)) {
+            if (!($mediaProvider instanceof tubepress_spi_media_MediaProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_api_media_MediaProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setMediaProviders');
+                throw new InvalidArgumentException('Non tubepress_spi_media_MediaProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setMediaProviders');
             }
         }
 
@@ -321,7 +321,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
         return $wrappedFieldProviders;
     }
 
-    private function _getCategoryIdOfFieldId($fieldId, tubepress_api_options_ui_FieldProviderInterface $fieldProvider)
+    private function _getCategoryIdOfFieldId($fieldId, tubepress_spi_options_ui_FieldProviderInterface $fieldProvider)
     {
         $map = $fieldProvider->getCategoryIdsToFieldIdsMap();
 
@@ -339,7 +339,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     /**
      * @param $fieldId
      *
-     * @return tubepress_api_options_ui_FieldProviderInterface
+     * @return tubepress_spi_options_ui_FieldProviderInterface
      */
     private function _findFieldProviderForFieldId($fieldId)
     {
@@ -512,7 +512,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
 
     /**
-     * @param tubepress_api_options_ui_FieldProviderInterface[] $multiSourceFieldProviders
+     * @param tubepress_spi_options_ui_FieldProviderInterface[] $multiSourceFieldProviders
      *
      * @return array
      */

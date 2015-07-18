@@ -35,7 +35,7 @@ class tubepress_search_impl_listeners_SearchListener
     private $_requestParams;
 
     /**
-     * @var tubepress_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders = array();
 
@@ -111,7 +111,7 @@ class tubepress_search_impl_listeners_SearchListener
         $toAdd = array();
 
         /**
-         * @var $mediaProvider tubepress_api_media_MediaProviderInterface
+         * @var $mediaProvider tubepress_spi_media_MediaProviderInterface
          */
         foreach ($this->_mediaProviders as $mediaProvider) {
 

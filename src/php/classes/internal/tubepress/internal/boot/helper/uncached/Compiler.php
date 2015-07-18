@@ -280,7 +280,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
                 'tubepress_api_ioc_DefinitionInterface',
                 'tubepress_api_ioc_Reference',
                 'tubepress_api_options_ui_FieldInterface',
-                'tubepress_api_options_ui_FieldProviderInterface',
+                'tubepress_spi_options_ui_FieldProviderInterface',
             );
 
             if ($this->_shouldLog) {

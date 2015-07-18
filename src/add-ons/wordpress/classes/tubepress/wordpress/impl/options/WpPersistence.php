@@ -13,7 +13,7 @@
  * Implementation of tubepress_api_options_PersistenceInterface that uses the
  * regular WordPress options API.
  */
-class tubepress_wordpress_impl_options_WpPersistence implements tubepress_api_options_PersistenceBackendInterface
+class tubepress_wordpress_impl_options_WpPersistence implements tubepress_spi_options_PersistenceBackendInterface
 {
     /*
      * Prefix all our option names in the WordPress DB

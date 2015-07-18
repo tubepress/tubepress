@@ -37,7 +37,7 @@ class tubepress_options_ui_impl_fields_templated_single_OrderByField extends tub
 
     }
 
-    protected function providerRecognizesChoice(tubepress_api_media_MediaProviderInterface $provider, $choice)
+    protected function providerRecognizesChoice(tubepress_spi_media_MediaProviderInterface $provider, $choice)
     {
         $map = $provider->getMapOfFeedSortNamesToUntranslatedLabels();
 

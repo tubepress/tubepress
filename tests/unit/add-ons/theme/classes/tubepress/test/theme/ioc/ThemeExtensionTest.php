@@ -159,7 +159,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
             ->withArgument($categoryReferences)
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedParameterMap()

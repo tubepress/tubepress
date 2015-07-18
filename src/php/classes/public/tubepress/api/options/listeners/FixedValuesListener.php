@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_api_listeners_options_FixedValuesListener
+class tubepress_api_options_listeners_FixedValuesListener
 {
     /**
      * @var array

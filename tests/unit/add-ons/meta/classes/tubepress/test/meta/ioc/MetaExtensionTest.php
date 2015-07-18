@@ -38,7 +38,7 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
             ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => tubepress_api_media_MediaProviderInterface::__,
+                'tag'    => tubepress_spi_media_MediaProviderInterface::__,
                 'method' => 'setMediaProviders'))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
@@ -99,7 +99,7 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
             ))->withArgument(array());
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_api_options_Names::META_DESC_LIMIT,
             ),
         );
@@ -108,7 +108,7 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
             foreach ($optionNames as $optionName) {
                 $this->expectRegistration(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->withArgument($type)
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -192,7 +192,7 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
             ->withArgument($categoryReferences)
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()

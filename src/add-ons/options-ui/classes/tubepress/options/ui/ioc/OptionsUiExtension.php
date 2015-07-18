@@ -64,10 +64,10 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_spi_ioc_C
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => 'tubepress_api_options_ui_FieldProviderInterface',
+            'tag'    => 'tubepress_spi_options_ui_FieldProviderInterface',
             'method' => 'setFieldProviders'))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => 'tubepress_api_media_MediaProviderInterface',
+            'tag'    => 'tubepress_spi_media_MediaProviderInterface',
             'method' => 'setMediaProviders'))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form',
@@ -89,7 +89,7 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_spi_ioc_C
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
             ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => tubepress_api_media_MediaProviderInterface::__,
+                'tag'    => tubepress_spi_media_MediaProviderInterface::__,
                 'method' => 'setMediaProviders'
             ));
 
@@ -116,7 +116,7 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_spi_ioc_C
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_html_impl_CssAndJsGenerationHelper.admin'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
             ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => 'tubepress_api_options_ui_FieldProviderInterface',
+                'tag'    => 'tubepress_spi_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders',
             ));
     }
@@ -149,7 +149,7 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_spi_ioc_C
          ->addArgument($categoryReferences)
          ->addArgument(array())
          ->addArgument(array())
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

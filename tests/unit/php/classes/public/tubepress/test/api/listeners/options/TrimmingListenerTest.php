@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_api_listeners_options_TrimmingListener<extended>
+ * @covers tubepress_api_options_listeners_TrimmingListener<extended>
  */
 class tubepress_test_api_listeners_options_TrimmingListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_api_listeners_options_TrimmingListener
+     * @var tubepress_api_options_listeners_TrimmingListener
      */
     private $_sut;
 
@@ -28,7 +28,7 @@ class tubepress_test_api_listeners_options_TrimmingListenerTest extends tubepres
     {
         $this->_mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
-        $this->_sut = new tubepress_api_listeners_options_TrimmingListener('#');
+        $this->_sut = new tubepress_api_options_listeners_TrimmingListener('#');
     }
 
     public function testTrim()

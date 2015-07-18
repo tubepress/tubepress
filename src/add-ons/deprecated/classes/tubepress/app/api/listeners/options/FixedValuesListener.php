@@ -13,11 +13,11 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_listeners_options_FixedValuesListener instead. Will be removed in TubePress 5.0.0.
+ * @deprecated Use tubepress_api_options_listeners_FixedValuesListener instead. Will be removed in TubePress 5.0.0.
  *
- * @see tubepress_api_listeners_options_FixedValuesListener
+ * @see tubepress_api_options_listeners_FixedValuesListener
  */
-class tubepress_app_api_listeners_options_FixedValuesListener extends tubepress_api_listeners_options_FixedValuesListener
+class tubepress_app_api_listeners_options_FixedValuesListener extends tubepress_api_options_listeners_FixedValuesListener
 {
 
 }

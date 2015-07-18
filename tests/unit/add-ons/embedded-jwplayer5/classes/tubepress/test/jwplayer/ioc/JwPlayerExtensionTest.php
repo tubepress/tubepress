@@ -52,9 +52,9 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
         foreach ($colors as $optionName) {
 
             $this->expectRegistration(
-                'tubepress_api_listeners_options_RegexValidatingListener.' . $optionName,
-                'tubepress_api_listeners_options_RegexValidatingListener'
-            )->withArgument(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR)
+                'tubepress_api_options_listeners_RegexValidatingListener.' . $optionName,
+                'tubepress_api_options_listeners_RegexValidatingListener'
+            )->withArgument(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR)
                 ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                 ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
@@ -65,7 +65,7 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
 
             $this->expectRegistration(
                 'value_trimmer.' . $optionName,
-                'tubepress_api_listeners_options_TrimmingListener'
+                'tubepress_api_options_listeners_TrimmingListener'
             )->withArgument('#')
                 ->withMethodCall('setModeToLtrim', array())
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
@@ -154,7 +154,7 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()

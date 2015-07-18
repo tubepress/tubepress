@@ -13,7 +13,7 @@
  * @api
  * @since 4.2.0
  */
-class tubepress_api_options_ui_BaseFieldProvider implements tubepress_api_options_ui_FieldProviderInterface
+class tubepress_api_options_ui_BaseFieldProvider implements tubepress_spi_options_ui_FieldProviderInterface
 {
     /**
      * @var tubepress_api_options_ui_ElementInterface[]

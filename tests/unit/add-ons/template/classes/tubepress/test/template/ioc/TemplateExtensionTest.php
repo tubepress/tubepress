@@ -103,7 +103,7 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_api_te
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _expectTemplateService()

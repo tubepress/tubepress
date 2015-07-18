@@ -110,7 +110,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _registerTemplatingService(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

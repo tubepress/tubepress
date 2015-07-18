@@ -81,7 +81,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
     {
         $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('custom-video');
 
-        $mockMediaProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $mockMediaProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $mockMediaProvider->shouldReceive('getAttributeNameOfItemId')->atLeast(1)->andReturn('id');
 
         $video = new tubepress_api_media_MediaItem('video-id');
@@ -118,7 +118,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST)->andReturn('xxx');
 
-        $mockVideoProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
 
         $mockVideo1 = new tubepress_api_media_MediaItem('p');
         $mockVideo1->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockVideoProvider);
@@ -230,8 +230,8 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
         $mockItem2 = $this->mock('tubepress_api_media_MediaItem');
         $mockItem3 = $this->mock('tubepress_api_media_MediaItem');
 
-        $mockProvider1 = $this->mock('tubepress_api_media_MediaProviderInterface');
-        $mockProvider2 = $this->mock('tubepress_api_media_MediaProviderInterface');
+        $mockProvider1 = $this->mock('tubepress_spi_media_MediaProviderInterface');
+        $mockProvider2 = $this->mock('tubepress_spi_media_MediaProviderInterface');
 
         $mockItem1->shouldReceive('getAttribute')->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider1);
         $mockItem2->shouldReceive('getAttribute')->with(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER)->andReturn($mockProvider2);

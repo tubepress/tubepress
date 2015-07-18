@@ -62,7 +62,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
     {
         $this->setExpectedException('RuntimeException', 'No media providers were able to fulfill the page request for <code>some source</code>');
 
-        $this->_mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
 
         $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
@@ -87,7 +87,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
 
     public function testGetPageExplicitMode()
     {
-        $this->_mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
         $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
@@ -116,7 +116,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
 
     public function testGetPageNoExplicitModeNoSources()
     {
-        $this->_mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
         $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
@@ -146,7 +146,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
 
     public function testGetPageNoExplicitModeStoredSources()
     {
-        $this->_mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
         $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
@@ -184,7 +184,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
 
     public function testGetSingle()
     {
-        $this->_mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
 
         $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
 
@@ -205,7 +205,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
     {
         $this->setExpectedException('RuntimeException', 'No acceptable providers for item');
 
-        $this->_mockProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
 
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('hasArgument')->once()->with('mediaItem')->andReturn(false);

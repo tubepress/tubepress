@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_api_listeners_options_RegexValidatingListener<extended>
+ * @covers tubepress_api_options_listeners_RegexValidatingListener<extended>
  */
 class tubepress_test_api_listeners_options_RegexValidatingListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_api_listeners_options_RegexValidatingListener
+     * @var tubepress_api_options_listeners_RegexValidatingListener
      */
     private $_sut;
 
@@ -49,7 +49,7 @@ class tubepress_test_api_listeners_options_RegexValidatingListenerTest extends t
      */
     public function testOnOptionSet($type, $incoming, $expectedToPass)
     {
-        $this->_sut = new tubepress_api_listeners_options_RegexValidatingListener($type, $this->_mockReference, $this->_mockTranslation);
+        $this->_sut = new tubepress_api_options_listeners_RegexValidatingListener($type, $this->_mockReference, $this->_mockTranslation);
 
         $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incoming);
 
@@ -70,61 +70,61 @@ class tubepress_test_api_listeners_options_RegexValidatingListenerTest extends t
     {
         return array(
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE, 1, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE, '1', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE, 0, false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE, '0', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE, -1, false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE, '-1', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE, 1, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE, '1', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE, 0, false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE, '0', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE, -1, false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE, '-1', false),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, 1, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '1', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, 0, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '0', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, -1, false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '-1', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, 1, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '1', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, 0, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '0', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, -1, false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '-1', false),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, 1, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, -1, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, 0, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '1', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '-1', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '0', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '1.5', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '-1.5', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '0.5', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, 1, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, -1, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, 0, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, '1', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, '-1', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, '0', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, '1.5', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, '-1.5', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER, '0.5', false),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, 'x', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '3', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, 3, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '-', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '_', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, 'x', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '3', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, 3, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '-', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '_', true),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, 'x', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '3', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, 3, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '-', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '_', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, 'x', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '3', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, 3, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '-', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS, '_', true),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, 'x', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '3', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, 3, true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '-', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '_', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, 'x', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '3', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, 3, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '-', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN, '_', true),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR, '', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR, 'x', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR, 'aaaaaa', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR, 111222, true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR, '', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR, 'x', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR, 'aaaaaa', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR, 111222, true),
 
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '12345678901', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890', false),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890-', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890_', true),
-            array(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890&', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '12345678901', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890-', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890_', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890&', false),
         );
     }
 }

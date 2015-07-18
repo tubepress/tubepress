@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for Vimeo.
  */
-class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_api_media_MediaProviderInterface
+class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_spi_media_MediaProviderInterface
 {
     private static $_GALLERY_SOURCE_NAMES = array(
 
@@ -44,7 +44,7 @@ class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_api_media_M
     private $_httpCollector;
 
     /**
-     * @var tubepress_api_media_HttpFeedHandlerInterface
+     * @var tubepress_spi_media_HttpFeedHandlerInterface
      */
     private $_feedHandler;
 
@@ -54,7 +54,7 @@ class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_api_media_M
     private $_properties;
 
     public function __construct(tubepress_api_media_HttpCollectorInterface     $httpCollector,
-                                tubepress_api_media_HttpFeedHandlerInterface   $feedHandler,
+                                tubepress_spi_media_HttpFeedHandlerInterface   $feedHandler,
                                 tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_httpCollector = $httpCollector;

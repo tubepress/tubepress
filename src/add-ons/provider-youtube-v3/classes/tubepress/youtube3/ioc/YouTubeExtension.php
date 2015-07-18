@@ -115,7 +115,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
 
             $containerBuilder->register(
                 "fixed_values.$optionName",
-                'tubepress_api_listeners_options_FixedValuesListener'
+                'tubepress_api_options_listeners_FixedValuesListener'
             )->addArgument($values)
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
@@ -125,13 +125,13 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
         }
 
         $validators = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
                 tubepress_youtube3_api_Constants::OPTION_API_KEY,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE
             )
         );
@@ -141,7 +141,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
 
                 $containerBuilder->register(
                     "regex_validation.$optionName",
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                     ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
@@ -174,7 +174,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_media_HttpCollectorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-         ->addTag(tubepress_api_media_MediaProviderInterface::__);
+         ->addTag(tubepress_spi_media_MediaProviderInterface::__);
     }
 
     private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -375,7 +375,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
             'tubepress_youtube3_impl_options_ui_FieldProvider'
 
         )->addArgument($fieldReferences)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
 
     }
 

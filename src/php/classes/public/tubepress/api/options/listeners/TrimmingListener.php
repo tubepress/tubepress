@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_api_listeners_options_TrimmingListener
+class tubepress_api_options_listeners_TrimmingListener
 {
     private $_ltrim = false;
 

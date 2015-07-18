@@ -64,7 +64,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
         ))->addTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD,
             ),
         );
@@ -73,7 +73,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -111,7 +111,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'tubepress_wordpress_impl_options_ui_WpFieldProvider',
             'tubepress_wordpress_impl_options_ui_WpFieldProvider'
         )->addArgument($fieldReferences)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -242,7 +242,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
 
         $containerBuilder->register(
-            tubepress_api_options_PersistenceBackendInterface::_,
+            tubepress_spi_options_PersistenceBackendInterface::_,
             'tubepress_wordpress_impl_options_WpPersistence'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
     }

@@ -44,7 +44,7 @@ class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepre
         $this->_mockIncomingEvent    = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
         $this->_mockContext          = $this->mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockMediaProvider    = $this->mock(tubepress_api_media_MediaProviderInterface::__);
+        $this->_mockMediaProvider    = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
 
         $this->_sut = new tubepress_meta_impl_listeners_MetaDisplayListener(
             $this->_mockContext,

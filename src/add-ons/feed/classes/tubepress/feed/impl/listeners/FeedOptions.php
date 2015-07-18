@@ -15,7 +15,7 @@
 class tubepress_feed_impl_listeners_FeedOptions
 {
     /**
-     * @var tubepress_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
