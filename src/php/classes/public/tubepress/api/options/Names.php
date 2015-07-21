@@ -259,6 +259,12 @@ interface tubepress_api_options_Names
      * @api
      * @since 4.0.0
      */
+    const LANG = 'lang';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const META_DISPLAY_AUTHOR = 'author';
 
     /**
@@ -362,6 +368,12 @@ interface tubepress_api_options_Names
      * @since 4.0.0
      */
     const SEARCH_PROVIDER = 'searchProvider';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const SEARCH_RESULTS_DOM_ID = 'searchResultsDomId';
 
     /**
      * @api
