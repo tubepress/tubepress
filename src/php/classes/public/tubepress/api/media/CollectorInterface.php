@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_media_CollectorInterface extends tubepress_app_api_media_CollectorInterface
+interface tubepress_api_media_CollectorInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_media_CollectorInterface';
+
     /**
      * Collects a media gallery page.
      *

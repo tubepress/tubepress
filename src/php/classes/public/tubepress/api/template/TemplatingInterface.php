@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_template_TemplatingInterface extends tubepress_lib_api_template_TemplatingInterface
+interface tubepress_api_template_TemplatingInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_template_TemplatingInterface';
+
     /**
      * Renders the template with the given context and returns it as string.
      *

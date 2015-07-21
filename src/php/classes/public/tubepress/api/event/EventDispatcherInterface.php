@@ -18,8 +18,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_event_EventDispatcherInterface extends tubepress_lib_api_event_EventDispatcherInterface
+interface tubepress_api_event_EventDispatcherInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_event_EventDispatcherInterface';
+
     /**
      * Adds an event listener that listens on the specified events.
      *

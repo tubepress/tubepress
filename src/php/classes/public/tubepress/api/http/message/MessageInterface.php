@@ -40,7 +40,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_message_MessageInterface extends tubepress_lib_api_http_message_MessageInterface
+interface tubepress_api_http_message_MessageInterface
 {
     /**
      * Appends a header value to any existing values associated with the

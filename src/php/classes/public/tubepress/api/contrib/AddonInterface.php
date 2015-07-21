@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_contrib_AddonInterface extends tubepress_api_contrib_ContributableInterface, tubepress_platform_api_addon_AddonInterface
+interface tubepress_api_contrib_AddonInterface extends tubepress_api_contrib_ContributableInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_contrib_AddonInterface';
+
     /**
      * @return string[] Optional. An array of IoC container extension class names. May be empty, never null.
      *

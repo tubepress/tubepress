@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_PersistenceInterface extends tubepress_app_api_options_PersistenceInterface
+interface tubepress_api_options_PersistenceInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_options_PersistenceInterface';
+
     /**
      * Retrieve the current value of an option from this storage manager.
      *

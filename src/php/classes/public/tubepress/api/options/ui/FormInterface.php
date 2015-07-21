@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ui_FormInterface extends tubepress_app_api_options_ui_FormInterface
+interface tubepress_api_options_ui_FormInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_options_ui_FormInterface';
+
     /**
      * @param array   $errors        An associative array, which may be empty, of field IDs to error messages.
      * @param boolean $justSubmitted True if the form was just submitted, false otherwise.

@@ -15,8 +15,12 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_spi_media_HttpFeedHandlerInterface extends tubepress_app_api_media_HttpFeedHandlerInterface
+interface tubepress_spi_media_HttpFeedHandlerInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_spi_media_HttpFeedHandlerInterface';
 
     /**
      * @return string The name of this feed handler. Never empty or null. All lowercase alphanumerics and dashes.

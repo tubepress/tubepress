@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_contrib_ContributableInterface extends tubepress_platform_api_contrib_ContributableInterface
+interface tubepress_api_contrib_ContributableInterface
 {
     /**
      * @return string Required. The globally unique name of this contributable.

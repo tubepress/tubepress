@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_spi_template_PathProviderInterface extends tubepress_lib_api_template_PathProviderInterface
+interface tubepress_spi_template_PathProviderInterface
 {
     /**
      * @return string[] A set of absolute filesystem directory paths

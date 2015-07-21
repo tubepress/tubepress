@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_util_TimeUtilsInterface extends tubepress_lib_api_util_TimeUtilsInterface
+interface tubepress_api_util_TimeUtilsInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_util_TimeUtilsInterface';
+
     /**
      * Converts a unix timestamp to relative time.
      *

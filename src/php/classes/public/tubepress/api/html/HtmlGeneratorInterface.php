@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_html_HtmlGeneratorInterface extends tubepress_app_api_html_HtmlGeneratorInterface
+interface tubepress_api_html_HtmlGeneratorInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_html_HtmlGeneratorInterface';
+
     /**
      * Generates the primary HTML.
      *

@@ -15,8 +15,10 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_oauth_v1_ClientInterface extends tubepress_lib_api_http_oauth_v1_ClientInterface
+interface tubepress_api_http_oauth_v1_ClientInterface
 {
+    const _ = 'tubepress_api_http_oauth_v1_ClientInterface';
+
     /**
      * @param tubepress_api_http_message_RequestInterface $request
      * @param tubepress_api_http_oauth_v1_Credentials       $clientCredentials

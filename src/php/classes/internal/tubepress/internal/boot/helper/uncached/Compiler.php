@@ -270,8 +270,16 @@ class tubepress_internal_boot_helper_uncached_Compiler
                 'tubepress_platform_api_ioc_ContainerExtensionInterface',
                 'tubepress_platform_api_ioc_DefinitionInterface',
                 'tubepress_platform_api_ioc_Reference',
+                'tubepress_app_api_options_ReferenceInterface',
                 'tubepress_app_api_options_ui_FieldInterface',
                 'tubepress_app_api_options_ui_FieldProviderInterface',
+                'tubepress_lib_api_ioc_ServiceTags',
+                'tubepress_app_api_listeners_options_RegexValidatingListener',
+                'tubepress_app_api_options_ui_FieldBuilderInterface',
+                'tubepress_app_api_event_Events',
+                'tubepress_app_api_embedded_EmbeddedProviderInterface',
+                'tubepress_lib_api_template_TemplatingInterface',
+                'tubepress_app_api_options_ContextInterface',
             );
 
             $replace = array(
@@ -279,8 +287,16 @@ class tubepress_internal_boot_helper_uncached_Compiler
                 'tubepress_spi_ioc_ContainerExtensionInterface',
                 'tubepress_api_ioc_DefinitionInterface',
                 'tubepress_api_ioc_Reference',
+                'tubepress_api_options_ReferenceInterface',
                 'tubepress_api_options_ui_FieldInterface',
                 'tubepress_spi_options_ui_FieldProviderInterface',
+                'tubepress_api_ioc_ServiceTags',
+                'tubepress_api_options_listeners_RegexValidatingListener',
+                'tubepress_api_options_ui_FieldBuilderInterface',
+                'tubepress_api_event_Events',
+                'tubepress_spi_embedded_EmbeddedProviderInterface',
+                'tubepress_api_template_TemplatingInterface',
+                'tubepress_api_options_ContextInterface',
             );
 
             if ($this->_shouldLog) {

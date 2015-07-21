@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_theme_ThemeInterface extends tubepress_api_contrib_ContributableInterface, tubepress_app_api_theme_ThemeInterface
+interface tubepress_api_theme_ThemeInterface extends tubepress_api_contrib_ContributableInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_theme_ThemeInterface';
+
     /**
      * @param tubepress_api_url_UrlInterface $baseUrl        The TubePress base URL.
      * @param tubepress_api_url_UrlInterface $userContentUrl The user content URL.

@@ -13,8 +13,13 @@
  * @api
  * @since 4.1.0
  */
-interface tubepress_api_array_ArrayReaderInterface extends tubepress_lib_api_array_ArrayReaderInterface
+interface tubepress_api_array_ArrayReaderInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_array_ArrayReaderInterface';
+
     /**
      * @api
      * @since 4.1.0

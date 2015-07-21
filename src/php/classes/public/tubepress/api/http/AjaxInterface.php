@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_http_AjaxInterface extends tubepress_lib_api_http_AjaxInterface
+interface tubepress_api_http_AjaxInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_http_AjaxInterface';
+
     /**
      * Handle the Ajax request.
      *

@@ -13,8 +13,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_media_AttributeFormatterInterface extends tubepress_app_api_media_AttributeFormatterInterface
+interface tubepress_api_media_AttributeFormatterInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_media_AttributeFormatterInterface';
+
     /**
      * @param tubepress_api_media_MediaItem $item
      * @param string                            $sourceAttributeName

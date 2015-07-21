@@ -20,8 +20,5 @@
  */
 interface tubepress_app_api_options_ContextInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_options_ContextInterface';
+
 }

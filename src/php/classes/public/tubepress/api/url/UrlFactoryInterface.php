@@ -16,6 +16,11 @@
 interface tubepress_api_url_UrlFactoryInterface extends tubepress_platform_api_url_UrlFactoryInterface
 {
     /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_url_UrlFactoryInterface';
+
+    /**
      * @param string $url The URL to parse.
      *
      * @return tubepress_api_url_UrlInterface

@@ -127,7 +127,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 'event'    => 'tubepress.wordpress.filter.puc_request_info_result-tubepress',
                 'method'   => 'onFilter_PucRequestInfoResultTubePress',
                 'priority' => 100000))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.admin_print_scripts-settings_page_tubepress',
                 'method'   => 'onAction_admin_print_scripts',
                 'priority' => 100000));

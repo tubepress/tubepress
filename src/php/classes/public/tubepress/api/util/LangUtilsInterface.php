@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_util_LangUtilsInterface extends tubepress_platform_api_util_LangUtilsInterface
+interface tubepress_api_util_LangUtilsInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_util_LangUtilsInterface';
+
     /**
      * @param mixed $candidate
      *

@@ -13,8 +13,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_spi_options_PersistenceBackendInterface extends tubepress_app_api_options_PersistenceBackendInterface
+interface tubepress_spi_options_PersistenceBackendInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_spi_options_PersistenceBackendInterface';
+
     /**
      * Creates one or more options in storage, if they don't already exist.
      *

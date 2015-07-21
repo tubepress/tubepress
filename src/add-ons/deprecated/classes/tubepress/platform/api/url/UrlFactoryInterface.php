@@ -20,8 +20,5 @@
  */
 interface tubepress_platform_api_url_UrlFactoryInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_url_UrlFactoryInterface';
+
 }

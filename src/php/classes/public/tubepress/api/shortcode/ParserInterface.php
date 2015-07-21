@@ -15,8 +15,10 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_shortcode_ParserInterface extends tubepress_app_api_shortcode_ParserInterface
+interface tubepress_api_shortcode_ParserInterface
 {
+    const _ = 'tubepress_api_shortcode_ParserInterface';
+
     /**
      * This function is used to parse a shortcode into options that TubePress can use.
      *

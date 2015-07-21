@@ -42,8 +42,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_url_UrlInterface extends tubepress_platform_api_url_UrlInterface
+interface tubepress_api_url_UrlInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_url_UrlInterface';
+
     /**
      * Add a relative path to the currently set path.
      *

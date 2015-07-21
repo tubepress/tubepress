@@ -38,8 +38,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_translation_TranslatorInterface extends tubepress_lib_api_translation_TranslatorInterface
+interface tubepress_api_translation_TranslatorInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_translation_TranslatorInterface';
+
     /**
      * Translates the given message.
      *

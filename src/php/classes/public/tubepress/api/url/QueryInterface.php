@@ -42,8 +42,11 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_url_QueryInterface extends tubepress_platform_api_url_QueryInterface
+interface tubepress_api_url_QueryInterface
 {
+    const RFC3986_ENCODING = 'RFC3986';
+    const RFC1738_ENCODING = 'RFC1738';
+
     /**
      * Add a value to a key.  If a key of the same name has already been added,
      * the key value will be converted into an array and the new value will be

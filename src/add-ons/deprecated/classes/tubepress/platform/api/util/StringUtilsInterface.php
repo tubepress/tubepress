@@ -20,8 +20,5 @@
  */
 interface tubepress_platform_api_util_StringUtilsInterface
 {
-    /**
-     * @ignore
-     */
-    const _ = 'tubepress_api_util_StringUtilsInterface';
+
 }

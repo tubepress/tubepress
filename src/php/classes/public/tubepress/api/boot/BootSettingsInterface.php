@@ -15,8 +15,13 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_boot_BootSettingsInterface extends tubepress_platform_api_boot_BootSettingsInterface
+interface tubepress_api_boot_BootSettingsInterface
 {
+    /**
+     * @ignore
+     */
+    const _ = 'tubepress_api_boot_BootSettingsInterface';
+
     /**
      * @return bool True if the user has properly requested to clear the system cache.
      *

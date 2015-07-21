@@ -38,7 +38,7 @@
  * @api
  * @since 4.1.11
  */
-interface tubepress_api_shortcode_ShortcodeInterface extends tubepress_lib_api_shortcode_ShortcodeInterface
+interface tubepress_api_shortcode_ShortcodeInterface
 {
     /**
      * @api

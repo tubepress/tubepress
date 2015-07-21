@@ -15,7 +15,7 @@
  * @api
  * @since 4.1.11
  */
-interface tubepress_api_options_ui_MultiSourceFieldInterface extends tubepress_api_options_ui_FieldInterface, tubepress_app_api_options_ui_MultiSourceFieldInterface
+interface tubepress_api_options_ui_MultiSourceFieldInterface extends tubepress_api_options_ui_FieldInterface
 {
     /**
      * @param $prefix
