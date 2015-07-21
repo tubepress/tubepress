@@ -20,7 +20,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_FieldProviderFil
     private $_mockOptionReference;
 
     /**
-     * @var tubepress_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_spi_options_ui_FieldProviderInterface[]
      */
     private $_mockFieldProviders;
 
@@ -65,7 +65,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_FieldProviderFil
 
         foreach (array('a', 'b', 'c', 'd') as $letter) {
 
-            $fieldProvider = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
+            $fieldProvider = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
             $fieldProvider->shouldReceive('getId')->andReturn($letter);
             $fieldProvider->shouldReceive('getUntranslatedDisplayName')->andReturn(strtoupper($letter));
             $fieldProvider->shouldReceive('isAbleToBeFilteredFromGui')->andReturn($letter !== 'c');

@@ -203,10 +203,10 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
             ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_api_options_Names::EMBEDDED_SCROLL_DURATION,
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER => array(
                 tubepress_api_options_Names::EMBEDDED_SCROLL_OFFSET,
             ),
         );
@@ -215,7 +215,7 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -280,6 +280,6 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

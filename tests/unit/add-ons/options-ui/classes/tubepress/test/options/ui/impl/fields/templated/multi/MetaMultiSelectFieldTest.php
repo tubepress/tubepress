@@ -37,8 +37,8 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_MetaMultiSelectF
     protected function onAfterTemplateBasedFieldSetup()
     {
         $this->_mockOptionProvider = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockVideoProvider1  = $this->mock(tubepress_api_media_MediaProviderInterface::__);
-        $this->_mockVideoProvider2  = $this->mock(tubepress_api_media_MediaProviderInterface::__);
+        $this->_mockVideoProvider1  = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
+        $this->_mockVideoProvider2  = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
     }
 
     protected function getAdditionalExpectedTemplateVariables()

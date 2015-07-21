@@ -97,6 +97,6 @@ class tubepress_options_ioc_OptionsExtension implements tubepress_spi_ioc_Contai
             'tubepress_options_impl_Persistence'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_options_PersistenceBackendInterface::_));
     }
 }

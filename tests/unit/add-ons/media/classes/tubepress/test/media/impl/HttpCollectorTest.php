@@ -49,7 +49,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
         $this->_mockHttpClient      = $this->mock(tubepress_api_http_HttpClientInterface::_);
         $this->_mockLogger          = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockFeedHandler     = $this->mock(tubepress_api_media_HttpFeedHandlerInterface::_);
+        $this->_mockFeedHandler     = $this->mock(tubepress_spi_media_HttpFeedHandlerInterface::_);
         $this->_mockUrl             = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);

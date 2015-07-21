@@ -57,8 +57,8 @@ class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_
     public function onSetup()
     {
         $this->_mockEvent            = $this->mock('tubepress_api_event_EventInterface');
-        $this->_mockMediaProvider1   = $this->mock(tubepress_api_media_MediaProviderInterface::__);
-        $this->_mockMediaProvider2   = $this->mock(tubepress_api_media_MediaProviderInterface::__);
+        $this->_mockMediaProvider1   = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
+        $this->_mockMediaProvider2   = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
         $this->_mockExecutionContext = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockTemplating       = $this->mock(tubepress_api_template_TemplatingInterface::_);
         $this->_mockLogger           = $this->mock(tubepress_api_log_LoggerInterface::_);

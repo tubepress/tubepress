@@ -20,7 +20,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     private $_persistence;
 
     /**
-     * @var tubepress_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_spi_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders;
 
@@ -178,7 +178,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * @param tubepress_api_options_ui_FieldProviderInterface[] $providers
+     * @param tubepress_spi_options_ui_FieldProviderInterface[] $providers
      */
     public function setFieldProviders(array $providers)
     {

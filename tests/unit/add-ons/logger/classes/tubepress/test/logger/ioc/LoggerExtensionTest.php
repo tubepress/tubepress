@@ -101,7 +101,7 @@ class tubepress_test_logger_ioc_LoggerExtensionTest extends tubepress_api_test_i
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()

@@ -33,7 +33,7 @@ class tubepress_test_integration_mocks_MocksExtension implements tubepress_spi_i
         );
 
         $containerBuilder->register(
-            tubepress_api_options_PersistenceBackendInterface::_,
+            tubepress_spi_options_PersistenceBackendInterface::_,
             'tubepress_test_integration_mocks_MockPersistence'
         );
 

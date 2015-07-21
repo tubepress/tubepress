@@ -11,7 +11,7 @@
 
 /**
  */
-class tubepress_options_ui_impl_FieldProvider implements tubepress_api_options_ui_FieldProviderInterface
+class tubepress_options_ui_impl_FieldProvider implements tubepress_spi_options_ui_FieldProviderInterface
 {
     /**
      * @var tubepress_api_options_ui_ElementInterface[]

@@ -79,7 +79,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockSingleSourceField   = $this->mock('tubepress_api_options_ui_FieldInterface');
         $this->_mockMultiSourceField    = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
-        $this->_mockFieldProvider       = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
+        $this->_mockFieldProvider       = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);

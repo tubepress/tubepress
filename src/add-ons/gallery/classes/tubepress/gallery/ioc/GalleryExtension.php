@@ -149,7 +149,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
             ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
                 tubepress_api_options_Names::GALLERY_THUMB_HEIGHT,
                 tubepress_api_options_Names::GALLERY_THUMB_WIDTH,
             ),
@@ -159,7 +159,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -257,6 +257,6 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
          ->addArgument($categoryReferences)
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

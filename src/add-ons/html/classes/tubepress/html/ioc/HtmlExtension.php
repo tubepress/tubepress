@@ -150,7 +150,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
             ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::HTML_GALLERY_ID,
             ),
         );
@@ -159,7 +159,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -180,7 +180,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
             $containerBuilder->register(
                 'fixed_values.' . $optionName,
-                'tubepress_api_listeners_options_FixedValuesListener'
+                'tubepress_api_options_listeners_FixedValuesListener'
             )->addArgument($valuesMap)
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'priority' => 100000,
@@ -236,6 +236,6 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

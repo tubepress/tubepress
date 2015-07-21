@@ -145,7 +145,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
                 tubepress_api_options_Names::GALLERY_THUMB_HEIGHT,
                 tubepress_api_options_Names::GALLERY_THUMB_WIDTH,
             ),
@@ -155,7 +155,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             foreach ($optionNames as $optionName) {
                 $this->expectRegistration(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->withArgument($type)
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -253,7 +253,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             ->withArgument($categoryReferences)
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
     
     protected function getExpectedExternalServicesMap()

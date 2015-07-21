@@ -22,7 +22,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     private $_optionsReference;
 
     /**
-     * @var tubepress_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
@@ -182,7 +182,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
         return $this->_mediaProviders;
     }
 
-    public function providerRecognizesChoice(tubepress_api_media_MediaProviderInterface $mp, $choice)
+    public function providerRecognizesChoice(tubepress_spi_media_MediaProviderInterface $mp, $choice)
     {
         $metaNames = $mp->getMapOfMetaOptionNamesToAttributeDisplayNames();
 

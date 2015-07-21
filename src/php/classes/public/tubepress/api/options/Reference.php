@@ -16,16 +16,6 @@
 class tubepress_api_options_Reference implements tubepress_api_options_ReferenceInterface
 {
     /**
-     * @var array
-     */
-    private $_valueMap;
-
-    /**
-     * @var array
-     */
-    private $_boolMap;
-
-    /**
      * mixed The default value for this option. May be null.
      */
     const PROPERTY_DEFAULT_VALUE = 'defaultValue';
@@ -59,6 +49,16 @@ class tubepress_api_options_Reference implements tubepress_api_options_Reference
      * bool True if this option is pro only, false otherwise.
      */
     const PROPERTY_PRO_ONLY = 'proOnly';
+
+    /**
+     * @var array
+     */
+    private $_valueMap;
+
+    /**
+     * @var array
+     */
+    private $_boolMap;
 
     public function __construct(array $valueMap, array $booleanMap = array())
     {

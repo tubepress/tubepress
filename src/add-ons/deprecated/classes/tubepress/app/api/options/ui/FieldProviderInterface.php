@@ -10,14 +10,14 @@
  */
 
 /**
- * Providers GUI elements to the option page.
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_ui_FieldProviderInterface instead.
+ * @deprecated Use tubepress_spi_options_ui_FieldProviderInterface instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_spi_options_ui_FieldProviderInterface
  */
-interface tubepress_app_api_options_ui_FieldProviderInterface extends tubepress_api_options_ui_FieldProviderInterface
+interface tubepress_app_api_options_ui_FieldProviderInterface
 {
 
 }

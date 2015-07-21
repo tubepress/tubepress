@@ -72,7 +72,7 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
 
         $servicesConsumers = array(
             'tubepress_media_impl_listeners_CollectionListener' => array(
-                tubepress_api_media_MediaProviderInterface::__ => 'setMediaProviders'
+                tubepress_spi_media_MediaProviderInterface::__ => 'setMediaProviders'
             ),
         );
 

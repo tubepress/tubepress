@@ -15,6 +15,9 @@
  */
 interface tubepress_api_array_ArrayReaderInterface
 {
+    /**
+     * @ignore
+     */
     const _ = 'tubepress_api_array_ArrayReaderInterface';
 
     /**

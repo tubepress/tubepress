@@ -32,7 +32,7 @@ class tubepress_test_options_impl_PersistenceTest extends tubepress_test_options
     protected function doSetup()
     {
         $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockBackend          = $this->mock(tubepress_api_options_PersistenceBackendInterface::_);
+        $this->_mockBackend          = $this->mock(tubepress_spi_options_PersistenceBackendInterface::_);
 
         $this->_sut = new tubepress_options_impl_Persistence(
             $this->_mockOptionsReference,
@@ -43,7 +43,7 @@ class tubepress_test_options_impl_PersistenceTest extends tubepress_test_options
 
     public function testCloneWithCustomBackend()
     {
-        $mockBackend = $this->mock(tubepress_api_options_PersistenceBackendInterface::_);
+        $mockBackend = $this->mock(tubepress_spi_options_PersistenceBackendInterface::_);
 
         $actual = $this->_sut->getCloneWithCustomBackend($mockBackend);
 

@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_url_UrlFactoryInterface
+interface tubepress_api_url_UrlFactoryInterface extends tubepress_platform_api_url_UrlFactoryInterface
 {
     /**
      * @ignore

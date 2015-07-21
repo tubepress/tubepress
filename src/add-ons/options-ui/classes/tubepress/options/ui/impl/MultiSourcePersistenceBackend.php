@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_options_ui_impl_MultiSourcePersistenceBackend implements tubepress_api_options_PersistenceBackendInterface
+class tubepress_options_ui_impl_MultiSourcePersistenceBackend implements tubepress_spi_options_PersistenceBackendInterface
 {
     /**
      * @var array

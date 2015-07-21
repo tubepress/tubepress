@@ -17,7 +17,7 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
     const FIELD_ID = 'provider_filter_field';
 
     /**
-     * @var tubepress_api_options_ui_FieldProviderInterface[]
+     * @var tubepress_spi_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders = array();
 
@@ -40,7 +40,7 @@ class tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField 
     }
 
     /**
-     * @param tubepress_api_options_ui_FieldProviderInterface[] $providers
+     * @param tubepress_spi_options_ui_FieldProviderInterface[] $providers
      */
     public function setFieldProviders(array $providers)
     {

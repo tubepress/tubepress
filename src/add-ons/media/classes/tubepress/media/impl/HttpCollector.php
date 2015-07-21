@@ -43,7 +43,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
         $this->_eventDispatcher = $eventDispatcher;
     }
 
-    public function collectSingle($itemId, tubepress_api_media_HttpFeedHandlerInterface $feedHandler)
+    public function collectSingle($itemId, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
         if ($this->_shouldLog) {
 
@@ -68,7 +68,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
         return null;
     }
 
-    public function collectPage($currentPage, tubepress_api_media_HttpFeedHandlerInterface $feedHandler)
+    public function collectPage($currentPage, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
         $toReturn  = new tubepress_api_media_MediaPage();
         $url       = $feedHandler->buildUrlForPage($currentPage);
@@ -111,7 +111,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
                                         $toReturn, $eventArgs);
     }
 
-    private function _feedToMediaItemArray(tubepress_api_media_HttpFeedHandlerInterface $feedHandler)
+    private function _feedToMediaItemArray(tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
         $toReturn = array();
         $total    = $feedHandler->getCurrentResultCount();
@@ -166,7 +166,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
         return $toReturn;
     }
 
-    private function _fetchFeedAndPrepareForAnalysis($url, tubepress_api_media_HttpFeedHandlerInterface $feedHandler)
+    private function _fetchFeedAndPrepareForAnalysis($url, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
         $debugStream = null;
         $requestOpts = array();
@@ -228,7 +228,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
         }
     }
 
-    private function _dispatchAndReturnSubject(tubepress_api_media_HttpFeedHandlerInterface $feedHandler,
+    private function _dispatchAndReturnSubject(tubepress_spi_media_HttpFeedHandlerInterface $feedHandler,
                                      $eventName, $subject, array $args = array())
     {
         $event = $this->_eventDispatcher->newEventInstance($subject, $args);

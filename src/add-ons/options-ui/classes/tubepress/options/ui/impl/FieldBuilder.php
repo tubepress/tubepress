@@ -50,7 +50,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
     private $_themeRegistry;
 
     /**
-     * @var tubepress_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders = array();
 

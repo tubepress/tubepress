@@ -24,7 +24,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_event_EventInterface
+interface tubepress_api_event_EventInterface extends tubepress_lib_api_event_EventInterface
 {
     /**
      * Get argument by key.

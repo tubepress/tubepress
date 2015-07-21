@@ -10,14 +10,12 @@
  */
 
 /**
- * A media object that TubePress processes. It's essentially just a key-value store.
- *
- * @package TubePress\Video
- *
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_media_MediaItem instead.
+ * @deprecated Use tubepress_api_media_MediaItem instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_media_MediaItem
  */
 class tubepress_app_api_media_MediaItem extends tubepress_api_media_MediaItem
 {

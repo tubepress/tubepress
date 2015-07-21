@@ -17,9 +17,6 @@
  */
 interface tubepress_api_http_oauth_v1_ClientInterface
 {
-    /**
-     * @ignore
-     */
     const _ = 'tubepress_api_http_oauth_v1_ClientInterface';
 
     /**

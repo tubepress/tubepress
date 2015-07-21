@@ -35,7 +35,7 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_spi_ioc_
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_api_media_MediaProviderInterface::__,
+            'tag'    => tubepress_spi_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',

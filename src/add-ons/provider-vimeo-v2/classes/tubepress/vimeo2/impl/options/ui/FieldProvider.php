@@ -12,7 +12,7 @@
 /**
  * 
  */
-class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_api_options_ui_FieldProviderInterface
+class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_spi_options_ui_FieldProviderInterface
 {
     /**
      * @var tubepress_api_options_ui_FieldInterface[]

@@ -20,5 +20,5 @@ interface tubepress_options_ui_impl_fields_templated_multi_MediaProviderFieldInt
 
     function getMediaProviders();
 
-    function providerRecognizesChoice(tubepress_api_media_MediaProviderInterface $mp, $choice);
+    function providerRecognizesChoice(tubepress_spi_media_MediaProviderInterface $mp, $choice);
 }

@@ -45,7 +45,7 @@ class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTes
 
         $this->_mockExecutionContext      = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockOptionReference   = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockMediaProvider = $this->mock(tubepress_api_media_MediaProviderInterface::_);
+        $this->_mockMediaProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $this->_mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener(

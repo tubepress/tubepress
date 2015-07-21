@@ -25,7 +25,7 @@ class tubepress_test_app_impl_options_ui_MultiSourceFieldProviderWrapperTest ext
 
     public function onSetup()
     {
-        $this->_mockDelegate = $this->mock('tubepress_api_options_ui_FieldProviderInterface');
+        $this->_mockDelegate = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
         $this->_mockFields   = array($this->mock('tubepress_api_options_ui_FieldInterface'));
 
         $this->_mockDelegate->shouldReceive('getId')->once()->andReturn('foobar');

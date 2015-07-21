@@ -50,6 +50,9 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
 
     public function testCompile()
     {
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect bogus class: Class bogus class does not exist');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect Hello: Class Hello does not exist');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect There: Class There does not exist');
         $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on 1 of 2: mock add-on 1) Failed to load bogus class as an IoC container extension: Class bogus class does not exist');
         $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on 2 of 2: mock add-on 2) Failed to load Hello as an IoC container extension: Class Hello does not exist');
         $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on 2 of 2: mock add-on 2) Failed to load There as an IoC container extension: Class There does not exist');

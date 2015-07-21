@@ -70,8 +70,8 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ));
 
         $this->expectRegistration(
-            'tubepress_api_listeners_options_TrimmingListener.' . tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR,
-            'tubepress_api_listeners_options_TrimmingListener'
+            'tubepress_api_options_listeners_TrimmingListener.' . tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR,
+            'tubepress_api_options_listeners_TrimmingListener'
         )->withArgument('#')
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR,
@@ -80,10 +80,10 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ));
 
         $validators = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR => array(
                 tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_ALBUM_VALUE,
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE,
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_CHANNEL_VALUE,
@@ -99,7 +99,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
 
                 $this->expectRegistration(
                     "regex_validation.$optionName",
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->withArgument($type)
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
@@ -141,7 +141,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_media_HttpCollectorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('tubepress_vimeo2_impl_media_FeedHandler'))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-            ->withTag(tubepress_api_media_MediaProviderInterface::__);
+            ->withTag(tubepress_spi_media_MediaProviderInterface::__);
     }
 
     private function _expectOptionsUi()
@@ -261,7 +261,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
                     tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET,
                 ),
             ))
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _expectOptions()

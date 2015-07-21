@@ -100,10 +100,10 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
             ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
                 tubepress_api_options_Names::CACHE_LIFETIME_SECONDS,
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_api_options_Names::CACHE_CLEANING_FACTOR,
             ),
         );
@@ -112,7 +112,7 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
             foreach ($optionNames as $optionName) {
                 $this->expectRegistration(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->withArgument($type)
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -191,7 +191,7 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
             ->withArgument($categoryReferences)
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()

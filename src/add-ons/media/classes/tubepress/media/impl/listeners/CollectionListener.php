@@ -14,7 +14,7 @@
 class tubepress_media_impl_listeners_CollectionListener
 {
     /**
-     * @var tubepress_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 

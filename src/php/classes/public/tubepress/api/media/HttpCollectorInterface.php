@@ -26,25 +26,25 @@ interface tubepress_api_media_HttpCollectorInterface
      * Collects a media gallery page.
      *
      * @param int                                              $pageNumber The page number.
-     * @param tubepress_api_media_HttpFeedHandlerInterface $feedHandler The feed handler.
+     * @param tubepress_spi_media_HttpFeedHandlerInterface $feedHandler The feed handler.
      *
      * @return tubepress_api_media_MediaPage The media gallery page, never null.
      *
      * @api
      * @since 4.0.0
      */
-    function collectPage($pageNumber, tubepress_api_media_HttpFeedHandlerInterface $feedHandler);
+    function collectPage($pageNumber, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler);
 
     /**
      * Fetch a single media item.
      *
      * @param string                                           $id The media item ID to fetch.
-     * @param tubepress_api_media_HttpFeedHandlerInterface $feedHandler The feed handler.
+     * @param tubepress_spi_media_HttpFeedHandlerInterface $feedHandler The feed handler.
      *
      * @return tubepress_api_media_MediaItem The media item, or null not found.
      *
      * @api
      * @since 4.0.0
      */
-    function collectSingle($id, tubepress_api_media_HttpFeedHandlerInterface $feedHandler);
+    function collectSingle($id, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler);
 }

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_api_media_HttpFeedHandlerInterface
+class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_spi_media_HttpFeedHandlerInterface
 {
     private static $_URL_PARAM_ALBUM_ID      = 'album_id';
     private static $_URL_PARAM_CHANNEL_ID    = 'channel_id';

@@ -11,10 +11,10 @@
 
 /**
  */
-class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubepress_api_options_ui_FieldProviderInterface
+class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubepress_spi_options_ui_FieldProviderInterface
 {
     /**
-     * @var tubepress_api_options_ui_FieldProviderInterface
+     * @var tubepress_spi_options_ui_FieldProviderInterface
      */
     private $_delegate;
 
@@ -28,7 +28,7 @@ class tubepress_options_ui_impl_MultiSourceFieldProviderWrapper implements tubep
      */
     private $_fields;
 
-    public function __construct(tubepress_api_options_ui_FieldProviderInterface $delegate,
+    public function __construct(tubepress_spi_options_ui_FieldProviderInterface $delegate,
                                 array $fields)
     {
         $this->_delegate = $delegate;

@@ -50,7 +50,7 @@ class tubepress_test_options_ioc_OptionsExtensionTest extends tubepress_api_test
             'tubepress_options_impl_Persistence'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_spi_options_PersistenceBackendInterface::_));
         
         $this->_registerListeners();
     }
@@ -96,7 +96,7 @@ class tubepress_test_options_ioc_OptionsExtensionTest extends tubepress_api_test
     {
         return array(
             tubepress_api_event_EventDispatcherInterface::_      => tubepress_api_event_EventDispatcherInterface::_,
-            tubepress_api_options_PersistenceBackendInterface::_ => tubepress_api_options_PersistenceBackendInterface::_,
+            tubepress_spi_options_PersistenceBackendInterface::_ => tubepress_spi_options_PersistenceBackendInterface::_,
             tubepress_api_log_LoggerInterface::_            => tubepress_api_log_LoggerInterface::_,
             tubepress_api_util_StringUtilsInterface::_      => tubepress_api_util_StringUtilsInterface::_,
             tubepress_api_translation_TranslatorInterface::_     => tubepress_api_translation_TranslatorInterface::_,

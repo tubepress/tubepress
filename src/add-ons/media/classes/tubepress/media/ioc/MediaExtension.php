@@ -51,7 +51,7 @@ class tubepress_media_ioc_MediaExtension implements tubepress_spi_ioc_ContainerE
 
         $servicesConsumers = array(
             'tubepress_media_impl_listeners_CollectionListener' => array(
-                tubepress_api_media_MediaProviderInterface::__ => 'setMediaProviders'
+                tubepress_spi_media_MediaProviderInterface::__ => 'setMediaProviders'
             ),
         );
 

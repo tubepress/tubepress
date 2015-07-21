@@ -143,7 +143,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
             ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::HTML_GALLERY_ID,
             ),
         );
@@ -152,7 +152,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
             foreach ($optionNames as $optionName) {
                 $this->expectRegistration(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->withArgument($type)
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                     ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -173,7 +173,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
             $this->expectRegistration(
                 'fixed_values.' . $optionName,
-                'tubepress_api_listeners_options_FixedValuesListener'
+                'tubepress_api_options_listeners_FixedValuesListener'
             )->withArgument($valuesMap)
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                     'priority' => 100000,
@@ -229,7 +229,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
-            ->withTag('tubepress_api_options_ui_FieldProviderInterface');
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()

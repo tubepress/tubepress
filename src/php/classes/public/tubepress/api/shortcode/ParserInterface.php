@@ -17,9 +17,6 @@
  */
 interface tubepress_api_shortcode_ParserInterface
 {
-    /**
-     * @ignore
-     */
     const _ = 'tubepress_api_shortcode_ParserInterface';
 
     /**

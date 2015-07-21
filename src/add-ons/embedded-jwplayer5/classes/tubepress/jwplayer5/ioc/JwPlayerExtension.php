@@ -57,9 +57,9 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
         foreach ($colors as $optionName) {
 
             $containerBuilder->register(
-                'tubepress_api_listeners_options_RegexValidatingListener.' . $optionName,
-                'tubepress_api_listeners_options_RegexValidatingListener'
-            )->addArgument(tubepress_api_listeners_options_RegexValidatingListener::TYPE_STRING_HEXCOLOR)
+                'tubepress_api_options_listeners_RegexValidatingListener.' . $optionName,
+                'tubepress_api_options_listeners_RegexValidatingListener'
+            )->addArgument(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR)
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
@@ -70,7 +70,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
 
             $containerBuilder->register(
                 'value_trimmer.' . $optionName,
-                'tubepress_api_listeners_options_TrimmingListener'
+                'tubepress_api_options_listeners_TrimmingListener'
             )->addArgument('#')
              ->addMethodCall('setModeToLtrim', array())
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
@@ -157,6 +157,6 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

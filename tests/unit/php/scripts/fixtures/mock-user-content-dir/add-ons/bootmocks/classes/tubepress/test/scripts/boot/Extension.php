@@ -28,7 +28,7 @@ class tubepress_test_scripts_boot_Extension implements tubepress_spi_ioc_Contain
     {
         $containerBuilder->register(
 
-            tubepress_api_options_PersistenceBackendInterface::_,
+            tubepress_spi_options_PersistenceBackendInterface::_,
             'tubepress_test_scripts_boot_MockPersistence'
         );
 

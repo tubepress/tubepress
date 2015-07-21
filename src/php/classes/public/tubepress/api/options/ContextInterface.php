@@ -15,7 +15,7 @@
  * @api
  * @since 4.0.0
  */
-interface tubepress_api_options_ContextInterface
+interface tubepress_api_options_ContextInterface extends tubepress_app_api_options_ContextInterface
 {
     /**
      * @ignore

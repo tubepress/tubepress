@@ -75,13 +75,13 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
         ));
 
         $toValidate = array(
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
                 tubepress_api_options_Names::CACHE_HTML_LIFETIME_SECONDS,
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
             ),
-            tubepress_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
                 tubepress_api_options_Names::CACHE_HTML_CLEANING_KEY
             )
         );
@@ -90,7 +90,7 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
             foreach ($optionNames as $optionName) {
                 $containerBuilder->register(
                     'regex_validator.' . $optionName,
-                    'tubepress_api_listeners_options_RegexValidatingListener'
+                    'tubepress_api_options_listeners_RegexValidatingListener'
                 )->addArgument($type)
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                  ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
@@ -154,6 +154,6 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
-         ->addTag('tubepress_api_options_ui_FieldProviderInterface');
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

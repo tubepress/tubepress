@@ -163,7 +163,7 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
         $requestedEmbeddedPlayerName = $this->_context->get(tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL);
 
         /**
-         * @var $mediaProvider tubepress_api_media_MediaProviderInterface
+         * @var $mediaProvider tubepress_spi_media_MediaProviderInterface
          */
         $mediaProvider     = $item->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER);
         $mediaProviderName = $mediaProvider->getName();

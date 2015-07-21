@@ -44,14 +44,14 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
 
     public function __construct(tubepress_api_options_ReferenceInterface          $reference,
                                 tubepress_api_event_EventDispatcherInterface      $eventDispatcher,
-                                tubepress_api_options_PersistenceBackendInterface $backend)
+                                tubepress_spi_options_PersistenceBackendInterface $backend)
     {
         $this->_eventDispatcher  = $eventDispatcher;
         $this->_optionsReference = $reference;
         $this->_backend          = $backend;
     }
 
-    public function getCloneWithCustomBackend(tubepress_api_options_PersistenceBackendInterface $persistenceBackend)
+    public function getCloneWithCustomBackend(tubepress_spi_options_PersistenceBackendInterface $persistenceBackend)
     {
         return new self($this->_optionsReference, $this->_eventDispatcher, $persistenceBackend);
     }

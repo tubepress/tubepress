@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_api_listeners_options_FixedValuesListener<extended>
+ * @covers tubepress_api_options_listeners_FixedValuesListener<extended>
  */
 class tubepress_test_api_listeners_options_FixedValuesListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_api_listeners_options_FixedValuesListener
+     * @var tubepress_api_options_listeners_FixedValuesListener
      */
     private $_sut;
 
@@ -30,7 +30,7 @@ class tubepress_test_api_listeners_options_FixedValuesListenerTest extends tubep
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturnNull();
 
-        $this->_sut = new tubepress_api_listeners_options_FixedValuesListener(
+        $this->_sut = new tubepress_api_options_listeners_FixedValuesListener(
 
             array('foo' => 'bar')
         );

@@ -37,7 +37,7 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_api
     public function onSetup()
     {
         $this->_mockHttpCollector = $this->mock(tubepress_api_media_HttpCollectorInterface::_);
-        $this->_mockFeedHandler   = $this->mock(tubepress_api_media_HttpFeedHandlerInterface::_);
+        $this->_mockFeedHandler   = $this->mock(tubepress_spi_media_HttpFeedHandlerInterface::_);
         $this->_mockEnvironment   = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
         $mockBaseUrl              = $this->mock('tubepress_api_url_UrlInterface');
 

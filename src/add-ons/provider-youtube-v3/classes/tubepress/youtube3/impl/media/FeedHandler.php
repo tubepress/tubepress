@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_youtube3_impl_media_FeedHandler implements tubepress_api_media_HttpFeedHandlerInterface
+class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_HttpFeedHandlerInterface
 {
     /**
      * @var tubepress_api_log_LoggerInterface

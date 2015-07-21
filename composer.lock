@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "732fbdbbcb75dc223b8b933ca4866ab1",
+    "hash": "2a233c8d0becae84ff27b912411ba77e",
     "packages": [
         {
             "name": "ehough/filesystem",
@@ -532,16 +532,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "dev-master",
+            "version": "v2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "81bbb6775b164d0f47cf4337f9234fbaec2d9809"
+                "reference": "fd5feddfef20e6c9f37e1f3c41872b50041072e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/81bbb6775b164d0f47cf4337f9234fbaec2d9809",
-                "reference": "81bbb6775b164d0f47cf4337f9234fbaec2d9809",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/fd5feddfef20e6c9f37e1f3c41872b50041072e3",
+                "reference": "fd5feddfef20e6c9f37e1f3c41872b50041072e3",
                 "shasum": ""
             },
             "require": {
@@ -567,7 +567,7 @@
                 "plugin updates",
                 "wordpress"
             ],
-            "time": "2015-06-27 22:30:03"
+            "time": "2015-06-26 13:37:25"
         }
     ],
     "packages-dev": [
@@ -1205,7 +1205,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "yahnis-elsts/plugin-update-checker": 20,
         "symfony/class-loader": 20,
         "symfony/dom-crawler": 20,
         "symfony/css-selector": 20

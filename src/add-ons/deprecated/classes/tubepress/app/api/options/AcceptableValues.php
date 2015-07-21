@@ -13,7 +13,9 @@
  * @api
  * @since 4.0.0
  *
- * @deprecated Use tubepress_api_options_AcceptableValues instead.
+ * @deprecated Use tubepress_api_options_AcceptableValues instead. Will be removed in TubePress 5.0.0.
+ *
+ * @see tubepress_api_options_AcceptableValues
  */
 interface tubepress_app_api_options_AcceptableValues extends tubepress_api_options_AcceptableValues
 {
