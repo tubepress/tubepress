@@ -127,7 +127,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
         $this->_mockFullUrl->shouldReceive('getQuery')->once()->andReturn($this->_mockFullQuery);
         $this->_mockFullUrl->shouldReceive('__toString')->once()->andReturn('foobar');
 
-        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', '%d');
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', '>>>page-number<<<');
 
         $this->_test('foo');
     }

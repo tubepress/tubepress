@@ -30,7 +30,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
      * @var tubepress_api_http_RequestParametersInterface
      */
     private $_requestParams;
-    
+
     /**
      * @var tubepress_api_template_TemplatingInterface
      */
@@ -40,7 +40,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
      * @var tubepress_theme_impl_CurrentThemeService
      */
     private $_currentThemeService;
-    
+
     public function __construct(tubepress_api_options_ContextInterface        $context,
                                 tubepress_api_url_UrlFactoryInterface         $urlFactory,
                                 tubepress_api_http_RequestParametersInterface $requestParams,
@@ -95,9 +95,8 @@ class tubepress_gallery_impl_listeners_PaginationListener
     private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_api_url_UrlInterface $url)
     {
         $url->removeSchemeAndAuthority();
-        $url->getQuery()->set('tubepress_page', '%d');
+        $url->getQuery()->set('tubepress_page', '>>>page-number<<<');
 
-        $url  = str_replace('tubepress_page=%25d', 'tubepress_page=%d', "$url");
         $vars = array(
 
             tubepress_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => $currentPage,
