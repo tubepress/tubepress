@@ -280,6 +280,8 @@ class tubepress_internal_boot_helper_uncached_Compiler
                 'tubepress_app_api_embedded_EmbeddedProviderInterface',
                 'tubepress_lib_api_template_TemplatingInterface',
                 'tubepress_app_api_options_ContextInterface',
+                'tubepress_platform_api_url_UrlFactoryInterface',
+                'tubepress_platform_api_util_StringUtilsInterface',
             );
 
             $replace = array(
@@ -297,6 +299,8 @@ class tubepress_internal_boot_helper_uncached_Compiler
                 'tubepress_spi_embedded_EmbeddedProviderInterface',
                 'tubepress_api_template_TemplatingInterface',
                 'tubepress_api_options_ContextInterface',
+                'tubepress_api_url_UrlFactoryInterface',
+                'tubepress_api_util_StringUtilsInterface',
             );
 
             if ($this->_shouldLog) {

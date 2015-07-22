@@ -34,19 +34,20 @@
             "tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass"           : "classes/tubepress/deprecated/ioc/compiler/LegacyThemesPrimerPass.php",
             "tubepress_deprecated_ioc_DeprecatedExtension"                       : "classes/tubepress/deprecated/ioc/DeprecatedExtension.php",
 
-            "tubepress_app_api_media_MediaItem" : "classes/tubepress/app/api/media/MediaItem.php",
-            "tubepress_app_api_options_AcceptableValues" : "classes/tubepress/app/api/options/AcceptableValues.php",
-            "tubepress_app_api_options_ContextInterface" : "classes/tubepress/app/api/options/ContextInterface.php",
-            "tubepress_app_api_options_Names" : "classes/tubepress/app/api/options/Names.php",
-            "tubepress_app_api_options_Reference" : "classes/tubepress/app/api/options/Reference.php",
-            "tubepress_app_api_options_ui_CategoryNames" : "classes/tubepress/app/api/options/ui/CategoryNames.php",
+            "tubepress_app_api_media_MediaItem"                   : "classes/tubepress/app/api/media/MediaItem.php",
+            "tubepress_app_api_options_AcceptableValues"          : "classes/tubepress/app/api/options/AcceptableValues.php",
+            "tubepress_app_api_options_ContextInterface"          : "classes/tubepress/app/api/options/ContextInterface.php",
+            "tubepress_app_api_options_Names"                     : "classes/tubepress/app/api/options/Names.php",
+            "tubepress_app_api_options_Reference"                 : "classes/tubepress/app/api/options/Reference.php",
+            "tubepress_app_api_options_ui_CategoryNames"          : "classes/tubepress/app/api/options/ui/CategoryNames.php",
             "tubepress_app_api_options_ui_FieldProviderInterface" : "classes/tubepress/app/api/options/ui/FieldProviderInterface.php",
-            "tubepress_app_api_template_VariableNames" : "classes/tubepress/app/api/template/VariableNames.php",
+            "tubepress_app_api_template_VariableNames"            : "classes/tubepress/app/api/template/VariableNames.php",
 
             "tubepress_lib_api_event_EventInterface" : "classes/tubepress/lib/api/event/EventInterface.php",
 
-            "tubepress_platform_api_url_UrlFactoryInterface" : "classes/tubepress/platform/api/url/UrlFactoryInterface.php",
-            "tubepress_platform_api_util_StringUtilsInterface" : "classes/tubepress/platform/api/util/StringUtilsInterface.php",
+            "tubepress_platform_api_ioc_ContainerExtensionInterface" : "classes/tubepress/platform/api/ioc/ContainerExtensionInterface.php",
+            "tubepress_platform_api_url_UrlFactoryInterface"         : "classes/tubepress/platform/api/url/UrlFactoryInterface.php",
+            "tubepress_platform_api_util_StringUtilsInterface"       : "classes/tubepress/platform/api/util/StringUtilsInterface.php",
 
             "tubepress_platform_impl_collection_Map" : "classes/tubepress/platform/impl/collection/Map.php"
         }

@@ -659,6 +659,7 @@ return array (
     'tubepress_options_ui_impl_listeners_BootstrapIe8Listener' => TUBEPRESS_ROOT . '/src/add-ons/options-ui/classes/tubepress/options/ui/impl/listeners/BootstrapIe8Listener.php',
     'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener' => TUBEPRESS_ROOT . '/src/add-ons/options-ui/classes/tubepress/options/ui/impl/listeners/OptionsPageTemplateListener.php',
     'tubepress_options_ui_ioc_OptionsUiExtension' => TUBEPRESS_ROOT . '/src/add-ons/options-ui/classes/tubepress/options/ui/ioc/OptionsUiExtension.php',
+    'tubepress_platform_api_ioc_ContainerExtensionInterface' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/platform/api/ioc/ContainerExtensionInterface.php',
     'tubepress_platform_api_url_UrlFactoryInterface' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/platform/api/url/UrlFactoryInterface.php',
     'tubepress_platform_api_util_StringUtilsInterface' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/platform/api/util/StringUtilsInterface.php',
     'tubepress_platform_impl_collection_Map' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/platform/impl/collection/Map.php',
