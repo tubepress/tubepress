@@ -59,21 +59,21 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
     private function _registerListeners()
     {
         $this->expectRegistration(
-            'tubepress_html_impl_listeners_ExceptionLogger',
-            'tubepress_html_impl_listeners_ExceptionLogger'
+            'tubepress_html_impl_listeners_HtmlListener',
+            'tubepress_html_impl_listeners_HtmlListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::HTML_GLOBAL_JS_CONFIG,
+                'priority' => 100000,
+                'method'   => 'onGlobalJsConfig'
+            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    =>   tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT,
                 'priority' => 100000,
                 'method'   => 'onException'
-            ));
-
-        $this->expectRegistration(
-            'tubepress_html_impl_listeners_CssJsPostListener',
-            'tubepress_html_impl_listeners_CssJsPostListener'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles',
                 'priority' => 100000,
                 'method'   => 'onPostStylesTemplateRender'))
@@ -81,16 +81,6 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
                 'event'    => tubepress_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts',
                 'priority' => 100000,
                 'method'   => 'onPostScriptsTemplateRender'));
-
-        $this->expectRegistration(
-            'tubepress_html_impl_listeners_BaseUrlSetter',
-            'tubepress_html_impl_listeners_BaseUrlSetter'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_api_event_Events::HTML_GLOBAL_JS_CONFIG,
-                'priority' => 100000,
-                'method'   => 'onGlobalJsConfig'
-            ));
     }
 
     private function _registerPathProvider()
