@@ -19,9 +19,8 @@
     },
     "autoload":{
         "classmap" : {
-            "tubepress_feed_impl_listeners_FeedOptions" : "classes/tubepress/feed/impl/listeners/FeedOptions.php",
-            "tubepress_feed_impl_listeners_PerPageSort" : "classes/tubepress/feed/impl/listeners/PerPageSort.php",
-            "tubepress_feed_ioc_FeedExtension"          : "classes/tubepress/feed/ioc/FeedExtension.php"
+            "tubepress_feed_impl_listeners_AcceptableValuesListener" : "classes/tubepress/feed/impl/listeners/AcceptableValuesListener.php",
+            "tubepress_feed_ioc_FeedExtension"                       : "classes/tubepress/feed/ioc/FeedExtension.php"
         }
     }
 }

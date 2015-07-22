@@ -36,8 +36,8 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
     private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_feed_impl_listeners_FeedOptions',
-            'tubepress_feed_impl_listeners_FeedOptions'
+            'tubepress_feed_impl_listeners_AcceptableValuesListener',
+            'tubepress_feed_impl_listeners_AcceptableValuesListener'
         )->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_ORDER_BY,
             'priority' => 100000,
@@ -46,18 +46,13 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::GALLERY_SOURCE,
             'priority' => 100000,
             'method'   => 'onMode'
+        ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event' => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
+            'priority' => 100000,
+            'method' => 'onPerPageSort'
         ))->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'
-        ));
-
-        $containerBuilder->register(
-            'tubepress_feed_impl_listeners_PerPageSort',
-            'tubepress_feed_impl_listeners_PerPageSort'
-        )->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
-            'priority' => 100000,
-            'method' => 'onAcceptableValues'
         ));
     }
 

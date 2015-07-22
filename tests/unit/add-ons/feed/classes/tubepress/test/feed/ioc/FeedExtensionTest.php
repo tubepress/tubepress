@@ -32,8 +32,8 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
     private function _registerListeners()
     {
         $this->expectRegistration(
-            'tubepress_feed_impl_listeners_FeedOptions',
-            'tubepress_feed_impl_listeners_FeedOptions'
+            'tubepress_feed_impl_listeners_AcceptableValuesListener',
+            'tubepress_feed_impl_listeners_AcceptableValuesListener'
         )->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_ORDER_BY,
             'priority' => 100000,
@@ -42,18 +42,13 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::GALLERY_SOURCE,
             'priority' => 100000,
             'method'   => 'onMode'
+        ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event' => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
+            'priority' => 100000,
+            'method' => 'onPerPageSort'
         ))->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
             'method' => 'setMediaProviders'
-        ));
-
-        $this->expectRegistration(
-            'tubepress_feed_impl_listeners_PerPageSort',
-            'tubepress_feed_impl_listeners_PerPageSort'
-        )->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
-            'priority' => 100000,
-            'method' => 'onAcceptableValues'
         ));
     }
 
