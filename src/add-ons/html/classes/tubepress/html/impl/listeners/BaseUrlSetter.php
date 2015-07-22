@@ -36,9 +36,13 @@ class tubepress_html_impl_listeners_BaseUrlSetter
             $config['urls'] = array();
         }
 
-        $baseUrl         = $this->_environment->getBaseUrl();
-        $userContentUrl  = $this->_environment->getUserContentUrl();
-        $ajaxEndpointUrl = $this->_environment->getAjaxEndpointUrl();
+        $baseUrl         = $this->_environment->getBaseUrl()->getClone();
+        $userContentUrl  = $this->_environment->getUserContentUrl()->getClone();
+        $ajaxEndpointUrl = $this->_environment->getAjaxEndpointUrl()->getClone();
+
+        $baseUrl->removeSchemeAndAuthority();
+        $userContentUrl->removeSchemeAndAuthority();
+        $ajaxEndpointUrl->removeSchemeAndAuthority();
 
         $config['urls']['base'] = "$baseUrl";
         $config['urls']['usr']  = "$userContentUrl";

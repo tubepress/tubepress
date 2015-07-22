@@ -48,6 +48,14 @@ class tubepress_test_html_impl_listeners_BaseUrlSetterTest extends tubepress_api
         $mockUserContentUrl->shouldReceive('__toString')->once()->andReturn('mock-user-url');
         $mockAjaxUrl->shouldReceive('__toString')->once()->andReturn('mock-ajax-url');
 
+        $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockBaseUrl);
+        $mockUserContentUrl->shouldReceive('getClone')->once()->andReturn($mockUserContentUrl);
+        $mockAjaxUrl->shouldReceive('getClone')->once()->andReturn($mockAjaxUrl);
+
+        $mockBaseUrl->shouldReceive('removeSchemeAndAuthority')->once();
+        $mockUserContentUrl->shouldReceive('removeSchemeAndAuthority')->once();
+        $mockAjaxUrl->shouldReceive('removeSchemeAndAuthority')->once();
+
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn($mockUserContentUrl);
         $this->_mockEnvironmentDetector->shouldReceive('getAjaxEndpointUrl')->once()->andReturn($mockAjaxUrl);
