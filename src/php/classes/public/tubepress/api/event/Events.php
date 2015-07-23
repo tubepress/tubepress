@@ -220,6 +220,31 @@ interface tubepress_api_event_Events
     const NVP_FROM_EXTERNAL_INPUT = 'tubepress.app.nvp.fromExternalInput';
 
     /**
+     * This event is fired when TubePress calculates the OAuth2 redirection endpoint for the given provider for
+     * the installation.
+     *
+     * @subject `tubepress_api_url_UrlInterface` The base URL, which needs to be changed in virtually every environment.
+     *
+     * @argument <var>providerName</var> (`string`): The provider name.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    const OAUTH2_URL_REDIRECTION_ENDPOINT = 'tubepress.oauth2.url.redirection';
+
+    /**
+     * This event is fired after TubePress calculates the OAuth2 authorization URL for the given provider.
+     *
+     * @subject `tubepress_api_url_UrlInterface` The authorization URL.
+     *
+     * @argument <var>provider</var> (`tubepress_spi_http_oauth_v2_Oauth2ProviderInterface`): The provider.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    const OAUTH2_URL_AUTHORIZATION = 'tubepress.oauth2.url.authorization';
+
+    /**
      * This event is fired when TubePress looks the acceptable values for an option. This
      * only applies to options that take on discrete values.
      *

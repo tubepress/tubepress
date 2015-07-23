@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/http-oauth2",
+    "version": "99.99.99",
+    "title" : "TubePress OAuth2 Services",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_http_oauth2_ioc_Oauth2Extension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_http_oauth2_ioc_Oauth2Extension"                : "classes/tubepress/http/oauth2/ioc/Oauth2Extension.php",
+          "tubepress_http_oauth2_impl_AuthorizationInitiator"        : "classes/tubepress/http/oauth2/impl/AuthorizationInitiator.php",
+          "tubepress_http_oauth2_impl_RedirectionEndpointCalculator" : "classes/tubepress/http/oauth2/impl/RedirectionEndpointCalculator.php"
+        }
+    }
+}

@@ -55,7 +55,7 @@ interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
      *
      * See https://tools.ietf.org/html/rfc6749#section-4
      *
-     * @return string Either code or clientCredentials
+     * @return string Either code or client_credentials
      */
     function getAuthorizationGrantType();
 
