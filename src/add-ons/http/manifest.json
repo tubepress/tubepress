@@ -21,6 +21,7 @@
         "classmap" : {
           "tubepress_http_ioc_HttpExtension"                     : "classes/tubepress/http/ioc/HttpExtension.php",
           "tubepress_http_impl_AbstractHttpClient"               : "classes/tubepress/http/impl/AbstractHttpClient.php",
+          "tubepress_http_impl_NonceManager"                     : "classes/tubepress/http/impl/NonceManager.php",
           "tubepress_http_impl_PrimaryAjaxHandler"               : "classes/tubepress/http/impl/PrimaryAjaxHandler.php",
           "tubepress_http_impl_RequestParameters"                : "classes/tubepress/http/impl/RequestParameters.php",
           "tubepress_http_impl_ResponseCode"                     : "classes/tubepress/http/impl/ResponseCode.php",

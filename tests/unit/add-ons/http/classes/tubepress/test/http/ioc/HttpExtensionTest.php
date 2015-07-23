@@ -84,6 +84,11 @@ class tubepress_test_http_ioc_HttpExtensionTest extends tubepress_api_test_ioc_A
             tubepress_api_http_RequestParametersInterface::_,
             'tubepress_http_impl_RequestParameters'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
+
+        $this->expectRegistration(
+            tubepress_api_http_NonceManagerInterface::_,
+            'tubepress_http_impl_NonceManager'
+        );
     }
 
     private function _expectListeners()
