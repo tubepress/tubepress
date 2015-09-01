@@ -96,10 +96,10 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
                     tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    //>(translatable)<
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s', "FFFFFF"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s', "000000"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s', "000000"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s', "000000"),   //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s.', "FFFFFF"),   //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s.', "000000"),   //>(translatable)<
                 )
             ))->withTag(tubepress_api_options_ReferenceInterface::_);
     }
@@ -176,13 +176,13 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
         }
 
         return array(
-            tubepress_api_url_UrlFactoryInterface::_ => tubepress_api_url_UrlFactoryInterface::_,
-            tubepress_api_template_TemplatingInterface::_ => tubepress_api_template_TemplatingInterface::_,
-            tubepress_api_options_ContextInterface::_ => tubepress_api_options_ContextInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_          => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_template_TemplatingInterface::_     => tubepress_api_template_TemplatingInterface::_,
+            tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
-            tubepress_api_translation_TranslatorInterface::_ => tubepress_api_translation_TranslatorInterface::_,
-            tubepress_api_util_StringUtilsInterface::_ => tubepress_api_util_StringUtilsInterface::_,
-            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
+            tubepress_api_util_StringUtilsInterface::_        => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
             tubepress_api_environment_EnvironmentInterface::_ => tubepress_api_environment_EnvironmentInterface::_,
         );
     }

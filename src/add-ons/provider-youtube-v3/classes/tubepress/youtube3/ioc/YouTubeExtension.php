@@ -186,76 +186,75 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
          ->addArgument(array(
 
             tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                    tubepress_youtube3_api_Constants::OPTION_AUTOHIDE                   => tubepress_youtube3_api_Constants::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS,
-                    tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS            => false,
-                    tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD           => false,
-                    tubepress_youtube3_api_Constants::OPTION_FULLSCREEN                 => true,
-                    tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING            => true,
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_ANNOTATIONS           => false,
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS              => tubepress_youtube3_api_Constants::CONTROLS_SHOW_IMMEDIATE_FLASH,
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED               => true,
-                    tubepress_youtube3_api_Constants::OPTION_THEME                      => tubepress_youtube3_api_Constants::PLAYER_THEME_DARK,
-                    tubepress_youtube3_api_Constants::OPTION_API_KEY                    => '',
-                    tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY            => true,
-                    tubepress_youtube3_api_Constants::OPTION_FILTER                     => tubepress_youtube3_api_Constants::SAFESEARCH_NONE,
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE      => 'P9M__yYbsZ4',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE     => 'F679CB240DD4C112',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'techcrunch',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'iphone ios',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'PenWeddings',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => '9bZkp7q19f0, txqiwrbYGrs',
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => false,
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => false,
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES           => false,
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES       => false,
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE => '',
-                    tubepress_youtube3_api_Constants::OPTION_RATING                     => false,
-                    tubepress_youtube3_api_Constants::OPTION_RATINGS                    => false,
-                ),
+                tubepress_youtube3_api_Constants::OPTION_AUTOHIDE                   => tubepress_youtube3_api_Constants::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS,
+                tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS            => false,
+                tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD           => false,
+                tubepress_youtube3_api_Constants::OPTION_FULLSCREEN                 => true,
+                tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING            => true,
+                tubepress_youtube3_api_Constants::OPTION_SHOW_ANNOTATIONS           => false,
+                tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS              => tubepress_youtube3_api_Constants::CONTROLS_SHOW_IMMEDIATE_FLASH,
+                tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED               => true,
+                tubepress_youtube3_api_Constants::OPTION_THEME                      => tubepress_youtube3_api_Constants::PLAYER_THEME_DARK,
+                tubepress_youtube3_api_Constants::OPTION_API_KEY                    => '',
+                tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY            => true,
+                tubepress_youtube3_api_Constants::OPTION_FILTER                     => tubepress_youtube3_api_Constants::SAFESEARCH_NONE,
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE      => 'P9M__yYbsZ4',
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE     => 'F679CB240DD4C112',
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'techcrunch',
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'iphone ios',
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'PenWeddings',
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => '9bZkp7q19f0, txqiwrbYGrs',
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => false,
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => false,
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES           => false,
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES       => false,
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE => '',
+                tubepress_youtube3_api_Constants::OPTION_RATING                     => false,
+                tubepress_youtube3_api_Constants::OPTION_RATINGS                    => false,
+            ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_youtube3_api_Constants::OPTION_AUTOHIDE                   => 'Fade progress bar and video controls',              //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS            => 'Show closed captions by default',                   //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD           => 'Disable keyboard controls',                         //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_FULLSCREEN                 => 'Allow fullscreen playback.',                        //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING            => '"Modest" branding',                                 //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_ANNOTATIONS           => 'Show video annotations by default',                 //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS              => 'Show or hide video controls',                       //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED               => 'Show related videos',                               //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_THEME                      => 'YouTube player theme',                              //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_API_KEY                    => 'Google API key',                                    //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY            => 'Only retrieve embeddable videos',                   //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_FILTER                     => 'Filter "racy" content',                             //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE      => 'Videos related to this YouTube video',              //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE     => 'This YouTube playlist',                             //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'Favorite videos from this YouTube user or channel', //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'YouTube search for',                                //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'Videos from this YouTube user or channel',          //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => 'This list of YouTube videos',                       //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => 'Comment count',                                     //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES       => 'Number of times favorited',                         //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES           => 'Number of likes',                                   //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => 'Number of dislikes',                                //>(translatable)<
-                ),
+                tubepress_youtube3_api_Constants::OPTION_AUTOHIDE                   => 'Fade progress bar and video controls',              //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_CLOSED_CAPTIONS            => 'Show closed captions by default',                   //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_DISABLE_KEYBOARD           => 'Disable keyboard controls',                         //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_FULLSCREEN                 => 'Allow fullscreen playback.',                        //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING            => '"Modest" branding',                                 //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_SHOW_ANNOTATIONS           => 'Show video annotations by default',                 //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS              => 'Show or hide video controls',                       //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED               => 'Show related videos',                               //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_THEME                      => 'YouTube player theme',                              //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_API_KEY                    => 'Google API key',                                    //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY            => 'Only retrieve embeddable videos',                   //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_FILTER                     => 'Filter "racy" content',                             //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE      => 'Videos related to this YouTube video',              //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE     => 'This YouTube playlist',                             //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'Favorite videos from this YouTube user or channel', //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'YouTube search for',                                //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'Videos from this YouTube user or channel',          //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => 'This list of YouTube videos',                       //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => 'Comment count',                                     //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES       => 'Number of times favorited',                         //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES           => 'Number of likes',                                   //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => 'Number of dislikes',                                //>(translatable)<
+            ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_youtube3_api_Constants::OPTION_AUTOHIDE               => 'After video playback begins, choose which elements (if any) of the embedded video player to automatically hide.', //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING        => 'Hide the YouTube logo from the control area.',                    //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED           => 'Toggles the display of related videos after a video finishes.',   //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_API_KEY                => sprintf('YouTube will use this API key for logging and quota purposes. You can register a new API key <a href="%s" target="_blank">here</a>.', //>(translatable)<
-                        'https://developers.google.com/youtube/registering_an_application'),
-                    tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY        => 'Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.', //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_FILTER                 => 'Don\'t show videos that may not be suitable for minors.',         //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => sprintf('The URL to any YouTube playlist (e.g. <a href="%s" target="_blank">%s</a>) or just the playlist identifier (e.g. %s).',  //>(translatable)<
-                        'http://youtube.com/playlist?list=48A83AD3506C9D36', 'http://youtube.com/playlist?list=48A83AD3506C9D36', '48A83AD3506C9D36'),
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE      => sprintf('You can use the NOT (<code>-</code>) and OR (<code>|</code>) operators to exclude videos or to find videos that are associated with one of several search terms. For example, to search for videos matching either "%s" or "%s", set this field to <code>%s|%s</code>. Similarly, to search for videos matching either "%s" or "%s" but not "%s", set this field to <code>%s|%s -%s</code>.',                           //>(translatable)<
-                        'boating', 'sailing', 'boating', 'sailing', 'boating', 'sailing', 'fishing', 'boating', 'sailing', 'fishing'),
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE     => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>).',    //>(translatable)<
-                        'smosh', 'UCY30JRSgfhYXA6i6xX1erWg'),
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>). Ensure that the favorites <a href="%s" target="_blank">playlist\'s privacy</a> is set to "Public".',   //>(translatable)<
-                        'smosh', 'UCY30JRSgfhYXA6i6xX1erWg', 'https://support.google.com/youtube/answer/3127309'),
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE => 'A comma-separated list of YouTube video IDs in the order that you would like them to appear.',
-                ),
+                tubepress_youtube3_api_Constants::OPTION_AUTOHIDE               => 'After video playback begins, choose which elements (if any) of the embedded video player to automatically hide.', //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING        => 'Hide the YouTube logo from the control area.',                    //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED           => 'Toggles the display of related videos after a video finishes.',   //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_API_KEY                => sprintf('YouTube will use this API key for logging and quota purposes. You can register a new API key <a href="%s" target="_blank">here</a>.', //>(translatable)<
+                    'https://developers.google.com/youtube/registering_an_application'),
+                tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY        => 'Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.', //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_FILTER                 => 'Don\'t show videos that may not be suitable for minors.',         //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => sprintf('The URL to any YouTube playlist (e.g. <a href="%s" target="_blank">%s</a>) or just the playlist identifier (e.g. %s).',  //>(translatable)<
+                    'http://youtube.com/playlist?list=48A83AD3506C9D36', 'http://youtube.com/playlist?list=48A83AD3506C9D36', '48A83AD3506C9D36'),
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE      => 'You can use the NOT (<code>-</code>) and OR (<code>|</code>) operators to exclude videos or to find videos that are associated with one of several search terms. For example, to search for videos matching either "boating" or "sailing", set this field to <code>boating|sailing</code>. Similarly, to search for videos matching either "boating" or "sailing" but not "fishing", set this field to <code>boating|sailing -fishing</code>.',                       //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE     => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>).',    //>(translatable)<
+                    'smosh', 'UCY30JRSgfhYXA6i6xX1erWg'),
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>). Ensure that the favorites <a href="%s" target="_blank">playlist\'s privacy</a> is set to "Public".',   //>(translatable)<
+                    'smosh', 'UCY30JRSgfhYXA6i6xX1erWg', 'https://support.google.com/youtube/answer/3127309'),
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE => 'A comma-separated list of YouTube video IDs in the order that you would like them to appear.',    //>(translatable)<
+            ),
         ))->addArgument(array(
 
             tubepress_api_options_Reference::PROPERTY_PRO_ONLY => array(

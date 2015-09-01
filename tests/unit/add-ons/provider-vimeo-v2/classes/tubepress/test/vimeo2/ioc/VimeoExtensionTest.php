@@ -302,12 +302,12 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
                     tubepress_vimeo2_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',                   //>(translatable)<
                     tubepress_vimeo2_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user', //>(translatable)<
 
-                    tubepress_vimeo2_api_Constants::OPTION_LIKES => 'Number of "likes"',  //>(translatable)<
+                    tubepress_vimeo2_api_Constants::OPTION_LIKES => 'Number of likes',  //>(translatable)<
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s', "999999"), //>(translatable)<
+                    tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s.', "999999"), //>(translatable)<
                     tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY    => sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new"), //>(translatable)<
                     tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new"), //>(translatable)<
                 ),
@@ -337,21 +337,21 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
 
         return array(
 
-            tubepress_api_options_ContextInterface::_ => tubepress_api_options_ContextInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_ => tubepress_api_url_UrlFactoryInterface::_,
-            tubepress_api_template_TemplatingInterface::_ => tubepress_api_template_TemplatingInterface::_,
-            tubepress_api_util_LangUtilsInterface::_ => tubepress_api_util_LangUtilsInterface::_,
-            tubepress_api_http_oauth_v1_ClientInterface::_ => tubepress_api_http_oauth_v1_ClientInterface::_,
-            tubepress_api_util_TimeUtilsInterface::_ => tubepress_api_util_TimeUtilsInterface::_,
-            tubepress_api_log_LoggerInterface::_ => tubepress_api_log_LoggerInterface::_,
-            tubepress_api_event_EventDispatcherInterface::_ => tubepress_api_event_EventDispatcherInterface::_,
-            tubepress_api_options_ui_FieldBuilderInterface::_ => $mockfieldBuilder,
-            tubepress_api_translation_TranslatorInterface::_ => tubepress_api_translation_TranslatorInterface::_,
-            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
-            tubepress_api_media_HttpCollectorInterface::_ => tubepress_api_media_HttpCollectorInterface::_,
+            tubepress_api_options_ContextInterface::_          => tubepress_api_options_ContextInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_           => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_template_TemplatingInterface::_      => tubepress_api_template_TemplatingInterface::_,
+            tubepress_api_util_LangUtilsInterface::_           => tubepress_api_util_LangUtilsInterface::_,
+            tubepress_api_http_oauth_v1_ClientInterface::_     => tubepress_api_http_oauth_v1_ClientInterface::_,
+            tubepress_api_util_TimeUtilsInterface::_           => tubepress_api_util_TimeUtilsInterface::_,
+            tubepress_api_log_LoggerInterface::_               => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_    => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_  => $mockfieldBuilder,
+            tubepress_api_translation_TranslatorInterface::_   => tubepress_api_translation_TranslatorInterface::_,
+            tubepress_api_options_ReferenceInterface::_        => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_media_HttpCollectorInterface::_      => tubepress_api_media_HttpCollectorInterface::_,
             tubepress_api_media_AttributeFormatterInterface::_ => tubepress_api_media_AttributeFormatterInterface::_,
-            tubepress_api_environment_EnvironmentInterface::_ => $environment,
-            tubepress_api_util_StringUtilsInterface::_ => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_  => $environment,
+            tubepress_api_util_StringUtilsInterface::_         => tubepress_api_util_StringUtilsInterface::_,
         );
     }
 }

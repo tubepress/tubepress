@@ -398,21 +398,21 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
 
         return array(
 
-            tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
-            tubepress_api_util_LangUtilsInterface::_     => tubepress_api_util_LangUtilsInterface::_,
-            tubepress_api_util_StringUtilsInterface::_   => tubepress_api_util_StringUtilsInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_     => tubepress_api_url_UrlFactoryInterface::_,
-            tubepress_api_util_TimeUtilsInterface::_          => tubepress_api_util_TimeUtilsInterface::_,
-            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
-            tubepress_api_event_EventDispatcherInterface::_   => tubepress_api_event_EventDispatcherInterface::_,
-            tubepress_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
-            tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
+            tubepress_api_options_ContextInterface::_          => tubepress_api_options_ContextInterface::_,
+            tubepress_api_util_LangUtilsInterface::_           => tubepress_api_util_LangUtilsInterface::_,
+            tubepress_api_util_StringUtilsInterface::_         => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_           => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_util_TimeUtilsInterface::_           => tubepress_api_util_TimeUtilsInterface::_,
+            tubepress_api_log_LoggerInterface::_               => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_    => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_  => $mockFieldBuilder,
+            tubepress_api_translation_TranslatorInterface::_   => tubepress_api_translation_TranslatorInterface::_,
             tubepress_api_media_AttributeFormatterInterface::_ => tubepress_api_media_AttributeFormatterInterface::_,
-            tubepress_api_media_HttpCollectorInterface::_ => tubepress_api_media_HttpCollectorInterface::_,
-            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
-            tubepress_api_http_HttpClientInterface::_ => tubepress_api_http_HttpClientInterface::_,
-            tubepress_api_array_ArrayReaderInterface::_ => tubepress_api_array_ArrayReaderInterface::_,
-            tubepress_api_environment_EnvironmentInterface::_ => $environment
+            tubepress_api_media_HttpCollectorInterface::_      => tubepress_api_media_HttpCollectorInterface::_,
+            tubepress_api_options_ReferenceInterface::_        => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_http_HttpClientInterface::_          => tubepress_api_http_HttpClientInterface::_,
+            tubepress_api_array_ArrayReaderInterface::_        => tubepress_api_array_ArrayReaderInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_  => $environment,
         );
     }
 }

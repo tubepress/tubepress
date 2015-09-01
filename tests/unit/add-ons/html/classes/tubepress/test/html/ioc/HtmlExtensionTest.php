@@ -234,7 +234,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
             tubepress_api_environment_EnvironmentInterface::_ => tubepress_api_environment_EnvironmentInterface::_,
             'tubepress_theme_impl_CurrentThemeService'            => 'tubepress_theme_impl_CurrentThemeService',
             tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ => tubepress_api_contrib_RegistryInterface::_,
-            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_log_LoggerInterface::_              => tubepress_api_log_LoggerInterface::_,
             tubepress_api_http_RequestParametersInterface::_  => tubepress_api_http_RequestParametersInterface::_,
             tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
             tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,

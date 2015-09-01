@@ -181,16 +181,16 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::PLAYER_LOCATION          => 'Play each video',      //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_SCROLL_ON       => 'Scroll page to embedded player after thumbnail click',
-                    tubepress_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Scroll duration (ms)',
-                    tubepress_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Scroll offset (px)',
+                    tubepress_api_options_Names::PLAYER_LOCATION          => 'Play each video',                                      //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_SCROLL_ON       => 'Scroll page to embedded player after thumbnail click', //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Scroll duration (ms)',                                 //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Scroll offset (px)',                                   //>(translatable)<
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_api_options_Names::EMBEDDED_SCROLL_ON       => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',
-                    tubepress_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Set to 0 for "instant" scroll.',
-                    tubepress_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',
+                    tubepress_api_options_Names::EMBEDDED_SCROLL_ON       => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',  //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Set to 0 for "instant" scroll.',  //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',  //>(translatable)<
 
                 ),
             ))->addArgument(array(

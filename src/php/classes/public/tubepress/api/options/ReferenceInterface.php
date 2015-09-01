@@ -130,7 +130,7 @@ interface tubepress_api_options_ReferenceInterface
      * @param string $optionName   The option name.
      * @param string $propertyName The property name.
      *
-     * @return tubepress_api_collection_MapInterface
+     * @return mixed The property value.
      *
      * @throws InvalidArgumentException If the option name does not exist, or no such property for the option.
      *

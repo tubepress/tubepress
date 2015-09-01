@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-19 23:57+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "This is the title of the tab in the options page"
+msgid "Meta"
+msgstr ""
+
+msgid "Show each video's..."
+msgstr ""
+
+msgid "Date format"
+msgstr ""
+
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr ""
+
+msgid "Use relative dates"
+msgstr ""
+
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
+msgstr ""
+
+msgid "Maximum description length"
+msgstr ""
+
+msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
+msgstr ""

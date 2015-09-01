@@ -1,0 +1,75 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-19 23:53+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "This is the title of the tab in the options page"
+msgid "Cache"
+msgstr ""
+
+msgid "Enable API cache"
+msgstr ""
+
+msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr ""
+
+msgid "Cache directory"
+msgstr ""
+
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writable directory."
+msgstr ""
+
+msgid "Cache expiration time (seconds)"
+msgstr ""
+
+msgid "Cache entries will be considered stale after the specified number of seconds. Default is %s (%s)."
+msgstr ""
+
+msgid "Cache cleaning factor"
+msgstr ""
+
+msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
+msgstr ""
+
+msgid "HTML Templates"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
+msgid "Compile and cache Twig templates to pure PHP for maximum performance. Most users should leave this enabled."
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writable directory where TubePress can store cached templates."
+msgstr ""
+
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Automatically recompile templates when they are changed. Turning on the monitor is very useful if you are developing custom templates, but doing so also incurs a performance penalty. If you are unsure, leave this disabled."
+msgstr ""
+
+msgid "HTML Cache"
+msgstr ""
+
+msgid "Enable HTML Cache"
+msgstr ""
+
+msgid "Store TubePress's HTML output in a cache file to significantly improve performance at the slight expense of freshness."
+msgstr ""
+
+msgid "Cache cleaning key"
+msgstr ""
+
+msgid "The name of the HTTP request parameter that, when set to <code>true</code>, can remotely flush the cache. For instance, if you enter <code>foobar</code>, then adding <code>?foobar=true</code> to the end of a URL would remotely trigger a clear of the cache."
+msgstr ""

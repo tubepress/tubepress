@@ -1,0 +1,131 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:25+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "YouTube"
+msgstr ""
+
+msgid "YouTube search for"
+msgstr ""
+
+msgid "Videos from this YouTube user or channel"
+msgstr ""
+
+msgid "You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>)."
+msgstr ""
+
+msgid "This YouTube playlist"
+msgstr ""
+
+msgid "The URL to any YouTube playlist (e.g. <a href=\"%s\" target=\"_blank\">%s</a>) or just the playlist identifier (e.g. %s)."
+msgstr ""
+
+msgid "Favorite videos from this YouTube user or channel"
+msgstr ""
+
+msgid "Videos related to this YouTube video"
+msgstr ""
+
+msgid "This list of YouTube videos"
+msgstr ""
+
+msgid "A comma-separated list of YouTube video IDs in the order that you would like them to appear."
+msgstr ""
+
+msgid "Filter \"racy\" content"
+msgstr ""
+
+msgid "Don't show videos that may not be suitable for minors."
+msgstr ""
+
+msgid "none"
+msgstr ""
+
+msgid "moderate"
+msgstr ""
+
+msgid "strict"
+msgstr ""
+
+msgid "Fade progress bar and video controls"
+msgstr ""
+
+msgid "Fade progress bar only"
+msgstr ""
+
+msgid "Disable fading - always show both"
+msgstr ""
+
+msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Allow fullscreen playback."
+msgstr ""
+
+msgid "\"Modest\" branding"
+msgstr ""
+
+msgid "Hide the YouTube logo from the control area."
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show related videos"
+msgstr ""
+
+msgid "Toggles the display of related videos after a video finishes."
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
+msgstr ""
+
+msgid "Show or hide video controls"
+msgstr ""
+
+msgid "Show controls - load Flash player immediately"
+msgstr ""
+
+msgid "Show controls - load Flash player when playback begins"
+msgstr ""
+
+msgid "Hide controls"
+msgstr ""
+
+msgid "Only retrieve embeddable videos"
+msgstr ""
+
+msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
+msgstr ""
+
+msgid "Google API key"
+msgstr ""
+
+msgid "YouTube will use this API key for logging and quota purposes. You can register a new API key <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+msgid "You can use the NOT (<code>-</code>) and OR (<code>|</code>) operators to exclude videos or to find videos that are associated with one of several search terms. For example, to search for videos matching either \"boating\" or \"sailing\", set this field to <code>boating|sailing</code>. Similarly, to search for videos matching either \"boating\" or \"sailing\" but not \"fishing\", set this field to <code>boating|sailing -fishing</code>."
+msgstr ""
+
+msgid "You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>). Ensure that the favorites <a href=\"%s\" target=\"_blank\">playlist's privacy</a> is set to \"Public\"."
+msgstr ""

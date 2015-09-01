@@ -10,12 +10,12 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to remove this source?</p>
+                <p>{{ 'Are you sure you want to remove this source?' | trans }}</p>                                                   {# >(translatable)< #}
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger btn-ok" id="js-delete-confirmation-button" data-dismiss="modal">Delete</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{  'Cancel' | trans }}</button>                   {# >(translatable)< #}
+                <a class="btn btn-danger btn-ok" id="js-delete-confirmation-button" data-dismiss="modal">{{ 'Delete' | trans }}</a>   {# >(translatable)< #}
             </div>
         </div>
     </div>

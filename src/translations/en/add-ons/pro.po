@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 17:21-0400\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "with FancyBox"
+msgstr ""
+
+msgid "with TinyBox"
+msgstr ""
+
+msgid "in a \"detached\" location (see the documentation)"
+msgstr ""

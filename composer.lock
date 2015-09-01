@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2a233c8d0becae84ff27b912411ba77e",
+    "hash": "592a14b8d09c5915e73d90ee79fb5e70",
     "packages": [
         {
             "name": "ehough/filesystem",
@@ -479,21 +479,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "1ded65daeb8da1fb0d22016e53c2e7026557f040"
+                "reference": "b1a4c14b6076cd180b7133a1ded15efd18b2390e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/1ded65daeb8da1fb0d22016e53c2e7026557f040",
-                "reference": "1ded65daeb8da1fb0d22016e53c2e7026557f040",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b1a4c14b6076cd180b7133a1ded15efd18b2390e",
+                "reference": "b1a4c14b6076cd180b7133a1ded15efd18b2390e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.7"
             },
+            "require-dev": {
+                "symfony/debug": "~2.7",
+                "symfony/phpunit-bridge": "~2.7"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.19-dev"
+                    "dev-master": "1.21-dev"
                 }
             },
             "autoload": {
@@ -528,20 +532,20 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-07-05 08:50:23"
+            "time": "2015-09-01 09:38:14"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v2.1",
+            "version": "v2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "fd5feddfef20e6c9f37e1f3c41872b50041072e3"
+                "reference": "155eff79642bb9996eeb6ef33ac06db8d5629847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/fd5feddfef20e6c9f37e1f3c41872b50041072e3",
-                "reference": "fd5feddfef20e6c9f37e1f3c41872b50041072e3",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/155eff79642bb9996eeb6ef33ac06db8d5629847",
+                "reference": "155eff79642bb9996eeb6ef33ac06db8d5629847",
                 "shasum": ""
             },
             "require": {
@@ -567,7 +571,7 @@
                 "plugin updates",
                 "wordpress"
             ],
-            "time": "2015-06-26 13:37:25"
+            "time": "2015-07-28 10:43:46"
         }
     ],
     "packages-dev": [
@@ -777,16 +781,16 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
-                "reference": "83fe1bdc5d47658b727595c14da140da92b3d66d"
+                "reference": "3e82f4e9fc92665fafd9157568e4dcb01d014e5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/83fe1bdc5d47658b727595c14da140da92b3d66d",
-                "reference": "83fe1bdc5d47658b727595c14da140da92b3d66d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/3e82f4e9fc92665fafd9157568e4dcb01d014e5b",
+                "reference": "3e82f4e9fc92665fafd9157568e4dcb01d014e5b",
                 "shasum": ""
             },
             "require": {
@@ -814,7 +818,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2015-06-13 07:35:30"
+            "time": "2015-06-21 08:01:12"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -997,17 +1001,65 @@
             "time": "2014-02-16 12:43:56"
         },
         {
+            "name": "sepia/po-parser",
+            "version": "4.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulferras/PHP-po-parser.git",
+                "reference": "4906b3bc357e1028b84c3cb0ee1d1d1970a21fbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulferras/PHP-po-parser/zipball/4906b3bc357e1028b84c3cb0ee1d1d1970a21fbb",
+                "reference": "4906b3bc357e1028b84c3cb0ee1d1d1970a21fbb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "1.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sepia": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raúl Ferràs",
+                    "email": "raul.ferras@gmail.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Gettext *.PO file parser for PHP.",
+            "homepage": "https://github.com/raulferras/PHP-po-parser",
+            "keywords": [
+                "gettext",
+                "i10n",
+                "i18n",
+                "po"
+            ],
+            "time": "2015-06-09 08:01:21"
+        },
+        {
             "name": "symfony/class-loader",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "4d45c984d7fa7a2b6f27ea7cca58495e61d35ce2"
+                "reference": "f4cbafcb1f8fa0855e1eba96594f56782e701301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/4d45c984d7fa7a2b6f27ea7cca58495e61d35ce2",
-                "reference": "4d45c984d7fa7a2b6f27ea7cca58495e61d35ce2",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/f4cbafcb1f8fa0855e1eba96594f56782e701301",
+                "reference": "f4cbafcb1f8fa0855e1eba96594f56782e701301",
                 "shasum": ""
             },
             "require": {
@@ -1044,7 +1096,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-01 20:40:29"
+            "time": "2015-08-27 07:55:57"
         },
         {
             "name": "symfony/css-selector",
@@ -1105,12 +1157,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "cf85993681a0049b6a925a6abe480e8bbf89e918"
+                "reference": "ea8b77ed8337b1f90e741d2d604b8970904d1b83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/cf85993681a0049b6a925a6abe480e8bbf89e918",
-                "reference": "cf85993681a0049b6a925a6abe480e8bbf89e918",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/ea8b77ed8337b1f90e741d2d604b8970904d1b83",
+                "reference": "ea8b77ed8337b1f90e741d2d604b8970904d1b83",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1202,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:12:34"
+            "time": "2015-08-27 07:55:57"
         },
         {
             "name": "symfony/yaml",
@@ -1158,12 +1210,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "000e7fc2653335cd42c6d21405dac1c74224a387"
+                "reference": "1a0bd40f71908db4c9d44d308e0008cc44fc5f2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/000e7fc2653335cd42c6d21405dac1c74224a387",
-                "reference": "000e7fc2653335cd42c6d21405dac1c74224a387",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1a0bd40f71908db4c9d44d308e0008cc44fc5f2f",
+                "reference": "1a0bd40f71908db4c9d44d308e0008cc44fc5f2f",
                 "shasum": ""
             },
             "require": {
@@ -1199,15 +1251,15 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-01 14:16:54"
+            "time": "2015-08-24 07:18:02"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "symfony/class-loader": 20,
-        "symfony/dom-crawler": 20,
-        "symfony/css-selector": 20
+        "symfony/css-selector": 20,
+        "symfony/dom-crawler": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -26,9 +26,10 @@
   "require-dev": {
     "ehough/mockery"       : "~0.8",
     "phpunit/phpunit"      : "~3.0",
+    "sepia/po-parser"      : "~4.2",
     "symfony/class-loader" : "dev-master",
-    "symfony/dom-crawler"  : "dev-master",
-    "symfony/css-selector" : "dev-master"
+    "symfony/css-selector" : "dev-master",
+    "symfony/dom-crawler"  : "dev-master"
   },
   "autoload": {
     "psr-0": {

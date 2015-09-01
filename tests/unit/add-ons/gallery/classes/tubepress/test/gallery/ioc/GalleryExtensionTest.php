@@ -255,7 +255,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             ->withArgument($fieldMap)
             ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
-    
+
     protected function getExpectedExternalServicesMap()
     {
         $fieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
@@ -264,14 +264,14 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
 
         return array(
             tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_     => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_          => tubepress_api_url_UrlFactoryInterface::_,
             tubepress_api_http_RequestParametersInterface::_  => tubepress_api_http_RequestParametersInterface::_,
             tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
             tubepress_api_event_EventDispatcherInterface::_   => tubepress_api_event_EventDispatcherInterface::_,
             tubepress_api_template_TemplatingInterface::_     => tubepress_api_template_TemplatingInterface::_,
-            'tubepress_theme_impl_CurrentThemeService'            => 'tubepress_theme_impl_CurrentThemeService',
+            'tubepress_theme_impl_CurrentThemeService'        => 'tubepress_theme_impl_CurrentThemeService',
             tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
-            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_log_LoggerInterface::_              => tubepress_api_log_LoggerInterface::_,
             tubepress_api_media_CollectorInterface::_         => tubepress_api_media_CollectorInterface::_,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
         );

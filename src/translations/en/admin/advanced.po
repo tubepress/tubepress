@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 17:21-0400\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "This is the title of the tab in the options page"
+msgid "Advanced"
+msgstr ""
+
+msgid "Enable HTTPS"
+msgstr ""
+
+msgid "Serve thumbnails and embedded video player over a secure connection."
+msgstr ""
+
+msgid "HTTP method"
+msgstr ""
+
+msgid "Defines the HTTP method used in most TubePress Ajax operations"
+msgstr ""
+
+msgid "Enable debugging"
+msgstr ""
+
+msgid "If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you're not having problems with TubePress, or you're worried about revealing any details of your TubePress pages, feel free to disable the feature."
+msgstr ""
