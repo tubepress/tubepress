@@ -42,9 +42,9 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
          ->addArgument(array(
 
             tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD           => false,
-                tubepress_api_options_Names::TEMPLATE_CACHE_DIR                  => null,
-                tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED              => true,
+                tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD => false,
+                tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => null,
+                tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED    => true,
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
@@ -56,7 +56,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                 tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD => 'Automatically recompile templates when they are changed. Turning on the monitor is very useful if you are developing custom templates, but doing so also incurs a performance penalty. If you are unsure, leave this disabled.',    //>(translatable)<
-                tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory where TubePress can store cached templates.',         //>(translatable)<
+                tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory where TubePress can store cached templates.',         //>(translatable)<
                 tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED    => 'Compile and cache Twig templates to pure PHP for maximum performance. Most users should leave this enabled.',            //>(translatable)<
             ),
         ));

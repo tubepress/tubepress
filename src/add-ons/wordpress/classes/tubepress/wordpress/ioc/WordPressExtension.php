@@ -51,7 +51,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
-                tubepress_api_options_Names::SHORTCODE_KEYWORD         => 'tubepress',
+                tubepress_api_options_Names::SHORTCODE_KEYWORD             => 'tubepress',
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<

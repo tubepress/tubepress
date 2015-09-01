@@ -303,12 +303,12 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_spi_ioc_Container
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',                   //>(translatable)<
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user', //>(translatable)<
 
-                tubepress_vimeo2_api_Constants::OPTION_LIKES => 'Number of "likes"',  //>(translatable)<
+                tubepress_vimeo2_api_Constants::OPTION_LIKES => 'Number of likes',  //>(translatable)<
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s', "999999"), //>(translatable)<
+                tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s.', "999999"), //>(translatable)<
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_KEY    => sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new"), //>(translatable)<
                 tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new"), //>(translatable)<
             ),

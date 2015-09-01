@@ -21,7 +21,7 @@
         {# Reorder icon #}
         <span class="multisource-control-icon multisource-control-reorder js-multisource-control-reorder glyphicon glyphicon-sort pull-right"
               data-toggle="popover" data-placement="left" data-trigger="hover focus"
-              data-content="Click and drag to change the order in which the sources are retrieved. See the &quot;Feed&quot; tab for fine-grained control over the final sort order."></span>
+              data-content="{{ 'Click and drag to change the order in which the sources are retrieved. See the "Feed" tab for fine-grained control over the final sort order.' | trans }}"></span>   {# >(translatable)< #}
     </div>
 
     <div class="col-xs-12 multisource-tab-area collapse {% if loop.length == 1 %}in{% endif %}" id="#{{ contentAreaId }}">
@@ -30,12 +30,12 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#{{ sourceSelectionAreaId }}" aria-controls="home" role="tab" data-toggle="tab">
-                        <span class="glyphicon glyphicon-film" aria-hidden="true"></span> Video Source
+                        <span class="glyphicon glyphicon-film" aria-hidden="true"></span> {{ 'Video Source' | trans }} {# >(translatable)< #}
                     </a>
                 </li>
                 <li role="presentation">
                     <a href="#{{ feedOptionsAreaId }}" aria-controls="profile" role="tab" data-toggle="tab">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Feed Options
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> {{ 'Feed Options' | trans }} {# >(translatable)< #}
                     </a>
                 </li>
             </ul>

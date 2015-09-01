@@ -41,7 +41,7 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
             'tubepress_widget_gattaca',
             'TubePress',
             array(
-                'description' => __('Displays YouTube or Vimeo videos with TubePress', 'tubepress'),
+                "description" => __('Displays YouTube or Vimeo videos with TubePress', "tubepress"), //>(translatable)<
             )
         );
     }
