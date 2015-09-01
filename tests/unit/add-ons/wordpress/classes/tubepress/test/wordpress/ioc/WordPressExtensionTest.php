@@ -55,9 +55,6 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
 
             ),
-            tubepress_api_options_Reference::PROPERTY_FORM_TYPE => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD => tubepress_options_ui_impl_modelers_DbModeler::TYPE_STRING,
-            )
         ))->withTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(tubepress_api_options_Names::SHORTCODE_KEYWORD,),);
