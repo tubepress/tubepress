@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-19 23:28+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Author"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Comment count"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Keywords"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Date posted"
+msgstr ""
+
+msgid "Runtime"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "View count"
+msgstr ""
+
+msgid "Number of times favorited"
+msgstr ""
+
+msgid "Number of likes"
+msgstr ""
+
+msgid "Number of dislikes"
+msgstr ""

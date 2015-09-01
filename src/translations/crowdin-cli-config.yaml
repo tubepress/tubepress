@@ -1,0 +1,5 @@
+project_identifier: tubepress
+files:
+  -
+    source      : '/src/translations/en/**/*.po'
+    translation : '/src/translations/%locale%/**/%original_file_name%'

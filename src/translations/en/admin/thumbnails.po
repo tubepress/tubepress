@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:10+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Thumbnails"
+msgstr ""
+
+msgid "Height (px) of thumbs"
+msgstr ""
+
+msgid "Width (px) of thumbs"
+msgstr ""
+
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr ""
+
+msgid "Use \"fluid\" thumbnails"
+msgstr ""
+
+msgid "Dynamically set thumbnail spacing based on the width of their container."
+msgstr ""
+
+msgid "Show pagination above thumbnails"
+msgstr ""
+
+msgid "Show pagination below thumbnails"
+msgstr ""
+
+msgid "Only applies to galleries that span multiple pages."
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
+msgstr ""
+
+msgid "Randomize thumbnail images"
+msgstr ""
+
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
+msgstr ""

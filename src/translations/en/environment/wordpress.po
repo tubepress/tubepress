@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:29+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "WordPress"
+msgstr ""
+
+msgid "Displays YouTube or Vimeo videos with TubePress"
+msgstr ""
+
+msgid "Shortcode keyword"
+msgstr ""
+
+msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
+msgstr ""
+
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr ""
+
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr ""
+
+msgid "Displays YouTube or Vimeo videos with TubePress. Limited to a single instance per site. Use the other TubePress widget instead!"
+msgstr ""
