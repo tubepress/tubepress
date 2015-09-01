@@ -39,12 +39,26 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
 
     private function _registerOptions()
     {
-        $this->expectRegistration('tubepress_api_options_Reference__wordpress', 'tubepress_api_options_Reference')->withArgument(array(tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE => 'TubePress', tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']', tubepress_api_options_Names::SHORTCODE_KEYWORD => 'tubepress',), tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(tubepress_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<
-        ),
+        $this->expectRegistration(
+            'tubepress_api_options_Reference__wordpress',
+            'tubepress_api_options_Reference'
+        )->withArgument(array(
+            tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
+                tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
+                tubepress_api_options_Names::SHORTCODE_KEYWORD             => 'tubepress',
+            ),
+            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<
+            ),
+            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
 
-            tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
-
-            ),))->withTag(tubepress_api_options_ReferenceInterface::_);
+            ),
+            tubepress_api_options_Reference::PROPERTY_FORM_TYPE => array(
+                tubepress_api_options_Names::SHORTCODE_KEYWORD => tubepress_options_ui_impl_modelers_DbModeler::TYPE_STRING,
+            )
+        ))->withTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(tubepress_api_options_Names::SHORTCODE_KEYWORD,),);
 
@@ -282,23 +296,23 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
 
         return array(
 
-            tubepress_api_options_ui_FormInterface::_ => tubepress_api_options_ui_FormInterface::_,
-            tubepress_api_http_RequestParametersInterface::_ => tubepress_api_http_RequestParametersInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_ => tubepress_api_url_UrlFactoryInterface::_,
-            tubepress_api_util_StringUtilsInterface::_ => tubepress_api_util_StringUtilsInterface::_,
-            tubepress_api_options_ContextInterface::_ => tubepress_api_options_ContextInterface::_,
-            tubepress_api_html_HtmlGeneratorInterface::_ => tubepress_api_html_HtmlGeneratorInterface::_,
-            tubepress_api_shortcode_ParserInterface::_ => tubepress_api_shortcode_ParserInterface::_,
-            tubepress_api_event_EventDispatcherInterface::_ => tubepress_api_event_EventDispatcherInterface::_,
-            tubepress_api_template_TemplatingInterface::_ => tubepress_api_template_TemplatingInterface::_,
+            tubepress_api_options_ui_FormInterface::_                => tubepress_api_options_ui_FormInterface::_,
+            tubepress_api_http_RequestParametersInterface::_         => tubepress_api_http_RequestParametersInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_                 => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_util_StringUtilsInterface::_               => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_options_ContextInterface::_                => tubepress_api_options_ContextInterface::_,
+            tubepress_api_html_HtmlGeneratorInterface::_             => tubepress_api_html_HtmlGeneratorInterface::_,
+            tubepress_api_shortcode_ParserInterface::_               => tubepress_api_shortcode_ParserInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_          => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_template_TemplatingInterface::_            => tubepress_api_template_TemplatingInterface::_,
             tubepress_api_template_TemplatingInterface::_ . '.admin' => tubepress_api_template_TemplatingInterface::_,
-            tubepress_api_html_HtmlGeneratorInterface::_ => tubepress_api_html_HtmlGeneratorInterface::_,
-            tubepress_api_environment_EnvironmentInterface::_ => tubepress_api_environment_EnvironmentInterface::_,
-            tubepress_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
-            tubepress_api_boot_BootSettingsInterface::_ => tubepress_api_boot_BootSettingsInterface::_,
-            tubepress_api_http_AjaxInterface::_ => tubepress_api_http_AjaxInterface::_,
-            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
-            tubepress_api_options_PersistenceInterface::_ => tubepress_api_options_PersistenceInterface::_
+            tubepress_api_html_HtmlGeneratorInterface::_             => tubepress_api_html_HtmlGeneratorInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_        => tubepress_api_environment_EnvironmentInterface::_,
+            tubepress_api_boot_BootSettingsInterface::_              => tubepress_api_boot_BootSettingsInterface::_,
+            tubepress_api_options_ui_FieldBuilderInterface::_        => $mockFieldBuilder,
+            tubepress_api_http_AjaxInterface::_                      => tubepress_api_http_AjaxInterface::_,
+            tubepress_api_options_ReferenceInterface::_              => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_options_PersistenceInterface::_            => tubepress_api_options_PersistenceInterface::_
         );
     }
 }

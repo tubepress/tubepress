@@ -52,9 +52,9 @@ class tubepress_test_cache_html_ioc_HtmlCacheExtensionTest extends tubepress_api
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                     tubepress_api_options_Names::CACHE_HTML_CLEANING_FACTOR  => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
                     tubepress_api_options_Names::CACHE_HTML_CLEANING_KEY     => 'The name of the HTTP request parameter that, when set to <code>true</code>, can remotely flush the cache. For instance, if you enter <code>foobar</code>, then adding <code>?foobar=true</code> to the end of a URL would remotely trigger a clear of the cache.', //>(translatable)<
-                    tubepress_api_options_Names::CACHE_HTML_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
+                    tubepress_api_options_Names::CACHE_HTML_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory.', //>(translatable)<
                     tubepress_api_options_Names::CACHE_HTML_ENABLED          => 'Store TubePress\'s HTML output in a cache file to significantly improve performance at the slight expense of freshness.', //>(translatable)<
-                    tubepress_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => 'Cache entries will be considered stale after the specified number of seconds. Default is 21600 (six hours).',   //>(translatable)<
+                    tubepress_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours"),   //>(translatable)<
                 ),
             ))->withArgument(array(
 
@@ -172,9 +172,9 @@ class tubepress_test_cache_html_ioc_HtmlCacheExtensionTest extends tubepress_api
         $mockFieldBuilder->shouldReceive('newInstance')->once()->with(tubepress_api_options_Names::CACHE_HTML_ENABLED, 'boolean')->andReturn($booleanField);
 
         return array(
-            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
-            tubepress_api_translation_TranslatorInterface::_ => tubepress_api_translation_TranslatorInterface::_
+            tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_
         );
     }
 }
