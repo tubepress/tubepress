@@ -1,0 +1,20 @@
+<div class="oauth2-client-registration">
+    <ol>
+        {% for instruction in provider.untranslatedClientRegistrationInstructions %}
+
+            <li>{{ instruction | trans | raw }}.</li>
+
+        {% endfor %}
+
+        <li>
+            When asked for a {{ provider.untranslatedTermForRedirectEndpoint | trans }}, you must enter <br />
+            <input type="text" value="{{ callbackUri }}" class="form-control" readonly>
+        </li>
+        <li>
+            {{ provider.displayName }} will assign to you a &quot;{{ provider.untranslatedTermForClientId | trans }}&quot;{% if provider.clientSecretUsed %} and &quot;{{ provider.untranslatedTermForClientSecret | trans }}&quot;{% endif %} which you can enter below.
+        </li>
+        <li>
+            <a href="">Click here</a> for detailed documentation on this step.
+        </li>
+    </ol>
+</div>

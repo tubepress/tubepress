@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_http_oauth2_impl_RedirectionEndpointCalculator
+class tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
 {
     /**
      * @var tubepress_api_event_EventDispatcherInterface

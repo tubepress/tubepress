@@ -10,13 +10,13 @@
  */
 
 /**
- * @covers tubepress_internal_shortcode_Shortcode<extended>
+ * @covers tubepress_shortcode_impl_Shortcode<extended>
  */
 class tubepress_test_internal_shortcode_ShortcodeTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testOtherAttributes()
     {
-        $shortcode = new tubepress_internal_shortcode_Shortcode('name', array('foo' => 'bar'), ' inner ');
+        $shortcode = new tubepress_shortcode_impl_Shortcode('name', array('foo' => 'bar'), ' inner ');
 
         $this->assertEquals('name', $shortcode->getName());
         $this->assertEquals(array('foo' => 'bar'), $shortcode->getAttributes());
@@ -28,7 +28,7 @@ class tubepress_test_internal_shortcode_ShortcodeTest extends tubepress_api_test
      */
     public function testGetName($incoming, $expected)
     {
-        $shortcode = new tubepress_internal_shortcode_Shortcode($incoming);
+        $shortcode = new tubepress_shortcode_impl_Shortcode($incoming);
 
         $this->assertEquals($expected, $shortcode->getName());
         $this->assertEquals(array(), $shortcode->getAttributes());
@@ -52,7 +52,7 @@ class tubepress_test_internal_shortcode_ShortcodeTest extends tubepress_api_test
     {
         $this->setExpectedException('InvalidArgumentException', $expectedErrorMessage);
 
-        new tubepress_internal_shortcode_Shortcode($name, $attributes, $innerContent);
+        new tubepress_shortcode_impl_Shortcode($name, $attributes, $innerContent);
     }
 
     public function getDataInvalidConstructions()

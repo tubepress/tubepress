@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_http_oauth2_impl_RedirectionEndpointCalculator
+ * @covers tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
  */
-class tubepress_test_http_oauth2_impl_RedirectionEndpointCalculatorTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_http_oauth2_impl_util_RedirectionEndpointCalculatorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_http_oauth2_impl_RedirectionEndpointCalculator
+     * @var tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_http_oauth2_impl_RedirectionEndpointCalculatorTest extends 
         $this->_mockEnvironment     = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
-        $this->_sut = new tubepress_http_oauth2_impl_RedirectionEndpointCalculator(
+        $this->_sut = new tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator(
             $this->_mockEnvironment,
             $this->_mockEventDispatcher
         );

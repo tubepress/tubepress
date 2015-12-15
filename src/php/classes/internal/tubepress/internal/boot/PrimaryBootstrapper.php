@@ -174,7 +174,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
              * search engines try to pick it up. Weaksauce, I know.
              */
             ob_start();
-            phpinfo();
+            phpinfo(INFO_GENERAL|INFO_CONFIGURATION|INFO_MODULES);
             $phpInfo = ob_get_contents();
             ob_end_clean();
             $phpInfo = base64_encode($phpInfo);

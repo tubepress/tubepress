@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_internal_http_oauth_v2_Token implements tubepress_api_http_oauth_v2_TokenInterface
+class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth_v2_TokenInterface
 {
     /**
      * @var string

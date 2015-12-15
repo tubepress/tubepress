@@ -343,7 +343,19 @@ interface tubepress_api_options_Names
      * @api
      * @since 4.2.0
      */
+    const OAUTH2_TOKEN = 'authorizeAs';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
     const OAUTH2_TOKENS = 'oauth2Tokens';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
+    const OAUTH2_CLIENT_DETAILS = 'oauth2ClientDetails';
 
     /**
      * @api

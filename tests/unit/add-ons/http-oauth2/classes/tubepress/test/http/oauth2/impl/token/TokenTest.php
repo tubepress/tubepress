@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_internal_http_oauth_v2_Token
+ * @covers tubepress_http_oauth2_impl_token_Token
  */
-class tubepress_test_internal_http_oauth_v2_TokenTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_http_oauth2_impl_token_TokenTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_internal_http_oauth_v2_Token
+     * @var tubepress_http_oauth2_impl_token_Token
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_internal_http_oauth_v2_Token();
+        $this->_sut = new tubepress_http_oauth2_impl_token_Token();
     }
 
     public function testIsExpired()

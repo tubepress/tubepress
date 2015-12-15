@@ -19,9 +19,17 @@
     },
     "autoload":{
         "classmap" : {
-          "tubepress_http_oauth2_ioc_Oauth2Extension"                : "classes/tubepress/http/oauth2/ioc/Oauth2Extension.php",
-          "tubepress_http_oauth2_impl_AuthorizationInitiator"        : "classes/tubepress/http/oauth2/impl/AuthorizationInitiator.php",
-          "tubepress_http_oauth2_impl_RedirectionEndpointCalculator" : "classes/tubepress/http/oauth2/impl/RedirectionEndpointCalculator.php"
+          "tubepress_http_oauth2_impl_AbstractProviderConsumer"           : "classes/tubepress/http/oauth2/impl/AbstractProviderConsumer.php",
+          "tubepress_http_oauth2_impl_listeners_Oauth2Listener"           : "classes/tubepress/http/oauth2/impl/listeners/Oauth2Listener.php",
+          "tubepress_http_oauth2_impl_options_ui_ClientInstructionsField" : "classes/tubepress/http/oauth2/impl/options/ui/ClientInstructionsField.php",
+          "tubepress_http_oauth2_impl_popup_AbstractPopupHandler"         : "classes/tubepress/http/oauth2/impl/popup/AbstractPopupHandler.php",
+          "tubepress_http_oauth2_impl_popup_AuthorizationInitiator"       : "classes/tubepress/http/oauth2/impl/popup/AuthorizationInitiator.php",
+          "tubepress_http_oauth2_impl_popup_RedirectionCallback"          : "classes/tubepress/http/oauth2/impl/popup/RedirectionCallback.php",
+          "tubepress_http_oauth2_impl_token_Token"                        : "classes/tubepress/http/oauth2/impl/token/Token.php",
+          "tubepress_http_oauth2_impl_util_AccessTokenFetcher"            : "classes/tubepress/http/oauth2/impl/util/AccessTokenFetcher.php",
+          "tubepress_http_oauth2_impl_util_PersistenceHelper"             : "classes/tubepress/http/oauth2/impl/util/PersistenceHelper.php",
+          "tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator" : "classes/tubepress/http/oauth2/impl/util/RedirectionEndpointCalculator.php",
+          "tubepress_http_oauth2_ioc_Oauth2Extension"                     : "classes/tubepress/http/oauth2/ioc/Oauth2Extension.php"
         }
     }
 }

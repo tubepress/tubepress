@@ -1,0 +1,20 @@
+{% extends 'oauth2/bootstrap.html.twig' %}
+
+{% block body %}
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {{ 'TubePress encountered an error' | trans }}  {# >(translatable)< #}
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p><code>{{ message }}</code></p>
+            <p>
+                {{ 'Please close this window and try again.' | trans }}{# >(translatable)< #}
+            </p>
+            <p></p>
+        </div>
+    </div>
+
+{% endblock body %}

@@ -35,7 +35,7 @@ interface tubepress_api_http_oauth_v2_TokenInterface
      * @api
      * @since 4.2.0
      *
-     * @return string
+     * @return string|null The access token, or null if not set.
      */
     function getAccessToken();
 
@@ -51,7 +51,7 @@ interface tubepress_api_http_oauth_v2_TokenInterface
      * @api
      * @since 4.2.0
      *
-     * @return string
+     * @return string|null The refresh token value, or null if not available.
      */
     function getRefreshToken();
 
@@ -59,7 +59,15 @@ interface tubepress_api_http_oauth_v2_TokenInterface
      * @api
      * @since 4.2.0
      *
-     * @return array
+     * @return array An array, which may be empty but not null, of extra parameters for this token.
      */
     function getExtraParams();
+
+    /**
+     * @api
+     * @since 4.2.0
+     *
+     * @return bool True if this token has expired, false otherwise.
+     */
+    function isExpired();
 }

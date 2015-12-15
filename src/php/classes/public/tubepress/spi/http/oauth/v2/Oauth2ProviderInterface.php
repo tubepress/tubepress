@@ -29,53 +29,12 @@ interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
 
     /**
      * @return string The human-readable name of this OAuth provider. This will be displayed to the user.
+     *                e.g. "YouTube" or "Vimeo"
      *
      * @api
      * @since 4.2.0
      */
     function getDisplayName();
-
-
-
-    /**
-     *
-     * See https://tools.ietf.org/html/rfc6749#section-3.1
-     *
-     * @return tubepress_api_url_UrlInterface The authorization API endpoint.
-     *
-     * @api
-     * @since 4.2.0
-     */
-    function getAuthorizationEndpoint();
-
-    /**
-     * Defines the authorization grant type. TubePress is not guaranteed to work with anything other
-     * than "code", though in the future clientCredentials might be implemented. It's very unlikely
-     * that we will ever implement the implicit or resource owner password credentials grant types.
-     *
-     * See https://tools.ietf.org/html/rfc6749#section-4
-     *
-     * @return string Either code or client_credentials
-     */
-    function getAuthorizationGrantType();
-
-    /**
-     * Modify the URL to which the user will be redirected for authorization. You may add or remove query parameters
-     * if you wish. If the client credentials grant type is in use, this function will not be invoked.
-     *
-     * TubePress will have already added the response_type query parameter, at a minimum.
-     *
-     * See https://tools.ietf.org/html/rfc6749#section-4.1.1
-     * See https://tools.ietf.org/html/rfc6749#section-4.4.1
-     *
-     * @param tubepress_api_url_UrlInterface $authorizationUrl
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.2.0
-     */
-    function onAuthorizationUrl(tubepress_api_url_UrlInterface $authorizationUrl);
 
     /**
      * Returns the access token API endpoint.
@@ -90,24 +49,139 @@ interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
     function getTokenEndpoint();
 
     /**
-     * Modify the request to the token endpoint to supply any necessary credentials, add
-     * query parameters, etc. TubePress will have already added the grant_type query parameter,
-     * at a minimum.
      *
-     * See https://tools.ietf.org/html/rfc6749#section-4.1.3
-     * See https://tools.ietf.org/html/rfc6749#section-4.4.2
-     * See https://tools.ietf.org/html/rfc6749#section-6
+     * See https://tools.ietf.org/html/rfc6749#section-3.1
      *
-     * @param tubepress_api_http_message_RequestInterface $request          The access token request about to be sent.
-     * @param boolean                                     $isRefreshRequest True if this is a refresh request,
-     *                                                                      false otherwise.
+     * @return tubepress_api_url_UrlInterface The authorization API endpoint.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function getAuthorizationEndpoint();
+
+    /**
+     * Defines the authorization grant type. TubePress is not guaranteed to support anything other
+     * than "code", though in the future clientCredentials might be implemented. It's very unlikely
+     * that we will ever implement the implicit or resource owner password credentials grant types.
+     *
+     * See https://tools.ietf.org/html/rfc6749#section-4
+     *
+     * @return string Either code or client_credentials
+     */
+    function getAuthorizationGrantType();
+
+    /**
+     * @return bool True if state is returned by the provider during authorization, false otherwise.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function isStateUsed();
+
+    /**
+     * @return bool True if this provider uses the client secret, false otherwise.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function isClientSecretUsed();
+
+    /**
+     * Only invoked for authorization code grant type providers.
+     *
+     * Modify the URL to which the user will be redirected for authorization. TubePress will have already
+     * added the response_type, client_id, redirect_uri, and state parameters.
+     *
+     * See https://tools.ietf.org/html/rfc6749#section-4.1.1
+     *
+     * @param tubepress_api_url_UrlInterface $authorizationUrl The authorization URL.
+     * @param string                         $clientId         The client ID.
+     * @param string                         $clientSecret     The client secret, which may be null if the client
+     *                                                         secret isn't used.
      *
      * @return void
      *
      * @api
      * @since 4.2.0
      */
-    function onAccessTokenRequest(tubepress_api_http_message_RequestInterface $request, $isRefreshRequest);
+    function onAuthorizationUrl(tubepress_api_url_UrlInterface $authorizationUrl,
+                                $clientId,
+                                $clientSecret = null);
+
+    /**
+     * Get the expected type of access token, or null if the provider does not return
+     * an access token type (I'm looking at you, DailyMotion).
+     *
+     * See https://tools.ietf.org/html/rfc6749#section-7.1
+     *
+     * @return string|null
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function getAccessTokenType();
+
+    /**
+     * Modify the request to the token endpoint to supply any necessary credentials, add
+     * parameters, etc. TubePress will have already added the grant_type and client_id parameters.
+     *
+     * In the case of "code" grant types, TubePress will have also added the code and redirect_uri parameters.
+     *
+     * See https://tools.ietf.org/html/rfc6749#section-4.1.3
+     * See https://tools.ietf.org/html/rfc6749#section-4.4.2
+     *
+     * @param tubepress_api_http_message_RequestInterface $request      The access token request about to be sent.
+     * @param string                                      $clientId     The client ID.
+     * @param string                                      $clientSecret The client secret.
+     *
+     * @return void
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function onAccessTokenRequest(tubepress_api_http_message_RequestInterface $request,
+                                  $clientId,
+                                  $clientSecret = null);
+
+    /**
+     * Modify the request to the token endpoint to supply any necessary credentials, add
+     * query parameters, etc. TubePress will have already added the grant_type and refresh_token parameters.
+     *
+     * See https://tools.ietf.org/html/rfc6749#section-6
+     *
+     * @param tubepress_api_http_message_RequestInterface $request      The access token request about to be sent.
+     * @param tubepress_api_http_oauth_v2_TokenInterface  $token        The existing stored token.
+     * @param string                                      $clientId     The client ID.
+     * @param string                                      $clientSecret The client secret, which may be null if
+     *                                                                  the client secret isn't used.
+     *
+     * @return void
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function onRefreshTokenRequest(tubepress_api_http_message_RequestInterface $request,
+                                   tubepress_api_http_oauth_v2_TokenInterface  $token,
+                                   $clientId,
+                                   $clientSecret = null);
+
+    /**
+     * Generate a user-identifiable "slug" for this token. May contain alphanumerics, whitespace, and the following
+     * characters: ()-_,
+     *
+     * The slug allows the user to easily identify the token. e.g. Eric Hough (eric@tubepress.com) or
+     * Eric Hough (Vimeo username ehough).
+     *
+     * @param tubepress_api_http_oauth_v2_TokenInterface $token The access token.
+     *
+     * @return string The slug.
+     *
+     * @throws RuntimeException If the access token is invalid, or otherwise can't generate a slug for this token.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function getSlugForToken(tubepress_api_http_oauth_v2_TokenInterface $token);
 
     /**
      * Called before TubePress sends out an API request.
@@ -121,7 +195,7 @@ interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
      * @api
      * @since 4.2.0
      */
-    function wantsToAuthorizeProtectedResourceRequest(tubepress_api_http_message_RequestInterface $request);
+    function wantsToAuthorizeRequest(tubepress_api_http_message_RequestInterface $request);
 
     /**
      * Modify the outgoing protected resource request to supply authorization
@@ -131,14 +205,26 @@ interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
      *
      * @param tubepress_api_http_message_RequestInterface $request
      * @param tubepress_api_http_oauth_v2_TokenInterface  $token
+     * @param string                                      $clientId
+     * @param string                                      $clientSecret
      *
      * @return void
      *
      * @api
      * @since 4.2.0
      */
-    function authorizeProtectedResourceRequest(tubepress_api_http_message_RequestInterface $request,
-                                               tubepress_api_http_oauth_v2_TokenInterface  $token);
+    function authorizeRequest(tubepress_api_http_message_RequestInterface $request,
+                              tubepress_api_http_oauth_v2_TokenInterface  $token,
+                              $clientId,
+                              $clientSecret = null);
+
+    /**
+     * @return string[]
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function getUntranslatedClientRegistrationInstructions();
 
     /**
      * @return string
