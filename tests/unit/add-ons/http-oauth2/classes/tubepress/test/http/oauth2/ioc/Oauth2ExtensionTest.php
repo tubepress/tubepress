@@ -110,7 +110,8 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
             ->withArgument(array(
 
                 tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                    tubepress_api_options_Names::OAUTH2_TOKENS => '{}',
+                    tubepress_api_options_Names::OAUTH2_TOKEN          => null,
+                    tubepress_api_options_Names::OAUTH2_TOKENS         => '{}',
                     tubepress_api_options_Names::OAUTH2_CLIENT_DETAILS => '{}',
                 ),
             ))->withArgument(array(

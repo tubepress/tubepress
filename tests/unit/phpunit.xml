@@ -4,7 +4,6 @@
     stopOnFailure="false"
 	stopOnIncomplete="false"
 	stopOnSkipped="false"
-    strict="true"
     processIsolation="false"
     bootstrap="../../vendor/autoload.php">
 	<testsuites>

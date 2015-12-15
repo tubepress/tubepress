@@ -63,6 +63,8 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_api
             tubepress_api_log_LoggerInterface::_                => $logger,
             tubepress_api_util_StringUtilsInterface::_          => tubepress_api_util_StringUtilsInterface::_,
             tubepress_api_translation_TranslatorInterface::_         => tubepress_api_translation_TranslatorInterface::_,
+            'tubepress_http_oauth2_impl_util_PersistenceHelper' => 'tubepress_http_oauth2_impl_util_PersistenceHelper',
+            'tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator' => 'tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator',
         );
     }
     
@@ -119,6 +121,8 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_api
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator'))
             ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_spi_media_MediaProviderInterface::__,
                 'method' => 'setMediaProviders'

@@ -88,6 +88,8 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_spi_ioc_C
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator'))
             ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_spi_media_MediaProviderInterface::__,
                 'method' => 'setMediaProviders'

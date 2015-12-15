@@ -54,21 +54,35 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
      */
     private $_mediaProviders = array();
 
-    public function __construct(tubepress_api_options_PersistenceInterface      $persistence,
-                                tubepress_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_api_template_TemplatingInterface      $templating,
-                                tubepress_api_options_ReferenceInterface        $optionReference,
-                                tubepress_api_util_LangUtilsInterface           $langUtils,
-                                tubepress_api_options_AcceptableValuesInterface $acceptableValues,
-                                tubepress_api_contrib_RegistryInterface         $themeRegistry)
+    /**
+     * @var tubepress_http_oauth2_impl_util_PersistenceHelper
+     */
+    private $_persistenceHelper;
+
+    /**
+     * @var tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
+     */
+    private $_redirectionEndpointCalculator;
+
+    public function __construct(tubepress_api_options_PersistenceInterface                    $persistence,
+                                tubepress_api_http_RequestParametersInterface                 $requestParams,
+                                tubepress_api_template_TemplatingInterface                    $templating,
+                                tubepress_api_options_ReferenceInterface                      $optionReference,
+                                tubepress_api_util_LangUtilsInterface                         $langUtils,
+                                tubepress_api_options_AcceptableValuesInterface               $acceptableValues,
+                                tubepress_api_contrib_RegistryInterface                       $themeRegistry,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper             $persistenceHelper,
+                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec)
     {
-        $this->_persistence      = $persistence;
-        $this->_requestParams    = $requestParams;
-        $this->_templating       = $templating;
-        $this->_optionReference  = $optionReference;
-        $this->_langUtils        = $langUtils;
-        $this->_acceptableValues = $acceptableValues;
-        $this->_themeRegistry    = $themeRegistry;
+        $this->_persistence                   = $persistence;
+        $this->_requestParams                 = $requestParams;
+        $this->_templating                    = $templating;
+        $this->_optionReference               = $optionReference;
+        $this->_langUtils                     = $langUtils;
+        $this->_acceptableValues              = $acceptableValues;
+        $this->_themeRegistry                 = $themeRegistry;
+        $this->_persistenceHelper             = $persistenceHelper;
+        $this->_redirectionEndpointCalculator = $rec;
     }
 
     /**
@@ -135,6 +149,9 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
             case 'fieldProviderFilter':
                 return $this->_buildFieldProviderFilter();
+
+            case 'oauth2TokenManagement':
+                return $this->_buildOauth2TokenManagement($id, $options);
 
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
@@ -373,6 +390,30 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_requestParams,
             $this->_templating,
             $additionalField
+        );
+    }
+
+    private function _buildOauth2TokenManagement($id, $options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenManagementField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenManagementField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_TokenManagementField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_redirectionEndpointCalculator
         );
     }
 }

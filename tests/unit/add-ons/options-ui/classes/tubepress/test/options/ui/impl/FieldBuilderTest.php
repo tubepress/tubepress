@@ -54,15 +54,27 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
      */
     private $_mockThemeRegistry;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockPersistenceHelper;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockRedirectionEndpointCalculator;
+
     public function onSetup()
     {
-        $this->_mockPersistence      = $this->mock(tubepress_api_options_PersistenceInterface::_);
-        $this->_mockRequestParams    = $this->mock(tubepress_api_http_RequestParametersInterface::_);
-        $this->_mockTemplating       = $this->mock(tubepress_api_template_TemplatingInterface::_);
-        $this->_mockOptionsReference = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockLangUtils        = $this->mock(tubepress_api_util_LangUtilsInterface::_);
-        $this->_mockAcceptableValues = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
-        $this->_mockThemeRegistry    = $this->mock(tubepress_api_contrib_RegistryInterface::_);
+        $this->_mockPersistence                   = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $this->_mockRequestParams                 = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockTemplating                    = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockOptionsReference              = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockLangUtils                     = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockAcceptableValues              = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
+        $this->_mockThemeRegistry                 = $this->mock(tubepress_api_contrib_RegistryInterface::_);
+        $this->_mockPersistenceHelper             = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
+        $this->_mockRedirectionEndpointCalculator = $this->mock('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator');
 
         $this->_sut = new tubepress_options_ui_impl_FieldBuilder(
             $this->_mockPersistence,
@@ -71,8 +83,23 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
             $this->_mockOptionsReference,
             $this->_mockLangUtils,
             $this->_mockAcceptableValues,
-            $this->_mockThemeRegistry
+            $this->_mockThemeRegistry,
+            $this->_mockPersistenceHelper,
+            $this->_mockRedirectionEndpointCalculator
         );
+    }
+
+    public function testOauth2TokenMgmt()
+    {
+        $mockOauth2Provider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+
+        $mockOauth2Provider->shouldReceive('getName')->once()->andReturn('vimeo.v3');
+
+        $actual = $this->_sut->newInstance('foobar', 'oauth2TokenManagement', array(
+            'provider' => $mockOauth2Provider
+        ));
+
+        $this->assertInstanceOf('tubepress_http_oauth2_impl_options_ui_TokenManagementField', $actual);
     }
 
     public function testUnknownType()

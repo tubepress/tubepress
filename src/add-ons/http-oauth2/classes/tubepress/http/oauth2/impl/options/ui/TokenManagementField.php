@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
+class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
 {
     /**
      * @var tubepress_http_oauth2_impl_util_PersistenceHelper

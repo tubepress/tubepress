@@ -20,6 +20,7 @@
     "autoload":{
         "classmap" : {
           "tubepress_shortcode_impl_Parser"            : "classes/tubepress/shortcode/impl/Parser.php",
+          "tubepress_shortcode_impl_Shortcode"         : "classes/tubepress/shortcode/impl/Shortcode.php",
           "tubepress_shortcode_ioc_ShortcodeExtension" : "classes/tubepress/shortcode/ioc/ShortcodeExtension.php"
         }
     }

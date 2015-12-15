@@ -101,14 +101,16 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
         $this->_prepPersistenceHelper();
 
         $mockCurrentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockQuery      = $this->mock('tubepress_api_url_QueryInterface');
         $mockToken = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
+        $mockCurrentUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
 
+        $mockQuery->shouldReceive('get')->once()->with('state')->andReturn('some state');
 
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($mockCurrentUrl);
 
         $this->_mockProvider2->shouldReceive('isClientSecretUsed')->once()->andReturn(true);
         $this->_mockProvider2->shouldReceive('isStateUsed')->once()->andReturn(true);
-        $this->_mockProvider2->shouldReceive('getStateValueFromAuthorizationRedirection')->once()->with($mockCurrentUrl)->andReturn('some state');
         $this->_mockProvider2->shouldReceive('getSlugForToken')->once()->with($mockToken)->andReturn('some slug');
 
         $this->_mockPersistenceHelper->shouldReceive('saveToken')->once()->with($this->_mockProvider2, 'some slug', $mockToken);
