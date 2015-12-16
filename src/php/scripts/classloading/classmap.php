@@ -732,7 +732,6 @@ return array (
     'tubepress_util_impl_TimeUtils' => TUBEPRESS_ROOT . '/src/add-ons/util/classes/tubepress/util/impl/TimeUtils.php',
     'tubepress_util_ioc_UtilExtension' => TUBEPRESS_ROOT . '/src/add-ons/util/classes/tubepress/util/ioc/UtilExtension.php',
     'tubepress_vimeo2_api_Constants' => TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v2/classes/tubepress/vimeo2/api/Constants.php',
-    'tubepress_vimeo2_impl_VimeoV3Oauth2Provider' => TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v2/classes/tubepress/vimeo2/impl/VimeoV3Oauth2Provider.php',
     'tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider' => TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v2/classes/tubepress/vimeo2/impl/embedded/VimeoEmbeddedProvider.php',
     'tubepress_vimeo2_impl_listeners_http_OauthListener' => TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v2/classes/tubepress/vimeo2/impl/listeners/http/OauthListener.php',
     'tubepress_vimeo2_impl_listeners_media_HttpItemListener' => TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v2/classes/tubepress/vimeo2/impl/listeners/media/HttpItemListener.php',
