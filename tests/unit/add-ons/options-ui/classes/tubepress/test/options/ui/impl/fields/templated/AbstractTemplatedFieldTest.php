@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_fields_AbstractTemplateBasedOptionsPageField
  */
-abstract class tubepress_test_app_impl_options_ui_fields_templated_AbstractTemplatedFieldTest extends tubepress_test_app_impl_options_ui_fields_AbstractFieldTest
+abstract class tubepress_test_options_ui_impl_fields_templated_AbstractTemplatedFieldTest extends tubepress_test_options_ui_impl_fields_AbstractFieldTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

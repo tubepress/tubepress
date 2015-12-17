@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_fields_templated_GallerySourceRadioField<extended>
  */
-class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_AbstractTemplatedFieldTest
+class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFieldTest extends tubepress_test_options_ui_impl_fields_templated_AbstractTemplatedFieldTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

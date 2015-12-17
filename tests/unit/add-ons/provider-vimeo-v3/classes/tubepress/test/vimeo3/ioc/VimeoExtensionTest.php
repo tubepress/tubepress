@@ -209,6 +209,18 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withArgument(tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR)
             ->withArgument('spectrum');
 
+        $this->expectRegistration(
+
+            'vimeo_options_field_' . $fieldIndex++,
+            'tubepress_api_options_ui_FieldInterface'
+        )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument('vimeoOauth2ClientInstructions')
+            ->withArgument('oauth2ClientInstructions')
+            ->withArgument(array(
+                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+            ));
+        
         $fieldReferences = array();
         for ($x = 0; $x < $fieldIndex; $x++) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('vimeo_options_field_' . $x);
@@ -238,6 +250,11 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
 
                     tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR,
                 ),
+
+                tubepress_api_options_ui_CategoryNames::FEED => array(
+
+                    'vimeoOauth2ClientInstructions',
+                )
             ))
             ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }

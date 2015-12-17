@@ -64,6 +64,11 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
      */
     private $_mockRedirectionEndpointCalculator;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockTranslator;
+
     public function onSetup()
     {
         $this->_mockPersistence                   = $this->mock(tubepress_api_options_PersistenceInterface::_);
@@ -75,6 +80,7 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
         $this->_mockThemeRegistry                 = $this->mock(tubepress_api_contrib_RegistryInterface::_);
         $this->_mockPersistenceHelper             = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
         $this->_mockRedirectionEndpointCalculator = $this->mock('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator');
+        $this->_mockTranslator                    = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_options_ui_impl_FieldBuilder(
             $this->_mockPersistence,
@@ -85,7 +91,8 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
             $this->_mockAcceptableValues,
             $this->_mockThemeRegistry,
             $this->_mockPersistenceHelper,
-            $this->_mockRedirectionEndpointCalculator
+            $this->_mockRedirectionEndpointCalculator,
+            $this->_mockTranslator
         );
     }
 

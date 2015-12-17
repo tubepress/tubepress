@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_options_ui_impl_fields_GallerySourceField<extended>
  */
-class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends tubepress_test_app_impl_options_ui_fields_AbstractFieldTest
+class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends tubepress_test_options_ui_impl_fields_AbstractFieldTest
 {
     /**
      * @var tubepress_options_ui_impl_fields_GallerySourceField

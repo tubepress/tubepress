@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_test_app_impl_options_ui_fields_templated_single_AbstractSingleOptionFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_AbstractTemplatedFieldTest
+abstract class tubepress_test_app_impl_options_ui_fields_templated_single_AbstractSingleOptionFieldTest extends tubepress_test_options_ui_impl_fields_templated_AbstractTemplatedFieldTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

@@ -21,6 +21,7 @@
         "classmap" : {
           "tubepress_http_oauth2_impl_AbstractProviderConsumer"           : "classes/tubepress/http/oauth2/impl/AbstractProviderConsumer.php",
           "tubepress_http_oauth2_impl_listeners_Oauth2Listener"           : "classes/tubepress/http/oauth2/impl/listeners/Oauth2Listener.php",
+          "tubepress_http_oauth2_impl_options_ui_ClientInstructionsField" : "classes/tubepress/http/oauth2/impl/options/ui/ClientInstructionsField.php",
           "tubepress_http_oauth2_impl_options_ui_TokenManagementField"    : "classes/tubepress/http/oauth2/impl/options/ui/TokenManagementField.php",
           "tubepress_http_oauth2_impl_popup_AbstractPopupHandler"         : "classes/tubepress/http/oauth2/impl/popup/AbstractPopupHandler.php",
           "tubepress_http_oauth2_impl_popup_AuthorizationInitiator"       : "classes/tubepress/http/oauth2/impl/popup/AuthorizationInitiator.php",

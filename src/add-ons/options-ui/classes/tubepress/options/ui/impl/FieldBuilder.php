@@ -64,6 +64,11 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
      */
     private $_redirectionEndpointCalculator;
 
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
     public function __construct(tubepress_api_options_PersistenceInterface                    $persistence,
                                 tubepress_api_http_RequestParametersInterface                 $requestParams,
                                 tubepress_api_template_TemplatingInterface                    $templating,
@@ -72,7 +77,8 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
                                 tubepress_api_options_AcceptableValuesInterface               $acceptableValues,
                                 tubepress_api_contrib_RegistryInterface                       $themeRegistry,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper             $persistenceHelper,
-                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec)
+                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec,
+                                tubepress_api_translation_TranslatorInterface                 $translator)
     {
         $this->_persistence                   = $persistence;
         $this->_requestParams                 = $requestParams;
@@ -83,6 +89,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         $this->_themeRegistry                 = $themeRegistry;
         $this->_persistenceHelper             = $persistenceHelper;
         $this->_redirectionEndpointCalculator = $rec;
+        $this->_translator                    = $translator;
     }
 
     /**
@@ -111,20 +118,20 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             
             case 'bool':
             case 'boolean':
-                return $this->_buildBooleanField($id, $options);
+                return $this->_buildBooleanField($id);
 
             case 'multiSourceBool':
             case 'multiSourceBoolean':
-                return $this->_buildMultiSourceBoolean($id, $options);
+                return $this->_buildMultiSourceBoolean($id);
             
             case 'dropdown':
-                return $this->_buildDropdown($id, $options);
+                return $this->_buildDropdown($id);
 
             case 'multiSourceDropdown':
-                return $this->_buildMultiSourceDropdown($id, $options);
+                return $this->_buildMultiSourceDropdown($id);
             
             case 'hidden':
-                return $this->_buildHidden($id, $options);
+                return $this->_buildHidden($id);
             
             case 'spectrum':
                 return $this->_buildSpectrum($id, $options);
@@ -136,7 +143,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
                 return $this->_buildMultiSourceText($id, $options);
 
             case 'multiSourceTextArea':
-                return $this->_buildMultiSourceTextArea($id, $options);
+                return $this->_buildMultiSourceTextArea($id);
 
             case 'theme':
                 return $this->_buildTheme();
@@ -151,7 +158,10 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
                 return $this->_buildFieldProviderFilter();
 
             case 'oauth2TokenManagement':
-                return $this->_buildOauth2TokenManagement($id, $options);
+                return $this->_buildOauth2TokenManagement($options);
+
+            case 'oauth2ClientInstructions':
+                return $this->_buildOauth2ClientInstructions($id, $options);
 
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
@@ -295,7 +305,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         return $toReturn;
     }
 
-    private function _buildMultiSourceTextArea($id, $options)
+    private function _buildMultiSourceTextArea($id)
     {
         return new tubepress_options_ui_impl_fields_templated_single_MultiSourceSingleOptionField(
 
@@ -393,7 +403,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         );
     }
 
-    private function _buildOauth2TokenManagement($id, $options)
+    private function _buildOauth2TokenManagement($options)
     {
         if (!isset($options['provider'])) {
 
@@ -414,6 +424,32 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_templating,
             $this->_persistenceHelper,
             $this->_redirectionEndpointCalculator
+        );
+    }
+
+    private function _buildOauth2ClientInstructions($id, $options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientInstructionsField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientInstructionsField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_ClientInstructionsField(
+            $id,
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_redirectionEndpointCalculator,
+            $this->_translator
         );
     }
 }
