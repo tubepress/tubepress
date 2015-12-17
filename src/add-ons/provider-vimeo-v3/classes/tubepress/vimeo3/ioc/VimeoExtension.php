@@ -222,6 +222,30 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
              'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
          ));
 
+        $containerBuilder->register(
+
+            'vimeo_options_field_' . $fieldIndex++,
+            'tubepress_api_options_ui_FieldInterface'
+        )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument('vimeoOauth2ClientId')
+         ->addArgument('oauth2ClientId')
+         ->addArgument(array(
+             'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+         ));
+
+        $containerBuilder->register(
+
+            'vimeo_options_field_' . $fieldIndex++,
+            'tubepress_api_options_ui_FieldInterface'
+        )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument('vimeoOauth2ClientSecret')
+         ->addArgument('oauth2ClientSecret')
+         ->addArgument(array(
+             'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+         ));
+
         $fieldReferences = array();
         for ($x = 0; $x < $fieldIndex; $x++) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('vimeo_options_field_' . $x);
@@ -255,6 +279,8 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
                 tubepress_api_options_ui_CategoryNames::FEED => array(
 
                     'vimeoOauth2ClientInstructions',
+                    'vimeoOauth2ClientId',
+                    'vimeoOauth2ClientSecret',
                 ),
             ))
          ->addTag('tubepress_spi_options_ui_FieldProviderInterface');

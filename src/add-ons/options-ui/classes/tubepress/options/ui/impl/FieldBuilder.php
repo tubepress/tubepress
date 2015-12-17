@@ -163,6 +163,12 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             case 'oauth2ClientInstructions':
                 return $this->_buildOauth2ClientInstructions($id, $options);
 
+            case 'oauth2ClientId':
+                return $this->_buildOauth2ClientId($id, $options);
+
+            case 'oauth2ClientSecret':
+                return $this->_buildOauth2ClientSecret($id, $options);
+
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
         }
@@ -449,6 +455,56 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_templating,
             $this->_persistenceHelper,
             $this->_redirectionEndpointCalculator,
+            $this->_translator
+        );
+    }
+
+    private function _buildOauth2ClientId($id, $options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientIdField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientIdField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_ClientIdField(
+            $id,
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_translator
+        );
+    }
+
+    private function _buildOauth2ClientSecret($id, $options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientSecretField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientSecretField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_ClientSecretField(
+            $id,
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
             $this->_translator
         );
     }
