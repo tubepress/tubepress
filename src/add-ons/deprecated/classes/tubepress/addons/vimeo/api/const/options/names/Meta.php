@@ -17,5 +17,5 @@ interface tubepress_addons_vimeo_api_const_options_names_Meta
     /**
      * @deprecated
      */
-    const LIKES = tubepress_vimeo2_api_Constants::OPTION_LIKES;
+    const LIKES = tubepress_vimeo3_api_Constants::OPTION_LIKES;
 }

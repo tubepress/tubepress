@@ -60,7 +60,7 @@
       "tubepress_theme_"           : "src/add-ons/theme/classes",
       "tubepress_url_"             : "src/add-ons/url/classes",
       "tubepress_util_"            : "src/add-ons/util/classes",
-      "tubepress_vimeo2_"          : "src/add-ons/provider-vimeo-v2/classes",
+      "tubepress_vimeo3_"          : "src/add-ons/provider-vimeo-v3/classes",
       "tubepress_wordpress_"       : "src/add-ons/wordpress/classes",
       "tubepress_youtube3_"        : "src/add-ons/provider-youtube-v3/classes",
 

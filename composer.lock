@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "592a14b8d09c5915e73d90ee79fb5e70",
+    "hash": "2d2192236a6a90bf71400f775ea51051",
+    "content-hash": "b892dfa23277f453d2af0b0d98328b22",
     "packages": [
         {
             "name": "ehough/filesystem",
-            "version": "v2.5.4",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "53bdbc8290f8c99cf294b2c04f25e2a82fe8d148"
+                "reference": "95caf1ed3569cb4c1bad2bd1e770d3c5c06dc3ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/53bdbc8290f8c99cf294b2c04f25e2a82fe8d148",
-                "reference": "53bdbc8290f8c99cf294b2c04f25e2a82fe8d148",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/95caf1ed3569cb4c1bad2bd1e770d3c5c06dc3ee",
+                "reference": "95caf1ed3569cb4c1bad2bd1e770d3c5c06dc3ee",
                 "shasum": ""
             },
             "require": {
@@ -38,29 +39,38 @@
             ],
             "authors": [
                 {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
                     "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
+                    "email": "eric@tubepress.com",
+                    "homepage": "https://github.com/ehough"
                 }
             ],
             "description": "Fork of Symfony's Filesystem Component compatible with PHP 5.2+",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "filesystem"
             ],
-            "time": "2014-09-24 16:39:46"
+            "time": "2015-12-01 07:52:38"
         },
         {
             "name": "ehough/finder",
-            "version": "v2.5.4",
+            "version": "v2.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/finder.git",
-                "reference": "4bc1a418fc3c9ac47dc5a9dfb50fa31dc383b4ea"
+                "reference": "49331a426144cb258d4a9ce7f11b33494669681d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/4bc1a418fc3c9ac47dc5a9dfb50fa31dc383b4ea",
-                "reference": "4bc1a418fc3c9ac47dc5a9dfb50fa31dc383b4ea",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/49331a426144cb258d4a9ce7f11b33494669681d",
+                "reference": "49331a426144cb258d4a9ce7f11b33494669681d",
                 "shasum": ""
             },
             "require": {
@@ -83,12 +93,12 @@
             "authors": [
                 {
                     "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
+                    "email": "eric@tubepress.com",
+                    "homepage": "https://github.com/ehough"
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2014-09-24 16:42:28"
+            "time": "2015-12-01 20:45:44"
         },
         {
             "name": "ehough/iconic",
@@ -188,24 +198,24 @@
         },
         {
             "name": "ehough/stash",
-            "version": "v0.12.1",
+            "version": "v0.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/stash.git",
-                "reference": "0e03f75d286733f6d0540138a9c448ef106b36eb"
+                "reference": "fb3b6d0ce35e331835022f7daf63aa0e9cc415b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/0e03f75d286733f6d0540138a9c448ef106b36eb",
-                "reference": "0e03f75d286733f6d0540138a9c448ef106b36eb",
+                "url": "https://api.github.com/repos/ehough/stash/zipball/fb3b6d0ce35e331835022f7daf63aa0e9cc415b5",
+                "reference": "fb3b6d0ce35e331835022f7daf63aa0e9cc415b5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "0.4.0",
-                "phpunit/phpunit": "4.0.*",
+                "fabpot/php-cs-fixer": "1.1.*",
+                "phpunit/phpunit": "4.3.*",
                 "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
@@ -222,8 +232,8 @@
             "authors": [
                 {
                     "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
+                    "email": "eric@tubepress.com",
+                    "homepage": "https://github.com/ehough"
                 }
             ],
             "description": "Fork of tedivm/stash compatible with PHP 5.2+",
@@ -236,7 +246,7 @@
                 "redis",
                 "sessions"
             ],
-            "time": "2014-06-19 22:31:57"
+            "time": "2015-12-01 00:17:07"
         },
         {
             "name": "ehough/templating",
@@ -479,12 +489,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "b1a4c14b6076cd180b7133a1ded15efd18b2390e"
+                "reference": "db93842e80d758f6c74c3e1f1f088badb3fc84f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b1a4c14b6076cd180b7133a1ded15efd18b2390e",
-                "reference": "b1a4c14b6076cd180b7133a1ded15efd18b2390e",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/db93842e80d758f6c74c3e1f1f088badb3fc84f0",
+                "reference": "db93842e80d758f6c74c3e1f1f088badb3fc84f0",
                 "shasum": ""
             },
             "require": {
@@ -497,7 +507,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.21-dev"
+                    "dev-master": "1.23-dev"
                 }
             },
             "autoload": {
@@ -532,7 +542,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-01 09:38:14"
+            "time": "2015-11-17 12:22:13"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
@@ -1053,32 +1063,34 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "f4cbafcb1f8fa0855e1eba96594f56782e701301"
+                "url": "https://github.com/symfony/class-loader.git",
+                "reference": "5d764189f71f9dbc5ffe0f50c5d08b63976df614"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/f4cbafcb1f8fa0855e1eba96594f56782e701301",
-                "reference": "f4cbafcb1f8fa0855e1eba96594f56782e701301",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/5d764189f71f9dbc5ffe0f50c5d08b63976df614",
+                "reference": "5d764189f71f9dbc5ffe0f50c5d08b63976df614",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/finder": "~2.8|~3.0",
-                "symfony/phpunit-bridge": "~2.8|~3.0"
+                "symfony/finder": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\ClassLoader\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1096,38 +1108,38 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-27 07:55:57"
+            "time": "2015-12-05 17:45:25"
         },
         {
             "name": "symfony/css-selector",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "c9a0ba13d7f64a376554c49a2279a838ed6aa30f"
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "86611dced0d91090b179d2fe5b09de5491f45c98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/c9a0ba13d7f64a376554c49a2279a838ed6aa30f",
-                "reference": "c9a0ba13d7f64a376554c49a2279a838ed6aa30f",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/86611dced0d91090b179d2fe5b09de5491f45c98",
+                "reference": "86611dced0d91090b179d2fe5b09de5491f45c98",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.8|~3.0"
-            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\CssSelector\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1149,28 +1161,28 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-15 14:16:35"
+            "time": "2015-12-05 17:45:25"
         },
         {
             "name": "symfony/dom-crawler",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "ea8b77ed8337b1f90e741d2d604b8970904d1b83"
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "f79c2e7559801a7f807be4ae4358442465d3ff67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/ea8b77ed8337b1f90e741d2d604b8970904d1b83",
-                "reference": "ea8b77ed8337b1f90e741d2d604b8970904d1b83",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/f79c2e7559801a7f807be4ae4358442465d3ff67",
+                "reference": "f79c2e7559801a7f807be4ae4358442465d3ff67",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.5.9",
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
-                "symfony/css-selector": "~2.8|~3.0",
-                "symfony/phpunit-bridge": "~2.8|~3.0"
+                "symfony/css-selector": "~2.8|~3.0"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -1178,13 +1190,16 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\DomCrawler\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1202,27 +1217,83 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-27 07:55:57"
+            "time": "2015-11-30 21:39:17"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
+                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2015-11-20 09:19:13"
         },
         {
             "name": "symfony/yaml",
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "1a0bd40f71908db4c9d44d308e0008cc44fc5f2f"
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "aceecdb89565ebdedd908aaf327f5c34305be981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1a0bd40f71908db4c9d44d308e0008cc44fc5f2f",
-                "reference": "1a0bd40f71908db4c9d44d308e0008cc44fc5f2f",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/aceecdb89565ebdedd908aaf327f5c34305be981",
+                "reference": "aceecdb89565ebdedd908aaf327f5c34305be981",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7|~3.0.0"
             },
             "type": "library",
             "extra": {
@@ -1233,7 +1304,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1251,7 +1325,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:18:02"
+            "time": "2015-12-05 13:47:06"
         }
     ],
     "aliases": [],

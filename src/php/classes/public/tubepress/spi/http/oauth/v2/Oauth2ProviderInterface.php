@@ -219,34 +219,42 @@ interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
                               $clientSecret = null);
 
     /**
+     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
+     *
      * @return string[]
      *
      * @api
      * @since 4.2.0
      */
-    function getUntranslatedClientRegistrationInstructions();
+    function getTranslatedClientRegistrationInstructions(tubepress_api_translation_TranslatorInterface $translator);
 
     /**
+     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
+     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    function getUntranslatedTermForClientId();
+    function getTranslatedTermForClientId(tubepress_api_translation_TranslatorInterface $translator);
 
     /**
+     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
+     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    function getUntranslatedTermForClientSecret();
+    function getTranslatedTermForClientSecret(tubepress_api_translation_TranslatorInterface $translator);
 
     /**
+     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
+     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    function getUntranslatedTermForRedirectEndpoint();
+    function getTranslatedTermForRedirectEndpoint(tubepress_api_translation_TranslatorInterface $translator);
 }

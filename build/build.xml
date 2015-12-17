@@ -157,7 +157,7 @@
         <sequential>
             <__replace-version-in-files includes="**/manifest.json" />
             <__replace-version-in-files includes="**/theme.json" />
-            <__replace-version-in-files includes="src/php/scripts/boot.php" />
+            <__replace-version-in-files includes="src/php/scripts/boot_internal.php" />
             <__replace-version-in-files includes="src/php/scripts/classloading/classes.php" />
         </sequential>
     </macrodef>
