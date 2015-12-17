@@ -8,11 +8,15 @@
 
         <li>
             For the {{ callbackTerm }}, you must enter exactly the following:<br />
-            <input type="text" value="{{ callbackUri }}" class="form-control" readonly>
+            <code>{{ callbackUri }}</code>
         </li>
         <li>
             {{ provider.displayName }} will assign to you a &quot;{{ clientIdTerm }}&quot;{% if provider.clientSecretUsed %} and &quot;{{ clientSecretTerm }}&quot;{% endif %}.
             Enter {% if provider.clientSecretUsed %}those two values{% else %}that value{% endif %} below.
+        </li>
+        <li>
+            Click the "Connect" button to authorize TubePress to communicate with {{ provider.displayName }}. This step will take place in
+            a popup window.
         </li>
     </ol>
 </div>
