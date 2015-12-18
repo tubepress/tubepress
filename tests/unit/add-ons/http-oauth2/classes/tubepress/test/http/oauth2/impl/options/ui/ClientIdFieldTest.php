@@ -53,6 +53,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientIdFieldTest extends tubep
         $this->_mockPersistenceHelper->shouldReceive('getClientId')->once()->with($this->_mockProvider)->andReturn('client-id');
 
         return array(
+            'id'    => 'clientId_provider-name',
             'value' => 'client-id'
         );
     }

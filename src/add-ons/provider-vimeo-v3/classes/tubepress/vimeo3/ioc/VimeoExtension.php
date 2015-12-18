@@ -278,9 +278,9 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
 
                 tubepress_api_options_ui_CategoryNames::FEED => array(
 
-                    'clientInstructions_vimeo.v3',
-                    'clientId_vimeo.v3',
-                    'clientSecret_vimeo.v3',
+                    'clientInstructions_vimeoV3',
+                    'clientId_vimeoV3',
+                    'clientSecret_vimeoV3',
                 ),
             ))
          ->addTag('tubepress_spi_options_ui_FieldProviderInterface');

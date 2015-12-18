@@ -277,9 +277,9 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
 
                 tubepress_api_options_ui_CategoryNames::FEED => array(
 
-                    'clientInstructions_vimeo.v3',
-                    'clientId_vimeo.v3',
-                    'clientSecret_vimeo.v3',
+                    'clientInstructions_vimeoV3',
+                    'clientId_vimeoV3',
+                    'clientSecret_vimeoV3',
                 )
             ))
             ->withTag('tubepress_spi_options_ui_FieldProviderInterface');

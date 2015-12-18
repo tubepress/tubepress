@@ -53,6 +53,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientSecretFieldTest extends t
         $this->_mockPersistenceHelper->shouldReceive('getClientSecret')->once()->with($this->_mockProvider)->andReturn('client-secret');
 
         return array(
+            'id'    => 'clientSecret_provider-name',
             'value' => 'client-secret'
         );
     }

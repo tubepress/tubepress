@@ -42,7 +42,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
      */
     public function getName()
     {
-        return 'vimeo.v3';
+        return 'vimeoV3';
     }
 
     /**

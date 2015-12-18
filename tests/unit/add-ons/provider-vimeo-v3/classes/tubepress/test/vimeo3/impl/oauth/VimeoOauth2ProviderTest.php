@@ -175,7 +175,7 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
     public function testBasics()
     {
         $this->assertInstanceOf('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider', $this->_sut);
-        $this->assertEquals('vimeo.v3', $this->_sut->getName());
+        $this->assertEquals('vimeoV3', $this->_sut->getName());
         $this->assertEquals('bearer', $this->_sut->getAccessTokenType());
         $this->assertEquals('code', $this->_sut->getAuthorizationGrantType());
         $this->assertEquals('Vimeo', $this->_sut->getDisplayName());

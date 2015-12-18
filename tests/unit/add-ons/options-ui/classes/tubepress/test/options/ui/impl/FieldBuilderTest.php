@@ -100,7 +100,7 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
     {
         $mockOauth2Provider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
 
-        $mockOauth2Provider->shouldReceive('getName')->once()->andReturn('vimeo.v3');
+        $mockOauth2Provider->shouldReceive('getName')->once()->andReturn('vimeoV3');
 
         $actual = $this->_sut->newInstance('foobar', 'oauth2TokenManagement', array(
             'provider' => $mockOauth2Provider

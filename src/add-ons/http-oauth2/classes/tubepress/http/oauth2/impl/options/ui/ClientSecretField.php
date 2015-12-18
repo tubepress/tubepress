@@ -60,6 +60,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientSecretField extends tubepress_
 
         return array(
 
+            'id'    => $this->getId(),
             'value' => $clientId
         );
     }
