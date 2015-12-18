@@ -33,6 +33,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
         $this->_registerPopups($containerBuilder);
         $this->_registerListener($containerBuilder);
         $this->_registerTemplatePathProvider($containerBuilder);
+        $this->_registerOptionsUi($containerBuilder);
     }
 
     private function _registerListener(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -123,6 +124,34 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
                 tubepress_api_options_Names::OAUTH2_CLIENT_DETAILS,
             ),
         ));
+    }
+
+    private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            'tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField',
+            'tubepress_api_options_ui_FieldInterface'
+        )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument('does-not-matter')
+         ->addArgument('oauth2ClientCredentialsSaving')
+         ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+             'tag'    => tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_,
+             'method' => 'setOauth2Providers',
+         ));
+
+        $containerBuilder->register(
+            'tubepress_spi_options_ui_FieldProviderInterface__oauth2',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->addArgument('oauth2')
+         ->addArgument('')
+         ->addArgument(false)
+         ->addArgument(false)
+         ->addArgument(array())
+         ->addArgument(array(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField')))
+         ->addArgument(array())
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 
     private function _registerTemplatePathProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

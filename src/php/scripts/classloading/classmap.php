@@ -607,6 +607,7 @@ return array (
     'tubepress_http_ioc_HttpExtension' => TUBEPRESS_ROOT . '/src/add-ons/http/classes/tubepress/http/ioc/HttpExtension.php',
     'tubepress_http_oauth2_impl_AbstractProviderConsumer' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/AbstractProviderConsumer.php',
     'tubepress_http_oauth2_impl_listeners_Oauth2Listener' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/listeners/Oauth2Listener.php',
+    'tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/ClientCredentialsSavingField.php',
     'tubepress_http_oauth2_impl_options_ui_ClientIdField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/ClientIdField.php',
     'tubepress_http_oauth2_impl_options_ui_ClientInstructionsField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/ClientInstructionsField.php',
     'tubepress_http_oauth2_impl_options_ui_ClientSecretField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/ClientSecretField.php',

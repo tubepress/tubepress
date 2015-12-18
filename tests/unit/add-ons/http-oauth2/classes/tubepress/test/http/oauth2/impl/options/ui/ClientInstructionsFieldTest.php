@@ -81,9 +81,10 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
      */
     protected function getSut()
     {
+        $this->_mockProvider->shouldReceive('getName')->once()->andReturn('provider-name');
+
         return new tubepress_http_oauth2_impl_options_ui_ClientInstructionsField(
 
-            'the-id',
             $this->_mockProvider,
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),

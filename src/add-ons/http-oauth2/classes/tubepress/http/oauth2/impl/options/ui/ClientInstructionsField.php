@@ -34,8 +34,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
      */
     private $_translator;
 
-    public function __construct($id,
-                                tubepress_spi_http_oauth_v2_Oauth2ProviderInterface           $provider,
+    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface           $provider,
                                 tubepress_api_options_PersistenceInterface                    $persistence,
                                 tubepress_api_http_RequestParametersInterface                 $requestParams,
                                 tubepress_api_template_TemplatingInterface                    $templating,
@@ -43,7 +42,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
                                 tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec,
                                 tubepress_api_translation_TranslatorInterface                 $translator)
     {
-        parent::__construct($id, $persistence, $requestParams, $templating, 'Initial Setup');
+        parent::__construct('clientInstructions_' . $provider->getName(), $persistence, $requestParams, $templating, 'Initial Setup');
 
         $this->_persistenceHelper             = $persistenceHelper;
         $this->_provider                      = $provider;

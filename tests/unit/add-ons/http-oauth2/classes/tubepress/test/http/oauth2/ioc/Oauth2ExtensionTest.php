@@ -29,6 +29,7 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
         $this->_registerPopups();
         $this->_registerListener();
         $this->_registerTemplatePathProvider();
+        $this->_registerOptionsUi();
     }
 
     private function _registerListener()
@@ -132,10 +133,43 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
         ))->withTag('tubepress_spi_template_PathProviderInterface.admin');
     }
 
+    private function _registerOptionsUi()
+    {
+        $this->expectRegistration(
+
+            'tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField',
+            'tubepress_api_options_ui_FieldInterface'
+        )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument('does-not-matter')
+            ->withArgument('oauth2ClientCredentialsSaving')
+            ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_,
+                'method' => 'setOauth2Providers',
+            ));
+
+        $this->expectRegistration(
+            'tubepress_spi_options_ui_FieldProviderInterface__oauth2',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->withArgument('oauth2')
+            ->withArgument('')
+            ->withArgument(false)
+            ->withArgument(false)
+            ->withArgument(array())
+            ->withArgument(array(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField')))
+            ->withArgument(array())
+            ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
+    }
+
+
     protected function getExpectedExternalServicesMap()
     {
         $logger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
+
+        $mockField = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $mockfieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
+        $mockfieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
         return array(
             tubepress_api_http_NonceManagerInterface::_       => tubepress_api_http_NonceManagerInterface::_,
@@ -149,6 +183,7 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
             tubepress_api_array_ArrayReaderInterface::_       => tubepress_api_array_ArrayReaderInterface::_,
             tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
             tubepress_api_log_LoggerInterface::_              => $logger,
+            tubepress_api_options_ui_FieldBuilderInterface::_ => $mockfieldBuilder,
         );
     }
 }

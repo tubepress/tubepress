@@ -216,7 +216,7 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
             'tubepress_api_options_ui_FieldInterface'
         )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
          ->setFactoryMethod('newInstance')
-         ->addArgument('vimeoOauth2ClientInstructions')
+         ->addArgument('does-not-matter')
          ->addArgument('oauth2ClientInstructions')
          ->addArgument(array(
              'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
@@ -228,7 +228,7 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
             'tubepress_api_options_ui_FieldInterface'
         )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
          ->setFactoryMethod('newInstance')
-         ->addArgument('vimeoOauth2ClientId')
+         ->addArgument('does-not-matter')
          ->addArgument('oauth2ClientId')
          ->addArgument(array(
              'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
@@ -240,7 +240,7 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
             'tubepress_api_options_ui_FieldInterface'
         )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
          ->setFactoryMethod('newInstance')
-         ->addArgument('vimeoOauth2ClientSecret')
+         ->addArgument('does-not-matter')
          ->addArgument('oauth2ClientSecret')
          ->addArgument(array(
              'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
@@ -278,9 +278,9 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
 
                 tubepress_api_options_ui_CategoryNames::FEED => array(
 
-                    'vimeoOauth2ClientInstructions',
-                    'vimeoOauth2ClientId',
-                    'vimeoOauth2ClientSecret',
+                    'clientInstructions_vimeo.v3',
+                    'clientId_vimeo.v3',
+                    'clientSecret_vimeo.v3',
                 ),
             ))
          ->addTag('tubepress_spi_options_ui_FieldProviderInterface');

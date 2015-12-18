@@ -29,15 +29,14 @@ class tubepress_http_oauth2_impl_options_ui_ClientSecretField extends tubepress_
      */
     private $_translator;
 
-    public function __construct($id,
-                                tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
                                 tubepress_api_options_PersistenceInterface          $persistence,
                                 tubepress_api_http_RequestParametersInterface       $requestParams,
                                 tubepress_api_template_TemplatingInterface          $templating,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper   $persistenceHelper,
                                 tubepress_api_translation_TranslatorInterface       $translator)
     {
-        parent::__construct($id, $persistence, $requestParams, $templating, $provider->getTranslatedTermForClientSecret($translator));
+        parent::__construct('clientSecret_' . $provider->getName(), $persistence, $requestParams, $templating, $provider->getTranslatedTermForClientSecret($translator));
 
         $this->_persistenceHelper = $persistenceHelper;
         $this->_provider          = $provider;

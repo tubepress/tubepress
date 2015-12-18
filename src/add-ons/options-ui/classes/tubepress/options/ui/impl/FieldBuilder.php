@@ -161,13 +161,16 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
                 return $this->_buildOauth2TokenManagement($options);
 
             case 'oauth2ClientInstructions':
-                return $this->_buildOauth2ClientInstructions($id, $options);
+                return $this->_buildOauth2ClientInstructions($options);
 
             case 'oauth2ClientId':
-                return $this->_buildOauth2ClientId($id, $options);
+                return $this->_buildOauth2ClientId($options);
 
             case 'oauth2ClientSecret':
-                return $this->_buildOauth2ClientSecret($id, $options);
+                return $this->_buildOauth2ClientSecret($options);
+
+            case 'oauth2ClientCredentialsSaving':
+                return $this->_buildOauth2ClientCredentialsSaving();
 
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
@@ -433,7 +436,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         );
     }
 
-    private function _buildOauth2ClientInstructions($id, $options)
+    private function _buildOauth2ClientInstructions($options)
     {
         if (!isset($options['provider'])) {
 
@@ -448,7 +451,6 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         }
 
         return new tubepress_http_oauth2_impl_options_ui_ClientInstructionsField(
-            $id,
             $provider,
             $this->_persistence,
             $this->_requestParams,
@@ -459,7 +461,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         );
     }
 
-    private function _buildOauth2ClientId($id, $options)
+    private function _buildOauth2ClientId($options)
     {
         if (!isset($options['provider'])) {
 
@@ -474,7 +476,6 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         }
 
         return new tubepress_http_oauth2_impl_options_ui_ClientIdField(
-            $id,
             $provider,
             $this->_persistence,
             $this->_requestParams,
@@ -484,7 +485,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         );
     }
 
-    private function _buildOauth2ClientSecret($id, $options)
+    private function _buildOauth2ClientSecret($options)
     {
         if (!isset($options['provider'])) {
 
@@ -499,13 +500,21 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         }
 
         return new tubepress_http_oauth2_impl_options_ui_ClientSecretField(
-            $id,
             $provider,
             $this->_persistence,
             $this->_requestParams,
             $this->_templating,
             $this->_persistenceHelper,
             $this->_translator
+        );
+    }
+
+    private function _buildOauth2ClientCredentialsSaving()
+    {
+        return new tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField(
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_persistenceHelper
         );
     }
 }
