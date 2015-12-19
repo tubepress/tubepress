@@ -25,22 +25,22 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
     private $_provider;
 
     /**
-     * @var tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
+     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
      */
-    private $_redirectionEndpointCalculator;
+    private $_oauth2UrlProvider;
 
-    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface           $provider,
-                                tubepress_api_options_PersistenceInterface                    $persistence,
-                                tubepress_api_http_RequestParametersInterface                 $requestParams,
-                                tubepress_api_template_TemplatingInterface                    $templating,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper             $persistenceHelper,
-                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec)
+    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface    $provider,
+                                tubepress_api_options_PersistenceInterface             $persistence,
+                                tubepress_api_http_RequestParametersInterface          $requestParams,
+                                tubepress_api_template_TemplatingInterface             $templating,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
+                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider)
     {
         parent::__construct('tokenManagement_' . $provider->getName(), $persistence, $requestParams, $templating, 'Accounts');
 
-        $this->_persistenceHelper             = $persistenceHelper;
-        $this->_provider                      = $provider;
-        $this->_redirectionEndpointCalculator = $rec;
+        $this->_persistenceHelper = $persistenceHelper;
+        $this->_provider          = $provider;
+        $this->_oauth2UrlProvider = $oauth2UrlProvider;
     }
 
     /**
@@ -75,7 +75,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
             'clientId'     => $clientId,
             'clientSecret' => $clientSecret,
             'provider'     => $this->_provider,
-            'callbackUri'  => $this->_redirectionEndpointCalculator->getRedirectionEndpoint($this->_provider->getName()),
+            'callbackUri'  => $this->_oauth2UrlProvider->getRedirectionUrl($this->_provider),
             'slugs'        => $slugs,
         );
     }

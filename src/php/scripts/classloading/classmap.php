@@ -618,7 +618,6 @@ return array (
     'tubepress_http_oauth2_impl_token_Token' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/token/Token.php',
     'tubepress_http_oauth2_impl_util_AccessTokenFetcher' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/util/AccessTokenFetcher.php',
     'tubepress_http_oauth2_impl_util_PersistenceHelper' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/util/PersistenceHelper.php',
-    'tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/util/RedirectionEndpointCalculator.php',
     'tubepress_http_oauth2_ioc_Oauth2Extension' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/ioc/Oauth2Extension.php',
     'tubepress_internal_boot_BootSettings' => TUBEPRESS_ROOT . '/src/php/classes/internal/tubepress/internal/boot/BootSettings.php',
     'tubepress_internal_boot_helper_ContainerSupplier' => TUBEPRESS_ROOT . '/src/php/classes/internal/tubepress/internal/boot/helper/ContainerSupplier.php',

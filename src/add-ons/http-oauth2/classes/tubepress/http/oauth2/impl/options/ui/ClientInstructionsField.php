@@ -25,29 +25,29 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
     private $_provider;
 
     /**
-     * @var tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
+     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
      */
-    private $_redirectionEndpointCalculator;
+    private $_oauth2UrlProvider;
 
     /**
      * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
-    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface           $provider,
-                                tubepress_api_options_PersistenceInterface                    $persistence,
-                                tubepress_api_http_RequestParametersInterface                 $requestParams,
-                                tubepress_api_template_TemplatingInterface                    $templating,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper             $persistenceHelper,
-                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec,
-                                tubepress_api_translation_TranslatorInterface                 $translator)
+    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface    $provider,
+                                tubepress_api_options_PersistenceInterface             $persistence,
+                                tubepress_api_http_RequestParametersInterface          $requestParams,
+                                tubepress_api_template_TemplatingInterface             $templating,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
+                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider,
+                                tubepress_api_translation_TranslatorInterface          $translator)
     {
         parent::__construct('clientInstructions_' . $provider->getName(), $persistence, $requestParams, $templating, 'Initial Setup');
 
-        $this->_persistenceHelper             = $persistenceHelper;
-        $this->_provider                      = $provider;
-        $this->_redirectionEndpointCalculator = $rec;
-        $this->_translator                    = $translator;
+        $this->_persistenceHelper = $persistenceHelper;
+        $this->_provider          = $provider;
+        $this->_oauth2UrlProvider = $oauth2UrlProvider;
+        $this->_translator        = $translator;
     }
 
     /**
@@ -74,7 +74,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
             'clientId'         => $clientId,
             'clientSecret'     => $clientSecret,
             'provider'         => $this->_provider,
-            'callbackUri'      => $this->_redirectionEndpointCalculator->getRedirectionEndpoint($this->_provider->getName()),
+            'callbackUri'      => $this->_oauth2UrlProvider->getRedirectionUrl($this->_provider),
             'instructions'     => $instructions,
             'clientIdTerm'     => $clientIdTerm,
             'clientSecretTerm' => $clientSecretTerm,

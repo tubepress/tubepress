@@ -44,25 +44,34 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
      */
     private $_mockQuery;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
-        $this->_mockNonceManager   = $this->mock(tubepress_api_http_NonceManagerInterface::_);
-        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockWpFunctions    = $this->mock('tubepress_wordpress_impl_wp_WpFunctions');
-        $this->_mockOauth2Provider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockQuery          = $this->mock('tubepress_api_url_QueryInterface');
+        $this->_mockNonceManager    = $this->mock(tubepress_api_http_NonceManagerInterface::_);
+        $this->_mockUrlFactory      = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockWpFunctions     = $this->mock('tubepress_wordpress_impl_wp_WpFunctions');
+        $this->_mockOauth2Provider  = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockQuery           = $this->mock('tubepress_api_url_QueryInterface');
+        $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider(
 
             $this->_mockNonceManager,
             $this->_mockUrlFactory,
-            $this->_mockWpFunctions
+            $this->_mockWpFunctions,
+            $this->_mockEventDispatcher
         );
     }
 
     public function testOauth2Redirect()
     {
         $url = $this->_setupMockAdminUrl('tubepress_oauth2');
+
+        $this->_setupDispatch($url);
 
         $actual = $this->_sut->getRedirectionUrl($this->_mockOauth2Provider);
 
@@ -101,5 +110,22 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
         $this->_mockQuery->shouldReceive('set')->once()->with('provider', 'provider-name')->andReturn($this->_mockQuery);
 
         return $mockUrl;
+    }
+
+    private function _setupDispatch(ehough_mockery_mockery_MockInterface $mockUrl)
+    {
+        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
+
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockUrl, array(
+            'provider' => $this->_mockOauth2Provider
+        ))->andReturn($mockEvent);
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+
+            tubepress_api_event_Events::OAUTH2_URL_REDIRECTION_ENDPOINT,
+            $mockEvent
+        );
+
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn($mockUrl);
     }
 }

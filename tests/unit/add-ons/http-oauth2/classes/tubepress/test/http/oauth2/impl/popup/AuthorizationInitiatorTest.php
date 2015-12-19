@@ -32,7 +32,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockRedirectCalculator;
+    private $_mockOauth2UrlProvider;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -81,20 +81,20 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
     public function onSetup()
     {
-        $this->_mockNonceManager       = $this->mock(tubepress_api_http_NonceManagerInterface::_);
-        $this->_mockRequestParams      = $this->mock(tubepress_api_http_RequestParametersInterface::_);
-        $this->_mockRedirectCalculator = $this->mock('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator');
-        $this->_mockTemplating         = $this->mock(tubepress_api_template_TemplatingInterface::_);
-        $this->_mockEventDispatcher    = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockProvider1          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockUrlFactory         = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
+        $this->_mockNonceManager      = $this->mock(tubepress_api_http_NonceManagerInterface::_);
+        $this->_mockRequestParams     = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockOauth2UrlProvider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_);
+        $this->_mockTemplating        = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockEventDispatcher   = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockProvider1         = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockProvider2         = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockUrlFactory        = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockPersistenceHelper = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
 
         $this->_sut = new tubepress_http_oauth2_impl_popup_AuthorizationInitiator(
             $this->_mockNonceManager,
             $this->_mockRequestParams,
-            $this->_mockRedirectCalculator,
+            $this->_mockOauth2UrlProvider,
             $this->_mockTemplating,
             $this->_mockEventDispatcher,
             $this->_mockPersistenceHelper,
@@ -310,7 +310,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockAuthorizationQuery = $this->mock('tubepress_api_url_QueryInterface');
 
         $redirectUrl = $this->mock(tubepress_api_url_UrlInterface::_);
-        $this->_mockRedirectCalculator->shouldReceive('getRedirectionEndpoint')->once()->with('provider-2-name')->andReturn($redirectUrl);
+        $this->_mockOauth2UrlProvider->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider2)->andReturn($redirectUrl);
         $redirectUrl->shouldReceive('toString')->once()->andReturn('redirect-uri');
 
         $this->_mockAuthorizationUrl->shouldReceive('getQuery')->atLeast(1)->andReturn($this->_mockAuthorizationQuery);

@@ -20,28 +20,28 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
     private $_nonceManager;
 
     /**
-     * @var tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
+     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
      */
-    private $_redirectionEndpointCalculator;
+    private $_oauth2UrlProvider;
 
     /**
      * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_api_http_NonceManagerInterface                      $nonceManager,
-                                tubepress_api_http_RequestParametersInterface                 $requestParams,
-                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $redirectEndointCalculator,
-                                tubepress_api_template_TemplatingInterface                    $templating,
-                                tubepress_api_event_EventDispatcherInterface                  $eventDispatcher,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper             $persistenceHelper,
-                                tubepress_api_url_UrlFactoryInterface                         $urlFactory)
+    public function __construct(tubepress_api_http_NonceManagerInterface               $nonceManager,
+                                tubepress_api_http_RequestParametersInterface          $requestParams,
+                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider,
+                                tubepress_api_template_TemplatingInterface             $templating,
+                                tubepress_api_event_EventDispatcherInterface           $eventDispatcher,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
+                                tubepress_api_url_UrlFactoryInterface                  $urlFactory)
     {
         parent::__construct($requestParams, $templating, $urlFactory, $persistenceHelper);
 
-        $this->_nonceManager                  = $nonceManager;
-        $this->_redirectionEndpointCalculator = $redirectEndointCalculator;
-        $this->_eventDispatcher               = $eventDispatcher;
+        $this->_nonceManager      = $nonceManager;
+        $this->_oauth2UrlProvider = $oauth2UrlProvider;
+        $this->_eventDispatcher   = $eventDispatcher;
     }
 
     /**
@@ -111,7 +111,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         $clientId     = $this->getPersistenceHelper()->getClientId($provider);
         $clientSecret = $this->getPersistenceHelper()->getClientSecret($provider);
         $query        = $authorizationUrl->getQuery();
-        $redirectUrl  = $this->_redirectionEndpointCalculator->getRedirectionEndpoint($provider->getName());
+        $redirectUrl  = $this->_oauth2UrlProvider->getRedirectionUrl($provider);
 
         $query->set('response_type', $type)
               ->set('client_id', $clientId)

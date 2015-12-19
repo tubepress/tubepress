@@ -17,7 +17,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockRedirectCalculator;
+    private $_mockOauth2UrlProvider;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -36,10 +36,10 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
 
     protected function onAfterTemplateBasedFieldSetup()
     {
-        $this->_mockRedirectCalculator = $this->mock('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator');
-        $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
-        $this->_mockProvider           = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockTranslator         = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockOauth2UrlProvider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_);
+        $this->_mockPersistenceHelper = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
+        $this->_mockProvider          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockTranslator        = $this->mock(tubepress_api_translation_TranslatorInterface::_);
     }
 
     /**
@@ -55,14 +55,13 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
      */
     protected function getExpectedTemplateVariables()
     {
-        $this->_mockProvider->shouldReceive('getName')->once()->andReturn('provider-name');
         $this->_mockProvider->shouldReceive('getTranslatedClientRegistrationInstructions')->once()->with($this->_mockTranslator)->andReturn(array('instructions'));
         $this->_mockProvider->shouldReceive('getTranslatedTermForClientId')->once()->with($this->_mockTranslator)->andReturn('the client id');
         $this->_mockProvider->shouldReceive('getTranslatedTermForClientSecret')->once()->with($this->_mockTranslator)->andReturn('the client secret');
         $this->_mockProvider->shouldReceive('getTranslatedTermForRedirectEndpoint')->once()->with($this->_mockTranslator)->andReturn('the endpoint');
         $this->_mockPersistenceHelper->shouldReceive('getClientId')->once()->with($this->_mockProvider)->andReturn('client-id');
         $this->_mockPersistenceHelper->shouldReceive('getClientSecret')->once()->with($this->_mockProvider)->andReturn('client-secret');
-        $this->_mockRedirectCalculator->shouldReceive('getRedirectionEndpoint')->once()->with('provider-name')->andReturn('endpoint');
+        $this->_mockOauth2UrlProvider->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn('endpoint');
 
         return array(
             'clientId'         => 'client-id',
@@ -90,7 +89,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
             $this->_mockPersistenceHelper,
-            $this->_mockRedirectCalculator,
+            $this->_mockOauth2UrlProvider,
             $this->_mockTranslator
         );
     }

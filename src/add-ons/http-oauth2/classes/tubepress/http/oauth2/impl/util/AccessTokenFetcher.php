@@ -25,17 +25,17 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     private $_persistenceHelper;
 
     /**
-     * @var tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator
+     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
      */
-    private $_redirectionEndpointCalculator;
+    private $_oauth2UrlProvider;
 
-    public function __construct(tubepress_api_http_HttpClientInterface                        $httpClient,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper             $clientHelper,
-                                tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $redirectionEndpointCalculator)
+    public function __construct(tubepress_api_http_HttpClientInterface                 $httpClient,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper      $clientHelper,
+                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider)
     {
-        $this->_httpClient                    = $httpClient;
-        $this->_persistenceHelper             = $clientHelper;
-        $this->_redirectionEndpointCalculator = $redirectionEndpointCalculator;
+        $this->_httpClient        = $httpClient;
+        $this->_persistenceHelper = $clientHelper;
+        $this->_oauth2UrlProvider = $oauth2UrlProvider;
     }
 
     /**
@@ -47,7 +47,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     public function fetchWithCodeGrant(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider, $code)
     {
         $tokenUrl    = $provider->getTokenEndpoint();
-        $redirectUri = $this->_redirectionEndpointCalculator->getRedirectionEndpoint($provider->getName());
+        $redirectUri = $this->_oauth2UrlProvider->getRedirectionUrl($provider);
         $request     = $this->_httpClient->createRequest('POST', $tokenUrl, array(
             'body' => array(
                 'code'         => $code,

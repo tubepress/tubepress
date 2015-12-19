@@ -32,7 +32,6 @@
           "tubepress_http_oauth2_impl_token_Token"                             : "classes/tubepress/http/oauth2/impl/token/Token.php",
           "tubepress_http_oauth2_impl_util_AccessTokenFetcher"                 : "classes/tubepress/http/oauth2/impl/util/AccessTokenFetcher.php",
           "tubepress_http_oauth2_impl_util_PersistenceHelper"                  : "classes/tubepress/http/oauth2/impl/util/PersistenceHelper.php",
-          "tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator"      : "classes/tubepress/http/oauth2/impl/util/RedirectionEndpointCalculator.php",
           "tubepress_http_oauth2_ioc_Oauth2Extension"                          : "classes/tubepress/http/oauth2/ioc/Oauth2Extension.php"
         }
     }

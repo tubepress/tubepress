@@ -55,12 +55,6 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
     private function _registerUtils(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator',
-            'tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
-
-        $containerBuilder->register(
             'tubepress_http_oauth2_impl_util_PersistenceHelper',
             'tubepress_http_oauth2_impl_util_PersistenceHelper'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
@@ -72,7 +66,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_http_oauth2_impl_util_AccessTokenFetcher'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_HttpClientInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
-         ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator'));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_));
     }
 
     private function _registerPopups(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -82,7 +76,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_http_oauth2_impl_popup_AuthorizationInitiator'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
