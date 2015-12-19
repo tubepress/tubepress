@@ -42,9 +42,12 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
             ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
             ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_AccessTokenFetcher'))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::OAUTH2_TOKEN,
-                'priority' => 100000,
-                'method'   => 'onAcceptableValues'
+                'event'    => tubepress_api_http_Events::EVENT_HTTP_REQUEST,
+                'priority' => 99000,       //API cache runs at 100K, so lets run after that
+                'method'   => 'onHttpRequest'
+            ))->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag' => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
+                'method' => 'setOauth2Providers'
             ));
     }
 

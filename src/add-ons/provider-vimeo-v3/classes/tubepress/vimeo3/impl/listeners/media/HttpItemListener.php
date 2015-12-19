@@ -72,7 +72,7 @@ class tubepress_vimeo3_impl_listeners_media_HttpItemListener
 
         /* Home URL */
         $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL] =
-            'http://vimeo.com/' . substr($mediaItemArray[$index]['uri'], strlen('/videos/'));
+            'https://vimeo.com/' . substr($mediaItemArray[$index]['uri'], strlen('/videos/'));
 
         /* Keywords */
         $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY] =
