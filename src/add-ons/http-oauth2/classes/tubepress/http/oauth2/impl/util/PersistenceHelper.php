@@ -84,7 +84,7 @@ class tubepress_http_oauth2_impl_util_PersistenceHelper
 
     public function getStoredToken(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
-        $requestedSlug = strtolower($this->_context->get(tubepress_api_options_Names::OAUTH2_TOKEN));
+        $requestedSlug = $this->_context->get(tubepress_api_options_Names::OAUTH2_TOKEN);
         $tokens        = $this->_context->get(tubepress_api_options_Names::OAUTH2_TOKENS);
         $decoded       = json_decode($tokens, true);
         $providerName  = $provider->getName();
@@ -170,8 +170,8 @@ class tubepress_http_oauth2_impl_util_PersistenceHelper
             $toSave[self::$_REFRESH_TOKEN] = $token->getRefreshToken();
         }
 
-        $providerTokens[strtolower($slug)] = $toSave;
-        $decoded[$providerName]            = $providerTokens;
+        $providerTokens[$slug]  = $toSave;
+        $decoded[$providerName] = $providerTokens;
 
         $this->_persistence->queueForSave(tubepress_api_options_Names::OAUTH2_TOKENS, json_encode($decoded));
         $this->_persistence->flushSaveQueue();
