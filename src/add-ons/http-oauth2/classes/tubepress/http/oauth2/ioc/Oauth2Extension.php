@@ -83,7 +83,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator'))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
@@ -96,7 +96,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_http_oauth2_impl_popup_RedirectionCallback',
             'tubepress_http_oauth2_impl_popup_RedirectionCallback'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_AccessTokenFetcher'))

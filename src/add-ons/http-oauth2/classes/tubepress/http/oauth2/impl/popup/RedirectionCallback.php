@@ -58,7 +58,7 @@ class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_htt
 
         $this->getPersistenceHelper()->saveToken($provider, $slug, $token);
 
-        $this->renderSuccess('finishAuthorization', 'Successfully connected to %s', $provider, array(
+        $this->renderSuccess('finish', 'Successfully connected to %s', $provider, array(
             'slug' => $slug
         ));
     }

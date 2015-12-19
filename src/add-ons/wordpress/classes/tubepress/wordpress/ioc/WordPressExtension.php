@@ -126,6 +126,8 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ui_FormInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_AuthorizationInitiator'))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_RedirectionCallback'))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
             'method'   => 'onAction_admin_enqueue_scripts',
@@ -161,6 +163,14 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
           ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_print_scripts-settings_page_tubepress',
             'method'   => 'onAction_admin_print_scripts',
+            'priority' => 100000))
+          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2_start',
+            'method'   => 'onAction_load_admin_page_tubepress_oauth2_start',
+            'priority' => 100000))
+          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2',
+            'method'   => 'onAction_load_admin_page_tubepress_oauth2',
             'priority' => 100000));
 
         $containerBuilder->register(

@@ -25,6 +25,7 @@
         "classmap" : {
             "tubepress_wordpress_api_Constants"                                 : "classes/tubepress/wordpress/api/Constants.php",
             "tubepress_wordpress_impl_Callback"                                 : "classes/tubepress/wordpress/impl/Callback.php",
+            "tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider"            : "classes/tubepress/wordpress/impl/http/oauth2/Oauth2UrlProvider.php",
             "tubepress_wordpress_impl_listeners_html_WpHtmlListener"            : "classes/tubepress/wordpress/impl/listeners/html/WpHtmlListener.php",
             "tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener" : "classes/tubepress/wordpress/impl/listeners/options/ui/OptionsPageListener.php",
             "tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters"      : "classes/tubepress/wordpress/impl/listeners/wp/AdminActionsAndFilters.php",

@@ -179,7 +179,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
     {
         $vars      = array('provider' => $provider, 'titleFormat' => $titleFormat);
         $finalVars = array_merge($vars, $templateVars);
-        $out       = $this->_templating->renderTemplate("oauth2/success-$templateName", $finalVars);
+        $out       = $this->_templating->renderTemplate("oauth2/$templateName", $finalVars);
 
         print $out;
     }

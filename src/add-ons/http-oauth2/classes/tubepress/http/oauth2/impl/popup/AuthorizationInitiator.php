@@ -51,13 +51,13 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
      * This function will
      *
      * 1. Check to ensure that there was a valid nonce supplied with this request.
-     * 2. Check to ensure the presence of a request parameter named tubepress_oauth2_provider which is
+     * 2. Check to ensure the presence of a request parameter named provider which is
      *    the name of a loaded OAuth2 provider.
      * 3. Store state in the session for use by the callback.
      * 4. Build the authorization URL and allow the OAuth2 provider to modify it.
      * 5. Assuming all of the above is OK, sends an HTTP 301 to redirect the user to the authorization server.
      */
-    public function execute()
+    protected function execute()
     {
         $this->_ensureValidNonce();
 
@@ -67,14 +67,14 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
 
         $this->_redirect($url);
 
-        $this->renderSuccess('startAuthorization', 'Redirecting to %s', $provider, array(
+        $this->renderSuccess('start', 'Redirecting to %s', $provider, array(
             'url' => $url
         ));
     }
 
     private function _ensureValidNonce()
     {
-        $nonce = $this->getRequestParams()->getParamValue('tubepress_oauth2_nonce');
+        $nonce = $this->getRequestParams()->getParamValue('nonce');
 
         if (!$this->_nonceManager->isNonceValid($nonce)) {
 
@@ -87,7 +87,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
      */
     private function _getProvider()
     {
-        $providerName = $this->getRequestParams()->getParamValue('tubepress_oauth2_provider');
+        $providerName = $this->getRequestParams()->getParamValue('provider');
 
         return $this->getProviderByName($providerName);
     }
@@ -103,26 +103,20 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
 
         $type = $provider->getAuthorizationGrantType();
 
-        if ($type !== 'code' && $type !== 'client_credentials') {
+        if ($type !== 'code') {
 
             $this->bail('Unsupported authorization grant type.');
         }
 
-        $query = $authorizationUrl->getQuery();
-
-        $query->set('grant_type', $type);
-
-        if ($type === 'code') {
-
-            $query->set('state', $state);
-
-            $redirectUrl = $this->_redirectionEndpointCalculator->getRedirectionEndpoint($provider->getName());
-
-            $query->set('redirect_uri', $redirectUrl->toString());
-        }
-
         $clientId     = $this->getPersistenceHelper()->getClientId($provider);
         $clientSecret = $this->getPersistenceHelper()->getClientSecret($provider);
+        $query        = $authorizationUrl->getQuery();
+        $redirectUrl  = $this->_redirectionEndpointCalculator->getRedirectionEndpoint($provider->getName());
+
+        $query->set('response_type', $type)
+              ->set('client_id', $clientId)
+              ->set('state', $state)
+              ->set('redirect_uri', $redirectUrl->toString());
 
         $provider->onAuthorizationUrl($authorizationUrl, $clientId, $clientSecret);
 
@@ -132,14 +126,14 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
 
         $this->_eventDispatcher->dispatch(tubepress_api_event_Events::OAUTH2_URL_AUTHORIZATION, $event);
 
-        $newUrl = $event->getSubject();
+        $authorizationUrl = $event->getSubject();
 
-        if (!($newUrl instanceof tubepress_api_url_UrlInterface)) {
+        if (!($authorizationUrl instanceof tubepress_api_url_UrlInterface)) {
 
             $this->bail('Non authorization URL returned.');
         }
 
-        return $newUrl;
+        return $authorizationUrl;
     }
 
     /**
@@ -166,8 +160,8 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
     protected function getRequiredParamNames()
     {
         return array(
-            'tubepress_oauth2_nonce',
-            'tubepress_oauth2_provider'
+            'nonce',
+            'provider'
         );
     }
 }

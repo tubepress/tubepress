@@ -20,7 +20,7 @@ class tubepress_test_http_impl_NonceManagerTest extends tubepress_api_test_TubeP
         $val     = $manager->getNonce();
 
         $this->assertTrue(is_string($val));
-        $this->assertTrue(strlen($val) > 60);
+        $this->assertTrue(strlen($val) === 32);
 
         $this->assertTrue($manager->isNonceValid($val));
     }

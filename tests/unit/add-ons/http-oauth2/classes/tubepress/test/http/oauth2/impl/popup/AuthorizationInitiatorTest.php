@@ -125,7 +125,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
         $this->_mockAuthorizationUrl->shouldReceive('__toString')->once()->andReturn('abc');
 
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/success-startAuthorization', array(
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/start', array(
             'provider' => $this->_mockProvider2,
             'titleFormat' => 'Redirecting to %s',
             'url' => $this->_mockAuthorizationUrl,
@@ -189,10 +189,10 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_setProvidersOntoSut();
         $this->_prepNonceManager();
 
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_provider')->andReturn(true);
-        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_oauth2_provider')->andReturn('provider-33-name');
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_nonce')->andReturn(true);
-        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_oauth2_nonce')->andReturn('user-supplied');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('provider')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('provider')->andReturn('provider-33-name');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('nonce')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('nonce')->andReturn('user-supplied');
 
         $this->_mockProvider1->shouldReceive('getName')->atLeast(1)->andReturn('provider-1-name');
         $this->_mockProvider2->shouldReceive('getName')->atLeast(1)->andReturn('provider-2-name');
@@ -205,13 +205,13 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     {
         $this->_setProvidersOntoSut();
 
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_provider')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('provider')->andReturn(true);
 
         $this->_mockProvider1->shouldReceive('getName')->atLeast(1)->andReturn('provider-1-name');
         $this->_mockProvider2->shouldReceive('getName')->atLeast(1)->andReturn('provider-2-name');
 
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_nonce')->andReturn(true);
-        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_oauth2_nonce')->andReturn('hacker-supplied');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('nonce')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('nonce')->andReturn('hacker-supplied');
 
         $this->_mockNonceManager->shouldReceive('isNonceValid')->once()->with('hacker-supplied')->andReturn(false);
 
@@ -223,10 +223,10 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     {
         $this->_setProvidersOntoSut();
 
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_nonce')->andReturn(true);
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_provider')->andReturn(false);
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('nonce')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('provider')->andReturn(false);
 
-        $this->_expectBail('Missing tubepress_oauth2_provider parameter.');
+        $this->_expectBail('Missing provider parameter.');
         $this->_sut->initiate();
     }
 
@@ -234,8 +234,8 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     {
         $this->_setProvidersOntoSut();
 
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_nonce')->andReturn(false);
-        $this->_expectBail('Missing tubepress_oauth2_nonce parameter.');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('nonce')->andReturn(false);
+        $this->_expectBail('Missing nonce parameter.');
         $this->_sut->initiate();
     }
 
@@ -282,14 +282,14 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
     private function _prepRequiredParams()
     {
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_provider')->andReturn(true);
-        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_oauth2_provider')->andReturn('provider-2-name');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('provider')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('provider')->andReturn('provider-2-name');
 
         $this->_mockProvider1->shouldReceive('getName')->atLeast(1)->andReturn('provider-1-name');
         $this->_mockProvider2->shouldReceive('getName')->atLeast(1)->andReturn('provider-2-name');
 
-        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress_oauth2_nonce')->andReturn(true);
-        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_oauth2_nonce')->andReturn('user-supplied');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('nonce')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('nonce')->andReturn('user-supplied');
     }
 
     private function _prepPersistenceHelper()
@@ -315,9 +315,10 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
         $this->_mockAuthorizationUrl->shouldReceive('getQuery')->atLeast(1)->andReturn($this->_mockAuthorizationQuery);
 
-        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('grant_type', 'code');
-        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('state', ehough_mockery_Mockery::type('string'));
-        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('redirect_uri', 'redirect-uri');
+        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('client_id', 'provider-2-clientId')->andReturn($this->_mockAuthorizationQuery);
+        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('response_type', 'code')->andReturn($this->_mockAuthorizationQuery);
+        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('state', ehough_mockery_Mockery::type('string'))->andReturn($this->_mockAuthorizationQuery);
+        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('redirect_uri', 'redirect-uri')->andReturn($this->_mockAuthorizationQuery);
 
         $this->_mockProvider2->shouldReceive('onAuthorizationUrl')->once()->with($this->_mockAuthorizationUrl, 'provider-2-clientId', 'provider-2-secret');
     }

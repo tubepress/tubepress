@@ -16,22 +16,13 @@ class tubepress_http_impl_NonceManager implements tubepress_api_http_NonceManage
      */
     private static $_KEY = 'tubepress_nonce_master';
 
-    public function __construct()
-    {
-        if (!@session_start()) {
-
-            throw new RuntimeException('Unable to start a session for the nonce manager.');
-        }
-
-        $rando                 = md5(mt_rand()) . md5(mt_rand()) . md5(mt_rand());
-        $_SESSION[self::$_KEY] = $rando;
-    }
-
     /**
      * @return string The nonce value for the current session.
      */
     public function getNonce()
     {
+        $this->_initNonce();
+
         return $_SESSION[self::$_KEY];
     }
 
@@ -42,7 +33,22 @@ class tubepress_http_impl_NonceManager implements tubepress_api_http_NonceManage
      */
     public function isNonceValid($value)
     {
+        $this->_initNonce();
+
         return $_SESSION[self::$_KEY] === $value;
     }
-}
 
+    private function _initNonce()
+    {
+        if (!@session_start()) {
+
+            throw new RuntimeException('Unable to start a session for the nonce manager.');
+        }
+
+        if (!isset($_SESSION[self::$_KEY])) {
+
+            $rando                 = md5(mt_rand());
+            $_SESSION[self::$_KEY] = $rando;
+        }
+    }
+}

@@ -117,7 +117,7 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
 
         $this->_mockAccessTokenFetcher->shouldReceive('fetchWithCodeGrant')->once()->with($this->_mockProvider2, 'remote-code')->andReturn($mockToken);
 
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/success-finishAuthorization', array(
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/finish', array(
             'provider' => $this->_mockProvider2,
             'titleFormat' => 'Successfully connected to %s',
             'slug' => 'some slug',

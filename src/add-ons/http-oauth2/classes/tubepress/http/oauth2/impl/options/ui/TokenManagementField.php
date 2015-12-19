@@ -36,7 +36,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
                                 tubepress_http_oauth2_impl_util_PersistenceHelper             $persistenceHelper,
                                 tubepress_http_oauth2_impl_util_RedirectionEndpointCalculator $rec)
     {
-        parent::__construct('oauth2ClientInstructions_' . $provider->getName(), $persistence, $requestParams, $templating, 'Instructions');
+        parent::__construct('tokenManagement_' . $provider->getName(), $persistence, $requestParams, $templating, 'Accounts');
 
         $this->_persistenceHelper             = $persistenceHelper;
         $this->_provider                      = $provider;
@@ -48,7 +48,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
      */
     protected function getTemplateName()
     {
-        return 'options-ui/fields/oauth2/tokenManagement';
+        return 'options-ui/fields/oauth2/token-management';
     }
 
     /**
@@ -56,14 +56,27 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
      */
     protected function getTemplateVariables()
     {
-        $clientId     = $this->_persistenceHelper->getClientId($this->_provider);
-        $clientSecret = $this->_persistenceHelper->getClientSecret($this->_provider);
+        $clientId      = $this->_persistenceHelper->getClientId($this->_provider);
+        $clientSecret  = $this->_persistenceHelper->getClientSecret($this->_provider);
+        $tokens        = $this->getOptionPersistence()->fetch(tubepress_api_options_Names::OAUTH2_TOKENS);
+        $decodedTokens = json_decode($tokens, true);
+        $providerName  = $this->_provider->getName();
+
+        if (!isset($decodedTokens[$providerName]) || !is_array($decodedTokens[$providerName])) {
+
+            $slugs = array();
+
+        } else {
+
+            $slugs = array_keys($decodedTokens[$providerName]);
+        }
 
         return array(
             'clientId'     => $clientId,
             'clientSecret' => $clientSecret,
             'provider'     => $this->_provider,
             'callbackUri'  => $this->_redirectionEndpointCalculator->getRedirectionEndpoint($this->_provider->getName()),
+            'slugs'        => $slugs,
         );
     }
 
