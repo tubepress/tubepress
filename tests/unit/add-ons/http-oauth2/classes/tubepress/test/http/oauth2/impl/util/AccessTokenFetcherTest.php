@@ -43,8 +43,8 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
     {
         $this->_mockHttpClient                    = $this->mock(tubepress_api_http_HttpClientInterface::_);
         $this->_mockPersistenceHelper             = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
-        $this->_mockRedirectionEndpointCalculator = $this->mock(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_);
-        $this->_mockProvider                      = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockRedirectionEndpointCalculator = $this->mock(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
+        $this->_mockProvider                      = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
 
         $this->_sut = new tubepress_http_oauth2_impl_util_AccessTokenFetcher(
             $this->_mockHttpClient,

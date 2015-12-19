@@ -12,9 +12,9 @@
 /**
  * Defines methods common among all OAuth services.
  */
-interface tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+interface tubepress_spi_http_oauth2_Oauth2ProviderInterface
 {
-    const _ = 'tubepress_spi_http_oauth_v2_Oauth2ProviderInterface';
+    const _ = 'tubepress_spi_http_oauth2_Oauth2ProviderInterface';
 
     /**
      * TubePress will use this to uniquely identify the OAuth provider.

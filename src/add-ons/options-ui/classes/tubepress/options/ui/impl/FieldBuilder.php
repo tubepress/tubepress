@@ -60,7 +60,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
     private $_persistenceHelper;
 
     /**
-     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
+     * @var tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
      */
     private $_oauth2UrlProvider;
 
@@ -77,7 +77,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
                                 tubepress_api_options_AcceptableValuesInterface        $acceptableValues,
                                 tubepress_api_contrib_RegistryInterface                $themeRegistry,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
-                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider,
+                                tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
                                 tubepress_api_translation_TranslatorInterface          $translator)
     {
         $this->_persistence       = $persistence;
@@ -421,7 +421,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
         $provider = $options['provider'];
 
-        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
 
             throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenManagementField with a non-provider');
         }
@@ -445,7 +445,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
         $provider = $options['provider'];
 
-        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
 
             throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientInstructionsField with a non-provider');
         }
@@ -470,7 +470,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
         $provider = $options['provider'];
 
-        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
 
             throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientIdField with a non-provider');
         }
@@ -494,7 +494,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
         $provider = $options['provider'];
 
-        if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
 
             throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientSecretField with a non-provider');
         }

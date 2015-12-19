@@ -20,7 +20,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientSecretField extends tubepress_
     private $_persistenceHelper;
 
     /**
-     * @var tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+     * @var tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
     private $_provider;
 
@@ -29,7 +29,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientSecretField extends tubepress_
      */
     private $_translator;
 
-    public function __construct(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+    public function __construct(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                 tubepress_api_options_PersistenceInterface          $persistence,
                                 tubepress_api_http_RequestParametersInterface       $requestParams,
                                 tubepress_api_template_TemplatingInterface          $templating,

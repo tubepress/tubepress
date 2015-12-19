@@ -83,11 +83,11 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     {
         $this->_mockNonceManager      = $this->mock(tubepress_api_http_NonceManagerInterface::_);
         $this->_mockRequestParams     = $this->mock(tubepress_api_http_RequestParametersInterface::_);
-        $this->_mockOauth2UrlProvider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_);
+        $this->_mockOauth2UrlProvider = $this->mock(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
         $this->_mockTemplating        = $this->mock(tubepress_api_template_TemplatingInterface::_);
         $this->_mockEventDispatcher   = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockProvider1         = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockProvider2         = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockProvider1         = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
+        $this->_mockProvider2         = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockUrlFactory        = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockPersistenceHelper = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
 
@@ -241,7 +241,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
     public function testNonOauthProviderPassed()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Non tubepress_spi_http_oauth_v2_Oauth2ProviderInterface in incoming providers.');
+        $this->setExpectedException('InvalidArgumentException', 'Non tubepress_spi_http_oauth2_Oauth2ProviderInterface in incoming providers.');
         $this->_sut->setOauth2Providers(array('hi'));
     }
 

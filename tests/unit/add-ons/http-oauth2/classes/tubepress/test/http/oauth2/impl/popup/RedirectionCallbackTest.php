@@ -69,8 +69,8 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
         $this->_mockRequestParams      = $this->mock(tubepress_api_http_RequestParametersInterface::_);
         $this->_mockTemplating         = $this->mock(tubepress_api_template_TemplatingInterface::_);
         $this->_mockAccessTokenFetcher = $this->mock('tubepress_http_oauth2_impl_util_AccessTokenFetcher');
-        $this->_mockProvider1          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockProvider1          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
+        $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockUrlFactory         = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
 

@@ -72,8 +72,8 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
         $this->_mockAccessTokenFetcher = $this->mock('tubepress_http_oauth2_impl_util_AccessTokenFetcher');
         $this->_mockHttpRequest        = $this->mock('tubepress_api_http_message_RequestInterface');
         $this->_mockEvent              = $this->mock('tubepress_api_event_EventInterface');
-        $this->_mockProvider1          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
-        $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockProvider1          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
+        $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockUrl                = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockHttpRequest);

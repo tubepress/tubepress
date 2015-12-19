@@ -15,7 +15,7 @@
 abstract class tubepress_http_oauth2_impl_AbstractProviderConsumer
 {
     /**
-     * @var tubepress_spi_http_oauth_v2_Oauth2ProviderInterface[]
+     * @var tubepress_spi_http_oauth2_Oauth2ProviderInterface[]
      */
     private $_providers;
 
@@ -28,7 +28,7 @@ abstract class tubepress_http_oauth2_impl_AbstractProviderConsumer
     }
 
     /**
-     * @return tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+     * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
     protected function getProviderByName($providerName)
     {
@@ -52,7 +52,7 @@ abstract class tubepress_http_oauth2_impl_AbstractProviderConsumer
     }
 
     /**
-     * @return tubepress_spi_http_oauth_v2_Oauth2ProviderInterface[]
+     * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface[]
      */
     protected function getAllProviders()
     {
@@ -63,9 +63,9 @@ abstract class tubepress_http_oauth2_impl_AbstractProviderConsumer
     {
         foreach ($providers as $provider) {
 
-            if (!($provider instanceof tubepress_spi_http_oauth_v2_Oauth2ProviderInterface)) {
+            if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_spi_http_oauth_v2_Oauth2ProviderInterface in incoming providers.');
+                throw new InvalidArgumentException('Non tubepress_spi_http_oauth2_Oauth2ProviderInterface in incoming providers.');
             }
         }
 

@@ -20,7 +20,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField extends
     private $_persistenceHelper;
 
     /**
-     * @var tubepress_spi_http_oauth_v2_Oauth2ProviderInterface[]
+     * @var tubepress_spi_http_oauth2_Oauth2ProviderInterface[]
      */
     private $_oauth2Providers = array();
 

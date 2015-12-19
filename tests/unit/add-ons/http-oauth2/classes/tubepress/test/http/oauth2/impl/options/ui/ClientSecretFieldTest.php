@@ -32,7 +32,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientSecretFieldTest extends t
     protected function onAfterTemplateBasedFieldSetup()
     {
         $this->_mockPersistenceHelper = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
-        $this->_mockProvider          = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockProvider          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockTranslator        = $this->mock(tubepress_api_translation_TranslatorInterface::_);
     }
 

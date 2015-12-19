@@ -20,7 +20,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
     private $_nonceManager;
 
     /**
-     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
+     * @var tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
      */
     private $_oauth2UrlProvider;
 
@@ -31,7 +31,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
 
     public function __construct(tubepress_api_http_NonceManagerInterface               $nonceManager,
                                 tubepress_api_http_RequestParametersInterface          $requestParams,
-                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider,
+                                tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
                                 tubepress_api_template_TemplatingInterface             $templating,
                                 tubepress_api_event_EventDispatcherInterface           $eventDispatcher,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
@@ -83,7 +83,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
     }
 
     /**
-     * @return tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+     * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
     private function _getProvider()
     {
@@ -92,7 +92,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         return $this->getProviderByName($providerName);
     }
 
-    private function _buildUrl(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider, $state)
+    private function _buildUrl(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider, $state)
     {
         $authorizationUrl = $provider->getAuthorizationEndpoint();
 

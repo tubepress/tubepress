@@ -98,7 +98,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
     protected abstract function getRequiredParamNames();
 
     /**
-     * @return tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+     * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
     protected function getProviderByName($providerName)
     {
@@ -120,7 +120,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         return $provider;
     }
 
-    protected function saveState(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    protected function saveState(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $sessionKey            = $this->_getSessionKey($provider);
         $state                 = md5(mt_rand());
@@ -129,7 +129,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         return $state;
     }
 
-    protected function validateState(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    protected function validateState(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         if (!$provider->isStateUsed()) {
 
@@ -165,7 +165,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         return;
     }
 
-    protected function clearState(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    protected function clearState(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $sessionKey = $this->_getSessionKey($provider);
 
@@ -174,7 +174,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
 
     protected function renderSuccess($templateName,
                                      $titleFormat,
-                                     tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+                                     tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                      array $templateVars)
     {
         $vars      = array('provider' => $provider, 'titleFormat' => $titleFormat);
@@ -222,7 +222,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         }
     }
 
-    private function _getSessionKey(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    private function _getSessionKey(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $sessionStarted = @session_start();
 

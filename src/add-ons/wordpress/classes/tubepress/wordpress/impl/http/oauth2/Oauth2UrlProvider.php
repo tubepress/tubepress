@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
+class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
 {
     /**
      * @var tubepress_api_http_NonceManagerInterface
@@ -43,14 +43,14 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
     }
 
     /**
-     * @param tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider
+     * @param tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider
      *
      * @return tubepress_api_url_UrlInterface
      *
      * @api
      * @since 4.2.0
      */
-    public function getRedirectionUrl(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    public function getRedirectionUrl(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $url = $this->_startAdminUrl('tubepress_oauth2', $provider);
 
@@ -63,14 +63,14 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
     }
 
     /**
-     * @param tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider
+     * @param tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider
      *
      * @return tubepress_api_url_UrlInterface
      *
      * @api
      * @since 4.2.0
      */
-    public function getAuthorizationInitiationUrl(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    public function getAuthorizationInitiationUrl(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $url   = $this->_startAdminUrl('tubepress_oauth2_start', $provider);
         $nonce = $this->_nonceManager->getNonce();
@@ -83,7 +83,7 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
     /**
      * @return tubepress_api_url_UrlInterface
      */
-    private function _startAdminUrl($pageSlug, tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    private function _startAdminUrl($pageSlug, tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $asString     = $this->_wpFunctions->admin_url();
         $toReturn     = $this->_urlFactory->fromString($asString);
@@ -98,11 +98,11 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
     /**
      * @param                                                     $eventName
      * @param tubepress_api_url_UrlInterface                      $url
-     * @param tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider
+     * @param tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider
      *
      * @return tubepress_api_url_UrlInterface
      */
-    private function _dispatchUrl($eventName, tubepress_api_url_UrlInterface $url, tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    private function _dispatchUrl($eventName, tubepress_api_url_UrlInterface $url, tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $event = $this->_eventDispatcher->newEventInstance($url, array(
             'provider' => $provider

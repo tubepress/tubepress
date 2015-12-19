@@ -66,7 +66,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_http_oauth2_impl_util_AccessTokenFetcher'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_HttpClientInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_));
     }
 
     private function _registerPopups(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -76,13 +76,13 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_http_oauth2_impl_popup_AuthorizationInitiator'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_,
+            'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
             'method' => 'setOauth2Providers',
         ));
 
@@ -95,7 +95,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_AccessTokenFetcher'))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_,
+            'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
             'method' => 'setOauth2Providers',
          ));
     }
@@ -131,7 +131,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ->addArgument('does-not-matter')
          ->addArgument('oauth2ClientCredentialsSaving')
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-             'tag'    => tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_,
+             'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
              'method' => 'setOauth2Providers',
          ));
 

@@ -139,7 +139,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
             'tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
-            ->withTag(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+            ->withTag(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
     }
 
     private function _registerOptionsUi()

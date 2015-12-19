@@ -75,7 +75,7 @@ class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_htt
     }
 
     /**
-     * @return tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+     * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
     private function _getProvider()
     {

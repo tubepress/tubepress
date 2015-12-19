@@ -49,7 +49,7 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
 
     public function testSaveToken()
     {
-        $mockProvider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $mockToken    = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::OAUTH2_TOKENS)->andReturn(json_encode(array(
@@ -92,7 +92,7 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
 
     public function testGetTokenUseFirst()
     {
-        $mockProvider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $mockProvider->shouldReceive('getName')->once()->andReturn('name');
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::OAUTH2_TOKEN)->andReturn(null);
@@ -135,7 +135,7 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
             return $reader->getAsString($arr, $path, $default);
         });
 
-        $mockProvider = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $mockProvider->shouldReceive('getName')->once()->andReturn('name');
 
         $getter = 'get' . ucfirst($getter);

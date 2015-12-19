@@ -25,13 +25,13 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     private $_persistenceHelper;
 
     /**
-     * @var tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface
+     * @var tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
      */
     private $_oauth2UrlProvider;
 
     public function __construct(tubepress_api_http_HttpClientInterface                 $httpClient,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper      $clientHelper,
-                                tubepress_spi_http_oauth_v2_Oauth2UrlProviderInterface $oauth2UrlProvider)
+                                tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider)
     {
         $this->_httpClient        = $httpClient;
         $this->_persistenceHelper = $clientHelper;
@@ -39,12 +39,12 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     }
 
     /**
-     * @param tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider
+     * @param tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider
      * @param $code
      *
      * @return tubepress_api_http_oauth_v2_TokenInterface
      */
-    public function fetchWithCodeGrant(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider, $code)
+    public function fetchWithCodeGrant(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider, $code)
     {
         $tokenUrl    = $provider->getTokenEndpoint();
         $redirectUri = $this->_oauth2UrlProvider->getRedirectionUrl($provider);
@@ -63,7 +63,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         return $this->_fetchAndBuildToken($request, $provider);
     }
 
-    public function fetchWithRefreshToken(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+    public function fetchWithRefreshToken(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                           tubepress_api_http_oauth_v2_TokenInterface          $token)
     {
         $tokenUrl     = $provider->getTokenEndpoint();
@@ -82,7 +82,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     }
 
     private function _fetchAndBuildToken(tubepress_api_http_message_RequestInterface         $request,
-                                         tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+                                         tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $response = $this->_httpClient->send($request);
 
@@ -91,7 +91,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         return $this->_buildTokenFromResponse($provider, $response);
     }
 
-    private function _buildTokenFromResponse(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+    private function _buildTokenFromResponse(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                              tubepress_api_http_message_ResponseInterface        $response)
     {
         $body    = $response->getBody()->toString();
@@ -150,7 +150,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         return $toReturn;
     }
 
-    private function _checkResponseForError(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+    private function _checkResponseForError(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                             tubepress_api_http_message_ResponseInterface $response)
     {
         if ($response->getStatusCode() === 200) {

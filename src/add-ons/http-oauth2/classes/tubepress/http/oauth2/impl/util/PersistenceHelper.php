@@ -45,17 +45,17 @@ class tubepress_http_oauth2_impl_util_PersistenceHelper
         $this->_context     = $context;
     }
 
-    public function getClientId(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    public function getClientId(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         return $this->_getInfo($provider, self::$_ID);
     }
 
-    public function getClientSecret(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    public function getClientSecret(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         return $this->_getInfo($provider, self::$_SECRET);
     }
 
-    public function getStoredToken(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider)
+    public function getStoredToken(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         $requestedSlug = strtolower($this->_context->get(tubepress_api_options_Names::OAUTH2_TOKEN));
         $tokens        = $this->_context->get(tubepress_api_options_Names::OAUTH2_TOKENS);
@@ -118,7 +118,7 @@ class tubepress_http_oauth2_impl_util_PersistenceHelper
 
     }
 
-    public function saveToken(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider,
+    public function saveToken(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                               $slug,
                               tubepress_api_http_oauth_v2_TokenInterface          $token)
     {
@@ -150,7 +150,7 @@ class tubepress_http_oauth2_impl_util_PersistenceHelper
         $this->_persistence->flushSaveQueue();
     }
 
-    private function _getInfo(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface $provider, $dataPoint)
+    private function _getInfo(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider, $dataPoint)
     {
         $clients        = $this->_persistence->fetch(tubepress_api_options_Names::OAUTH2_CLIENT_DETAILS);
         $decodedClients = json_decode($clients, true);

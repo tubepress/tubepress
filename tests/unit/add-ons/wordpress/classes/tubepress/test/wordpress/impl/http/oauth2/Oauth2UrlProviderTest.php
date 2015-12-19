@@ -54,7 +54,7 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
         $this->_mockNonceManager    = $this->mock(tubepress_api_http_NonceManagerInterface::_);
         $this->_mockUrlFactory      = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockWpFunctions     = $this->mock('tubepress_wordpress_impl_wp_WpFunctions');
-        $this->_mockOauth2Provider  = $this->mock(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+        $this->_mockOauth2Provider  = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockQuery           = $this->mock('tubepress_api_url_QueryInterface');
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 

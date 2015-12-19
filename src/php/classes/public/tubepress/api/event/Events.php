@@ -237,7 +237,7 @@ interface tubepress_api_event_Events
      *
      * @subject `tubepress_api_url_UrlInterface` The authorization URL.
      *
-     * @argument <var>provider</var> (`tubepress_spi_http_oauth_v2_Oauth2ProviderInterface`): The provider.
+     * @argument <var>provider</var> (`tubepress_spi_http_oauth2_Oauth2ProviderInterface`): The provider.
      *
      * @api
      * @since 4.2.0

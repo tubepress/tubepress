@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_http_oauth_v2_Oauth2ProviderInterface
+class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_http_oauth2_Oauth2ProviderInterface
 {
     /**
      * @var tubepress_api_url_UrlFactoryInterface

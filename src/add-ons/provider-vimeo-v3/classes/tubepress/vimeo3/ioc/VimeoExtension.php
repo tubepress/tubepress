@@ -140,7 +140,7 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
             'tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
-         ->addTag(tubepress_spi_http_oauth_v2_Oauth2ProviderInterface::_);
+         ->addTag(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
     }
 
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
