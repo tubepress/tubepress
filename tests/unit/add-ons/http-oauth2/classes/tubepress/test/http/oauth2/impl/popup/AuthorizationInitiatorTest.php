@@ -79,26 +79,33 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
      */
     private $_mockUrlFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockAccessTokenFetcher;
+
     public function onSetup()
     {
-        $this->_mockNonceManager      = $this->mock(tubepress_api_http_NonceManagerInterface::_);
-        $this->_mockRequestParams     = $this->mock(tubepress_api_http_RequestParametersInterface::_);
-        $this->_mockOauth2UrlProvider = $this->mock(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
-        $this->_mockTemplating        = $this->mock(tubepress_api_template_TemplatingInterface::_);
-        $this->_mockEventDispatcher   = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockProvider1         = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
-        $this->_mockProvider2         = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
-        $this->_mockUrlFactory        = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockPersistenceHelper = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
+        $this->_mockNonceManager       = $this->mock(tubepress_api_http_NonceManagerInterface::_);
+        $this->_mockRequestParams      = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockOauth2UrlProvider  = $this->mock(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
+        $this->_mockTemplating         = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockEventDispatcher    = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockProvider1          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
+        $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
+        $this->_mockUrlFactory         = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
+        $this->_mockAccessTokenFetcher = $this->mock('tubepress_http_oauth2_impl_util_AccessTokenFetcher');
 
         $this->_sut = new tubepress_http_oauth2_impl_popup_AuthorizationInitiator(
-            $this->_mockNonceManager,
             $this->_mockRequestParams,
-            $this->_mockOauth2UrlProvider,
             $this->_mockTemplating,
-            $this->_mockEventDispatcher,
+            $this->_mockUrlFactory,
             $this->_mockPersistenceHelper,
-            $this->_mockUrlFactory
+            $this->_mockAccessTokenFetcher,
+            $this->_mockNonceManager,
+            $this->_mockOauth2UrlProvider,
+            $this->_mockEventDispatcher
         );
     }
 
@@ -110,11 +117,13 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         }
     }
 
-    public function testSuccess()
+    public function testCodeSuccess()
     {
         $this->_setProvidersOntoSut();
-        $this->_prepNonceManager();
         $this->_prepRequiredParams();
+        $this->_prepNonceManager();
+        $this->_prepClientIdAndSecretSave();
+
         $this->_prepAuthorizationUrlInitial();
         $this->_prepPersistenceHelper();
 
@@ -136,11 +145,13 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_sut->initiate();
     }
 
-    public function testNonAuthorizationUrlAfterDispatch()
+    public function testCodeNonAuthorizationUrlAfterDispatch()
     {
         $this->_setProvidersOntoSut();
-        $this->_prepNonceManager();
         $this->_prepRequiredParams();
+        $this->_prepNonceManager();
+        $this->_prepClientIdAndSecretSave();
+
         $this->_prepPersistenceHelper();
         $this->_prepAuthorizationUrlInitial();
 
@@ -153,16 +164,17 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_sut->initiate();
     }
 
-    public function testProviderReturnedBadType()
+    public function testCodeProviderReturnedBadType()
     {
         $this->_setProvidersOntoSut();
-        $this->_prepNonceManager();
         $this->_prepRequiredParams();
+        $this->_prepNonceManager();
+        $this->_prepClientIdAndSecretSave();
+
         $this->_prepPersistenceHelper();
 
         $this->_mockAuthorizationUrl = $this->mock('tubepress_api_url_UrlInterface');
 
-        $this->_mockProvider2->shouldReceive('getAuthorizationEndpoint')->once()->andReturn($this->_mockAuthorizationUrl);
         $this->_mockProvider2->shouldReceive('isClientSecretUsed')->once()->andReturn(true);
         $this->_mockProvider2->shouldReceive('getAuthorizationGrantType')->once()->andReturn('abc');
 
@@ -170,13 +182,16 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_sut->initiate();
     }
 
-    public function testProviderReturnedNonUrl()
+    public function testCodeProviderReturnedNonUrl()
     {
         $this->_setProvidersOntoSut();
-        $this->_prepNonceManager();
         $this->_prepRequiredParams();
+        $this->_prepNonceManager();
+        $this->_prepClientIdAndSecretSave();
+
         $this->_prepPersistenceHelper();
 
+        $this->_mockProvider2->shouldReceive('getAuthorizationGrantType')->once()->andReturn('code');
         $this->_mockProvider2->shouldReceive('isClientSecretUsed')->once()->andReturn(true);
         $this->_mockProvider2->shouldReceive('getAuthorizationEndpoint')->once()->andReturn('abc');
 
@@ -321,5 +336,14 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('redirect_uri', 'redirect-uri')->andReturn($this->_mockAuthorizationQuery);
 
         $this->_mockProvider2->shouldReceive('onAuthorizationUrl')->once()->with($this->_mockAuthorizationUrl, 'provider-2-clientId', 'provider-2-secret');
+    }
+
+    private function _prepClientIdAndSecretSave()
+    {
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('clientId')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('clientSecret')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('clientId')->andReturn('client-id');
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('clientSecret')->andReturn('client-secret');
+        $this->_mockPersistenceHelper->shouldReceive('saveClientIdAndSecret')->once()->with($this->_mockProvider2, 'client-id', 'client-secret');
     }
 }

@@ -64,12 +64,12 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     }
 
     public function fetchWithRefreshToken(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
-                                          tubepress_api_http_oauth_v2_TokenInterface          $token)
+                                          tubepress_api_http_oauth_v2_TokenInterface        $token)
     {
         $tokenUrl     = $provider->getTokenEndpoint();
         $clientId     = $this->_persistenceHelper->getClientId($provider);
         $clientSecret = $this->_persistenceHelper->getClientSecret($provider);
-        $request     = $this->_httpClient->createRequest('POST', $tokenUrl, array(
+        $request      = $this->_httpClient->createRequest('POST', $tokenUrl, array(
             'body' => array(
                 'grant_type'   => 'refresh_token',
                 'refresh_token' => $token->getRefreshToken()
@@ -77,6 +77,22 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         ));
 
         $provider->onRefreshTokenRequest($request, $token, $clientId, $clientSecret);
+
+        return $this->_fetchAndBuildToken($request, $provider);
+    }
+
+    public function fetchWithClientCredentials(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
+    {
+        $tokenUrl     = $provider->getTokenEndpoint();
+        $clientId     = $this->_persistenceHelper->getClientId($provider);
+        $clientSecret = $this->_persistenceHelper->getClientSecret($provider);
+        $request      = $this->_httpClient->createRequest('POST', $tokenUrl, array(
+            'body' => array(
+                'grant_type' => 'client_credentials'
+            )
+        ));
+
+        $provider->onAccessTokenRequest($request, $clientId, $clientSecret);
 
         return $this->_fetchAndBuildToken($request, $provider);
     }
@@ -153,12 +169,12 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
     private function _checkResponseForError(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                             tubepress_api_http_message_ResponseInterface $response)
     {
-        if ($response->getStatusCode() === 200) {
+        if (intval($response->getStatusCode()) === 200) {
 
             return;
         }
 
-        if ($response->getStatusCode() === 400) {
+        if (intval($response->getStatusCode()) === 400) {
 
             $body    = $response->getBody()->toString();
             $decoded = json_decode($body, true);

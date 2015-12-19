@@ -15,22 +15,6 @@
 class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_http_oauth2_impl_popup_AbstractPopupHandler
 {
     /**
-     * @var tubepress_http_oauth2_impl_util_AccessTokenFetcher
-     */
-    private $_accessTokenFetcher;
-
-    public function __construct(tubepress_api_http_RequestParametersInterface      $requestParams,
-                                tubepress_api_template_TemplatingInterface         $templating,
-                                tubepress_api_url_UrlFactoryInterface              $urlFactory,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper  $persistenceHelper,
-                                tubepress_http_oauth2_impl_util_AccessTokenFetcher $accessTokenFetcher)
-    {
-        parent::__construct($requestParams, $templating, $urlFactory, $persistenceHelper);
-
-        $this->_accessTokenFetcher = $accessTokenFetcher;
-    }
-
-    /**
      * This method will be (indirectly) invoked by the remote OAuth2 provider after we have initiated
      * authorization.
      *
@@ -53,7 +37,7 @@ class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_htt
         $this->clearState($provider);
 
         $code  = $this->getRequestParams()->getParamValue('code');
-        $token = $this->_accessTokenFetcher->fetchWithCodeGrant($provider, $code);
+        $token = $this->getAccessTokenFetcher()->fetchWithCodeGrant($provider, $code);
         $slug  = $provider->getSlugForToken($token);
 
         $this->getPersistenceHelper()->saveToken($provider, $slug, $token);
@@ -69,6 +53,7 @@ class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_htt
     protected function getRequiredParamNames()
     {
         return array(
+
             'provider',
             'code',
         );

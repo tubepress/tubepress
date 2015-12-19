@@ -45,6 +45,33 @@ class tubepress_http_oauth2_impl_util_PersistenceHelper
         $this->_context     = $context;
     }
 
+    public function saveClientIdAndSecret(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider, $clientId, $clientSecret)
+    {
+        $clients        = $this->_persistence->fetch(tubepress_api_options_Names::OAUTH2_CLIENT_DETAILS);
+        $decodedClients = json_decode($clients, true);
+        $providerName   = $provider->getName();
+
+        if (!isset($decodedClients[$providerName])) {
+
+            $decodedClients[$providerName] = array();
+        }
+
+        if ($clientId) {
+
+            $decodedClients[$providerName][self::$_ID] = $clientId;
+        }
+
+        if ($clientSecret) {
+
+            $decodedClients[$providerName][self::$_SECRET] = $clientSecret;
+        }
+
+        $encodedClients = json_encode($decodedClients);
+
+        $this->_persistence->queueForSave(tubepress_api_options_Names::OAUTH2_CLIENT_DETAILS, $encodedClients);
+        $this->_persistence->flushSaveQueue();
+    }
+
     public function getClientId(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
         return $this->_getInfo($provider, self::$_ID);

@@ -40,6 +40,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
         $this->_registerSingletons($containerBuilder);
         $this->_registerWpServices($containerBuilder);
         $this->_registerVendorServices($containerBuilder);
+        $this->_registerHttpOauth2Services($containerBuilder);
     }
 
     private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -313,5 +314,17 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'ehough_filesystem_FilesystemInterface',
             'ehough_filesystem_Filesystem'
         );
+    }
+
+    private function _registerHttpOauth2Services(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_,
+            'tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->addTag(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
     }
 }

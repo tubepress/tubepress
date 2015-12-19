@@ -100,7 +100,7 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
 
         $mockUrl->shouldReceive('getQuery')->atLeast(1)->andReturn($this->_mockQuery);
 
-        $this->_mockWpFunctions->shouldReceive('admin_url')->once()->andReturn('admin-url');
+        $this->_mockWpFunctions->shouldReceive('admin_url')->once()->with('admin.php')->andReturn('admin-url');
 
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('admin-url')->andReturn($mockUrl);
 

@@ -80,7 +80,7 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
                 ),
                 'scope' => 'foobar private something'
             )),
-            array('Vimeo-82ad97e3b88a2d49ac02f3eb4f5a808d', array()),
+            array('Vimeo - 82ad97e3b88a2d49ac02f3eb4f5a808d', array()),
         );
     }
 
@@ -154,7 +154,7 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
     {
         $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://api.vimeo.com/oauth/access_token')->andReturn($mockUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://api.vimeo.com/oauth/authorize/client')->andReturn($mockUrl);
 
         $actual = $this->_sut->getTokenEndpoint();
 
@@ -163,13 +163,9 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
 
     public function testAuthorizationEndpoint()
     {
-        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
-
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://api.vimeo.com/oauth/authorize')->andReturn($mockUrl);
-
         $actual = $this->_sut->getAuthorizationEndpoint();
 
-        $this->assertSame($mockUrl, $actual);
+        $this->assertNull($actual);
     }
 
     public function testBasics()
@@ -177,9 +173,9 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
         $this->assertInstanceOf('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider', $this->_sut);
         $this->assertEquals('vimeoV3', $this->_sut->getName());
         $this->assertEquals('bearer', $this->_sut->getAccessTokenType());
-        $this->assertEquals('code', $this->_sut->getAuthorizationGrantType());
+        $this->assertEquals('client_credentials', $this->_sut->getAuthorizationGrantType());
         $this->assertEquals('Vimeo', $this->_sut->getDisplayName());
-        $this->assertTrue($this->_sut->isStateUsed());
+        $this->assertFalse($this->_sut->isStateUsed());
         $this->assertTrue($this->_sut->isClientSecretUsed());
     }
 

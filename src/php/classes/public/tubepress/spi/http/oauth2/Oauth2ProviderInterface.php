@@ -49,6 +49,7 @@ interface tubepress_spi_http_oauth2_Oauth2ProviderInterface
     function getTokenEndpoint();
 
     /**
+     * Only invoked for authorization code grant type providers.
      *
      * See https://tools.ietf.org/html/rfc6749#section-3.1
      *
@@ -61,8 +62,8 @@ interface tubepress_spi_http_oauth2_Oauth2ProviderInterface
 
     /**
      * Defines the authorization grant type. TubePress is not guaranteed to support anything other
-     * than "code", though in the future clientCredentials might be implemented. It's very unlikely
-     * that we will ever implement the implicit or resource owner password credentials grant types.
+     * than "code" or "client_credentials". It's very unlikely that we will ever implement the implicit or resource
+     * owner password credentials grant types.
      *
      * See https://tools.ietf.org/html/rfc6749#section-4
      *
@@ -71,6 +72,8 @@ interface tubepress_spi_http_oauth2_Oauth2ProviderInterface
     function getAuthorizationGrantType();
 
     /**
+     * Only invoked for authorization code grant type providers.
+     *
      * @return bool True if state is returned by the provider during authorization, false otherwise.
      *
      * @api

@@ -58,6 +58,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
     }
 
     /**
+     * Only invoked for authorization code grant type providers.
      *
      * See https://tools.ietf.org/html/rfc6749#section-3.1
      *
@@ -68,13 +69,13 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
      */
     public function getAuthorizationEndpoint()
     {
-        return $this->_urlFactory->fromString('https://api.vimeo.com/oauth/authorize');
+        return null;
     }
 
     /**
      * Defines the authorization grant type. TubePress is not guaranteed to support anything other
-     * than "code", though in the future clientCredentials might be implemented. It's very unlikely
-     * that we will ever implement the implicit or resource owner password credentials grant types.
+     * than "code" or "client_credentials". It's very unlikely that we will ever implement the implicit or resource
+     * owner password credentials grant types.
      *
      * See https://tools.ietf.org/html/rfc6749#section-4
      *
@@ -82,7 +83,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
      */
     public function getAuthorizationGrantType()
     {
-        return 'code';
+        return 'client_credentials';
     }
 
     /**
@@ -103,10 +104,12 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
     public function onAuthorizationUrl(tubepress_api_url_UrlInterface $authorizationUrl,
                                        $clientId, $clientSecret = null)
     {
-        //noop as we've already added everything we need.
+        //noop
     }
 
     /**
+     * Only invoked for authorization code grant type providers.
+     *
      * @return bool True if state is returned by the provider during authorization, false otherwise.
      *
      * @api
@@ -114,7 +117,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
      */
     public function isStateUsed()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -129,7 +132,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
      */
     public function getTokenEndpoint()
     {
-        return $this->_urlFactory->fromString('https://api.vimeo.com/oauth/access_token');
+        return $this->_urlFactory->fromString('https://api.vimeo.com/oauth/authorize/client');
     }
 
     /**
@@ -208,7 +211,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
             return $name;
         }
 
-        return 'Vimeo-' . md5($token->getAccessToken());
+        return 'Vimeo - ' . md5($token->getAccessToken());
     }
 
     /**

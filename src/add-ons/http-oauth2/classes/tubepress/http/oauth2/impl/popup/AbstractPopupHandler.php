@@ -39,15 +39,22 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
      */
     private $_renderedResult;
 
-    public function __construct(tubepress_api_http_RequestParametersInterface     $requestParams,
-                                tubepress_api_template_TemplatingInterface        $templating,
-                                tubepress_api_url_UrlFactoryInterface             $urlFactory,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper $persistenceHelper)
+    /**
+     * @var tubepress_http_oauth2_impl_util_AccessTokenFetcher
+     */
+    private $_accessTokenFetcher;
+
+    public function __construct(tubepress_api_http_RequestParametersInterface      $requestParams,
+                                tubepress_api_template_TemplatingInterface         $templating,
+                                tubepress_api_url_UrlFactoryInterface              $urlFactory,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper  $persistenceHelper,
+                                tubepress_http_oauth2_impl_util_AccessTokenFetcher $accessTokenFetcher)
     {
-        $this->_requestParams     = $requestParams;
-        $this->_templating        = $templating;
-        $this->_persistenceHelper = $persistenceHelper;
-        $this->_urlFactory        = $urlFactory;
+        $this->_requestParams      = $requestParams;
+        $this->_templating         = $templating;
+        $this->_urlFactory         = $urlFactory;
+        $this->_persistenceHelper  = $persistenceHelper;
+        $this->_accessTokenFetcher = $accessTokenFetcher;
     }
 
     /**
@@ -98,6 +105,8 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
     protected abstract function getRequiredParamNames();
 
     /**
+     * @param string $providerName
+     *
      * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
     protected function getProviderByName($providerName)
@@ -207,6 +216,14 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
     protected function getPersistenceHelper()
     {
         return $this->_persistenceHelper;
+    }
+
+    /**
+     * @return tubepress_http_oauth2_impl_util_AccessTokenFetcher
+     */
+    protected function getAccessTokenFetcher()
+    {
+        return $this->_accessTokenFetcher;
     }
 
     private function _ensureRequiredParamsPresent()

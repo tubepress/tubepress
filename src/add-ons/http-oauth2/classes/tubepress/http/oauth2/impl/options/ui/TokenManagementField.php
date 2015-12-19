@@ -72,11 +72,11 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
         }
 
         return array(
-            'clientId'     => $clientId,
-            'clientSecret' => $clientSecret,
-            'provider'     => $this->_provider,
-            'callbackUri'  => $this->_oauth2UrlProvider->getRedirectionUrl($this->_provider),
-            'slugs'        => $slugs,
+            'clientId'       => $clientId,
+            'clientSecret'   => $clientSecret,
+            'provider'       => $this->_provider,
+            'oauth2StartUrl' => $this->_oauth2UrlProvider->getAuthorizationInitiationUrl($this->_provider),
+            'slugs'          => $slugs,
         );
     }
 

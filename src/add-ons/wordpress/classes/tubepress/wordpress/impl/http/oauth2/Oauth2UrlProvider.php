@@ -85,7 +85,7 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
      */
     private function _startAdminUrl($pageSlug, tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
-        $asString     = $this->_wpFunctions->admin_url();
+        $asString     = $this->_wpFunctions->admin_url('admin.php');
         $toReturn     = $this->_urlFactory->fromString($asString);
         $providerName = $provider->getName();
 

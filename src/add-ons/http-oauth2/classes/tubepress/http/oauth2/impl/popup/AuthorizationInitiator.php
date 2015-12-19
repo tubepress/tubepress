@@ -29,15 +29,16 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_api_http_NonceManagerInterface               $nonceManager,
-                                tubepress_api_http_RequestParametersInterface          $requestParams,
+    public function __construct(tubepress_api_http_RequestParametersInterface        $requestParams,
+                                tubepress_api_template_TemplatingInterface           $templating,
+                                tubepress_api_url_UrlFactoryInterface                $urlFactory,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
+                                tubepress_http_oauth2_impl_util_AccessTokenFetcher   $accessTokenFetcher,
+                                tubepress_api_http_NonceManagerInterface             $nonceManager,
                                 tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
-                                tubepress_api_template_TemplatingInterface             $templating,
-                                tubepress_api_event_EventDispatcherInterface           $eventDispatcher,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
-                                tubepress_api_url_UrlFactoryInterface                  $urlFactory)
+                                tubepress_api_event_EventDispatcherInterface         $eventDispatcher)
     {
-        parent::__construct($requestParams, $templating, $urlFactory, $persistenceHelper);
+        parent::__construct($requestParams, $templating, $urlFactory, $persistenceHelper, $accessTokenFetcher);
 
         $this->_nonceManager      = $nonceManager;
         $this->_oauth2UrlProvider = $oauth2UrlProvider;
@@ -48,27 +49,94 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
      * This function may be called after you have confirmed that the user is authenticated and
      * authorized to initiate a new OAuth2 authorization.
      *
-     * This function will
-     *
      * 1. Check to ensure that there was a valid nonce supplied with this request.
      * 2. Check to ensure the presence of a request parameter named provider which is
      *    the name of a loaded OAuth2 provider.
-     * 3. Store state in the session for use by the callback.
-     * 4. Build the authorization URL and allow the OAuth2 provider to modify it.
-     * 5. Assuming all of the above is OK, sends an HTTP 301 to redirect the user to the authorization server.
+     * 3. If clientId and (optionally) clientSecret are given in the query, save them to the DB.
+     *
+     * For "code" authorization grant types, this method will:
+     *
+     * 1. Store state in the session for use by the callback.
+     * 2. Build the authorization URL and allow the OAuth2 provider to modify it.
+     * 3. Assuming all of the above is OK, sends an HTTP 301 to redirect the user to the authorization server.
+     *
+     * For "client_credentials" authorization grant types, this method will:
+     *
+     * 1. Fetch an access token from the provider.
+     * 2. Store the access token.
+     * 3. Render a success page.
      */
     protected function execute()
     {
         $this->_ensureValidNonce();
 
-        $provider = $this->_getProvider();
-        $state    = $this->saveState($provider);
-        $url      = $this->_buildUrl($provider, $state);
+        $provider  = $this->_getProvider();
+        $grantType = $provider->getAuthorizationGrantType();
+
+        $this->_saveClientIdAndSecretIfPresent($provider);
+
+        switch ($grantType) {
+
+            case 'code':
+
+                $this->_executeCodeGrantType($provider);
+                break;
+
+            case 'client_credentials':
+
+                $this->_executeClientCredentialsGrantType($provider);
+                break;
+
+            default:
+
+                throw new InvalidArgumentException('Unsupported authorization grant type.');
+        }
+    }
+
+    private function _saveClientIdAndSecretIfPresent(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
+    {
+        $requestParams = $this->getRequestParams();
+
+        if (!$requestParams->hasParam('clientId')) {
+
+            return;
+        }
+
+        $clientId = $requestParams->getParamValue('clientId');
+
+        if (!$requestParams->hasParam('clientSecret')) {
+
+            $clientSecret = null;
+
+        } else {
+
+            $clientSecret = $requestParams->getParamValue('clientSecret');
+        }
+
+        $this->getPersistenceHelper()->saveClientIdAndSecret($provider, $clientId, $clientSecret);
+    }
+
+    private function _executeCodeGrantType(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
+    {
+        $state = $this->saveState($provider);
+        $url   = $this->_buildUrl($provider, $state);
 
         $this->_redirect($url);
 
         $this->renderSuccess('start', 'Redirecting to %s', $provider, array(
             'url' => $url
+        ));
+    }
+
+    private function _executeClientCredentialsGrantType(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
+    {
+        $token = $this->getAccessTokenFetcher()->fetchWithClientCredentials($provider);
+        $slug  = $provider->getSlugForToken($token);
+
+        $this->getPersistenceHelper()->saveToken($provider, $slug, $token);
+
+        $this->renderSuccess('finish', 'Successfully connected to %s', $provider, array(
+            'slug' => $slug
         ));
     }
 
@@ -101,19 +169,12 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
             $this->bail('OAuth2 provider returned a non URL.');
         }
 
-        $type = $provider->getAuthorizationGrantType();
-
-        if ($type !== 'code') {
-
-            $this->bail('Unsupported authorization grant type.');
-        }
-
         $clientId     = $this->getPersistenceHelper()->getClientId($provider);
         $clientSecret = $this->getPersistenceHelper()->getClientSecret($provider);
         $query        = $authorizationUrl->getQuery();
         $redirectUrl  = $this->_oauth2UrlProvider->getRedirectionUrl($provider);
 
-        $query->set('response_type', $type)
+        $query->set('response_type', 'code')
               ->set('client_id', $clientId)
               ->set('state', $state)
               ->set('redirect_uri', $redirectUrl->toString());
@@ -160,6 +221,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
     protected function getRequiredParamNames()
     {
         return array(
+
             'nonce',
             'provider'
         );
