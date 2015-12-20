@@ -35,12 +35,12 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
     private $_translator;
 
     public function __construct(tubepress_spi_http_oauth2_Oauth2ProviderInterface    $provider,
-                                tubepress_api_options_PersistenceInterface             $persistence,
-                                tubepress_api_http_RequestParametersInterface          $requestParams,
-                                tubepress_api_template_TemplatingInterface             $templating,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
+                                tubepress_api_options_PersistenceInterface           $persistence,
+                                tubepress_api_http_RequestParametersInterface        $requestParams,
+                                tubepress_api_template_TemplatingInterface           $templating,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
                                 tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
-                                tubepress_api_translation_TranslatorInterface          $translator)
+                                tubepress_api_translation_TranslatorInterface        $translator)
     {
         parent::__construct('clientInstructions_' . $provider->getName(), $persistence, $requestParams, $templating, 'Initial Setup');
 
@@ -63,22 +63,12 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
      */
     protected function getTemplateVariables()
     {
-        $clientId         = $this->_persistenceHelper->getClientId($this->_provider);
-        $clientSecret     = $this->_persistenceHelper->getClientSecret($this->_provider);
-        $instructions     = $this->_provider->getTranslatedClientRegistrationInstructions($this->_translator);
-        $clientIdTerm     = $this->_provider->getTranslatedTermForClientId($this->_translator);
-        $clientSecretTerm = $this->_provider->getTranslatedTermForClientSecret($this->_translator);
-        $callbackTerm     = $this->_provider->getTranslatedTermForRedirectEndpoint($this->_translator);
+        $redirectUrl  = $this->_oauth2UrlProvider->getRedirectionUrl($this->_provider);
+        $instructions = $this->_provider->getTranslatedClientRegistrationInstructions($this->_translator, $redirectUrl);
 
         return array(
-            'clientId'         => $clientId,
-            'clientSecret'     => $clientSecret,
-            'provider'         => $this->_provider,
-            'callbackUri'      => $this->_oauth2UrlProvider->getRedirectionUrl($this->_provider),
-            'instructions'     => $instructions,
-            'clientIdTerm'     => $clientIdTerm,
-            'clientSecretTerm' => $clientSecretTerm,
-            'callbackTerm'     => $callbackTerm,
+
+            'translatedInstructions' => $instructions
         );
     }
 

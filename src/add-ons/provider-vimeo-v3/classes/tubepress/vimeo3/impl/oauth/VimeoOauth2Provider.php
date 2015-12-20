@@ -211,7 +211,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
             return $name;
         }
 
-        return 'Vimeo - ' . md5($token->getAccessToken());
+        return 'Anonymous (access to public videos)';
     }
 
     /**
@@ -264,67 +264,68 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
     }
 
     /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
+     * Get user instructions for client registration to be displayed in an ordered list. Each element of the return
+     * value may be a string or array. If string, it's used as a top-level instruction. If it's an array, it will be
+     * nested underneath the previous instruction.
      *
-     * @return string[]
+     * @param tubepress_api_translation_TranslatorInterface $translator  The translator to use.
+     * @param tubepress_api_url_UrlInterface                $redirectUrl The redirect URL that should be used during registration.
+     *
+     * @return array
      *
      * @api
      * @since 4.2.0
      */
-    public function getTranslatedClientRegistrationInstructions(tubepress_api_translation_TranslatorInterface $translator)
+    function getTranslatedClientRegistrationInstructions(tubepress_api_translation_TranslatorInterface $translator,
+                                                         tubepress_api_url_UrlInterface                $redirectUrl)
     {
-        /** @noinspection HtmlUnknownTarget */
+        $step1 = $translator->trans('<a href="%client-registration-url%" target="_blank">Click here</a> to create a new Vimeo &quot;App&quot;',  //>(translatable)<
+            array(
+                '%client-registration-url%' => 'https://developer.vimeo.com/apps/new',
+            )
+        );
+        $step1Subs = array(
+
+            $translator->trans('Use anything you\'d like for the App Name, App Description, and App URL.'),                 //>(translatable)<
+            $translator->trans('For the &quot;App Callback URLs&quot; field, enter:<br /><code>%redirect-uri%</code>',    //>(translatable)<
+                array('%redirect-uri%' => $redirectUrl->toString())
+            ),
+        );
+        $step2 = $translator->trans('Under the &quot;OAuth2&quot; tab of your new Vimeo App, you will find your &quot;Client Identifier&quot; and &quot;Client Secret&quot;. Enter those values into the text boxes below.');  //>(translatable)<
+
+        $step3 = $translator->trans('Click the &quot;Connect&quot; button below to authorize TubePress to communicate with Vimeo. This step will take place in
+            a popup window.');   //>(translatable)<
+
         return array(
-
-            $translator->trans(
-
-                '<a href="%client-registration-url%" target="_blank">Click here</a> to "Create a new app" with Vimeo', //>(translatable)<
-                array('%client-registration-url%' => 'https://developer.vimeo.com/apps/new')
-            ),
-            $translator->trans(
-                'Use anything you\'d like for the App Name, App Description, and App URL'   //>(translatable)<
-            ),
+            $step1,
+            $step1Subs,
+            $step2,
+            $step3
         );
     }
 
     /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
-     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    public function getTranslatedTermForClientId(tubepress_api_translation_TranslatorInterface $translator)
+    public function getUntranslatedTermForClientId()
     {
-        return $translator->trans('Client Identifier'); //>(translatable)<
+        return 'OAuth2 Client Identifier'; //>(translatable)<
     }
 
     /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
-     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    public function getTranslatedTermForClientSecret(tubepress_api_translation_TranslatorInterface $translator)
+    public function getUntranslatedTermForClientSecret()
     {
-        return $translator->trans('Client Secret'); //>(translatable)<
+        return 'OAuth2 Client Secret'; //>(translatable)<
     }
 
-    /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
-     *
-     * @return string
-     *
-     * @api
-     * @since 4.2.0
-     */
-    public function getTranslatedTermForRedirectEndpoint(tubepress_api_translation_TranslatorInterface $translator)
-    {
-        return $translator->trans('App Callback URL');  //>(translatable)<
-    }
 
     /**
      * @return bool True if this provider uses the client secret, false otherwise.

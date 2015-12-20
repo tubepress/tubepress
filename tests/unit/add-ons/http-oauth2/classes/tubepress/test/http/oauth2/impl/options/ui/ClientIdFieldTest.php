@@ -49,7 +49,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientIdFieldTest extends tubep
      */
     protected function getExpectedTemplateVariables()
     {
-        $this->_mockProvider->shouldReceive('getTranslatedTermForClientId')->once()->with($this->_mockTranslator)->andReturn('the client id');
+        $this->_mockProvider->shouldReceive('getUntranslatedTermForClientId')->once()->andReturn('the client id');
         $this->_mockPersistenceHelper->shouldReceive('getClientId')->once()->with($this->_mockProvider)->andReturn('client-id');
 
         return array(

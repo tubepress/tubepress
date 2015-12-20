@@ -55,23 +55,15 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
      */
     protected function getExpectedTemplateVariables()
     {
-        $this->_mockProvider->shouldReceive('getTranslatedClientRegistrationInstructions')->once()->with($this->_mockTranslator)->andReturn(array('instructions'));
-        $this->_mockProvider->shouldReceive('getTranslatedTermForClientId')->once()->with($this->_mockTranslator)->andReturn('the client id');
-        $this->_mockProvider->shouldReceive('getTranslatedTermForClientSecret')->once()->with($this->_mockTranslator)->andReturn('the client secret');
-        $this->_mockProvider->shouldReceive('getTranslatedTermForRedirectEndpoint')->once()->with($this->_mockTranslator)->andReturn('the endpoint');
-        $this->_mockPersistenceHelper->shouldReceive('getClientId')->once()->with($this->_mockProvider)->andReturn('client-id');
-        $this->_mockPersistenceHelper->shouldReceive('getClientSecret')->once()->with($this->_mockProvider)->andReturn('client-secret');
-        $this->_mockOauth2UrlProvider->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn('endpoint');
+        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+
+        $this->_mockOauth2UrlProvider->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn($mockUrl);
+        $this->_mockProvider->shouldReceive('getTranslatedClientRegistrationInstructions')->once()->with(
+            $this->_mockTranslator, $mockUrl
+        )->andReturn(array('foo', 'bar'));
 
         return array(
-            'clientId'         => 'client-id',
-            'clientSecret'     => 'client-secret',
-            'provider'         => $this->_mockProvider,
-            'callbackUri'      => 'endpoint',
-            'instructions'     => array('instructions'),
-            'clientIdTerm'     => 'the client id',
-            'clientSecretTerm' => 'the client secret',
-            'callbackTerm'     => 'the endpoint',
+            'translatedInstructions' => array('foo', 'bar'),
         );
     }
 

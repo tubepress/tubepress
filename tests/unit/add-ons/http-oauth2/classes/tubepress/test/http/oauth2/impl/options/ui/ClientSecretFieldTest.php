@@ -49,7 +49,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientSecretFieldTest extends t
      */
     protected function getExpectedTemplateVariables()
     {
-        $this->_mockProvider->shouldReceive('getTranslatedTermForClientSecret')->once()->with($this->_mockTranslator)->andReturn('the client secret');
+        $this->_mockProvider->shouldReceive('getUntranslatedTermForClientSecret')->once()->andReturn('the client secret');
         $this->_mockPersistenceHelper->shouldReceive('getClientSecret')->once()->with($this->_mockProvider)->andReturn('client-secret');
 
         return array(

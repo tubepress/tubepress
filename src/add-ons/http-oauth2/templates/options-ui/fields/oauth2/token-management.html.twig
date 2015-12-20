@@ -7,9 +7,33 @@
  # License, v. 2.0. If a copy of the MPL was not distributed with this
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
-<button type="button" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    Connect
-</button>
 
-{{ oauth2StartUrl }}
+{% if slugs is not empty %}
+
+    <ul class="list-group oauth2-tokens">
+
+        {% for slug in slugs %}
+
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                {{ slug }}
+                <br />
+                <span class="text-muted small form-inline">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="oauth2-token-delete-{{ provider.name }}[]" value="{{ slug }}"> disconnect
+                        </label>
+                    </div>
+                </span>
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+{% endif %}
+
+<button type="button" class="btn btn-primary oauth2-connect" data-url="{{ oauth2StartUrl }}">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Connect to {{ provider.displayName }}
+</button>

@@ -1,22 +1,31 @@
 <div class="oauth2-client-registration">
     <ol>
-        {% for instruction in instructions %}
 
-            <li>{{ instruction | raw }}.</li>
+        {% for instruction in translatedInstructions %}
+
+            {% if instruction is iterable %}
+
+                <ol>
+
+                    {% for subInstruction in instruction %}
+
+                        <li>
+                            {{ subInstruction | raw }}
+                        </li>
+
+                    {% endfor %}
+
+                </ol>
+
+            {% else %}
+
+                <li>
+                    {{ instruction | raw }}.
+                </li>
+
+            {% endif %}
 
         {% endfor %}
 
-        <li>
-            For the {{ callbackTerm }}, you must enter exactly the following:<br />
-            <code>{{ callbackUri }}</code>
-        </li>
-        <li>
-            {{ provider.displayName }} will assign to you a &quot;{{ clientIdTerm }}&quot;{% if provider.clientSecretUsed %} and &quot;{{ clientSecretTerm }}&quot;{% endif %}.
-            Enter {% if provider.clientSecretUsed %}those two values{% else %}that value{% endif %} below.
-        </li>
-        <li>
-            Click the "Connect" button to authorize TubePress to communicate with {{ provider.displayName }}. This step will take place in
-            a popup window.
-        </li>
     </ol>
 </div>

@@ -49,11 +49,6 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
 
         $mockToken->shouldReceive('getExtraParams')->once()->andReturn($extraParams);
 
-        if (!isset($extraParams['user'])) {
-
-            $mockToken->shouldReceive('getAccessToken')->once()->andReturn('access-token');
-        }
-
         $actual = $this->_sut->getSlugForToken($mockToken);
 
         $this->assertEquals($expected, $actual);
@@ -80,7 +75,7 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
                 ),
                 'scope' => 'foobar private something'
             )),
-            array('Vimeo - 82ad97e3b88a2d49ac02f3eb4f5a808d', array()),
+            array('Anonymous (access to public videos)', array()),
         );
     }
 
@@ -177,23 +172,36 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
         $this->assertEquals('Vimeo', $this->_sut->getDisplayName());
         $this->assertFalse($this->_sut->isStateUsed());
         $this->assertTrue($this->_sut->isClientSecretUsed());
+        $this->assertEquals('OAuth2 Client Identifier', $this->_sut->getUntranslatedTermForClientId());
+        $this->assertEquals('OAuth2 Client Secret', $this->_sut->getUntranslatedTermForClientSecret());
     }
 
     public function testTranslatedStuff()
     {
-        $mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $mockTranslator  = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $mockRedirectUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+
+        $mockRedirectUrl->shouldReceive('toString')->once()->andReturn('redirect url as string');
 
         $mockTranslator->shouldReceive('trans')->atLeast(1)->andReturnUsing(function ($incoming) {
 
             return "<<< $incoming >>>";
         });
 
-        $this->assertEquals('<<< Client Identifier >>>', $this->_sut->getTranslatedTermForClientId($mockTranslator));
-        $this->assertEquals('<<< Client Secret >>>', $this->_sut->getTranslatedTermForClientSecret($mockTranslator));
-        $this->assertEquals('<<< App Callback URL >>>', $this->_sut->getTranslatedTermForRedirectEndpoint($mockTranslator));
-        $this->assertEquals(array(
-            '<<< <a href="%client-registration-url%" target="_blank">Click here</a> to "Create a new app" with Vimeo >>>',
-            '<<< Use anything you\'d like for the App Name, App Description, and App URL >>>',
-        ), $this->_sut->getTranslatedClientRegistrationInstructions($mockTranslator));
+        $expected = array(
+
+            '<<< <a href="%client-registration-url%" target="_blank">Click here</a> to create a new Vimeo &quot;App&quot; >>>',
+            array(
+                '<<< Use anything you\'d like for the App Name, App Description, and App URL. >>>',
+                '<<< For the &quot;App Callback URLs&quot; field, enter:<br /><code>%redirect-uri%</code> >>>',
+            ),
+            '<<< Under the &quot;OAuth2&quot; tab of your new Vimeo App, you will find your &quot;Client Identifier&quot; and &quot;Client Secret&quot;. Enter those values into the text boxes below. >>>',
+            '<<< Click the &quot;Connect&quot; button below to authorize TubePress to communicate with Vimeo. This step will take place in
+            a popup window. >>>',
+        );
+
+        $actual = $this->_sut->getTranslatedClientRegistrationInstructions($mockTranslator, $mockRedirectUrl);
+
+        $this->assertEquals($expected, $actual);
     }
 }

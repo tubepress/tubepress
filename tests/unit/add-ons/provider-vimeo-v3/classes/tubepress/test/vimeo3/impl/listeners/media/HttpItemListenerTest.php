@@ -55,7 +55,7 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
 
 In 2015, these officer-involved shootings were more likely in Kern County, California, than anywhere in the United States. Meet the families there grieving, calling for justice. They protest split-second decisions made by officers and deputies who feel constantly threatened in a county that overwhelmingly supports law and order by any means.', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION));
         $this->assertEquals('800', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS));
-        $this->assertEquals('http://vimeo.com/148662087', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL));
+        $this->assertEquals('https://vimeo.com/148662087', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL));
         $this->assertEquals('https://i.vimeocdn.com/video/547671085_100x75.jpg?r=pad', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1449863882', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
         $this->assertEquals('The County', $video->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_TITLE));

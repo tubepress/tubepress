@@ -34,6 +34,7 @@
         "js/field-provider-filter-handler.js",
         "js/spectrum-js-initializer.js",
         "js/bootstrap-multiselect-initializer.js",
-        "js/theme-field-handler.js"
+        "js/theme-field-handler.js",
+        "js/oauth2-token-mgmt.js"
     ]
 }

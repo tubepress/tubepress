@@ -222,42 +222,34 @@ interface tubepress_spi_http_oauth2_Oauth2ProviderInterface
                               $clientSecret = null);
 
     /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
+     * Get user instructions for client registration to be displayed in an ordered list. Each element of the return
+     * value may be a string or array. If string, it's used as a top-level instruction. If it's an array, it will be
+     * nested underneath the previous instruction.
      *
-     * @return string[]
+     * @param tubepress_api_translation_TranslatorInterface $translator  The translator.
+     * @param tubepress_api_url_UrlInterface                $redirectUrl The redirect URL that should be used during registration.
+     *
+     * @return array
      *
      * @api
      * @since 4.2.0
      */
-    function getTranslatedClientRegistrationInstructions(tubepress_api_translation_TranslatorInterface $translator);
+    function getTranslatedClientRegistrationInstructions(tubepress_api_translation_TranslatorInterface $translator,
+                                                         tubepress_api_url_UrlInterface                $redirectUrl);
 
     /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
-     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    function getTranslatedTermForClientId(tubepress_api_translation_TranslatorInterface $translator);
+    function getUntranslatedTermForClientId();
 
     /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
-     *
      * @return string
      *
      * @api
      * @since 4.2.0
      */
-    function getTranslatedTermForClientSecret(tubepress_api_translation_TranslatorInterface $translator);
-
-    /**
-     * @param tubepress_api_translation_TranslatorInterface $translator The translator to use.
-     *
-     * @return string
-     *
-     * @api
-     * @since 4.2.0
-     */
-    function getTranslatedTermForRedirectEndpoint(tubepress_api_translation_TranslatorInterface $translator);
+    function getUntranslatedTermForClientSecret();
 }
