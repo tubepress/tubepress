@@ -211,7 +211,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
             return $name;
         }
 
-        return 'Anonymous (access to public videos)';
+        return 'Basic access (public videos only)';
     }
 
     /**

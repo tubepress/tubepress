@@ -75,7 +75,7 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
                 ),
                 'scope' => 'foobar private something'
             )),
-            array('Anonymous (access to public videos)', array()),
+            array('Basic access (public videos only)', array()),
         );
     }
 
