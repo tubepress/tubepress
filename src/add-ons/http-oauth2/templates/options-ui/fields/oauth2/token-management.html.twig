@@ -21,7 +21,7 @@
                 <span class="text-muted small form-inline">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="oauth2-token-delete-{{ provider.name }}[]" value="{{ slug }}"> disconnect
+                            <input type="checkbox" name="oauth2-token-delete-{{ provider.name }}[]" value="{{ slug }}"> remove
                         </label>
                     </div>
                 </span>
@@ -33,7 +33,7 @@
 
 {% endif %}
 
-<button type="button" class="btn btn-primary oauth2-connect" data-url="{{ oauth2StartUrl }}">
+<button type="button" class="btn btn-default oauth2-connect" data-url="{{ oauth2StartUrl }}">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    Connect to {{ provider.displayName }}
+    New token
 </button>

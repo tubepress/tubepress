@@ -36,7 +36,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
                                 tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
                                 tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider)
     {
-        parent::__construct('tokenManagement_' . $provider->getName(), $persistence, $requestParams, $templating, 'Accounts');
+        parent::__construct('tokenManagement_' . $provider->getName(), $persistence, $requestParams, $templating, 'API Tokens');
 
         $this->_persistenceHelper = $persistenceHelper;
         $this->_provider          = $provider;
