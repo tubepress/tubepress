@@ -172,6 +172,9 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             case 'oauth2ClientCredentialsSaving':
                 return $this->_buildOauth2ClientCredentialsSaving();
 
+            case 'oauth2TokenDeletion':
+                return $this->_buildOauth2TokenDeletion();
+
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
         }
@@ -512,6 +515,15 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
     private function _buildOauth2ClientCredentialsSaving()
     {
         return new tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField(
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_persistenceHelper
+        );
+    }
+
+    private function _buildOauth2TokenDeletion()
+    {
+        return new tubepress_http_oauth2_impl_options_ui_TokenDeletionField(
             $this->_persistence,
             $this->_requestParams,
             $this->_persistenceHelper

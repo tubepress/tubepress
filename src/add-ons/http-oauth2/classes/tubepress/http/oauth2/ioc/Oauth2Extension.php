@@ -140,6 +140,19 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ));
 
         $containerBuilder->register(
+
+            'tubepress_http_oauth2_impl_options_ui_TokenDeletionField',
+            'tubepress_api_options_ui_FieldInterface'
+        )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument('does-not-matter')
+         ->addArgument('oauth2TokenDeletion')
+         ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
+            'method' => 'setOauth2Providers',
+        ));
+
+        $containerBuilder->register(
             'tubepress_spi_options_ui_FieldProviderInterface__oauth2',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->addArgument('oauth2')
@@ -147,7 +160,10 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ->addArgument(false)
          ->addArgument(false)
          ->addArgument(array())
-         ->addArgument(array(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField')))
+         ->addArgument(array(
+             new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField'),
+             new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_TokenDeletionField'),
+         ))
          ->addArgument(array())
          ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
