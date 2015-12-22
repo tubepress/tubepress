@@ -8,32 +8,39 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
 
-{% if slugs is not empty %}
+{% macro singleSlug(slugName, providerName, hide) %}
 
-    <ul class="list-group oauth2-tokens">
+    <li data-slug="{{ slugName }}" class="list-group-item" {% if hide %}style="display:none"{% endif %}>
+        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+        {{ slugName }}
+        <br />
+        <span class="text-muted small form-inline">
+            <div class="checkbox">
+                <label>
+                    <input data-provider="{{ providerName }}" class="oauth2-token-delete" type="checkbox"
+                           name="oauth2-token-delete-{{ providerName }}[]" value="{{ slugName }}"> remove
+                </label>
+            </div>
+        </span>
+    </li>
 
-        {% for slug in slugs %}
+{% endmacro %}
 
-            <li class="list-group-item">
-                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-                {{ slug }}
-                <br />
-                <span class="text-muted small form-inline">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="oauth2-token-delete-{{ provider.name }}[]" value="{{ slug }}"> remove
-                        </label>
-                    </div>
-                </span>
-            </li>
+{% import _self as tokenManagement %}
 
-        {% endfor %}
+<ul id="oauth2-tokens-{{ provider.name }}" data-provider="{{ provider.name }}" class="list-group oauth2-tokens" {% if slugs is empty %}style="display:none"{% endif %}>
 
-    </ul>
+    {% for slug in slugs %}
 
-{% endif %}
+        {{ tokenManagement.singleSlug(slug, provider.name, false) }}
 
-<button type="button" class="btn btn-default oauth2-connect" data-url="{{ oauth2StartUrl }}">
+    {% endfor %}
+
+    {{ tokenManagement.singleSlug("noshow", "iiiii", true) }}
+
+</ul>
+
+<button type="button" class="btn btn-default oauth2-token-add" data-url="{{ oauth2StartUrl }}" data-provider="{{ provider.name }}">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     New token
 </button>

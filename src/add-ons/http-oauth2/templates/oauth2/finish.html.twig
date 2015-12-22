@@ -14,7 +14,13 @@
     </div>
 
     <script type="text/javascript">
-        window.__tubePressSlug = "{{ slug }}";
+        window.tubepressOauth2Success = {
+            slug : "{{ slug }}",
+            provider : {
+                name : "{{ provider.name }}",
+                displayName : "{{ provider.displayName }}"
+            }
+        };
     </script>
 
 {% endblock body %}
