@@ -116,21 +116,21 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         if (!is_array($decoded)) {
 
             throw new RuntimeException(sprintf('%s returned invalid JSON in their access token response',
-                $provider->getName()
+                $provider->getDisplayName()
             ));
         }
 
         if (!isset($decoded['access_token'])) {
 
             throw new RuntimeException(sprintf('%s did not return an access token in their response',
-                $provider->getName()
+                $provider->getDisplayName()
             ));
         }
 
         if ($provider->getAccessTokenType() != '' && !isset($decoded['token_type'])) {
 
             throw new RuntimeException(sprintf('%s did not return a token type in their response',
-                $provider->getName()
+                $provider->getDisplayName()
             ));
         }
 
@@ -139,7 +139,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         if ($tokenType !== $provider->getAccessTokenType()) {
 
             throw new RuntimeException(sprintf('%s should have returned a token type of %s but instead returned %s',
-                $provider->getName(),
+                $provider->getDisplayName(),
                 $provider->getAccessTokenType(),
                 $tokenType
             ));
@@ -182,14 +182,14 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
             if (is_array($decoded) && isset($decoded['error'])) {
 
                 throw new RuntimeException(sprintf('%s responded with an HTTP 400: %s',
-                    $provider->getName(),
+                    $provider->getDisplayName(),
                     $decoded['error']
                 ));
             }
         }
 
         throw new RuntimeException(sprintf('%s responded with an HTTP %s: %s',
-            $provider->getName(),
+            $provider->getDisplayName(),
             $response->getStatusCode(),
             $response->getBody()->toString()
         ));

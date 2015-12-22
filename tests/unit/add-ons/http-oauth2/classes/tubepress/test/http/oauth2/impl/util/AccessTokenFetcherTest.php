@@ -88,7 +88,7 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
     {
         $this->_mockProvider->shouldReceive('getAccessTokenType')->atLeast(1)->andReturn('expected type');
 
-        $this->setExpectedException('RuntimeException', 'provider-name should have returned a token type of expected type but instead returned x');
+        $this->setExpectedException('RuntimeException', 'Provider name should have returned a token type of expected type but instead returned x');
 
         $response = $this->_setupResponse();
         $mockBody = $this->mock('tubepress_api_streams_StreamInterface');
@@ -131,15 +131,15 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
     public function getDataBadTokens()
     {
         return array(
-            array(array(), 'provider-name did not return an access token in their response'),
-            array(array('a' => 'b'), 'provider-name did not return an access token in their response'),
-            array(array('access_token' => 'access_token'), 'provider-name did not return a token type in their response'),
+            array(array(), 'Provider name did not return an access token in their response'),
+            array(array('a' => 'b'), 'Provider name did not return an access token in their response'),
+            array(array('access_token' => 'access_token'), 'Provider name did not return a token type in their response'),
         );
     }
 
     public function testFetch400()
     {
-        $this->setExpectedException('RuntimeException', 'provider-name responded with an HTTP 400: foobar');
+        $this->setExpectedException('RuntimeException', 'Provider name responded with an HTTP 400: foobar');
 
         $response = $this->_setupResponse();
         $mockBody = $this->mock('tubepress_api_streams_StreamInterface');
@@ -158,7 +158,7 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
 
     public function testFetch500()
     {
-        $this->setExpectedException('RuntimeException', 'provider-name responded with an HTTP 500: abc');
+        $this->setExpectedException('RuntimeException', 'Provider name responded with an HTTP 500: abc');
 
         $response = $this->_setupResponse();
         $mockBody = $this->mock('tubepress_api_streams_StreamInterface');
@@ -181,7 +181,7 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
         $mockHttpResp    = $this->mock('tubepress_api_http_message_ResponseInterface');
 
         $this->_mockProvider->shouldReceive('getTokenEndpoint')->once()->andReturn($mockTokenUrl);
-        $this->_mockProvider->shouldReceive('getName')->atLeast(1)->andReturn('provider-name');
+        $this->_mockProvider->shouldReceive('getDisplayName')->andReturn('Provider name');
         $this->_mockProvider->shouldReceive('onAccessTokenRequest')->once()->with($mockHttpRequest, 'client-id', 'client-secret');
 
         $this->_mockRedirectionEndpointCalculator->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn($mockRedirectUrl);
