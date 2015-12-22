@@ -370,7 +370,6 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_io
             tubepress_api_url_UrlFactoryInterface::_           => tubepress_api_url_UrlFactoryInterface::_,
             tubepress_api_template_TemplatingInterface::_      => tubepress_api_template_TemplatingInterface::_,
             tubepress_api_util_LangUtilsInterface::_           => tubepress_api_util_LangUtilsInterface::_,
-            tubepress_api_http_oauth_v1_ClientInterface::_     => tubepress_api_http_oauth_v1_ClientInterface::_,
             tubepress_api_util_TimeUtilsInterface::_           => tubepress_api_util_TimeUtilsInterface::_,
             tubepress_api_log_LoggerInterface::_               => tubepress_api_log_LoggerInterface::_,
             tubepress_api_event_EventDispatcherInterface::_    => tubepress_api_event_EventDispatcherInterface::_,

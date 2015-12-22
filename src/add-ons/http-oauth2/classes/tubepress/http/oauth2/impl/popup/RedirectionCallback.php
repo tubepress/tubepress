@@ -54,7 +54,6 @@ class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_htt
     {
         return array(
 
-            'provider',
             'code',
         );
     }

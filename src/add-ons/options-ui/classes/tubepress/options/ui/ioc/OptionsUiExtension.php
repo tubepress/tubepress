@@ -89,7 +89,7 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_spi_ioc_C
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
             ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_spi_media_MediaProviderInterface::__,

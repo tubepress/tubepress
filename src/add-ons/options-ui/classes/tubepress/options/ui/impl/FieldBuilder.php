@@ -60,25 +60,25 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
     private $_persistenceHelper;
 
     /**
-     * @var tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
+     * @var tubepress_api_http_oauth2_Oauth2EnvironmentInterface
      */
-    private $_oauth2UrlProvider;
+    private $_oauth2Environment;
 
     /**
      * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
-    public function __construct(tubepress_api_options_PersistenceInterface             $persistence,
-                                tubepress_api_http_RequestParametersInterface          $requestParams,
-                                tubepress_api_template_TemplatingInterface             $templating,
-                                tubepress_api_options_ReferenceInterface               $optionReference,
-                                tubepress_api_util_LangUtilsInterface                  $langUtils,
-                                tubepress_api_options_AcceptableValuesInterface        $acceptableValues,
-                                tubepress_api_contrib_RegistryInterface                $themeRegistry,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper      $persistenceHelper,
-                                tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
-                                tubepress_api_translation_TranslatorInterface          $translator)
+    public function __construct(tubepress_api_options_PersistenceInterface           $persistence,
+                                tubepress_api_http_RequestParametersInterface        $requestParams,
+                                tubepress_api_template_TemplatingInterface           $templating,
+                                tubepress_api_options_ReferenceInterface             $optionReference,
+                                tubepress_api_util_LangUtilsInterface                $langUtils,
+                                tubepress_api_options_AcceptableValuesInterface      $acceptableValues,
+                                tubepress_api_contrib_RegistryInterface              $themeRegistry,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
+                                tubepress_api_http_oauth2_Oauth2EnvironmentInterface $oauth2Environment,
+                                tubepress_api_translation_TranslatorInterface        $translator)
     {
         $this->_persistence       = $persistence;
         $this->_requestParams     = $requestParams;
@@ -88,7 +88,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         $this->_acceptableValues  = $acceptableValues;
         $this->_themeRegistry     = $themeRegistry;
         $this->_persistenceHelper = $persistenceHelper;
-        $this->_oauth2UrlProvider = $oauth2UrlProvider;
+        $this->_oauth2Environment = $oauth2Environment;
         $this->_translator        = $translator;
     }
 
@@ -435,7 +435,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_requestParams,
             $this->_templating,
             $this->_persistenceHelper,
-            $this->_oauth2UrlProvider
+            $this->_oauth2Environment
         );
     }
 
@@ -459,7 +459,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_requestParams,
             $this->_templating,
             $this->_persistenceHelper,
-            $this->_oauth2UrlProvider,
+            $this->_oauth2Environment,
             $this->_translator
         );
     }

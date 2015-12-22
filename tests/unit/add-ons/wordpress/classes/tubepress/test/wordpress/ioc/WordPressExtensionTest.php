@@ -299,13 +299,12 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
     private function _registerHttpOauth2Services()
     {
         $this->expectRegistration(
-            tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_,
-            'tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_,
+            'tubepress_wordpress_impl_http_oauth2_Oauth2Environment'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->withTag(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
+            ->withTag(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_);
     }
 
     protected function getExpectedExternalServicesMap()
@@ -335,7 +334,6 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             tubepress_api_options_PersistenceInterface::_             => tubepress_api_options_PersistenceInterface::_,
             'tubepress_http_oauth2_impl_popup_AuthorizationInitiator' => 'tubepress_http_oauth2_impl_popup_AuthorizationInitiator',
             'tubepress_http_oauth2_impl_popup_RedirectionCallback'    => 'tubepress_http_oauth2_impl_popup_RedirectionCallback',
-            tubepress_api_http_NonceManagerInterface::_               => tubepress_api_http_NonceManagerInterface::_,
         );
     }
 }

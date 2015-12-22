@@ -25,9 +25,9 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
     private $_provider;
 
     /**
-     * @var tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
+     * @var tubepress_api_http_oauth2_Oauth2EnvironmentInterface
      */
-    private $_oauth2UrlProvider;
+    private $_oauth2Environment;
 
     /**
      * @var tubepress_api_translation_TranslatorInterface
@@ -39,14 +39,14 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
                                 tubepress_api_http_RequestParametersInterface        $requestParams,
                                 tubepress_api_template_TemplatingInterface           $templating,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
-                                tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
+                                tubepress_api_http_oauth2_Oauth2EnvironmentInterface $oauth2Environment,
                                 tubepress_api_translation_TranslatorInterface        $translator)
     {
         parent::__construct('clientInstructions_' . $provider->getName(), $persistence, $requestParams, $templating, 'Initial Setup');
 
         $this->_persistenceHelper = $persistenceHelper;
         $this->_provider          = $provider;
-        $this->_oauth2UrlProvider = $oauth2UrlProvider;
+        $this->_oauth2Environment = $oauth2Environment;
         $this->_translator        = $translator;
     }
 
@@ -63,7 +63,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
      */
     protected function getTemplateVariables()
     {
-        $redirectUrl  = $this->_oauth2UrlProvider->getRedirectionUrl($this->_provider);
+        $redirectUrl  = $this->_oauth2Environment->getRedirectionUrl($this->_provider);
         $instructions = $this->_provider->getTranslatedClientRegistrationInstructions($this->_translator, $redirectUrl);
 
         return array(

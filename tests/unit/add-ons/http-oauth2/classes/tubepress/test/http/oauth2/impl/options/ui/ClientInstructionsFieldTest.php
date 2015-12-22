@@ -17,7 +17,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOauth2UrlProvider;
+    private $_mockOauth2Environment;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -36,7 +36,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
 
     protected function onAfterTemplateBasedFieldSetup()
     {
-        $this->_mockOauth2UrlProvider = $this->mock(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
+        $this->_mockOauth2Environment = $this->mock(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_);
         $this->_mockPersistenceHelper = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
         $this->_mockProvider          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockTranslator        = $this->mock(tubepress_api_translation_TranslatorInterface::_);
@@ -57,7 +57,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
     {
         $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
-        $this->_mockOauth2UrlProvider->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn($mockUrl);
+        $this->_mockOauth2Environment->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn($mockUrl);
         $this->_mockProvider->shouldReceive('getTranslatedClientRegistrationInstructions')->once()->with(
             $this->_mockTranslator, $mockUrl
         )->andReturn(array('foo', 'bar'));
@@ -81,7 +81,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientInstructionsFieldTest ext
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
             $this->_mockPersistenceHelper,
-            $this->_mockOauth2UrlProvider,
+            $this->_mockOauth2Environment,
             $this->_mockTranslator
         );
     }

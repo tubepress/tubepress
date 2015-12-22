@@ -69,7 +69,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_http_oauth2_impl_util_AccessTokenFetcher'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_HttpClientInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_));
     }
 
     private function _registerPopups(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -82,8 +82,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_AccessTokenFetcher'))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
@@ -98,6 +97,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_PersistenceHelper'))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_util_AccessTokenFetcher'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
             'method' => 'setOauth2Providers',

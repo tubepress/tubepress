@@ -311,6 +311,11 @@ textarea {
     margin-top: 5px;
 }
 
+.oauth2-client-registration ol li ul li {
+    list-style: circle inside;
+    margin-left: 1em;
+}
+
 ul.oauth2-tokens span.glyphicon-ok-circle {
 
     color: green;

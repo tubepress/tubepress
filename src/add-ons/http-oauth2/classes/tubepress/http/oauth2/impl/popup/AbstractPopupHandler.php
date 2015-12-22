@@ -44,17 +44,24 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
      */
     private $_accessTokenFetcher;
 
-    public function __construct(tubepress_api_http_RequestParametersInterface      $requestParams,
-                                tubepress_api_template_TemplatingInterface         $templating,
-                                tubepress_api_url_UrlFactoryInterface              $urlFactory,
-                                tubepress_http_oauth2_impl_util_PersistenceHelper  $persistenceHelper,
-                                tubepress_http_oauth2_impl_util_AccessTokenFetcher $accessTokenFetcher)
+    /**
+     * @var tubepress_api_http_oauth2_Oauth2EnvironmentInterface
+     */
+    private $_oauth2Environment;
+
+    public function __construct(tubepress_api_http_RequestParametersInterface        $requestParams,
+                                tubepress_api_template_TemplatingInterface           $templating,
+                                tubepress_api_url_UrlFactoryInterface                $urlFactory,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
+                                tubepress_http_oauth2_impl_util_AccessTokenFetcher   $accessTokenFetcher,
+                                tubepress_api_http_oauth2_Oauth2EnvironmentInterface $oauth2Environment)
     {
         $this->_requestParams      = $requestParams;
         $this->_templating         = $templating;
         $this->_urlFactory         = $urlFactory;
         $this->_persistenceHelper  = $persistenceHelper;
         $this->_accessTokenFetcher = $accessTokenFetcher;
+        $this->_oauth2Environment  = $oauth2Environment;
     }
 
     /**
@@ -74,6 +81,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
 
             $this->ensureProvidersAvailable();
             $this->_ensureRequiredParamsPresent();
+            $this->_validateCsrfToken();
             $this->execute();
 
         } catch (Exception $e) {
@@ -226,9 +234,20 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         return $this->_accessTokenFetcher;
     }
 
+    /**
+     * @return tubepress_api_http_oauth2_Oauth2EnvironmentInterface
+     */
+    protected function getOauth2Environment()
+    {
+        return $this->_oauth2Environment;
+    }
+
     private function _ensureRequiredParamsPresent()
     {
-        $required = $this->getRequiredParamNames();
+        $required = array_merge(
+            $this->getRequiredParamNames(),
+            array('csrf_token', 'provider')
+        );
 
         foreach ($required as $key) {
 
@@ -249,5 +268,16 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         }
 
         return 'tubepress_oauth2_state_' . $provider->getName();
+    }
+
+    private function _validateCsrfToken()
+    {
+        $actualToken   = (string) $this->getRequestParams()->getParamValue('csrf_token');
+        $expectedToken = (string) $this->_oauth2Environment->getCsrfSecret();
+
+        if ($actualToken !== $expectedToken) {
+
+            $this->bail('Invalid csrf_token. Possible CSRF attack.');
+        }
     }
 }

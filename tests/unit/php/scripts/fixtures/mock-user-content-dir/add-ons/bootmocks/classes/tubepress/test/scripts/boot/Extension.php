@@ -40,7 +40,7 @@ class tubepress_test_scripts_boot_Extension implements tubepress_spi_ioc_Contain
 
         $containerBuilder->register(
 
-            tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_,
+            tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_,
             'tubepress_test_integration_mocks_MockOauth2UrlProvider'
         );
     }

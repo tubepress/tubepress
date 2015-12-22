@@ -10,19 +10,14 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider
+ * @covers tubepress_wordpress_impl_http_oauth2_Oauth2Environment
  */
-class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_http_oauth2_Oauth2EnvironmentTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider
+     * @var tubepress_wordpress_impl_http_oauth2_Oauth2Environment
      */
     private $_sut;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockNonceManager;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -51,24 +46,27 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
 
     public function onSetup()
     {
-        $this->_mockNonceManager    = $this->mock(tubepress_api_http_NonceManagerInterface::_);
         $this->_mockUrlFactory      = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockWpFunctions     = $this->mock('tubepress_wordpress_impl_wp_WpFunctions');
         $this->_mockOauth2Provider  = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockQuery           = $this->mock('tubepress_api_url_QueryInterface');
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
-        $this->_sut = new tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider(
+        $this->_sut = new tubepress_wordpress_impl_http_oauth2_Oauth2Environment(
 
-            $this->_mockNonceManager,
             $this->_mockUrlFactory,
             $this->_mockWpFunctions,
             $this->_mockEventDispatcher
         );
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testOauth2Redirect()
     {
+        define('AUTH_KEY', 'foobar');
+
         $url = $this->_setupMockAdminUrl('tubepress_oauth2');
 
         $this->_setupDispatch($url);
@@ -78,13 +76,14 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
         $this->assertSame($url, $actual);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testOauth2Start()
     {
+        define('AUTH_KEY', 'foobar');
+
         $url = $this->_setupMockAdminUrl('tubepress_oauth2_start');
-
-        $this->_mockNonceManager->shouldReceive('getNonce')->once()->andReturn('some-nonce');
-
-        $this->_mockQuery->shouldReceive('set')->once()->with('nonce', 'some-nonce')->andReturn($this->_mockQuery);
 
         $actual = $this->_sut->getAuthorizationInitiationUrl($this->_mockOauth2Provider);
 
@@ -108,6 +107,7 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2UrlProviderTest extends tu
 
         $this->_mockQuery->shouldReceive('set')->once()->with('page', $slug)->andReturn($this->_mockQuery);
         $this->_mockQuery->shouldReceive('set')->once()->with('provider', 'provider-name')->andReturn($this->_mockQuery);
+        $this->_mockQuery->shouldReceive('set')->once()->with('csrf_token', '3858f62230ac3c915f300c664312c63f')->andReturn($this->_mockQuery);
 
         return $mockUrl;
     }

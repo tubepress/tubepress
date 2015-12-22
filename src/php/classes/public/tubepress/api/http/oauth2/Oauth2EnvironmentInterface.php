@@ -9,9 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-interface tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
+interface tubepress_api_http_oauth2_Oauth2EnvironmentInterface
 {
-    const _ = 'tubepress_spi_http_oauth2_Oauth2UrlProviderInterface';
+    const _ = 'tubepress_api_http_oauth2_Oauth2EnvironmentInterface';
 
     /**
      * @param tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider
@@ -32,4 +32,18 @@ interface tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
      * @since 4.2.0
      */
     function getAuthorizationInitiationUrl(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider);
+
+    /**
+     * The secret that will be added as a query parameter to the redirect URI in order to help prevent
+     * CSRF attacks. The OAuth2 state parameter is normally used for this purpose, but not all OAuth providers
+     * use it and state isn't used in the client_credentials grant type.
+     *
+     * This code should be kept secret, unique to each TubePress installation, and persistent (i.e. never changes).
+     *
+     * @return string
+     *
+     * @api
+     * @since 4.2.0
+     */
+    function getCsrfSecret();
 }

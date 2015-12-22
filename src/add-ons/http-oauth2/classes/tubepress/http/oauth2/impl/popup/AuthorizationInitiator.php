@@ -15,16 +15,6 @@
 class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_http_oauth2_impl_popup_AbstractPopupHandler
 {
     /**
-     * @var tubepress_api_http_NonceManagerInterface
-     */
-    private $_nonceManager;
-
-    /**
-     * @var tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
-     */
-    private $_oauth2UrlProvider;
-
-    /**
      * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
@@ -34,15 +24,12 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
                                 tubepress_api_url_UrlFactoryInterface                $urlFactory,
                                 tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
                                 tubepress_http_oauth2_impl_util_AccessTokenFetcher   $accessTokenFetcher,
-                                tubepress_api_http_NonceManagerInterface             $nonceManager,
-                                tubepress_spi_http_oauth2_Oauth2UrlProviderInterface $oauth2UrlProvider,
+                                tubepress_api_http_oauth2_Oauth2EnvironmentInterface $oauth2Environment,
                                 tubepress_api_event_EventDispatcherInterface         $eventDispatcher)
     {
-        parent::__construct($requestParams, $templating, $urlFactory, $persistenceHelper, $accessTokenFetcher);
+        parent::__construct($requestParams, $templating, $urlFactory, $persistenceHelper, $accessTokenFetcher, $oauth2Environment);
 
-        $this->_nonceManager      = $nonceManager;
-        $this->_oauth2UrlProvider = $oauth2UrlProvider;
-        $this->_eventDispatcher   = $eventDispatcher;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -68,8 +55,6 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
      */
     protected function execute()
     {
-        $this->_ensureValidNonce();
-
         $provider  = $this->_getProvider();
         $grantType = $provider->getAuthorizationGrantType();
 
@@ -140,16 +125,6 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         ));
     }
 
-    private function _ensureValidNonce()
-    {
-        $nonce = $this->getRequestParams()->getParamValue('nonce');
-
-        if (!$this->_nonceManager->isNonceValid($nonce)) {
-
-            $this->bail('Invalid nonce.');
-        }
-    }
-
     /**
      * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
      */
@@ -172,7 +147,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         $clientId     = $this->getPersistenceHelper()->getClientId($provider);
         $clientSecret = $this->getPersistenceHelper()->getClientSecret($provider);
         $query        = $authorizationUrl->getQuery();
-        $redirectUrl  = $this->_oauth2UrlProvider->getRedirectionUrl($provider);
+        $redirectUrl  = $this->getOauth2Environment()->getRedirectionUrl($provider);
 
         $query->set('response_type', 'code')
               ->set('client_id', $clientId)
@@ -220,10 +195,6 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
      */
     protected function getRequiredParamNames()
     {
-        return array(
-
-            'nonce',
-            'provider'
-        );
+        return array();
     }
 }

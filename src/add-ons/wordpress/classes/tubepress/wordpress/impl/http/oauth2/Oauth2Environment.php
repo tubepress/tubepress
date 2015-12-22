@@ -9,13 +9,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepress_spi_http_oauth2_Oauth2UrlProviderInterface
+class tubepress_wordpress_impl_http_oauth2_Oauth2Environment implements tubepress_api_http_oauth2_Oauth2EnvironmentInterface
 {
-    /**
-     * @var tubepress_api_http_NonceManagerInterface
-     */
-    private $_nonceManager;
-
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
      */
@@ -31,12 +26,15 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_api_http_NonceManagerInterface     $nonceManager,
-                                tubepress_api_url_UrlFactoryInterface        $urlFactory,
+    /**
+     * @var string
+     */
+    private $_csrf;
+
+    public function __construct(tubepress_api_url_UrlFactoryInterface        $urlFactory,
                                 tubepress_wordpress_impl_wp_WpFunctions      $wpFunctions,
                                 tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_nonceManager    = $nonceManager;
         $this->_wpFunctions     = $wpFunctions;
         $this->_urlFactory      = $urlFactory;
         $this->_eventDispatcher = $eventDispatcher;
@@ -72,12 +70,39 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
      */
     public function getAuthorizationInitiationUrl(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
-        $url   = $this->_startAdminUrl('tubepress_oauth2_start', $provider);
-        $nonce = $this->_nonceManager->getNonce();
+        return $this->_startAdminUrl('tubepress_oauth2_start', $provider);
+    }
 
-        $url->getQuery()->set('nonce', $nonce);
+    /**
+     * The secret that will be added as a query parameter to the redirect URI in order to help prevent
+     * CSRF attacks. The OAuth2 state parameter is normally used for this purpose, but not all OAuth providers
+     * use it and state isn't used in the client_credentials grant type.
+     *
+     * This code should be kept secret, unique to each TubePress installation, and persistent (i.e. never changes).
+     *
+     * @return string
+     *
+     * @api
+     * @since 4.2.0
+     */
+    public function getCsrfSecret()
+    {
+        if (!isset($this->_csrf)) {
 
-        return $url;
+            if (defined('AUTH_KEY')) {
+
+                $seed = AUTH_KEY;
+
+            } else {
+
+                /** @noinspection PhpUndefinedConstantInspection */
+                $seed = DB_NAME . DB_PASSWORD . ABSPATH;
+            }
+
+            $this->_csrf = md5($seed);
+        }
+
+        return $this->_csrf;
     }
 
     /**
@@ -90,7 +115,8 @@ class tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider implements tubepres
         $providerName = $provider->getName();
 
         $toReturn->getQuery()->set('page', $pageSlug)
-                             ->set('provider', $providerName);
+                             ->set('provider', $providerName)
+                             ->set('csrf_token', $this->getCsrfSecret());
 
         return $toReturn;
     }

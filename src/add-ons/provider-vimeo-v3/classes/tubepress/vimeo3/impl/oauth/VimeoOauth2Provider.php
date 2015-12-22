@@ -279,7 +279,7 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
     function getTranslatedClientRegistrationInstructions(tubepress_api_translation_TranslatorInterface $translator,
                                                          tubepress_api_url_UrlInterface                $redirectUrl)
     {
-        $step1 = $translator->trans('<a href="%client-registration-url%" target="_blank">Click here</a> to create a new Vimeo &quot;App&quot;',  //>(translatable)<
+        $step1 = $translator->trans('<a href="%client-registration-url%" target="_blank">Click here</a> to create a new Vimeo &quot;App&quot;.',  //>(translatable)<
             array(
                 '%client-registration-url%' => 'https://developer.vimeo.com/apps/new',
             )
@@ -287,13 +287,13 @@ class tubepress_vimeo3_impl_oauth_VimeoOauth2Provider implements tubepress_spi_h
         $step1Subs = array(
 
             $translator->trans('Use anything you\'d like for the App Name, App Description, and App URL.'),                 //>(translatable)<
-            $translator->trans('For the &quot;App Callback URLs&quot; field, enter:<br /><code>%redirect-uri%</code>',    //>(translatable)<
+            $translator->trans('In the field for &quot;App Callback URLs&quot;, enter:<br /><code>%redirect-uri%</code>',    //>(translatable)<
                 array('%redirect-uri%' => $redirectUrl->toString())
             ),
         );
         $step2 = $translator->trans('Under the &quot;OAuth2&quot; tab of your new Vimeo App, you will find your &quot;Client Identifier&quot; and &quot;Client Secret&quot;. Enter those values into the text boxes below.');  //>(translatable)<
 
-        $step3 = $translator->trans('Click the &quot;New token&quot; button below to authorize TubePress to communicate with Vimeo. This step will take place in
+        $step3 = $translator->trans('Click the &quot;New token&quot; button below to authorize TubePress to communicate with Vimeo on your behalf. This step will take place in
             a popup window.');   //>(translatable)<
 
         return array(

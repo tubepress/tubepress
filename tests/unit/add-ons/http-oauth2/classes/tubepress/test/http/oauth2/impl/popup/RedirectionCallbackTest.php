@@ -64,6 +64,11 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
      */
     private $_mockUrlFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockOauth2Environment;
+
     public function onSetup()
     {
         $this->_mockRequestParams      = $this->mock(tubepress_api_http_RequestParametersInterface::_);
@@ -73,13 +78,15 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
         $this->_mockProvider2          = $this->mock(tubepress_spi_http_oauth2_Oauth2ProviderInterface::_);
         $this->_mockUrlFactory         = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
+        $this->_mockOauth2Environment  = $this->mock(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_);
 
         $this->_sut = new tubepress_http_oauth2_impl_popup_RedirectionCallback(
             $this->_mockRequestParams,
             $this->_mockTemplating,
             $this->_mockUrlFactory,
             $this->_mockPersistenceHelper,
-            $this->_mockAccessTokenFetcher
+            $this->_mockAccessTokenFetcher,
+            $this->_mockOauth2Environment
         );
     }
 
@@ -139,6 +146,11 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
         $this->_mockProvider1->shouldReceive('getName')->atLeast(1)->andReturn('provider-1-name');
         $this->_mockProvider2->shouldReceive('getName')->atLeast(1)->andReturn('provider-2-name');
 
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('csrf_token')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('csrf_token')->andReturn('csrf-token');
+
+        $this->_mockOauth2Environment->shouldReceive('getCsrfSecret')->once()->andReturn('csrf-token');
+
         $this->_expectBail('No such OAuth2 provider.');
         $this->_sut->initiate();
     }
@@ -147,6 +159,8 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
     {
         $this->_setProvidersOntoSut();
 
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('code')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('csrf_token')->andReturn(true);
         $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('provider')->andReturn(false);
 
         $this->_expectBail('Missing provider parameter.');
@@ -180,6 +194,11 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
 
         $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('code')->andReturn(true);
         $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('code')->andReturn('remote-code');
+
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('csrf_token')->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('csrf_token')->andReturn('csrf-token');
+
+        $this->_mockOauth2Environment->shouldReceive('getCsrfSecret')->once()->andReturn('csrf-token');
     }
 
     private function _prepPersistenceHelper()

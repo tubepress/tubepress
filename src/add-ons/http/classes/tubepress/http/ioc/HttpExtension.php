@@ -83,11 +83,6 @@ class tubepress_http_ioc_HttpExtension implements tubepress_spi_ioc_ContainerExt
          tubepress_api_http_RequestParametersInterface::_,
          'tubepress_http_impl_RequestParameters'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
-
-        $containerBuilder->register(
-            tubepress_api_http_NonceManagerInterface::_,
-            'tubepress_http_impl_NonceManager'
-        );
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

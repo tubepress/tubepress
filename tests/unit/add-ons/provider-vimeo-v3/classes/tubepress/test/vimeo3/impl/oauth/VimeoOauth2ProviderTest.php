@@ -190,13 +190,13 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
 
         $expected = array(
 
-            '<<< <a href="%client-registration-url%" target="_blank">Click here</a> to create a new Vimeo &quot;App&quot; >>>',
+            '<<< <a href="%client-registration-url%" target="_blank">Click here</a> to create a new Vimeo &quot;App&quot;. >>>',
             array(
                 '<<< Use anything you\'d like for the App Name, App Description, and App URL. >>>',
-                '<<< For the &quot;App Callback URLs&quot; field, enter:<br /><code>%redirect-uri%</code> >>>',
+                '<<< In the field for &quot;App Callback URLs&quot;, enter:<br /><code>%redirect-uri%</code> >>>',
             ),
             '<<< Under the &quot;OAuth2&quot; tab of your new Vimeo App, you will find your &quot;Client Identifier&quot; and &quot;Client Secret&quot;. Enter those values into the text boxes below. >>>',
-            '<<< Click the &quot;New token&quot; button below to authorize TubePress to communicate with Vimeo. This step will take place in
+            '<<< Click the &quot;New token&quot; button below to authorize TubePress to communicate with Vimeo on your behalf. This step will take place in
             a popup window. >>>',
         );
 

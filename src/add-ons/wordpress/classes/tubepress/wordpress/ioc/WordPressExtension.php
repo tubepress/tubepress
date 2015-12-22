@@ -319,12 +319,11 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
     private function _registerHttpOauth2Services(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_,
-            'tubepress_wordpress_impl_http_oauth2_Oauth2UrlProvider'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_NonceManagerInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_,
+            'tubepress_wordpress_impl_http_oauth2_Oauth2Environment'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-         ->addTag(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
+         ->addTag(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_);
     }
 }

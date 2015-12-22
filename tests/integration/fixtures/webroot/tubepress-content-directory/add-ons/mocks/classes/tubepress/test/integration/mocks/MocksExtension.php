@@ -45,8 +45,8 @@ class tubepress_test_integration_mocks_MocksExtension implements tubepress_spi_i
 
         $containerBuilder->register(
 
-            tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_,
-            'tubepress_test_integration_mocks_MockOauth2UrlProvider'
+            tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_,
+            'tubepress_test_integration_mocks_MockOauth2Environment'
         );
     }
 }

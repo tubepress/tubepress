@@ -79,7 +79,7 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
         $this->_mockAcceptableValues              = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
         $this->_mockThemeRegistry                 = $this->mock(tubepress_api_contrib_RegistryInterface::_);
         $this->_mockPersistenceHelper             = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
-        $this->_mockRedirectionEndpointCalculator = $this->mock(tubepress_spi_http_oauth2_Oauth2UrlProviderInterface::_);
+        $this->_mockRedirectionEndpointCalculator = $this->mock(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_);
         $this->_mockTranslator                    = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_options_ui_impl_FieldBuilder(
