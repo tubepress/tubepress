@@ -345,7 +345,7 @@ class tubepress_vimeo3_ioc_VimeoExtension implements tubepress_spi_ioc_Container
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',                   //>(translatable)<
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user', //>(translatable)<
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE   => 'Videos in this Vimeo category',      //>(translatable)<
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE        => 'Videos tagged with ...', //>(translatable)<
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE        => 'Videos tagged with',                 //>(translatable)<
 
                 tubepress_vimeo3_api_Constants::OPTION_LIKES => 'Number of likes',  //>(translatable)<
             ),

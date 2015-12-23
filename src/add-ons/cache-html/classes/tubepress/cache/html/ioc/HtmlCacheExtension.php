@@ -148,7 +148,7 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
             'tubepress_api_options_ui_BaseFieldProvider__cache_html',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->addArgument('field-provider-htmlcache')
-         ->addArgument('HTML Cache')
+         ->addArgument('HTML Cache')                                        //>(translatable)<
          ->addArgument(false)
          ->addArgument(true)
          ->addArgument(array())

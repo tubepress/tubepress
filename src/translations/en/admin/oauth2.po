@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-19 23:53+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "TubePress encountered an error"
+msgstr ""
+
+msgid "Please close this window and try again."
+msgstr ""
+
+msgid "TubePress is redirecting you to %s."
+msgstr ""
+
+msgid "If you are not redirected in a few seconds, <a href=\"%s\">click here</a>."
+msgstr ""
+
+msgid "Successfully connected to %s."
+msgstr ""
+
+msgid "This window should close automatically."
+msgstr ""

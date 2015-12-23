@@ -45,10 +45,6 @@ msgctxt "Sort videos by oldest first"
 msgid "date published (oldest first)"
 msgstr ""
 
-msgctxt "Sort videos randomly"
-msgid "randomly"
-msgstr ""
-
 msgctxt "Sort videos by their rating"
 msgid "rating"
 msgstr ""
@@ -93,4 +89,19 @@ msgid "Video blacklist"
 msgstr ""
 
 msgid "A list of video IDs that should never be displayed."
+msgstr ""
+
+msgid "title (alphabetical)"
+msgstr ""
+
+msgid "title (reverse alphabetical)"
+msgstr ""
+
+msgid "most likes"
+msgstr ""
+
+msgid "duration (longest first)"
+msgstr ""
+
+msgid "duration (shortest first)"
 msgstr ""

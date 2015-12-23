@@ -62,7 +62,7 @@ msgstr ""
 msgid "HTML Cache"
 msgstr ""
 
-msgid "Enable HTML Cache"
+msgid "Enable HTML cache"
 msgstr ""
 
 msgid "Store TubePress's HTML output in a cache file to significantly improve performance at the slight expense of freshness."

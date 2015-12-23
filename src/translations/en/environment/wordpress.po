@@ -30,3 +30,9 @@ msgstr ""
 
 msgid "Displays YouTube or Vimeo videos with TubePress. Limited to a single instance per site. Use the other TubePress widget instead!"
 msgstr ""
+
+msgid "tubepress.com API Key"
+msgstr ""
+
+msgid "Enable automatic plugin updates by supplying your <a href=\"%s\" target=\"_blank\">TubePress API key</a>."
+msgstr ""

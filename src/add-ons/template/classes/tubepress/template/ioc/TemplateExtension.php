@@ -104,7 +104,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
             'tubepress_api_options_ui_BaseFieldProvider__template',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->addArgument('field-provider-template')
-         ->addArgument('HTML Templates')
+         ->addArgument('HTML Templates')                                //>(translatable)<
          ->addArgument(false)
          ->addArgument(true)
          ->addArgument(array())
