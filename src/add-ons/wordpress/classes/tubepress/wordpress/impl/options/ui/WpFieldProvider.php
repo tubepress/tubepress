@@ -68,7 +68,8 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_s
     {
         return array(
             tubepress_api_options_ui_CategoryNames::ADVANCED => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD
+                tubepress_api_options_Names::SHORTCODE_KEYWORD,
+                tubepress_api_options_Names::TUBEPRESS_API_KEY,
             )
         );
     }

@@ -452,4 +452,10 @@ interface tubepress_api_options_Names
      * @since 4.0.0
      */
     const THEME_ADMIN = 'adminTheme';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
+    const TUBEPRESS_API_KEY = 'tubepressApiKey';
 }

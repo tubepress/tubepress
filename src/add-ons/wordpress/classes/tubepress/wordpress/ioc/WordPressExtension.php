@@ -53,15 +53,24 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
                 tubepress_api_options_Names::SHORTCODE_KEYWORD             => 'tubepress',
+                tubepress_api_options_Names::TUBEPRESS_API_KEY             => null,
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<
+                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<,
+                tubepress_api_options_Names::TUBEPRESS_API_KEY => 'tubepress.com API Key',            //>(translatable)<,
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
-
+                tubepress_api_options_Names::TUBEPRESS_API_KEY => sprintf('Enable automatic plugin updates by supplying your <a href="%s" target="_blank">TubePress API key</a>.',                           //>(translatable)<,
+                    'https://dashboard.tubepress.com/profile'
+                ),
             ),
+        ))
+        ->addArgument(array(
+            tubepress_api_options_Reference::PROPERTY_PRO_ONLY => array(
+                tubepress_api_options_Names::TUBEPRESS_API_KEY,
+            )
         ))->addTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(
@@ -95,6 +104,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'wordpress_field_' . $fieldIndex++,
             'tubepress_wordpress_impl_options_ui_fields_WpNonceField'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
+
         $containerBuilder->register(
             'wordpress_field_' . $fieldIndex++,
             'tubepress_api_options_ui_FieldInterface'
@@ -102,6 +112,14 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
          ->setFactoryMethod('newInstance')
          ->addArgument(tubepress_api_options_Names::SHORTCODE_KEYWORD)
          ->addArgument('text');
+
+        $containerBuilder->register(
+            'wordpress_field_' . $fieldIndex++,
+            'tubepress_api_options_ui_FieldInterface'
+        )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+            ->setFactoryMethod('newInstance')
+            ->addArgument(tubepress_api_options_Names::TUBEPRESS_API_KEY)
+            ->addArgument('text');
 
         $fieldReferences = array();
         for ($x = 0; $x < $fieldIndex; $x++) {

@@ -48,15 +48,25 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
                 tubepress_api_options_Names::SHORTCODE_KEYWORD             => 'tubepress',
+                tubepress_api_options_Names::TUBEPRESS_API_KEY             => null,
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<
+                tubepress_api_options_Names::TUBEPRESS_API_KEY => 'tubepress.com API Key',            //>(translatable)<,
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
+                tubepress_api_options_Names::TUBEPRESS_API_KEY => sprintf('Enable automatic plugin updates by supplying your <a href="%s" target="_blank">TubePress API key</a>.',                           //>(translatable)<,
+                    'https://dashboard.tubepress.com/profile'
+                ),
 
             ),
-        ))->withTag(tubepress_api_options_ReferenceInterface::_);
+        ))
+            ->withArgument(array(
+                tubepress_api_options_Reference::PROPERTY_PRO_ONLY => array(
+                    tubepress_api_options_Names::TUBEPRESS_API_KEY,
+                )
+            ))->withTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(tubepress_api_options_Names::SHORTCODE_KEYWORD,),);
 
@@ -74,6 +84,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'wordpress_field_' . $fieldIndex++,
             'tubepress_wordpress_impl_options_ui_fields_WpNonceField'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
+        
         $this->expectRegistration(
             'wordpress_field_' . $fieldIndex++,
             'tubepress_api_options_ui_FieldInterface'
@@ -82,6 +93,14 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
          ->withArgument(tubepress_api_options_Names::SHORTCODE_KEYWORD)
          ->withArgument('text');
 
+        $this->expectRegistration(
+            'wordpress_field_' . $fieldIndex++,
+            'tubepress_api_options_ui_FieldInterface'
+        )->withFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument(tubepress_api_options_Names::TUBEPRESS_API_KEY)
+            ->withArgument('text');
+        
         $fieldReferences = array();
         for ($x = 0; $x < $fieldIndex; $x++) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('wordpress_field_' . $x);
