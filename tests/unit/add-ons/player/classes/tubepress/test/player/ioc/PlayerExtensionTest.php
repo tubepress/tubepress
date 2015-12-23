@@ -278,7 +278,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             ->withArgument($fieldMap)
             ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
-    
+
     protected function getExpectedExternalServicesMap()
     {
         $mockCurrentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
@@ -292,13 +292,13 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
         $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
         return array(
-            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_log_LoggerInterface::_              => tubepress_api_log_LoggerInterface::_,
             tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
             tubepress_api_media_CollectorInterface::_         => tubepress_api_media_CollectorInterface::_,
             tubepress_api_http_RequestParametersInterface::_  => tubepress_api_http_RequestParametersInterface::_,
             tubepress_api_http_ResponseCodeInterface::_       => tubepress_api_http_ResponseCodeInterface::_,
             tubepress_api_template_TemplatingInterface::_     => tubepress_api_template_TemplatingInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_     => $mockUrlFactory,
+            tubepress_api_url_UrlFactoryInterface::_          => $mockUrlFactory,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
             tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
             tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,

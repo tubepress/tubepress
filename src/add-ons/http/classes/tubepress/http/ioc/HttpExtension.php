@@ -71,11 +71,6 @@ class tubepress_http_ioc_HttpExtension implements tubepress_spi_ioc_ContainerExt
         );
 
         $containerBuilder->register(
-            tubepress_api_http_oauth_v1_ClientInterface::_,
-            'tubepress_http_impl_oauth_v1_Client'
-        );
-
-        $containerBuilder->register(
             tubepress_api_http_AjaxInterface::_,
             'tubepress_http_impl_PrimaryAjaxHandler'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))

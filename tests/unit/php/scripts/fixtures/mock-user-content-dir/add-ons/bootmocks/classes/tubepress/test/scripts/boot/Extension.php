@@ -37,5 +37,11 @@ class tubepress_test_scripts_boot_Extension implements tubepress_spi_ioc_Contain
             tubepress_api_translation_TranslatorInterface::_,
             'tubepress_test_scripts_boot_MockTranslator'
         );
+
+        $containerBuilder->register(
+
+            tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_,
+            'tubepress_test_integration_mocks_MockOauth2UrlProvider'
+        );
     }
 }

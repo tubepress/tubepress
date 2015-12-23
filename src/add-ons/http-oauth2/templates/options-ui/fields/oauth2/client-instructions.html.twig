@@ -1,0 +1,34 @@
+<div class="oauth2-client-registration">
+    <ol>
+
+        {% for instruction in translatedInstructions %}
+
+            {% if instruction is not iterable %}
+
+                <li>
+                    {{ instruction | raw }}
+
+                    {% if translatedInstructions[loop.index0 + 1] is iterable %}
+
+                        <ul>
+
+                            {% for subInstruction in translatedInstructions[loop.index0 + 1] %}
+
+                                <li>
+                                    {{ subInstruction | raw }}
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    {% endif %}
+
+                </li>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </ol>
+</div>

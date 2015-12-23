@@ -93,9 +93,9 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                     tubepress_api_options_Names::CACHE_CLEANING_FACTOR  => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
-                    tubepress_api_options_Names::CACHE_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
+                    tubepress_api_options_Names::CACHE_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory.', //>(translatable)<
                     tubepress_api_options_Names::CACHE_ENABLED          => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
-                    tubepress_api_options_Names::CACHE_LIFETIME_SECONDS => 'Cache entries will be considered stale after the specified number of seconds. Default is 21600 (six hours).',   //>(translatable)<
+                    tubepress_api_options_Names::CACHE_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours"),   //>(translatable)<
                 ),
             ));
 
@@ -212,8 +212,8 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
 
         return array(
             tubepress_api_options_ContextInterface::_         => $context,
-            tubepress_api_boot_BootSettingsInterface::_  => $bootSettings,
-            tubepress_api_log_LoggerInterface::_         => $logger,
+            tubepress_api_boot_BootSettingsInterface::_       => $bootSettings,
+            tubepress_api_log_LoggerInterface::_              => $logger,
             tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
             tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,

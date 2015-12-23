@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_options_PersistenceBackend<extended>
+ * @covers tubepress_wordpress_impl_options_WpPersistence<extended>
  */
 class tubepress_test_wordpress_impl_options_PersistenceBackendTest extends tubepress_api_test_TubePressUnitTest
 {

@@ -25,7 +25,6 @@
           "tubepress_http_impl_RequestParameters"                : "classes/tubepress/http/impl/RequestParameters.php",
           "tubepress_http_impl_ResponseCode"                     : "classes/tubepress/http/impl/ResponseCode.php",
           "tubepress_http_impl_listeners_UserAgentListener"      : "classes/tubepress/http/impl/listeners/UserAgentListener.php",
-          "tubepress_http_impl_oauth_v1_Client"                  : "classes/tubepress/http/impl/oauth/v1/Client.php",
           "tubepress_http_impl_puzzle_AbstractMessage"           : "classes/tubepress/http/impl/puzzle/AbstractMessage.php",
           "tubepress_http_impl_puzzle_PuzzleBasedRequest"        : "classes/tubepress/http/impl/puzzle/PuzzleBasedRequest.php",
           "tubepress_http_impl_puzzle_PuzzleBasedResponse"       : "classes/tubepress/http/impl/puzzle/PuzzleBasedResponse.php",

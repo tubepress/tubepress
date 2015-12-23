@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:14+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Vimeo"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Vimeo search for"
+msgstr ""
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Vimeo API \"Consumer Key\""
+msgstr ""
+
+msgid "Vimeo API \"Consumer Secret\""
+msgstr ""
+
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr ""

@@ -64,21 +64,35 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
      */
     private $_environment;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions        $wpFunctions,
-                                tubepress_api_url_UrlFactoryInterface          $urlFactory,
-                                tubepress_api_http_RequestParametersInterface  $requestParams,
-                                tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_api_options_ui_FormInterface         $form,
-                                tubepress_api_util_StringUtilsInterface        $stringUtils,
-                                tubepress_api_environment_EnvironmentInterface $environment)
+    /**
+     * @var tubepress_http_oauth2_impl_popup_AuthorizationInitiator
+     */
+    private $_oauth2AuthorizationInitiator;
+
+    /**
+     * @var tubepress_http_oauth2_impl_popup_RedirectionCallback
+     */
+    private $_oauth2Callback;
+
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions                 $wpFunctions,
+                                tubepress_api_url_UrlFactoryInterface                   $urlFactory,
+                                tubepress_api_http_RequestParametersInterface           $requestParams,
+                                tubepress_api_event_EventDispatcherInterface            $eventDispatcher,
+                                tubepress_api_options_ui_FormInterface                  $form,
+                                tubepress_api_util_StringUtilsInterface                 $stringUtils,
+                                tubepress_api_environment_EnvironmentInterface          $environment,
+                                tubepress_http_oauth2_impl_popup_AuthorizationInitiator $oauth2Initiator,
+                                tubepress_http_oauth2_impl_popup_RedirectionCallback    $oauth2Callback)
     {
-        $this->_wpFunctions       = $wpFunctions;
-        $this->_urlFactory        = $urlFactory;
-        $this->_httpRequestParams = $requestParams;
-        $this->_eventDispatcher   = $eventDispatcher;
-        $this->_form              = $form;
-        $this->_stringUtils       = $stringUtils;
-        $this->_environment       = $environment;
+        $this->_wpFunctions                  = $wpFunctions;
+        $this->_urlFactory                   = $urlFactory;
+        $this->_httpRequestParams            = $requestParams;
+        $this->_eventDispatcher              = $eventDispatcher;
+        $this->_form                         = $form;
+        $this->_stringUtils                  = $stringUtils;
+        $this->_environment                  = $environment;
+        $this->_oauth2AuthorizationInitiator = $oauth2Initiator;
+        $this->_oauth2Callback               = $oauth2Callback;
     }
 
     /**
@@ -204,11 +218,34 @@ EOT;
     {
         $this->_wpFunctions->add_options_page('TubePress Options', 'TubePress', 'manage_options',
             'tubepress', array($this, '__fireOptionsPageEvent'));
+
+        $this->_wpFunctions->add_submenu_page(null, '', '', 'manage_options',
+            'tubepress_oauth2_start', array($this, '__noop'));
+
+        $this->_wpFunctions->add_submenu_page(null, '', '', 'manage_options',
+            'tubepress_oauth2', array($this, '__noop'));
+    }
+
+    public function __noop()
+    {
+        //this is needed by the onAction_admin_menu()
     }
 
     public function __fireOptionsPageEvent()
     {
         $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_OPTIONS_PAGE_INVOKED);
+    }
+
+    public function onAction_load_admin_page_tubepress_oauth2_start(tubepress_api_event_EventInterface $event)
+    {
+        $this->_oauth2AuthorizationInitiator->initiate();
+        exit;
+    }
+
+    public function onAction_load_admin_page_tubepress_oauth2(tubepress_api_event_EventInterface $event)
+    {
+        $this->_oauth2Callback->initiate();
+        exit;
     }
 
     /**

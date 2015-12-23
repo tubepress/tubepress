@@ -81,16 +81,16 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                 tubepress_api_options_Names::META_DATEFORMAT          => 'Date format',                //>(translatable)<
                 tubepress_api_options_Names::META_DESC_LIMIT          => 'Maximum description length', //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_AUTHOR      => 'Author',           //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_CATEGORY    => 'Category',         //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => 'Description',      //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_ID          => 'ID',               //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => 'Keywords',         //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_LENGTH      => 'Runtime',          //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_TITLE       => 'Title',            //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_UPLOADED    => 'Date posted',      //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_URL         => 'URL',              //>(translatable)<
-                tubepress_api_options_Names::META_DISPLAY_VIEWS       => 'View count',       //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_AUTHOR      => 'Author',                     //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_CATEGORY    => 'Category',                   //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => 'Description',                //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_ID          => 'ID',                         //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => 'Keywords',                   //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_LENGTH      => 'Runtime',                    //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_TITLE       => 'Title',                      //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_UPLOADED    => 'Date posted',                //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_URL         => 'URL',                        //>(translatable)<
+                tubepress_api_options_Names::META_DISPLAY_VIEWS       => 'View count',                 //>(translatable)<
                 tubepress_api_options_Names::META_RELATIVE_DATES      => 'Use relative dates',         //>(translatable)<
 
             ),

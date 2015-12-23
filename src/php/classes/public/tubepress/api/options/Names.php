@@ -341,6 +341,24 @@ interface tubepress_api_options_Names
 
     /**
      * @api
+     * @since 4.2.0
+     */
+    const OAUTH2_TOKEN = 'authorizeAs';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
+    const OAUTH2_TOKENS = 'oauth2Tokens';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
+    const OAUTH2_CLIENT_DETAILS = 'oauth2ClientDetails';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const OPTIONS_UI_DISABLED_FIELD_PROVIDERS = 'disabledFieldProviderNames';
@@ -434,4 +452,10 @@ interface tubepress_api_options_Names
      * @since 4.0.0
      */
     const THEME_ADMIN = 'adminTheme';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
+    const TUBEPRESS_API_KEY = 'tubepressApiKey';
 }

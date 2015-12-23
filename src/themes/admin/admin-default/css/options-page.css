@@ -299,3 +299,24 @@ textarea {
     width: 100% !important;
     height: 100px !important;
 }
+
+
+/**
+ **********************************************************************************************
+ **** OAUTH2 STUFF
+ **********************************************************************************************
+ */
+.oauth2-client-registration li {
+
+    margin-top: 5px;
+}
+
+.oauth2-client-registration ol li ul li {
+    list-style: circle inside;
+    margin-left: 1em;
+}
+
+ul.oauth2-tokens span.glyphicon-ok-circle {
+
+    color: green;
+}

@@ -12,7 +12,7 @@
 /**
  *
  */
-abstract class tubepress_test_app_impl_options_ui_fields_templated_multi_AbstractMultiSelectFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_AbstractTemplatedFieldTest
+abstract class tubepress_test_app_impl_options_ui_fields_templated_multi_AbstractMultiSelectFieldTest extends tubepress_test_options_ui_impl_fields_templated_AbstractTemplatedFieldTest
 {
     public function testOnSubmitMixedWithStorageProblem()
     {

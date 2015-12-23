@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-19 23:48+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "This is the title of the primary tab in the options page"
+msgid "Feed"
+msgstr ""
+
+msgid "Thumbnails per page"
+msgstr ""
+
+msgid "Restrict search results to videos from author"
+msgstr ""
+
+msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
+msgstr ""
+
+msgid "Order videos by"
+msgstr ""
+
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr ""
+
+msgctxt "Sort videos by number of comments"
+msgid "comment count"
+msgstr ""
+
+msgctxt "Let TubePress choose the sort order for the selected video source"
+msgid "default"
+msgstr ""
+
+msgctxt "Sort videos by newest first"
+msgid "date published (newest first)"
+msgstr ""
+
+msgctxt "Sort videos by oldest first"
+msgid "date published (oldest first)"
+msgstr ""
+
+msgctxt "Sort videos randomly"
+msgid "randomly"
+msgstr ""
+
+msgctxt "Sort videos by their rating"
+msgid "rating"
+msgstr ""
+
+msgctxt "Sort videos by their relevance to the given search term"
+msgid "relevance"
+msgstr ""
+
+msgctxt "Sort videos by view count"
+msgid "view count"
+msgstr ""
+
+msgctxt "Sort videos by title"
+msgid "title"
+msgstr ""
+
+msgid "Per-page sort order"
+msgstr ""
+
+msgid "Additional sort order applied to each individual page of a gallery"
+msgstr ""
+
+msgctxt "Do not apply a per-page sort order"
+msgid "none"
+msgstr ""
+
+msgctxt "Sort videos by length"
+msgid "length"
+msgstr ""
+
+msgctxt "Sort videos randomly"
+msgid "random"
+msgstr ""
+
+msgid "Maximum total videos to retrieve"
+msgstr ""
+
+msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
+msgstr ""
+
+msgid "Video blacklist"
+msgstr ""
+
+msgid "A list of video IDs that should never be displayed."
+msgstr ""

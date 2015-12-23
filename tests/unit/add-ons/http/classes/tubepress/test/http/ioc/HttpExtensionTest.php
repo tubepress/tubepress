@@ -67,11 +67,6 @@ class tubepress_test_http_ioc_HttpExtensionTest extends tubepress_api_test_ioc_A
         );
 
         $this->expectRegistration(
-            tubepress_api_http_oauth_v1_ClientInterface::_,
-            'tubepress_http_impl_oauth_v1_Client'
-        );
-
-        $this->expectRegistration(
             tubepress_api_http_AjaxInterface::_,
             'tubepress_http_impl_PrimaryAjaxHandler'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))

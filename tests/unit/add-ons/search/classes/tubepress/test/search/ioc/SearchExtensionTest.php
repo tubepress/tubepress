@@ -178,14 +178,14 @@ class tubepress_test_search_ioc_SearchExtensionTest extends tubepress_api_test_i
         $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
         return array(
-            tubepress_api_log_LoggerInterface::_ => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_log_LoggerInterface::_              => tubepress_api_log_LoggerInterface::_,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
-            tubepress_api_options_ContextInterface::_ => tubepress_api_options_ContextInterface::_,
-            tubepress_api_template_TemplatingInterface::_ => tubepress_api_template_TemplatingInterface::_,
-            tubepress_api_http_RequestParametersInterface::_ => tubepress_api_http_RequestParametersInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_ => tubepress_api_url_UrlFactoryInterface::_,
-            tubepress_api_options_ReferenceInterface::_ => tubepress_api_options_ReferenceInterface::_,
-            tubepress_api_translation_TranslatorInterface::_ => tubepress_api_translation_TranslatorInterface::_,
+            tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
+            tubepress_api_template_TemplatingInterface::_     => tubepress_api_template_TemplatingInterface::_,
+            tubepress_api_http_RequestParametersInterface::_  => tubepress_api_http_RequestParametersInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_          => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_options_ReferenceInterface::_       => tubepress_api_options_ReferenceInterface::_,
+            tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
         );
     }
 }

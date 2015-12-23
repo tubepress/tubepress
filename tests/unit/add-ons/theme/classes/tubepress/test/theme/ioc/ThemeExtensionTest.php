@@ -188,8 +188,8 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
         $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
         return array(
-            tubepress_api_boot_BootSettingsInterface::_  => $mockBootSettings,
-            tubepress_api_log_LoggerInterface::_         => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_boot_BootSettingsInterface::_       => $mockBootSettings,
+            tubepress_api_log_LoggerInterface::_              => tubepress_api_log_LoggerInterface::_,
             tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
             tubepress_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
         );

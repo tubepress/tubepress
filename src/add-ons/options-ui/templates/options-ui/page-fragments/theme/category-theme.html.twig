@@ -30,6 +30,19 @@
                             <dt>{{ field.untranslatedDisplayName|trans }}</dt>
                             <dd id="theme-field-dropdown">{{ field.widgetHTML|raw }}</dd>
 
+                            {#
+                                'Author(s)'      >(translatable)<
+                                'License'        >(translatable)<
+                                'Version'        >(translatable)<
+                                'Keywords'       >(translatable)<
+                                'Demo'           >(translatable)<
+                                'Homepage'       >(translatable)<
+                                'Documentation'  >(translatable)<
+                                'Download'       >(translatable)<
+                                'Bugs'           >(translatable)<
+                                'Forum'          >(translatable)<
+                                'Source code'    >(translatable)<
+                            #}
                             {% set termMap = {
 
                                 ''              : 'description',

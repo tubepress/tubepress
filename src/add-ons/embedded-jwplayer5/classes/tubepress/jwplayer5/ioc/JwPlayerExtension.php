@@ -101,11 +101,11 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
                 tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    //>(translatable)<
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s', "FFFFFF"),   //>(translatable)<
-                tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s', "000000"),   //>(translatable)<
-                tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s', "000000"),   //>(translatable)<
-                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s', "000000"),   //>(translatable)<
-            )
+                tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s.', "FFFFFF"),   //>(translatable)<
+                tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
+                tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
+                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s.', "000000"),   //>(translatable)<
+            ),
         ))->addTag(tubepress_api_options_ReferenceInterface::_);
     }
 

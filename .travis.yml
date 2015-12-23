@@ -1,10 +1,15 @@
 language: php
 php:
+  - 5.3.3
   - 5.3
   - 5.4
   - 5.5
   - 5.6
+  - 7
+  - hhvm
 before_script:
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install --dev
-script: "vendor/bin/phpunit -d memory_limit=1024M --verbose -c tests/unit/phpunit.xml --testsuite unit"
+  composer install --prefer-source
+script: "phpunit -d memory_limit=1024M --verbose -c tests/unit/phpunit.xml --testsuite unit"
+matrix:
+  fast_finish: true
+sudo: false

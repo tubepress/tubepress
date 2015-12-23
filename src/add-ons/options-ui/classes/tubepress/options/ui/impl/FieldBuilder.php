@@ -54,21 +54,42 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
      */
     private $_mediaProviders = array();
 
-    public function __construct(tubepress_api_options_PersistenceInterface      $persistence,
-                                tubepress_api_http_RequestParametersInterface   $requestParams,
-                                tubepress_api_template_TemplatingInterface      $templating,
-                                tubepress_api_options_ReferenceInterface        $optionReference,
-                                tubepress_api_util_LangUtilsInterface           $langUtils,
-                                tubepress_api_options_AcceptableValuesInterface $acceptableValues,
-                                tubepress_api_contrib_RegistryInterface         $themeRegistry)
+    /**
+     * @var tubepress_http_oauth2_impl_util_PersistenceHelper
+     */
+    private $_persistenceHelper;
+
+    /**
+     * @var tubepress_api_http_oauth2_Oauth2EnvironmentInterface
+     */
+    private $_oauth2Environment;
+
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_options_PersistenceInterface           $persistence,
+                                tubepress_api_http_RequestParametersInterface        $requestParams,
+                                tubepress_api_template_TemplatingInterface           $templating,
+                                tubepress_api_options_ReferenceInterface             $optionReference,
+                                tubepress_api_util_LangUtilsInterface                $langUtils,
+                                tubepress_api_options_AcceptableValuesInterface      $acceptableValues,
+                                tubepress_api_contrib_RegistryInterface              $themeRegistry,
+                                tubepress_http_oauth2_impl_util_PersistenceHelper    $persistenceHelper,
+                                tubepress_api_http_oauth2_Oauth2EnvironmentInterface $oauth2Environment,
+                                tubepress_api_translation_TranslatorInterface        $translator)
     {
-        $this->_persistence      = $persistence;
-        $this->_requestParams    = $requestParams;
-        $this->_templating       = $templating;
-        $this->_optionReference  = $optionReference;
-        $this->_langUtils        = $langUtils;
-        $this->_acceptableValues = $acceptableValues;
-        $this->_themeRegistry    = $themeRegistry;
+        $this->_persistence       = $persistence;
+        $this->_requestParams     = $requestParams;
+        $this->_templating        = $templating;
+        $this->_optionReference   = $optionReference;
+        $this->_langUtils         = $langUtils;
+        $this->_acceptableValues  = $acceptableValues;
+        $this->_themeRegistry     = $themeRegistry;
+        $this->_persistenceHelper = $persistenceHelper;
+        $this->_oauth2Environment = $oauth2Environment;
+        $this->_translator        = $translator;
     }
 
     /**
@@ -97,20 +118,20 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             
             case 'bool':
             case 'boolean':
-                return $this->_buildBooleanField($id, $options);
+                return $this->_buildBooleanField($id);
 
             case 'multiSourceBool':
             case 'multiSourceBoolean':
-                return $this->_buildMultiSourceBoolean($id, $options);
+                return $this->_buildMultiSourceBoolean($id);
             
             case 'dropdown':
-                return $this->_buildDropdown($id, $options);
+                return $this->_buildDropdown($id);
 
             case 'multiSourceDropdown':
-                return $this->_buildMultiSourceDropdown($id, $options);
+                return $this->_buildMultiSourceDropdown($id);
             
             case 'hidden':
-                return $this->_buildHidden($id, $options);
+                return $this->_buildHidden($id);
             
             case 'spectrum':
                 return $this->_buildSpectrum($id, $options);
@@ -122,7 +143,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
                 return $this->_buildMultiSourceText($id, $options);
 
             case 'multiSourceTextArea':
-                return $this->_buildMultiSourceTextArea($id, $options);
+                return $this->_buildMultiSourceTextArea($id);
 
             case 'theme':
                 return $this->_buildTheme();
@@ -135,6 +156,27 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
             case 'fieldProviderFilter':
                 return $this->_buildFieldProviderFilter();
+
+            case 'oauth2TokenManagement':
+                return $this->_buildOauth2TokenManagement($options);
+
+            case 'oauth2ClientInstructions':
+                return $this->_buildOauth2ClientInstructions($options);
+
+            case 'oauth2ClientId':
+                return $this->_buildOauth2ClientId($options);
+
+            case 'oauth2ClientSecret':
+                return $this->_buildOauth2ClientSecret($options);
+
+            case 'oauth2ClientCredentialsSaving':
+                return $this->_buildOauth2ClientCredentialsSaving();
+
+            case 'oauth2TokenDeletion':
+                return $this->_buildOauth2TokenDeletion();
+
+            case 'oauth2TokenSelection':
+                return $this->_buildOauth2TokenSelection($options);
 
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
@@ -278,7 +320,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         return $toReturn;
     }
 
-    private function _buildMultiSourceTextArea($id, $options)
+    private function _buildMultiSourceTextArea($id)
     {
         return new tubepress_options_ui_impl_fields_templated_single_MultiSourceSingleOptionField(
 
@@ -373,6 +415,145 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_requestParams,
             $this->_templating,
             $additionalField
+        );
+    }
+
+    private function _buildOauth2TokenManagement($options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenManagementField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenManagementField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_TokenManagementField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_oauth2Environment
+        );
+    }
+
+    private function _buildOauth2ClientInstructions($options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientInstructionsField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientInstructionsField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_ClientInstructionsField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_oauth2Environment,
+            $this->_translator
+        );
+    }
+
+    private function _buildOauth2ClientId($options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientIdField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientIdField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_ClientIdField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_translator
+        );
+    }
+
+    private function _buildOauth2ClientSecret($options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientSecretField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_ClientSecretField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_ClientSecretField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_translator
+        );
+    }
+
+    private function _buildOauth2TokenSelection($options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenSelectionField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenSelectionField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_TokenSelectionField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_oauth2Environment
+        );
+    }
+
+    private function _buildOauth2ClientCredentialsSaving()
+    {
+        return new tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField(
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_persistenceHelper
+        );
+    }
+
+    private function _buildOauth2TokenDeletion()
+    {
+        return new tubepress_http_oauth2_impl_options_ui_TokenDeletionField(
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_persistenceHelper
         );
     }
 }

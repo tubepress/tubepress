@@ -54,6 +54,16 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      */
     private $_mockEnvironment;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockOauth2Initiator;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockOauth2Callback;
+
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
@@ -63,6 +73,8 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
         $this->_mockForm                        = $this->mock(tubepress_api_options_ui_FormInterface::_);
         $this->_mockStringUtils                 = $this->mock(tubepress_api_util_StringUtilsInterface::_);
         $this->_mockEnvironment                 = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockOauth2Initiator             = $this->mock('tubepress_http_oauth2_impl_popup_AuthorizationInitiator');
+        $this->_mockOauth2Callback              = $this->mock('tubepress_http_oauth2_impl_popup_RedirectionCallback');
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
 
@@ -72,7 +84,9 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
             $this->_mockEventDispatcher,
             $this->_mockForm,
             $this->_mockStringUtils,
-            $this->_mockEnvironment
+            $this->_mockEnvironment,
+            $this->_mockOauth2Initiator,
+            $this->_mockOauth2Callback
         );
 
         $this->_sut->___doNotIgnoreExceptions();
@@ -216,6 +230,18 @@ ABC
 
             'TubePress Options', 'TubePress', 'manage_options',
             'tubepress', array($this->_sut, '__fireOptionsPageEvent')
+        );
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_submenu_page')->once()->with(
+
+            null, '', '', 'manage_options',
+            'tubepress_oauth2_start', array($this->_sut, '__noop')
+        );
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_submenu_page')->once()->with(
+
+            null, '', '', 'manage_options',
+            'tubepress_oauth2', array($this->_sut, '__noop')
         );
 
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');

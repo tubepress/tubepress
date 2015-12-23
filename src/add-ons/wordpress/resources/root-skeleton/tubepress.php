@@ -79,6 +79,8 @@ class tubepress_wordpress_ApiIntegrator
             'admin_print_scripts-settings_page_tubepress',
             'init',
             'in_plugin_update_message-' . $this->_baseName . '/tubepress.php',
+            'load-admin_page_tubepress_oauth2',
+            'load-admin_page_tubepress_oauth2_start',
             'widgets_init',
             'wp_ajax_nopriv_tubepress',
             'wp_ajax_tubepress',

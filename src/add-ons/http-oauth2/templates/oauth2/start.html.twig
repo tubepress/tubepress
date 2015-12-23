@@ -1,0 +1,20 @@
+{% extends 'oauth2/bootstrap.html.twig' %}
+
+{% block body %}
+
+    <script type="text/javascript">
+        window.location.replace("{{ url|raw }}");
+    </script>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {{ 'TubePress is redirecting you to %s.' | trans | format(provider.displayName) }} {# >(translatable)< #}
+            </h3>
+        </div>
+        <div class="panel-body text-muted small">
+            {{ 'If you are not redirected in a few seconds, <a href="%s">click here</a>.' | trans | format(url) | raw }} {# >(translatable)< #}
+        </div>
+    </div>
+
+{% endblock body %}
