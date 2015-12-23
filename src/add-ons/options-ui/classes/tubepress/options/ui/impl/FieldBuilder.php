@@ -175,6 +175,9 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             case 'oauth2TokenDeletion':
                 return $this->_buildOauth2TokenDeletion();
 
+            case 'oauth2TokenSelection':
+                return $this->_buildOauth2TokenSelection($options);
+
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
         }
@@ -509,6 +512,30 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             $this->_templating,
             $this->_persistenceHelper,
             $this->_translator
+        );
+    }
+
+    private function _buildOauth2TokenSelection($options)
+    {
+        if (!isset($options['provider'])) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenSelectionField without provider');
+        }
+
+        $provider = $options['provider'];
+
+        if (!($provider instanceof tubepress_spi_http_oauth2_Oauth2ProviderInterface)) {
+
+            throw new RuntimeException('Cannot build tubepress_http_oauth2_impl_options_ui_TokenSelectionField with a non-provider');
+        }
+
+        return new tubepress_http_oauth2_impl_options_ui_TokenSelectionField(
+            $provider,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_persistenceHelper,
+            $this->_oauth2Environment
         );
     }
 

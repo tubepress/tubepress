@@ -29,6 +29,26 @@
             pollWindow();
         },
 
+        addTokenToDropdowns = function (data) {
+
+            var providerName  = data.provider.name,
+                slug          = data.slug,
+                dropdowns     = jquery('.oauth2-token-selection').filter('[data-provider=\'' + providerName + '\']'),
+                existingSlugs = dropdowns.find("option[value='" + slug + "']"),
+                slugExists    = existingSlugs.length === 1,
+                newOption;
+
+            if (!slugExists) {
+
+                dropdowns.each(function () {
+
+                    var select = jquery(this);
+
+                    select.append(jquery('<option value="' + slug + '">' + slug + '</option>'));
+                });
+            }
+        },
+
         addTokenToList = function (data) {
 
             var providerName = data.provider.name,
@@ -95,6 +115,7 @@
 
             showNewTokenModal(slug, providerName);
             addTokenToList(data);
+            addTokenToDropdowns(data);
         },
 
         pollWindow = function () {

@@ -609,6 +609,7 @@ return array (
     'tubepress_http_oauth2_impl_options_ui_ClientSecretField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/ClientSecretField.php',
     'tubepress_http_oauth2_impl_options_ui_TokenDeletionField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/TokenDeletionField.php',
     'tubepress_http_oauth2_impl_options_ui_TokenManagementField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/TokenManagementField.php',
+    'tubepress_http_oauth2_impl_options_ui_TokenSelectionField' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/options/ui/TokenSelectionField.php',
     'tubepress_http_oauth2_impl_popup_AbstractPopupHandler' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/popup/AbstractPopupHandler.php',
     'tubepress_http_oauth2_impl_popup_AuthorizationInitiator' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/popup/AuthorizationInitiator.php',
     'tubepress_http_oauth2_impl_popup_RedirectionCallback' => TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/classes/tubepress/http/oauth2/impl/popup/RedirectionCallback.php',
