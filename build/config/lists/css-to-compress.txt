@@ -1,5 +1,0 @@
-src/themes/public/default/css/tubepress.css
-src/themes/public/legacy-default/css/tubepress.css
-src/themes/public/vimeo.com-clone/css/vimeo.css
-src/themes/public/youtube.com-clone/css/youtube.css
-src/add-ons/player/web/vendor/jqmodal/jqModal.css

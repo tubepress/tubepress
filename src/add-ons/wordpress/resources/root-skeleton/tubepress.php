@@ -1,8 +1,8 @@
 <?php
 /**
-Plugin Name: @TubePress@
+Plugin Name: TubePress
 Plugin URI: http://tubepress.com
-Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and widgets. @description@
+Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and widgets. Upgrade to <a href="http://tubepress.com/pricing/">TubePress Pro</a> for more features!
 Author: TubePress LLC
 Version: 99.99.99
 Author URI: http://tubepress.com

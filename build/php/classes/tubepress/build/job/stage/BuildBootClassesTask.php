@@ -9,30 +9,33 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-if (!defined('TUBEPRESS_ROOT')) {
-
-    define('TUBEPRESS_ROOT', realpath(__DIR__ . '/../../'));
-    require TUBEPRESS_ROOT . '/vendor/autoload.php';
-}
-
-class tubepress_build_ClassCollectionBuilder
+class tubepress_build_job_stage_BuildBootClassesTask extends tubepress_build_job_AbstractBuildTask
 {
     private static $loaded;
     private static $seen;
 
-    public static function build()
+    /**
+     * @var string[]
+     */
+    private $_classes;
+
+    public function __construct(array $classes)
     {
-        @unlink(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
+        $this->_classes = $classes;
+    }
 
-        $classes = array();
-        foreach (glob(__DIR__ . '/../config/classes-to-concat/*.php') as $filename) {
+    public function run()
+    {
+        if (!defined('TUBEPRESS_ROOT')) {
 
-            $classes = array_merge($classes, require $filename);
+            define('TUBEPRESS_ROOT', realpath($this->getBuildDirectory() . '/..'));
         }
 
+        @unlink(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
+
         $classes = self::load(
-            $classes,
-            TUBEPRESS_ROOT . '/src/php/scripts/classloading',
+            $this->_classes,
+            $this->getStagingDirectory() . '/tubepress/src/php/scripts/classloading',
             'classes',
             false
         );
@@ -46,7 +49,7 @@ class tubepress_build_ClassCollectionBuilder
 
             $path         = realpath($class->getFileName());
             $relativePath = str_replace(TUBEPRESS_ROOT . '/', '', $path);
-            $stagedPath   = realpath(__DIR__) . '/../stage/tubepress/' . $relativePath;
+            $stagedPath   = $this->getStagingDirectory() . '/tubepress/' . $relativePath;
             $classNames[] = preg_quote($class->getName());
 
             if (file_exists($stagedPath)) {
@@ -69,7 +72,15 @@ class tubepress_build_ClassCollectionBuilder
             }
         }
 
-        file_put_contents(realpath(__DIR__) . '/../stage/tubepress/src/php/scripts/classloading/classmap.php', $linesToKeep);
+        file_put_contents($this->getStagingDirectory() . '/tubepress/src/php/scripts/classloading/classmap.php', $linesToKeep);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Build classes.php';
     }
 
     /**
@@ -428,5 +439,3 @@ EOT;
         return $resolved;
     }
 }
-
-tubepress_build_ClassCollectionBuilder::build();

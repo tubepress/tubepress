@@ -1,0 +1,104 @@
+services:
+
+  builder:
+    class: tubepress_build_Builder
+    arguments:
+      -
+        default:
+          - @job_directories_delete
+          - @job_directories_create
+          - @job_stage_src
+          - @job_stage_wordpress
+          - @job_stage_suppress_dir_listings
+          - @job_stage_build_boot_classes
+          - @job_stage_web_assets
+          - @job_stage_themes
+          - @job_mod_php52
+          - @job_mod_strip_phpunit
+          - @job_mod_set_real_version
+        clean:
+          - @job_directories_delete
+        package:
+          - @job_directories_delete
+          - @job_directories_create
+          - @job_stage_src
+          - @job_stage_wordpress
+          - @job_stage_suppress_dir_listings
+          - @job_stage_build_boot_classes
+          - @job_mod_compress_css
+          - @job_mod_compress_js
+          - @job_stage_web_assets
+          - @job_stage_themes
+          - @job_mod_php52
+          - @job_mod_strip_phpunit
+          - @job_mod_set_real_version
+          - @job_l10n_provision_crowdin_translations
+          - @job_l10n_locale_fallbacks
+          - @job_package_starter_theme
+          - @job_package_final
+
+  job_directories_create:
+    class: tubepress_build_job_directories_CreateDirectoriesTask
+
+  job_directories_delete:
+    class: tubepress_build_job_directories_DeleteDirectoriesTask
+
+  job_l10n_provision_crowdin_translations:
+    class: tubepress_build_job_l10n_ProvisionCrowdinTranslationsTask
+    arguments: [ %l10n.map.crowdin% ]
+
+  job_l10n_locale_fallbacks:
+    class: tubepress_build_job_l10n_LocaleFallbacksTask
+    arguments: [ %l10n.map.fallbacks% ]
+
+  job_mod_compress_css:
+    class: tubepress_build_job_mods_CompressTask
+    arguments: [ 'CSS', %compress.css% ]
+
+  job_mod_compress_js:
+    class: tubepress_build_job_mods_CompressTask
+    arguments: [ 'JS', %compress.js% ]
+
+  job_mod_php52:
+    class: tubepress_build_job_mods_Php52Task
+
+  job_mod_set_real_version:
+    class: tubepress_build_job_mods_SetRealVersionTask
+    arguments:
+      - %version.major%
+      - %version.minor%
+      - %version.micro%
+
+  job_mod_strip_phpunit:
+    class: tubepress_build_job_mods_StripPhpUnitTask
+
+  job_package_starter_theme:
+    class: tubepress_build_job_package_PackageStarterThemeTask
+
+  job_package_final:
+    class: tubepress_build_job_package_FinalPackageTask
+    arguments:
+      - %version.major%
+      - %version.minor%
+      - %version.micro%
+
+  job_stage_build_boot_classes:
+    class: tubepress_build_job_stage_BuildBootClassesTask
+    arguments: [ %stage.bootclasses% ]
+
+  job_stage_src:
+    class: tubepress_build_job_stage_StageSrcTask
+    arguments: [ %stage.excludes% ]
+
+  job_stage_suppress_dir_listings:
+    class: tubepress_build_job_stage_SuppressDirListingTask
+
+  job_stage_themes:
+    class: tubepress_build_job_stage_StageThemesTask
+
+  job_stage_web_assets:
+    class: tubepress_build_job_stage_StageWebAssetsTask
+    arguments: [ %stage.webassets% ]
+
+  job_stage_wordpress:
+    class: tubepress_build_job_stage_StageWordPressTask

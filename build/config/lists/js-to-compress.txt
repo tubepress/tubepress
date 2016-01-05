@@ -1,8 +1,0 @@
-src/add-ons/html/web/js/tubepress.js
-src/add-ons/gallery/web/js/gallery.js
-src/add-ons/player/web/js/players/jqmodal-player.js
-src/add-ons/player/web/js/players/normal-player.js
-src/add-ons/player/web/js/players/popup-player.js
-src/add-ons/player/web/js/players/shadowbox-player.js
-src/add-ons/player/web/vendor/jqmodal/jqModal.js
-src/add-ons/wordpress/web/js/wordpress-ajax.js

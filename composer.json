@@ -24,12 +24,18 @@
     "yahnis-elsts/plugin-update-checker" : "~2.1"
   },
   "require-dev": {
-    "ehough/mockery"       : "~0.8",
-    "phpunit/phpunit"      : "~3.0",
-    "sepia/po-parser"      : "~4.2",
-    "symfony/class-loader" : "dev-master",
-    "symfony/css-selector" : "dev-master",
-    "symfony/dom-crawler"  : "dev-master"
+    "ehough/mockery"               : "~0.8",
+    "nervo/yuicompressor"          : "^2.4",
+    "phpunit/phpunit"              : "~3.0",
+    "sepia/po-parser"              : "~4.2",
+    "symfony/class-loader"         : "^2.8",
+    "symfony/config"               : "^2.8",
+    "symfony/css-selector"         : "^2.8",
+    "symfony/dom-crawler"          : "^2.8",
+    "symfony/dependency-injection" : "^2.8",
+    "symfony/finder"               : "^2.8",
+    "symfony/process"              : "^2.8",
+    "symfony/yaml"                 : "^2.8"
   },
   "autoload": {
     "psr-0": {
@@ -79,6 +85,8 @@
   },
   "autoload-dev" : {
     "psr-0" : {
+
+      "tubepress_build_" : "build/php/classes",
 
       "tubepress_test_api_"      : "tests/unit/php/classes/public",
       "tubepress_test_internal_" : "tests/unit/php/classes/internal",
