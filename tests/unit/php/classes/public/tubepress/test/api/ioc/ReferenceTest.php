@@ -21,11 +21,12 @@ class tubepress_test_api_ioc_ReferenceTest extends tubepress_api_test_TubePressU
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_api_ioc_Reference('hello');
+        $this->_sut = new tubepress_api_ioc_Reference('Hello');
     }
 
     public function testToString()
     {
         $this->assertEquals('hello', $this->_sut->__toString());
+        $this->assertEquals('hello', (string) $this->_sut);
     }
 }

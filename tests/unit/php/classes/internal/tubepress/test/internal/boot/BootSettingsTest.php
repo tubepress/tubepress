@@ -58,6 +58,12 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
         mkdir($this->_userContentDirectory . '/config', 0777, true);
     }
 
+    public function onTearDown()
+    {
+        unset($_GET['hello']);
+        $this->recursivelyDeleteDirectory($this->_userContentDirectory);
+    }
+
     public function __callbackRealUrlFactory($incoming)
     {
         $realFactory = new tubepress_url_impl_puzzle_UrlFactory();
@@ -65,7 +71,7 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
         return $realFactory->fromString($incoming);
     }
 
-    public function testUserContentDirWp1()
+    public function testGetUserContentDirectoryWordPress1()
     {
         define('ABSPATH', 'blue/');
         define('DB_NAME', 'database_name');
@@ -73,7 +79,7 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
         $this->assertEquals('blue/wp-content/tubepress-content', $this->_sut->getUserContentDirectory());
     }
 
-    public function testUserContentDirWp2()
+    public function testGetUserContentDirectoryWordPress2()
     {
         define('WP_CONTENT_DIR', 'bob');
         define('ABSPATH', 'blue/');
@@ -82,13 +88,7 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
         $this->assertEquals('bob/tubepress-content', $this->_sut->getUserContentDirectory());
     }
 
-    public function onTearDown()
-    {
-        unset($_GET['hello']);
-        $this->recursivelyDeleteDirectory($this->_userContentDirectory);
-    }
-
-    public function testContainerStoragePathWritableDirectory()
+    public function testGetPathToSystemCacheDirectoryExisting()
     {
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
@@ -114,71 +114,12 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getPathToSystemCacheDirectory();
+        $actual = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertEquals($path, $result);
+        $this->assertEquals($path, $actual);
     }
 
-    /**
-     * @dataProvider getSuccessfulUrls
-     */
-    public function testSuccessfulUserUrls($key, $candidate, $getter, $expected)
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'user' => array(
-        'urls' => array(
-
-            '$key'  => '$candidate'
-        )
-    )
-);
-EOF
-        );
-
-        $result = $this->_sut->$getter();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    public function getSuccessfulUrls()
-    {
-        return array(
-
-            array('base', 'http://foo.com', 'getUrlBase', 'http://foo.com'),
-            array('base', '/foo', 'getUrlBase', '/foo'),
-            array('ajax', 'http://foo.com', 'getUrlAjaxEndpoint', 'http://foo.com'),
-            array('ajax', '/foo', 'getUrlAjaxEndpoint', '/foo'),
-            array('userContent', 'http://foo.com', 'getUrlUserContent', 'http://foo.com'),
-            array('userContent', '/foo', 'getUrlUserContent', '/foo'),
-        );
-    }
-
-    public function testBadUrl()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_mockLogger->shouldReceive('error')->once()->with('Unable to parse base URL from settings.php');
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'user' => array(
-        'urls' => array(
-            'base'  => new stdClass()
-        )
-    )
-);
-EOF
-        );
-
-        $this->assertEquals(null, $this->_sut->getUrlBase());
-    }
-
-    public function testContainerStoragePathCreateDirectory()
+    public function testGetPathToSystemCacheDirectoryNonExisting()
     {
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
@@ -197,9 +138,9 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getPathToSystemCacheDirectory();
+        $actual = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertEquals($path, $result);
+        $this->assertEquals($path, $actual);
     }
 
     public function testContainerStoragePathNonWritableDirectory()
@@ -218,16 +159,68 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getPathToSystemCacheDirectory();
+        $actual = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertRegExp('~/[^/]+/tubepress-system-cache-[a-f0-9]+~', $result);
+        $this->assertRegExp('~/[^/]+/tubepress-system-cache-[a-f0-9]+~', $actual);
     }
 
-    public function testFallback()
+    /**
+     * @dataProvider getSuccessfulUrls
+     */
+    public function testUrls($key, $candidate, $getter, $expected)
     {
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
-        $this->_verifyAllDefaults();
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'user' => array(
+        'urls' => array(
+
+            '$key'  => '$candidate'
+        )
+    )
+);
+EOF
+        );
+
+        $actual = $this->_sut->$getter();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function getSuccessfulUrls()
+    {
+        return array(
+
+            array('base',        'http://foo.com', 'getUrlBase',         'http://foo.com'),
+            array('base',        '/foo',           'getUrlBase',         '/foo'),
+            array('ajax',        'http://foo.com', 'getUrlAjaxEndpoint', 'http://foo.com'),
+            array('ajax',        '/foo',           'getUrlAjaxEndpoint', '/foo'),
+            array('userContent', 'http://foo.com', 'getUrlUserContent',  'http://foo.com'),
+            array('userContent', '/foo',           'getUrlUserContent',  '/foo'),
+        );
+    }
+
+    public function testBadBaseUrl()
+    {
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_mockLogger->shouldReceive('error')->once()->with('Unable to parse base URL from settings.php');
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'user' => array(
+        'urls' => array(
+            'base'  => new stdClass()
+        )
+    )
+);
+EOF
+        );
+
+        $this->assertEquals(null, $this->_sut->getUrlBase());
     }
 
     public function testCustomAddonsBlacklist()
@@ -256,13 +249,13 @@ return array(
 EOF
 );
 
-        $result = $this->_sut->getAddonBlacklistArray();
+        $actual = $this->_sut->getAddonBlacklistArray();
 
-        $this->assertTrue(is_array($result));
-        $this->assertEquals(array('some', 'thing', 'else'), $result);
+        $this->assertTrue(is_array($actual));
+        $this->assertEquals(array('some', 'thing', 'else'), $actual);
     }
 
-    public function testNonPhpBootFile()
+    public function testInvalidPhpInSettingsPhp()
     {
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
@@ -270,6 +263,13 @@ EOF
 this should be php
 EOF
         );
+
+        $this->_verifyAllDefaults();
+    }
+
+    public function testDefaultsNoSettingsPhp()
+    {
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
         $this->_verifyAllDefaults();
     }
@@ -308,25 +308,25 @@ EOF
 
     private function _verifyAllDefaults()
     {
-        $result = $this->_sut->getAddonBlacklistArray();
+        $actual = $this->_sut->getAddonBlacklistArray();
 
-        $this->assertTrue(is_array($result));
-        $this->assertTrue(empty($result), 'Add-on blacklist is not empty as it should be.');
+        $this->assertTrue(is_array($actual));
+        $this->assertTrue(empty($actual), 'Add-on blacklist is not empty as it should be.');
 
-        $result = $this->_sut->getAddonBlacklistArray();
+        $actual = $this->_sut->getAddonBlacklistArray();
 
-        $this->assertTrue(is_array($result));
-        $this->assertTrue(empty($result));
+        $this->assertTrue(is_array($actual));
+        $this->assertTrue(empty($actual));
 
-        $result = $this->_sut->isClassLoaderEnabled();
-        $this->assertTrue($result);
+        $actual = $this->_sut->isClassLoaderEnabled();
+        $this->assertTrue($actual);
 
-        $result = $this->_sut->getPathToSystemCacheDirectory();
-        $this->assertTrue(is_writable($result));
-        $this->assertTrue(is_dir($result));
+        $actual = $this->_sut->getPathToSystemCacheDirectory();
+        $this->assertTrue(is_writable($actual));
+        $this->assertTrue(is_dir($actual));
 
-        $result = $this->_sut->isSystemCacheEnabled();
-        $this->assertTrue($result);
+        $actual = $this->_sut->isSystemCacheEnabled();
+        $this->assertTrue($actual);
 
         $this->assertNull($this->_sut->getUrlAjaxEndpoint());
         $this->assertNull($this->_sut->getUrlBase());
