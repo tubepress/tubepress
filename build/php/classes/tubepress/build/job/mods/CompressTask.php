@@ -35,7 +35,8 @@ class tubepress_build_job_mods_CompressTask extends tubepress_build_job_Abstract
         foreach ($this->_relativePaths as $relativePath) {
 
             $source = sprintf('%s/%s', $stagingDir, $relativePath);
-            $dest   = str_replace('.', '-dev.', $source);
+            $dest   = str_replace('.css', '-dev.css', $source);
+            $dest   = str_replace('.js', '-dev.js', $dest);
 
             $fs->copy($source, $dest);
 
