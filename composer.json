@@ -27,7 +27,7 @@
     "ehough/mockery"               : "~0.8",
     "jonnyw/php-phantomjs"         : "^4.0",
     "nervo/yuicompressor"          : "^2.4",
-    "phpunit/phpunit"              : "~3.0",
+    "phpunit/phpunit"              : "^4.8",
     "sepia/po-parser"              : "~4.2",
     "symfony/class-loader"         : "^2.8",
     "symfony/config"               : "^2.8",

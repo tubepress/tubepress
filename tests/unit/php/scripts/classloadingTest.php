@@ -116,11 +116,15 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
     {
         $excludes = array(
 
+            '/vendor/doctrine/',
             '/vendor/symfony/',
             '/vendor/phpunit/',
             '/vendor/ehough/mockery/',
             '/vendor/composer/',
             '/vendor/ehough/oauth/tests',
+            '/vendor/phpspec',
+            '/vendor/phpdocumentor',
+            '/vendor/sebastian',
 
             '/src/test/php/',
             '/Tests/',

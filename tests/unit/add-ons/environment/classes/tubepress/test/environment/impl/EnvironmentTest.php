@@ -38,16 +38,18 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testVersion()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $latest = tubepress_api_version_Version::parse('99.99.99');
-        $current = $this->_sut->getVersion();
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $latest     = tubepress_api_version_Version::parse('99.99.99');
+        $current    = $this->_sut->getVersion();
+
         $this->assertTrue($current instanceof tubepress_api_version_Version);
         $this->assertTrue($latest->compareTo($current) === 0, "Expected $latest but got $current");
     }
 
     public function testIsProTrue()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+
         $this->_sut->markAsPro();
         $this->assertTrue($this->_sut->isPro());
     }
@@ -58,21 +60,22 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
      */
     public function testBadWpInterface()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         $this->_sut->setWpFunctionsInterface(new stdClass());
     }
 
     public function testIsProFalse()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         $this->assertFalse($this->_sut->isPro());
     }
 
     public function testDetectUserContentUrlNoBootSettingsNonWp()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut     = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         $mockUrl        = $this->mock('tubepress_api_url_UrlInterface');
         $mockContentUrl = $this->mock('tubepress_api_url_UrlInterface');
+
         $mockContentUrl->shouldReceive('toString')->once()->andReturn('abc');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('yellow')->andReturn($mockContentUrl);
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('abc/tubepress-content')->andReturn($mockUrl);
@@ -156,7 +159,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
      */
     public function testGetBaseUrlNoBootSettingsMultiWpNoSsl()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         define('ABSPATH', 'some abspath');
         define('DB_USER', 'user');
         define('DOMAIN_MAPPING', true);

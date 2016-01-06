@@ -16,7 +16,6 @@ class tubepress_build_job_mods_StripPhpUnitTask extends tubepress_build_job_Abst
         $baseDir = $this->getStagingDirectory() . '/tubepress';
         $files   = array(
             sprintf('%s/vendor/composer/autoload_classmap.php', $baseDir),
-            sprintf('%s/vendor/composer/include_paths.php', $baseDir),
         );
 
         foreach ($files as $file) {

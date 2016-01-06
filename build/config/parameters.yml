@@ -72,6 +72,7 @@ parameters:
     - .travis.yml
     - /vendor/autoload.php
     - /vendor/bin
+    - /vendor/doctrine
     - /vendor/ehough/contemplate/src/test
     - /vendor/ehough/filesystem/src/test
     - /vendor/ehough/finder/src/test
@@ -102,9 +103,12 @@ parameters:
     - /vendor/jakoch
     - /vendor/jonnyw
     - /vendor/nervo
+    - /vendor/phpdocumentor
+    - /vendor/phpspec
     - /vendor/phpunit
     - /vendor/puzzlehttp/puzzle/src/test
     - /vendor/puzzlehttp/streams/src/test
+    - /vendor/sebastian
     - /vendor/sepia
     - /vendor/symfony
     - /vendor/twig/twig/CHANGELOG

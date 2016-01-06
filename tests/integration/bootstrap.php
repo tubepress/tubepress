@@ -9,6 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../bootstrap.php';
 
 tubepress_test_integration_IntegrationTest::bootstrap();
