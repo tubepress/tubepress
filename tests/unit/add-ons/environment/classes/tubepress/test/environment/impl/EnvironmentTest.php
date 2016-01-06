@@ -119,7 +119,6 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     /**
      * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testGetBaseUrlNoBootSettingsMultiWpSsl()
     {

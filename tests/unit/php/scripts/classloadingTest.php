@@ -194,6 +194,9 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/PrimaryBootstrapper.php',
 
             'Twig/Test',
+
+            'JonnyW',
+            'PhantomInstaller'
         );
 
         return '~' . implode('|', $excludes) . '~';
