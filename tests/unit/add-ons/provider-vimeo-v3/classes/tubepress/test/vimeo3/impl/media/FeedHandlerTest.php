@@ -49,7 +49,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
 
     public function testSingleVideoUrl()
     {
-        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::class);
+        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
 
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://api.vimeo.com')->andReturn($mockUrl);
         $mockUrl->shouldReceive('addPath')->once()->with('videos')->andReturn($mockUrl);
@@ -81,8 +81,8 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
      */
     public function testGetGalleryUrl($mode, $modeValueOptionName, $modeValue, array $pathSegments, $requestedSort, $sortParams)
     {
-        $mockUrl   = $this->mock(tubepress_api_url_UrlInterface::class);
-        $mockQuery = $this->mock(tubepress_api_url_QueryInterface::class);
+        $mockUrl   = $this->mock('tubepress_api_url_UrlInterface');
+        $mockQuery = $this->mock('tubepress_api_url_QueryInterface');
 
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://api.vimeo.com')->andReturn($mockUrl);
 

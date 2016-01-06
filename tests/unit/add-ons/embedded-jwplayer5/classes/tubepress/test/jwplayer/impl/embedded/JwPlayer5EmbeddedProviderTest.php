@@ -67,7 +67,7 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
 
         $mockMediaItem->shouldReceive('getId')->once()->andReturn('abc');
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://www.youtube.com/watch?v=abc')
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/watch?v=abc')
             ->andReturn($mockUrl);
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_jwplayer5_api_OptionNames::COLOR_FRONT)->andReturn('front-color');
