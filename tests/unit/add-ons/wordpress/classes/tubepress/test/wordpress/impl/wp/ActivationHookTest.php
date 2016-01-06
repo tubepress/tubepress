@@ -12,7 +12,6 @@
 /**
  * @covers tubepress_wordpress_impl_wp_ActivationHook
  * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
  */
 class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_test_TubePressUnitTest
 {

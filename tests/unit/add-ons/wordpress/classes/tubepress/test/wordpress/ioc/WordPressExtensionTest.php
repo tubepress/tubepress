@@ -11,7 +11,6 @@
 
 /**
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
  * @covers tubepress_wordpress_ioc_WordPressExtension<extended>
  */
 class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest

@@ -44,7 +44,6 @@ class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_api_test_T
      * @expectedException RuntimeException
      * @expectedExceptionMessage Unable to parse malformed url: http://(#$#$#$#$#$#%%***%**%:dfgdfgdgdfgdfg*(&*&&*foo/bar
      * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testCannotGetUrlBadServerVars()
     {
@@ -63,7 +62,6 @@ class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_api_test_T
      * @expectedException RuntimeException
      * @expectedExceptionMessage Missing $_SERVER variable: SERVER_PORT
      * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testCannotGetUrlMissingServerVars()
     {
@@ -73,7 +71,6 @@ class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_api_test_T
 
     /**
      * @runInSeparateProcess
-     * @preserveGlobalState disabled
      * @dataProvider dataProviderTestGetFullUrl
      */
     public function testGetFullUrl($serverArray, $expectedUrl)
