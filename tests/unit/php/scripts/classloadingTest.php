@@ -10,23 +10,6 @@
  */
 class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_test_TubePressUnitTest
 {
-    /**
-     * @var array
-     */
-    private static $_CONCATED_CLASSES;
-
-    public static function setupBeforeClass()
-    {
-        parent::setUpBeforeClass();
-
-        self::$_CONCATED_CLASSES = array_merge(
-
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/boot.php'
-        );
-
-        sort(self::$_CONCATED_CLASSES);
-    }
-
     public function onSetup()
     {
         @unlink(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
@@ -37,20 +20,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
        $this->onSetup();
     }
 
-    public function testClassesExist()
-    {
-        foreach (self::$_CONCATED_CLASSES as $className) {
-            if (!(class_exists($className) || interface_exists($className))) {
-
-                $this->fail("$className does not exist");
-            }
-        }
-        $this->assertTrue(true);
-    }
-
-    /**
-     * @depends testClassesExist
-     */
     public function testClassMapValidity()
     {
         $actualCoreClasses     = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src');
@@ -106,23 +75,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
         $toReturn = str_replace('\'TUBEPRESS_ROOT', 'TUBEPRESS_ROOT', $toReturn);
 
         return $toReturn;
-    }
-
-    /**
-     * @depends testClassMapValidity
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testConcatenationWorks()
-    {
-        $this->assertFileNotExists(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
-
-        if (!class_exists('tubepress_build_ClassCollectionBuilder', false)) {
-
-            require TUBEPRESS_ROOT . '/build/bin/ClassCollectionBuilder.php';
-        }
-
-        $this->assertFileExists(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
     }
 
     private function _getExpectedClassMap(array $original)

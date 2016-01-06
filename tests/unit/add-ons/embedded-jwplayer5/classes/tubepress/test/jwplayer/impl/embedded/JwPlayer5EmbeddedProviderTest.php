@@ -34,17 +34,23 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
      */
     private $_mockEnvironment;
 
-    public function onSetup() {
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockBootSettings;
 
-
-        $this->_mockUrlFactory  = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockContext     = $this->mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockEnvironment = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+    public function onSetup()
+    {
+        $this->_mockUrlFactory   = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockContext      = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockEnvironment  = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockBootSettings = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
 
         $this->_sut = new tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider(
             $this->_mockContext,
             $this->_mockUrlFactory,
-            $this->_mockEnvironment
+            $this->_mockEnvironment,
+            $this->_mockBootSettings
         );
     }
 
@@ -65,9 +71,11 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
 
         $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
 
+        $mockBaseUrl->shouldReceive('__toString')->once()->andReturn('base-url');
+
         $mockMediaItem->shouldReceive('getId')->once()->andReturn('abc');
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://www.youtube.com/watch?v=abc')
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/watch?v=abc')
             ->andReturn($mockUrl);
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_jwplayer5_api_OptionNames::COLOR_FRONT)->andReturn('front-color');
@@ -76,15 +84,17 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)->andReturn('screen-color');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::EMBEDDED_AUTOPLAY)->andReturn('autoplay?');
 
+        $this->_mockBootSettings->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+
         $actual   = $this->_sut->getTemplateVariables($mockMediaItem);
         $expected = array(
-            'tubePressBaseUrl' => $mockBaseUrl,
             'autostart' => 'autoplay?',
             tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
-            tubepress_jwplayer5_api_OptionNames::COLOR_FRONT => 'front-color',
-            tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT => 'light-color',
-            tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'screen-color',
-            tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'back-color'
+            tubepress_jwplayer5_api_OptionNames::COLOR_FRONT        => 'front-color',
+            tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT        => 'light-color',
+            tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN       => 'screen-color',
+            tubepress_jwplayer5_api_OptionNames::COLOR_BACK         => 'back-color',
+            'playerSwfUrl'                                          => 'base-url/src/add-ons/embedded-jwplayer5/web/player.swf'
         );
 
         $this->assertEquals($expected, $actual);
