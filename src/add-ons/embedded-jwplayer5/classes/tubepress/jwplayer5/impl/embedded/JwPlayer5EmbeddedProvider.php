@@ -29,20 +29,13 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
      */
     private $_environment;
 
-    /**
-     * @var tubepress_api_boot_BootSettingsInterface
-     */
-    private $_bootSettings;
-
     public function __construct(tubepress_api_options_ContextInterface         $context,
                                 tubepress_api_url_UrlFactoryInterface          $urlFactory,
-                                tubepress_api_environment_EnvironmentInterface $environment,
-                                tubepress_api_boot_BootSettingsInterface       $bootSettings)
+                                tubepress_api_environment_EnvironmentInterface $environment)
     {
-        $this->_context      = $context;
-        $this->_urlFactory   = $urlFactory;
-        $this->_environment  = $environment;
-        $this->_bootSettings = $bootSettings;
+        $this->_context     = $context;
+        $this->_urlFactory  = $urlFactory;
+        $this->_environment = $environment;
     }
 
     /**
@@ -101,30 +94,17 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
      */
     public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
-        $dataUrl        = $this->_urlFactory->fromString(sprintf('https://www.youtube.com/watch?v=%s', $mediaItem->getId()));
-        $userContentDir = $this->_bootSettings->getUserContentDirectory();
-        $contentPath    = sprintf('%s/vendor/jwplayer5/player.swf', $userContentDir);
-
-        if (is_file($contentPath)) {
-
-            $userContentUrl = $this->_environment->getUserContentUrl();
-            $playerSwfUrl   = sprintf('%s/vendor/jwplayer5/player.swf', $userContentUrl);
-
-        } else {
-
-            $baseUrl      = $this->_environment->getBaseUrl();
-            $playerSwfUrl = sprintf('%s/src/add-ons/embedded-jwplayer5/web/player.swf', $baseUrl);
-        }
+        $dataUrl = $this->_urlFactory->fromString(sprintf('http://www.youtube.com/watch?v=%s', $mediaItem->getId()));
 
         return array(
 
+            'userContentUrl'                                        => $this->_environment->getUserContentUrl(),
             'autostart'                                             => $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY),
             tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $dataUrl,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT        => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_FRONT),
             tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT        => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT),
             tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN       => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN),
             tubepress_jwplayer5_api_OptionNames::COLOR_BACK         => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_BACK),
-            'playerSwfUrl'                                          => $playerSwfUrl
         );
     }
 

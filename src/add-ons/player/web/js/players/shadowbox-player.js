@@ -21,7 +21,7 @@
 
     var text_shadowbox       = 'shadowbox',
         text_player          = 'player',
-        url                  = 'web/vendor/' + text_shadowbox + '/' + text_shadowbox,
+        url                  = TubePressJsConfig.urls.usr + 'vendor/' + text_shadowbox + 'js/v3/' + text_shadowbox,
         text_html            = 'html',
         text_gallery         = 'gallery',
         text_galleryId       = text_gallery + 'Id',

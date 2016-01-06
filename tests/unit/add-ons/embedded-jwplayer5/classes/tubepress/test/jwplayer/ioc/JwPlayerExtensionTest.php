@@ -36,7 +36,6 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_))
             ->withTag('tubepress_spi_embedded_EmbeddedProviderInterface')
             ->withTag('tubepress_spi_template_PathProviderInterface');
     }
