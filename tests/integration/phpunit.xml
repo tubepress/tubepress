@@ -6,7 +6,7 @@
 	stopOnSkipped="false"
     strict="true"
     processIsolation="false"
-    bootstrap="./bootstrap.php">
+    bootstrap="../bootstrap.php">
 	<testsuites>
 	   <testsuite name="integration">
            <directory>./classes</directory>

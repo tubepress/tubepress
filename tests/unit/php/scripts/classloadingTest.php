@@ -200,7 +200,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'Twig/Test',
 
             'JonnyW',
-            'PhantomInstaller'
+            '/vendor/jakoch'
         );
 
         return '~' . implode('|', $excludes) . '~';
