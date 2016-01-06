@@ -56,6 +56,6 @@ class tubepress_build_job_mods_CompressTask extends tubepress_build_job_Abstract
      */
     public function getName()
     {
-        return 'Compress . ' . $this->_name;
+        return 'Compress ' . $this->_name;
     }
 }

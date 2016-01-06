@@ -63,11 +63,7 @@ abstract class tubepress_build_job_AbstractBuildTask
 
         $process->run();
 
-        if ($process->isSuccessful()) {
-
-            $this->log(sprintf('%s completed successfully', $finalCmd));
-
-        } else {
+        if (!$process->isSuccessful()) {
 
             $this->log(sprintf('%s failed', $finalCmd));
             $this->log(sprintf('%s stdout:', $process->getOutput()));
@@ -81,6 +77,8 @@ abstract class tubepress_build_job_AbstractBuildTask
 
     protected function pregReplaceInFile($absPath, $search, $replace)
     {
+        $this->log(sprintf('preg_replace %s -> %s in file %s', $search, $replace, $absPath));
+
         $contents    = file_get_contents($absPath);
         $newContents = preg_replace($search, $replace, $contents);
 
