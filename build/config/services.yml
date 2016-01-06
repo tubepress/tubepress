@@ -16,6 +16,7 @@ services:
           - @job_mod_php52
           - @job_mod_strip_phpunit
           - @job_mod_set_real_version
+          - @job_deploy
         clean:
           - @job_directories_delete
         package:
@@ -36,6 +37,9 @@ services:
           - @job_l10n_locale_fallbacks
           - @job_package_starter_theme
           - @job_package_final
+
+  job_deploy:
+    class: tubepress_build_job_deploy_DeployTask
 
   job_directories_create:
     class: tubepress_build_job_directories_CreateDirectoriesTask

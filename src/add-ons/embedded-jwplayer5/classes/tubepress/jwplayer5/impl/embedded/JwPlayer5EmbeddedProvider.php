@@ -94,7 +94,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
      */
     public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
-        $dataUrl = $this->_urlFactory->fromString(sprintf('http://www.youtube.com/watch?v=%s', $mediaItem->getId()));
+        $dataUrl = $this->_urlFactory->fromString(sprintf('https://www.youtube.com/watch?v=%s', $mediaItem->getId()));
 
         return array(
 
