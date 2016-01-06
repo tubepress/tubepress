@@ -9,6 +9,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+ini_set('display_errors', 1);
+
 define('TUBEPRESS_CONTENT_DIRECTORY', realpath(__DIR__ . '/tubepress-content-directory'));
 
 /** @noinspection PhpIncludeInspection */
@@ -16,7 +18,7 @@ $container = require __DIR__ . '/tubepress/src/php/scripts/boot.php';
 
 if (isset($_GET['options'])) {
 
-    $options = $_GET['options'];
+    $options = unserialize(base64_decode($_GET['options']));
 
 } else {
 
@@ -28,22 +30,14 @@ if (isset($_GET['options'])) {
  */
 $context = $container->get(tubepress_api_options_ContextInterface::_);
 
-foreach ($options as $name => $val) {
-    $context->setEphemeralOption($name, $val);
-}
+$context->setEphemeralOptions($options);
 
 /**
  * @var $html tubepress_api_html_HtmlGeneratorInterface
  */
-$html = $container->get(tubepress_api_html_HtmlGeneratorInterface::_);
-
-/**
- * @var $env tubepress_api_environment_EnvironmentInterface
- */
-$env = $container->get(tubepress_api_environment_EnvironmentInterface::_);
-$env->setBaseUrl('http://localhost:54321/tubepress');
-$footer = $html->getJS();
-$header = $html->getCSS();
+$html    = $container->get(tubepress_api_html_HtmlGeneratorInterface::_);
+$footer  = $html->getJS();
+$header  = $html->getCSS();
 $content = $html->getHtml();
 
 print <<<TOY
@@ -58,6 +52,7 @@ print <<<TOY
 
     <body>
         $content
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         $footer
     </body>
 </html>

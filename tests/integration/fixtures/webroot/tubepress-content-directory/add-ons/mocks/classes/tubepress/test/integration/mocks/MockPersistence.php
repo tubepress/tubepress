@@ -11,7 +11,10 @@
 
 class tubepress_test_integration_mocks_MockPersistence implements tubepress_spi_options_PersistenceBackendInterface
 {
-    private $_mockOptions = array();
+    /**
+     * @var array
+     */
+    private $_mockOptions;
 
     /**
      * Creates one or more options in storage, if they don't already exist.
@@ -53,6 +56,13 @@ class tubepress_test_integration_mocks_MockPersistence implements tubepress_spi_
      */
     public function fetchAllCurrentlyKnownOptionNamesToValues()
     {
+        if (!isset($this->_mockOptions)) {
+
+            $file               = TUBEPRESS_CONTENT_DIRECTORY . '/config/database.json';
+            $contents           = file_get_contents($file);
+            $this->_mockOptions = json_decode($contents, true);
+        }
+
         return $this->_mockOptions;
     }
 }

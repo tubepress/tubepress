@@ -9,6 +9,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-require __DIR__ . '/../../vendor/autoload.php';
+//you will not need to change this line
+define('TUBEPRESS_CONTENT_DIRECTORY', dirname(__FILE__));
 
-tubepress_test_integration_IntegrationTest::bootstrap();
+//change the path below to match your TubePress Pro installation
+require __DIR__ . '/../tubepress/web/php/ajaxEndpoint.php';

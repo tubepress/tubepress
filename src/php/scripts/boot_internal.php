@@ -67,8 +67,10 @@ class tubePressBootScript
         $toRemove = DIRECTORY_SEPARATOR . 'src' .
             DIRECTORY_SEPARATOR . 'php' .
             DIRECTORY_SEPARATOR . 'scripts' .
-            DIRECTORY_SEPARATOR . 'boot.php';
+            DIRECTORY_SEPARATOR . 'boot_internal.php';
 
-        return str_replace($toRemove, '', $thisPath);
+        $toReturn = str_replace($toRemove, '', $thisPath);
+
+        return $toReturn;
     }
 }

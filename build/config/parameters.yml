@@ -55,6 +55,7 @@ parameters:
     - src/add-ons/wordpress/web/js/wordpress-ajax.js
 
   stage.excludes:
+    - /bin
     - /build
     - composer.*
     - composer.json
@@ -98,6 +99,8 @@ parameters:
     - /vendor/ehough/templating/src/test
     - /vendor/ehough/tickertape/src/main/php/ehough/tickertape/debug
     - /vendor/ehough/tickertape/src/test
+    - /vendor/jakoch
+    - /vendor/jonnyw
     - /vendor/nervo
     - /vendor/phpunit
     - /vendor/puzzlehttp/puzzle/src/test

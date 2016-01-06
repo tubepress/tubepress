@@ -25,6 +25,7 @@
   },
   "require-dev": {
     "ehough/mockery"               : "~0.8",
+    "jonnyw/php-phantomjs"         : "^4.0",
     "nervo/yuicompressor"          : "^2.4",
     "phpunit/phpunit"              : "~3.0",
     "sepia/po-parser"              : "~4.2",
@@ -119,7 +120,20 @@
       "tubepress_test_url_"             : "tests/unit/add-ons/url/classes",
       "tubepress_test_util_"            : "tests/unit/add-ons/util/classes",
 
+      "tubepress_test_integration_" : "tests/integration/classes",
+
       "tubepress_test_scripts_boot_" : "tests/unit/php/scripts/fixtures/mock-user-content-dir/add-ons/bootmocks/classes"
     }
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ],
+    "post-update-cmd": [
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ]
   }
 }

@@ -1,4 +1,5 @@
 .DS_Store
+/bin
 build/stage
 build/dist
 /.idea*
