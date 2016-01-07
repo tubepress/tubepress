@@ -11,6 +11,8 @@
 
 /**
  * @covers tubepress_environment_impl_Environment<extended>
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test_TubePressUnitTest
 {
@@ -126,10 +128,6 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
         $this->assertSame($mockBaseUrl, $actual);
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
     public function testGetBaseUrlNoBootSettingsMultiWpSsl()
     {
         $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
