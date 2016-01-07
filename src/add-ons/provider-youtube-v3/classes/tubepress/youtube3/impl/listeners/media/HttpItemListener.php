@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Handles the heavy lifting for YouTube.
- */
 class tubepress_youtube3_impl_listeners_media_HttpItemListener
 {
     /**
@@ -85,71 +82,23 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $metadata = $event->getArgument('metadataAsArray');
         $index    = $event->getArgument('zeroBasedIndex'); // starts at 0
 
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_UPLOADED)) {
-
-            $this->_applyTimePublished($toReturn, $metadata, $index);
-        };
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_AUTHOR)) {
-
-            $this->_applyAuthor($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_TITLE)) {
-
-            $this->_applyTitle($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_DESCRIPTION)) {
-
-            $this->_applyDescription($toReturn, $metadata, $index);
-        }
-
+        $this->_applyTimePublished($toReturn, $metadata, $index);
+        $this->_applyAuthor($toReturn, $metadata, $index);
+        $this->_applyTitle($toReturn, $metadata, $index);
+        $this->_applyDescription($toReturn, $metadata, $index);
         $this->_applyThumbnail($toReturn, $metadata, $index);
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_KEYWORDS)) {
-
-            $this->_applyKeywords($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_LENGTH)) {
-
-            $this->_applyDuration($toReturn, $metadata, $index);
-        }
+        $this->_applyKeywords($toReturn, $metadata, $index);
+        $this->_applyDuration($toReturn, $metadata, $index);
+        $this->_applyHomeUrl($event->getSubject(), $toReturn);
+        $this->_applyViewCount($toReturn, $metadata, $index);
+        $this->_applyLikes($toReturn, $metadata, $index);
+        $this->_applyDislikes($toReturn, $metadata, $index);
+        $this->_applyFavorites($toReturn, $metadata, $index);
+        $this->_applyComments($toReturn, $metadata, $index);
 
         if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_CATEGORY)) {
 
             $this->_applyCategory($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_URL)) {
-
-            $this->_applyHomeUrl($event->getSubject(), $toReturn);
-        }
-
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_VIEWS)) {
-
-            $this->_applyViewCount($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES)) {
-
-            $this->_applyLikes($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES)) {
-
-            $this->_applyDislikes($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES)) {
-
-            $this->_applyFavorites($toReturn, $metadata, $index);
-        }
-
-        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS)) {
-
-            $this->_applyComments($toReturn, $metadata, $index);
         }
 
         return $toReturn;
@@ -293,7 +242,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $categoryUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
         $categoryUrl->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEO_CATEGORIES);
         $categoryUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, tubepress_youtube3_impl_ApiUtility::PART_SNIPPET)
-            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CATEGORIES_ID, $categoryId);
+                                ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CATEGORIES_ID, $categoryId);
 
         $response      = $this->_apiUtility->getDecodedApiResponse($categoryUrl);
         $responseItems = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
@@ -329,7 +278,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($viewCountRaw !== '') {
 
-            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT] = $viewCountRaw;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT] = intval($viewCountRaw);
         }
     }
 
@@ -343,7 +292,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT] = intval($count);
         }
     }
 
@@ -357,7 +306,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES] = intval($count);
         }
     }
 
@@ -371,7 +320,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED] = intval($count);
         }
     }
 
@@ -385,7 +334,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         if ($count !== '') {
 
-            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT] = $count;
+            $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT] = intval($count);
         }
     }
 

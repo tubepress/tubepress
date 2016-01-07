@@ -863,24 +863,21 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         $url = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
         $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEOS);
 
-        $partsToRequest  = array(tubepress_youtube3_impl_ApiUtility::PART_ID, tubepress_youtube3_impl_ApiUtility::PART_SNIPPET);
-        $fieldsToRequest = array(tubepress_youtube3_impl_ApiUtility::RESOURCE_ID, tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET);
+        $partsToRequest  = array(
 
-        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS) ||
-            $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES) ||
-            $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES) ||
-            $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES) ||
-            $this->_context->get(tubepress_api_options_Names::META_DISPLAY_VIEWS)) {
+            tubepress_youtube3_impl_ApiUtility::PART_ID,
+            tubepress_youtube3_impl_ApiUtility::PART_SNIPPET,
+            tubepress_youtube3_impl_ApiUtility::PART_VIDEO_STATISTICS,
+            tubepress_youtube3_impl_ApiUtility::PART_VIDEO_CONTENT_DETAILS
+        );
 
-            $partsToRequest[]  = tubepress_youtube3_impl_ApiUtility::PART_VIDEO_STATISTICS;
-            $fieldsToRequest[] = tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS;
-        }
+        $fieldsToRequest = array(
 
-        if ($this->_context->get(tubepress_api_options_Names::META_DISPLAY_LENGTH)) {
-
-            $partsToRequest[]  = tubepress_youtube3_impl_ApiUtility::PART_VIDEO_CONTENT_DETAILS;
-            $fieldsToRequest[] = tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS;
-        }
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_ID,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS,
+        );
 
         $fields = sprintf('%s,%s(%s)',
             tubepress_youtube3_impl_ApiUtility::RESPONSE_ETAG,
@@ -904,8 +901,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
          * view count       //statistics.viewCount
          */
         $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_VIDEOS_ID, implode(',', $ids))
-            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, implode(',', $partsToRequest))
-            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, $fields);
+                        ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART,      implode(',', $partsToRequest))
+                        ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS,    $fields);
 
         return $this->_apiUtility->getDecodedApiResponse($url);
     }
