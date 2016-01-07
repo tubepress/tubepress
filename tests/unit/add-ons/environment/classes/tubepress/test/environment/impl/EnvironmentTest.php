@@ -31,11 +31,16 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
      */
     private $_mockBootSettings;
 
+    /**
+     * @var string
+     */
+    private $_projectBasename;
+
     public function onSetup()
     {
         $this->_mockUrlFactory   = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockBootSettings = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
-
+        $this->_projectBasename  = basename(realpath(__DIR__ . '/../../../../../../../../..'));
     }
 
     public function testVersion()
@@ -108,6 +113,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
     public function testGetBaseUrlNoBootSettingsRegularWp()
     {
         $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+
         define('ABSPATH', 'some abspath');
         define('DB_USER', 'user');
 
@@ -121,7 +127,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
         $mockBaseUrl = $this->mock('tubepress_api_url_UrlInterface');
         $mockBaseUrl->shouldReceive('freeze')->once();
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('wp content url/plugins/core')->andReturn($mockBaseUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('wp content url/plugins/' . $this->_projectBasename)->andReturn($mockBaseUrl);
 
         $actual = $this->_sut->getBaseUrl();
 
@@ -146,7 +152,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
         $mockBaseUrl = $this->mock('tubepress_api_url_UrlInterface');
         $mockBaseUrl->shouldReceive('freeze')->once();
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://gimme cookies!/wp-content/plugins/core')->andReturn($mockBaseUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://gimme cookies!/wp-content/plugins/' . $this->_projectBasename)->andReturn($mockBaseUrl);
 
         $actual = $this->_sut->getBaseUrl();
 
@@ -175,7 +181,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
         $mockBaseUrl = $this->mock('tubepress_api_url_UrlInterface');
         $mockBaseUrl->shouldReceive('freeze')->once();
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gimme cookies!/wp-content/plugins/core')->andReturn($mockBaseUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gimme cookies!/wp-content/plugins/' . $this->_projectBasename)->andReturn($mockBaseUrl);
 
         $actual = $this->_sut->getBaseUrl();
 
