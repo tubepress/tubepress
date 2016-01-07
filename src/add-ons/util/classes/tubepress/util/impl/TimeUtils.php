@@ -71,13 +71,15 @@ class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInter
      */
     public function secondsToHumanTime($seconds)
     {
-        $length          = intval($seconds / 60);
-        $leftOverSeconds = $seconds % 60;
-        if ($leftOverSeconds < 10) {
-            $leftOverSeconds = '0' . $leftOverSeconds;
+        $format = $seconds > 3600 ? 'H:i:s' : 'i:s';
+        $raw    = gmdate($format, $seconds);
+
+        if (strpos($raw, '0') === 0) {
+
+            $raw = substr($raw, 1);
         }
-        $length .= ':' . $leftOverSeconds;
-        return $length;
+
+        return $raw;
     }
 
     /**

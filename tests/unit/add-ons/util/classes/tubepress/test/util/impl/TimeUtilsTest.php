@@ -37,10 +37,27 @@ class tubepress_test_util_impl_TimeUtilsTest extends tubepress_api_test_TubePres
         $this->assertEquals('5 years ago', $result);
     }
 
-    public function testSeconds2HumanTime()
+    /**
+     * @dataProvider getDataSecondsToHumanTime
+     */
+    public function testSeconds2HumanTime($seconds, $humanTime)
     {
-        $result = $this->_sut->secondsToHumanTime(63);
-        $this->assertEquals('1:03', $result);
+        $result = $this->_sut->secondsToHumanTime($seconds);
+
+        $this->assertEquals($humanTime, $result);
+    }
+
+    public function getDataSecondsToHumanTime()
+    {
+        return array(
+
+            array(3,    '0:03'),
+            array(60,   '1:00'),
+            array(63,   '1:03'),
+            array(0,    '0:00'),
+            array(3601, '1:00:01'),
+            array(50402, '14:00:02'),
+        );
     }
 
     public function testRfc3339toUnixTime()
