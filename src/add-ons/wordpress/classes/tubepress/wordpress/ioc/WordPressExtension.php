@@ -76,8 +76,10 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
         $toValidate = array(
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD,
-                tubepress_api_options_Names::TUBEPRESS_API_KEY,
             ),
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
+                tubepress_api_options_Names::TUBEPRESS_API_KEY,
+            )
         );
 
         foreach ($toValidate as $type => $optionNames) {

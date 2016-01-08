@@ -70,6 +70,8 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
         $toValidate = array(
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD,
+            ),
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::TUBEPRESS_API_KEY,
             )
         );
