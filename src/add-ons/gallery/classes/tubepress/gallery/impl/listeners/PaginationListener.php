@@ -95,7 +95,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
     private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_api_url_UrlInterface $url)
     {
         $url->removeSchemeAndAuthority();
-        $url->getQuery()->set('tubepress_page', '>>>page-number<<<');
+        $url->getQuery()->set('tubepress_page', '___page-number___');
 
         $vars = array(
 
