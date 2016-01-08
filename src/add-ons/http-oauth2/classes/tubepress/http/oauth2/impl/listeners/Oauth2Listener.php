@@ -81,7 +81,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('OAuth2 signing listener invoked for %s to %s with %d registered provider(s)',
+            $this->_logger->debug(sprintf('OAuth2 signing listener invoked for %s to %s with %d registered OAuth2 provider(s)',
                 $request->getMethod(),
                 $request->getUrl(),
                 count($providers)
@@ -93,7 +93,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
             if ($this->_shouldLog) {
 
                 $this->_logger->debug(sprintf('Seeing if %s wants to authorize %s to %s',
-                    $provider->getName(),
+                    $provider->getDisplayName(),
                     $request->getMethod(),
                     $request->getUrl()
                 ));
@@ -104,7 +104,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
                 if ($this->_shouldLog) {
 
                     $this->_logger->debug(sprintf('%s declined to authorize %s to %s',
-                        $provider->getName(),
+                        $provider->getDisplayName(),
                         $request->getMethod(),
                         $request->getUrl()
                     ));
@@ -116,7 +116,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
             if ($this->_shouldLog) {
 
                 $this->_logger->debug(sprintf('%s wants to authorize %s to %s',
-                    $provider->getName(),
+                    $provider->getDisplayName(),
                     $request->getMethod(),
                     $request->getUrl()
                 ));
@@ -129,7 +129,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
                 if ($this->_shouldLog) {
 
                     $this->_logger->debug(sprintf('No saved token for %s to use, or user requested no signing.',
-                        $provider->getName()
+                        $provider->getDisplayName()
                     ));
                 }
 
@@ -138,16 +138,28 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
 
             if ($token->isExpired()) {
 
+                if ($this->_shouldLog) {
+
+                    $this->_logger->debug('Existing token has expired.');
+                }
+
                 if (!$token->getRefreshToken()) {
 
                     if ($this->_shouldLog) {
 
                         $this->_logger->debug(sprintf('Token for %s has expired and no refresh token available.',
-                            $provider->getName()
+                            $provider->getDisplayName()
                         ));
                     }
 
                     break;
+                }
+
+                if ($this->_shouldLog) {
+
+                    $this->_logger->debug(sprintf('Token for %s has expired. We will try to refresh it.',
+                        $provider->getDisplayName()
+                    ));
                 }
 
                 $oldToken = $token;
@@ -158,7 +170,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
                     if ($this->_shouldLog) {
 
                         $this->_logger->debug(sprintf('Unable to refresh token for %s. Boo.',
-                            $provider->getName()
+                            $provider->getDisplayName()
                         ));
                     }
 
@@ -168,7 +180,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
                 if ($this->_shouldLog) {
 
                     $this->_logger->debug(sprintf('Successfully refreshed token for %s. Yay.',
-                        $provider->getName()
+                        $provider->getDisplayName()
                     ));
                 }
 

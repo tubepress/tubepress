@@ -220,6 +220,8 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
     {
         $this->_mockProvider1->shouldReceive('getName')->atLeast(1)->andReturn('provider-1-name');
         $this->_mockProvider2->shouldReceive('getName')->atLeast(1)->andReturn('provider-2-name');
+        $this->_mockProvider1->shouldReceive('getDisplayName')->atLeast(1)->andReturn('Provider 1 name');
+        $this->_mockProvider2->shouldReceive('getDisplayName')->atLeast(1)->andReturn('Provider 2 name');
     }
 
     private function _setupRequestBasics()
