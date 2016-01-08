@@ -64,6 +64,11 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      */
     private $_mockOauth2Callback;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockContext;
+
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
@@ -75,6 +80,7 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
         $this->_mockEnvironment                 = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockOauth2Initiator             = $this->mock('tubepress_http_oauth2_impl_popup_AuthorizationInitiator');
         $this->_mockOauth2Callback              = $this->mock('tubepress_http_oauth2_impl_popup_RedirectionCallback');
+        $this->_mockContext                     = $this->mock(tubepress_api_options_ContextInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
 
@@ -86,7 +92,8 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
             $this->_mockStringUtils,
             $this->_mockEnvironment,
             $this->_mockOauth2Initiator,
-            $this->_mockOauth2Callback
+            $this->_mockOauth2Callback,
+            $this->_mockContext
         );
 
         $this->_sut->___doNotIgnoreExceptions();

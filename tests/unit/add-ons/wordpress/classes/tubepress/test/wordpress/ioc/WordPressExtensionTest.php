@@ -67,7 +67,12 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 )
             ))->withTag(tubepress_api_options_ReferenceInterface::_);
 
-        $toValidate = array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(tubepress_api_options_Names::SHORTCODE_KEYWORD,),);
+        $toValidate = array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+                tubepress_api_options_Names::SHORTCODE_KEYWORD,
+                tubepress_api_options_Names::TUBEPRESS_API_KEY,
+            )
+        );
 
         foreach ($toValidate as $type => $optionNames) {
             foreach ($optionNames as $optionName) {
@@ -126,6 +131,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_AuthorizationInitiator'))
             ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_RedirectionCallback'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
                 'method'   => 'onAction_admin_enqueue_scripts',
@@ -170,6 +176,10 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2',
                 'method'   => 'onAction_load_admin_page_tubepress_oauth2',
+                'priority' => 100000))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => sprintf('tubepress.wordpress.action.in_plugin_update_message-%s/tubepress.php', basename(TUBEPRESS_ROOT)),
+                'method'   => 'onAction_in_plugin_update_message',
                 'priority' => 100000));
 
         $this->expectRegistration(

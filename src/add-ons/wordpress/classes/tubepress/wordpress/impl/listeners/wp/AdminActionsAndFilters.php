@@ -74,6 +74,11 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
      */
     private $_oauth2Callback;
 
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions                 $wpFunctions,
                                 tubepress_api_url_UrlFactoryInterface                   $urlFactory,
                                 tubepress_api_http_RequestParametersInterface           $requestParams,
@@ -82,7 +87,8 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
                                 tubepress_api_util_StringUtilsInterface                 $stringUtils,
                                 tubepress_api_environment_EnvironmentInterface          $environment,
                                 tubepress_http_oauth2_impl_popup_AuthorizationInitiator $oauth2Initiator,
-                                tubepress_http_oauth2_impl_popup_RedirectionCallback    $oauth2Callback)
+                                tubepress_http_oauth2_impl_popup_RedirectionCallback    $oauth2Callback,
+                                tubepress_api_options_ContextInterface                  $context)
     {
         $this->_wpFunctions                  = $wpFunctions;
         $this->_urlFactory                   = $urlFactory;
@@ -93,6 +99,7 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
         $this->_environment                  = $environment;
         $this->_oauth2AuthorizationInitiator = $oauth2Initiator;
         $this->_oauth2Callback               = $oauth2Callback;
+        $this->_context                      = $context;
     }
 
     /**
@@ -287,7 +294,12 @@ EOT;
 
         if ($this->_environment->isPro()) {
 
-            $queryArgs['pro'] = 'true';
+            $apiKey = tubepress_api_options_Names::TUBEPRESS_API_KEY;
+
+            if ($this->_context->get($apiKey)) {
+
+                $queryArgs['key'] = $apiKey;
+            }
         }
 
         $event->setSubject($queryArgs);
@@ -299,10 +311,15 @@ EOT;
 
         if ($pluginInfo && $this->_environment->isPro()) {
 
-            /**
-             * We don't want to downgrade Pro users.
-             */
-            $pluginInfo->download_url = null;
+            $apiKey = tubepress_api_options_Names::TUBEPRESS_API_KEY;
+
+            if (!$this->_context->get($apiKey)) {
+
+                /**
+                 * We don't want to downgrade Pro users that haven't entered an API key.
+                 */
+                $pluginInfo->download_url = null;
+            }
         }
 
         $event->setSubject($pluginInfo);
@@ -403,5 +420,12 @@ EOT;
         $path = str_replace($userContentUrl, '', $urlAsString);
 
         return $this->_wpFunctions->content_url('tubepress-content' . $path);
+    }
+
+    public function onAction_in_plugin_update_message(tubepress_api_event_EventInterface $event)
+    {
+        printf('<br /><div class="inline notice notice-warning">Enable automatic updates by supplying your TubePress API Key. <a href="%s" target="_blank">Learn how</a>.</div>',
+            'http://support.tubepress.com/customer/portal/articles/2278860-enable-automatic-plugin-updates'
+        );
     }
 }
