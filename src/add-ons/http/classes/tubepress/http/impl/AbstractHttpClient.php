@@ -70,16 +70,16 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
      */
     public function send(tubepress_api_http_message_RequestInterface $request)
     {
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Executing HTTP <code>%s</code> to <code>%s</code>', $request->getMethod(), $request->getUrl()));
-            $this->_logger->debug('Request headers follow:');
-            $this->_logHeaders($request);
-        }
-
         $response = $this->_getQuickResponse($request);
 
         if (!$response) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('Executing HTTP <code>%s</code> to <code>%s</code>', $request->getMethod(), $request->getUrl()));
+                $this->_logger->debug('Request headers follow:');
+                $this->_logHeaders($request);
+            }
 
             $response = $this->doSend($request);
         }
@@ -166,6 +166,11 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
             if (is_array($value)) {
 
                 $value = implode(', ', $value);
+            }
+
+            if (strcasecmp($name, 'authorization') === 0) {
+
+                $value = '-- not shown during logging --';
             }
 
             $this->_logger->debug(sprintf('<code>%s: %s</code>', $name, $value));
