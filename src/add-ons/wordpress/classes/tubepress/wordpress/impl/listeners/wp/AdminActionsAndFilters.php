@@ -299,6 +299,7 @@ EOT;
             if ($this->_context->get($apiKey)) {
 
                 $queryArgs['key'] = $apiKey;
+                $queryArgs['pid'] = 2;
             }
         }
 
@@ -311,12 +312,18 @@ EOT;
 
         if ($pluginInfo && $this->_environment->isPro()) {
 
-            $apiKey = tubepress_api_options_Names::TUBEPRESS_API_KEY;
-
-            if (!$this->_context->get($apiKey)) {
+            if (!$this->_context->get(tubepress_api_options_Names::TUBEPRESS_API_KEY)) {
 
                 /**
                  * We don't want to downgrade Pro users that haven't entered an API key.
+                 */
+                $pluginInfo->download_url = null;
+            }
+
+            if (strpos($pluginInfo->download_url, 'free') !== false) {
+
+                /**
+                 * Extra assurance that we don't downgrade Pro users
                  */
                 $pluginInfo->download_url = null;
             }
@@ -424,8 +431,11 @@ EOT;
 
     public function onAction_in_plugin_update_message(tubepress_api_event_EventInterface $event)
     {
-        printf('<br /><div class="inline notice notice-warning">Enable automatic updates by supplying your TubePress API Key. <a href="%s" target="_blank">Learn how</a>.</div>',
-            'http://support.tubepress.com/customer/portal/articles/2278860-enable-automatic-plugin-updates'
-        );
+        if (!$this->_context->get(tubepress_api_options_Names::TUBEPRESS_API_KEY)) {
+
+            printf('<br /><div class="inline notice notice-warning">Enable automatic updates by supplying your TubePress API Key. <a href="%s" target="_blank">Learn how</a>.</div>',
+                'http://support.tubepress.com/customer/portal/articles/2278860-enable-automatic-plugin-updates'
+            );
+        }
     }
 }
