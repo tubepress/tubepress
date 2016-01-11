@@ -126,11 +126,19 @@
                 return;
             }
 
-            if (openWindow.hasOwnProperty('tubepressOauth2Success')) {
+            try {
 
-                openWindow.close();
+                if (openWindow.hasOwnProperty('tubepressOauth2Success')) {
 
-                win.tubePressBeacon.publish('oauth2.new-token', openWindow.tubepressOauth2Success);
+                    openWindow.close();
+
+                    win.tubePressBeacon.publish('oauth2.new-token', openWindow.tubepressOauth2Success);
+                }
+
+            } catch (e) {
+
+                // if the user is sitting on the provider's site, we will get a SecurityError when
+                // we try to access the window
             }
 
             setTimeout(pollWindow, 300);

@@ -52,7 +52,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
             'body' => array(
                 'code'         => $code,
                 'grant_type'   => 'authorization_code',
-                'redirect_uri' => $redirectUri
+                'redirect_uri' => "$redirectUri",
             )
         ));
         $clientId     = $this->_persistenceHelper->getClientId($provider);

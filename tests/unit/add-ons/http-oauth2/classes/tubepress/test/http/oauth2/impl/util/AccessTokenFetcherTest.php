@@ -184,12 +184,14 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
         $this->_mockProvider->shouldReceive('getDisplayName')->andReturn('Provider name');
         $this->_mockProvider->shouldReceive('onAccessTokenRequest')->once()->with($mockHttpRequest, 'client-id', 'client-secret');
 
+        $mockRedirectUrl->shouldReceive('__toString')->atLeast(1)->andReturn('redirect url');
+
         $this->_mockRedirectionEndpointCalculator->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn($mockRedirectUrl);
         $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('POST', $mockTokenUrl, array(
             'body' => array(
                 'code' => 'the code',
                 'grant_type' => 'authorization_code',
-                'redirect_uri' => $mockRedirectUrl
+                'redirect_uri' => 'redirect url'
             )
         ))->andReturn($mockHttpRequest);
         $this->_mockHttpClient->shouldReceive('send')->once()->with($mockHttpRequest)->andReturn($mockHttpResp);
