@@ -35,7 +35,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     private $_uncachedContainerSupplier;
 
     /**
-     * @var ehough_pulsar_MapClassLoader
+     * @var Symfony\Component\ClassLoader\MapClassLoader
      */
     private $_temporaryClassLoader;
 
@@ -204,9 +204,9 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
     private function _buildTemporaryClassLoader()
     {
-        if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+        if (!class_exists('Symfony\Component\ClassLoader\MapClassLoader', false)) {
 
-            require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/class-loader/MapClassLoader.php';
         }
 
         /**
@@ -214,7 +214,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
          */
         /** @noinspection PhpIncludeInspection */
         $fullClassMap = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
-        $this->_temporaryClassLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
+        $this->_temporaryClassLoader  = new \Symfony\Component\ClassLoader\MapClassLoader($fullClassMap);
         $this->_temporaryClassLoader->register();
     }
 

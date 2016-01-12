@@ -233,12 +233,12 @@ class tubepress_internal_boot_PrimaryBootstrapper
             if (isset($classLoadingArtifacts['map'])
                 && is_array($classLoadingArtifacts['map'])) {
 
-                if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+                if (!class_exists('Symfony\Component\ClassLoader\MapClassLoader', false)) {
 
-                    require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+                    require TUBEPRESS_ROOT . '/vendor/symfony/class-loader/MapClassLoader.php';
                 }
 
-                $mapClassLoader = new ehough_pulsar_MapClassLoader($classLoadingArtifacts['map']);
+                $mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($classLoadingArtifacts['map']);
 
                 $mapClassLoader->register();
             }

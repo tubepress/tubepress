@@ -158,8 +158,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'SimpleXMLElement',
             '/src/php/scripts/boot.php',
             '/ehough/tickertape/debug/',
-            '/ehough/pulsar/Psr4ClassLoader.php',
-            '/ehough/pulsar/Debug',
             '/ehough/iconic/loader/',
             '/ehough/iconic/dumper/YamlDumper.php',
             '/ehough/iconic/dumper/XmlDumper.php',
@@ -203,7 +201,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/vendor/hamcrest',
             '/vendor/mockery',
 
-            '/vendor/symfony/class-loader',
             '/vendor/symfony/config',
             '/vendor/symfony/css-selector',
             '/vendor/symfony/dependency-injection',

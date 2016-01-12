@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "855cfd909a239b1cec5d580f9635c0c8",
-    "content-hash": "362e077124a1fabbecc6bc2712b0e414",
+    "hash": "616ff75825b71ab1919e7986ac049d1b",
+    "content-hash": "6a5a451ea5ecd20d52e704dcee1cf2b3",
     "packages": [
         {
             "name": "ehough/iconic",
@@ -55,53 +55,6 @@
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
             "time": "2014-09-24 18:21:38"
-        },
-        {
-            "name": "ehough/pulsar",
-            "version": "v2.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/pulsar.git",
-                "reference": "58dc5a0620f48134411ed437953dc7ac7fb27208"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/58dc5a0620f48134411ed437953dc7ac7fb27208",
-                "reference": "58dc5a0620f48134411ed437953dc7ac7fb27208",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/finder": "~2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_pulsar": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Intelligent classloaders PHP 5",
-            "homepage": "https://github.com/ehough/pulsar",
-            "keywords": [
-                "autoload",
-                "autoloader",
-                "psr-0"
-            ],
-            "time": "2014-06-19 03:24:43"
         },
         {
             "name": "ehough/stash",
@@ -389,6 +342,58 @@
                 "stream"
             ],
             "time": "2014-08-21 15:47:48"
+        },
+        {
+            "name": "symfony/class-loader",
+            "version": "v2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/class-loader.git",
+                "reference": "ec74b0a279cf3a9bd36172b3e3061591d380ce6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/ec74b0a279cf3a9bd36172b3e3061591d380ce6c",
+                "reference": "ec74b0a279cf3a9bd36172b3e3061591d380ce6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/finder": "~2.0,>=2.0.5|~3.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\ClassLoader\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony ClassLoader Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-12-05 17:37:59"
         },
         {
             "name": "symfony/filesystem",
@@ -1778,58 +1783,6 @@
                 "po"
             ],
             "time": "2015-06-09 08:01:21"
-        },
-        {
-            "name": "symfony/class-loader",
-            "version": "2.8.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/class-loader.git",
-                "reference": "98e9089a428ed0e39423b67352c57ef5910a3269"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/98e9089a428ed0e39423b67352c57ef5910a3269",
-                "reference": "98e9089a428ed0e39423b67352c57ef5910a3269",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "symfony/finder": "~2.0,>=2.0.5|~3.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\ClassLoader\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony ClassLoader Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
         },
         {
             "name": "symfony/config",

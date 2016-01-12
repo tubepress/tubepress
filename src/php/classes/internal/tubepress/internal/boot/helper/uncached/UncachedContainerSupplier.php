@@ -42,7 +42,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     private $_bootSettings;
 
     /**
-     * @var ehough_pulsar_MapClassLoader
+     * @var Symfony\Component\ClassLoader\MapClassLoader
      */
     private $_mapClassLoader;
 
@@ -155,7 +155,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         $fullClassMap  = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
         $finalClassMap = array_merge($fullClassMap, $addonClassMap);
 
-        $this->_mapClassLoader = new ehough_pulsar_MapClassLoader($finalClassMap);
+        $this->_mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($finalClassMap);
         $this->_mapClassLoader->register();
 
         $existingArtifacts = $this->_containerBuilder->getParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);

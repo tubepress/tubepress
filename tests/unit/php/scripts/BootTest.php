@@ -97,8 +97,6 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_api_test_TubePr
             '/vendor/composer/',
             '/ehough/tickertape/debug/',
             '/stash/driver/Sqlite.php',
-            '/ehough/pulsar/Psr4ClassLoader.php',
-            '/ehough/pulsar/Debug',
             '/ehough/iconic/loader/',
             '/ehough/iconic/dumper/YamlDumper.php',
             '/ehough/iconic/dumper/XmlDumper.php',
