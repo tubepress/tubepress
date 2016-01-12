@@ -55,7 +55,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
                                 $manifestName,
                                 tubepress_api_log_LoggerInterface        $logger,
                                 tubepress_api_boot_BootSettingsInterface $bootSettings,
-                                ehough_finder_FinderFactoryInterface     $finderFactory)
+                                tubepress_internal_finder_FinderFactory  $finderFactory)
     {
         $this->_shouldLog           = $logger->isEnabled();
         $this->_logger              = $logger;

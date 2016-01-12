@@ -225,7 +225,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
             return;
         }
 
-        $finderFactory = new ehough_finder_FinderFactory();
+        $finderFactory = new tubepress_internal_finder_FinderFactory();
         $urlFactory    = new tubepress_url_impl_puzzle_UrlFactory();
         $langUtils     = new tubepress_util_impl_LangUtils();
         $stringUtils   = new tubepress_util_impl_StringUtils();

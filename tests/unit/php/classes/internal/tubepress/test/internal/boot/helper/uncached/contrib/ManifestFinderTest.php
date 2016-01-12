@@ -50,7 +50,7 @@ class tubepress_test_internal_boot_helper_uncached_contrib_ManifestFinderTest ex
     {
         $this->_mockLogger        = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockBootSettings  = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
-        $this->_mockFinderFactory = $this->mock('ehough_finder_FinderFactoryInterface');
+        $this->_mockFinderFactory = $this->mock('tubepress_internal_finder_FinderFactory');
         $this->_mockManifest      = array();
 
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);

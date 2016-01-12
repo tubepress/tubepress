@@ -66,8 +66,8 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
         }
 
         $this->expectRegistration(
-            'ehough_finder_FinderFactoryInterface',
-            'ehough_finder_FinderFactory'
+            'finder_factory',
+            'tubepress_internal_finder_FinderFactory'
         );
     }
 

@@ -155,7 +155,7 @@ class tubepress_test_internal_boot_helper_uncached_contrib_ThemeFactoryTest exte
     {
         $this->_mockContext = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEnvironment = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
-        $this->_mockFinderFactory = $this->mock('ehough_finder_FinderFactory');
+        $this->_mockFinderFactory = $this->mock('tubepress_internal_finder_FinderFactory');
 
         return new tubepress_internal_boot_helper_uncached_contrib_ThemeFactory(
 

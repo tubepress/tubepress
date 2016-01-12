@@ -37,7 +37,7 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_
 
     public function onSetup()
     {
-        $this->_mockFilesystemInterface = $this->mock('ehough_filesystem_FilesystemInterface');
+        $this->_mockFilesystemInterface = $this->mock('Symfony\Component\Filesystem\Filesystem');
         $this->_mockSettingsFileReader  = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
         $this->_sut = new tubepress_wordpress_impl_wp_ActivationHook(
 

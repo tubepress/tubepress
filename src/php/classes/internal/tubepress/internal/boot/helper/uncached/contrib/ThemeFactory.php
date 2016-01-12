@@ -18,7 +18,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
     private $_context;
 
     /**
-     * @var ehough_finder_FinderFactoryInterface
+     * @var tubepress_internal_finder_FinderFactory
      */
     private $_finderFactory;
 
@@ -32,7 +32,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
                                 tubepress_api_util_LangUtilsInterface   $langUtils,
                                 tubepress_api_log_LoggerInterface       $log,
                                 tubepress_api_util_StringUtilsInterface $stringUtils,
-                                ehough_finder_FinderFactoryInterface    $finderFactory)
+                                tubepress_internal_finder_FinderFactory $finderFactory)
     {
         parent::__construct($log, $urlFactory, $langUtils, $stringUtils);
 

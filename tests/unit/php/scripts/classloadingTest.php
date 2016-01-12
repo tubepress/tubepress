@@ -117,7 +117,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
         $excludes = array(
 
             '/vendor/doctrine/',
-            '/vendor/symfony/',
             '/vendor/phpunit/',
             '/vendor/ehough/mockery/',
             '/vendor/composer/',
@@ -202,7 +201,16 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'JonnyW',
             '/vendor/jakoch',
             '/vendor/hamcrest',
-            '/vendor/mockery'
+            '/vendor/mockery',
+
+            '/vendor/symfony/class-loader',
+            '/vendor/symfony/config',
+            '/vendor/symfony/css-selector',
+            '/vendor/symfony/dependency-injection',
+            '/vendor/symfony/dom-crawler',
+            '/vendor/symfony/polyfill-mbstring',
+            '/vendor/symfony/process',
+            '/vendor/symfony/yaml',
         );
 
         return '~' . implode('|', $excludes) . '~';

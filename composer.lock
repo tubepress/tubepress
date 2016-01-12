@@ -4,102 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e589b23e34bbb92d753ebbfbf98abbf2",
-    "content-hash": "05e131ec92e3ae1004be73c9ef04d0f1",
+    "hash": "855cfd909a239b1cec5d580f9635c0c8",
+    "content-hash": "362e077124a1fabbecc6bc2712b0e414",
     "packages": [
-        {
-            "name": "ehough/filesystem",
-            "version": "v2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/filesystem.git",
-                "reference": "95caf1ed3569cb4c1bad2bd1e770d3c5c06dc3ee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/95caf1ed3569cb4c1bad2bd1e770d3c5c06dc3ee",
-                "reference": "95caf1ed3569cb4c1bad2bd1e770d3c5c06dc3ee",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_filesystem": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                },
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@tubepress.com",
-                    "homepage": "https://github.com/ehough"
-                }
-            ],
-            "description": "Fork of Symfony's Filesystem Component compatible with PHP 5.2+",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "filesystem"
-            ],
-            "time": "2015-12-01 07:52:38"
-        },
-        {
-            "name": "ehough/finder",
-            "version": "v2.5.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/finder.git",
-                "reference": "49331a426144cb258d4a9ce7f11b33494669681d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/49331a426144cb258d4a9ce7f11b33494669681d",
-                "reference": "49331a426144cb258d4a9ce7f11b33494669681d",
-                "shasum": ""
-            },
-            "require": {
-                "ehough/filesystem": "~2.0",
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_finder": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@tubepress.com",
-                    "homepage": "https://github.com/ehough"
-                }
-            ],
-            "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2015-12-01 20:45:44"
-        },
         {
             "name": "ehough/iconic",
             "version": "v2.5.4",
@@ -482,6 +389,104 @@
                 "stream"
             ],
             "time": "2014-08-21 15:47:48"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "a7ad724530a764d70c168d321ac226ba3d2f10fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a7ad724530a764d70c168d321ac226ba3d2f10fc",
+                "reference": "a7ad724530a764d70c168d321ac226ba3d2f10fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-12-22 10:25:57"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "dd41ae57f4f737be271d944a0cc5f5f21203a7c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/dd41ae57f4f737be271d944a0cc5f5f21203a7c6",
+                "reference": "dd41ae57f4f737be271d944a0cc5f5f21203a7c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-12-05 11:09:21"
         },
         {
             "name": "twig/twig",
@@ -2044,104 +2049,6 @@
                 }
             ],
             "description": "Symfony DomCrawler Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
-        },
-        {
-            "name": "symfony/filesystem",
-            "version": "2.8.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/filesystem.git",
-                "reference": "7e15bed7e943b5ab084e398fd6d1ba8a0663aea5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7e15bed7e943b5ab084e398fd6d1ba8a0663aea5",
-                "reference": "7e15bed7e943b5ab084e398fd6d1ba8a0663aea5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Filesystem\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Filesystem Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
-        },
-        {
-            "name": "symfony/finder",
-            "version": "2.8.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/finder.git",
-                "reference": "11f1c83a35997b3086fd88a5bf0aae5f98e97c7e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/11f1c83a35997b3086fd88a5bf0aae5f98e97c7e",
-                "reference": "11f1c83a35997b3086fd88a5bf0aae5f98e97c7e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Finder\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "time": "2016-01-03 15:33:41"
         },
