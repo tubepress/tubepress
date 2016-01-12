@@ -11,14 +11,13 @@
       "homepage" : "http://tubepress.com"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
     "symfony/finder"                     : "2.8.1",
     "symfony/filesystem"                 : "2.8.1",
-    "ehough/iconic"                      : "~2.5.0",
+    "symfony/dependency-injection"       : "2.8.1",
     "symfony/class-loader"               : "2.8.1",
     "ehough/stash"                       : "~0.12.0",
-    "ehough/tickertape"                  : "~2.5.0",
+    "symfony/event-dispatcher"           : "2.8.1",
     "ehough/templating"                  : "~2.5.0",
     "puzzlehttp/puzzle"                  : "~4.2.0",
     "twig/twig"                          : "1.23.3",
@@ -26,14 +25,12 @@
   },
   "require-dev": {
     "mockery/mockery"              : "0.9.4",
-    "jonnyw/php-phantomjs"         : "^4.0",
     "nervo/yuicompressor"          : "^2.4",
     "phpunit/phpunit"              : "^4.8",
     "sepia/po-parser"              : "~4.2",
     "symfony/config"               : "^2.8",
     "symfony/css-selector"         : "^2.8",
     "symfony/dom-crawler"          : "^2.8",
-    "symfony/dependency-injection" : "^2.8",
     "symfony/process"              : "^2.8",
     "symfony/yaml"                 : "^2.8"
   },

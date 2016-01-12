@@ -142,18 +142,18 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
         /** @noinspection PhpUndefinedClassInspection */
         /**
-         * @var $cachedContainer ehough_iconic_Container
+         * @var $cachedContainer \Symfony\Component\DependencyInjection\ContainerInterface
          */
-        $iconicContainer = new TubePressServiceContainer();
+        $symfonyContainer = new TubePressServiceContainer();
 
         if ($this->_logEnabled) {
 
             $this->_logger->debug('Done rehydrating cached service container.');
         }
 
-        $tubePressContainer = new tubepress_internal_ioc_Container($iconicContainer);
+        $tubePressContainer = new tubepress_internal_ioc_Container($symfonyContainer);
 
-        $this->_setEphemeralServicesToContainer($tubePressContainer, $iconicContainer);
+        $this->_setEphemeralServicesToContainer($tubePressContainer, $symfonyContainer);
 
         return $tubePressContainer;
     }
@@ -176,7 +176,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
         $this->_buildTemporaryClassLoader();
         $this->_buildUncachedContainerSupplier();
 
-        $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_bootSettings);
+        $result             = $this->_uncachedContainerSupplier->getNewSymfonyContainer($this->_bootSettings);
         $tubePressContainer = new tubepress_internal_ioc_Container($result);
 
         spl_autoload_unregister(array($this->_temporaryClassLoader, 'loadClass'));
@@ -186,12 +186,12 @@ class tubepress_internal_boot_helper_ContainerSupplier
         return $tubePressContainer;
     }
 
-    private function _setEphemeralServicesToContainer(tubepress_api_ioc_ContainerInterface $tubePressContainer,
-                                                      ehough_iconic_ContainerInterface              $iconicContainer)
+    private function _setEphemeralServicesToContainer(tubepress_api_ioc_ContainerInterface                      $tubePressContainer,
+                                                      \Symfony\Component\DependencyInjection\ContainerInterface $symfonyContainer)
     {
         $tubePressContainer->set('tubepress_api_ioc_ContainerInterface',      $tubePressContainer);
-        $tubePressContainer->set('ehough_iconic_ContainerInterface',                   $iconicContainer);
-        $tubePressContainer->set('tubepress_internal_logger_BootLogger',             $this->_logger);
+        $tubePressContainer->set('symfony_service_container',                 $symfonyContainer);
+        $tubePressContainer->set('tubepress_internal_logger_BootLogger',      $this->_logger);
         $tubePressContainer->set(tubepress_api_boot_BootSettingsInterface::_, $this->_bootSettings);
     }
 

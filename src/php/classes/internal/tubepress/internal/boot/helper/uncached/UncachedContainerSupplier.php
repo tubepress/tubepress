@@ -32,7 +32,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     private $_containerBuilder;
 
     /**
-     * @var ehough_iconic_dumper_DumperInterface
+     * @var \Symfony\Component\DependencyInjection\Dumper\DumperInterface
      */
     private $_containerDumper;
 
@@ -75,7 +75,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         $this->_addonFactory   = $addonFactory;
     }
 
-    public function getNewIconicContainer()
+    public function getNewSymfonyContainer()
     {
         if (!isset($this->_containerBuilder)) {
 
@@ -83,8 +83,8 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         }
 
         $this->_containerBuilder->set('tubepress_api_ioc_ContainerInterface',      $this->_containerBuilder);
-        $this->_containerBuilder->set('ehough_iconic_ContainerInterface',                   $this->_containerBuilder->getDelegateContainerBuilder());
-        $this->_containerBuilder->set('tubepress_internal_logger_BootLogger',             $this->_logger);
+        $this->_containerBuilder->set('symfony_service_container',                 $this->_containerBuilder->getDelegateContainerBuilder());
+        $this->_containerBuilder->set('tubepress_internal_logger_BootLogger',      $this->_logger);
         $this->_containerBuilder->set(tubepress_api_boot_BootSettingsInterface::_, $this->_bootSettings);
 
         $addons = $this->_findAllAddons();
@@ -101,7 +101,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
             spl_autoload_unregister(array($this->_mapClassLoader, 'loadClass'));
         }
 
-        return $this->_convertToIconicContainer($this->_containerBuilder);
+        return $this->_convertToSymfonyContainer($this->_containerBuilder);
     }
 
     private function _findAllAddons()
@@ -173,16 +173,16 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     /**
      * @param tubepress_internal_ioc_ContainerBuilder $containerBuilder
      *
-     * @return ehough_iconic_ContainerInterface
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    private function _convertToIconicContainer(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
+    private function _convertToSymfonyContainer(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         if ($this->_shouldLog) {
 
             $this->_logger->debug('Preparing to store boot to cache.');
         }
 
-        $dumpedContainerText = $this->_getDumpedIconicContainerAsString($containerBuilder->getDelegateContainerBuilder());
+        $dumpedContainerText = $this->_getDumpedSymfonyContainerAsString($containerBuilder->getDelegateContainerBuilder());
 
         if ($this->_bootSettings->isSystemCacheEnabled()) {
 
@@ -256,7 +256,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         return new TubePressServiceContainer();
     }
 
-    private function _getDumpedIconicContainerAsString(ehough_iconic_ContainerBuilder $containerBuilder)
+    private function _getDumpedSymfonyContainerAsString(\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         if ($this->_shouldLog) {
 
@@ -270,7 +270,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
         if (!isset($this->_containerDumper)) {
 
-            $this->_containerDumper = new ehough_iconic_dumper_PhpDumper($containerBuilder);
+            $this->_containerDumper = new \Symfony\Component\DependencyInjection\Dumper\PhpDumper($containerBuilder);
         }
 
         $dumped = $this->_containerDumper->dump($dumpConfig);
@@ -327,7 +327,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         $this->_containerBuilder = $containerBuilder;
     }
 
-    public function __setContainerDumper(ehough_iconic_dumper_DumperInterface $dumper)
+    public function __setContainerDumper(\Symfony\Component\DependencyInjection\Dumper\DumperInterface $dumper)
     {
         $this->_containerDumper = $dumper;
     }

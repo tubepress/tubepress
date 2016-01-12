@@ -26,7 +26,7 @@ class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress
 
     public function onSetup()
     {
-        $this->_mockDispatcher = $this->mock('ehough_tickertape_ContainerAwareEventDispatcher');
+        $this->_mockDispatcher = $this->mock('Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher');
 
         $this->_sut = new tubepress_event_impl_tickertape_EventDispatcher($this->_mockDispatcher);
     }

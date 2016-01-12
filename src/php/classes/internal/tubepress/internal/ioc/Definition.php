@@ -12,29 +12,29 @@
 class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionInterface
 {
     /**
-     * @var ehough_iconic_Definition
+     * @var \Symfony\Component\DependencyInjection\Definition
      */
-    private $_underlyingIconicDefinition;
+    private $_underlyingSymfonyDefinition;
 
     public function __construct($class = null, array $arguments = array())
     {
-        $cleanedArgs = $this->convertToIconicReferenceIfNecessary($arguments);
+        $cleanedArgs = $this->convertToSymfonyReferenceIfNecessary($arguments);
 
-        $this->_underlyingIconicDefinition = new ehough_iconic_Definition($class, $cleanedArgs);
+        $this->_underlyingSymfonyDefinition = new \Symfony\Component\DependencyInjection\Definition($class, $cleanedArgs);
     }
 
-    public static function fromIconicDefinition(ehough_iconic_Definition $definition)
+    public static function fromSymfonyDefinition(\Symfony\Component\DependencyInjection\Definition $definition)
     {
         $toReturn = new self();
 
-        $toReturn->setIconicDefinition($definition);
+        $toReturn->setSymfonyDefinition($definition);
 
         return $toReturn;
     }
 
-    private function setIconicDefinition(ehough_iconic_Definition $definition)
+    private function setSymfonyDefinition(\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        $this->_underlyingIconicDefinition = $definition;
+        $this->_underlyingSymfonyDefinition = $definition;
     }
 
     /**
@@ -49,9 +49,9 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function addArgument($argument)
     {
-        $cleaned = $this->convertToIconicReferenceIfNecessary($argument);
+        $cleaned = $this->convertToSymfonyReferenceIfNecessary($argument);
 
-        $this->_underlyingIconicDefinition->addArgument($cleaned);
+        $this->_underlyingSymfonyDefinition->addArgument($cleaned);
 
         return $this;
     }
@@ -68,9 +68,9 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setArguments(array $arguments)
     {
-        $cleaned = array_map(array($this, 'convertToIconicReferenceIfNecessary'), $arguments);
+        $cleaned = array_map(array($this, 'convertToSymfonyReferenceIfNecessary'), $arguments);
 
-        $this->_underlyingIconicDefinition->setArguments($cleaned);
+        $this->_underlyingSymfonyDefinition->setArguments($cleaned);
 
         return $this;
     }
@@ -90,13 +90,13 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function replaceArgument($index, $argument)
     {
-        $cleaned = $this->convertToIconicReferenceIfNecessary($argument);
+        $cleaned = $this->convertToSymfonyReferenceIfNecessary($argument);
 
         try {
 
-            $this->_underlyingIconicDefinition->replaceArgument($index, $cleaned);
+            $this->_underlyingSymfonyDefinition->replaceArgument($index, $cleaned);
 
-        } catch (ehough_iconic_exception_OutOfBoundsException $e) {
+        } catch (\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException $e) {
 
             throw new OutOfBoundsException($e);
         }
@@ -121,11 +121,11 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
     {
         try {
 
-            $iconicArgument = $this->_underlyingIconicDefinition->getArgument($index);
+            $symfonyArgument = $this->_underlyingSymfonyDefinition->getArgument($index);
 
-            return $this->convertToTubePressReferenceIfNecessary($iconicArgument);
+            return $this->convertToTubePressReferenceIfNecessary($symfonyArgument);
 
-        } catch (ehough_iconic_exception_OutOfBoundsException $e) {
+        } catch (\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException $e) {
 
             throw new OutOfBoundsException($e);
         }
@@ -148,11 +148,11 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
     {
         try {
 
-            $cleaned = $this->convertToIconicReferenceIfNecessary($arguments);
+            $cleaned = $this->convertToSymfonyReferenceIfNecessary($arguments);
 
-            $this->_underlyingIconicDefinition->addMethodCall($method, $cleaned);
+            $this->_underlyingSymfonyDefinition->addMethodCall($method, $cleaned);
 
-        } catch (ehough_iconic_exception_InvalidArgumentException $e) {
+        } catch (\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
 
             throw new InvalidArgumentException($e);
         }
@@ -160,22 +160,22 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
         return $this;
     }
 
-    public function convertToIconicReferenceIfNecessary($candidate)
+    public function convertToSymfonyReferenceIfNecessary($candidate)
     {
-        return $this->_convertReferences($candidate, 'tubepress_api_ioc_Reference', 'ehough_iconic_Reference');
+        return $this->_convertReferences($candidate, 'tubepress_api_ioc_Reference', 'Symfony\Component\DependencyInjection\Reference');
     }
 
     public function convertToTubePressReferenceIfNecessary($candidate)
     {
-        return $this->_convertReferences($candidate, 'ehough_iconic_Reference', 'tubepress_api_ioc_Reference');
+        return $this->_convertReferences($candidate, 'Symfony\Component\DependencyInjection\Reference', 'tubepress_api_ioc_Reference');
     }
 
     /**
-     * @return ehough_iconic_Definition
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
-    public function getUnderlyingIconicDefinition()
+    public function getUnderlyingSymfonyDefinition()
     {
-        return $this->_underlyingIconicDefinition;
+        return $this->_underlyingSymfonyDefinition;
     }
 
     private function _convertReferences($candidate, $from, $to)
@@ -209,7 +209,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function addTag($name, array $attributes = array())
     {
-        $this->_underlyingIconicDefinition->addTag($name, $attributes);
+        $this->_underlyingSymfonyDefinition->addTag($name, $attributes);
 
         return $this;
     }
@@ -226,7 +226,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function clearTag($name)
     {
-        $this->_underlyingIconicDefinition->clearTag($name);
+        $this->_underlyingSymfonyDefinition->clearTag($name);
 
         return $this;
     }
@@ -241,7 +241,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function clearTags()
     {
-        $this->_underlyingIconicDefinition->clearTags();
+        $this->_underlyingSymfonyDefinition->clearTags();
 
         return $this;
     }
@@ -256,9 +256,9 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getArguments()
     {
-        $iconicArguments = $this->_underlyingIconicDefinition->getArguments();
+        $symfonyArguments = $this->_underlyingSymfonyDefinition->getArguments();
 
-        return $this->convertToTubePressReferenceIfNecessary($iconicArguments);
+        return $this->convertToTubePressReferenceIfNecessary($symfonyArguments);
     }
 
     /**
@@ -271,7 +271,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getClass()
     {
-        return $this->_underlyingIconicDefinition->getClass();
+        return $this->_underlyingSymfonyDefinition->getClass();
     }
 
     /**
@@ -284,7 +284,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getConfigurator()
     {
-        return $this->_underlyingIconicDefinition->getConfigurator();
+        return $this->_underlyingSymfonyDefinition->getConfigurator();
     }
 
     /**
@@ -297,7 +297,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getDecoratedService()
     {
-        return $this->_underlyingIconicDefinition->getDecoratedService();
+        return $this->_underlyingSymfonyDefinition->getDecoratedService();
     }
 
     /**
@@ -310,7 +310,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getFactoryClass()
     {
-        return $this->_underlyingIconicDefinition->getFactoryClass();
+        return $this->_underlyingSymfonyDefinition->getFactoryClass();
     }
 
     /**
@@ -323,7 +323,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getFile()
     {
-        return $this->_underlyingIconicDefinition->getFile();
+        return $this->_underlyingSymfonyDefinition->getFile();
     }
 
     /**
@@ -336,7 +336,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getFactoryMethod()
     {
-        return $this->_underlyingIconicDefinition->getFactoryMethod();
+        return $this->_underlyingSymfonyDefinition->getFactoryMethod();
     }
 
     /**
@@ -349,7 +349,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getFactoryService()
     {
-        return $this->_underlyingIconicDefinition->getFactoryService();
+        return $this->_underlyingSymfonyDefinition->getFactoryService();
     }
 
     /**
@@ -362,9 +362,9 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getMethodCalls()
     {
-        $iconicMethodCalls = $this->_underlyingIconicDefinition->getMethodCalls();
+        $symfonyMethodCalls = $this->_underlyingSymfonyDefinition->getMethodCalls();
 
-        return $this->convertToTubePressReferenceIfNecessary($iconicMethodCalls);
+        return $this->convertToTubePressReferenceIfNecessary($symfonyMethodCalls);
     }
 
     /**
@@ -377,7 +377,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getProperties()
     {
-        return $this->_underlyingIconicDefinition->getProperties();
+        return $this->_underlyingSymfonyDefinition->getProperties();
     }
 
     /**
@@ -392,7 +392,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getTag($name)
     {
-        return $this->_underlyingIconicDefinition->getTag($name);
+        return $this->_underlyingSymfonyDefinition->getTag($name);
     }
 
     /**
@@ -405,7 +405,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function getTags()
     {
-        return $this->_underlyingIconicDefinition->getTags();
+        return $this->_underlyingSymfonyDefinition->getTags();
     }
 
     /**
@@ -420,7 +420,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function hasMethodCall($method)
     {
-        return $this->_underlyingIconicDefinition->hasMethodCall($method);
+        return $this->_underlyingSymfonyDefinition->hasMethodCall($method);
     }
 
     /**
@@ -435,7 +435,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function hasTag($name)
     {
-        return $this->_underlyingIconicDefinition->hasTag($name);
+        return $this->_underlyingSymfonyDefinition->hasTag($name);
     }
 
     /**
@@ -450,7 +450,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function removeMethodCall($method)
     {
-        $this->_underlyingIconicDefinition->removeMethodCall($method);
+        $this->_underlyingSymfonyDefinition->removeMethodCall($method);
 
         return $this;
     }
@@ -467,7 +467,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setClass($class)
     {
-        $this->_underlyingIconicDefinition->setClass($class);
+        $this->_underlyingSymfonyDefinition->setClass($class);
 
         return $this;
     }
@@ -484,7 +484,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setConfigurator($callable)
     {
-        $this->_underlyingIconicDefinition->setConfigurator($callable);
+        $this->_underlyingSymfonyDefinition->setConfigurator($callable);
 
         return $this;
     }
@@ -504,7 +504,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setDecoratedService($id, $renamedId = null)
     {
-        $this->_underlyingIconicDefinition->setDecoratedService($id, $renamedId);
+        $this->_underlyingSymfonyDefinition->setDecoratedService($id, $renamedId);
 
         return $this;
     }
@@ -522,7 +522,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setFactoryClass($factoryClass)
     {
-        $this->_underlyingIconicDefinition->setFactoryClass($factoryClass);
+        $this->_underlyingSymfonyDefinition->setFactoryClass($factoryClass);
 
         return $this;
     }
@@ -539,7 +539,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setFactoryMethod($factoryMethod)
     {
-        $this->_underlyingIconicDefinition->setFactoryMethod($factoryMethod);
+        $this->_underlyingSymfonyDefinition->setFactoryMethod($factoryMethod);
 
         return $this;
     }
@@ -556,7 +556,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setFactoryService($factoryService)
     {
-        $this->_underlyingIconicDefinition->setFactoryService($factoryService);
+        $this->_underlyingSymfonyDefinition->setFactoryService($factoryService);
 
         return $this;
     }
@@ -573,7 +573,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setFile($file)
     {
-        $this->_underlyingIconicDefinition->setFile($file);
+        $this->_underlyingSymfonyDefinition->setFile($file);
 
         return $this;
     }
@@ -590,9 +590,9 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setMethodCalls(array $calls = array())
     {
-        $cleaned = $this->convertToIconicReferenceIfNecessary($calls);
+        $cleaned = $this->convertToSymfonyReferenceIfNecessary($calls);
 
-        $this->_underlyingIconicDefinition->setMethodCalls($cleaned);
+        $this->_underlyingSymfonyDefinition->setMethodCalls($cleaned);
 
         return $this;
     }
@@ -608,7 +608,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setProperties(array $properties)
     {
-        $this->_underlyingIconicDefinition->setProperties($properties);
+        $this->_underlyingSymfonyDefinition->setProperties($properties);
 
         return $this;
     }
@@ -624,7 +624,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setProperty($name, $value)
     {
-        $this->_underlyingIconicDefinition->setProperty($name, $value);
+        $this->_underlyingSymfonyDefinition->setProperty($name, $value);
 
         return $this;
     }
@@ -641,7 +641,7 @@ class tubepress_internal_ioc_Definition implements tubepress_api_ioc_DefinitionI
      */
     public function setTags(array $tags)
     {
-        $this->_underlyingIconicDefinition->setTags($tags);
+        $this->_underlyingSymfonyDefinition->setTags($tags);
 
         return $this;
     }

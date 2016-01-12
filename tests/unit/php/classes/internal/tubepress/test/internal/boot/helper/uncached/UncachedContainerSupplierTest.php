@@ -60,7 +60,7 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
         $this->_mockManifestFinder   = $this->mock('tubepress_internal_boot_helper_uncached_contrib_ManifestFinder');
         $this->_mockCompiler         = $this->mock('tubepress_internal_boot_helper_uncached_Compiler');
         $this->_mockContainerBuilder = $this->mock('tubepress_internal_ioc_ContainerBuilder');
-        $this->_mockContainerDumper  = $this->mock('ehough_iconic_dumper_DumperInterface');
+        $this->_mockContainerDumper  = $this->mock('Symfony\Component\DependencyInjection\Dumper\DumperInterface');
         $this->_mockBootSettings     = $this->mock('tubepress_internal_boot_BootSettings');
         $this->_mockAddonFactory     = $this->mock('tubepress_internal_boot_helper_uncached_contrib_AddonFactory');
 
@@ -95,9 +95,9 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
         $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of /abcdef/TubePress-99.99.99-ServiceContainer.php');
         $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('/abcdef');
 
-        $result = $this->_sut->getNewIconicContainer();
+        $result = $this->_sut->getNewSymfonyContainer();
 
-        $this->assertInstanceOf('ehough_iconic_ContainerInterface', $result);
+        $this->assertInstanceOf('\Symfony\Component\DependencyInjection\ContainerInterface', $result);
     }
 
     public function testGetContainerSuccessfullySaved()
@@ -108,11 +108,11 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
 
         $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($mockSystemDir);
 
-        $result = $this->_sut->getNewIconicContainer();
+        $result = $this->_sut->getNewSymfonyContainer();
 
         $this->assertFileExists($mockSystemDir . '/TubePress-99.99.99-ServiceContainer.php');
 
-        $this->assertInstanceOf('ehough_iconic_ContainerInterface', $result);
+        $this->assertInstanceOf('\Symfony\Component\DependencyInjection\ContainerInterface', $result);
     }
 
     private function _setupMocks($times)
@@ -121,7 +121,7 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
             'one' => array('two', 'three'),
             'foo' => array('baz' => array('somethin'))
         );
-        $mockIconicBuilder = $this->mock('ehough_iconic_ContainerBuilder');
+        $mockSymfonyBuilder = $this->mock('\Symfony\Component\DependencyInjection\ContainerBuilder');
         $mockAddon1        = $this->mock('tubepress_api_contrib_AddonInterface');
         $mockAddon2        = $this->mock('tubepress_api_contrib_AddonInterface');
         $mockAddons        = array($mockAddon1, $mockAddon2);
@@ -146,12 +146,12 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
         $this->_mockContainerDumper->shouldReceive('dump')->once()->with(array(
 
             'class' => 'TubePressServiceContainer'
-        ))->andReturn('<?php class TubePressServiceContainer extends ehough_iconic_Container {}');
+        ))->andReturn('<?php class TubePressServiceContainer extends Symfony\Component\DependencyInjection\Container {}');
 
-        $this->_mockContainerBuilder->shouldReceive('getDelegateContainerBuilder')->times($times)->andReturn($mockIconicBuilder);
+        $this->_mockContainerBuilder->shouldReceive('getDelegateContainerBuilder')->times($times)->andReturn($mockSymfonyBuilder);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with(tubepress_api_boot_BootSettingsInterface::_, $this->_mockBootSettings);
-        $this->_mockContainerBuilder->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicBuilder);
+        $this->_mockContainerBuilder->shouldReceive('set')->once()->with('symfony_service_container', $mockSymfonyBuilder);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', $this->_mockContainerBuilder);
         $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(
             tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,

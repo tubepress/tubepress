@@ -15,33 +15,10 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_event_impl_tickertape_EventBase extends ehough_tickertape_GenericEvent implements tubepress_api_event_EventInterface
+class tubepress_event_impl_tickertape_EventBase extends \Symfony\Component\EventDispatcher\GenericEvent implements tubepress_api_event_EventInterface
 {
-    /**
-     * @var string The modifiable subject.
-     */
-    private $_subject;
-
-    /**
-     * Encapsulate an event with $subject, $args, and $data.
-     *
-     * @param mixed $subject   The subject of the event, usually an object.
-     * @param array $arguments Arguments to store in the event.
-     */
-    public function __construct($subject = null, array $arguments = array())
-    {
-        $this->_subject = $subject;
-
-        $this->setArguments($arguments);
-    }
-
-    public function getSubject()
-    {
-        return $this->_subject;
-    }
-
     public function setSubject($newSubject)
     {
-        $this->_subject = $newSubject;
+        $this->subject = $newSubject;
     }
 }

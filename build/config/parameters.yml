@@ -73,22 +73,8 @@ parameters:
     - /vendor/autoload.php
     - /vendor/bin
     - /vendor/doctrine
-    - /vendor/ehough/contemplate/src/test
     - /vendor/ehough/filesystem/src/test
     - /vendor/ehough/finder/src/test
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/dumper/GraphvizDumper.php
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/dumper/XmlDumper.php
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/dumper/YamlDumper.php
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/ExpressionLanguage.php
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/loader
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/Scope*
-    - /vendor/ehough/iconic/src/main/php/ehough/iconic/SimpleXMLElement.php
-    - /vendor/ehough/iconic/src/test
-    - /vendor/ehough/mockery
-    - /vendor/ehough/pulsar/src/main/php/ehough/pulsar/ClassCollectionLoader.php
-    - /vendor/ehough/pulsar/src/main/php/ehough/pulsar/WinCacheClassLoader.php
-    - /vendor/ehough/pulsar/src/main/php/ehough/pulsar/XcacheClassLoader.php
-    - /vendor/ehough/pulsar/src/test
     - /vendor/ehough/shortstop/src/test
     - /vendor/ehough/stash/src/main/php/ehough/stash/driver/Apc.php
     - /vendor/ehough/stash/src/main/php/ehough/stash/driver/BlackHole.php
@@ -98,8 +84,6 @@ parameters:
     - /vendor/ehough/stash/src/main/php/ehough/stash/driver/Xcache.php
     - /vendor/ehough/stash/src/test
     - /vendor/ehough/templating/src/test
-    - /vendor/ehough/tickertape/src/main/php/ehough/tickertape/debug
-    - /vendor/ehough/tickertape/src/test
     - /vendor/jakoch
     - /vendor/jonnyw
     - /vendor/nervo
@@ -119,7 +103,6 @@ parameters:
     - /vendor/twig/twig/test
     
   stage.bootclasses:
-    - ehough_iconic_Container
     - tubepress_internal_boot_helper_ContainerSupplier
     - tubepress_internal_boot_BootSettings
     - tubepress_internal_ioc_Container
