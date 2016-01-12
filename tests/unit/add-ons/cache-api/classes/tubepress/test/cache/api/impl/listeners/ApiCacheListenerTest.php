@@ -66,7 +66,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
 
     public function onSetup()
     {
-        $this->_mockApiCache  = $this->mock('ehough_stash_interfaces_PoolInterface');
+        $this->_mockApiCache  = $this->mock('Stash\Interfaces\PoolInterface');
         $this->_mockLogger    = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockContext   = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEvent     = $this->mock('tubepress_api_event_EventInterface');
@@ -75,7 +75,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
         $this->_mockUrl       = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrl       = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockBody      = $this->mock('tubepress_api_streams_StreamInterface');
-        $this->_mockCacheItem = $this->mock('ehough_stash_interfaces_ItemInterface');
+        $this->_mockCacheItem = $this->mock('Stash\Interfaces\ItemInterface');
         $this->_sut           = new tubepress_cache_api_impl_listeners_ApiCacheListener(
 
             $this->_mockLogger,

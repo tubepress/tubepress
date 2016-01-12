@@ -22,13 +22,13 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     private $_context;
 
     /**
-     * @var ehough_stash_interfaces_PoolInterface
+     * @var \Stash\Interfaces\PoolInterface
      */
     private $_apiCache;
 
     public function __construct(tubepress_api_log_LoggerInterface      $logger,
                                 tubepress_api_options_ContextInterface $context,
-                                ehough_stash_interfaces_PoolInterface  $apiCache)
+                                \Stash\Interfaces\PoolInterface        $apiCache)
     {
         $this->_logger   = $logger;
         $this->_context  = $context;
@@ -122,7 +122,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     /**
      * @param tubepress_api_url_UrlInterface $url
      *
-     * @return ehough_stash_interfaces_ItemInterface
+     * @return \Stash\Interfaces\ItemInterface
      */
     private function _getItem(tubepress_api_url_UrlInterface $url)
     {
@@ -156,7 +156,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     /**
      * @param tubepress_api_url_UrlInterface $url
      *
-     * @return ehough_stash_interfaces_ItemInterface
+     * @return \Stash\Interfaces\ItemInterface
      */
     private function _getCachedItem(tubepress_api_url_UrlInterface $url)
     {
@@ -168,7 +168,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
         }
 
         /**
-         * @var $result ehough_stash_interfaces_ItemInterface
+         * @var $result \Stash\Interfaces\ItemInterface
          */
         $result = $this->_getItem($url);
 

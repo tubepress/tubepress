@@ -97,7 +97,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
             }
         }
 
-        $driver = new ehough_stash_driver_FileSystem();
+        $driver = new \Stash\Driver\FileSystem();
         $driver->setOptions(array('path' => $dir));
 
         return $driver;

@@ -201,6 +201,8 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/vendor/symfony/polyfill-mbstring',
             '/vendor/symfony/process',
             '/vendor/symfony/yaml',
+
+            '/vendor/tedivm/stash/tests',
         );
 
         return '~' . implode('|', $excludes) . '~';

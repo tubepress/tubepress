@@ -233,7 +233,7 @@ return array(
     'system' => array(
         'cache' => array(
 
-            'instance'  => new ehough_stash_Pool(new ehough_stash_driver_Ephemeral()),
+            'instance'  => new Stash\Pool(new Stash\Driver\Ephemeral()),
             'killerKey' => 'hello',
         ),
         'add-ons' => array(

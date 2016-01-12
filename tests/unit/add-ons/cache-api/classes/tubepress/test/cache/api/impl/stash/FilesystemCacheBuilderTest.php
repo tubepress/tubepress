@@ -58,6 +58,6 @@ class tubepress_test_cache_api_impl_stash_FilesystemCacheBuilderTest extends tub
 
         $result = $this->_sut->buildFilesystemDriver();
 
-        $this->assertInstanceOf('ehough_stash_interfaces_DriverInterface', $result);
+        $this->assertInstanceOf('Stash\Interfaces\DriverInterface', $result);
     }
 }

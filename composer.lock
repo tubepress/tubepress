@@ -4,61 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b77306bceb098cff622afd3ee52952f7",
-    "content-hash": "47284673433bf81f84faf411b9cedd52",
+    "hash": "b904bf500bc4869765a6d56edf1d3464",
+    "content-hash": "648c3d49e14903d5f7d0df03b9135984",
     "packages": [
-        {
-            "name": "ehough/stash",
-            "version": "v0.12.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/stash.git",
-                "reference": "fb3b6d0ce35e331835022f7daf63aa0e9cc415b5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/fb3b6d0ce35e331835022f7daf63aa0e9cc415b5",
-                "reference": "fb3b6d0ce35e331835022f7daf63aa0e9cc415b5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "1.1.*",
-                "phpunit/phpunit": "4.3.*",
-                "satooshi/php-coveralls": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_stash": "src/main/php",
-                    "ehough_stash_test": "src/test/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@tubepress.com",
-                    "homepage": "https://github.com/ehough"
-                }
-            ],
-            "description": "Fork of tedivm/stash compatible with PHP 5.2+",
-            "homepage": "http://github.com/ehough/stash",
-            "keywords": [
-                "apc",
-                "cache",
-                "caching",
-                "memcached",
-                "redis",
-                "sessions"
-            ],
-            "time": "2015-12-01 00:17:07"
-        },
         {
             "name": "puzzlehttp/puzzle",
             "version": "v4.2.2",
@@ -514,6 +462,60 @@
             "description": "Symfony Templating Component",
             "homepage": "https://symfony.com",
             "time": "2015-11-18 13:45:00"
+        },
+        {
+            "name": "tedivm/stash",
+            "version": "v0.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tedious/Stash.git",
+                "reference": "5b830f6a0e4626e5cd02c862d37721ca16820a13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tedious/Stash/zipball/5b830f6a0e4626e5cd02c862d37721ca16820a13",
+                "reference": "5b830f6a0e4626e5cd02c862d37721ca16820a13",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "1.1.*",
+                "phpunit/phpunit": "4.3.*",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stash\\": "src/Stash/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Hafner",
+                    "email": "tedivm@tedivm.com"
+                },
+                {
+                    "name": "Josh Hall-Bachner",
+                    "email": "charlequin@gmail.com"
+                }
+            ],
+            "description": "The place to keep your cache.",
+            "homepage": "http://github.com/tedious/Stash",
+            "keywords": [
+                "apc",
+                "cache",
+                "caching",
+                "memcached",
+                "redis",
+                "sessions"
+            ],
+            "time": "2015-01-17 07:51:57"
         },
         {
             "name": "twig/twig",
