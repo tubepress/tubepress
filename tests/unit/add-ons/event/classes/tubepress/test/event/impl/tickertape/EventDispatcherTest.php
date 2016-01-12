@@ -20,7 +20,7 @@ class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockDispatcher;
 
@@ -76,7 +76,7 @@ class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress
     {
         $event = $this->mock('tubepress_api_event_EventInterface');
 
-        $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', Mockery::on(function ($event) {
 
             return $event instanceof tubepress_event_impl_tickertape_TickertapeEventWrapper;
 
@@ -91,7 +91,7 @@ class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress
     {
         $event = new tubepress_event_impl_tickertape_EventBase();
 
-        $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', Mockery::on(function ($event) {
 
             return $event instanceof tubepress_event_impl_tickertape_EventBase;
         }))->andReturn(array('x'));

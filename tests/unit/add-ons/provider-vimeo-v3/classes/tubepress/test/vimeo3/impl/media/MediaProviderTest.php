@@ -21,17 +21,17 @@ class tubepress_test_vimeo2_impl_media_MediaProviderTest extends tubepress_api_t
 
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpCollector;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFeedHandler;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEnvironment;
 

@@ -15,37 +15,37 @@
 class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCompiler;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockManifestFinder;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainerBuilder;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainerDumper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBootSettings;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockAddonFactory;
 
@@ -80,7 +80,7 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
         $this->_sut->__setContainerDumper($this->_mockContainerDumper);
         $this->_sut->__setSerializer(array($this, '__callbackSerialize'));
 
-        ehough_mockery_Mockery::ducktype();
+        Mockery::ducktype();
     }
 
     public function onTeardown()
@@ -158,7 +158,7 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
             array('add-ons' => 'hiya')
         );
         $this->_mockContainerBuilder->shouldReceive('getParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array('ww' => 'xx'));
-        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, ehough_mockery_Mockery::on(function ($arr) {
+        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, Mockery::on(function ($arr) {
 
             $ok = is_array($arr);
 

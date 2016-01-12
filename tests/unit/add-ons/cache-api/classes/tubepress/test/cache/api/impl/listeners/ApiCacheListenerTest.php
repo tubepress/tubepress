@@ -20,47 +20,47 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockApiCache;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEvent;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockRequest;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockResponse;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrl;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBody;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCacheItem;
 
@@ -137,7 +137,7 @@ class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubep
         $this->_mockCacheItem->shouldReceive('get')->once()->andReturn('abc');
         $this->_mockCacheItem->shouldReceive('isMiss')->twice()->andReturn(false);
 
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('response', ehough_mockery_Mockery::on(function ($response) {
+        $this->_mockEvent->shouldReceive('setArgument')->once()->with('response', Mockery::on(function ($response) {
 
             return $response instanceof tubepress_api_http_message_ResponseInterface;
         }));

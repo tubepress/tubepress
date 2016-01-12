@@ -20,7 +20,7 @@ class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockField;
 

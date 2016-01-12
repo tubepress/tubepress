@@ -15,17 +15,17 @@
 class tubepress_test_internal_boot_helper_uncached_contrib_ThemeFactoryTest extends tubepress_test_internal_boot_helper_uncached_contrib_AbstractFactoryTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEnvironment;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFinderFactory;
 

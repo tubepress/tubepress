@@ -22,12 +22,12 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockSettingsFileReader;
 
@@ -119,7 +119,7 @@ XYZ;
 
         $this->_sut->___setUncachedContainerSupplier($mockUncachedProvider);
 
-        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', ehough_mockery_Mockery::type('tubepress_api_ioc_ContainerInterface'));
+        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', Mockery::type('tubepress_api_ioc_ContainerInterface'));
         $mockIconicContainer->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicContainer);
         $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
         $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_api_boot_BootSettingsInterface', $this->_mockSettingsFileReader);

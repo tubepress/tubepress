@@ -20,7 +20,7 @@ class tubepress_test_wordpress_impl_message_WpTranslatorTest extends tubepress_a
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_wpFunctions;
 

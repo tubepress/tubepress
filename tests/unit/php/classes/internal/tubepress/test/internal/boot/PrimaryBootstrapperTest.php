@@ -22,22 +22,22 @@ class tubepress_test_internal_boot_PrimaryBootstrapperTest extends tubepress_api
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_bootSettings;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainerSupplier;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBootLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockServiceContainer;
 
@@ -103,7 +103,7 @@ class tubepress_test_internal_boot_PrimaryBootstrapperTest extends tubepress_api
 
         $this->_mockBootLogger->shouldReceive('handleBootException')->once();
         $this->_mockBootLogger->shouldReceive('onBootComplete')->once();
-        $this->_mockBootLogger->shouldReceive('error')->atLeast(1)->with(ehough_mockery_Mockery::on(array($this, '__callbackTestBootException')));
+        $this->_mockBootLogger->shouldReceive('error')->atLeast(1)->with(Mockery::on(array($this, '__callbackTestBootException')));
 
         $this->_bootSettings->shouldReceive('shouldClearCache')->once()->andReturn(false);
 

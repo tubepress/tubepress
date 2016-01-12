@@ -13,7 +13,7 @@
 abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 

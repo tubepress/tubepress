@@ -20,7 +20,7 @@ class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepre
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainer;
 
@@ -41,7 +41,7 @@ class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepre
 
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('id')->andReturn($mockDefinition);
 
-        $mockDefinition->shouldReceive('addMethodCall')->once()->with('someMethod', ehough_mockery_Mockery::on(array($this, '__validateReferences')));
+        $mockDefinition->shouldReceive('addMethodCall')->once()->with('someMethod', Mockery::on(array($this, '__validateReferences')));
 
         $this->_sut->process($this->_mockContainer);
 

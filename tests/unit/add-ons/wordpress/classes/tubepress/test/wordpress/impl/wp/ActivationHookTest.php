@@ -21,12 +21,12 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFilesystemInterface;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockSettingsFileReader;
 

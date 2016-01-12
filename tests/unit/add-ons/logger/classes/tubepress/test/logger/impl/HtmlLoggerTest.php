@@ -20,12 +20,12 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubeP
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpRequestParams;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 

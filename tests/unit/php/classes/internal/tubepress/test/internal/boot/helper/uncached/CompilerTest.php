@@ -20,12 +20,12 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockIocContainer;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
@@ -75,8 +75,8 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
         $mockAddons = array($mockAddon1, $mockAddon2);
 
         $this->_mockIocContainer->shouldReceive('compile')->once();
-        $this->_mockIocContainer->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::any('FakeCompilerPass'));
-        $this->_mockIocContainer->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::any('FakeExtension'));
+        $this->_mockIocContainer->shouldReceive('addCompilerPass')->once()->with(Mockery::any('FakeCompilerPass'));
+        $this->_mockIocContainer->shouldReceive('registerExtension')->once()->with(Mockery::any('FakeExtension'));
 
         $this->_sut->compile($this->_mockIocContainer, $mockAddons);
 

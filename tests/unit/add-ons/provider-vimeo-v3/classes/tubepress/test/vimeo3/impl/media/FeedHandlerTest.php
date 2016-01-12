@@ -20,17 +20,17 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockExecutionContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 

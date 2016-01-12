@@ -20,27 +20,27 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_api_test
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpRequestParameterService;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpResponseCodeService;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTemplating;
 
@@ -140,10 +140,10 @@ class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_api_test
     {
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
-            ->with(ehough_mockery_Mockery::type('RuntimeException'))->andReturn($mockEvent);
+            ->with(Mockery::type('RuntimeException'))->andReturn($mockEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT,
             $mockEvent);
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('exception/ajax', ehough_mockery_Mockery::type('array'))
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('exception/ajax', Mockery::type('array'))
             ->andReturn('foobar');
     }
 }

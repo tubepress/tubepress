@@ -15,7 +15,7 @@
 abstract class tubepress_test_options_ui_impl_fields_templated_AbstractTemplatedFieldTest extends tubepress_test_options_ui_impl_fields_AbstractFieldTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTemplating;
 

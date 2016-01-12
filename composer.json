@@ -24,7 +24,7 @@
     "yahnis-elsts/plugin-update-checker" : "~2.1"
   },
   "require-dev": {
-    "ehough/mockery"               : "~0.8",
+    "mockery/mockery"              : "0.9.4",
     "jonnyw/php-phantomjs"         : "^4.0",
     "nervo/yuicompressor"          : "^2.4",
     "phpunit/phpunit"              : "^4.8",

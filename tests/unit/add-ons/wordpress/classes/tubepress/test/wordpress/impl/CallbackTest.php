@@ -15,7 +15,7 @@
 class tubepress_test_wordpress_impl_CallbackTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
@@ -25,22 +25,22 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_api_test_Tube
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockActivationHook;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHtmlGenerator;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockOptionsReference;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
@@ -72,7 +72,7 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_api_test_Tube
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
 
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::on(function ($shortcode) {
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(Mockery::on(function ($shortcode) {
 
             return $shortcode instanceof tubepress_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
                 && $shortcode->getInnerContent() === 'shortcode content' && $shortcode->getAttributes() === array();
@@ -96,7 +96,7 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_api_test_Tube
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
 
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::on(function ($shortcode) {
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(Mockery::on(function ($shortcode) {
 
             return $shortcode instanceof tubepress_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
             && $shortcode->getInnerContent() === 'shortcode content' && $shortcode->getAttributes() === array('foO' => 'bar');

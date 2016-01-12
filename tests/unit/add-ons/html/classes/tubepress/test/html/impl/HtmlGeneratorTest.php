@@ -20,22 +20,22 @@ class tubepress_test_html_impl_HtmlGeneratorTest extends tubepress_api_test_Tube
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTemplating;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_cssAndJsGenerationHelper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEnvironment;
 
@@ -63,10 +63,10 @@ class tubepress_test_html_impl_HtmlGeneratorTest extends tubepress_api_test_Tube
         $mockGenerationEvent->shouldReceive('getSubject')->once()->andReturnNull();
 
         $mockErrorEvent = $this->mock('tubepress_api_event_EventInterface');
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::type('RuntimeException'))->andReturn($mockErrorEvent);
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(Mockery::type('RuntimeException'))->andReturn($mockErrorEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT, $mockErrorEvent);
 
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('exception/static', ehough_mockery_Mockery::type('array'))->andReturn('abc');
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('exception/static', Mockery::type('array'))->andReturn('abc');
 
         $actual = $this->_sut->getHtml();
 

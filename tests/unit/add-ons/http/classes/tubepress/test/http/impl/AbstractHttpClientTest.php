@@ -15,12 +15,12 @@
 class tubepress_test_http_impl_AbstractHttpClientest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
@@ -115,9 +115,9 @@ if (!class_exists('tubepress_test_lib_impl_http_AbstractHttpClientTest__client')
     {
         private $_response;
 
-        public function __construct(ehough_mockery_mockery_MockInterface $eventDispatcher,
-                                    ehough_mockery_mockery_MockInterface $logger,
-                                    ehough_mockery_mockery_MockInterface $mockResponse)
+        public function __construct(Mockery\MockInterface $eventDispatcher,
+                                    Mockery\MockInterface $logger,
+                                    Mockery\MockInterface $mockResponse)
         {
             parent::__construct($eventDispatcher, $logger, $mockResponse);
 
@@ -140,7 +140,7 @@ if (!class_exists('tubepress_test_lib_impl_http_AbstractHttpClientTest__client')
 
         public function createRequest($method, $url = null, array $options = array())
         {
-            return ehough_mockery_Mockery::mock('tubepress_api_http_message_RequestInterface');
+            return Mockery::mock('tubepress_api_http_message_RequestInterface');
         }
 
         public function getDefaultOption($keyOrPath = null) {}

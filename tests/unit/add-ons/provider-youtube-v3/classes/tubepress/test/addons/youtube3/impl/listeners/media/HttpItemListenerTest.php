@@ -20,7 +20,7 @@ class tubepress_test_youtube3_impl_listeners_media_HttpItemListenerTest extends 
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockAttributeFormatter;
 
@@ -30,12 +30,12 @@ class tubepress_test_youtube3_impl_listeners_media_HttpItemListenerTest extends 
     private $_mockTimeUtils;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockApiUtility;
 
@@ -50,7 +50,7 @@ class tubepress_test_youtube3_impl_listeners_media_HttpItemListenerTest extends 
     private $_mockArrayReader;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEvent;
 
@@ -144,7 +144,7 @@ Download the Android version here: https://play.google.com/store/apps/details?id
 
         $mockMediaItem->shouldReceive('setAttribute')->once()->with(
             tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL,
-            ehough_mockery_Mockery::on(function ($url) {
+            Mockery::on(function ($url) {
 
                 return preg_match_all('~^http://i.ytimg.com/vi/NpOd4oLEKyg/[1,2,3].jpg$~', $url) === 1;
             })

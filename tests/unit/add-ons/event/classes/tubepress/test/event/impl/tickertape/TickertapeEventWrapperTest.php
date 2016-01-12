@@ -20,7 +20,7 @@ class tubepress_test_event_impl_tickertape_TickertapeEventWrapperTest extends tu
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEvent;
 

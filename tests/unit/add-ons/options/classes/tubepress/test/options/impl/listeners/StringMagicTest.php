@@ -20,7 +20,7 @@ class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tube
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 

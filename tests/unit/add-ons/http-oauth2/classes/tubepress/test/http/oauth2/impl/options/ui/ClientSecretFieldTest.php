@@ -15,17 +15,17 @@
 class tubepress_test_http_oauth2_impl_options_ui_ClientSecretFieldTest extends tubepress_test_options_ui_impl_fields_templated_AbstractTemplatedFieldTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockProvider;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPersistenceHelper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTranslator;
 

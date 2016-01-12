@@ -15,22 +15,22 @@
 class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockReference;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTranslator;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockStringUtils;
 
@@ -76,7 +76,7 @@ class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepres
     }
 
     /**
-     * @return ehough_mockery_mockery_MockInterface
+     * @return Mockery\MockInterface
      */
     private function _getMockEvent($value, $subject)
     {

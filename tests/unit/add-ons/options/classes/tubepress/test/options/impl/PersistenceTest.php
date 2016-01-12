@@ -20,12 +20,12 @@ class tubepress_test_options_impl_PersistenceTest extends tubepress_test_options
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockOptionsReference;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBackend;
 

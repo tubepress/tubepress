@@ -191,7 +191,7 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
         $mockContainer->shouldReceive('addDefinitions')->once()->with($mockDefs);
 
         $mockExtension = $this->mock('tubepress_spi_ioc_ContainerExtensionInterface');
-        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_internal_ioc_ContainerBuilder'));
+        $mockExtension->shouldReceive('load')->once()->with(Mockery::any('tubepress_internal_ioc_ContainerBuilder'));
 
         $this->_sut->registerExtension($mockExtension);
 

@@ -20,12 +20,12 @@ class tubepress_test_http_impl_puzzle_RequestExceptionTest extends tubepress_api
     private $_mockPuzzleException;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPuzzleRequest;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPuzzleResponse;
 

@@ -27,7 +27,7 @@ abstract class tubepress_api_test_TubePressUnitTest extends PHPUnit_Framework_Te
     {
         $this->onTearDown();
 
-        ehough_mockery_Mockery::close();
+        Mockery::close();
     }
 
     public static function setUpBeforeClass()
@@ -56,11 +56,11 @@ abstract class tubepress_api_test_TubePressUnitTest extends PHPUnit_Framework_Te
     /**
      * @param $name
      *
-     * @return ehough_mockery_mockery_MockInterface
+     * @return Mockery\MockInterface
      */
     protected function mock($name)
     {
-        return ehough_mockery_Mockery::mock($name);
+        return Mockery::mock($name);
     }
 
     protected function recursivelyDeleteDirectory($dir)

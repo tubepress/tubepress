@@ -20,7 +20,7 @@ class tubepress_test_internal_ioc_ContainerTest extends tubepress_api_test_TubeP
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainer;
 

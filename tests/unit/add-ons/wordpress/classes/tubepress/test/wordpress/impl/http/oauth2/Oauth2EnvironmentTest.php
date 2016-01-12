@@ -20,27 +20,27 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2EnvironmentTest extends tu
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockWpFunctions;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockOauth2Provider;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockQuery;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
@@ -91,7 +91,7 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2EnvironmentTest extends tu
     }
 
     /**
-     * @return ehough_mockery_mockery_MockInterface
+     * @return Mockery\MockInterface
      */
     private function _setupMockAdminUrl($slug)
     {
@@ -112,7 +112,7 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2EnvironmentTest extends tu
         return $mockUrl;
     }
 
-    private function _setupDispatch(ehough_mockery_mockery_MockInterface $mockUrl)
+    private function _setupDispatch(Mockery\MockInterface $mockUrl)
     {
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
 

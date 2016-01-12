@@ -20,12 +20,12 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockExecutionContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockAttributeFormatter;
 
