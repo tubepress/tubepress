@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_template_impl_DelegatingEngine extends ehough_templating_DelegatingEngine
+class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templating\DelegatingEngine
 {
     /**
      * @var tubepress_api_log_LoggerInterface
@@ -32,9 +32,9 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
     /**
      * Get an engine able to render the given template.
      *
-     * @param string|ehough_templating_TemplateReferenceInterface $name A template name or a ehough_templating_TemplateReferenceInterface instance
+     * @param string|\Symfony\Component\Templating\TemplateReferenceInterface $name A template name or a \Symfony\Component\Templating\TemplateReferenceInterface instance
      *
-     * @return ehough_templating_EngineInterface The engine
+     * @return \Symfony\Component\Templating\EngineInterface The engine
      *
      * @throws RuntimeException if no engine able to work with the template is found
      *

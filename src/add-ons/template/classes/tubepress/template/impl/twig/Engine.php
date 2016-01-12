@@ -38,7 +38,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class tubepress_template_impl_twig_Engine implements ehough_templating_EngineInterface
+class tubepress_template_impl_twig_Engine implements \Symfony\Component\Templating\EngineInterface
 {
     /**
      * @var Twig_Environment
@@ -46,7 +46,7 @@ class tubepress_template_impl_twig_Engine implements ehough_templating_EngineInt
     protected $environment;
 
     /**
-     * @var ehough_templating_TemplateNameParserInterface
+     * @var \Symfony\Component\Templating\TemplateNameParserInterface
      */
     protected $parser;
 
@@ -58,7 +58,7 @@ class tubepress_template_impl_twig_Engine implements ehough_templating_EngineInt
     public function __construct(Twig_Environment $environment)
     {
         $this->environment = $environment;
-        $this->parser      = new ehough_templating_TemplateNameParser();
+        $this->parser      = new \Symfony\Component\Templating\TemplateNameParser();
     }
 
     /**
@@ -122,8 +122,8 @@ class tubepress_template_impl_twig_Engine implements ehough_templating_EngineInt
     /**
      * Loads the given template.
      *
-     * @param string|ehough_templating_TemplateReferenceInterface|Twig_Template $name A template name or an instance of
-     *                                                                                ehough_templating_TemplateReferenceInterface or Twig_Template
+     * @param string|\Symfony\Component\Templating\TemplateReferenceInterface|Twig_Template $name A template name or an instance of
+     *                                                                                \Symfony\Component\Templating\TemplateReferenceInterface or Twig_Template
      *
      * @return Twig_TemplateInterface A Twig_TemplateInterface instance
      *

@@ -31,7 +31,7 @@ class tubepress_test_app_impl_template_TemplatingServiceTest extends tubepress_a
 
     public function onSetup()
     {
-        $this->_mockDelegateEngine  = $this->mock('ehough_templating_EngineInterface');
+        $this->_mockDelegateEngine  = $this->mock('\Symfony\Component\Templating\EngineInterface');
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_sut = new tubepress_template_impl_TemplatingService(

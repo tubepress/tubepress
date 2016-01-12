@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cee727bf9bb364596961632e2d988743",
-    "content-hash": "5be82c0c1d42c7925f73e67295d2fae1",
+    "hash": "b77306bceb098cff622afd3ee52952f7",
+    "content-hash": "47284673433bf81f84faf411b9cedd52",
     "packages": [
         {
             "name": "ehough/stash",
@@ -58,64 +58,6 @@
                 "sessions"
             ],
             "time": "2015-12-01 00:17:07"
-        },
-        {
-            "name": "ehough/templating",
-            "version": "v2.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/templating.git",
-                "reference": "569f2d06c895f54d74b0e60274198a62ed9fca26"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/templating/zipball/569f2d06c895f54d74b0e60274198a62ed9fca26",
-                "reference": "569f2d06c895f54d74b0e60274198a62ed9fca26",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "psr/log": "~1.0"
-            },
-            "suggest": {
-                "psr/log": "For using debug logging in loaders"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.6-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ehough_templating": "src/main/php",
-                    "ehough_templating_test": "src/test/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@tubepress.com"
-                }
-            ],
-            "description": "Fork of Symfony's Templating component  compatible with PHP 5.2+",
-            "homepage": "http://symfony.com",
-            "time": "2014-07-20 04:57:56"
         },
         {
             "name": "puzzlehttp/puzzle",
@@ -517,6 +459,61 @@
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "time": "2015-12-05 11:09:21"
+        },
+        {
+            "name": "symfony/templating",
+            "version": "v2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/templating.git",
+                "reference": "d4b3ae6d9045b2f1e4904ae0ba6946afb493d637"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/d4b3ae6d9045b2f1e4904ae0ba6946afb493d637",
+                "reference": "d4b3ae6d9045b2f1e4904ae0ba6946afb493d637",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "psr/log": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Templating\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Templating Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-11-18 13:45:00"
         },
         {
             "name": "twig/twig",

@@ -32,7 +32,7 @@ class tubepress_test_app_impl_template_php_SupportTest extends tubepress_api_tes
     public function onSetup()
     {
         $this->_mockThemeTemplateLocator = $this->mock('tubepress_template_impl_ThemeTemplateLocator');
-        $this->_mockTemplateReference    = $this->mock('ehough_templating_TemplateReferenceInterface');
+        $this->_mockTemplateReference    = $this->mock('\Symfony\Component\Templating\TemplateReferenceInterface');
 
         $this->_sut = new tubepress_template_impl_php_Support($this->_mockThemeTemplateLocator);
     }
@@ -51,7 +51,7 @@ class tubepress_test_app_impl_template_php_SupportTest extends tubepress_api_tes
         $this->_mockThemeTemplateLocator->shouldReceive('exists')->once()->with('abc')->andReturn(true);
         $this->_mockThemeTemplateLocator->shouldReceive('getAbsolutePath')->once()->with('abc')->andReturn('hello');
         $actual = $this->_sut->load($this->_mockTemplateReference);
-        $this->assertInstanceOf('ehough_templating_storage_FileStorage', $actual);
+        $this->assertInstanceOf('\Symfony\Component\Templating\Storage\FileStorage', $actual);
         $this->assertEquals('hello', "$actual");
     }
 

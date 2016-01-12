@@ -18,7 +18,7 @@
     "symfony/class-loader"               : "2.8.1",
     "ehough/stash"                       : "~0.12.0",
     "symfony/event-dispatcher"           : "2.8.1",
-    "ehough/templating"                  : "~2.5.0",
+    "symfony/templating"                 : "2.8.1",
     "puzzlehttp/puzzle"                  : "~4.2.0",
     "twig/twig"                          : "1.23.3",
     "yahnis-elsts/plugin-update-checker" : "~2.1"
