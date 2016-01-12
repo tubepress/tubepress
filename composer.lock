@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "916371c8d40793ddf03553133d6d9242",
-    "content-hash": "2f96ba0ebd77e6cf8108d9e656f3a193",
+    "hash": "e589b23e34bbb92d753ebbfbf98abbf2",
+    "content-hash": "05e131ec92e3ae1004be73c9ef04d0f1",
     "packages": [
         {
             "name": "ehough/filesystem",
@@ -485,16 +485,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "1.x-dev",
+            "version": "v1.23.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "24d9266d0f1c2b4426ad8f931be30718cace4180"
+                "reference": "ae53fc2c312fdee63773b75cb570304f85388b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/24d9266d0f1c2b4426ad8f931be30718cace4180",
-                "reference": "24d9266d0f1c2b4426ad8f931be30718cace4180",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ae53fc2c312fdee63773b75cb570304f85388b08",
+                "reference": "ae53fc2c312fdee63773b75cb570304f85388b08",
                 "shasum": ""
             },
             "require": {
@@ -542,7 +542,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-11 14:50:45"
+            "time": "2016-01-11 14:02:19"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",

@@ -20,7 +20,7 @@
     "ehough/tickertape"                  : "~2.5.0",
     "ehough/templating"                  : "~2.5.0",
     "puzzlehttp/puzzle"                  : "~4.2.0",
-    "twig/twig"                          : "1.*",
+    "twig/twig"                          : "1.23.3",
     "yahnis-elsts/plugin-update-checker" : "~2.1"
   },
   "require-dev": {
