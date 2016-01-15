@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/shortcode",
+    "version": "99.99.99",
+    "title" : "TubePress Shortcode Parser",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_shortcode_ioc_ShortcodeExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_shortcode_impl_Parser"            : "classes/tubepress/shortcode/impl/Parser.php",
+          "tubepress_shortcode_impl_Shortcode"         : "classes/tubepress/shortcode/impl/Shortcode.php",
+          "tubepress_shortcode_ioc_ShortcodeExtension" : "classes/tubepress/shortcode/ioc/ShortcodeExtension.php"
+        }
+    }
+}

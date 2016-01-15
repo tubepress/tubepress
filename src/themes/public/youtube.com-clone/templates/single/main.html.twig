@@ -1,0 +1,90 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{% extends 'tubepress/default::single/main.html.twig' %}
+
+{% block singleItemClasses %}tubepress-youtube{% endblock %}
+
+{% block itemFound %}
+
+    {#
+     # The following statement prints out any HTML required for the TubePress embedded media player. We do not recommend removing
+     # this statement, though you may move it around the template if you'd like.
+     #}
+    {{ embeddedSource|raw }}
+
+    {# The following block prints out the media item's title, if requested. #}
+    {% if 'title' in attributesToShow %}
+
+        {% block singleItemTitle %}
+
+            <div class="tubepress-big-title">
+                {{- mediaItem.title|length > 55 ? mediaItem.title|slice(0, 55) ~ ' ...' : mediaItem.title -}}
+            </div>
+
+        {% endblock %}{# end block "singleItemTitle" #}
+    {% endif %}
+
+    {% block meta %}
+
+        {#
+         # <dl class="tubepress_meta_group" ...>
+         #
+         # This <dl> wraps each video's metadata (title, duration, etc).
+         #}
+        <dl class="tubepress-meta-group" style="width: {{ embeddedWidthPx }}px">
+
+            {# Loop over the attributes for this media item. #}
+            {% for attributeName in attributesToShow if attributeName in [ 'authorDisplayName', 'viewCount' ] %}
+
+                {#
+                 The logic for printing the dd/dt pairs is delegated a fragment since it is shared
+                 with gallery/main.html.twig.
+                 #}
+                {% include 'single/fragments/dt_dd_pair.html.twig' %}
+
+            {% endfor %}
+
+        </dl>{# end of dl.tubepress-meta-group #}
+
+
+        {#
+         # <dl class="tubepress_meta_group" ...>
+         #
+         # This <dl> wraps each video's metadata (title, duration, etc).
+         #}
+        <dl class="tubepress-meta-group" style="width: {{ embeddedWidthPx }}px">
+
+            {% if 'timePublishedFormatted' in attributesToShow %}
+
+                <dt class="tubepress-meta-timePublishedFormatted">
+                    {{- 'Published on'|trans -}}
+                </dt>
+                <dd class="tubepress-meta-timePublishedFormatted">
+                    {{- mediaItem.timePublishedFormatted -}}
+                </dd>
+            {% endif %}
+
+            {# Loop over the attributes for this media item. #}
+            {% for attributeName in attributesToShow if attributeName not in [ 'authorDisplayName', 'viewCount', 'title', 'timePublishedFormatted' ] %}
+
+                {#
+                 The logic for printing the dd/dt pairs is delegated a fragment since it is shared
+                 with gallery/main.html.twig.
+                 #}
+                {% include 'single/fragments/dt_dd_pair.html.twig' %}
+
+            {% endfor %}
+
+        </dl>{# end of dl.tubepress-meta-group #}
+
+    {% endblock %}{# end block "meta" #}
+
+{% endblock %}{# end block "itemFound #}

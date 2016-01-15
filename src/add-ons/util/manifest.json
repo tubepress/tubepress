@@ -1,0 +1,28 @@
+{
+    "name" : "tubepress/util",
+    "version": "99.99.99",
+    "title" : "TubePress Low-Level Utilities",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_util_ioc_UtilExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_util_impl_LangUtils"    : "classes/tubepress/util/impl/LangUtils.php",
+          "tubepress_util_impl_StringUtils"  : "classes/tubepress/util/impl/StringUtils.php",
+          "tubepress_util_impl_TimeUtils"    : "classes/tubepress/util/impl/TimeUtils.php",
+          "tubepress_util_ioc_UtilExtension" : "classes/tubepress/util/ioc/UtilExtension.php"
+        }
+    }
+}

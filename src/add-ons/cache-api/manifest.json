@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/cache-api",
+    "version": "99.99.99",
+    "title" : "TubePress API Cache",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_cache_api_ioc_ApiCacheExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_cache_api_impl_listeners_ApiCacheListener"   : "classes/tubepress/cache/api/impl/listeners/ApiCacheListener.php",
+          "tubepress_cache_api_impl_stash_FilesystemCacheBuilder" : "classes/tubepress/cache/api/impl/stash/FilesystemCacheBuilder.php",
+          "tubepress_cache_api_ioc_ApiCacheExtension"             : "classes/tubepress/cache/api/ioc/ApiCacheExtension.php"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+{#
+ # <div class="tubepress-normal-player">
+ #
+ # An outer wrapper for the title and embed.
+ #}
+<div class="tubepress-normal-player js-tubepress-player-normal" style="width: {% if responsiveEmbeds %}100%{% else %}{{ embeddedWidthPx }}px{% endif %}">
+
+    {% block normalPlayerTitle %}
+
+        {#
+         # <div class="tubepress-big-title">
+         #
+         # A <div> to hold the media items's title.
+         #}
+        <div class="tubepress-big-title">
+            {{- mediaItem.title -}}
+        </div>
+
+    {% endblock %}
+
+    {% block normalPlayerEmbeddedSource %}
+        {{ embeddedSource|raw }}
+    {% endblock %}
+
+</div>

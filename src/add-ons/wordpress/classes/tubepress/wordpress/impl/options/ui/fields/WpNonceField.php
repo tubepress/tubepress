@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -12,7 +12,7 @@
 /**
  * WP nonce field.
  */
-class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepress_app_api_options_ui_FieldInterface
+class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepress_api_options_ui_FieldInterface
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
@@ -20,14 +20,14 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     private $_wpFunctions;
 
     /**
-     * @var tubepress_platform_api_collection_MapInterface
+     * @var tubepress_api_collection_MapInterface
      */
     private $_properties;
 
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
     {
         $this->_wpFunctions = $wpFunctions;
-        $this->_properties  = new tubepress_platform_impl_collection_Map();
+        $this->_properties  = new tubepress_internal_collection_Map();
     }
 
     /**
@@ -91,7 +91,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * @return tubepress_api_collection_MapInterface
      */
     public function getProperties()
     {

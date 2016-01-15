@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -20,17 +20,17 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
     private static $_TEMPLATE_VAR_TITLE_FIELD_VALUE = 'titleFieldValue';
 
     private static $_DEFAULT_WIDGET_OPTIONS = array(
-        tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
-        tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => 'false',
-        tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => 'true',
-        tubepress_app_api_options_Names::META_DESC_LIMIT          => 50,
-        tubepress_app_api_options_Names::PLAYER_LOCATION          => 'shadowbox',
-        tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT     => 105,
-        tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH      => 135,
-        tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE   => 'false',
-        tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW   => 'false',
-        tubepress_app_api_options_Names::THEME                    => 'tubepress/default',
-        tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS     => 'false',
+        tubepress_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
+        tubepress_api_options_Names::META_DISPLAY_VIEWS       => 'false',
+        tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => 'true',
+        tubepress_api_options_Names::META_DESC_LIMIT          => 50,
+        tubepress_api_options_Names::PLAYER_LOCATION          => 'shadowbox',
+        tubepress_api_options_Names::GALLERY_THUMB_HEIGHT     => 105,
+        tubepress_api_options_Names::GALLERY_THUMB_WIDTH      => 135,
+        tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE   => 'false',
+        tubepress_api_options_Names::GALLERY_PAGINATE_BELOW   => 'false',
+        tubepress_api_options_Names::THEME                    => 'tubepress/default',
+        tubepress_api_options_Names::GALLERY_FLUID_THUMBS     => 'false',
     );
 
     public function __construct()
@@ -41,7 +41,7 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
             'tubepress_widget_gattaca',
             'TubePress',
             array(
-                'description' => __('Displays YouTube or Vimeo videos with TubePress', 'tubepress'),
+                "description" => __('Displays YouTube or Vimeo videos with TubePress', "tubepress"), //>(translatable)<
             )
         );
     }
@@ -88,9 +88,9 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
         $sc = $this->_getServiceContainer();
 
         /**
-         * @var $templating tubepress_lib_api_template_TemplatingInterface
+         * @var $templating tubepress_api_template_TemplatingInterface
          */
-        $templating = $sc->get(tubepress_lib_api_template_TemplatingInterface::_ . '.admin');
+        $templating = $sc->get(tubepress_api_template_TemplatingInterface::_ . '.admin');
 
         $defaults = array(
             'title' => 'TubePress',
@@ -145,11 +145,11 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
     }
 
     /**
-     * @return tubepress_platform_api_ioc_ContainerInterface
+     * @return tubepress_api_ioc_ContainerInterface
      */
     private function _getServiceContainer()
     {
-        return require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
+        return require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
     }
 
     private function _getDefaultShortcode()
@@ -158,11 +158,11 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
         $sc        = $this->_getServiceContainer();
 
         /**
-         * @var $context tubepress_app_api_options_ContextInterface
+         * @var $context tubepress_api_options_ContextInterface
          */
-        $context = $sc->get(tubepress_app_api_options_ContextInterface::_);
+        $context = $sc->get(tubepress_api_options_ContextInterface::_);
 
-        $trigger = $context->get(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+        $trigger = $context->get(tubepress_api_options_Names::SHORTCODE_KEYWORD);
 
         foreach (self::$_DEFAULT_WIDGET_OPTIONS as $name => $value) {
 

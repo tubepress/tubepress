@@ -1,0 +1,22 @@
+<div class="modal multisource-modal-delete" id="js-confirm-delete" tabindex="-1" role="dialog"
+     aria-labelledby="multisource-delete-modal" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="multisource-delete-modal">Confirm Deletion</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>{{ 'Are you sure you want to remove this source?' | trans }}</p>                                                   {# >(translatable)< #}
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{  'Cancel' | trans }}</button>                   {# >(translatable)< #}
+                <a class="btn btn-danger btn-ok" id="js-delete-confirmation-button" data-dismiss="modal">{{ 'Delete' | trans }}</a>   {# >(translatable)< #}
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,10 +19,11 @@
     },
     "autoload":{
         "classmap" : {
-            "tubepress_test_integration_mocks_MockCacheDriver" : "classes/tubepress/test/integration/mocks/MockCacheDriver.php",
-            "tubepress_test_integration_mocks_MocksExtension"  : "classes/tubepress/test/integration/mocks/MocksExtension.php",
-            "tubepress_test_integration_mocks_MockTranslator"  : "classes/tubepress/test/integration/mocks/MockTranslator.php",
-            "tubepress_test_integration_mocks_MockPersistence" : "classes/tubepress/test/integration/mocks/MockPersistence.php"
+            "tubepress_test_integration_mocks_MockCacheDriver"       : "classes/tubepress/test/integration/mocks/MockCacheDriver.php",
+            "tubepress_test_integration_mocks_MockOauth2Environment" : "classes/tubepress/test/integration/mocks/MockOauth2Environment.php",
+            "tubepress_test_integration_mocks_MockPersistence"       : "classes/tubepress/test/integration/mocks/MockPersistence.php",
+            "tubepress_test_integration_mocks_MocksExtension"        : "classes/tubepress/test/integration/mocks/MocksExtension.php",
+            "tubepress_test_integration_mocks_MockTranslator"        : "classes/tubepress/test/integration/mocks/MockTranslator.php"
         }
     }
 }

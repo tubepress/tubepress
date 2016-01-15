@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -10,19 +10,19 @@
  */
 
 /**
- * @deprecated
+ * @deprecated Will be removed in TubePress 5.0.0.
  */
 interface tubepress_api_const_template_Variable
 {
     /**
      * @deprecated
      */
-    const EMBEDDED_SOURCE = tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE;
+    const EMBEDDED_SOURCE = tubepress_api_template_VariableNames::EMBEDDED_SOURCE;
 
     /**
      * @deprecated
      */
-    const EMBEDDED_WIDTH = tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX;
+    const EMBEDDED_WIDTH = tubepress_api_template_VariableNames::EMBEDDED_WIDTH_PX;
 
     /**
      * @deprecated
@@ -42,12 +42,12 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const SEARCH_HANDLER_URL = tubepress_app_api_template_VariableNames::SEARCH_HANDLER_URL;
+    const SEARCH_HANDLER_URL = tubepress_api_template_VariableNames::SEARCH_HANDLER_URL;
 
     /**
      * @deprecated
      */
-    const SEARCH_HIDDEN_INPUTS = tubepress_app_api_template_VariableNames::SEARCH_HIDDEN_INPUTS;
+    const SEARCH_HIDDEN_INPUTS = tubepress_api_template_VariableNames::SEARCH_HIDDEN_INPUTS;
 
     /**
      * @deprecated
@@ -57,22 +57,22 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const SEARCH_TARGET_DOM_ID = tubepress_app_api_template_VariableNames::SEARCH_TARGET_DOM_ID;
+    const SEARCH_TARGET_DOM_ID = tubepress_api_template_VariableNames::SEARCH_TARGET_DOM_ID;
 
     /**
      * @deprecated
      */
-    const SEARCH_TERMS = tubepress_app_api_template_VariableNames::SEARCH_TERMS;
+    const SEARCH_TERMS = tubepress_api_template_VariableNames::SEARCH_TERMS;
 
     /**
      * @deprecated
      */
-    const THUMBNAIL_HEIGHT = tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX;
+    const THUMBNAIL_HEIGHT = tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX;
 
     /**
      * @deprecated
      */
-    const THUMBNAIL_WIDTH = tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX;
+    const THUMBNAIL_WIDTH = tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX;
 
     /**
      * @deprecated
@@ -97,7 +97,7 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const GALLERY_ID = tubepress_app_api_template_VariableNames::HTML_WIDGET_ID;
+    const GALLERY_ID = tubepress_api_template_VariableNames::HTML_WIDGET_ID;
 
     /**
      * @deprecated
@@ -107,5 +107,5 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const PLAYER_HTML = tubepress_app_api_template_VariableNames::PLAYER_HTML;
+    const PLAYER_HTML = tubepress_api_template_VariableNames::PLAYER_HTML;
 }

@@ -1,0 +1,41 @@
+{
+    "name" : "tubepress/admin-default",
+    "version": "99.99.99",
+    "title" : "Admin Default",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "styles" : [
+        "vendor/bootstrap-3.3.4/css/bootstrap-custom.css",
+        "vendor/bootstrap-3.3.4/css/bootstrap-custom-theme.css",
+        "vendor/bootstrap-multiselect-0.9.12/css/bootstrap-multiselect.css",
+        "vendor/blueimp-gallery-2.15.2/css/blueimp-gallery.min.css",
+        "vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css",
+        "vendor/spectrum-1.6.0/spectrum.css",
+        "css/options-page.css"
+    ],
+    "scripts" : [
+        "vendor/bootstrap-3.3.4/js/bootstrap.min.js",
+        "vendor/bootstrap-multiselect-0.9.12/js/bootstrap-multiselect.js",
+        "vendor/spectrum-1.6.0/spectrum.js",
+        "vendor/blueimp-gallery-2.15.2/js/jquery.blueimp-gallery.min.js",
+        "vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js",
+        "vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js",
+        "vendor/bootbox.js-4.4.0/bootbox.min.js",
+        "js/event-bus.js",
+        "js/multisource-handler.js",
+        "js/bootstrap-field-error-handler.js",
+        "js/field-provider-filter-handler.js",
+        "js/spectrum-js-initializer.js",
+        "js/bootstrap-multiselect-initializer.js",
+        "js/theme-field-handler.js",
+        "js/oauth2-token-mgmt.js"
+    ]
+}

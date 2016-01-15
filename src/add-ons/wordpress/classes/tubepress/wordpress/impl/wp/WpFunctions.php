@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -195,6 +195,28 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         delete_option($name);
+    }
+
+    /**
+     * Add a sub menu page.
+     *
+     * @param string $parent_slug The slug name for the parent menu (or the file name of a standard WordPress
+     *                            admin page). Set to 'options.php' if you want to create a page that doesn't appear
+     *                            in any menu
+     * @param string $page_title  The text to be displayed in the title tags of the page when the menu is selected
+     * @param string $menu_title  The text to be used for the menu
+     * @param string $capability  The capability required for this menu to be displayed to the user.
+     * @param string $menu_slug   The slug name to refer to this menu by (should be unique for this menu). If you want
+     *                            to NOT duplicate the parent menu item, you need to set the name of the $menu_slug
+     *                            exactly the same as the parent slug.
+     * @param callback $function  The function to be called to output the content for this page.
+     *
+     * @return string The resulting page's hook_suffix, or false if the user does not have the capability required...
+     */
+    public function add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function);
     }
 
     /**
@@ -635,5 +657,20 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         register_widget($class);
+    }
+
+    /**
+     * @return WP_Scripts
+     */
+    public function wp_scripts() {
+
+        global $wp_scripts;
+
+        if (!($wp_scripts instanceof WP_Scripts)) {
+
+            $wp_scripts = new WP_Scripts();
+        }
+
+        return $wp_scripts;
     }
 }

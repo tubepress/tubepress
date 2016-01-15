@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
  */
-class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
@@ -43,10 +43,10 @@ class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTes
     public function onSetup()
     {
 
-        $this->_mockExecutionContext      = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockOptionReference   = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $this->_mockMediaProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
-        $this->_mockTranslator = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockExecutionContext      = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockOptionReference   = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockMediaProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
+        $this->_mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener(
             $this->_mockExecutionContext,
@@ -59,11 +59,11 @@ class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTes
 
     public function testOnTemplate()
     {
-        $video = new tubepress_app_api_media_MediaItem('video-id');
+        $video = new tubepress_api_media_MediaItem('video-id');
 
         $mockTemplate = array('foo' => 'bar');
 
-        $event = $this->mock('tubepress_lib_api_event_EventInterface');
+        $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn($mockTemplate);
         $event->shouldReceive('setSubject')->once()->with(array(
             'foo' => 'bar',

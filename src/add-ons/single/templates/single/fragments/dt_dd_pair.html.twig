@@ -1,0 +1,75 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{# Only do this if the attribute value actually exists. #}
+{% if attribute(mediaItem, attributeName) is not empty %}
+
+{% spaceless %}
+
+{# The following block prints out each attribute label (e.g. Ratings, Views, Comment Count, etc). #}
+{% block metaLabelDt %}
+    <dt class="tubepress-meta-{{ attributeName }} js-tubepress-meta-label">
+
+        {%- if attributeLabels[attributeName] is defined -%}
+
+            {{ attributeLabels[attributeName]|trans }}
+        {%- endif -%}
+    </dt>
+{% endblock %}{# end block "metaLabel" #}
+{% endspaceless %}
+
+{#The following <dd> prints out each attribute value. #}
+{% block metaValueDd %}
+    <dd class="tubepress-meta-{{ attributeName }} js-tubepress-meta-value">{% spaceless %}
+
+        {# The title gets special treatment because we want users to be able to click on it to start the video. #}
+        {%- if attributeName == 'title' -%}
+            {% block metaValueTitle %}
+                {% set anchorContent %}
+                    {{- mediaItem.title -}}
+                {% endset %}
+                {% include 'gallery/players/fragments/invoking_anchor.html.twig'%}
+            {% endblock %}
+        {%- endif -%}
+
+        {# Are we showing the URL for this video? If so, let's wrap it in an anchor and change the text. #}
+        {%- if attributeName == 'homeUrl' -%}
+            {%- block metaValueHomeUrl -%}
+                <a rel="nofollow" target="_blank" href="{{ mediaItem.homeUrl }}">URL</a>
+            {%- endblock -%}
+        {%- endif -%}
+
+        {# Do we have an author URL? If so, let's make it an anchor. #}
+        {%- if attributeName == 'authorDisplayName' -%}
+            {% block metaValueAuthorDisplayName %}
+                {%- if mediaItem.authorUrl is defined -%}
+                    <a ref="nofollow" target="_blank" href="{{ mediaItem.authorUrl }}">{{ mediaItem.authorDisplayName }}</a>
+                {%- else -%}
+                    {{ mediaItem.authorDisplayName }}
+                {%- endif -%}
+            {% endblock %}
+        {%- endif -%}
+
+        {%- if attributeName == 'description'  -%}
+            {% block metaValueDescription %}
+                {{- mediaItem.description|raw -}}
+            {% endblock %}
+        {%- endif -%}
+
+        {# Print out the attribute value. #}
+        {%- if attributeName not in ['title', 'homeUrl', 'authorDisplayName', 'description'] -%}
+            {% block metaValueSimple %}
+                {{- attribute(mediaItem, attributeName) -}}
+            {% endblock %}
+        {%- endif -%}
+    {% endspaceless %}</dd>
+{% endblock %}{# end block "metaValue" #}
+
+{% endif %}

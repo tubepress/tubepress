@@ -1,13 +1,13 @@
 <?php
 /**
-Plugin Name: @TubePress@
+Plugin Name: TubePress
 Plugin URI: http://tubepress.com
-Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and widgets. @description@
+Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and widgets. Upgrade to <a href="http://tubepress.com/pricing/">TubePress Pro</a> for more features!
 Author: TubePress LLC
-Version: git-bleeding
+Version: 99.99.99
 Author URI: http://tubepress.com
 
-Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
 
 This file is part of TubePress (http://tubepress.com)
 
@@ -76,8 +76,11 @@ class tubepress_wordpress_ApiIntegrator
             'admin_head',
             'admin_menu',
             'admin_notices',
+            'admin_print_scripts-settings_page_tubepress',
             'init',
             'in_plugin_update_message-' . $this->_baseName . '/tubepress.php',
+            'load-admin_page_tubepress_oauth2',
+            'load-admin_page_tubepress_oauth2_start',
             'widgets_init',
             'wp_ajax_nopriv_tubepress',
             'wp_ajax_tubepress',
@@ -102,10 +105,10 @@ class tubepress_wordpress_ApiIntegrator
         $serviceContainer = $this->_getServiceContainer();
 
         /**
-         * @var $persistence tubepress_app_api_options_PersistenceInterface
+         * @var $persistence tubepress_api_options_PersistenceInterface
          */
-        $persistence = $serviceContainer->get(tubepress_app_api_options_PersistenceInterface::_);
-        $keyword     = $persistence->fetch(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+        $persistence = $serviceContainer->get(tubepress_api_options_PersistenceInterface::_);
+        $keyword     = $persistence->fetch(tubepress_api_options_Names::SHORTCODE_KEYWORD);
 
         /** @noinspection PhpUndefinedFunctionInspection */
         add_shortcode($keyword, array($this, '__onShortcode'));
@@ -210,7 +213,7 @@ class tubepress_wordpress_ApiIntegrator
     {
         $serviceContainer = $this->_getServiceContainer();
 
-        $logger = $serviceContainer->get(tubepress_platform_api_log_LoggerInterface::_);
+        $logger = $serviceContainer->get(tubepress_api_log_LoggerInterface::_);
 
         $logger->error($e->getMessage());
     }
@@ -230,11 +233,11 @@ class tubepress_wordpress_ApiIntegrator
     }
 
     /**
-     * @return tubepress_platform_api_ioc_ContainerInterface
+     * @return tubepress_api_ioc_ContainerInterface
      */
     private function _getServiceContainer()
     {
-        return require 'src/platform/scripts/boot.php';
+        return require 'src/php/scripts/boot.php';
     }
 }
 

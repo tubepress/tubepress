@@ -1,0 +1,28 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' class="js-tubepress-embed" width='{{ embeddedWidthPx }}' height='{{ embeddedHeightPx }}'>
+    <param name='movie' value='{{ userContentUrl }}/vendor/jwplayer/v5/player.swf'>
+    <param name='allowfullscreen' value='true'>
+    <param name='allowscriptaccess' value='always'>
+    <param name='wmode' value='transparent'>
+    <param name='flashvars' value='file={{ dataURL }}&amp;autostart={{ autostart }}&amp;backcolor={{ jwPlayerBackColor }}&amp;frontcolor={{ jwPlayerFrontColor }}&amp;lightcolor={{ jwPlayerLightColor }}&amp;screencolor={{ jwPlayerScreenColor }}'>
+
+<embed	type='application/x-shockwave-flash'
+        src='{{ userContentUrl }}/vendor/jwplayer/v5/player.swf'
+		width='{{ embeddedWidthPx }}'
+		height='{{ embeddedHeightPx }}'
+		bgcolor='undefined'
+        allowscriptaccess='always'
+        allowfullscreen='true'
+        wmode='transparent'
+        class="js-tubepress-embed"
+        flashvars='file={{ dataURL }}&amp;autostart={{ autostart }}&amp;backcolor={{ jwPlayerBackColor }}&amp;frontcolor={{ jwPlayerFrontColor }}&amp;lightcolor={{ jwPlayerLightColor }}&amp;screencolor={{ jwPlayerScreenColor }}'
+</embed>
+</object>

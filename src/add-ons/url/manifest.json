@@ -1,0 +1,28 @@
+{
+    "name" : "tubepress/url",
+    "version": "99.99.99",
+    "title" : "TubePress URL Services",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_url_ioc_UrlExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_url_impl_puzzle_PuzzleBasedQuery" : "classes/tubepress/url/impl/puzzle/PuzzleBasedQuery.php",
+          "tubepress_url_impl_puzzle_PuzzleBasedUrl"   : "classes/tubepress/url/impl/puzzle/PuzzleBasedUrl.php",
+          "tubepress_url_impl_puzzle_UrlFactory"       : "classes/tubepress/url/impl/puzzle/UrlFactory.php",
+          "tubepress_url_ioc_UrlExtension"             : "classes/tubepress/url/ioc/UrlExtension.php"
+        }
+    }
+}

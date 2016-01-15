@@ -1,0 +1,132 @@
+{#
+# Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+#
+# This file is part of TubePress (http://tubepress.com)
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#}
+<div class="tab-pane fade{% if categoryIndex == 0 %} in active{% endif %}"  id="theme_category">
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5">
+
+            <dl class="dl-horizontal text-muted">
+
+            {% for providerId, fieldIds in categoryIdToProviderIdToFieldsMap.theme_category %}
+
+                {% if fieldIds is not empty %}
+
+                    {% set fieldProvider = attribute(fieldProviders, providerId) %}
+
+                    {% for fieldId in fieldIds %}
+
+                        {% if fieldId in fields|keys%}
+
+                            {% set field = attribute(fields, fieldId) %}
+
+                            <dt>{{ field.untranslatedDisplayName|trans }}</dt>
+                            <dd id="theme-field-dropdown">{{ field.widgetHTML|raw }}</dd>
+
+                            {#
+                                'Author(s)'      >(translatable)<
+                                'License'        >(translatable)<
+                                'Version'        >(translatable)<
+                                'Keywords'       >(translatable)<
+                                'Demo'           >(translatable)<
+                                'Homepage'       >(translatable)<
+                                'Documentation'  >(translatable)<
+                                'Download'       >(translatable)<
+                                'Bugs'           >(translatable)<
+                                'Forum'          >(translatable)<
+                                'Source code'    >(translatable)<
+                            #}
+                            {% set termMap = {
+
+                                ''              : 'description',
+                                'Author(s)'     : 'authors',
+                                'License'       : 'license',
+                                'Version'       : 'version',
+                                'Keywords'      : 'keywords',
+                            } %}
+
+                            {% for label, id in termMap %}
+                                <dt style="display: none">{{ label }}</dt>
+                                <dd style="display: none" id="theme-field-{{ id }}"></dd>
+                            {% endfor %}
+
+                            {% set termMap = {
+
+                            'Demo'          : 'demo',
+                            'Homepage'      : 'homepage',
+                            'Documentation' : 'docs',
+                            'Download'      : 'download',
+                            'Bugs'          : 'bugs',
+                            'Forum'         : 'forum',
+                            'Source code'   : 'sourceCode',
+                            } %}
+
+                            {% for label, id in termMap %}
+                                <dt style="display: none">{{ label }}</dt>
+                                <dd style="display: none" id="theme-field-support-{{ id }}"></dd>
+                            {% endfor %}
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </dl>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-6 col-lg-7" id="theme-screenshots">
+            <div class="panel panel-default">
+                <div class="panel-heading">Screenshots<span id="click-to-englarge-screenshots" style="display: none"> - click to enlarge</span></div>
+                <div class="panel-body">
+                    <p class="text-muted" style="display: none">None available.</p>
+                </div>
+            </div>
+        </div>{# end of div#theme-screenshots #}
+    </div>
+</div>
+
+<div id="theme-field-data" style="display: none">
+    <script type="text/javascript">
+        var TubePressThemes = {{ fields.theme.themeDataAsJson|raw }}
+    </script>
+</div>
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

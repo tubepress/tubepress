@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_options_PersistenceBackend<extended>
+ * @covers tubepress_wordpress_impl_options_WpPersistence<extended>
  */
-class tubepress_test_wordpress_impl_options_PersistenceBackendTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_options_PersistenceBackendTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_options_WpPersistence
@@ -51,9 +51,9 @@ class tubepress_test_wordpress_impl_options_PersistenceBackendTest extends tubep
 
     public function onSetup()
     {
-        $this->_mockEnvironmentDetector      = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
-        $this->_mockEventDispatcher          = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockOptionProvider           = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
+        $this->_mockEnvironmentDetector      = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockEventDispatcher          = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockOptionProvider           = $this->mock(tubepress_api_options_ReferenceInterface::_);
         $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
 
         $this->_sut = new tubepress_wordpress_impl_options_WpPersistence(

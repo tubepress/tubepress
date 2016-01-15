@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:07+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "This is the title of the tab in the options page"
+msgid "Player"
+msgstr ""
+
+msgid "Play each video"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "from the video's original YouTube page"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "in a popup window"
+msgstr ""
+
+msgid "normally (at the top of your gallery)"
+msgstr ""
+
+msgid "statically (page refreshes on each thumbnail click)"
+msgstr ""
+
+msgid "with jqModal"
+msgstr ""
+
+msgid "with Shadowbox"
+msgstr ""
+
+msgid "Implementation"
+msgstr ""
+
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
+msgstr ""
+
+msgid "Provider default"
+msgstr ""
+
+msgid "JW Player (by Longtail Video)"
+msgstr ""
+
+msgid "Max height (px)"
+msgstr ""
+
+msgid "Max width (px)"
+msgstr ""
+
+msgid "Responsive embeds"
+msgstr ""
+
+msgid "Auto-resize media players to best fit the viewer's screen."
+msgstr ""
+
+msgid "\"Lazy\" play videos"
+msgstr ""
+
+msgid "Auto-play each video after thumbnail click."
+msgstr ""
+
+msgid "Show title and rating before video starts"
+msgstr ""
+
+msgid "Auto-play all videos"
+msgstr ""
+
+msgid "Loop"
+msgstr ""
+
+msgid "Continue playing the video until the user stops it."
+msgstr ""
+
+msgid "Scroll page to embedded player after thumbnail click"
+msgstr ""
+
+msgid "Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players."
+msgstr ""
+
+msgid "Scroll duration (ms)"
+msgstr ""
+
+msgid "Set to 0 for \"instant\" scroll."
+msgstr ""
+
+msgid "Scroll offset (px)"
+msgstr ""
+
+msgid "Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively."
+msgstr ""
+
+msgid "Play videos sequentially without user intervention"
+msgstr ""
+
+msgid "When a video finishes, this will start playing the next video in the gallery."
+msgstr ""
+
+msgid "Main color"
+msgstr ""
+
+msgid "Background color"
+msgstr ""
+
+msgid "Front color"
+msgstr ""
+
+msgid "Light color"
+msgstr ""
+
+msgid "Screen color"
+msgstr ""

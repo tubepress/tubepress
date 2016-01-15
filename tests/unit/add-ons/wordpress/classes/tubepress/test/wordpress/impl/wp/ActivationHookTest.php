@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -12,9 +12,8 @@
 /**
  * @covers tubepress_wordpress_impl_wp_ActivationHook
  * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
  */
-class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_wp_ActivationHook
@@ -39,7 +38,7 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_test
     public function onSetup()
     {
         $this->_mockFilesystemInterface = $this->mock('ehough_filesystem_FilesystemInterface');
-        $this->_mockSettingsFileReader  = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
+        $this->_mockSettingsFileReader  = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
         $this->_sut = new tubepress_wordpress_impl_wp_ActivationHook(
 
             $this->_mockSettingsFileReader,

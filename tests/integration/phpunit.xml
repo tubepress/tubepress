@@ -6,13 +6,10 @@
 	stopOnSkipped="false"
     strict="true"
     processIsolation="false"
-    bootstrap="./bootstrap.php">
+    bootstrap="../bootstrap.php">
 	<testsuites>
 	   <testsuite name="integration">
            <directory>./classes</directory>
 	   </testsuite>
 	</testsuites>
-    <php>
-        <const name="ANT_PATH" value="/usr/bin/ant"/>
-    </php>
 </phpunit>

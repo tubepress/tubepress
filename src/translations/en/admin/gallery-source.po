@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:12+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "This is the title of the tab in the options page"
+msgid "Which videos?"
+msgstr ""
+
+msgctxt "This is the title of a tab in the gallery sources selection area"
+msgid "Video Source"
+msgstr ""
+
+msgctxt "This is the title of a tab in the gallery sources selection area"
+msgid "Feed Options"
+msgstr ""
+
+msgctxt "The button text for adding a new video source"
+msgid "Add Source"
+msgstr ""
+
+msgctxt "The tooltip text when the user hovers over the add-new-source button"
+msgid "TubePress will combine your sources into a single, unified gallery."
+msgstr ""
+
+msgctxt "The tooltip text when the user hovers over the icon to rearrange video sources"
+msgid "Click and drag to change the order in which the sources are retrieved. See the \"Feed\" tab for fine-grained control over the final sort order."
+msgstr ""
+
+msgid "Are you sure you want to remove this source?"
+msgstr ""

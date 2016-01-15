@@ -1,0 +1,42 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{% set fieldHtml = field.widgetHTML %}
+{% set fieldDesc = field.untranslatedDescription|trans %}
+{% set fieldName = field.untranslatedDisplayName|trans %}
+
+{% if fieldHtml != '' %}
+    <div class="form-group" {% if false %}style="display:none"{% endif %}>
+
+        <label for="{{ field.id }}" class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">
+
+            {% if (not isPro) and field.proOnly %}
+
+                <a href="http://tubepress.com/pricing/">
+                    <span class="label label-primary" style="font-size: 100%">Pro</span>
+                </a>
+
+            {% endif %}
+
+            {{ fieldName|raw }}
+
+        </label>
+
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+
+            {{ fieldHtml|raw }}
+
+            <span class="help-block">
+                {{ fieldDesc|raw }}
+            </span>
+
+        </div>
+    </div>
+{% endif %}

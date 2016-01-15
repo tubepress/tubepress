@@ -1,0 +1,40 @@
+{
+    "name" : "tubepress/http-oauth2",
+    "version": "99.99.99",
+    "title" : "TubePress OAuth2 Services",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_http_oauth2_ioc_Oauth2Extension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_http_oauth2_impl_AbstractProviderConsumer"                : "classes/tubepress/http/oauth2/impl/AbstractProviderConsumer.php",
+          "tubepress_http_oauth2_impl_listeners_Oauth2Listener"                : "classes/tubepress/http/oauth2/impl/listeners/Oauth2Listener.php",
+          "tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField" : "classes/tubepress/http/oauth2/impl/options/ui/ClientCredentialsSavingField.php",
+          "tubepress_http_oauth2_impl_options_ui_ClientIdField"                : "classes/tubepress/http/oauth2/impl/options/ui/ClientIdField.php",
+          "tubepress_http_oauth2_impl_options_ui_ClientInstructionsField"      : "classes/tubepress/http/oauth2/impl/options/ui/ClientInstructionsField.php",
+          "tubepress_http_oauth2_impl_options_ui_ClientSecretField"            : "classes/tubepress/http/oauth2/impl/options/ui/ClientSecretField.php",
+          "tubepress_http_oauth2_impl_options_ui_TokenDeletionField"           : "classes/tubepress/http/oauth2/impl/options/ui/TokenDeletionField.php",
+          "tubepress_http_oauth2_impl_options_ui_TokenManagementField"         : "classes/tubepress/http/oauth2/impl/options/ui/TokenManagementField.php",
+          "tubepress_http_oauth2_impl_options_ui_TokenSelectionField"          : "classes/tubepress/http/oauth2/impl/options/ui/TokenSelectionField.php",
+          "tubepress_http_oauth2_impl_popup_AbstractPopupHandler"              : "classes/tubepress/http/oauth2/impl/popup/AbstractPopupHandler.php",
+          "tubepress_http_oauth2_impl_popup_AuthorizationInitiator"            : "classes/tubepress/http/oauth2/impl/popup/AuthorizationInitiator.php",
+          "tubepress_http_oauth2_impl_popup_RedirectionCallback"               : "classes/tubepress/http/oauth2/impl/popup/RedirectionCallback.php",
+          "tubepress_http_oauth2_impl_token_Token"                             : "classes/tubepress/http/oauth2/impl/token/Token.php",
+          "tubepress_http_oauth2_impl_util_AccessTokenFetcher"                 : "classes/tubepress/http/oauth2/impl/util/AccessTokenFetcher.php",
+          "tubepress_http_oauth2_impl_util_PersistenceHelper"                  : "classes/tubepress/http/oauth2/impl/util/PersistenceHelper.php",
+          "tubepress_http_oauth2_ioc_Oauth2Extension"                          : "classes/tubepress/http/oauth2/ioc/Oauth2Extension.php"
+        }
+    }
+}

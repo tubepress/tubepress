@@ -1,0 +1,322 @@
+/*!
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ **********************************************************************************************
+ **** GLOBAL STUFF
+ **********************************************************************************************
+ */
+
+/**
+ * Prevents the tabs and such from slipping to the very left side of the screen
+ */
+.tp-bs .row {
+
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/**
+ * Move the labels up a little bit.
+ */
+.tp-bs .form-horizontal .control-label,
+.tp-bs .form-horizontal .radio,
+.tp-bs .form-horizontal .checkbox,
+.tp-bs .form-horizontal .radio-inline,
+.tp-bs .form-horizontal .checkbox-inline {
+
+    padding-top: 4px;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** TABS
+ **********************************************************************************************
+ */
+
+/**
+ * Make the border go all the way around the tabs
+ */
+.tp-bs .tab-content {
+
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding-top: 24px;
+    margin-bottom: 24px;
+    background-color: white;
+}
+
+/**
+ * Get rid of any shadows around the tab headers
+ */
+.tp-bs .nav-tabs li > a:focus {
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    outline: none;
+}
+
+
+/**
+ **********************************************************************************************
+ **** THEME FIELD
+ **********************************************************************************************
+ */
+
+/*
+ * Puts a margin below the theme's description.
+ */
+#theme_category dd:nth-of-type(2) {
+
+    margin-bottom: 2em;
+}
+
+@media (min-width: 768px) {
+
+    /**
+     * Shifts the metadata to the left (default is 160px).
+     */
+    #theme_category .dl-horizontal dt {
+
+        width: 100px;
+    }
+    #theme_category .dl-horizontal dd {
+
+        margin-left: 120px;
+    }
+}
+
+/**
+ * Makes the theme label and description stand out a little.
+ */
+#theme_category .dl-horizontal dt:nth-of-type(1),
+#theme_category .dl-horizontal dd:nth-of-type(2){
+
+    color: black;
+}
+
+/**
+ * Makes the "Screenshots" header a little less spacey
+ */
+#theme-screenshots > div.panel > div.panel-heading {
+
+    padding: 5px 8px;
+}
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** DROPDOWNS
+ **********************************************************************************************
+ */
+
+.tp-bs li {
+
+    margin-bottom: 0;
+}
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** CALLOUTS (copied pretty much directly from Bootstrap)
+ **********************************************************************************************
+ */
+.tp-bs .bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.tp-bs .bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.tp-bs .bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.tp-bs .bs-callout code {
+    border-radius: 3px;
+}
+.tp-bs .bs-callout + .tp-bs .bs-callout {
+    margin-top: -5px;
+}
+.tp-bs .bs-callout-danger {
+    border-left-color: #d9534f;
+}
+.tp-bs .bs-callout-danger h4 {
+    color: #d9534f;
+}
+.tp-bs .bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.tp-bs .bs-callout-warning h4 {
+    color: #f0ad4e;
+}
+.tp-bs .bs-callout-info {
+    border-left-color: #5bc0de;
+}
+.tp-bs .bs-callout-info h4 {
+    color: #5bc0de;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** BLUEIMP GALLERY
+ **********************************************************************************************
+ */
+button.close {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.blueimp-gallery a:hover {
+
+    text-decoration: none;
+}
+
+
+
+
+/**
+ **********************************************************************************************
+ **** GALLERY SOURCES
+ **********************************************************************************************
+ */
+#gallery_source_category .media-provider-icon {
+
+    margin-right: 1em; /** Put some space to the right of the provider icon. */
+}
+
+#gallery_source_category .multisource-control-icon {
+
+    margin-top: 4px;  /** The image makes the panel heading too tall, which moves the control icons too high. */
+    margin-left: 1em; /** Space out the control icons */
+    cursor: pointer;  /** Indicate that stuff can be done by clicking */
+}
+
+#gallery_source_category .multisource-control-icon.multisource-control-reorder {
+
+    cursor: move; /** Indicate that this can be reordered. */
+}
+
+#gallery_source_category a:focus {
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+/**
+ * Put some space between the "Add Source" button and the content above/below it.
+ */
+#gallery_source_category .add-gallery-source-button {
+
+    margin: 2em 0;
+}
+
+#gallery_source_category .multisource-single-container {
+
+    border: 1px solid #dddddd;
+    margin-top: -1px;
+}
+
+#gallery_source_category .multisource-single-container ul {
+
+    margin-top: 5px;
+}
+
+#gallery_source_category .multisource-single-container .multisource-title-bar {
+
+    padding: 15px;
+    cursor: pointer;
+    font-size: 140%;
+}
+
+#gallery_source_category .multisource-single-container .multisource-title-bar:hover {
+
+    background-color: #f9f9f9;
+}
+
+#gallery_source_category .multisource-single-container .multisource-tab-area > * {
+
+    padding-bottom: 15px;
+}
+
+#gallery_source_category .media-provider-icon {
+
+    width: 34px;
+    text-align: right;
+}
+
+
+/**
+ **********************************************************************************************
+ **** BOOTSTRAP MODAL MODS
+ **********************************************************************************************
+ */
+.tp-bs .modal-dialog {
+
+    margin-top: 60px;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** FIELD AND INPUT MODS
+ **********************************************************************************************
+ */
+select {
+
+    width: auto !important;
+}
+
+textarea {
+    /** Ensure that our text areas are as big as possible */
+    width: 100% !important;
+    height: 100px !important;
+}
+
+
+/**
+ **********************************************************************************************
+ **** OAUTH2 STUFF
+ **********************************************************************************************
+ */
+.oauth2-client-registration li {
+
+    margin-top: 5px;
+}
+
+.oauth2-client-registration ol li ul li {
+    list-style: circle inside;
+    margin-left: 1em;
+}
+
+ul.oauth2-tokens span.glyphicon-ok-circle {
+
+    color: green;
+}

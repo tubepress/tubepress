@@ -1,0 +1,37 @@
+{
+    "name" : "tubepress/http",
+    "version": "99.99.99",
+    "title" : "TubePress HTTP Services",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_http_ioc_HttpExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_http_ioc_HttpExtension"                     : "classes/tubepress/http/ioc/HttpExtension.php",
+          "tubepress_http_impl_AbstractHttpClient"               : "classes/tubepress/http/impl/AbstractHttpClient.php",
+          "tubepress_http_impl_PrimaryAjaxHandler"               : "classes/tubepress/http/impl/PrimaryAjaxHandler.php",
+          "tubepress_http_impl_RequestParameters"                : "classes/tubepress/http/impl/RequestParameters.php",
+          "tubepress_http_impl_ResponseCode"                     : "classes/tubepress/http/impl/ResponseCode.php",
+          "tubepress_http_impl_listeners_UserAgentListener"      : "classes/tubepress/http/impl/listeners/UserAgentListener.php",
+          "tubepress_http_impl_puzzle_AbstractMessage"           : "classes/tubepress/http/impl/puzzle/AbstractMessage.php",
+          "tubepress_http_impl_puzzle_PuzzleBasedRequest"        : "classes/tubepress/http/impl/puzzle/PuzzleBasedRequest.php",
+          "tubepress_http_impl_puzzle_PuzzleBasedResponse"       : "classes/tubepress/http/impl/puzzle/PuzzleBasedResponse.php",
+          "tubepress_http_impl_puzzle_PuzzleHttpClient"          : "classes/tubepress/http/impl/puzzle/PuzzleHttpClient.php",
+          "tubepress_http_impl_puzzle_RequestException"          : "classes/tubepress/http/impl/puzzle/RequestException.php",
+          "tubepress_http_impl_puzzle_streams_PuzzleBasedStream" : "classes/tubepress/http/impl/puzzle/streams/PuzzleBasedStream.php",
+          "tubepress_http_impl_puzzle_streams_PuzzleStream"      : "classes/tubepress/http/impl/puzzle/streams/PuzzleStream.php"
+        }
+    }
+}

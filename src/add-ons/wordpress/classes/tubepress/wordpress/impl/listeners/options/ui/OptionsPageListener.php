@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -12,23 +12,23 @@
 class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
 {
     /**
-     * @var tubepress_app_api_options_ui_FormInterface
+     * @var tubepress_api_options_ui_FormInterface
      */
     private $_form;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_httpRequestParams;
 
-    public function __construct(tubepress_app_api_options_ui_FormInterface        $form,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+    public function __construct(tubepress_api_options_ui_FormInterface        $form,
+                                tubepress_api_http_RequestParametersInterface $requestParams)
     {
         $this->_form              = $form;
         $this->_httpRequestParams = $requestParams;
     }
 
-    public function run(tubepress_lib_api_event_EventInterface $event)
+    public function run(tubepress_api_event_EventInterface $event)
     {
         $errors        = array();
         $justSubmitted = false;
@@ -44,7 +44,7 @@ class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
         print $this->_form->getHtml($errors, $justSubmitted);
     }
 
-    public function onTemplateSelect(tubepress_lib_api_event_EventInterface $event)
+    public function onTemplateSelect(tubepress_api_event_EventInterface $event)
     {
         $event->setSubject('options-ui/wp-settings-page');
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -25,7 +25,7 @@ class tubepress_wordpress_api_Constants
     /**
      * This event is fired after TubePress parses a shortcode.
      *
-     * @subject `tubepress_lib_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
+     * @subject `tubepress_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
      *
      * @api
      * @since 4.1.11

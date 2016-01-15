@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -13,21 +13,23 @@ class tubepress_test_integration_BasicsTest extends tubepress_test_integration_I
 {
     public function testBootsWithNoErrors()
     {
-        $result = $this->get(true);
+        $result = $this->request('GET', 'index.php', array(
+            'tubepress_clear_system_cache' => 'true'
+        ), true)->getContent();
 
         $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') !== false, $result);
         $this->_assertNoBootErrors($result);
 
-        $result = $this->get(true);
+        $result = $this->request('GET', 'index.php', array(), true)->getContent();
 
         $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') === false, $result);
-        $this->assertTrue(strpos($result, 'System cache is available. Excellent!') !== false, $result);
+        $this->assertTrue(strpos($result, 'Done rehydrating cached service container.') !== false, $result);
         $this->_assertNoBootErrors($result);
     }
 
     public function testCssAndJs()
     {
-        $result = $this->get();
+        $result = $this->request('GET', 'index.php', array())->getContent();
 
         $this->assertNotEmpty($result);
 

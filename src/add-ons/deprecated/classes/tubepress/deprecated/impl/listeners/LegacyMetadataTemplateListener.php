@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -19,41 +19,41 @@
 class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
 {
     /**
-     * @var tubepress_app_api_media_MediaProviderInterface[]
+     * @var tubepress_spi_media_MediaProviderInterface[]
      */
     private $_mediaProviders;
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_options_ReferenceInterface
+     * @var tubepress_api_options_ReferenceInterface
      */
     private $_optionReference;
 
-    public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_app_api_options_ReferenceInterface      $optionReference,
-                                tubepress_lib_api_translation_TranslatorInterface $translator)
+    public function __construct(tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_options_ReferenceInterface      $optionReference,
+                                tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_translator      = $translator;
         $this->_context         = $context;
         $this->_optionReference = $optionReference;
     }
 
-    public function onSingleTemplate(tubepress_lib_api_event_EventInterface $event)
+    public function onSingleTemplate(tubepress_api_event_EventInterface $event)
     {
         $existingTemplateVars = $event->getSubject();
 
         if (!$event->hasArgument('item')) {
 
-            $existingTemplateVars[tubepress_api_const_template_Variable::VIDEO] = new tubepress_app_api_media_MediaItem('id');
+            $existingTemplateVars[tubepress_api_const_template_Variable::VIDEO] = new tubepress_api_media_MediaItem('id');
 
         } else {
 
@@ -63,7 +63,7 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
         $event->setSubject($existingTemplateVars);
     }
 
-    public function onTemplate(tubepress_lib_api_event_EventInterface $event)
+    public function onTemplate(tubepress_api_event_EventInterface $event)
     {
         $existingVars = $event->getSubject();
 

@@ -1,0 +1,218 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #
+ #  Most of this logic is loosely based on
+ # https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Pagination/SlidingPagination.php
+ #}
+
+{#
+ Non-exhaustive list of variables in this template (add-ons may add other variables):
+
+ paginationCurrentPageNumber int  The current page number of the gallery.
+ paginationTotalItems        int  The total number of items in this gallery.
+ paginationResultsPerPage    int  The requested results per page.
+ paginationHrefFormat        string Anchor HREF attributes format
+
+ IF YOU SIMPLY WISH TO MODIFY THE HTML, SKIP DOWN TO LINE 120.
+#}
+{% set currentPageNum = paginationCurrentPageNumber %}
+{% set totalItems     = paginationTotalItems %}
+{% set itemsPerPage   = paginationResultsPerPage %}
+{% set pageCount      = (totalItems / itemsPerPage)|round(0, 'ceil') %}
+{% set pageRange      = 5 %}
+
+{% if pageCount < currentPageNum %}
+    {% set currentPageNum = pageCount %}
+{% endif %}
+
+{% if pageRange > pageCount %}
+    {% set pageRange = pageCount %}
+{% endif %}
+
+{% set delta = (pageRange / 2)|round(0, 'ceil') %}
+
+{% if (currentPageNum - delta) > (pageCount - pageRange) %}
+
+    {% set pages = range((pageCount - pageRange + 1), pageCount) %}
+
+{% else %}
+
+    {% if (currentPageNum - delta) < 0 %}
+
+        {% set delta = currentPageNum %}
+    {% endif %}
+
+    {% set offset = currentPageNum - delta %}
+    {% set pages  = range(offset + 1, offset + pageRange) %}
+{% endif %}
+
+{% set proximity = (pageRange / 2)|round(0, 'floor') %}
+{% set startPage = currentPageNum - proximity %}
+{% set endPage   = currentPageNum + proximity %}
+
+{% if startPage < 1 %}
+
+    {% set endPage = min(endPage + 1 - startPage, pageCount) %}
+    {% set startPage = 1 %}
+{% endif %}
+
+{% if endPage > pageCount %}
+
+    {% set startPage = max(startPage - endPage - pageCount, 1) %}
+    {% set endPage   = pageCount %}
+{% endif %}
+
+{% if (currentPageNum - 1) > 0 %}
+
+    {% set previousPage = currentPageNum - 1 %}
+{% endif %}
+
+{% if (currentPageNum + 1) <= pageCount %}
+
+    {% set nextPage = currentPageNum + 1 %}
+{% endif %}
+
+{% set firstPageInRange = min(pages) %}
+{% set lastPageInRange  = max(pages) %}
+{% set currentItemCount = pages.length %}
+{% set firstItemNumber  = ((currentPageNum - 1) * itemsPerPage) + 1 %}
+{% set lastItemNumber   = firstItemNumber + currentItemCount - 1 %}
+
+{% macro anchor(page, anchorFormat, text) %}
+
+    {% if text is empty %}
+
+        {% set text = page %}
+    {% endif %}
+
+    {% set href = anchorFormat|replace({'___page-number___' : page}) %}
+
+    {% if page > 1 %}
+
+        {% set noFollow = ' rel="nofollow"' %}
+
+    {% else %}
+
+        {% set noFollow = '' %}
+
+    {% endif %}
+
+    {#
+         If you modify this template, do not remove the "js-tubepress-*" class names as doing
+         so will break Ajax pagination.
+     #}
+    <a href="{{ href }}" class="js-tubepress-pager js-tubepress-page-{{ page }}"{{ noFollow|raw }}>{{ text|raw }}</a>
+
+{% endmacro %}
+
+{% import _self as pagination %}
+
+{% if pageCount > 1 %}
+
+    {% block pagination %}
+
+        <div class="tubepress-pagination tubepress-pagination-centered">
+
+            <ul>
+
+            {% if previousPage is defined %}
+
+                <li class="tubepress-pagination-item">
+                    {{ pagination.anchor(previousPage, paginationHrefFormat, '&laquo;&nbsp;' ~ 'prev'|trans|escape) }}
+                </li>
+
+            {% else %}
+
+                <li class="tubepress-pagination-item disabled">
+                    <span>&laquo;&nbsp;{{ 'prev'|trans }}</span>
+                </li>
+
+            {% endif %}
+
+            {% if startPage > 1 %}
+
+                <li class="tubepress-pagination-item">
+                    {{ pagination.anchor(1, paginationHrefFormat) }}
+                </li>
+
+                {% if startPage == 3 %}
+
+                    <li class="tubepress-pagination-item">
+                        {{ pagination.anchor(2, paginationHrefFormat) }}
+                    </li>
+
+                {% elseif startPage != 2 %}
+
+                    <li class="tubepress-pagination-item disabled">
+                        <span>&hellip;</span>
+                    </li>
+
+                {% endif %}
+            {% endif %}
+
+            {% for page in pages %}
+
+                {% if page != currentPageNum %}
+
+                    <li class="tubepress-pagination-item">
+                        {{ pagination.anchor(page, paginationHrefFormat) }}
+                    </li>
+
+                {% else %}
+
+                    <li class="tubepress-pagination-item active">
+                        <span>{{ page }}</span>
+                    </li>
+
+                {% endif %}
+            {% endfor %}
+
+            {% if pageCount > endPage %}
+
+                {% if pageCount > (endPage + 1) %}
+
+                    {% if pageCount > (endPage + 2) %}
+
+                        <li class="tubepress-pagination-item disabled">
+                            <span>&hellip;</span>
+                        </li>
+
+                    {% else %}
+
+                        <li class="tubepress-pagination-item">
+                            {{ pagination.anchor(pageCount - 1, paginationHrefFormat) }}
+                        </li>
+
+                    {% endif %}
+                {% endif %}
+
+                <li class="tubepress-pagination-item">
+                    {{ pagination.anchor(pageCount, paginationHrefFormat) }}
+                </li>
+
+            {% endif %}
+
+            {% if nextPage is defined %}
+
+                <li class="tubepress-pagination-item">
+                    {{ pagination.anchor(nextPage, paginationHrefFormat, 'next'|trans|escape ~ '&nbsp;&raquo;') }}
+                </li>
+
+            {% else %}
+
+                <li class="tubepress-pagination-item disabled">
+                    <span>{{ 'next'|trans }}&nbsp;&raquo;</span>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+
+    {% endblock %}{# end block "pagination" #}
+{% endif %}

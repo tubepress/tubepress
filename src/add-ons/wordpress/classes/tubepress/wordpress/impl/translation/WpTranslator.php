@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  * 
  * This file is part of TubePress (http://tubepress.com)
  * 
@@ -12,7 +12,7 @@
 /**
  * Message service that uses gettext (via WordPress).
  */
-class tubepress_wordpress_impl_translation_WpTranslator extends tubepress_lib_impl_translation_AbstractTranslator
+class tubepress_wordpress_impl_translation_WpTranslator extends tubepress_internal_translation_AbstractTranslator
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions

@@ -1,0 +1,28 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+<div class="tab-pane fade{% if categoryIndex == 0 %} in active{% endif %}" id="{{ category.id }}">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            {% for providerId, fieldIds in categoryIdToProviderIdToFieldsMap[category.id] %}
+
+                {% if fieldIds is not empty %}
+
+                    {% set fieldProvider = attribute(fieldProviders, providerId) %}
+                    {% include 'options-ui/page-fragments/single-field-provider.html.twig' %}
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

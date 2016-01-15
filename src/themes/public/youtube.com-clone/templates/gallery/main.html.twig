@@ -1,0 +1,75 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{% extends 'tubepress/default::gallery/main.html.twig' %}
+
+{% block galleryClasses %}tubepress-youtube{% endblock %}
+
+{% block thumb %}
+
+    {#
+     <div class="tubepress-thumb js-tubepress-fluid-thumb-adjustable">
+
+     You must retain the js-* classes. Failure to do so may break client-side functionality.
+     #}
+    <div class="tubepress-thumb js-tubepress-thumb js-tubepress-fluid-thumb-adjustable">
+
+        <div class="tubepress-youtube-thumbnail"  style="width: {{ thumbWidthPx }}px">
+
+            {% set anchorContent %}
+                {#
+                  You must retain the js-tubepress-thumbnail-image class on the image. Failure to do
+                  so will break fluid thumbnails.
+                #}
+                <img class="tubepress-thumbnail-image js-tubepress-fluid-thumb-reference js-tubepress-preview" alt="{{ mediaItem.title }}" src="{{ mediaItem.thumbnailUrl }}" width="{{ thumbWidthPx }}" height="{{ thumbHeightPx }}" />
+
+            {% endset %}
+
+            {#
+             The following <a> and <img> display the clickable video thumbnail. The opening <a> is a bit complex,
+             so we delegate it to a fragment.
+             #}
+            {% include 'gallery/players/fragments/invoking_anchor.html.twig'%}
+
+            {# Print out the runtime. #}
+            {% if 'duration' in attributesToShow %}
+                <span class="tubepress-meta-duration">
+                    {{- mediaItem.duration -}}
+                </span>
+            {% endif %}
+        </div>{# end of div.tubepress-youtube-thumbnail #}
+
+        {% block meta %}
+
+            {#
+             <dl class="tubepress-meta-group" ...>
+
+             This <dl> wraps each video's metadata (title, runtime, etc).
+             #}
+            <dl class="tubepress-meta-group js-tubepress-meta-outer" style="width: {{ thumbWidthPx }}px">
+
+                {# Loop over the attributes for this media item. #}
+                {% for attributeName in attributesToShow if attributeName not in ['duration'] %}
+
+                    {#
+                     The logic for printing the dd/dt pairs is delegated a fragment since it is shared
+                     with single_video.html.twig.
+                     #}
+                    {% include 'single/fragments/dt_dd_pair.html.twig' %}
+
+                {% endfor %}{# Stop looping over the media attributes for this item #}
+
+            </dl>{# end of dl.tubepress-meta-group #}
+
+        {% endblock %}{# end of block "meta" #}
+
+    </div>{#  end of div.tubepress-thumb #}
+
+{% endblock %}{# end of  block "thumb #}

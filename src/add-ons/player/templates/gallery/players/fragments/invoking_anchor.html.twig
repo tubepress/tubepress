@@ -1,0 +1,35 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{#
+ # As you can see, the <a> element has four attributes that TubePress needs to work with: class, href, rel, and target.
+ # You may add to these attributes - e.g. add a class name - but do not remove any of the attributes
+ # as doing so will likely break playback.
+ #}
+
+{% block playerInvokingAnchor %}
+    {% spaceless %}
+        <a class="tubepress-cursor-pointer js-tubepress-invoker js-tubepress-itemid-{{ mediaItem.id }}"
+
+            {%- if mediaItem.invokingAnchorHref is defined -%}
+                href="{{ mediaItem.invokingAnchorHref }}"
+            {%- endif -%}
+
+            {%- if mediaItem.invokingAnchorRel -%}
+                rel="{{ mediaItem.invokingAnchorRel }}"
+            {%- endif -%}
+
+            {%- if mediaItem.invokingAnchorTarget -%}
+                target="{{ mediaItem.invokingAnchorTarget }} "
+            {%- endif -%}>
+            {{- anchorContent|raw -}}
+        </a>
+    {% endspaceless %}
+{% endblock %}

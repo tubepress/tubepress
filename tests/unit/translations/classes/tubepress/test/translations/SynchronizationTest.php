@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_translations_SynchronizationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_translations_SynchronizationTest extends tubepress_api_test_TubePressUnitTest
 {
     private static $_LOCALE_MAP = array(
 
@@ -152,7 +152,7 @@ class tubepress_test_translations_SynchronizationTest extends tubepress_test_Tub
             return true;
         }
 
-        $stringUtils = new tubepress_platform_impl_util_StringUtils();
+        $stringUtils = new tubepress_util_impl_StringUtils();
         $msgFmt      = $stringUtils->removeNewLines($msgFmtPath);
         $toRun       = "$msgFmt -o $outputfile $file";
 

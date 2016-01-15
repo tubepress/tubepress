@@ -1,0 +1,41 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+<script type="text/javascript">
+    var TubePressErrors = [
+
+        {% set errorIndex = 1 %}
+        {% for fieldId, errorMessage in errors %}
+
+            ['{{ fieldId }}', '{{ errorMessage }}']
+
+            {% if errorIndex < errors|length %},{% endif %}
+
+        {% set errorIndex = errorIndex + 1 %}
+        {% endfor %}
+        ];
+</script>
+
+{% if errors is not empty %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <button type="button" class="tp-bs close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <ul>
+                    {% for fieldId, message in errors %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

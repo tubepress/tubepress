@@ -1,0 +1,21 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+{% if errors is empty and justSubmitted %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>{{ 'Settings updated.'|trans }}</strong>   {# //>(translatable)< #}
+            </div>
+        </div>
+    </div>
+
+{% endif %}

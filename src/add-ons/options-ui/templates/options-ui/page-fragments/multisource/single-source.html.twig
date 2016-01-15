@@ -1,0 +1,66 @@
+{% set headingId = "multisource-" ~ source.id ~ "-heading" %}
+{% set contentAreaId = "multisource-" ~ source.id ~ "-contentArea" %}
+{% set sourceSelectionAreaId = "multisource-" ~ source.id ~ "-sourceSelectionArea" %}
+{% set feedOptionsAreaId = "multisource-" ~ source.id ~ "-feedOptions" %}
+
+<div class="multisource-single-container row js-multisource-single-container" data-multisourceid="{{ source.id }}">
+
+    <div class="col-xs-12 multisource-title-bar">
+        {# Icon and title #}
+        <span class="media-provider-icon">
+
+            <img class="js-media-provider-icon media-provider-icon" /><span class="js-media-provider-title">...</span>
+        </span>
+
+        {# Delete button #}
+        <span class="multisource-control-icon glyphicon glyphicon-remove pull-right js-gallery-sources-delete-initiate"></span>
+
+        {# Edit button #}
+        <span class="multisource-control-icon glyphicon glyphicon-pencil pull-right"></span>
+
+        {# Reorder icon #}
+        <span class="multisource-control-icon multisource-control-reorder js-multisource-control-reorder glyphicon glyphicon-sort pull-right"
+              data-toggle="popover" data-placement="left" data-trigger="hover focus"
+              data-content="{{ 'Click and drag to change the order in which the sources are retrieved. See the "Feed" tab for fine-grained control over the final sort order.' | trans }}"></span>   {# >(translatable)< #}
+    </div>
+
+    <div class="col-xs-12 multisource-tab-area collapse {% if loop.length == 1 %}in{% endif %}" id="#{{ contentAreaId }}">
+        <div>
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#{{ sourceSelectionAreaId }}" aria-controls="home" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-film" aria-hidden="true"></span> {{ 'Video Source' | trans }} {# >(translatable)< #}
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#{{ feedOptionsAreaId }}" aria-controls="profile" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> {{ 'Feed Options' | trans }} {# >(translatable)< #}
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content col-xs-12">
+                <div class="tab-pane active" id="{{ sourceSelectionAreaId }}">
+
+                    {% for fieldProvider in source.gallerySourceFieldProviders %}
+
+                        {% include 'options-ui/page-fragments/multisource/single-field-provider.html.twig' %}
+
+                    {% endfor %}
+
+                </div>{# tab-pane.active #}
+                <div class="tab-pane" id="{{ feedOptionsAreaId }}">
+
+                    {% for fieldProvider in source.feedOptionFieldProviders %}
+
+                        {% include 'options-ui/page-fragments/multisource/single-field-provider.html.twig' %}
+
+                    {% endfor %}
+
+                </div>{# .tab-pane #}
+            </div>{# .tab-content #}
+        </div>
+    </div>
+</div>{# .multisource-single-container #}

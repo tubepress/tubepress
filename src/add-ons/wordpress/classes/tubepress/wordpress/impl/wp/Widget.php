@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -22,27 +22,27 @@ class tubepress_wordpress_impl_wp_Widget
     const WIDGET_NONCE_FIELD       = 'widgetNonceField';
 
     /**
-     * @var tubepress_lib_api_translation_TranslatorInterface
+     * @var tubepress_api_translation_TranslatorInterface
      */
     private $_translator;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var tubepress_api_options_ContextInterface
      */
     private $_context;
 
     /**
-     * @var tubepress_app_api_options_PersistenceInterface
+     * @var tubepress_api_options_PersistenceInterface
      */
     private $_persistence;
 
     /**
-     * @var tubepress_app_api_html_HtmlGeneratorInterface
+     * @var tubepress_api_html_HtmlGeneratorInterface
      */
     private $_htmlGenerator;
 
     /**
-     * @var tubepress_app_api_shortcode_ParserInterface
+     * @var tubepress_api_shortcode_ParserInterface
      */
     private $_shortcodeParser;
 
@@ -52,29 +52,29 @@ class tubepress_wordpress_impl_wp_Widget
     private $_wpFunctions;
 
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
+     * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_api_http_RequestParametersInterface
      */
     private $_httpRequestParams;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var tubepress_api_template_TemplatingInterface
      */
     private $_templating;
 
-    public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_translation_TranslatorInterface $translator,
-                                tubepress_app_api_html_HtmlGeneratorInterface     $htmlGenerator,
-                                tubepress_app_api_shortcode_ParserInterface       $parser,
-                                tubepress_wordpress_impl_wp_WpFunctions           $wpFunctions,
-                                tubepress_platform_api_util_StringUtilsInterface  $stringUtils,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParameters,
-                                tubepress_lib_api_template_TemplatingInterface    $templating)
+    public function __construct(tubepress_api_options_ContextInterface        $context,
+                                tubepress_api_options_PersistenceInterface    $persistence,
+                                tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_html_HtmlGeneratorInterface     $htmlGenerator,
+                                tubepress_api_shortcode_ParserInterface       $parser,
+                                tubepress_wordpress_impl_wp_WpFunctions       $wpFunctions,
+                                tubepress_api_util_StringUtilsInterface       $stringUtils,
+                                tubepress_api_http_RequestParametersInterface $requestParameters,
+                                tubepress_api_template_TemplatingInterface    $templating)
     {
         $this->_translator        = $translator;
         $this->_context           = $context;
@@ -94,7 +94,7 @@ class tubepress_wordpress_impl_wp_Widget
      *
      * @return void
      */
-    public function printWidgetHtml(tubepress_lib_api_event_EventInterface $event)
+    public function printWidgetHtml(tubepress_api_event_EventInterface $event)
     {
         $opts = $event->getSubject();
 
@@ -102,17 +102,17 @@ class tubepress_wordpress_impl_wp_Widget
 
         /* default widget options */
         $defaultWidgetOptions = array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
-            tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => false,
-            tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => true,
-            tubepress_app_api_options_Names::META_DESC_LIMIT          => 50,
-            tubepress_app_api_options_Names::PLAYER_LOCATION          => 'shadowbox',
-            tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT     => 105,
-            tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH      => 135,
-            tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE   => false,
-            tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW   => false,
-            tubepress_app_api_options_Names::THEME                    => 'tubepress/default',
-            tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS     => false
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
+            tubepress_api_options_Names::META_DISPLAY_VIEWS       => false,
+            tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => true,
+            tubepress_api_options_Names::META_DESC_LIMIT          => 50,
+            tubepress_api_options_Names::PLAYER_LOCATION          => 'shadowbox',
+            tubepress_api_options_Names::GALLERY_THUMB_HEIGHT     => 105,
+            tubepress_api_options_Names::GALLERY_THUMB_WIDTH      => 135,
+            tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE   => false,
+            tubepress_api_options_Names::GALLERY_PAGINATE_BELOW   => false,
+            tubepress_api_options_Names::THEME                    => 'tubepress/default',
+            tubepress_api_options_Names::GALLERY_FLUID_THUMBS     => false
         );
 
         /* now apply the user's options */
@@ -124,9 +124,9 @@ class tubepress_wordpress_impl_wp_Widget
         $finalOptions = array_merge($defaultWidgetOptions, $this->_context->getEphemeralOptions());
         $this->_context->setEphemeralOptions($finalOptions);
 
-        if ($this->_context->get(tubepress_app_api_options_Names::THEME) === '') {
+        if ($this->_context->get(tubepress_api_options_Names::THEME) === '') {
 
-            $this->_context->setEphemeralOption(tubepress_app_api_options_Names::THEME, 'tubepress/default');
+            $this->_context->setEphemeralOption(tubepress_api_options_Names::THEME, 'tubepress/default');
         }
 
         $out = $this->_htmlGenerator->getHtml();

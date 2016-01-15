@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -9,9 +9,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_integration_mocks_MockPersistence implements tubepress_app_api_options_PersistenceBackendInterface
+class tubepress_test_integration_mocks_MockPersistence implements tubepress_spi_options_PersistenceBackendInterface
 {
-    private $_mockOptions = array();
+    /**
+     * @var array
+     */
+    private $_mockOptions;
 
     /**
      * Creates one or more options in storage, if they don't already exist.
@@ -53,6 +56,13 @@ class tubepress_test_integration_mocks_MockPersistence implements tubepress_app_
      */
     public function fetchAllCurrentlyKnownOptionNamesToValues()
     {
+        if (!isset($this->_mockOptions)) {
+
+            $file               = TUBEPRESS_CONTENT_DIRECTORY . '/config/database.json';
+            $contents           = file_get_contents($file);
+            $this->_mockOptions = json_decode($contents, true);
+        }
+
         return $this->_mockOptions;
     }
 }

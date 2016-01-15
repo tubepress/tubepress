@@ -1,0 +1,46 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{% macro singleSlug(slugName, providerName, hide) %}
+
+    <li data-slug="{{ slugName }}" class="list-group-item" {% if hide %}style="display:none"{% endif %}>
+        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+        {{ slugName }}
+        <br />
+        <span class="text-muted small form-inline">
+            <div class="checkbox">
+                <label>
+                    <input data-provider="{{ providerName }}" class="oauth2-token-delete" type="checkbox"
+                           name="oauth2-token-delete-{{ providerName }}[]" value="{{ slugName }}"> remove
+                </label>
+            </div>
+        </span>
+    </li>
+
+{% endmacro %}
+
+{% import _self as tokenManagement %}
+
+<ul id="oauth2-tokens-{{ provider.name }}" data-provider="{{ provider.name }}" class="list-group oauth2-tokens" {% if slugs is empty %}style="display:none"{% endif %}>
+
+    {% for slug in slugs %}
+
+        {{ tokenManagement.singleSlug(slug, provider.name, false) }}
+
+    {% endfor %}
+
+    {{ tokenManagement.singleSlug("noshow", "iiiii", true) }}
+
+</ul>
+
+<button type="button" class="btn btn-default oauth2-token-add" data-url="{{ oauth2StartUrl }}" data-provider="{{ provider.name }}">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    New token
+</button>

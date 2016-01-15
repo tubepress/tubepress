@@ -1,0 +1,22 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+<select data-provider="{{ provider.name }}" class="form-control oauth2-token-selection {% block additionalClasses %} {% endblock %}" id="{{ id }}" name="{% block name %}{{ id }}{% endblock %}" {% block additionalAttributes %}{% endblock %}>
+
+    {% if ungroupedChoices is defined %}
+        {% for choiceValue, choiceDisplayName in ungroupedChoices %}
+
+            <option value="{{ choiceValue }}" {% if (choiceValue in currentlySelectedValues) or (choiceValue == value) %}SELECTED{% endif %}>
+                {{ choiceDisplayName|trans }}
+            </option>
+
+        {% endfor %}
+    {% endif %}
+
+</select>

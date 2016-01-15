@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_integration_mocks_MockTranslator implements tubepress_lib_api_translation_TranslatorInterface
+class tubepress_test_integration_mocks_MockTranslator implements tubepress_api_translation_TranslatorInterface
 {
 
     /**

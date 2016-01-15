@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -10,7 +10,7 @@
  */
 
 /**
- * @deprecated
+ * @deprecated Will be removed in TubePress 5.0.0.
  */
 interface tubepress_addons_youtube_api_const_options_names_Meta
 {

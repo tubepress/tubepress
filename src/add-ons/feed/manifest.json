@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/feed",
+    "version": "99.99.99",
+    "title" : "TubePress Feed Options",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_feed_ioc_FeedExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_feed_impl_listeners_AcceptableValuesListener" : "classes/tubepress/feed/impl/listeners/AcceptableValuesListener.php",
+            "tubepress_feed_ioc_FeedExtension"                       : "classes/tubepress/feed/ioc/FeedExtension.php"
+        }
+    }
+}

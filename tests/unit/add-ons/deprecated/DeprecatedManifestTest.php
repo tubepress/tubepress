@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -9,12 +9,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_app_deprecated_DeprecatedManifestTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
+class tubepress_test_app_deprecated_DeprecatedManifestTest extends tubepress_api_test_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_platform_api_addon_AddonInterface
+         * @var $addon tubepress_api_contrib_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 

@@ -1,0 +1,30 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+<form accept-charset="utf-8" method="get" action="{{ searchHandlerURL }}">
+	<fieldset class="tubepress_search">
+
+		{#
+         # read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
+         # if you're curious as to what's going on here
+         #}
+		{% for name, value in searchHiddenInputs %}
+
+            <input type="hidden" name="{{ name }}" value="{{ value }}" />
+
+        {% endfor %}
+
+        <input type="text" id="tubepress_search" name="tubepress_search" class="tubepress_text_input" value="{{ searchTerms }}" />
+
+		<button class="tubepress_button" title="Submit Search">
+            {{ 'Search'|trans }}    {# //>(translatable)< #}
+        </button>
+	</fieldset>
+</form>

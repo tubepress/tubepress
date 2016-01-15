@@ -1,0 +1,51 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+<div class="row">
+
+    <div class="col-md-12">
+
+        <ul class="nav nav-tabs">
+
+            {% set tabIndex = 0 %}
+            {% for category in categories %}
+
+                <li{% if tabIndex == 0 %} class="active"{% endif %}>
+
+                    <a href="#{{ category.id }}" data-toggle="tab">
+
+                        {{ category.untranslatedDisplayName|trans }}
+
+                    </a>
+
+                </li>
+
+                {% set tabIndex = tabIndex + 1 %}
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content">
+
+            {% set categoryIndex = 0 %}
+            {% for category in categories %}
+
+                {% if category.id == 'theme_category' %}
+                    {% include 'options-ui/page-fragments/theme/category-theme.html.twig' %}
+                {% elseif category.id == 'gallery_source_category' %}
+                    {% include 'options-ui/page-fragments/multisource/tab-content.html.twig' %}
+                {% else %}
+                    {% include 'options-ui/page-fragments/single-category.html.twig' %}
+                {% endif %}
+
+                {% set categoryIndex = categoryIndex + 1 %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
