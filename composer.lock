@@ -489,12 +489,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "23e47c52421999a7d02e45aa07002616a8032647"
+                "reference": "24d9266d0f1c2b4426ad8f931be30718cace4180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/23e47c52421999a7d02e45aa07002616a8032647",
-                "reference": "23e47c52421999a7d02e45aa07002616a8032647",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/24d9266d0f1c2b4426ad8f931be30718cace4180",
+                "reference": "24d9266d0f1c2b4426ad8f931be30718cace4180",
                 "shasum": ""
             },
             "require": {
@@ -542,7 +542,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-03 15:37:06"
+            "time": "2016-01-11 14:50:45"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
@@ -1177,12 +1177,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ea76b17bced0500a28098626b84eda12dbcf119c"
+                "reference": "7f0787732c8472b4ade576236cf19e0e4f1c5e55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ea76b17bced0500a28098626b84eda12dbcf119c",
-                "reference": "ea76b17bced0500a28098626b84eda12dbcf119c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7f0787732c8472b4ade576236cf19e0e4f1c5e55",
+                "reference": "7f0787732c8472b4ade576236cf19e0e4f1c5e55",
                 "shasum": ""
             },
             "require": {
@@ -1241,7 +1241,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-12-12 07:45:58"
+            "time": "2016-01-13 10:07:55"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1725,16 +1725,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
-                "reference": "98e9089a428ed0e39423b67352c57ef5910a3269"
+                "reference": "f1c1790c278fb6960dc616a159e05426a9a1f32b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/98e9089a428ed0e39423b67352c57ef5910a3269",
-                "reference": "98e9089a428ed0e39423b67352c57ef5910a3269",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/f1c1790c278fb6960dc616a159e05426a9a1f32b",
+                "reference": "f1c1790c278fb6960dc616a159e05426a9a1f32b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.3.9",
+                "symfony/polyfill-apcu": "~1.0,>=1.0.2"
             },
             "require-dev": {
                 "symfony/finder": "~2.0,>=2.0.5|~3.0.0"
@@ -1769,7 +1770,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
+            "time": "2016-01-15 09:29:29"
         },
         {
             "name": "symfony/config",
@@ -1880,12 +1881,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "0078d7695782c2deebab5753c59698fad65c245f"
+                "reference": "ba94a914e244e0d05f0aaef460d5558d5541d2b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/0078d7695782c2deebab5753c59698fad65c245f",
-                "reference": "0078d7695782c2deebab5753c59698fad65c245f",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/ba94a914e244e0d05f0aaef460d5558d5541d2b1",
+                "reference": "ba94a914e244e0d05f0aaef460d5558d5541d2b1",
                 "shasum": ""
             },
             "require": {
@@ -1934,7 +1935,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
+            "time": "2016-01-12 17:46:01"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1998,12 +1999,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "7e15bed7e943b5ab084e398fd6d1ba8a0663aea5"
+                "reference": "637b64d0ee10f44ae98dbad651b1ecdf35a11e8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7e15bed7e943b5ab084e398fd6d1ba8a0663aea5",
-                "reference": "7e15bed7e943b5ab084e398fd6d1ba8a0663aea5",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/637b64d0ee10f44ae98dbad651b1ecdf35a11e8c",
+                "reference": "637b64d0ee10f44ae98dbad651b1ecdf35a11e8c",
                 "shasum": ""
             },
             "require": {
@@ -2039,7 +2040,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
+            "time": "2016-01-13 10:28:07"
         },
         {
             "name": "symfony/finder",
@@ -2047,12 +2048,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "11f1c83a35997b3086fd88a5bf0aae5f98e97c7e"
+                "reference": "c90fabdd97e431ee19b6383999cf35334dff27da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/11f1c83a35997b3086fd88a5bf0aae5f98e97c7e",
-                "reference": "11f1c83a35997b3086fd88a5bf0aae5f98e97c7e",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/c90fabdd97e431ee19b6383999cf35334dff27da",
+                "reference": "c90fabdd97e431ee19b6383999cf35334dff27da",
                 "shasum": ""
             },
             "require": {
@@ -2088,7 +2089,63 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
+            "time": "2016-01-14 08:26:52"
+        },
+        {
+            "name": "symfony/polyfill-apcu",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-apcu.git",
+                "reference": "85fe388210bfabd43fb72d145b40c548089df44f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-apcu/zipball/85fe388210bfabd43fb72d145b40c548089df44f",
+                "reference": "85fe388210bfabd43fb72d145b40c548089df44f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting apcu_* functions to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "apcu",
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-01-11 10:06:23"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2096,12 +2153,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "c9206b4e785f1b3bf2948ccfafc6620831c69922"
+                "reference": "d7f01c96a4dde264682cf36c28e62086c77a09d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c9206b4e785f1b3bf2948ccfafc6620831c69922",
-                "reference": "c9206b4e785f1b3bf2948ccfafc6620831c69922",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d7f01c96a4dde264682cf36c28e62086c77a09d4",
+                "reference": "d7f01c96a4dde264682cf36c28e62086c77a09d4",
                 "shasum": ""
             },
             "require": {
@@ -2147,7 +2204,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-01 11:06:21"
+            "time": "2016-01-13 07:16:33"
         },
         {
             "name": "symfony/process",
@@ -2204,12 +2261,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "085a1eb51738ffd3f299590c30eaf1aaf0a5501e"
+                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/085a1eb51738ffd3f299590c30eaf1aaf0a5501e",
-                "reference": "085a1eb51738ffd3f299590c30eaf1aaf0a5501e",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/34c8a4b51e751e7ea869b8262f883d008a2b81b8",
+                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8",
                 "shasum": ""
             },
             "require": {
@@ -2245,7 +2302,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-04 16:50:38"
+            "time": "2016-01-13 10:28:07"
         }
     ],
     "aliases": [],
