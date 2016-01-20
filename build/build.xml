@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project name="TubePress" default="stage">
+
+    <!-- ######################################################################################## -->
+    <!-- ## TARGETS                                                                               -->
+    <!-- ######################################################################################## -->
+
+    <target name="clean" description="Cleans build environment">
+        <delete-build-directories />
+    </target>
+
+    <target name="stage" depends="clean">
+        <create-build-directories />
+        <initialize-properties />
+        <stage-base-src />
+        <stage-wordpress />
+        <suppress-directory-listings />
+        <build-class-loading />
+        <stage-web-assets />
+        <stage-themes />
+        <set-real-version />
+        <cleanup-composer-classloader />
+    </target>
+
+    <target name="package" depends="stage">
+        <compress-css />
+        <compress-js />
+        <download-crowdin />
+        <compile-gettext />
+        <gettext-fallbacks />
+        <package-starter-theme />
+        <final-package />
+    </target>
+
+    <!-- ######################################################################################## -->
+    <!-- ## INCLUDES                                                                              -->
+    <!-- ######################################################################################## -->
+
+    <include file="src/ant/macros/common/01-directories-delete.xml" />
+    <include file="src/ant/macros/common/02-directories-create.xml" />
+    <include file="src/ant/macros/common/03-initialize-properties.xml" />
+    <include file="src/ant/macros/common/04-stage-base-src.xml" />
+    <include file="src/ant/macros/common/05-stage-wordpress.xml" />
+    <include file="src/ant/macros/common/06-suppress-directory-listings.xml" />
+    <include file="src/ant/macros/common/07-build-class-loading.xml" />
+    <include file="src/ant/macros/common/08-stage-web-assets.xml" />
+    <include file="src/ant/macros/common/09-stage-themes.xml" />
+    <include file="src/ant/macros/common/10-set-real-version.xml" />
+    <include file="src/ant/macros/common/11-cleanup-composer-classloader.xml" />
+
+    <include file="src/ant/macros/package/01-compress-js-css.xml" />
+    <include file="src/ant/macros/package/02-download-crowdin.xml" />
+    <include file="src/ant/macros/package/03-compile-gettext.xml" />
+    <include file="src/ant/macros/package/04-gettext-fallbacks.xml" />
+    <include file="src/ant/macros/package/05-package-starter-theme.xml" />
+    <include file="src/ant/macros/package/06-final-package.xml" />
+
+    <include file="src/ant/macros/internal/log.xml" />
+    <include file="src/ant/macros/internal/rsync.xml" />
+    <include file="src/ant/macros/internal/sed.xml" />
+
+</project>

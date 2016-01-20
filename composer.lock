@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c050bfc5b6000fceb0bcd63d8d2350ca",
-    "content-hash": "50711761f1eb1e9034fbeec19d1feacc",
+    "hash": "9cdc813ffcb18b14460e32867dfea75b",
+    "content-hash": "491b19c2a4e1943a4741b2f27abd5815",
     "packages": [
         {
             "name": "puzzlehttp/puzzle",
@@ -757,7 +757,7 @@
             ],
             "authors": [
                 {
-                    "name": "Pádraic Brady",
+                    "name": "Padraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
@@ -782,33 +782,6 @@
                 "testing"
             ],
             "time": "2015-04-02 19:54:00"
-        },
-        {
-            "name": "nervo/yuicompressor",
-            "version": "2.4.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nervo/yuicompressor.git",
-                "reference": "e6e3b215c3998cf6092613c002ae533ae75d7ada"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nervo/yuicompressor/zipball/e6e3b215c3998cf6092613c002ae533ae75d7ada",
-                "reference": "e6e3b215c3998cf6092613c002ae533ae75d7ada",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD"
-            ],
-            "description": "YUI Compressor is an open source tool that supports the compression of both JavaScript and CSS files. The JavaScript compression removes comments and white-spaces as well as obfuscates local variables using the smallest possible variable name. CSS compression is done using a regular-expression-based CSS minifier.",
-            "homepage": "https://github.com/yui/yuicompressor",
-            "keywords": [
-                "java",
-                "yui"
-            ],
-            "time": "2013-09-13 10:26:14"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

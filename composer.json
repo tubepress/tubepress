@@ -25,7 +25,6 @@
   },
   "require-dev": {
     "mockery/mockery"              : "0.9.4",
-    "nervo/yuicompressor"          : "^2.4",
     "phpunit/phpunit"              : "^4.8",
     "sepia/po-parser"              : "~4.2",
     "symfony/config"               : "^2.8",
