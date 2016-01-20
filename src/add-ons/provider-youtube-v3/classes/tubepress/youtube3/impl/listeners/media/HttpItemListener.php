@@ -42,11 +42,11 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
     private $_arrayReader;
 
     public function __construct(tubepress_api_media_AttributeFormatterInterface $attributeFormatter,
-                                tubepress_api_util_TimeUtilsInterface           $timeUtils,
-                                tubepress_api_options_ContextInterface          $context,
-                                tubepress_youtube3_impl_ApiUtility              $apiUtility,
-                                tubepress_api_url_UrlFactoryInterface           $urlFactory,
-                                tubepress_api_array_ArrayReaderInterface        $arrayReader)
+        tubepress_api_util_TimeUtilsInterface           $timeUtils,
+        tubepress_api_options_ContextInterface          $context,
+        tubepress_youtube3_impl_ApiUtility              $apiUtility,
+        tubepress_api_url_UrlFactoryInterface           $urlFactory,
+        tubepress_api_array_ArrayReaderInterface        $arrayReader)
     {
         $this->_attributeFormatter = $attributeFormatter;
         $this->_timeUtils          = $timeUtils;
@@ -211,6 +211,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         ));
 
         $strippedDuration = str_replace('PT', '', $rawDuration);
+        $hours            = 0;
 
         if (strpos($strippedDuration, 'M') === false) {
 
@@ -220,6 +221,13 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         } else {
 
+            if (strpos($strippedDuration, 'H') !== false) {
+
+                $explosion        = explode('H', $strippedDuration);
+                $hours            = intval($explosion[0]);
+                $strippedDuration = $explosion[1];
+            }
+
             $explosion  = explode('M', $strippedDuration);
             $rawMinutes = $explosion[0];
             $rawSeconds = str_replace('S', '', $explosion[1]);
@@ -228,7 +236,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
 
         $seconds = intval($rawSeconds);
 
-        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS] = ((60 * $minutes) + $seconds);
+        $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS] = ((3600 * $hours) + (60 * $minutes) + $seconds);
     }
 
     private function _applyCategory(array &$toReturn, array $json, $index)
@@ -242,7 +250,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $categoryUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
         $categoryUrl->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEO_CATEGORIES);
         $categoryUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, tubepress_youtube3_impl_ApiUtility::PART_SNIPPET)
-                                ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CATEGORIES_ID, $categoryId);
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CATEGORIES_ID, $categoryId);
 
         $response      = $this->_apiUtility->getDecodedApiResponse($categoryUrl);
         $responseItems = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
