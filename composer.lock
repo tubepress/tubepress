@@ -489,12 +489,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "24d9266d0f1c2b4426ad8f931be30718cace4180"
+                "reference": "eb6e05e7ddc0382cae3ba82d4f519db235a09d4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/24d9266d0f1c2b4426ad8f931be30718cace4180",
-                "reference": "24d9266d0f1c2b4426ad8f931be30718cace4180",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/eb6e05e7ddc0382cae3ba82d4f519db235a09d4d",
+                "reference": "eb6e05e7ddc0382cae3ba82d4f519db235a09d4d",
                 "shasum": ""
             },
             "require": {
@@ -542,7 +542,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-11 14:50:45"
+            "time": "2016-01-19 12:28:04"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
@@ -1177,12 +1177,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "7f0787732c8472b4ade576236cf19e0e4f1c5e55"
+                "reference": "acbb9e4fdcb27a9b65426b3d09770db671296a40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7f0787732c8472b4ade576236cf19e0e4f1c5e55",
-                "reference": "7f0787732c8472b4ade576236cf19e0e4f1c5e55",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/acbb9e4fdcb27a9b65426b3d09770db671296a40",
+                "reference": "acbb9e4fdcb27a9b65426b3d09770db671296a40",
                 "shasum": ""
             },
             "require": {
@@ -1241,7 +1241,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-01-13 10:07:55"
+            "time": "2016-01-19 11:59:02"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
