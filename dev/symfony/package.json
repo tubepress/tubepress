@@ -1,0 +1,15 @@
+{
+  "name" : "tubepress-development",
+  "version" : "0.0.1",
+  "author" : "TubePress LLC",
+  "license" : "MPL-2.0",
+  "contributors" : [
+    {
+      "name" : "Eric Hough",
+      "email" : "eric@tubepress.com"
+    }
+  ],
+  "dependencies" : {
+    "uglify-js" : "*"
+  }
+}
