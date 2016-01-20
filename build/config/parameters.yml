@@ -2,7 +2,7 @@ parameters:
 
   version.major: 4
   version.minor: 2
-  version.micro: 0
+  version.micro: 1
 
   l10n.map.crowdin:
     ar-SA: ar

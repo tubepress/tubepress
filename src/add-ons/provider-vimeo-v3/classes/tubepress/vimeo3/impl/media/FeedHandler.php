@@ -57,8 +57,8 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
     private $_invokedAtLeastOnce;
 
     public function __construct(tubepress_api_log_LoggerInterface      $logger,
-                                tubepress_api_url_UrlFactoryInterface  $urlFactory,
-                                tubepress_api_options_ContextInterface $context)
+        tubepress_api_url_UrlFactoryInterface  $urlFactory,
+        tubepress_api_options_ContextInterface $context)
     {
         $this->_logger     = $logger;
         $this->_urlFactory = $urlFactory;
@@ -93,8 +93,8 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
 
         $this->_startGalleryUrl($mode, $url);
         $this->_addPagination($currentPage, $url);
-        $this->_addEmbeddableFilter($mode, $url);
-        $this->_addSort($mode, $url);
+        $this->_addEmbeddableFilter($url);
+        $this->_addSort($url);
 
         return $url;
     }
@@ -237,8 +237,9 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
         unset($this->_decodedJson);
     }
 
-    private function _addSort($mode, tubepress_api_url_UrlInterface $url)
+    private function _addSort(tubepress_api_url_UrlInterface $url)
     {
+        $mode  = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
         $order = $this->_context->get(tubepress_api_options_Names::FEED_ORDER_BY);
         $query = $url->getQuery();
 
@@ -469,7 +470,10 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
 
                 if ($filter) {
 
-                    $this->_startGalleryUrl(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY, $url);
+                    $newMode = tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY;
+                    $this->_context->setEphemeralOption(tubepress_api_options_Names::GALLERY_SOURCE, $newMode);
+                    $this->_context->setEphemeralOption(tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE, $filter);
+                    $this->_startGalleryUrl($newMode, $url);
 
                 } else {
 
@@ -529,8 +533,10 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
             ->set('per_page', $perPage);
     }
 
-    private function _addEmbeddableFilter($mode, tubepress_api_url_UrlInterface $url)
+    private function _addEmbeddableFilter(tubepress_api_url_UrlInterface $url)
     {
+        $mode = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
+
         $canFilter = array(
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CATEGORY,
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
