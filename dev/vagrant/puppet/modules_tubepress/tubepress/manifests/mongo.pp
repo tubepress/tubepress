@@ -17,9 +17,4 @@ class tubepress::mongo {
 
     noauth => true
   }
-
-  package { 'ruby-json' :
-
-    ensure => 'installed',
-  }
 }

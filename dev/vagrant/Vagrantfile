@@ -11,7 +11,7 @@
 #  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
-required_plugins = %w(vagrant-librarian-puppet vagrant-hostsupdater)
+required_plugins = %w(vagrant-librarian-puppet vagrant-hostsupdater vagrant-vbguest)
 
 plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
 if not plugins_to_install.empty?
@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
 
   end
 
-  config.vm.box = "ubuntu/precise64"
+  config.vm.box = "debian/jessie64"
 
   config.vm.hostname = "tubepress-test.com"
 
@@ -70,7 +70,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision :puppet do |puppet|
     puppet.module_path    = [ "puppet/modules_vendor", "puppet/modules_tubepress" ]
     puppet.manifests_path = "puppet/manifests"
-    puppet.options        = "--verbose --debug --trace"
+    puppet.options        = "--verbose --debug"
   end
+
+  config.gatling.rsync_on_startup = false
 
 end

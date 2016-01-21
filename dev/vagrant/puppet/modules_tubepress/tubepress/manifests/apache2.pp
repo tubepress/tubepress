@@ -15,11 +15,9 @@ class tubepress::apache2 {
 
   class {[
     '::apache',
-    '::apache::mod::actions',
-    '::apache::mod::fastcgi',
+    '::apache::mod::proxy',
   ]:
-
-    #libapache2-mod-fastcgi is only in the multiverse
-    require => Apt::Source['precise-multiverse']
   }
+
+  ::apache::mod { 'proxy_fcgi' : }
 }

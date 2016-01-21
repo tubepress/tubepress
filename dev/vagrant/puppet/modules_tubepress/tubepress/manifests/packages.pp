@@ -42,11 +42,9 @@ class tubepress::packages {
     'aptitude-common',
     'apt-listchanges',
     'at',
-    'autopoint',
     'bc',
     'busybox',
     'byobu',
-    'cloud-guest-utils',
     'cloud-init',
     'cloud-initramfs-rescuevol',
     'cloud-utils',
@@ -60,9 +58,7 @@ class tubepress::packages {
     'discover-data',
     'doc-debian',
     'ed',
-    'exim4*',
     'fontconfig',
-    'fontconfig-config',
     'fonts-liberation',
     'fonts-ubuntu-font-family-console',
     'ftp',
@@ -95,25 +91,10 @@ class tubepress::packages {
     'ufw',
     'util-linux-locales',
     'w3m',
-    'whoopsie',
     'x11-common',
     'xauth',
     'xserver-common',
   ]:
     ensure => 'purged'
   }
-
-  exec { "apt-update":
-    command => "/usr/bin/apt-get update",
-    refreshonly => true,
-  }
-
-  apt::source { "precise-multiverse":
-    location        => "http://archive.ubuntu.com/ubuntu",
-    release         => "precise",
-    repos           => "multiverse",
-    include_src     => false,
-    notify          => Exec['apt-update'],
-  }
-
 }

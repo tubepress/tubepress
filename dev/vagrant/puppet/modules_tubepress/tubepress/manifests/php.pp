@@ -16,6 +16,18 @@ class tubepress::php {
 
   include php
 
+  package { [
+    'php-pear',
+    'libyaml-dev',
+  ]:
+
+    ensure => 'present',
+  } ~>
+
+  class { '::php::dev' :
+
+  } ~>
+
   class {[
     '::php::fpm',
     '::php::cli',
@@ -25,57 +37,55 @@ class tubepress::php {
     ]
   } ~>
 
-  package {[
-    'php-pear',
-    'php5-xdebug',
-    'php-apc',
-    'php5-curl',
-    'php5-mcrypt',
-  ] :
-
-    ensure => 'present'
-  } ~>
-
-  package {[
-    'mongo',
-    'xhprof-beta',
+  class {[
+    '::php::extension::gd',
+    '::php::extension::mcrypt',
+    '::php::extension::mongo',
+    '::php::extension::opcache',
+    '::php::extension::xhprof',
+    '::php::extension::yaml'
   ]:
-    provider => 'pecl',
+
   } ~>
 
-  file { '/etc/php5/conf.d/xhprof.ini' :
+  file { [
+    '/etc/php5/cli/conf.d/20-yaml.ini',
+    '/etc/php5/fpm/conf.d/20-yaml.ini',
+    ]:
 
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => 0644,
-    content => 'extension=xhprof.so',
-    notify  => Service['php5-fpm'],
+    ensure => 'link',
+    target => '/etc/php5/mods-available/yaml.ini',
+    notify => Service['php5-fpm'],
   } ~>
 
-  file { '/etc/php5/conf.d/mongo.ini' :
+  file { [
+    '/etc/php5/cli/conf.d/20-xhprof.ini',
+    '/etc/php5/fpm/conf.d/20-xhprof.ini',
+  ]:
+    ensure => 'link',
+    target => '/etc/php5/mods-available/xhprof.ini',
+    notify => Service['php5-fpm'],
+  } ~>
 
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => 0644,
-    content => 'extension=mongo.so',
-    notify  => Service['php5-fpm'],
-  }
+  file { [
+    '/etc/php5/cli/conf.d/20-mongo.ini',
+    '/etc/php5/fpm/conf.d/20-mongo.ini',
+  ]:
+    ensure => 'link',
+    target => '/etc/php5/mods-available/mongo.ini',
+    notify => Service['php5-fpm'],
+  } ~>
+
+  class { '::php::extension::xdebug':
+    settings => [
+      'set ".anon/zend_extension" "xdebug.so"',
+      'set ".anon/xdebug.remote_connect_back" "1"',
+      'set ".anon/xdebug.remote_enable" "1"',
+    ]
+  } ~>
 
   php::fpm::pool { 'www' :
 
-    listen       => '/var/run/php5-fpm.sock',
-    listen_owner => 'www-data',
-    listen_group => 'www-data',
-  } ~>
 
-  ::php::config {[
-    "zend_extension=/usr/lib/php5/20090626/xdebug.so",
-    "xdebug.remote_connect_back=1",
-    "xdebug.xdebug.remote_enable=1"
-  ]:
-    file    => '/etc/php5/conf.d/xdebug.ini',
-    section => '',
   }
 }

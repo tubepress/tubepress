@@ -53,24 +53,19 @@ class tubepress::xhgui {
     docroot => '/var/www/xhgui/webroot',
     require => [
       Exec['install-xhgui'],
-      Class['tubepress::apache2']
     ],
-    action => "php5-fcgi",
-    fastcgi_server => '/usr/lib/cgi-bin/php5-fcgi',
-    fastcgi_socket => '/var/run/php5-fpm.sock',
-    aliases => [
+    proxy_pass_match => [
       {
-        path => '/usr/lib/cgi-bin/php5-fcgi',
-        alias => '/cgi-bin',
+        'path' => '^/(.*\.php(/.*)?)$',
+        'url'  => 'fcgi://127.0.0.1:9000/var/www/xhgui/webroot/$1'
       }
     ],
-    directories => {
-      path        => '/var/www/xhgui/webroot',
-      options     => '+ExecCGI',
-      addhandlers => {
-        handler    => 'php5-fcgi',
-        extensions => '.php',
-      },
-    },
+    directories => [
+      {
+        'path'         => '/var/www/xhgui/webroot',
+        directoryindex => '/index.php index.php'
+      }
+    ],
+    notify => Service['apache2'],
   }
 }
