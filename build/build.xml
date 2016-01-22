@@ -44,6 +44,11 @@
         <final-package />
     </target>
 
+    <target name="deploy" depends="stage">
+        <ping-vagrant host="profiler.tubepress-test.com" />
+        <rsync-to-vagrant />
+    </target>
+
     <!-- ######################################################################################## -->
     <!-- ## INCLUDES                                                                              -->
     <!-- ######################################################################################## -->
@@ -66,6 +71,9 @@
     <include file="src/ant/macros/package/04-gettext-fallbacks.xml" />
     <include file="src/ant/macros/package/05-package-starter-theme.xml" />
     <include file="src/ant/macros/package/06-final-package.xml" />
+
+    <include file="src/ant/macros/deploy/01-ping-vagrant.xml" />
+    <include file="src/ant/macros/deploy/02-rsync-to-vagrant.xml" />
 
     <include file="src/ant/macros/internal/log.xml" />
     <include file="src/ant/macros/internal/rsync.xml" />

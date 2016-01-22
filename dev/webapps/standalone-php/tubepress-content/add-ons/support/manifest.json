@@ -1,0 +1,28 @@
+{
+    "name" : "tubepress/dev-support",
+    "version": "0.0.1",
+    "title" : "Support to run dev environment",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_devsupport_ioc_DevSupportExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_devsupport_impl_Oauth2Environment"  : "classes/tubepress/devsupport/impl/Oauth2Environment.php",
+          "tubepress_devsupport_impl_PersistenceBackend" : "classes/tubepress/devsupport/impl/PersistenceBackend.php",
+          "tubepress_devsupport_impl_Translator"         : "classes/tubepress/devsupport/impl/Translator.php",
+          "tubepress_devsupport_ioc_DevSupportExtension" : "classes/tubepress/devsupport/ioc/DevSupportExtension.php"
+        }
+    }
+}

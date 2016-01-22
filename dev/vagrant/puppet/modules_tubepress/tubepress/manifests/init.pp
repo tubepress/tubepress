@@ -17,5 +17,6 @@ class tubepress {
   include tubepress::packages
   include tubepress::php
   include tubepress::time
-  include tubepress::xhgui
+  include tubepress::webapp::standalone_php
+  include tubepress::webapp::xhgui
 }

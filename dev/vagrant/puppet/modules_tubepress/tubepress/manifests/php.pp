@@ -33,11 +33,16 @@ class tubepress::php {
     '::php::cli',
   ]:
     settings => [
-      'set Date/date.timezone America/Los_Angeles'
+      'set Date/date.timezone America/Los_Angeles',
     ]
   } ~>
 
+  php::fpm::config { ['display_errors=1', 'zend_extension=opcache.so']:
+    section => 'PHP',
+  } ~>
+
   class {[
+    '::php::extension::curl',
     '::php::extension::gd',
     '::php::extension::mcrypt',
     '::php::extension::mongo',

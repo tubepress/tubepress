@@ -75,4 +75,11 @@ Vagrant.configure("2") do |config|
 
   config.gatling.rsync_on_startup = false
 
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  config.vm.synced_folder "../webapps/standalone-php/", "/var/www/standalone_php/",
+    type: "rsync",
+    owner: "www-data",
+    group: "www-data"
+
 end

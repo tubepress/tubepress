@@ -11,7 +11,7 @@
 #
 # Installs and configures xhgui
 #
-class tubepress::xhgui {
+class tubepress::webapp::xhgui {
 
   mongodb::db { 'xhprof':
     user     => 'xhprof',
@@ -63,9 +63,38 @@ class tubepress::xhgui {
     directories => [
       {
         'path'         => '/var/www/xhgui/webroot',
-        directoryindex => '/index.php index.php'
+        directoryindex => '/index.php index.php',
+        allow_override => 'All',
       }
     ],
     notify => Service['apache2'],
+  }
+
+  file { '/var/www/xhgui/config/config.php' :
+
+    ensure  => 'file',
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 0644,
+    source  => 'puppet:///modules/tubepress/xhgui/config.php',
+    require => Vcsrepo['/var/www/xhgui'],
+  }
+
+  php::fpm::config { 'auto_prepend_file=/var/www/xhgui/external/header.php':
+    section => 'PHP',
+  }
+
+  file { '/tmp/xhgui_mongo_init.js' :
+
+    ensure  => 'file',
+    source  => 'puppet:///modules/tubepress/xhgui/mongo_init.txt',
+    notify  => Exec['init-xhgui-mongo'],
+    require => Mongodb::Db['xhprof']
+  }
+
+  exec { 'init-xhgui-mongo' :
+
+    refreshonly => true,
+    command     => 'mongo < /tmp/xhgui_mongo_init.js',
   }
 }

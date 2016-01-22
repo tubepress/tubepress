@@ -28,7 +28,10 @@ README.md
 /vendor/puzzlehttp/streams/src/test
 /vendor/sebastian
 /vendor/sepia
-/vendor/symfony
+/vendor/symfony/css-selector
+/vendor/symfony/dom-crawler
+/vendor/symfony/process
+/vendor/symfony/**/Tests
 /vendor/tedivm/stash/tests
 /vendor/twig/twig/CHANGELOG
 /vendor/twig/twig/doc

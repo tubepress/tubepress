@@ -16,6 +16,7 @@ class tubepress::apache2 {
   class {[
     '::apache',
     '::apache::mod::proxy',
+    '::apache::mod::rewrite',
   ]:
   }
 

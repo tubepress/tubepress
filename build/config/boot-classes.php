@@ -88,4 +88,6 @@ return array(
     'tubepress_wordpress_impl_translation_WpTranslator',
     'tubepress_wordpress_impl_wp_ActivationHook',
     'tubepress_wordpress_impl_wp_WpFunctions',
+    '\\Symfony\\Component\\DependencyInjection\\Container',
+    '\\Symfony\\Component\\DependencyInjection\\Exception\\BadMethodCallException'
 );

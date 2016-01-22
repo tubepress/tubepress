@@ -19,6 +19,7 @@ class tubepress_build_ClassCollectionBuilder
 {
     private static $loaded;
     private static $seen;
+    private static $useTokenizer = true;
 
     public static function build()
     {
@@ -162,17 +163,20 @@ EOT;
 
             $c = preg_replace(array('/^\s*<\?php/', '/\?>\s*$/'), '', file_get_contents($class->getFileName()));
 
+            // fakes namespace declaration for global code
+            if (!$class->inNamespace()) {
+                $c = "\nnamespace\n{\n".$c."\n}\n";
+            }
+
             $c = self::fixNamespaceDeclarations('<?php '.$c);
             $c = preg_replace('/^\s*<\?php/', '', $c);
-
-            $c = self::_addedConditionalsIfNeeded($class, $c);
 
             $content .= $c;
         }
 
         // cache the core classes
-        if (!is_dir(dirname($cache))) {
-            mkdir(dirname($cache), 0777, true);
+        if (!is_dir($cacheDir) && !@mkdir($cacheDir, 0777, true) && !is_dir($cacheDir)) {
+            throw new \RuntimeException(sprintf('Class Collection Loader was not able to create directory "%s"', $cacheDir));
         }
         self::writeCacheFile($cache, '<?php '.$content);
 
@@ -184,41 +188,6 @@ EOT;
         return $orderedClasses;
     }
 
-    private static function _addedConditionalsIfNeeded(ReflectionClass $class, $currentContent)
-    {
-        //BEGIN TUBEPRESS MODIFY
-        $safeClassPrefixes = array(
-            'tubepress_',
-            'puzzle_',
-            'ehough_'
-        );
-        $externalClassPrefix = array(
-
-            'Twig_',
-        );
-        //END TUBEPRESS MODIFY
-
-        $className = $class->getName();
-
-        foreach ($safeClassPrefixes as $safeClassPrefix) {
-
-            if (strpos($className, $safeClassPrefix) === 0) {
-
-                return $currentContent;
-            }
-        }
-
-        foreach ($externalClassPrefix as $externalClassPrefix) {
-
-            if (strpos($className, $externalClassPrefix) === 0) {
-
-                return "\nif ((!class_exists('$className', false)) && (!interface_exists('$className', false))) { $currentContent }\n";
-            }
-        }
-
-        return $currentContent;
-    }
-
     /**
      * Adds brackets around each namespace if it's not already the case.
      *
@@ -228,6 +197,14 @@ EOT;
      */
     public static function fixNamespaceDeclarations($source)
     {
+        if (!function_exists('token_get_all') || !self::$useTokenizer) {
+            if (preg_match('/(^|\s)namespace(.*?)\s*;/', $source)) {
+                $source = preg_replace('/(^|\s)namespace(.*?)\s*;/', "$1namespace$2\n{", $source)."}\n";
+            }
+
+            return $source;
+        }
+
         $rawChunk = '';
         $output = '';
         $inNamespace = false;
@@ -239,6 +216,23 @@ EOT;
             } elseif (in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
                 // strip comments
                 continue;
+            } elseif (T_NAMESPACE === $token[0]) {
+                if ($inNamespace) {
+                    $rawChunk .= "}\n";
+                }
+                $rawChunk .= $token[1];
+
+                // namespace name and whitespaces
+                while (($t = next($tokens)) && is_array($t) && in_array($t[0], array(T_WHITESPACE, T_NS_SEPARATOR, T_STRING))) {
+                    $rawChunk .= $t[1];
+                }
+                if ('{' === $t) {
+                    $inNamespace = false;
+                    prev($tokens);
+                } else {
+                    $rawChunk = rtrim($rawChunk)."\n{";
+                    $inNamespace = true;
+                }
             } elseif (T_START_HEREDOC === $token[0]) {
                 $output .= self::compressCode($rawChunk).$token[1];
                 do {
@@ -260,6 +254,14 @@ EOT;
         }
 
         return $output.self::compressCode($rawChunk);
+    }
+
+    /**
+     * This method is only useful for testing.
+     */
+    public static function enableTokenizer($bool)
+    {
+        self::$useTokenizer = (bool) $bool;
     }
 
     /**
@@ -412,6 +414,8 @@ EOT;
             $unresolved = new ArrayObject();
         }
         $nodeName = $node->getName();
+
+        if (isset($tree[$nodeName])) {
         $unresolved[$nodeName] = $node;
         foreach ($tree[$nodeName] as $dependency) {
             if (!$resolved->offsetExists($dependency->getName())) {
@@ -420,6 +424,7 @@ EOT;
         }
         $resolved[$nodeName] = $node;
         unset($unresolved[$nodeName]);
+        }
 
         return $resolved;
     }
