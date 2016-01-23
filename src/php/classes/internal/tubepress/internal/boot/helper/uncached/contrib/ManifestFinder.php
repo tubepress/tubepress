@@ -31,7 +31,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
     private $_bootSettings;
 
     /**
-     * @var ehough_finder_FinderFactoryInterface
+     * @var tubepress_internal_finder_FinderFactory
      */
     private $_finderFactory;
 
@@ -104,26 +104,26 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Attempting to read and decode manifest at %s', $absPathToManifest));
+            $this->_logDebug(sprintf('Attempting to read and decode manifest at <code>%s</code>', $absPathToManifest));
         }
 
         $contentsRead = file_get_contents($absPathToManifest);
 
         if ($contentsRead === false) {
 
-            throw new InvalidArgumentException(sprintf('Unable to read contents of manifest at %s', $absPathToManifest));
+            throw new InvalidArgumentException(sprintf('Unable to read contents of manifest at <code>%s</code>', $absPathToManifest));
         }
 
         $decoded = json_decode($contentsRead, true);
 
         if ($decoded === null) {
 
-            throw new InvalidArgumentException(sprintf('Unable to decode manifest at %s', $absPathToManifest));
+            throw new InvalidArgumentException(sprintf('Unable to decode manifest at <code>%s</code>', $absPathToManifest));
         }
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Succesfully read and decoded manifest at %s', $absPathToManifest));
+            $this->_logDebug(sprintf('Succesfully read and decoded manifest at <code>%s</code>', $absPathToManifest));
         }
 
         return $decoded;
@@ -137,7 +137,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Found %d candidate manifests (%d system and %d user) on the filesystem',
+            $this->_logDebug(sprintf('Found <code>%d</code> candidate manifests (<code>%d</code> system and <code>%d</code> user) on the filesystem',
                 count($allManifests), count($systemManifests), count($userManifests)));
         }
 
@@ -165,7 +165,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Searching for manifests in ' . $directory);
+            $this->_logDebug(sprintf('Searching for manifests in <code>%s</code>', $directory));
         }
 
         /** @noinspection PhpUndefinedMethodInspection */
@@ -181,9 +181,14 @@ class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Found %d manifest(s) inside %s' , count($toReturn), $directory));
+            $this->_logDebug(sprintf('Found <code>%d</code> manifest(s) inside <code>%s</code>' , count($toReturn), $directory));
         }
 
         return $toReturn;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Manifest Finder) %s', $msg));
     }
 }

@@ -56,7 +56,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug('System cache is available. Excellent!');
+                $this->_logDebug('System cache is available. Excellent!');
             }
 
             try {
@@ -79,14 +79,14 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Determining if system cache is available.');
+            $this->_logDebug('Determining if system cache is available.');
         }
 
         if (!$this->_bootSettings->isSystemCacheEnabled()) {
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug('System cache is disabled by user settings.php');
+                $this->_logDebug('System cache is disabled by user settings.php');
             }
 
             return false;
@@ -103,7 +103,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug(sprintf('%s is not a readable file.', $file));
+                $this->_logDebug(sprintf('<code>%s</code> is not a readable file.', $file));
             }
 
             return false;
@@ -111,7 +111,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug(sprintf('%s is a readable file. Now including it.', $file));
+            $this->_logDebug(sprintf('<code>%s</code> is a readable file. Now including it.', $file));
         }
 
         /** @noinspection PhpIncludeInspection */
@@ -123,7 +123,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
             if ($iocContainerHit) {
 
-                $this->_logger->debug(sprintf('Service container found in cache? %s', $iocContainerHit ? 'yes' : 'no'));
+                $this->_logDebug(sprintf('Service container found in cache? <code>%s</code>', $iocContainerHit ? 'yes' : 'no'));
             }
         }
 
@@ -137,7 +137,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Rehydrating cached service container.');
+            $this->_logDebug('Rehydrating cached service container.');
         }
 
         /** @noinspection PhpUndefinedClassInspection */
@@ -148,7 +148,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Done rehydrating cached service container.');
+            $this->_logDebug('Done rehydrating cached service container.');
         }
 
         $tubePressContainer = new tubepress_internal_ioc_Container($symfonyContainer);
@@ -170,7 +170,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
+            $this->_logDebug('We cannot boot from cache. Will perform a full boot instead.');
         }
 
         $this->_buildTemporaryClassLoader();
@@ -244,6 +244,11 @@ class tubepress_internal_boot_helper_ContainerSupplier
         );
 
         $this->_uncachedContainerSupplier = $uncached;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Container Supplier) %s', $msg));
     }
 
     public function ___setUncachedContainerSupplier(tubepress_internal_boot_helper_uncached_UncachedContainerSupplier $supplier)

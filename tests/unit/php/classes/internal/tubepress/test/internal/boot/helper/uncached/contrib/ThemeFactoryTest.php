@@ -49,7 +49,7 @@ class tubepress_test_internal_boot_helper_uncached_contrib_ThemeFactoryTest exte
         return array(
 
             array(new stdClass(), 'Scripts must be a simple array of strings'),
-            array(array(''), 'Script 1 is empty'),
+            array(array(''), 'Script <code>1</code> is empty'),
         );
     }
 

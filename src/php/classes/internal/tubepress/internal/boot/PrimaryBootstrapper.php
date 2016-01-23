@@ -299,6 +299,15 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _clearSystemCache()
     {
+        if (!class_exists('\Symfony\Component\Filesystem\Filesystem', false)) {
+
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Filesystem.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/ExceptionInterface.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/IOExceptionInterface.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/IOException.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/FileNotFoundException.php';
+        }
+
         $dir        = $this->_bootSettings->getPathToSystemCacheDirectory();
         $filesystem = new \Symfony\Component\Filesystem\Filesystem();
 

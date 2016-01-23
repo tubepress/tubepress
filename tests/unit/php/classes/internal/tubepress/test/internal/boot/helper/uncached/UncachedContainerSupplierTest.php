@@ -92,7 +92,7 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
     {
         $this->_setupMocks(3);
 
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of /abcdef/TubePress-99.99.99-ServiceContainer.php');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of <code>/abcdef/TubePress-99.99.99-ServiceContainer.php</code>');
         $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('/abcdef');
 
         $result = $this->_sut->getNewSymfonyContainer();
