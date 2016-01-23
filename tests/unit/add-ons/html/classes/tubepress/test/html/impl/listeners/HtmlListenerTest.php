@@ -106,7 +106,6 @@ class tubepress_test_html_impl_listeners_HtmlListenerTest extends tubepress_api_
 
     public function testExceptionLogDisabled()
     {
-        //$this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(new RuntimeException());
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(false);
         $this->_sut->onException($this->_mockEvent);
         $this->assertTrue(true);
