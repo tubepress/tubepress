@@ -60,7 +60,6 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
 
     public function onTearDown()
     {
-        unset($_GET['hello']);
         $this->recursivelyDeleteDirectory($this->_userContentDirectory);
     }
 
@@ -71,21 +70,173 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
         return $realFactory->fromString($incoming);
     }
 
-    public function testGetUserContentDirectoryWordPress1()
+    /**
+     * @dataProvider getDataSerializationEncoding
+     */
+    public function testGetSerializationEncoding($expected, $entry)
     {
-        define('ABSPATH', 'blue/');
-        define('DB_NAME', 'database_name');
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
-        $this->assertEquals('blue/wp-content/tubepress-content', $this->_sut->getUserContentDirectory());
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'cache' => array(
+
+            'serializationEncoding'  => '$entry'
+        )
+    )
+);
+EOF
+        );
+
+        $actual = $this->_sut->getSerializationEncoding();
+
+        $this->assertEquals($expected, $actual);
     }
 
-    public function testGetUserContentDirectoryWordPress2()
+    public function getDataSerializationEncoding()
     {
-        define('WP_CONTENT_DIR', 'bob');
-        define('ABSPATH', 'blue/');
-        define('DB_NAME', 'database_name');
+        return array(
 
-        $this->assertEquals('bob/tubepress-content', $this->_sut->getUserContentDirectory());
+            array('base64', 'base64'),
+            array('base64', ''),
+            array('base64', 'foobar'),
+            array('none', 'none'),
+            array('urlencode', 'urlencode'),
+        );
+    }
+
+    public function testShouldClearSystemCache()
+    {
+        $this->assertFalse($this->_sut->shouldClearCache());
+
+        $_GET['tubepress_clear_system_cache'] = 'true';
+
+        $this->assertTrue($this->_sut->shouldClearCache());
+    }
+
+    public function testShouldClearSystemCacheCustomKey()
+    {
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'cache' => array(
+
+            'killerKey'  => 'hello'
+        )
+    )
+);
+EOF
+        );
+
+        $this->assertFalse($this->_sut->shouldClearCache());
+
+        $_GET['hello'] = true;
+
+        $this->assertFalse($this->_sut->shouldClearCache());
+
+        $_GET['hello'] = 'true';
+
+        $this->assertTrue($this->_sut->shouldClearCache());
+    }
+
+    public function testAddonBlacklist()
+    {
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'add-ons' => array(
+
+            'blacklist' => array('some', 'thing', 'else'),
+        )
+    )
+);
+EOF
+        );
+
+        $actual = $this->_sut->getAddonBlacklistArray();
+
+        $this->assertTrue(is_array($actual));
+        $this->assertEquals(array('some', 'thing', 'else'), $actual);
+    }
+
+    /**
+     * @dataProvider getDataClassloaderEnabled
+     */
+    public function testIsClassloaderEnabled($entry)
+    {
+        $asString = $entry ? 'true' : 'false';
+
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'classloader' => array(
+
+            'enabled'  => $asString,
+        )
+    )
+);
+EOF
+        );
+
+        $actual = $this->_sut->isClassLoaderEnabled();
+
+        $this->assertEquals($entry, $actual);
+    }
+
+    public function getDataClassloaderEnabled()
+    {
+        return array(
+
+            array(true),
+            array(false),
+        );
+    }
+
+    /**
+     * @dataProvider getDataSystemCacheEnabled
+     */
+    public function testIsSystemCacheEnabled($entry)
+    {
+        $asString = $entry ? 'true' : 'false';
+
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'cache' => array(
+
+            'enabled'  => $asString,
+        )
+    )
+);
+EOF
+        );
+
+        $actual = $this->_sut->isSystemCacheEnabled();
+
+        $this->assertEquals($entry, $actual);
+    }
+
+    public function getDataSystemCacheEnabled()
+    {
+        return array(
+
+            array(true),
+            array(false),
+        );
     }
 
     public function testGetPathToSystemCacheDirectoryExisting()
@@ -165,7 +316,32 @@ EOF
     }
 
     /**
-     * @dataProvider getSuccessfulUrls
+     * @dataProvider getDataUserContentDirectory
+     */
+    public function testGetUserContentDirectory(array $defines, $expected)
+    {
+        foreach ($defines as $key => $value) {
+
+            define($key, $value);
+        }
+
+        $actual = $this->_sut->getUserContentDirectory();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function getDataUserContentDirectory()
+    {
+        return array(
+
+            array(array('ABSPATH' => 'blue/', 'DB_NAME' => 'database_name'), 'blue/wp-content/tubepress-content'),
+            array(array('ABSPATH' => 'blue/', 'DB_NAME' => 'database_name', 'WP_CONTENT_DIR' => 'bob'), 'bob/tubepress-content'),
+            array(array('TUBEPRESS_CONTENT_DIRECTORY' => 'foobar'), 'foobar'),
+        );
+    }
+
+    /**
+     * @dataProvider getDataUrls
      */
     public function testUrls($key, $candidate, $getter, $expected)
     {
@@ -189,7 +365,7 @@ EOF
         $this->assertEquals($expected, $actual);
     }
 
-    public function getSuccessfulUrls()
+    public function getDataUrls()
     {
         return array(
 
@@ -221,38 +397,6 @@ EOF
         );
 
         $this->assertEquals(null, $this->_sut->getUrlBase());
-    }
-
-    public function testCustomAddonsBlacklist()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'cache' => array(
-
-            'instance'  => new Stash\Pool(new Stash\Driver\Ephemeral()),
-            'killerKey' => 'hello',
-        ),
-        'add-ons' => array(
-
-            'blacklist' => array('some', 'thing', 'else'),
-        ),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
-);
-
-        $actual = $this->_sut->getAddonBlacklistArray();
-
-        $this->assertTrue(is_array($actual));
-        $this->assertEquals(array('some', 'thing', 'else'), $actual);
     }
 
     public function testInvalidPhpInSettingsPhp()
