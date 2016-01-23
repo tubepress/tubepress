@@ -157,6 +157,11 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
             $loggingRequested  = isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0;
             $this->_bootLogger = new tubepress_internal_logger_BootLogger($loggingRequested);
+
+            if ($loggingRequested) {
+
+                $this->_logDebug(sprintf('Hello! Thanks for using TubePress version <code>%s</code>', TUBEPRESS_VERSION));
+            }
         }
     }
 
@@ -179,7 +184,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
             ob_end_clean();
             $phpInfo = base64_encode($phpInfo);
 
-            $this->_bootLogger->debug(sprintf('<span style="display: none" class="php-debug">%s</span>', $phpInfo));
+            $this->_logDebug(sprintf('Check the HTML source for additional debug info. <span style="display: none" class="php-debug">%s</span>', $phpInfo));
         }
     }
     
@@ -192,11 +197,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
         if (!isset($this->_containerSupplier)) {
 
-            $this->_containerSupplier = new tubepress_internal_boot_helper_ContainerSupplier(
-                
-                $this->_bootLogger,
-                $this->_bootSettings
-            );
+            $this->_containerSupplier = new tubepress_internal_boot_helper_ContainerSupplier($this->_bootLogger, $this->_bootSettings);
         }
     }
 
@@ -254,7 +255,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
         $now = microtime(true);
 
-        $this->_bootLogger->debug(sprintf('Boot completed in %f milliseconds',
+        $this->_logDebug(sprintf('Boot completed in <code>%f</code> milliseconds',
             (($now - $this->_startTime) * 1000.0)));
 
         /**
@@ -298,93 +299,20 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _clearSystemCache()
     {
-        $dir       = $this->_bootSettings->getPathToSystemCacheDirectory();
-        $shouldLog = $this->_bootLogger->isEnabled();
+        $dir        = $this->_bootSettings->getPathToSystemCacheDirectory();
+        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
 
-        if ($shouldLog) {
+        if ($this->_bootLogger->isEnabled()) {
 
-            $this->_bootLogger->debug(sprintf('System cache clear requested. Attempting to recursively delete %s', $dir));
+            $this->_logDebug(sprintf('System cache clear requested. Attempting to recursively delete <code>%s</code>', $dir));
         }
 
-        $this->_recursivelyDeleteDirectory($dir, $this->_bootLogger, $shouldLog);
+        $filesystem->remove($dir);
     }
 
-    private function _recursivelyDeleteDirectory($dir, tubepress_api_log_LoggerInterface $logger, $shouldLog)
+    private function _logDebug($msg)
     {
-        if (!is_dir($dir)) {
-
-            return;
-        }
-
-        $objects = scandir($dir);
-
-        if ($shouldLog) {
-
-            $logger->debug(sprintf('Found %d objects in %s', count($objects), $dir));
-        }
-
-        foreach ($objects as $object) {
-
-            if ($object == '.' || $object == '..') {
-
-                continue;
-            }
-
-            $path = $dir . DIRECTORY_SEPARATOR . $object;
-
-            if (filetype($path) == 'dir') {
-
-                if ($shouldLog) {
-
-                    $logger->debug(sprintf('Recursing inside %s to delete it', $path));
-                }
-
-                $this->_recursivelyDeleteDirectory($path, $logger, $shouldLog);
-
-            } else  {
-
-                if ($shouldLog) {
-
-                    $logger->debug(sprintf('Attempting to delete %s', $path));
-                }
-
-                $success = unlink($path);
-
-                if ($shouldLog) {
-
-                    if ($success === true) {
-
-                        $logger->debug(sprintf('Successfully deleted %s', $path));
-
-                    } else {
-
-                        $logger->error(sprintf('Could not delete %s', $path));
-                    }
-                }
-            }
-
-        }
-
-        reset($objects);
-
-        if ($shouldLog) {
-
-            $logger->debug(sprintf('Attempting to delete directory %s', $dir));
-        }
-
-        $success = rmdir($dir);
-
-        if ($shouldLog) {
-
-            if ($success === true) {
-
-                $logger->debug(sprintf('Successfully deleted directory %s', $dir));
-
-            } else {
-
-                $logger->error(sprintf('Could not delete directory %s', $dir));
-            }
-        }
+        $this->_bootLogger->debug(sprintf('(Primary Bootstrapper) %s', $msg));
     }
 
     public function _handleFatalError()
