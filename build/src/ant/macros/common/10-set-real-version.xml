@@ -19,7 +19,7 @@
             <__replace-version-in-files includes="**/manifest.json" />
             <__replace-version-in-files includes="**/theme.json" />
             <__replace-version-in-files includes="src/php/scripts/classloading/classes.php" />
-            <__replace-version-in-files includes="src/php/scripts/boot_internal.php" />
+            <__replace-version-in-files includes="src/php/classes/internal/tubepress/internal/boot/InitialBootstrapper.php" />
             <__replace-version-in-files includes="tubepress.php" />
 
         </sequential>
