@@ -29,6 +29,17 @@ class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templa
         $this->_shouldLog = $this->_logger->isEnabled();
     }
 
+    public function render($name, array $parameters = array())
+    {
+        $this->_logDebug(sprintf('Start render of template <code>%s</code>', $name));
+
+        $toReturn = parent::render($name, $parameters);
+
+        $this->_logDebug(sprintf('Finished rendering template <code>%s</code>', $name));
+
+        return $toReturn;
+    }
+
     /**
      * Get an engine able to render the given template.
      *
@@ -48,7 +59,7 @@ class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templa
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template engine <code>%s</code> does not support template <code>%s</code>',
+                    $this->_logDebug(sprintf('Template engine <code>%s</code> does not support template <code>%s</code>',
 
                         get_class($engine),
                         $name
@@ -62,7 +73,7 @@ class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templa
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template engine <code>%s</code> cannot find template <code>%s</code>',
+                    $this->_logDebug(sprintf('Template engine <code>%s</code> cannot find template <code>%s</code>',
 
                         get_class($engine),
                         $name
@@ -74,7 +85,7 @@ class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templa
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Template engine <code>%s</code> will handle template <code>%s</code>',
+                $this->_logDebug(sprintf('Template engine <code>%s</code> will handle template <code>%s</code>',
 
                     get_class($engine),
                     $name
@@ -85,5 +96,10 @@ class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templa
         }
 
         throw new RuntimeException(sprintf('Template <code>%s</code> not found.', $name));
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Delegating Template Engine) %s', $msg));
     }
 }
