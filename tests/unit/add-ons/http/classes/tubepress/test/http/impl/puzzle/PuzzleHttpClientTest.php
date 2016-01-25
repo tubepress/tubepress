@@ -184,7 +184,7 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api
     {
         $mockPuzzleRequest = $this->mock('puzzle_message_RequestInterface');
         $mockPuzzleRequest->shouldReceive('getUrl')->atLeast(1)->andReturn("$url");
-        $mockPuzzleRequest->shouldReceive('getMethod')->times($getMethodCount)->andReturn($method);
+        $mockPuzzleRequest->shouldReceive('getMethod')->atLeast(1)->andReturn($method);
 
         $this->_mockPuzzleClient->shouldReceive('createRequest')->once()->with($method, "$url", $options)->andReturn($mockPuzzleRequest);
 

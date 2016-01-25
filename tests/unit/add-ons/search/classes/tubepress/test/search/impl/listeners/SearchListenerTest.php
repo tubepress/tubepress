@@ -74,6 +74,61 @@ class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_
         $this->_sut->setMediaProviders(array($this->_mockMediaProvider1, $this->_mockMediaProvider2));
     }
 
+    public function testSearchOutput()
+    {
+        $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->once()->with('(Search Listener) User is searching. We\'ll handle this.');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SEARCH_PROVIDER)->andReturn('provider2');
+        $this->_mockRequestParams->shouldReceive('getParamValue')->twice()->with('tubepress_search')->andReturn('search terms');
+
+        $this->_mockMediaProvider1->shouldReceive('getName')->once()->andReturn('provider1');
+        $this->_mockMediaProvider2->shouldReceive('getName')->once()->andReturn('provider2');
+        $this->_mockMediaProvider2->shouldReceive('getSearchModeName')->once()->andReturn('provider 2 search mode');
+        $this->_mockMediaProvider2->shouldReceive('getSearchQueryOptionName')->once()->andReturn('provider 2 search query option');
+
+        $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE, 'provider 2 search mode');
+        $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with('provider 2 search query option', 'search terms');
+
+        $this->_sut->onHtmlGenerationSearchOutput($this->_mockEvent);
+    }
+
+    public function testSearchOutputNotSearchingMustShow()
+    {
+        $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->once()->with('(Search Listener) User doesn\'t appear to be searching. Will not display anything.');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->twice()->with('tubepress_search')->andReturnNull();
+
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with('');
+        $this->_mockEvent->shouldReceive('stopPropagation')->once();
+
+        $this->_sut->onHtmlGenerationSearchOutput($this->_mockEvent);
+    }
+
+    public function testSearchOutputNotSearchingMayShow()
+    {
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->once()->with('(Search Listener) The user isn\'t searching.');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SEARCH_RESULTS_ONLY)->andReturn(false);
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_search')->andReturnNull();
+
+        $this->_sut->onHtmlGenerationSearchOutput($this->_mockEvent);
+    }
+
+    public function testSearchOutputNotConfigured()
+    {
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->once()->with('(Search Listener) Not configured for search results');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn('foo');
+
+
+        $this->_sut->onHtmlGenerationSearchOutput($this->_mockEvent);
+    }
+
     public function testNoSearchInput()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::HTML_OUTPUT)->andReturn(tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS);

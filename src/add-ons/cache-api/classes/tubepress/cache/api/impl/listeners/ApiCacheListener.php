@@ -12,6 +12,11 @@
 class tubepress_cache_api_impl_listeners_ApiCacheListener
 {
     /**
+     * @var string
+     */
+    const HTTP_HEADER_CACHE_HIT = 'TubePress-API-Cache-Hit';
+
+    /**
      * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
@@ -58,7 +63,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
         $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(
 
             200,
-            array('TubePress-API-Cache-Hit' => 'true'),
+            array(self::HTTP_HEADER_CACHE_HIT => 'true'),
             puzzle_stream_Stream::factory($item->get())
         ));
 
@@ -83,7 +88,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
          */
         $httpResponse = $event->getSubject();
 
-        if ($httpResponse->hasHeader('TubePress-API-Cache-Hit')) {
+        if ($httpResponse->hasHeader(self::HTTP_HEADER_CACHE_HIT)) {
 
             return;
         }
@@ -138,7 +143,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
         if ($isDebugEnabled && !$cacheEnabled) {
 
-            $this->_logger->debug('Skip API cache for debugging.');
+            $this->_logDebug('Skip API cache for debugging.');
 
             return false;
         }
@@ -164,7 +169,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug(sprintf('Asking cache for <a href="%s">URL</a>', $url));
+            $this->_logDebug(sprintf('Asking cache for <code>%s</code>', $url));
         }
 
         /**
@@ -176,14 +181,19 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
             if ($result->isMiss()) {
 
-                $this->_logger->debug(sprintf('Cache miss for <a href="%s">URL</a>.', $url));
+                $this->_logDebug(sprintf('Cache miss for <code>%s</code>.', $url));
 
             } else {
 
-                $this->_logger->debug(sprintf('Cache hit for <a href="%s">URL</a>.', $url));
+                $this->_logDebug(sprintf('Cache hit for <code>%s</code>.', $url));
             }
         }
 
         return $result;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(API Cache Listener) %s', $msg));
     }
 }
