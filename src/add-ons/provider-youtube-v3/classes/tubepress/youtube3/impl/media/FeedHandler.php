@@ -272,7 +272,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($loggerEnabled) {
 
-            $this->_logger->debug(sprintf('Decoded feed from YouTube is visible in the HTML source of this page.<span style="display:none">%s</span>',
+            $this->_logDebug(sprintf('Decoded feed from YouTube is visible in the HTML source of this page.<span style="display:none">%s</span>',
 
                 htmlspecialchars(print_r($this->_feedAsArray, true))
             ));
@@ -284,7 +284,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($loggerEnabled) {
 
-            $this->_logger->debug(sprintf('Decoded metadata collected from YouTube is visible in the HTML source of this page.<span style="display:none">%s</span>',
+            $this->_logDebug(sprintf('Decoded metadata collected from YouTube is visible in the HTML source of this page.<span style="display:none">%s</span>',
 
                 htmlspecialchars(print_r($this->_metadataAsArray, true))
             ));
@@ -370,7 +370,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     {
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Looking up the channel ID for the videos favorited by %s', $userChannelId));
+            $this->_logDebug(sprintf('Looking up the channel ID for the videos favorited by <code>%s</code>', $userChannelId));
         }
 
         $channelListUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
@@ -404,12 +404,12 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($favoritesChannelId === '') {
 
-            throw new InvalidArgumentException(sprintf('Favorites for channel %s are not public.', $userChannelId));
+            throw new InvalidArgumentException(sprintf('Favorites for channel <code>%s</code> are not public.', $userChannelId));
         }
 
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Favorites channel ID for channel ID %s is %s', $userChannelId, $favoritesChannelId));
+            $this->_logDebug(sprintf('Favorites channel ID for channel ID <code>%s</code> is <code>%s</code>', $userChannelId, $favoritesChannelId));
         }
 
         return $favoritesChannelId;
@@ -426,7 +426,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     {
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Looking up the channel ID for the videos uploaded by %s', $userChannelId));
+            $this->_logDebug(sprintf('Looking up the channel ID for the videos uploaded by <code>%s</code>', $userChannelId));
         }
 
         $channelListUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
@@ -460,12 +460,12 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($favoritesChannelId === '') {
 
-            throw new InvalidArgumentException(sprintf('Uploads for channel %s are not public.', $userChannelId));
+            throw new InvalidArgumentException(sprintf('Uploads for channel <code>%s</code> are not public.', $userChannelId));
         }
 
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Uploads channel ID for channel ID %s is %s', $userChannelId, $favoritesChannelId));
+            $this->_logDebug(sprintf('Uploads channel ID for channel ID <code>%s</code> is <code>%s</code>', $userChannelId, $favoritesChannelId));
         }
 
         return $favoritesChannelId;
@@ -484,7 +484,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($debugEnabled) {
 
-            $this->_logger->debug(sprintf('Determining if %s a YouTube user or channel ID. First, we\'ll assume it\'s a user', $candidate));
+            $this->_logDebug(sprintf('Determining if <code>%s</code> a YouTube user or channel ID. First, we\'ll assume it\'s a user', $candidate));
         }
 
         $channelListUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
@@ -507,7 +507,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
             if ($debugEnabled) {
 
-                $this->_logger->debug(sprintf('%s is a YouTube user with channel ID %s', $candidate, $channelId));
+                $this->_logDebug(sprintf('<code>%s</code> is a YouTube user with channel ID <code>%s</code>', $candidate, $channelId));
             }
 
             return $channelId;
@@ -515,7 +515,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($debugEnabled) {
 
-            $this->_logger->debug(sprintf('%s does not appear to be a YouTube user. See if it is an exact channel ID', $candidate));
+            $this->_logDebug(sprintf('<code>%s</code> does not appear to be a YouTube user. See if it is an exact channel ID', $candidate));
         }
 
         $channelListUrl->getQuery()->remove(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_FORUSERNAME)
@@ -527,7 +527,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
             if ($debugEnabled) {
 
-                $this->_logger->debug(sprintf('%s is an exact channel ID.', $channelId));
+                $this->_logDebug(sprintf('<code>%s</code> is an exact channel ID.', $channelId));
             }
 
             return $channelId;
@@ -535,7 +535,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($debugEnabled) {
 
-            $this->_logger->debug(sprintf('%s does not appear to be a YouTube user or an exact channel ID. Last resort - trying to add "UC" in front of it.', $candidate));
+            $this->_logDebug(sprintf('<code>%s</code> does not appear to be a YouTube user or an exact channel ID. Last resort - trying to add "UC" in front of it.', $candidate));
         }
 
         $channelListUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_ID, "UC$candidate");
@@ -546,7 +546,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
             if ($debugEnabled) {
 
-                $this->_logger->debug(sprintf('%s is a valid channel ID, we will use that instead.', $channelId));
+                $this->_logDebug(sprintf('<code>%s</code> is a valid channel ID, we will use that instead.', $channelId));
             }
 
             return $channelId;
@@ -815,7 +815,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
                     $reason = $this->getReasonUnableToUseItemAtIndex($index);
 
-                    $this->_logger->debug(sprintf('Skipping video at index %d: %s', $index, $reason));
+                    $this->_logDebug(sprintf('Skipping video at index <code>%d</code>: <code>%s</code>', $index, $reason));
                 }
 
                 $this->_skippedVideoCount++;
@@ -856,7 +856,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Making API call to collect metadata for %d video(s): [ %s ]',
+            $this->_logDebug(sprintf('Making API call to collect metadata for <code>%d</code> video(s): <code>[ %s ]</code>',
                 count($ids), implode(', ', $ids)));
         }
 
@@ -910,5 +910,10 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     public function __invoke()
     {
         $this->_invokedAtLeastOnce = true;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(YouTube Feed Handler) %s', $msg));
     }
 }
