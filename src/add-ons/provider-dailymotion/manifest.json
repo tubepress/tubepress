@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/dailymotion",
+    "version": "99.99.99",
+    "title" : "Dailymotion",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "description": "Allows TubePress work with Dailymotion",
+    "container-builder": {
+        "extensions" : [
+            "tubepress_dailymotion_ioc_DailymotionExtension"
+        ]
+    },
+    "autoload": {
+        "classmap" : {
+            "tubepress_dailymotion_api_Constants"                        : "classes/tubepress/dailymotion/api/Constants.php",
+            "tubepress_dailymotion_ioc_DailymotionExtension"             : "classes/tubepress/dailymotion/ioc/DailymotionExtension.php"
+        }
+    }
+}

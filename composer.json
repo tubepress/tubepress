@@ -38,6 +38,7 @@
       "tubepress_array_"           : "src/add-ons/array/classes",
       "tubepress_cache_api_"       : "src/add-ons/cache-api/classes",
       "tubepress_cache_html_"      : "src/add-ons/cache-html/classes",
+      "tubepress_dailymotion_"     : "src/add-ons/provider-dailymotion/classes",
       "tubepress_embedded_common_" : "src/add-ons/embedded-common/classes",
       "tubepress_embedplus_"       : "src/add-ons/embedded-embedplus/classes",
       "tubepress_environment_"     : "src/add-ons/environment/classes",

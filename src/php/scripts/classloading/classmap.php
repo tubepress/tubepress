@@ -581,6 +581,8 @@ return array (
     'tubepress_cache_api_impl_stash_FilesystemCacheBuilder' => TUBEPRESS_ROOT . '/src/add-ons/cache-api/classes/tubepress/cache/api/impl/stash/FilesystemCacheBuilder.php',
     'tubepress_cache_api_ioc_ApiCacheExtension' => TUBEPRESS_ROOT . '/src/add-ons/cache-api/classes/tubepress/cache/api/ioc/ApiCacheExtension.php',
     'tubepress_cache_html_ioc_HtmlCacheExtension' => TUBEPRESS_ROOT . '/src/add-ons/cache-html/classes/tubepress/cache/html/ioc/HtmlCacheExtension.php',
+    'tubepress_dailymotion_api_Constants' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/api/Constants.php',
+    'tubepress_dailymotion_ioc_DailymotionExtension' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/ioc/DailymotionExtension.php',
     'tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/impl/listeners/LegacyMetadataTemplateListener.php',
     'tubepress_deprecated_impl_listeners_LegacyTemplateListener' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/impl/listeners/LegacyTemplateListener.php',
     'tubepress_deprecated_ioc_DeprecatedExtension' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/ioc/DeprecatedExtension.php',
