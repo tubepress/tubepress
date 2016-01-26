@@ -14,5 +14,13 @@
  */
 interface tubepress_dailymotion_api_Constants
 {
-
+    const OPTION_PLAYER_COLOR          = 'dailymotionPlayerColorHighlight';
+    const OPTION_PLAYER_QUALITY        = 'dailymotionPlayerQuality';
+    const OPTION_PLAYER_SHOW_CONTROLS  = 'dailymotionPlayerShowControls';
+    const OPTION_PLAYER_SHOW_ENDSCREEN = 'dailymotionPlayerShowEndScreen';
+    const OPTION_PLAYER_SHOW_LOGO      = 'dailymotionPlayerShowLogo';
+    const OPTION_PLAYER_SHOW_SHARING   = 'dailymotionPlayerShowSharing';
+    const OPTION_PLAYER_THEME          = 'dailymotionPlayerTheme';
+    const OPTION_PLAYER_ORIGIN_DOMAIN  = 'dailymotionPlayerOriginDomain';
+    const OPTION_PLAYER_ID             = 'dailymotionPlayerId';
 }

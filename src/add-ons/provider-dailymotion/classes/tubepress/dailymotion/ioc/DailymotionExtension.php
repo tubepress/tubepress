@@ -26,6 +26,18 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
+        $this->_registerEmbedded($containerBuilder);
+    }
 
+    private function _registerEmbedded(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider',
+            'tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addTag('tubepress_spi_embedded_EmbeddedProviderInterface')
+         ->addTag('tubepress_spi_template_PathProviderInterface');
     }
 }

@@ -20,8 +20,9 @@
     },
     "autoload": {
         "classmap" : {
-            "tubepress_dailymotion_api_Constants"                        : "classes/tubepress/dailymotion/api/Constants.php",
-            "tubepress_dailymotion_ioc_DailymotionExtension"             : "classes/tubepress/dailymotion/ioc/DailymotionExtension.php"
+            "tubepress_dailymotion_api_Constants"                             : "classes/tubepress/dailymotion/api/Constants.php",
+            "tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider" : "classes/tubepress/dailymotion/impl/embedded/DailymotionEmbeddedProvider.php",
+            "tubepress_dailymotion_ioc_DailymotionExtension"                  : "classes/tubepress/dailymotion/ioc/DailymotionExtension.php"
         }
     }
 }
