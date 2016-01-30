@@ -22,6 +22,8 @@
         "classmap" : {
             "tubepress_dailymotion_api_Constants"                             : "classes/tubepress/dailymotion/api/Constants.php",
             "tubepress_dailymotion_impl_ApiUtility"                           : "classes/tubepress/dailymotion/impl/ApiUtility.php",
+            "tubepress_dailymotion_impl_listeners_media_HttpItemListener"     : "classes/tubepress/dailymotion/impl/listeners/media/HttpItemListener.php",
+
             "tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider" : "classes/tubepress/dailymotion/impl/embedded/DailymotionEmbeddedProvider.php",
             "tubepress_dailymotion_impl_media_FeedHandler"                    : "classes/tubepress/dailymotion/impl/media/FeedHandler.php",
             "tubepress_dailymotion_impl_media_MediaProvider"                  : "classes/tubepress/dailymotion/impl/media/MediaProvider.php",

@@ -437,6 +437,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
             'private_id',        // so that we can determine if the video is available
             'published',         // so that we can determine if the video is available
 
+            'channel.name',      // channel/category name
             'created_time',      // time video uploaded
             'description',       // description
             'duration',          // duration in seconds

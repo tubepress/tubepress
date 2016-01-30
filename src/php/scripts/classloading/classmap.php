@@ -584,6 +584,7 @@ return array (
     'tubepress_dailymotion_api_Constants' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/api/Constants.php',
     'tubepress_dailymotion_impl_ApiUtility' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/impl/ApiUtility.php',
     'tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/impl/embedded/DailymotionEmbeddedProvider.php',
+    'tubepress_dailymotion_impl_listeners_media_HttpItemListener' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/impl/listeners/media/HttpItemListener.php',
     'tubepress_dailymotion_impl_media_FeedHandler' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/impl/media/FeedHandler.php',
     'tubepress_dailymotion_impl_media_MediaProvider' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/impl/media/MediaProvider.php',
     'tubepress_dailymotion_impl_player_DailymotionPlayerLocation' => TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/classes/tubepress/dailymotion/impl/player/DailymotionPlayerLocation.php',

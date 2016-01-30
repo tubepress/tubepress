@@ -90,4 +90,13 @@ interface tubepress_dailymotion_api_Constants
     const FILTER_PARTNER_ALL              = 'all';
     const FILTER_PARTNER_PARTNER_ONLY     = 'onlyPartner';
     const FILTER_PARTNER_NON_PARTNER_ONLY = 'onlyUserGenerated';
+
+    const THUMB_SIZE_60  = '60';
+    const THUMB_SIZE_120 = '120';
+    const THUMB_SIZE_180 = '180';
+    const THUMB_SIZE_240 = '240';
+    const THUMB_SIZE_360 = '360';
+    const THUMB_SIZE_480 = '480';
+    const THUMB_SIZE_720 = '720';
+    const THUMB_SIZE_MAX = 'max';
 }
