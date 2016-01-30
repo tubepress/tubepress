@@ -27,6 +27,49 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerEmbedded($containerBuilder);
+        $this->_registerApiUtility($containerBuilder);
+        $this->_registerMediaProvider($containerBuilder);
+        $this->_registerPlayer($containerBuilder);
+    }
+
+    private function _registerPlayer(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_dailymotion_impl_player_DailymotionPlayerLocation',
+            'tubepress_dailymotion_impl_player_DailymotionPlayerLocation'
+        )->addTag('tubepress_spi_player_PlayerLocationInterface');
+    }
+
+    private function _registerMediaProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_dailymotion_impl_media_FeedHandler',
+            'tubepress_dailymotion_impl_media_FeedHandler'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_array_ArrayReaderInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_ApiUtility'));
+
+        $containerBuilder->register(
+            'tubepress_dailymotion_impl_media_MediaProvider',
+            'tubepress_dailymotion_impl_media_MediaProvider'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_media_HttpCollectorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_media_FeedHandler'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+         ->addTag(tubepress_spi_media_MediaProviderInterface::__);
+    }
+
+    private function _registerApiUtility(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_dailymotion_impl_ApiUtility',
+            'tubepress_dailymotion_impl_ApiUtility'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_HttpClientInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_array_ArrayReaderInterface::_));
     }
 
     private function _registerEmbedded(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
