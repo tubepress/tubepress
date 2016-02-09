@@ -44,7 +44,7 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
         $this->_mockLogger     = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockContext    = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockApiUtility = $this->mock('tubepress_dailymotion_impl_ApiUtility');
+        $this->_mockApiUtility = $this->mock('tubepress_dailymotion_impl_dmapi_ApiUtility');
 
         $this->_sut = new tubepress_dailymotion_impl_media_FeedHandler(
 

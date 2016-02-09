@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_dailymotion_impl_ApiUtility
+class tubepress_dailymotion_impl_dmapi_ApiUtility
 {
     /**
      * @var tubepress_api_log_LoggerInterface

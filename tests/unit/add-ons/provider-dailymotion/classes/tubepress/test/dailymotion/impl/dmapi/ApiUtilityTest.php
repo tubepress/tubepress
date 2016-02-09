@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_dailymotion_impl_ApiUtility
+ * @covers tubepress_dailymotion_impl_dmapi_ApiUtility
  */
-class tubepress_test_dailymotion_impl_ApiUtilityTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_dailymotion_impl_dmapi_ApiUtilityTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_dailymotion_impl_ApiUtility
+     * @var tubepress_dailymotion_impl_dmapi_ApiUtility
      */
     private $_sut;
 
@@ -43,7 +43,7 @@ class tubepress_test_dailymotion_impl_ApiUtilityTest extends tubepress_api_test_
 
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
-        $this->_sut = new tubepress_dailymotion_impl_ApiUtility(
+        $this->_sut = new tubepress_dailymotion_impl_dmapi_ApiUtility(
 
             $this->_mockLogger,
             $this->_mockContext,

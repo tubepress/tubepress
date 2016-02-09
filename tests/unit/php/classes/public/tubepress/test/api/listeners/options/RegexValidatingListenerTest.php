@@ -59,9 +59,10 @@ class tubepress_test_api_listeners_options_RegexValidatingListenerTest extends t
             $this->_mockTranslation->shouldReceive('trans')->once()->with('something awesome')->andReturn('holy smokes');
             $this->_mockReference->shouldReceive('getUntranslatedLabel')->twice()->with('option-name')->andReturn('something awesome');
             $this->_mockEvent->shouldReceive('setSubject')->once()->with(array('omg holy smokes'));
+            $this->_mockEvent->shouldReceive('stopPropagation')->once();
         }
 
-        $this->_sut->onOption($this->_mockEvent);
+        $this->_sut->onOptionValidation($this->_mockEvent);
 
         $this->assertTrue(true);
     }
@@ -125,6 +126,30 @@ class tubepress_test_api_listeners_options_RegexValidatingListenerTest extends t
             array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890-', true),
             array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890_', true),
             array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID, '1234567890&', false),
+
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, 'foo.com',      true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, 'foo.bar.com',  true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, '123.com',      true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, '123.biz',      true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, 'foo.bar.com.', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, 'foo',          false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, '.bar.foo',     false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN, '123.123',      false),
+
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_COUNTRY_CODE, 'US', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_COUNTRY_CODE, 'IT', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_COUNTRY_CODE, 'us', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_COUNTRY_CODE, 'ABC', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_COUNTRY_CODE, '123', false),
+
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_LANGUAGE_CODE, 'en', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_LANGUAGE_CODE, 'EN', false),
+
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOM_ELEMENT_ID_OR_NAME, 'foo', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOM_ELEMENT_ID_OR_NAME, 'foo1', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOM_ELEMENT_ID_OR_NAME, 'foo:', true),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOM_ELEMENT_ID_OR_NAME, '1foo', false),
+            array(tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOM_ELEMENT_ID_OR_NAME, ':foo', false),
         );
     }
 }

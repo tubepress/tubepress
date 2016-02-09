@@ -34,7 +34,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     private $_arrayReader;
 
     /**
-     * @var tubepress_dailymotion_impl_ApiUtility
+     * @var tubepress_dailymotion_impl_dmapi_ApiUtility
      */
     private $_apiUtility;
 
@@ -50,11 +50,11 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
 
     private $_invokedAtLeastOnce;
 
-    public function __construct(tubepress_api_log_LoggerInterface        $logger,
-                                tubepress_api_options_ContextInterface   $context,
-                                tubepress_api_url_UrlFactoryInterface    $urlFactory,
-                                tubepress_api_array_ArrayReaderInterface $arrayReader,
-                                tubepress_dailymotion_impl_ApiUtility    $apiUtility)
+    public function __construct(tubepress_api_log_LoggerInterface           $logger,
+                                tubepress_api_options_ContextInterface      $context,
+                                tubepress_api_url_UrlFactoryInterface       $urlFactory,
+                                tubepress_api_array_ArrayReaderInterface    $arrayReader,
+                                tubepress_dailymotion_impl_dmapi_ApiUtility $apiUtility)
     {
         $this->_logger      = $logger;
         $this->_context     = $context;

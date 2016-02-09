@@ -20,15 +20,23 @@
     },
     "autoload": {
         "classmap" : {
-            "tubepress_dailymotion_api_Constants"                             : "classes/tubepress/dailymotion/api/Constants.php",
-            "tubepress_dailymotion_impl_ApiUtility"                           : "classes/tubepress/dailymotion/impl/ApiUtility.php",
-            "tubepress_dailymotion_impl_listeners_media_HttpItemListener"     : "classes/tubepress/dailymotion/impl/listeners/media/HttpItemListener.php",
+            "tubepress_dailymotion_api_Constants"                                        : "classes/tubepress/dailymotion/api/Constants.php",
+            "tubepress_dailymotion_impl_dmapi_ApiUtility"                                : "classes/tubepress/dailymotion/impl/dmapi/ApiUtility.php",
+            "tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier"                    : "classes/tubepress/dailymotion/impl/dmapi/LanguageLocaleSupplier.php",
+            "tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider"            : "classes/tubepress/dailymotion/impl/embedded/DailymotionEmbeddedProvider.php",
+            "tubepress_dailymotion_impl_listeners_media_HttpItemListener"                : "classes/tubepress/dailymotion/impl/listeners/media/HttpItemListener.php",
+            "tubepress_dailymotion_impl_listeners_options_LanguageLocaleListener"        : "classes/tubepress/dailymotion/impl/listeners/options/LanguageLocaleListener.php",
+            "tubepress_dailymotion_impl_listeners_options_transform_CsvTransformer"      : "classes/tubepress/dailymotion/impl/listeners/options/transform/CsvTransformer.php",
+            "tubepress_dailymotion_impl_listeners_options_transform_LanguageTransformer" : "classes/tubepress/dailymotion/impl/listeners/options/transform/LanguageTransformer.php",
+            "tubepress_dailymotion_impl_listeners_options_TransformListener"             : "classes/tubepress/dailymotion/impl/listeners/options/TransformListener.php",
+            "tubepress_dailymotion_impl_listeners_options_transform_PlaylistTransformer" : "classes/tubepress/dailymotion/impl/listeners/options/transform/PlaylistTransformer.php",
+            "tubepress_dailymotion_impl_listeners_options_transform_UserTransformer"     : "classes/tubepress/dailymotion/impl/listeners/options/transform/UserTransformer.php",
+            "tubepress_dailymotion_impl_listeners_options_transform_VideoIdTransformer"  : "classes/tubepress/dailymotion/impl/listeners/options/transform/VideoIdTransformer.php",
+            "tubepress_dailymotion_impl_media_FeedHandler"                               : "classes/tubepress/dailymotion/impl/media/FeedHandler.php",
+            "tubepress_dailymotion_impl_media_MediaProvider"                             : "classes/tubepress/dailymotion/impl/media/MediaProvider.php",
+            "tubepress_dailymotion_impl_player_DailymotionPlayerLocation"                : "classes/tubepress/dailymotion/impl/player/DailymotionPlayerLocation.php",
+            "tubepress_dailymotion_ioc_DailymotionExtension"                             : "classes/tubepress/dailymotion/ioc/DailymotionExtension.php"
 
-            "tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider" : "classes/tubepress/dailymotion/impl/embedded/DailymotionEmbeddedProvider.php",
-            "tubepress_dailymotion_impl_media_FeedHandler"                    : "classes/tubepress/dailymotion/impl/media/FeedHandler.php",
-            "tubepress_dailymotion_impl_media_MediaProvider"                  : "classes/tubepress/dailymotion/impl/media/MediaProvider.php",
-            "tubepress_dailymotion_impl_player_DailymotionPlayerLocation"     : "classes/tubepress/dailymotion/impl/player/DailymotionPlayerLocation.php",
-            "tubepress_dailymotion_ioc_DailymotionExtension"                  : "classes/tubepress/dailymotion/ioc/DailymotionExtension.php"
         }
     }
 }
