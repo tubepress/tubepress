@@ -30,9 +30,10 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
         $this->_registerEmbedded($containerBuilder);
         $this->_registerListeners($containerBuilder);
         $this->_registerMediaProvider($containerBuilder);
-        $this->_registerPlayer($containerBuilder);
         $this->_registerOptionTransformers($containerBuilder);
         $this->_registerOptions($containerBuilder);
+        $this->_registerOptionsUi($containerBuilder);
+        $this->_registerPlayer($containerBuilder);
     }
 
     private function _registerApiServices(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -47,23 +48,21 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
 
         $containerBuilder->register(
             'tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier.languages',
-            'tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier'
+            'tubepress_dailymotion_impl_dmapi_LanguageSupplier'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_dmapi_ApiUtility'))
          ->addArgument('https://api.dailymotion.com/languages')
-         ->addArgument('code')
-         ->addArgument(array('native_name', 'name'));
+         ->addArgument('code');
 
         $containerBuilder->register(
             'tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier.locales',
-            'tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier'
+            'tubepress_dailymotion_impl_dmapi_LocaleSupplier'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_dmapi_ApiUtility'))
          ->addArgument('https://api.dailymotion.com/locales')
-         ->addArgument('locale')
-         ->addArgument(array('locally_localized_language'));
+         ->addArgument('locale');
     }
 
     private function _registerEmbedded(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -122,9 +121,9 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 tubepress_dailymotion_api_Constants::FILTER_PREMIUM_NON_PREMIUM_ONLY => 'Free content only',         //>(translatable)<
             ),
             tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER => array(
-                tubepress_dailymotion_api_Constants::FILTER_PARTNER_ALL          => 'All videos',                   //>(translatable)<
-                tubepress_dailymotion_api_Constants::FILTER_PARTNER_PARTNER_ONLY => 'Partner videos only',          //>(translatable)<
-                tubepress_dailymotion_api_Constants::FILTER_PARTNER_ALL          => 'User-generated videos only',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::FILTER_PARTNER_ALL              => 'All videos',                   //>(translatable)<
+                tubepress_dailymotion_api_Constants::FILTER_PARTNER_PARTNER_ONLY     => 'Partner videos only',          //>(translatable)<
+                tubepress_dailymotion_api_Constants::FILTER_PARTNER_NON_PARTNER_ONLY => 'User-generated videos only',   //>(translatable)<
             ),
             tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO => array(
                 tubepress_dailymotion_api_Constants::THUMB_RATIO_ORIGINAL   => 'Original',   //>(translatable)<
@@ -453,15 +452,15 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 /**
                  * Player options.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR          => 'Highlight color of controls',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY        => 'Preferred playback quality',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS  => 'Show player controls',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN => 'Show end-screen',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO      => 'Show Dailymotion logo',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING   => 'Enable sharing controls',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME          => 'Player theme',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN  => 'Origin domain',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID             => 'Player identifier',
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR          => 'Highlight color of controls', //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY        => 'Preferred playback quality',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS  => 'Show player controls',        //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN => 'Show end-screen',             //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO      => 'Show Dailymotion logo',       //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING   => 'Enable sharing controls',     //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME          => 'Player theme',                //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN  => 'Origin domain',               //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID             => 'Player identifier',           //>(translatable)<
 
                 /**
                  * Source values.
@@ -479,34 +478,44 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 /**
                  * Global params.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER => 'Filter out explicit videos',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE        => 'Preferred localization',
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER => 'Filter out explicit videos',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE        => 'Preferred localization',       //>(translatable)<
 
                 /**
                  * Feed options.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY            => 'Limit to country',
+                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY            => 'Limit to country',              //>(translatable)<
                 tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED  => 'Limit to detected language',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED => 'Limit to declared languages',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY      => 'Featured videos only',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE              => 'Limit to genre',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE           => 'Exclude genre',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY            => 'High-definition videos only',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LIVE_FILTER        => 'Broadcast status',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_PREMIUM_FILTER     => 'Premium filter',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER     => 'Partner filter',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN       => 'Maximum duration in minutes',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN        => 'Minimum duration in minutes',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG        => 'Limit to "strong" tags',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS               => 'Limit to tags',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => 'Limit to owners',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH             => 'Limit to full-text search',
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED => 'Limit to declared languages',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY      => 'Featured videos only',          //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE              => 'Limit to genre',                //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE           => 'Exclude genre',                 //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY            => 'High-definition videos only',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LIVE_FILTER        => 'Broadcast status filter',       //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_PREMIUM_FILTER     => 'Premium filter',                //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER     => 'Partner filter',                //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN       => 'Maximum duration (minutes)',    //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN        => 'Minimum duration (minutes)',    //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG        => 'Limit to tags (exact)',         //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS               => 'Limit to tags (loose)',         //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => 'Limit to users',                //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH             => 'Limit to full-text search',     //>(translatable)<
 
                 /**
                  * Thumbnail options.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO => 'Preferred thumbnail shape',
-                tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE   => 'Preferred thumbnail size'
+                tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO => 'Preferred thumbnail shape', //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE   => 'Preferred thumbnail size',  //>(translatable)<
+
+                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => 'This playlist',
+                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => 'Favorite videos from this user',
+                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => 'Featured videos from this user',
+                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => 'This list of videos',
+                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'Videos related to this video',
+                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'Videos from this user\'s subscriptions',
+                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'Videos uploaded by this user',
+                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'Videos with this tag',
+                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => 'Dailymotion search for',
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
@@ -514,52 +523,53 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 /**
                  * Player options.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY        => 'Suggest a default playback quality. Set to "auto" for best results.',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN => 'Show related videos after playback finishes.',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN  => 'Most users should leave this blank. You may set a domain for the page hosting the video player, which may be useful in rare situations.',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID             => 'Most users should leave this blank. You may set a unique identifier for the player on the page, which may be useful for custom JavaScript programming.',
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY        => 'Suggest a default playback quality. Set to "auto" for best results.',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN => 'Show related videos after playback finishes.',                         //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING   => 'Allows the viewer to quickly share the video on social media.',        //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN  => 'Most users should leave this blank. You may set a domain for the page hosting the video player, which may be useful in rare situations.',                 //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID             => 'Most users should leave this blank. You may set a unique identifier for the player on the page, which may be useful for custom JavaScript programming.',  //>(translatable)<
 
                 /**
                  * Source values.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => null,
-                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => null,
-                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => null,
-                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => null,
-                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => null,
+                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => 'A comma-separated list of Dailymotion video IDs in the order that you would like them to appear. You may enter exact video IDs (e.g. <code>x3ni7qu</code> or <code>x3ni7qu_skating-into-the-wild-of-canada_sport</code>) or their URLs on Dailymotion (e.g. <code>http://www.dailymotion.com/video/x3ni7qu_skating-into-the-wild-of-canada_sport</code>).',
+                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => 'You may enter an exact playlist ID (e.g. <code>x40h52</code> or <code>x40h52_RedBull_made-in-australia</code>) or its Dailymotion URL (e.g. <code>http://www.dailymotion.com/playlist/x40h52_RedBull_made-in-australia</code>',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'You may enter an exact video ID (e.g. <code>x3ni7qu</code> or <code>x3ni7qu_skating-into-the-wild-of-canada_sport</code>) or its URL on Dailymotion (e.g. <code>http://www.dailymotion.com/video/x3ni7qu_skating-into-the-wild-of-canada_sport</code>).',
                 tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => null,
-                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => null,
+                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
                 tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => null,
-                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => null,
+                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
 
                 /**
                  * Global params.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER => 'Enable Dailymotion\'s "family filter" which attempts to exclude videos with adult content.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE        => 'Enter a <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">two-digit language code</a> (e.g. <code>it</code>, <code>fr</code>, etc), optionally followed by an underscore and a <a href="https://en.wikipedia.org/wiki/ISO_3166-1" target="_blank">two-digit country code</a> (e.g. <code>fr_FR</code>, <code>en_US</code>, etc.) to narrow video results to a specified language or region.',
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER => 'Enable Dailymotion\'s "family filter" which attempts to exclude videos with adult content.',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE        => 'Select your preferred locale to narrow the language and content of your galleries.',           //>(translatable)<
 
                 /**
                  * Feed options.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY            => 'Enter a <a href="https://en.wikipedia.org/wiki/ISO_3166-1" target="_blank">two-digit country code</a> to only include videos declared to be from the specific country. e.g. <code>FR</code> for France or <code>IT</code> for Italy.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED  => 'Dailymotion attempts to guess the language spoken in every video. Enter <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">two-digit language code</a> to include only videos with the detected language. i.e. <code>ja</code> for Japanese or <code>pl</code> for Polish.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED => 'Enter a comma-separated list of <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">two-digit language codes</a> to include only videos declared (by video owner) to be in the specified languages. e.g. <code>ru, be, uk</code> for Russian, Belarusian, and Ukranian or <code>sv</code> for Swedish.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY      => 'Only include videos featured by Dailymotion.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE              => 'Only include videos with the specified genre.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE           => 'Exclude videos with the specified genre.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY            => 'Only include videos with a vertical resolution of 720p or higher.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN       => 'Only include videos shorter than or equal to the given number of minutes.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN        => 'Only include videos longer than or equal to the given number of minutes.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG        => 'Enter a comma-separated list of terms to only include videos tagged with those exact terms. e.g. <code>Weddings</code> or <code>Wedding Planning, Wedding Venue</code>.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS               => 'Enter a comma-separated list of terms to only include videos with tags that contain the given terms. e.g. <code>wedding</code> or <code>marriage, party, celebration</code>.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => 'Enter a comma-separated list of Dailymotion screennames to include videos only from those users.',
-                tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH             => 'Only include videos that match the given search query.',
+                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY            => 'Enter a <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">two-digit country code</a> to only include videos declared to be from the specific country. e.g. <code>FR</code> for France, or <code>IT</code> for Italy.',    //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED  => 'Only videos detected to be in a specific language.',          //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED => 'Enter a comma-separated list of <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">two-digit language codes</a> to include only videos declared to be in the specified languages. e.g. <code>sv</code> for Swedish, or <code>ru, be, uk</code> for Russian, Belarusian, and Ukranian.',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY      => 'Only include videos featured by Dailymotion.',      //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE              => 'Only include videos with the specified genre.',     //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE           => 'Exclude videos with the specified genre.',          //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY            => 'Only include videos with a vertical resolution of 720p or higher.',     //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN       => 'Only include videos shorter than or equal to the given number of minutes. Set to <code>0</code> disable this filter.', //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN        => 'Only include videos longer than or equal to the given number of minutes.',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG        => 'Enter a comma-separated list of terms to only include videos tagged with those <em>exact</em> terms. e.g. <code>Weddings</code> or <code>Wedding Planning, Wedding Venue</code>.',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS               => 'Enter a comma-separated list of terms to only include videos with tags that <em>contain</em> the given terms. e.g. <code>wedding</code> or <code>marriage, party, celebration</code>.',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => 'Enter a comma-separated list of Dailymotion users to include only videos uploaded by those users. You may enter exact user IDs (e.g. <code>IGN</code>, <code>splashnews</code>) or Dailymotion URLs for the users (e.g. <code>http://www.dailymotion.com/ign</code>, <code>http://www.dailymotion.com/user/splashnews/1</code>).',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH             => 'Only include videos that match the given search query.',    //>(translatable)<
 
                 /**
                  *
                  * Thumbnail options.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE   => 'Choose the height of thumbnails that are served from Dailymotion. Higher resolutions will generally look better but will negatively impact your site\'s load time. For best results, choose the value closest to (but not less than) your actual thumbnail height (configured above).',
+                tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE   => 'Choose the height of thumbnails that are served from Dailymotion. Higher resolutions will generally look better but will negatively impact your site\'s load time. For best results, choose the value closest to (but not less than) your actual thumbnail height (configured above).',    //>(translatable)<
             ),
         );
 
@@ -577,5 +587,197 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
             'tubepress_dailymotion_impl_player_DailymotionPlayerLocation',
             'tubepress_dailymotion_impl_player_DailymotionPlayerLocation'
         )->addTag('tubepress_spi_player_PlayerLocationInterface');
+    }
+
+    private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $fieldIndex = 0;
+
+        $gallerySourceMap = array(
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_USER,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_PLAYLIST,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_SEARCH,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_LIST,
+                'multiSourceTextArea',
+                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE),
+
+            array(
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FAVORITES,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FEATURED,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_RELATED,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_TAG,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE),
+
+            array(tubepress_dailymotion_api_Constants::GALLERY_SOURCE_SUBSCRIPTIONS,
+                'multiSourceText',
+                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE),
+        );
+
+        foreach ($gallerySourceMap as $gallerySourceFieldArray) {
+
+            $containerBuilder->register(
+
+                'dailymotion_options_subfield_' . $fieldIndex,
+                'tubepress_api_options_ui_FieldInterface'
+            )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+             ->setFactoryMethod('newInstance')
+             ->addArgument($gallerySourceFieldArray[2])
+             ->addArgument($gallerySourceFieldArray[1]);
+
+            $containerBuilder->register(
+
+                'dailymotion_options_field_' . $fieldIndex,
+                'tubepress_api_options_ui_FieldInterface'
+            )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+             ->setFactoryMethod('newInstance')
+             ->addArgument($gallerySourceFieldArray[0])
+             ->addArgument('gallerySourceRadio')
+             ->addArgument(array('additionalField' => new tubepress_api_ioc_Reference('dailymotion_options_subfield_' . $fieldIndex++)));
+        }
+
+        $fieldMap = array(
+
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS  => 'bool',
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN => 'bool',
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO      => 'bool',
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING   => 'bool',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER    => 'multiSourceBool',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY    => 'multiSourceBool',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY          => 'multiSourceBool',
+
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR => 'spectrum',
+
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN    => 'text',
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID               => 'text',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY            => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE              => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE           => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN       => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN        => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG        => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS               => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => 'multiSourceText',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH             => 'multiSourceText',
+
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY => 'dropdown',
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME   => 'dropdown',
+            tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO   => 'dropdown',
+            tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE     => 'dropdown',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_LIVE_FILTER       => 'multiSourceDropdown',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_PREMIUM_FILTER    => 'multiSourceDropdown',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER    => 'multiSourceDropdown',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE            => 'multiSourceDropdown',
+            tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED => 'multiSourceDropdown',
+        );
+
+        foreach ($fieldMap as $id => $class) {
+
+            $containerBuilder->register(
+
+                'dailymotion_options_field_' . $fieldIndex++,
+                'tubepress_api_options_ui_FieldInterface'
+            )->setFactoryService(tubepress_api_options_ui_FieldBuilderInterface::_)
+             ->setFactoryMethod('newInstance')
+             ->addArgument($id)
+             ->addArgument($class);
+        }
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_api_ioc_Reference('dailymotion_options_field_' . $x);
+        }
+
+        $map = array(
+            tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
+
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_USER,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_PLAYLIST,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_SEARCH,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FAVORITES,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FEATURED,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_LIST,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_TAG,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_RELATED,
+                tubepress_dailymotion_api_Constants::GALLERY_SOURCE_SUBSCRIPTIONS,
+            ),
+
+            tubepress_api_options_ui_CategoryNames::THUMBNAILS => array(
+
+                tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO,
+                tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE,
+            ),
+
+            tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
+
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID,
+            ),
+
+            tubepress_api_options_ui_CategoryNames::FEED => array(
+
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LIVE_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_PREMIUM_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH,
+            ),
+        );
+
+        $containerBuilder->register(
+
+            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider'
+
+        )->addArgument('field-provider-dailymotion')
+         ->addArgument('Dailymotion')
+         ->addArgument(true)
+         ->addArgument(true)
+         ->addArgument(array())
+         ->addArgument($fieldReferences)
+         ->addArgument($map)
+         ->addTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
 }

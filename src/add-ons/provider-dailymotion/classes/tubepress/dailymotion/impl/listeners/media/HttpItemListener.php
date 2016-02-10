@@ -152,6 +152,7 @@ class tubepress_dailymotion_impl_listeners_media_HttpItemListener
     private function _applyThumbnail(array &$toReturn, array $json, $index)
     {
         $preferredSize = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE);
+        $preferredSize = str_replace('px', '', $preferredSize);
         $url          = $this->_relativeQueryAsString($json, $index, sprintf('thumbnail_%s_url', $preferredSize));
 
         if (!$url) {

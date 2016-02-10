@@ -16,11 +16,11 @@ class tubepress_dailymotion_impl_listeners_options_LanguageLocaleListener
     private $_acceptableValues;
 
     /**
-     * @var tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier
+     * @var tubepress_dailymotion_impl_dmapi_LanguageSupplier|tubepress_dailymotion_impl_dmapi_LocaleSupplier
      */
     private $_supplier;
 
-    public function __construct(tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier $supplier)
+    public function __construct($supplier)
     {
         $this->_supplier = $supplier;
     }

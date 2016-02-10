@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier
+abstract class tubepress_dailymotion_impl_dmapi_AbstractLanguageLocaleSupplier
 {
     /**
      * @var tubepress_api_url_UrlFactoryInterface
@@ -45,33 +45,18 @@ class tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier
      */
     private $_codeKey;
 
-    /**
-     * @var string[]
-     */
-    private $_displayNameKeys;
-
     public function __construct(tubepress_api_url_UrlFactoryInterface       $urlFactory,
                                 tubepress_api_util_StringUtilsInterface     $stringUtils,
                                 tubepress_dailymotion_impl_dmapi_ApiUtility $apiUtility,
                                 $urlAsString,
-                                $codeKey,
-                                array $displayNameKeys)
+                                $codeKey)
     {
-        foreach ($displayNameKeys as $key) {
-
-            if (!is_string($key)) {
-
-                throw new InvalidArgumentException('Display name keys must be strings only');
-            }
-        }
-
         $this->_urlFactory      = $urlFactory;
         $this->_stringUtils     = $stringUtils;
         $this->_apiUtility      = $apiUtility;
         $this->_arrayReader     = new tubepress_array_impl_ArrayReader();
         $this->_urlAsString     = (string) $urlAsString;
         $this->_codeKey         = (string) $codeKey;
-        $this->_displayNameKeys = $displayNameKeys;
     }
 
     public function getValueMap()
@@ -90,19 +75,32 @@ class tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier
                     continue;
                 }
 
-                $code = $entry[$this->_codeKey];
+                $code        = $entry[$this->_codeKey];
+                $displayName = $this->getDisplayNameFromCode($code, $entry);
 
-                foreach ($this->_displayNameKeys as $displayNameKey) {
+                if ($displayName) {
 
-                    if (isset($entry[$displayNameKey])) {
-
-                        $this->_cache[$code] = $entry[$displayNameKey];
-                        break;
-                    }
+                    $this->_cache[$code] = "$code - $displayName";
                 }
             }
+
+            ksort($this->_cache);
+
+            $this->_cache = array_merge(
+
+                array("none" => 'select ...'),
+                $this->_cache
+            );
         }
 
         return $this->_cache;
     }
+
+    /**
+     * @param       $code
+     * @param array $entry
+     *
+     * @return string|null
+     */
+    protected abstract function getDisplayNameFromCode($code, array $entry);
 }

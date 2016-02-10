@@ -91,26 +91,26 @@ interface tubepress_dailymotion_api_Constants
     const FILTER_PARTNER_PARTNER_ONLY     = 'onlyPartner';
     const FILTER_PARTNER_NON_PARTNER_ONLY = 'onlyUserGenerated';
 
-    const THUMB_SIZE_60  = '60';
-    const THUMB_SIZE_120 = '120';
-    const THUMB_SIZE_180 = '180';
-    const THUMB_SIZE_240 = '240';
-    const THUMB_SIZE_360 = '360';
-    const THUMB_SIZE_480 = '480';
-    const THUMB_SIZE_720 = '720';
+    const THUMB_SIZE_60  = '60px';
+    const THUMB_SIZE_120 = '120px';
+    const THUMB_SIZE_180 = '180px';
+    const THUMB_SIZE_240 = '240px';
+    const THUMB_SIZE_360 = '360px';
+    const THUMB_SIZE_480 = '480px';
+    const THUMB_SIZE_720 = '720px';
     const THUMB_SIZE_MAX = 'max';
 
     const THUMB_RATIO_ORIGINAL   = 'original';
     const THUMB_RATIO_SQUARE     = 'square';
     const THUMB_RATIO_WIDESCREEN = 'widescreen';
 
-    const PLAYER_QUALITY_240  = '240';
-    const PLAYER_QUALITY_380  = '380';
-    const PLAYER_QUALITY_480  = '480';
-    const PLAYER_QUALITY_720  = '720';
-    const PLAYER_QUALITY_1080 = '1080';
-    const PLAYER_QUALITY_1440 = '1440';
-    const PLAYER_QUALITY_2160 = '2160';
+    const PLAYER_QUALITY_240  = '240p';
+    const PLAYER_QUALITY_380  = '380p';
+    const PLAYER_QUALITY_480  = '480p';
+    const PLAYER_QUALITY_720  = '720p';
+    const PLAYER_QUALITY_1080 = '1080p';
+    const PLAYER_QUALITY_1440 = '1440p';
+    const PLAYER_QUALITY_2160 = '2160p';
     const PLAYER_QUALITY_AUTO = 'auto';
 
     const PLAYER_THEME_LIGHT = 'light';

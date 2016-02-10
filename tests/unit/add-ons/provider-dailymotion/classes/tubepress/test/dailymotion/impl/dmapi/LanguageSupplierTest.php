@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier
+ * @covers tubepress_dailymotion_impl_dmapi_LanguageSupplier<extended>
  */
-class tubepress_test_dailymotion_impl_dmapi_LanguageLocaleSupplierTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_dailymotion_impl_dmapi_LanguageSupplierTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var Mockery\MockInterface
@@ -39,7 +39,7 @@ class tubepress_test_dailymotion_impl_dmapi_LanguageLocaleSupplierTest extends t
     /**
      * @dataProvider getData
      */
-    public function testFetch($codeKey, $displayNameKeys, $apiResponse, $expected)
+    public function testFetch($codeKey, $apiResponse, $expected)
     {
         $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://foo.com/bar')->andReturn($mockUrl);
@@ -48,13 +48,12 @@ class tubepress_test_dailymotion_impl_dmapi_LanguageLocaleSupplierTest extends t
             json_decode($apiResponse, true)
         );
 
-        $sut = new tubepress_dailymotion_impl_dmapi_LanguageLocaleSupplier(
+        $sut = new tubepress_dailymotion_impl_dmapi_LanguageSupplier(
             $this->_mockUrlFactory,
             $this->_stringUtils,
             $this->_mockApiUtility,
             'https://foo.com/bar',
-            $codeKey,
-            $displayNameKeys
+            $codeKey
         );
 
         $actual = $sut->getValueMap();
@@ -67,53 +66,14 @@ class tubepress_test_dailymotion_impl_dmapi_LanguageLocaleSupplierTest extends t
         return array(
             array(
                 'code',
-                array('native_name', 'name'),
                 $this->_getJsonLanguages(),
                 array(
-                    'af' => 'Afrikaans',
-                    'ak' => 'Akan',
-                ),
-            ),
-            array(
-                'locale',
-                array('locally_localized_language'),
-                $this->_getJsonLocales(),
-                array(
-                    'de_AT' => 'Deutsch',
-                    'es_AR' => 'Español',
+                    'none' => 'select ...',
+                    'af'   => 'af - Afrikaans',
+                    'ak'   => 'ak - Akan',
                 ),
             ),
         );
-    }
-
-    private function _getJsonLocales()
-    {
-        return <<<EOT
-{
-	"list": [{
-		"locale": "de_AT",
-		"site_code": "at",
-		"language": "German",
-		"localized_language": "German",
-		"locally_localized_language": "Deutsch",
-		"country": "Austria",
-		"localized_country": "Austria",
-		"locally_localized_country": "\u00d6sterreich",
-		"currency": "EUR"
-	}, {
-		"locale": "es_AR",
-		"site_code": "ar",
-		"language": "Spanish",
-		"localized_language": "Spanish",
-		"locally_localized_language": "Espa\u00f1ol",
-		"country": "Argentina",
-		"localized_country": "Argentina",
-		"locally_localized_country": "Argentina",
-		"currency": "EUR"
-	}]
-}
-EOT
-            ;
     }
 
     private function _getJsonLanguages()
