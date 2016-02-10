@@ -572,11 +572,60 @@ class tubepress_test_dailymotion_ioc_DailymotionExtensionTest extends tubepress_
             ),
         );
 
+        $boolMap = array(
+            tubepress_api_options_Reference::PROPERTY_PRO_ONLY => array(
+
+                /**
+                 * Player options.
+                 */
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME,
+                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN,
+
+                /**
+                 * Global params.
+                 */
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE,
+
+                /**
+                 * Feed options.
+                 */
+                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_NO_GENRE,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_HD_ONLY,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LIVE_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_PREMIUM_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SHORTER_THAN,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH,
+
+                /**
+                 * Thumbnail options.
+                 */
+                tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO,
+                tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE,
+            ),
+        );
+
         $this->expectRegistration(
             'tubepress_api_options_Reference__dailymotion',
             'tubepress_api_options_Reference'
         )->withArgument($valueMap)
-            ->withArgument(array())
+            ->withArgument($boolMap)
             ->withTag(tubepress_api_options_ReferenceInterface::_);
     }
 

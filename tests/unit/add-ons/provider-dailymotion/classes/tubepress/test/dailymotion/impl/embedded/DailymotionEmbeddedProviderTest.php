@@ -109,30 +109,13 @@ class tubepress_test_dailymotion_impl_embedded_DailymotionEmbeddedProviderTest e
         return array(
             array(
                 array(
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID             => 'player-id',
-                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY                    => true,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS  => true,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN => false,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY        => '720',
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING   => true,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR          => 'ABCDEF',
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO      => false,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME          => 'light',
-                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO                   => true,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN  => 'foo.bar',
+                    tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID => 'player-id',
+                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY        => true,
+                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO       => true,
                 ),
                 array(
-                    'controls' => '1',
                     'autoplay' => '1',
-                    'endscreen-enable' => '0',
-                    'quality' => '720',
-                    'sharing-enable' => '1',
-                    'ui-highlight' => 'ABCDEF',
-                    'ui-logo' => '0',
-                    'ui-theme' => 'light',
                     'ui-start_screen_info' => '1',
-                    'api' => '1',
-                    'origin' => 'foo.bar',
                     'id' => 'player-id',
                 )
             ),

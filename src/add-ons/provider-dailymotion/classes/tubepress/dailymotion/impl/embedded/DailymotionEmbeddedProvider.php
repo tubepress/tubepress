@@ -14,19 +14,9 @@
  */
 class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
 {
-    private static $_URL_PARAM_ID         = 'id';
-    private static $_URL_PARAM_ENABLE_API = 'api';
-    private static $_URL_PARAM_ORIGIN     = 'origin';
-
+    private static $_URL_PARAM_ID               = 'id';
     private static $_URL_PARAM_AUTOPLAY         = 'autoplay';
-    private static $_URL_PARAM_CONTROLS         = 'controls';
-    private static $_URL_PARAM_ENDSCREEN_ENABLE = 'endscreen-enable';
-    private static $_URL_PARAM_QUALITY          = 'quality';
-    private static $_URL_PARAM_SHARING_ENABLE   = 'sharing-enable';
-    private static $_URL_PARAM_UI_HIGHLIGHT     = 'ui-highlight';
-    private static $_URL_PARAM_UI_LOGO          = 'ui-logo';
     private static $_URL_PARAM_UI_START_SCREEN  = 'ui-start_screen_info';
-    private static $_URL_PARAM_UI_THEME         = 'ui-theme';
 
     /**
      * @var tubepress_api_options_ContextInterface
@@ -138,40 +128,16 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
 
     private function _getDataUrl(tubepress_api_media_MediaItem $mediaItem, $playerId)
     {
-        $autoPlay       = $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY);
-        $showControls   = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_CONTROLS);
-        $showEndScreen  = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_ENDSCREEN);
-        $quality        = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_QUALITY);
-        $showSharing    = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_SHARING);
-        $colorHighlight = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR);
-        $showLogo       = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_SHOW_LOGO);
-        $theme          = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_THEME);
-        $showInfo       = $this->_context->get(tubepress_api_options_Names::EMBEDDED_SHOW_INFO);
-        $origin         = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN);
+        $autoPlay = $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY);
+        $showInfo = $this->_context->get(tubepress_api_options_Names::EMBEDDED_SHOW_INFO);
 
         /* build the data URL based on these options */
         $link  = $this->_urlFactory->fromString('https://www.dailymotion.com/embed/video/' . $mediaItem->getId());
         $query = $link->getQuery();
 
         $query->set(self::$_URL_PARAM_AUTOPLAY,         $this->_langUtils->booleanToStringOneOrZero($autoPlay));
-        $query->set(self::$_URL_PARAM_CONTROLS,         $this->_langUtils->booleanToStringOneOrZero($showControls));
-        $query->set(self::$_URL_PARAM_ENDSCREEN_ENABLE, $this->_langUtils->booleanToStringOneOrZero($showEndScreen));
-        $query->set(self::$_URL_PARAM_QUALITY,          $quality);
-        $query->set(self::$_URL_PARAM_SHARING_ENABLE,   $this->_langUtils->booleanToStringOneOrZero($showSharing));
-        $query->set(self::$_URL_PARAM_UI_HIGHLIGHT,     $colorHighlight);
-        $query->set(self::$_URL_PARAM_UI_LOGO,          $this->_langUtils->booleanToStringOneOrZero($showLogo));
-        $query->set(self::$_URL_PARAM_UI_THEME,         $theme);
         $query->set(self::$_URL_PARAM_UI_START_SCREEN,  $this->_langUtils->booleanToStringOneOrZero($showInfo));
-
-        if (!$origin) {
-
-            $currentUrl = $this->_urlFactory->fromCurrent();
-            $origin     = $currentUrl->getHost();
-        }
-
-        $query->set(self::$_URL_PARAM_ENABLE_API, '1');
-        $query->set(self::$_URL_PARAM_ORIGIN,     $origin);
-        $query->set(self::$_URL_PARAM_ID,         $playerId);
+        $query->set(self::$_URL_PARAM_ID,               $playerId);
 
         return $link;
     }
