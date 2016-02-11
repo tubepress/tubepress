@@ -404,27 +404,27 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 /**
                  * Source values.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => null,
-                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => null,
-                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => null,
-                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => null,
-                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => null,
-                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => null,
-                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => null,
-                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => null,
-                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => null,
+                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => 'Mashable',
+                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => 'RedBull',
+                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => 'x2qahyh,x14t97b,x2kja1x',
+                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => 'x438te',
+                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'x38g0kr',
+                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => 'san diego beer week',
+                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'AssociatedPress',
+                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'wedding',
+                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'IGN',
 
                 /**
                  * Global params.
                  */
                 tubepress_dailymotion_api_Constants::OPTION_FEED_FAMILY_FILTER => true,
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE        => null,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE        => 'none',
 
                 /**
                  * Feed options.
                  */
                 tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY            => null,
-                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED  => null,
+                tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED  => 'none',
                 tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGES_DECLARED => null,
                 tubepress_dailymotion_api_Constants::OPTION_FEED_FEATURED_ONLY      => false,
                 tubepress_dailymotion_api_Constants::OPTION_FEED_GENRE              => null,
@@ -514,7 +514,7 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'Videos related to this video',
                 tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'Videos from this user\'s subscriptions',
                 tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'Videos uploaded by this user',
-                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'Videos with this tag',
+                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'Videos tagged with',
                 tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => 'Dailymotion search for',
             ),
 
@@ -532,15 +532,30 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 /**
                  * Source values.
                  */
-                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
-                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
-                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => 'A comma-separated list of Dailymotion video IDs in the order that you would like them to appear. You may enter exact video IDs (e.g. <code>x3ni7qu</code> or <code>x3ni7qu_skating-into-the-wild-of-canada_sport</code>) or their URLs on Dailymotion (e.g. <code>http://www.dailymotion.com/video/x3ni7qu_skating-into-the-wild-of-canada_sport</code>).',
-                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => 'You may enter an exact playlist ID (e.g. <code>x40h52</code> or <code>x40h52_RedBull_made-in-australia</code>) or its Dailymotion URL (e.g. <code>http://www.dailymotion.com/playlist/x40h52_RedBull_made-in-australia</code>',  //>(translatable)<
-                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'You may enter an exact video ID (e.g. <code>x3ni7qu</code> or <code>x3ni7qu_skating-into-the-wild-of-canada_sport</code>) or its URL on Dailymotion (e.g. <code>http://www.dailymotion.com/video/x3ni7qu_skating-into-the-wild-of-canada_sport</code>).',
-                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => null,
-                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
-                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => null,
-                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'You may enter an exact user ID (e.g. <code>IGN</code>) or their Dailymotion URL (e.g. <code>http://www.dailymotion.com/ign</code> or <code>http://www.dailymotion.com/user/ign/1</code>',  //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => sprintf('You may enter an exact user ID (e.g. <code>%s</code>) or their Dailymotion URL (e.g. <code>%s</code> or <code>%s</code>).',  //>(translatable)<
+                    'IGN', 'http://www.dailymotion.com/ign', 'http://www.dailymotion.com/user/ign/1'),
+
+                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => sprintf('You may enter an exact user ID (e.g. <code>%s</code>) or their Dailymotion URL (e.g. <code>%s</code> or <code>%s</code>).',  //>(translatable)<
+                    'HollywoodTV', 'http://www.dailymotion.com/hollywoodtv', 'http://www.dailymotion.com/user/hollywoodtv/1'),
+
+                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => sprintf('A comma-separated list of Dailymotion video IDs in the order that you would like them to appear. You may enter exact video IDs (e.g. <code>%s</code> or <code>%s</code>) or their URLs on Dailymotion (e.g. <code>%s</code>).',   //>(translatable)<
+                    'x3ni7qu', 'x3ni7qu_skating-into-the-wild-of-canada_sport', 'http://www.dailymotion.com/video/x3ni7qu_skating-into-the-wild-of-canada_sport'),
+
+                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => sprintf('You may enter an exact playlist ID (e.g. <code>%s</code> or <code>%s</code>) or its Dailymotion URL (e.g. <code>%s</code>).',  //>(translatable)<
+                    'x40h52', 'x40h52_RedBull_made-in-australia', 'http://www.dailymotion.com/playlist/x40h52_RedBull_made-in-australia'),
+
+                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => sprintf('You may enter an exact video ID (e.g. <code>%s</code> or <code>%s</code>) or its URL on Dailymotion (e.g. <code>%s</code>).',  //>(translatable)<
+                    'x3ni7qu', 'x3ni7qu_skating-into-the-wild-of-canada_sport', 'http://www.dailymotion.com/video/x3ni7qu_skating-into-the-wild-of-canada_sport'),
+
+                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => 'Just as if you were searching on dailymotion.com.',  //>(translatable)<
+
+                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => sprintf('You may enter an exact user ID (e.g. <code>%s</code>) or their Dailymotion URL (e.g. <code>%s</code> or <code>%s</code>).',  //>(translatable)<
+                    'CBS', 'http://www.dailymotion.com/cbs', 'http://www.dailymotion.com/user/cbs/1'),
+
+                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'You may enter a comma-separated list of tags.',
+
+                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => sprintf('You may enter an exact user ID (e.g. <code>%s</code>) or their Dailymotion URL (e.g. <code>%s</code> or <code>%s</code>).',  //>(translatable)<
+                    'AssociatedPress', 'http://www.dailymotion.com/associatedpress', 'http://www.dailymotion.com/user/associatedpress/1'),
 
                 /**
                  * Global params.
