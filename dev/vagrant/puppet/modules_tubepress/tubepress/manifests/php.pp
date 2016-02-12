@@ -37,15 +37,14 @@ class tubepress::php {
     ]
   } ~>
 
-  php::fpm::config { ['display_errors=1', 'zend_extension=opcache.so']:
+  php::fpm::config { ['display_errors=1']:
     section => 'PHP',
   } ~>
 
   class {[
     '::php::extension::curl',
     '::php::extension::gd',
-    '::php::extension::mcrypt',
-    '::php::extension::mongo',
+    '::php::extension::mysqlnd',
     '::php::extension::opcache',
     '::php::extension::xhprof',
     '::php::extension::yaml'
@@ -72,15 +71,6 @@ class tubepress::php {
     notify => Service['php5-fpm'],
   } ~>
 
-  file { [
-    '/etc/php5/cli/conf.d/20-mongo.ini',
-    '/etc/php5/fpm/conf.d/20-mongo.ini',
-  ]:
-    ensure => 'link',
-    target => '/etc/php5/mods-available/mongo.ini',
-    notify => Service['php5-fpm'],
-  } ~>
-
   class { '::php::extension::xdebug':
     settings => [
       'set ".anon/zend_extension" "xdebug.so"',
@@ -89,8 +79,5 @@ class tubepress::php {
     ]
   } ~>
 
-  php::fpm::pool { 'www' :
-
-
-  }
+  php::fpm::pool { 'www' : }
 }

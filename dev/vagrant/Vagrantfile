@@ -11,9 +11,38 @@
 #  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
-required_plugins = %w(vagrant-librarian-puppet vagrant-hostsupdater vagrant-vbguest)
+######################################################################################################
+## CONFIG
+######################################################################################################
 
-plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
+tubepress = {
+ :box => "ubuntu/trusty64",
+ :hostnames => {
+   :primary => "tubepress-test.com",
+   :aliases => [
+     #"wp.tubepress-test.com",
+     "profiler.tubepress-test.com",
+     "php.tubepress-test.com"
+   ]
+ },
+ :ip => "192.168.50.48",
+ :vagrant => {
+    :required_plugins => [
+      "vagrant-librarian-puppet",
+      "vagrant-hostsupdater",
+      "vagrant-bindfs"
+    ]
+ },
+ :system => {
+   :max_host_memory_percentage => 20
+ }
+}
+
+######################################################################################################
+## PLUGIN INSTALLATION
+######################################################################################################
+
+plugins_to_install = tubepress[:vagrant][:required_plugins].select { |plugin| not Vagrant.has_plugin? plugin }
 if not plugins_to_install.empty?
   puts "Installing plugins: #{plugins_to_install.join(' ')}"
   if system "vagrant plugin install #{plugins_to_install.join(' ')}"
@@ -25,21 +54,71 @@ end
 
 Vagrant.configure("2") do |config|
 
+
+
+  ####################################################################################################
+  ## BASICS
+  ####################################################################################################
+  config.vm.box      = tubepress[:box]
+  config.vm.hostname = tubepress[:hostnames][:primary]
+  config.vm.network :private_network, ip: tubepress[:ip]
+
+
+
+  ####################################################################################################
+  ## SYNCED FOLDERS
+  ####################################################################################################
+
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+
+
+  ####################################################################################################
+  ## HOSTS UPDATER
+  ####################################################################################################
+
+  if defined?(VagrantPlugins::HostsUpdater)
+    config.hostsupdater.aliases = tubepress[:hostnames][:aliases]
+    config.hostsupdater.remove_on_suspend = true
+  end
+
+
+
+  ####################################################################################################
+  ## PROVISIONING
+  ####################################################################################################
+
+  config.vm.provision :shell, path: "bin/upgrade-puppet.sh"
+
+  config.vm.provision :puppet do |puppet|
+    puppet.module_path    = [ "puppet/modules_vendor", "puppet/modules_tubepress" ]
+    puppet.manifests_path = "puppet/manifests"
+    puppet.options        = "--verbose --debug"
+  end
+
+  config.librarian_puppet.puppetfile_dir = "puppet"
+
+
+
+  ####################################################################################################
+  ## VIRTUALBOX CONFIG
+  ####################################################################################################
   config.vm.provider :virtualbox do |vb|
 
-    vb.name = "tubepress-test.com"
+    vb.name = tubepress[:hostnames][:primary]
 
     # https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
     host = RbConfig::CONFIG['host_os']
-    # Give VM 1/4 system memory & access to all cpu cores on the host
+    memfactor = 100 / tubepress[:system][:max_host_memory_percentage]
+
     if host =~ /darwin/
       cpus = `sysctl -n hw.ncpu`.to_i
       # sysctl returns Bytes and we need to convert to MB
-      mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+      mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / memfactor
     elsif host =~ /linux/
       cpus = `nproc`.to_i
       # meminfo shows KB and we need to convert to MB
-      mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+      mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / memfactor
     else # sorry Windows folks, I can't help you
       cpus = 2
       mem = 1024
@@ -51,35 +130,5 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 
   end
-
-  config.vm.box = "debian/jessie64"
-
-  config.vm.hostname = "tubepress-test.com"
-
-  if defined?(VagrantPlugins::HostsUpdater)
-    config.hostsupdater.aliases = [ "wp.tubepress-test.com", "profiler.tubepress-test.com", "php.tubepress-test.com" ]
-    config.hostsupdater.remove_on_suspend = true
-  end
-
-  config.vm.network :private_network, ip: "192.168.50.48"
-
-  config.librarian_puppet.puppetfile_dir = "puppet"
-
-  config.vm.provision :shell, path: "bin/upgrade-puppet.sh"
-
-  config.vm.provision :puppet do |puppet|
-    puppet.module_path    = [ "puppet/modules_vendor", "puppet/modules_tubepress" ]
-    puppet.manifests_path = "puppet/manifests"
-    puppet.options        = "--verbose --debug"
-  end
-
-  config.gatling.rsync_on_startup = false
-
-  config.vm.synced_folder '.', '/vagrant', disabled: true
-
-  config.vm.synced_folder "../webapps/standalone-php/", "/var/www/standalone_php/",
-    type: "rsync",
-    owner: "www-data",
-    group: "www-data"
 
 end

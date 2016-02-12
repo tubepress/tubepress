@@ -13,12 +13,6 @@
 #
 class tubepress::webapp::xhgui {
 
-  mongodb::db { 'xhprof':
-    user     => 'xhprof',
-    password => 'xhprof',
-    require  => [ Class['tubepress::mongo'] ]
-  }
-
   file { [ '/var/www/xhgui', '/var/www/.composer' ]:
 
     ensure => 'directory',
@@ -30,39 +24,25 @@ class tubepress::webapp::xhgui {
   vcsrepo { '/var/www/xhgui':
     ensure   => present,
     provider => git,
-    source   => 'https://github.com/perftools/xhgui.git',
+    source   => 'https://github.com/Tuurlijk/xhprof',
     require  => [ Package['git'], File['/var/www/xhgui', '/var/www/.composer'] ],
     user     => 'www-data',
   }
 
-  exec { 'install-xhgui' :
-
-    command => 'php ./install.php',
-    cwd     => '/var/www/xhgui',
+  apache::vhost { 'profiler.tubepress-test.com':
+    docroot => '/var/www/xhgui/xhprof_html',
     require => [
       Vcsrepo['/var/www/xhgui'],
-      Class['::php::cli'],
-      Package['php5-mcrypt']
-    ],
-    user    => 'www-data',
-    creates => '/var/www/xhgui/vendor',
-    environment => [ "HOME=/var/www" ],
-  }
-
-  apache::vhost { 'profiler.tubepress-test.com':
-    docroot => '/var/www/xhgui/webroot',
-    require => [
-      Exec['install-xhgui'],
     ],
     proxy_pass_match => [
       {
         'path' => '^/(.*\.php(/.*)?)$',
-        'url'  => 'fcgi://127.0.0.1:9000/var/www/xhgui/webroot/$1'
+        'url'  => 'fcgi://127.0.0.1:9000/var/www/xhgui/xhprof_html/$1'
       }
     ],
     directories => [
       {
-        'path'         => '/var/www/xhgui/webroot',
+        'path'         => '/var/www/xhgui/xhprof_html',
         directoryindex => '/index.php index.php',
         allow_override => 'All',
       }
@@ -70,7 +50,7 @@ class tubepress::webapp::xhgui {
     notify => Service['apache2'],
   }
 
-  file { '/var/www/xhgui/config/config.php' :
+  file { '/var/www/xhgui/xhprof_lib/config.php' :
 
     ensure  => 'file',
     owner   => 'www-data',
@@ -84,17 +64,11 @@ class tubepress::webapp::xhgui {
     section => 'PHP',
   }
 
-  file { '/tmp/xhgui_mongo_init.js' :
-
-    ensure  => 'file',
-    source  => 'puppet:///modules/tubepress/xhgui/mongo_init.txt',
-    notify  => Exec['init-xhgui-mongo'],
-    require => Mongodb::Db['xhprof']
-  }
-
-  exec { 'init-xhgui-mongo' :
-
-    refreshonly => true,
-    command     => 'mongo < /tmp/xhgui_mongo_init.js',
+  ::mysql::db { 'xhprof' :
+    user => 'xhprof',
+    password => 'xhprof',
+    grant => ['ALL'],
+    sql => '/var/www/xhgui/xhprof_lib/utils/Db/Mysqli.sql',
+    require => Vcsrepo['/var/www/xhgui'],
   }
 }

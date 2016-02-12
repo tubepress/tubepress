@@ -1,6 +1,7 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    nanliu-staging (1.0.3)
     puppetlabs-apache (1.7.1)
       puppetlabs-concat (< 2.0.0, >= 1.1.1)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
@@ -9,9 +10,9 @@ FORGE
     puppetlabs-concat (1.2.5)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-inifile (1.4.3)
-    puppetlabs-mongodb (0.11.0)
-      puppetlabs-apt (< 3.0.0, >= 1.0.0)
-      puppetlabs-stdlib (< 5.0.0, >= 2.2.0)
+    puppetlabs-mysql (3.6.2)
+      nanliu-staging (< 2.0.0, >= 1.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-ntp (4.1.2)
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
     puppetlabs-stdlib (4.11.0)
@@ -34,7 +35,7 @@ DEPENDENCIES
   puppetlabs-apache (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-inifile (>= 0)
-  puppetlabs-mongodb (>= 0)
+  puppetlabs-mysql (>= 0)
   puppetlabs-ntp (>= 0)
   puppetlabs-vcsrepo (>= 0)
   saz-timezone (>= 0)

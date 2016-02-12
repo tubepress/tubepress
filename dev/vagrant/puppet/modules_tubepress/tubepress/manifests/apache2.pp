@@ -21,4 +21,13 @@ class tubepress::apache2 {
   }
 
   ::apache::mod { 'proxy_fcgi' : }
+
+  file { '/var/www/tubepress' :
+
+    ensure  => 'directory',
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 0755,
+    require => Class['::apache'],
+  }
 }

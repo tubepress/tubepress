@@ -9,12 +9,12 @@
 #
 
 #
-# Installs MongoDB for xhgui
+# Installs mysql
 #
-class tubepress::mongo {
+class tubepress::mysql {
 
-  class { '::mongodb::server' :
-
-    noauth => true
+  class { '::mysql::server':
+    root_password           => 'root',
+    remove_default_accounts => true,
   }
 }

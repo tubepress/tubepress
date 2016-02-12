@@ -13,7 +13,7 @@ class tubepress {
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
   include tubepress::apache2
-  include tubepress::mongo
+  include tubepress::mysql
   include tubepress::packages
   include tubepress::php
   include tubepress::time
