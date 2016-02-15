@@ -273,7 +273,7 @@ class tubepress_test_dailymotion_ioc_DailymotionExtensionTest extends tubepress_
         $this->expectRegistration(
             'tubepress_dailymotion_impl_listeners_options_TransformListener__playlist',
             'tubepress_dailymotion_impl_listeners_options_TransformListener'
-        )->withArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_listeners_options_transform_VideoIdTransformer'))
+        )->withArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_listeners_options_transform_PlaylistTransformer'))
             ->withArgument('Invalid Dailymotion playlist ID')
             ->withArgument(false)
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(

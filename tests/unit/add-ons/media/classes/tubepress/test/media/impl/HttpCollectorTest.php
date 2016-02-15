@@ -71,7 +71,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $this->_mockFeedHandler->shouldReceive('getName')->twice()->andReturn('feedhandlername');
         $this->_mockFeedHandler->shouldReceive('buildUrlForItem')->once()->with('item fun')->andReturn($this->_mockUrl);
-        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc');
+        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc', $this->_mockUrl);
         $this->_mockFeedHandler->shouldReceive('getCurrentResultCount')->once()->andReturn(1);
         $this->_mockFeedHandler->shouldReceive('getReasonUnableToUseItemAtIndex')->once()->with(0)->andReturnNull();
         $this->_mockFeedHandler->shouldReceive('getIdForItemAtIndex')->once()->with(0)->andReturn('some cool item');
@@ -98,7 +98,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $this->_mockFeedHandler->shouldReceive('getName')->times(3)->andReturn('feedhandlername');
         $this->_mockFeedHandler->shouldReceive('buildUrlForPage')->once()->with(33)->andReturn($this->_mockUrl);
-        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc');
+        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc', $this->_mockUrl);
         $this->_mockFeedHandler->shouldReceive('getTotalResultCount')->once()->andReturn(22);
         $this->_mockFeedHandler->shouldReceive('getCurrentResultCount')->once()->andReturn(1);
         $this->_mockFeedHandler->shouldReceive('getReasonUnableToUseItemAtIndex')->once()->with(0)->andReturnNull();
@@ -163,29 +163,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $mockStream->shouldReceive('toString')->once()->andReturn('abc');
 
-        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $this->_mockUrl, Mockery::on(function ($opts) {
-
-            if (!is_array($opts)) {
-
-                return false;
-            }
-
-            if (count($opts) !== 1) {
-
-                return false;
-            }
-
-            $stream = $opts['debug'];
-
-            if (!is_resource($stream)) {
-
-                return false;
-            }
-
-            fwrite($stream, 'hello!');
-
-            return true;
-        }))->andReturn($mockHttpRequest);
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $this->_mockUrl)->andReturn($mockHttpRequest);
         $this->_mockHttpClient->shouldReceive('send')->once()->with($mockHttpRequest)->andReturn($mockHttpResponse);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($this->_mockUrl, $eventArgs)->andReturn($mockUrlEvent);

@@ -274,7 +274,7 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
         $containerBuilder->register(
             'tubepress_dailymotion_impl_listeners_options_TransformListener__playlist',
             'tubepress_dailymotion_impl_listeners_options_TransformListener'
-        )->addArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_listeners_options_transform_VideoIdTransformer'))
+        )->addArgument(new tubepress_api_ioc_Reference('tubepress_dailymotion_impl_listeners_options_transform_PlaylistTransformer'))
          ->addArgument('Invalid Dailymotion playlist ID')
          ->addArgument(false)
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
@@ -507,15 +507,15 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 tubepress_dailymotion_api_Constants::OPTION_THUMBS_RATIO => 'Preferred thumbnail shape', //>(translatable)<
                 tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE   => 'Preferred thumbnail size',  //>(translatable)<
 
-                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => 'This playlist',
-                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => 'Favorite videos from this user',
-                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => 'Featured videos from this user',
-                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => 'This list of videos',
-                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'Videos related to this video',
-                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'Videos from this user\'s subscriptions',
-                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'Videos uploaded by this user',
-                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'Videos tagged with',
-                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => 'Dailymotion search for',
+                tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE      => 'This playlist',                             //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE     => 'Favorite videos from this user',            //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE      => 'Featured videos from this user',            //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE          => 'This list of videos',                       //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE       => 'Videos related to this video',              //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE => 'Videos from this user\'s subscriptions',    //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_USER_VALUE          => 'Videos uploaded by this user',              //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE           => 'Videos tagged with',                        //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_SEARCH_VALUE        => 'Dailymotion search for',                    //>(translatable)<
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(

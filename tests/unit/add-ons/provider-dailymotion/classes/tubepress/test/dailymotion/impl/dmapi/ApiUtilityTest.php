@@ -102,7 +102,7 @@ class tubepress_test_dailymotion_impl_dmapi_ApiUtilityTest extends tubepress_api
                     'error' => array(
                         'message' => 'hi!',
                     )
-                )), 'Dailymotion responded with an error: <code>hi!</code>', null,
+                )), 'Dailymotion responded with an error: hi!', null,
             ),
             array(
                 json_encode(array(
@@ -132,7 +132,7 @@ class tubepress_test_dailymotion_impl_dmapi_ApiUtilityTest extends tubepress_api
                 array(), null,
             ),
             array(
-                array('error' => array('message' => 'hello')), 'Dailymotion responded with an error: <code>hello</code>',
+                array('error' => array('message' => 'hello')), 'Dailymotion responded with an error: hello',
             )
         );
     }

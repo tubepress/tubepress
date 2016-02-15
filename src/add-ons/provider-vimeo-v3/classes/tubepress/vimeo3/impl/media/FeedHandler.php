@@ -173,7 +173,7 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
      * @api
      * @since 4.0.0
      */
-    public function onAnalysisStart($feed)
+    public function onAnalysisStart($feed, tubepress_api_url_UrlInterface $url)
     {
         $this->_decodedJson = json_decode($feed, true);
         $this->_videoArray  = array();

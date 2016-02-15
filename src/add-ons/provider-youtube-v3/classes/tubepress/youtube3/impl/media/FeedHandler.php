@@ -259,7 +259,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
      * @api
      * @since 4.0.0
      */
-    public function onAnalysisStart($feed)
+    public function onAnalysisStart($feed, tubepress_api_url_UrlInterface $url)
     {
         $this->_skippedVideoCount = 0;
         $loggerEnabled            = $this->_logger->isEnabled();

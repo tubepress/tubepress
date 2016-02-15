@@ -121,12 +121,13 @@ interface tubepress_spi_media_HttpFeedHandlerInterface
     /**
      * Perform pre-construction activites for the feed.
      *
-     * @param mixed $feed The feed to construct.
+     * @param mixed                          $feed The feed to construct.
+     * @param tubepress_api_url_UrlInterface $url  The URL just fetched.
      *
      * @return void
      *
      * @api
      * @since 4.0.0
      */
-    function onAnalysisStart($feed);
+    function onAnalysisStart($feed, tubepress_api_url_UrlInterface $url);
 }

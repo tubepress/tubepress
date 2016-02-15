@@ -29,7 +29,7 @@ class tubepress_dailymotion_impl_listeners_options_TransformListener
     {
         $this->_transformer  = $transformer;
         $this->_errorMessage = (string) $errorMessage;
-        $this->_allowEmpty   = boolval($allowEmpty);
+        $this->_allowEmpty   = (bool) $allowEmpty;
     }
 
     public function onOption(tubepress_api_event_EventInterface $event)

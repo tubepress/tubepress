@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo3_impl_media_MediaProvider
  */
-class tubepress_test_vimeo2_impl_media_MediaProviderTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_vimeo3_impl_media_MediaProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo3_impl_media_MediaProvider

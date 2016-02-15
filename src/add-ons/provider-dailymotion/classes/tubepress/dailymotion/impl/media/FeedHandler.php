@@ -48,19 +48,30 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
      */
     private $_skippedVideoCount;
 
+    /**
+     * @var tubepress_api_url_UrlInterface
+     */
+    private $_urlFetched;
+
+    /**
+     * @var bool
+     */
+    private $_shouldLog;
+
     private $_invokedAtLeastOnce;
 
     public function __construct(tubepress_api_log_LoggerInterface           $logger,
-                                tubepress_api_options_ContextInterface      $context,
-                                tubepress_api_url_UrlFactoryInterface       $urlFactory,
-                                tubepress_api_array_ArrayReaderInterface    $arrayReader,
-                                tubepress_dailymotion_impl_dmapi_ApiUtility $apiUtility)
+        tubepress_api_options_ContextInterface      $context,
+        tubepress_api_url_UrlFactoryInterface       $urlFactory,
+        tubepress_api_array_ArrayReaderInterface    $arrayReader,
+        tubepress_dailymotion_impl_dmapi_ApiUtility $apiUtility)
     {
         $this->_logger      = $logger;
         $this->_context     = $context;
         $this->_urlFactory  = $urlFactory;
         $this->_arrayReader = $arrayReader;
         $this->_apiUtility  = $apiUtility;
+        $this->_shouldLog   = $logger->isEnabled();
     }
 
     /**
@@ -133,6 +144,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     public function buildUrlForItem($id)
     {
         $url = $this->_urlFactory->fromString(self::$_URL_BASE);
+        $id  = str_replace('dailymotion_', '', $id);
 
         $url->addPath('video')->addPath($id);
         $this->_addFieldsParam($url->getQuery());
@@ -150,11 +162,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
      */
     public function getTotalResultCount()
     {
-        $total = $this->_arrayReader->getAsInteger(
-            $this->_feedAsArray,
-            'total',
-            0
-        );
+        $total = $this->_calculateTotalResultCount();
 
         return $total - $this->_skippedVideoCount;
     }
@@ -240,18 +248,18 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
      * @api
      * @since 4.0.0
      */
-    public function onAnalysisStart($feed)
+    public function onAnalysisStart($feed, tubepress_api_url_UrlInterface $url)
     {
         $this->_skippedVideoCount = 0;
-        $loggerEnabled            = $this->_logger->isEnabled();
         $this->_feedAsArray       = json_decode($feed, true);
+        $this->_urlFetched        = $url->getClone();
 
         if ($this->_feedAsArray === null) {
 
             throw new RuntimeException('Unable to decode JSON from Dailymotion');
         }
 
-        if ($loggerEnabled) {
+        if ($this->_shouldLog) {
 
             $this->_logDebug(sprintf('Decoded feed from Dailymotion is visible in the HTML source of this page.<span style="display:none">%s</span>',
 
@@ -260,6 +268,15 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
         }
 
         $this->_apiUtility->checkForApiResponseError($this->_feedAsArray);
+
+        if (isset($this->_feedAsArray['id'])) {
+
+            $item = $this->_feedAsArray;
+            $this->_feedAsArray = array(
+
+                'list' => array($item),
+            );
+        }
     }
 
     /**
@@ -274,10 +291,17 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     {
         unset($this->_feedAsArray);
         unset($this->_metadataAsArray);
+        unset($this->_urlFetched);
     }
 
     private function _addSort($mode, tubepress_api_url_QueryInterface $query)
     {
+        if ($mode === tubepress_dailymotion_api_Constants::GALLERY_SOURCE_RELATED) {
+
+            //"sort" param is not valid for related videos
+            return;
+        }
+
         $requestedSort = $this->_context->get(tubepress_api_options_Names::FEED_ORDER_BY);
         $finalSort     = $this->_calculateDefaultSortOrder($mode);
         $sortMap       = array(
@@ -400,7 +424,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
         }
 
         $query->set('page', $currentPage)
-              ->set('limit', $perPage);
+            ->set('limit', $perPage);
     }
 
     private function _implodeCsv($incoming)
@@ -473,12 +497,138 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
             return null;
         }
 
-        return $id;
+        return "dailymotion_$id";
     }
 
     public function __invoke()
     {
         $this->_invokedAtLeastOnce = true;
+    }
+
+    private function _calculateTotalResultCount()
+    {
+        $total = $this->_arrayReader->getAsInteger(
+            $this->_feedAsArray,
+            'total',
+            -1
+        );
+
+        /*
+         * Whew!
+         */
+        if ($total !== -1) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logDebug(sprintf('Total result count was reported by Dailymotion to be <code>%s</code>', $total));
+            }
+
+            return $total;
+        }
+
+        /**
+         * Dailymotion doesn't return the total result count, which sucks because that means we'll need to
+         * "manually" calculate it in order to show pagination.
+         *
+         * The maximum page that can be fetched is 100, and the max results per page is 100. This means that there
+         * can be no more than 10K (100 * 100) total videos in any single source from Dailymotion. This is good because
+         * it actually gives us a change to calculate the total result count with about 6 network requests with a binary
+         * search.
+         */
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug('Total result count was not reported by Dailymotion. We will perform a binary search');
+        }
+
+        return $this->_findMaxResults(1, 100);
+    }
+
+    private function _findMaxResults($minimumPage, $maximumPage)
+    {
+        $currentPage = floor(($maximumPage + $minimumPage) / 2);
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(sprintf(
+                'Starting new iteration. Minimum page is <code>%d</code>, maximum page is <code>%d</code>, current page is <code>%d</code>',
+                $minimumPage, $maximumPage, $currentPage
+            ));
+        }
+
+        $url   = $this->_urlFetched->getClone();
+        $query = $url->getQuery();
+
+        $query->set('fields', 'id');
+        $query->set('limit', 100);
+        $query->set('page', $currentPage);
+
+        $result           = $this->_apiUtility->getDecodedApiResponse($url);
+        $currentPageCount = count($this->_arrayReader->getAsArray($result, 'list'));
+        $hasMore          = $this->_arrayReader->getAsBoolean($result, 'has_more');
+
+        unset($url);
+        unset($query);
+        unset($result);
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(sprintf(
+                'Page <code>%d</code> contains <code>%d</code> videos and <code>has_more</code> is <code>%s</code>',
+                $currentPage, $currentPageCount, $hasMore ? 'true' : 'false'
+            ));
+        }
+
+        /**
+         * There are 4 possible cases here:
+         *
+         * 1. We have over 10,000 results.
+         * 2. Middle page is the last page in the result set.
+         * 3. Middle page overshoots the last page.
+         * 4. Middle page undershoots the last page.
+         */
+
+        if ($hasMore) {
+
+            //scenario 1
+            if (intval($currentPage) === 100) {
+
+                if ($this->_shouldLog) {
+
+                    $this->_logDebug('There are over 10K videos in this result set.');
+                }
+
+                // we've hit the max
+                return 10000;
+            }
+
+            if ($this->_shouldLog) {
+
+                $this->_logDebug('We have undershot the last page in the result set.');
+            }
+
+            //scenario 4
+            return $this->_findMaxResults($currentPage + 1, $maximumPage);
+        }
+
+        // scenario 2
+        if ($currentPageCount > 0) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logDebug('Looks like this was the last page in the result set.');
+            }
+
+            return (($currentPage - 1) * 100) + $currentPageCount;
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug('We have overshot the last page in the result set.');
+        }
+
+        // scenario 3
+        return $this->_findMaxResults($minimumPage, $currentPage - 1);
     }
 
     private function _logDebug($msg)

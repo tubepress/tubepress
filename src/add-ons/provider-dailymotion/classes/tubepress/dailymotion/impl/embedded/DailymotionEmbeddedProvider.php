@@ -130,9 +130,10 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     {
         $autoPlay = $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY);
         $showInfo = $this->_context->get(tubepress_api_options_Names::EMBEDDED_SHOW_INFO);
+        $actualId = str_replace('dailymotion_', '', $mediaItem->getId());
 
         /* build the data URL based on these options */
-        $link  = $this->_urlFactory->fromString('https://www.dailymotion.com/embed/video/' . $mediaItem->getId());
+        $link  = $this->_urlFactory->fromString("https://www.dailymotion.com/embed/video/$actualId");
         $query = $link->getQuery();
 
         $query->set(self::$_URL_PARAM_AUTOPLAY,         $this->_langUtils->booleanToStringOneOrZero($autoPlay));

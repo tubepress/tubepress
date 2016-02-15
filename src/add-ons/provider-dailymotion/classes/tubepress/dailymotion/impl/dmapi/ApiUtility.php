@@ -100,7 +100,7 @@ class tubepress_dailymotion_impl_dmapi_ApiUtility
 
         if ($errorMessage) {
 
-            throw new RuntimeException(sprintf('Dailymotion responded with an error: <code>%s</code>',
+            throw new RuntimeException(sprintf('Dailymotion responded with an error: %s',
                 $errorMessage
             ));
         }

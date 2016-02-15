@@ -46,6 +46,8 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
         $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockApiUtility = $this->mock('tubepress_dailymotion_impl_dmapi_ApiUtility');
 
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+
         $this->_sut = new tubepress_dailymotion_impl_media_FeedHandler(
 
             $this->_mockLogger,
@@ -63,12 +65,18 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
     {
         $content = file_get_contents(__DIR__ . '/../../../../../../fixtures/feeds/' . $filename);
 
+        $mockUrl      = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockUrlClone = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockQuery    = $this->mock('tubepress_api_url_QueryInterface');
+
+        $mockUrl->shouldReceive('getClone')->once()->andReturn($mockUrlClone);
+
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_mockApiUtility->shouldReceive('checkForApiResponseError')->once();
 
-        $this->_sut->onAnalysisStart($content);
+        $this->_sut->onAnalysisStart($content, $mockUrl);
 
         $actual = $this->_sut->getReasonUnableToUseItemAtIndex(0);
         $this->assertEquals($message, $actual);
@@ -90,12 +98,18 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
     {
         $content = file_get_contents(__DIR__ . '/../../../../../../fixtures/feeds/simple.json');
 
+        $mockUrl      = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockUrlClone = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockQuery    = $this->mock('tubepress_api_url_QueryInterface');
+
+        $mockUrl->shouldReceive('getClone')->once()->andReturn($mockUrlClone);
+
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_mockApiUtility->shouldReceive('checkForApiResponseError')->once();
 
-        $this->_sut->onAnalysisStart($content);
+        $this->_sut->onAnalysisStart($content, $mockUrl);
 
         $actualTotal = $this->_sut->getTotalResultCount();
         $this->assertEquals(65090348, $actualTotal);
@@ -104,7 +118,7 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
         $this->assertEquals(10, $actualThis);
 
         $actualId = $this->_sut->getIdForItemAtIndex(1);
-        $this->assertEquals('x3pb97a', $actualId);
+        $this->assertEquals('dailymotion_x3pb97a', $actualId);
 
         $this->_sut->onAnalysisComplete();
     }
@@ -289,7 +303,6 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
                     tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_RELATED,
                     tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE           => 'some-video-id',
                     tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
                 ),
                 array(
                     'video', 'some-video-id', 'related',
@@ -297,7 +310,6 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
                 array(
                     'page'              => 33,
                     'limit'             => 3,
-                    'sort'              => 'visited',
                     'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
                 )
             ),
