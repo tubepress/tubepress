@@ -194,7 +194,7 @@ abstract class tubepress_api_test_translation_AbstractTranslationsTest extends t
 
     private function _poFileCompiles($file)
     {
-        exec($this->_msgfmtExecutable . " -c $file", $output, $return);
+        exec($this->_msgfmtExecutable . " -c $file -o /dev/null", $output, $return);
 
         return $return === 0;
     }

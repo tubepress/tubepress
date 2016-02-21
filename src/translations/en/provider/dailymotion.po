@@ -1,0 +1,254 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress\n"
+"PO-Revision-Date: 2015-08-20 00:14+0000\n"
+"Last-Translator: Eric Hough <eric@tubepress.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Auto"
+msgstr ""
+
+msgid "All videos"
+msgstr ""
+
+msgid "Live only"
+msgstr ""
+
+msgid "Non-live only"
+msgstr ""
+
+msgid "On-air live only"
+msgstr ""
+
+msgid "Off-air live only"
+msgstr ""
+
+msgid "Upcoming live only"
+msgstr ""
+
+msgid "Paid content only"
+msgstr ""
+
+msgid "Free content only"
+msgstr ""
+
+msgid "Partner videos only"
+msgstr ""
+
+msgid "User-generated videos only"
+msgstr ""
+
+msgid "Original"
+msgstr ""
+
+msgid "Widescreen"
+msgstr ""
+
+msgid "Square"
+msgstr ""
+
+msgid "Maximum"
+msgstr ""
+
+msgid "%d pixels"
+msgstr ""
+
+msgid "Highlight color of controls"
+msgstr ""
+
+msgid "Preferred playback quality"
+msgstr ""
+
+msgid "Show player controls"
+msgstr ""
+
+msgid "Show end-screen"
+msgstr ""
+
+msgid "Show Dailymotion logo"
+msgstr ""
+
+msgid "Enable sharing controls"
+msgstr ""
+
+msgid "Player theme"
+msgstr ""
+
+msgid "Origin domain"
+msgstr ""
+
+msgid "Player identifier"
+msgstr ""
+
+msgid "Filter out explicit videos"
+msgstr ""
+
+msgid "Preferred localization"
+msgstr ""
+
+msgid "Limit to country"
+msgstr ""
+
+msgid "Limit to declared languages"
+msgstr ""
+
+msgid "Featured videos only"
+msgstr ""
+
+msgid "Limit to genre"
+msgstr ""
+
+msgid "Exclude genre"
+msgstr ""
+
+msgid "High-definition videos only"
+msgstr ""
+
+msgid "Broadcast status filter"
+msgstr ""
+
+msgid "Premium filter"
+msgstr ""
+
+msgid "Partner filter"
+msgstr ""
+
+msgid "Maximum duration (minutes)"
+msgstr ""
+
+msgid "Minimum duration (minutes)"
+msgstr ""
+
+msgid "Limit to tags (exact)"
+msgstr ""
+
+msgid "Limit to tags (loose)"
+msgstr ""
+
+msgid "Limit to users"
+msgstr ""
+
+msgid "Limit to full-text search"
+msgstr ""
+
+msgid "Preferred thumbnail shape"
+msgstr ""
+
+msgid "Preferred thumbnail size"
+msgstr ""
+
+msgid "Suggest a default playback quality. Set to \"auto\" for best results."
+msgstr ""
+
+msgid "Show related videos after playback finishes."
+msgstr ""
+
+msgid "Allows the viewer to quickly share the video on social media."
+msgstr ""
+
+msgid "Most users should leave this blank. You may set a domain for the page hosting the video player, which may be useful in rare situations."
+msgstr ""
+
+msgid "Most users should leave this blank. You may set a unique identifier for the player on the page, which may be useful for custom JavaScript programming."
+msgstr ""
+
+msgid "Enable Dailymotion's \"family filter\" which attempts to exclude videos with adult content."
+msgstr ""
+
+msgid "Select your preferred locale to narrow the language and content of your galleries."
+msgstr ""
+
+msgid "Enter a <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\" target=\"_blank\">two-digit country code</a> to only include videos declared to be from the specific country. e.g. <code>FR</code> for France, or <code>IT</code> for Italy."
+msgstr ""
+
+msgid "Only videos detected to be in a specific language."
+msgstr ""
+
+msgid "Enter a comma-separated list of <a href=\"https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\" target=\"_blank\">two-digit language codes</a> to include only videos declared to be in the specified languages. e.g. <code>sv</code> for Swedish, or <code>ru, be, uk</code> for Russian, Belarusian, and Ukranian."
+msgstr ""
+
+msgid "Only include videos featured by Dailymotion."
+msgstr ""
+
+msgid "Only include videos with the specified genre."
+msgstr ""
+
+msgid "Exclude videos with the specified genre."
+msgstr ""
+
+msgid "Only include videos with a vertical resolution of 720p or higher."
+msgstr ""
+
+msgid "Only include videos shorter than or equal to the given number of minutes. Set to <code>0</code> disable this filter."
+msgstr ""
+
+msgid "Only include videos longer than or equal to the given number of minutes."
+msgstr ""
+
+msgid "Enter a comma-separated list of terms to only include videos tagged with those <em>exact</em> terms. e.g. <code>Weddings</code> or <code>Wedding Planning, Wedding Venue</code>."
+msgstr ""
+
+msgid "Enter a comma-separated list of terms to only include videos with tags that <em>contain</em> the given terms. e.g. <code>wedding</code> or <code>marriage, party, celebration</code>."
+msgstr ""
+
+msgid "Only include videos that match the given search query."
+msgstr ""
+
+msgid "Choose the height of thumbnails that are served from Dailymotion. Higher resolutions will generally look better but will negatively impact your site's load time. For best results, choose the value closest to (but not less than) your actual thumbnail height (configured above)."
+msgstr ""
+
+msgid "from the video's original Dailymotion page"
+msgstr ""
+
+msgid "ranking"
+msgstr ""
+
+msgid "trending"
+msgstr ""
+
+msgid "This playlist"
+msgstr ""
+
+msgid "Favorite videos from this user"
+msgstr ""
+
+msgid "This list of videos"
+msgstr ""
+
+msgid "Videos related to this video"
+msgstr ""
+
+msgid "Videos from this user's subscriptions"
+msgstr ""
+
+msgid "Videos uploaded by this user"
+msgstr ""
+
+msgid "Dailymotion search for"
+msgstr ""
+
+msgid "You may enter an exact user ID (e.g. <code>%s</code>) or their Dailymotion URL (e.g. <code>%s</code> or <code>%s</code>)."
+msgstr ""
+
+msgid "A comma-separated list of Dailymotion video IDs in the order that you would like them to appear. You may enter exact video IDs (e.g. <code>%s</code> or <code>%s</code>) or their URLs on Dailymotion (e.g. <code>%s</code>)."
+msgstr ""
+
+msgid "You may enter an exact playlist ID (e.g. <code>%s</code> or <code>%s</code>) or its Dailymotion URL (e.g. <code>%s</code>)."
+msgstr ""
+
+msgid "You may enter an exact video ID (e.g. <code>%s</code> or <code>%s</code>) or its URL on Dailymotion (e.g. <code>%s</code>)."
+msgstr ""
+
+msgid "Just as if you were searching on dailymotion.com."
+msgstr ""
+
+msgid "Featured videos from this user"
+msgstr ""
+
+msgid "Enter a comma-separated list of Dailymotion users to include only videos uploaded by those users. You may enter exact user IDs (e.g. <code>%s</code>, <code>%s</code>) or Dailymotion URLs for the users (e.g. <code>%s</code>, <code>%s</code>)."
+msgstr ""

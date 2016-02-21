@@ -577,7 +577,8 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 tubepress_dailymotion_api_Constants::OPTION_FEED_LONGER_THAN        => 'Only include videos longer than or equal to the given number of minutes.',  //>(translatable)<
                 tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS_STRONG        => 'Enter a comma-separated list of terms to only include videos tagged with those <em>exact</em> terms. e.g. <code>Weddings</code> or <code>Wedding Planning, Wedding Venue</code>.',  //>(translatable)<
                 tubepress_dailymotion_api_Constants::OPTION_FEED_TAGS               => 'Enter a comma-separated list of terms to only include videos with tags that <em>contain</em> the given terms. e.g. <code>wedding</code> or <code>marriage, party, celebration</code>.',  //>(translatable)<
-                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => 'Enter a comma-separated list of Dailymotion users to include only videos uploaded by those users. You may enter exact user IDs (e.g. <code>IGN</code>, <code>splashnews</code>) or Dailymotion URLs for the users (e.g. <code>http://www.dailymotion.com/ign</code>, <code>http://www.dailymotion.com/user/splashnews/1</code>).',   //>(translatable)<
+                tubepress_dailymotion_api_Constants::OPTION_FEED_OWNERS_FILTER      => sprintf('Enter a comma-separated list of Dailymotion users to include only videos uploaded by those users. You may enter exact user IDs (e.g. <code>%s</code>, <code>%s</code>) or Dailymotion URLs for the users (e.g. <code>%s</code>, <code>%s</code>).',   //>(translatable)<
+                    'IGN', 'splashnews', 'http://www.dailymotion.com/ign', 'http://www.dailymotion.com/user/splashnews/1'),
                 tubepress_dailymotion_api_Constants::OPTION_FEED_SEARCH             => 'Only include videos that match the given search query.',    //>(translatable)<
 
                 /**

@@ -112,6 +112,7 @@
       "tubepress_test_shortcode_"       : "tests/unit/add-ons/shortcode/classes",
       "tubepress_test_single_"          : "tests/unit/add-ons/single/classes",
       "tubepress_test_template_"        : "tests/unit/add-ons/template/classes",
+      "tubepress_test_translations_"    : "tests/unit/translations/classes",
       "tubepress_test_theme_"           : "tests/unit/add-ons/theme/classes",
       "tubepress_test_url_"             : "tests/unit/add-ons/url/classes",
       "tubepress_test_util_"            : "tests/unit/add-ons/util/classes",
