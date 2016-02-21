@@ -21,7 +21,7 @@ interface tubepress_dailymotion_api_Constants
     const GALLERY_SOURCE_RELATED       = 'dailymotionRelated';
     const GALLERY_SOURCE_SEARCH        = 'dailymotionSearch';
     const GALLERY_SOURCE_SUBSCRIPTIONS = 'dailymotionSubscriptions';
-    const GALLERY_SOURCE_TAG           = 'dailymotionStrongTag';
+    const GALLERY_SOURCE_TAG           = 'dailymotionTag';
     const GALLERY_SOURCE_USER          = 'dailymotionUser';
 
     const OPTION_FAVORITES_VALUE     = 'dailymotionFavoritesValue';
@@ -31,7 +31,7 @@ interface tubepress_dailymotion_api_Constants
     const OPTION_RELATED_VALUE       = 'dailymotionRelatedValue';
     const OPTION_SEARCH_VALUE        = 'dailymotionSearchValue';
     const OPTION_SUBSCRIPTIONS_VALUE = 'dailymotionSubscriptionsValue';
-    const OPTION_TAG_VALUE           = 'dailymotionStrongTagValue';
+    const OPTION_TAG_VALUE           = 'dailymotionTagValue';
     const OPTION_USER_VALUE          = 'dailymotionUserValue';
 
     const OPTION_PLAYER_COLOR          = 'dailymotionPlayerColorHighlight';

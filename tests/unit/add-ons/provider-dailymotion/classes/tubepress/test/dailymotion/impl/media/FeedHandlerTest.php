@@ -328,7 +328,7 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
                     'limit'             => 3,
                     'sort'              => 'visited',
                     'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                    'strongtags' => 'tag1,tag2',
+                    'tags' => 'tag1,tag2',
                 )
             ),
         );

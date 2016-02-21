@@ -404,7 +404,15 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
                 $tagValue = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE);
                 $tagValue = $this->_implodeCsv($tagValue);
 
-                $url->addPath('videos')->getQuery()->set('strongtags', $tagValue);
+                $url->addPath('videos')->getQuery()->set('tags', $tagValue);
+
+                return;
+
+            case tubepress_dailymotion_api_Constants::GALLERY_SOURCE_SUBSCRIPTIONS:
+
+                $subValue = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_SUBSCRIPTIONS_VALUE);
+
+                $url->addPath('user')->addPath($subValue)->addPath('subscriptions');
 
                 return;
         }
