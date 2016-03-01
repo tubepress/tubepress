@@ -136,7 +136,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'appearances'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CATEGORY,
@@ -144,7 +144,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-category-id',
                 array('categories', 'some-category-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
@@ -152,7 +152,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-channel-id',
                 array('channels', 'some-channel-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
@@ -160,7 +160,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-group-id',
                 array('groups', 'some-group-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_TAG,
@@ -176,7 +176,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'likes'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
@@ -184,7 +184,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
@@ -192,7 +192,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_DEFAULT,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'default')),
+                array(array('sort', 'default')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
