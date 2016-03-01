@@ -103,7 +103,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
             $mockQuery->shouldReceive('set')->once()->with($sortParam[0], $sortParam[1])->andReturn($mockQuery);
         }
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)->andReturn($mode);
+        $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_api_options_Names::GALLERY_SOURCE)->andReturn($mode);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with($modeValueOptionName)->andReturn($modeValue);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_RESULTS_PER_PAGE)->andReturn(44);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_ORDER_BY)->andReturn($requestedSort);
