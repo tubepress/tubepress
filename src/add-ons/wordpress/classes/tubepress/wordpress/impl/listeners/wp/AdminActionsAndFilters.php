@@ -294,9 +294,9 @@ EOT;
 
         if ($this->_environment->isPro()) {
 
-            $apiKey = tubepress_api_options_Names::TUBEPRESS_API_KEY;
+            $apiKey = $this->_context->get(tubepress_api_options_Names::TUBEPRESS_API_KEY);
 
-            if ($this->_context->get($apiKey)) {
+            if ($apiKey) {
 
                 $queryArgs['key'] = $apiKey;
                 $queryArgs['pid'] = 2;
@@ -312,7 +312,9 @@ EOT;
 
         if ($pluginInfo && $this->_environment->isPro()) {
 
-            if (!$this->_context->get(tubepress_api_options_Names::TUBEPRESS_API_KEY)) {
+            $apiKey = $this->_context->get(tubepress_api_options_Names::TUBEPRESS_API_KEY);
+
+            if (!$apiKey) {
 
                 /**
                  * We don't want to downgrade Pro users that haven't entered an API key.
@@ -326,6 +328,13 @@ EOT;
                  * Extra assurance that we don't downgrade Pro users
                  */
                 $pluginInfo->download_url = null;
+            }
+
+            if ($pluginInfo->download_url && $apiKey) {
+
+                $url = $this->_urlFactory->fromString($pluginInfo->download_url);
+                $url->getQuery()->set('key', $apiKey)->set('pid', 2);
+                $pluginInfo->download_url = $url->toString();
             }
         }
 
