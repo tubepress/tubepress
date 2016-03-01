@@ -36,6 +36,11 @@ class tubepress_media_impl_listeners_PageListener
      */
     private $_collector;
 
+    /**
+     * @var bool
+     */
+    private $_shouldLog;
+
     private $_invokedAtLeastOnce;
 
     private static $_perPageSortMap = array(
@@ -68,6 +73,7 @@ class tubepress_media_impl_listeners_PageListener
         $this->_context       = $context;
         $this->_requestParams = $requestParams;
         $this->_collector     = $collector;
+        $this->_shouldLog     = $logger->isEnabled();
     }
 
     public function blacklist(tubepress_api_event_EventInterface $event)
@@ -102,7 +108,6 @@ class tubepress_media_impl_listeners_PageListener
     public function prependItems(tubepress_api_event_EventInterface $event)
     {
         $customVideoId = $this->_requestParams->getParamValue('tubepress_item');
-        $shouldLog     = $this->_logger->isEnabled();
 
         /* they didn't set a custom video id */
         if ($customVideoId == '') {
@@ -110,9 +115,9 @@ class tubepress_media_impl_listeners_PageListener
             return;
         }
 
-        if ($shouldLog) {
+        if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Prepending item %s to the gallery', $customVideoId));
+            $this->_logDebug(sprintf('Prepending item <code>%s</code> to the gallery', $customVideoId));
         }
 
         $this->_prependVideo($customVideoId, $event);
@@ -121,14 +126,18 @@ class tubepress_media_impl_listeners_PageListener
     public function perPageSort(tubepress_api_event_EventInterface $event)
     {
         $this->_perPageSortOrder = $this->_context->get(tubepress_api_options_Names::FEED_PER_PAGE_SORT);
-        $shouldLog               = $this->_logger->isEnabled();
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(sprintf('Per-page sort order is set to <code>%s</code>.', $this->_perPageSortOrder));
+        }
 
         /** No sort requested? */
         if ($this->_perPageSortOrder === tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE) {
 
-            if ($shouldLog) {
+            if ($this->_shouldLog) {
 
-                $this->_logger->debug('Requested per-page sort order is "none". Not applying per-page sorting.');
+                $this->_logDebug('Requested per-page sort order is <code>none</code>. Not applying per-page sorting.');
             }
 
             return;
@@ -139,9 +148,9 @@ class tubepress_media_impl_listeners_PageListener
 
         if ($this->_perPageSortOrder === tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM) {
 
-            if ($shouldLog) {
+            if ($this->_shouldLog) {
 
-                $this->_logger->debug('Shuffling videos');
+                $this->_logDebug('Shuffling videos');
             }
 
             shuffle($mediaItems);
@@ -173,18 +182,17 @@ class tubepress_media_impl_listeners_PageListener
         $secondCut      = min($firstCut, $this->_calculateRealMax($firstCut));
         $mediaItemArray = $event->getSubject()->getItems();
         $resultCount    = count($mediaItemArray);
-        $shouldLog      = $this->_logger->isEnabled();
 
-        if ($shouldLog) {
+        if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Effective total result count (taking into account user-defined limit) is %d video(s)', $secondCut));
+            $this->_logDebug(sprintf('Effective total result count (taking into account user-defined limit) is <code>%d</code> video(s)', $secondCut));
         }
 
         if ($resultCount > $secondCut) {
 
-            if ($shouldLog) {
+            if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Result has %d video(s), limit is %d. So we\'re chopping it down.', $resultCount, $secondCut));
+                $this->_logDebug(sprintf('Result has <code>%d</code> video(s), limit is <code>%d</code>. So we\'re chopping it down.', $resultCount, $secondCut));
             }
 
             $event->getSubject()->setItems(array_splice($mediaItemArray, 0, $secondCut - $resultCount));
@@ -210,9 +218,9 @@ class tubepress_media_impl_listeners_PageListener
 
             if (in_array($id, $ids)) {
 
-                if ($this->_logger->isEnabled()) {
+                if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Duplicate item detected (%s). Now removing.',$id));
+                    $this->_logDebug(sprintf('Duplicate item detected (<code>%s</code>). Now removing.',$id));
                 }
 
                 unset($items[$x]);
@@ -389,9 +397,9 @@ class tubepress_media_impl_listeners_PageListener
     {
         if (strpos($blacklist, $id) !== false) {
 
-            if ($this->_logger->isEnabled()) {
+            if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Video with ID <code>%s</code> is blacklisted. Skipping it.', $id));
+                $this->_logDebug(sprintf('Video with ID <code>%s</code> is blacklisted. Skipping it.', $id));
             }
 
             return false;
@@ -402,5 +410,10 @@ class tubepress_media_impl_listeners_PageListener
     public function __invoke()
     {
         $this->_invokedAtLeastOnce = true;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Page Listener) %s', $msg));
     }
 }
