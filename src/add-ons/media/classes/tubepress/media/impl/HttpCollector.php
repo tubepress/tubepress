@@ -47,7 +47,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Fetching media item with ID <code>%s</code>', $itemId));
+            $this->_logDebug(sprintf('Fetching media item with ID <code>%s</code>', $itemId));
         }
 
         $mediaItemUrl = $feedHandler->buildUrlForItem($itemId);
@@ -82,7 +82,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Reported total result count is %d video(s)', $reportedTotalResultCount));
+            $this->_logDebug(sprintf('Reported total result count is %d video(s)', $reportedTotalResultCount));
         }
 
         /**
@@ -118,7 +118,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Now attempting to build %d item(s) from raw feed', $total));
+            $this->_logDebug(sprintf('Now attempting to build %d item(s) from raw feed', $total));
         }
 
         for ($index = 0; $index < $total; $index++) {
@@ -129,7 +129,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Skipping item at index %d: %s', $index,
+                    $this->_logDebug(sprintf('Skipping item at index %d: %s', $index,
                         $failureMessage));
                 }
 
@@ -160,7 +160,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Built %d items(s) from raw feed', sizeof($toReturn)));
+            $this->_logDebug(sprintf('Built %d items(s) from raw feed', sizeof($toReturn)));
         }
 
         return $toReturn;
@@ -168,18 +168,9 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
     private function _fetchFeedAndPrepareForAnalysis($url, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
-        $debugStream = null;
-        $requestOpts = array();
-
-        if ($this->_shouldLog) {
-
-            $debugStream          = fopen('php://memory','r+');
-            $requestOpts['debug'] = $debugStream;
-        }
-
         try {
 
-            $httpRequest = $this->_httpClient->createRequest('GET', $url, $requestOpts);
+            $httpRequest = $this->_httpClient->createRequest('GET', $url);
 
             /**
              * Allows the cache to recognize this as an API call.
@@ -190,42 +181,14 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
         } catch (tubepress_api_http_exception_RequestException $e) {
 
-            $this->_flushDebugStream($debugStream, true);
-
             throw $e;
         }
 
-        $this->_flushDebugStream($debugStream, false);
-
         $rawFeed = $httpResponse->getBody()->toString();
 
-        $feedHandler->onAnalysisStart($rawFeed);
+        $feedHandler->onAnalysisStart($rawFeed, $url);
 
         return $rawFeed;
-    }
-
-    private function _flushDebugStream($stream, $error)
-    {
-        if (!$stream || !$this->_shouldLog) {
-
-            return;
-        }
-
-        rewind($stream);
-
-        $contents = stream_get_contents($stream);
-        $contents = explode("\n", $contents);
-
-        foreach ($contents as $line) {
-
-            if ($error) {
-
-                $this->_logger->error($line);
-                continue;
-            }
-
-            $this->_logger->debug($line);
-        }
     }
 
     private function _dispatchAndReturnSubject(tubepress_spi_media_HttpFeedHandlerInterface $feedHandler,
@@ -236,5 +199,10 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
         $this->_eventDispatcher->dispatch($eventName . '.' . $feedHandler->getName(), $event);
 
         return $event->getSubject();
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(HTTP Collector) %s', $msg));
     }
 }

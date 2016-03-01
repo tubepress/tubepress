@@ -129,7 +129,7 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterf
     private function _getFormattedMessage($message, array $context, $error)
     {
         $dateTime      = $this->_createDateTimeFromFormat();
-        $formattedTime = $dateTime->format('i:s.u');
+        $formattedTime = $dateTime->format('H:i:s.u');
         $level         = $error ? 'ERROR' : 'INFO';
         $color         = $error ? 'red' : 'inherit';
 

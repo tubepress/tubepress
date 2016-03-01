@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="final-package">
+        <sequential>
+            <log msg="Performing final zip" />
+            <zip destfile="target/dist/tubepress_${tubepress.version.major}_${tubepress.version.minor}_${tubepress.version.micro}.zip" basedir="target/stage" />
+        </sequential>
+    </macrodef>
+</project>

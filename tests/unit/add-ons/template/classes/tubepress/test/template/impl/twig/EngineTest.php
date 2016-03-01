@@ -20,12 +20,12 @@ class tubepress_test_app_impl_template_twig_EngineTest extends tubepress_api_tes
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTwigEnvironment;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTwigLoader;
 

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo3_ioc_VimeoExtension
  */
-class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
+class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
 
     /**

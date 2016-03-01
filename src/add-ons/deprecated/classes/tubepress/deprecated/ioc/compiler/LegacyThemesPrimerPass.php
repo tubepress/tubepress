@@ -97,9 +97,9 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
     private function _getTemplateMapForLegacyDirectory(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $path)
     {
         /**
-         * @var $finderFactory ehough_finder_FinderFactoryInterface
+         * @var $finderFactory tubepress_internal_finder_FinderFactory
          */
-        $finderFactory = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
+        $finderFactory = $containerBuilder->get('finder_factory');
 
         /**
          * @var $stringUtils tubepress_api_util_StringUtilsInterface
@@ -154,9 +154,9 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         }
 
         /**
-         * @var $finderFactory ehough_finder_FinderFactoryInterface
+         * @var $finderFactory tubepress_internal_finder_FinderFactory
          */
-        $finderFactory = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
+        $finderFactory = $containerBuilder->get('finder_factory');
         $finder        = $finderFactory->createFinder()->directories()->in($userThemeDir)->depth('< 1');
         $toReturn      = array();
 

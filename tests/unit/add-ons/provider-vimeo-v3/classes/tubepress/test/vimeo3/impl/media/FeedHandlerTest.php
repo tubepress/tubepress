@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo3_impl_media_FeedHandler
  */
-class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo3_impl_media_FeedHandler
@@ -20,17 +20,17 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockExecutionContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 
@@ -64,7 +64,9 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
     {
         $rawFeed = $this->_getVideoListJson();
 
-        $this->_sut->onAnalysisStart($rawFeed);
+        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+
+        $this->_sut->onAnalysisStart($rawFeed, $mockUrl);
 
         $actual = $this->_sut->getTotalResultCount();
 
@@ -134,7 +136,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'appearances'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CATEGORY,
@@ -142,7 +144,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-category-id',
                 array('categories', 'some-category-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
@@ -150,7 +152,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-channel-id',
                 array('channels', 'some-channel-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
@@ -158,7 +160,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-group-id',
                 array('groups', 'some-group-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_TAG,
@@ -174,7 +176,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'likes'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
@@ -182,7 +184,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'date'), array('direction', 'desc')),
+                array(array('sort', 'date'), array('direction', 'desc')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
@@ -190,7 +192,7 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
                 'some-user-id',
                 array('users', 'some-user-id', 'videos'),
                 tubepress_vimeo3_api_Constants::ORDER_BY_DEFAULT,
-                array(array('filter', 'embeddable'), array('filter_embeddable', 'true'), array('sort', 'default')),
+                array(array('sort', 'default')),
             ),
             array(
                 tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
@@ -205,15 +207,20 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
 
     public function testVimeoError()
     {
+        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+
+
         $this->setExpectedException('RuntimeException', 'The requested group could not be found');
         $rawFeed = $this->_getVimeoErrorJson();
-        $this->_sut->onAnalysisStart($rawFeed);
+        $this->_sut->onAnalysisStart($rawFeed, $mockUrl);
     }
 
     public function testCountElements()
     {
+        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+
         $rawFeed = $this->_getVideoListJson();
-        $this->_sut->onAnalysisStart($rawFeed);
+        $this->_sut->onAnalysisStart($rawFeed, $mockUrl);
         $actual = $this->_sut->getCurrentResultCount();
         $this->_sut->onAnalysisComplete();
         $this->assertEquals(25, $actual);
@@ -221,8 +228,10 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
 
     public function testGetItemIdAtIndex()
     {
+        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+
         $rawFeed = $this->_getVideoListJson();
-        $this->_sut->onAnalysisStart($rawFeed);
+        $this->_sut->onAnalysisStart($rawFeed, $mockUrl);
         $actual = $this->_sut->getIdForItemAtIndex(3);
         $this->_sut->onAnalysisComplete();
         $this->assertEquals(148268680, $actual);
@@ -231,9 +240,10 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_api_tes
     public function testNewItemArgs()
     {
         $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
+        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $rawFeed = $this->_getVideoListJson();
-        $this->_sut->onAnalysisStart($rawFeed);
+        $this->_sut->onAnalysisStart($rawFeed, $mockUrl);
         $actual = $this->_sut->getNewItemEventArguments($mockMediaItem, 3);
         $this->_sut->onAnalysisComplete();
         $this->assertTrue(is_array($actual));

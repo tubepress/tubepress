@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="stage-web-assets">
+        <sequential>
+
+            <log msg="Staging web assets from add-ons" />
+            
+            <move file="target/stage/tubepress/src/add-ons/gallery/web"   tofile="target/stage/tubepress/web" />
+            <move file="target/stage/tubepress/src/add-ons/html/web"      tofile="target/stage/tubepress/web" />
+            <move file="target/stage/tubepress/src/add-ons/http/web"      tofile="target/stage/tubepress/web" />
+            <move file="target/stage/tubepress/src/add-ons/player/web"    tofile="target/stage/tubepress/web" />
+            <move file="target/stage/tubepress/src/add-ons/wordpress/web" tofile="target/stage/tubepress/web" />
+            
+        </sequential>
+    </macrodef>
+
+</project>

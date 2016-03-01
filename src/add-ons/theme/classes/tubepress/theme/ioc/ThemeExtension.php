@@ -70,8 +70,8 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerE
         }
 
         $containerBuilder->register(
-            'ehough_finder_FinderFactoryInterface',
-            'ehough_finder_FinderFactory'
+            'finder_factory',
+            'tubepress_internal_finder_FinderFactory'
         );
     }
 

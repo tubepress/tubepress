@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_template_impl_DelegatingEngine extends ehough_templating_DelegatingEngine
+class tubepress_template_impl_DelegatingEngine extends \Symfony\Component\Templating\DelegatingEngine
 {
     /**
      * @var tubepress_api_log_LoggerInterface
@@ -29,12 +29,23 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
         $this->_shouldLog = $this->_logger->isEnabled();
     }
 
+    public function render($name, array $parameters = array())
+    {
+        $this->_logDebug(sprintf('Start render of template <code>%s</code>', $name));
+
+        $toReturn = parent::render($name, $parameters);
+
+        $this->_logDebug(sprintf('Finished rendering template <code>%s</code>', $name));
+
+        return $toReturn;
+    }
+
     /**
      * Get an engine able to render the given template.
      *
-     * @param string|ehough_templating_TemplateReferenceInterface $name A template name or a ehough_templating_TemplateReferenceInterface instance
+     * @param string|\Symfony\Component\Templating\TemplateReferenceInterface $name A template name or a \Symfony\Component\Templating\TemplateReferenceInterface instance
      *
-     * @return ehough_templating_EngineInterface The engine
+     * @return \Symfony\Component\Templating\EngineInterface The engine
      *
      * @throws RuntimeException if no engine able to work with the template is found
      *
@@ -48,7 +59,7 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template engine <code>%s</code> does not support template <code>%s</code>',
+                    $this->_logDebug(sprintf('Template engine <code>%s</code> does not support template <code>%s</code>',
 
                         get_class($engine),
                         $name
@@ -62,7 +73,7 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template engine <code>%s</code> cannot find template <code>%s</code>',
+                    $this->_logDebug(sprintf('Template engine <code>%s</code> cannot find template <code>%s</code>',
 
                         get_class($engine),
                         $name
@@ -74,7 +85,7 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Template engine <code>%s</code> will handle template <code>%s</code>',
+                $this->_logDebug(sprintf('Template engine <code>%s</code> will handle template <code>%s</code>',
 
                     get_class($engine),
                     $name
@@ -85,5 +96,10 @@ class tubepress_template_impl_DelegatingEngine extends ehough_templating_Delegat
         }
 
         throw new RuntimeException(sprintf('Template <code>%s</code> not found.', $name));
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Delegating Template Engine) %s', $msg));
     }
 }

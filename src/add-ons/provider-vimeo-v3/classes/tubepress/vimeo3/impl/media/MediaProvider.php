@@ -31,7 +31,7 @@ class tubepress_vimeo3_impl_media_MediaProvider implements tubepress_spi_media_M
 
         tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_ALBUM      => 'album %s',
         tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN => 'videos in which %s appears',
-        tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN => 'category %s',
+        tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CATEGORY   => 'category %s',
         tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL    => 'channel %s',
         tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_GROUP      => 'group %s',
         tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_LIKES      => 'liked by %s',

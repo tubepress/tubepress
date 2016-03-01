@@ -20,7 +20,7 @@ class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tu
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainerBuilder;
 

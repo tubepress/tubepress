@@ -15,12 +15,12 @@
 class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_internal_contrib_AbstractContributableTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBaseUrl;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUserContentUrl;
 

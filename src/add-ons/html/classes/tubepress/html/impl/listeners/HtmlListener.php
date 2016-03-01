@@ -89,7 +89,7 @@ class tubepress_html_impl_listeners_HtmlListener
         foreach ($traceData as $line) {
 
             $line = htmlspecialchars($line);
-            $this->_logger->error("<tt>$line</tt><br />");
+            $this->_logger->error("<code>$line</code><br />");
         }
     }
 

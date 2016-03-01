@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="compile-gettext">
+        <sequential>
+            <log msg="Compiling gettext" />
+            
+            <__cat-po crowdin-code="ar-SA" destination-code="ar"    />
+            <__cat-po crowdin-code="de-DE" destination-code="de_DE" />
+            <__cat-po crowdin-code="el-GR" destination-code="el"    />
+            <__cat-po crowdin-code="es-ES" destination-code="es_ES" />
+            <__cat-po crowdin-code="fa-IR" destination-code="fa_IR" />
+            <__cat-po crowdin-code="fi-FI" destination-code="fi"    />
+            <__cat-po crowdin-code="fr-FR" destination-code="fr_FR" />
+            <__cat-po crowdin-code="he-IL" destination-code="he_IL" />
+            <__cat-po crowdin-code="hi-IN" destination-code="hi_IN" />
+            <__cat-po crowdin-code="it-IT" destination-code="it_IT" />
+            <__cat-po crowdin-code="ja-JP" destination-code="ja"    />
+            <__cat-po crowdin-code="ko-KR" destination-code="ko_KR" />
+            <__cat-po crowdin-code="nl-NL" destination-code="nl_NL" />
+            <__cat-po crowdin-code="no-NO" destination-code="nb_NO" />
+            <__cat-po crowdin-code="pl-PL" destination-code="pl_PL" />
+            <__cat-po crowdin-code="pt-PT" destination-code="pt_BR" />
+            <__cat-po crowdin-code="ru-RU" destination-code="ru_RU" />
+            <__cat-po crowdin-code="sk-SK" destination-code="sk_SK" />
+            <__cat-po crowdin-code="sv-SE" destination-code="sv_SE" />
+            <__cat-po crowdin-code="zh-CN" destination-code="zh_CN" />
+            <__cat-po crowdin-code="zh-TW" destination-code="zh_TW" />
+            
+            <delete dir="target/stage/tubepress/src/translations/en" />
+
+            <apply verbose="true" executable="msgfmt" parallel="false" failonerror="true" dest="target/stage/tubepress/src/translations">
+                <srcfile />
+                <arg value="-o" />
+                <targetfile />
+                <fileset dir="target/stage/tubepress/src/translations" includes="*.po" />
+                <mapper type="glob" from="*.po" to="*.mo"/>
+            </apply>
+
+            <delete>
+                <fileset dir="target/stage/tubepress/src/translations" includes="*.po"/>
+            </delete>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="__cat-po">
+        <attribute name="crowdin-code" />
+        <attribute name="destination-code" />
+        <sequential>
+            <apply executable="msgcat" parallel="true" failonerror="true" output="target/stage/tubepress/src/translations/tubepress-@{destination-code}.po">
+                <fileset dir="target/stage/tubepress/src/translations/@{crowdin-code}/" includes="**/*.po" />
+            </apply>
+            <delete dir="target/stage/tubepress/src/translations/@{crowdin-code}" />
+        </sequential>
+    </macrodef>
+    
+</project>

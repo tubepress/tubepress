@@ -11,12 +11,12 @@
 abstract class tubepress_api_test_ioc_AbstractContainerExtensionTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockDefinition;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainer;
 
@@ -127,7 +127,7 @@ abstract class tubepress_api_test_ioc_AbstractContainerExtensionTest extends tub
 
         $this->_expectedServiceConstructions[$id] = $definition;
 
-        $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
+        $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, Mockery::on(function ($actualDefinition) use ($definition) {
 
             return $actualDefinition instanceof tubepress_api_ioc_DefinitionInterface
             && $actualDefinition->getClass() === $definition->getClass();
@@ -164,14 +164,14 @@ abstract class tubepress_api_test_ioc_AbstractContainerExtensionTest extends tub
             return "$actual" === "$expected";
         };
 
-        $this->_mockDefinition->shouldReceive('addArgument')->once()->with(ehough_mockery_Mockery::on($argumentComparator))->andReturn($this->_mockDefinition);
+        $this->_mockDefinition->shouldReceive('addArgument')->once()->with(Mockery::on($argumentComparator))->andReturn($this->_mockDefinition);
 
         return $this;
     }
 
     protected function withFactoryService($service)
     {
-        $this->_mockDefinition->shouldReceive('setFactoryService')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($service) {
+        $this->_mockDefinition->shouldReceive('setFactoryService')->once()->with(Mockery::on(function ($actual) use ($service) {
 
             return "$actual" === "$service";
 
@@ -198,7 +198,7 @@ abstract class tubepress_api_test_ioc_AbstractContainerExtensionTest extends tub
 
     protected function withFactoryClass($class)
     {
-        $this->_mockDefinition->shouldReceive('setFactoryClass')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($class) {
+        $this->_mockDefinition->shouldReceive('setFactoryClass')->once()->with(Mockery::on(function ($actual) use ($class) {
 
             return $actual === $class;
 
@@ -209,7 +209,7 @@ abstract class tubepress_api_test_ioc_AbstractContainerExtensionTest extends tub
 
     protected function withFactoryMethod($method)
     {
-        $this->_mockDefinition->shouldReceive('setFactoryMethod')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($method) {
+        $this->_mockDefinition->shouldReceive('setFactoryMethod')->once()->with(Mockery::on(function ($actual) use ($method) {
 
             return $actual === $method;
 

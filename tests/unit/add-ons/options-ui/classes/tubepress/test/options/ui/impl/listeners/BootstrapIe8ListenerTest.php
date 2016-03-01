@@ -20,12 +20,12 @@ class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends 
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEnvironment;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockIncomingEvent;
 

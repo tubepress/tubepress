@@ -20,7 +20,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_Tub
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 

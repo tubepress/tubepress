@@ -20,12 +20,12 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockIocContainer;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
@@ -50,13 +50,13 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
 
     public function testCompile()
     {
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect bogus class: Class bogus class does not exist');
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect Hello: Class Hello does not exist');
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect There: Class There does not exist');
-        $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on 1 of 2: mock add-on 1) Failed to load bogus class as an IoC container extension: Class bogus class does not exist');
-        $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on 2 of 2: mock add-on 2) Failed to load Hello as an IoC container extension: Class Hello does not exist');
-        $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on 2 of 2: mock add-on 2) Failed to load There as an IoC container extension: Class There does not exist');
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to load no such class as an IoC compiler pass: Class no such class does not exist');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect <code>bogus class</code>: <code>Class bogus class does not exist</code>');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect <code>Hello</code>: <code>Class Hello does not exist</code>');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to inspect <code>There</code>: <code>Class There does not exist</code>');
+        $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on <code>1</code> of <code>2</code>: <code>mock add-on 1</code>) Failed to load <code>bogus class</code> as a container extension: <code>Class bogus class does not exist</code>');
+        $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on <code>2</code> of <code>2</code>: <code>mock add-on 2</code>) Failed to load <code>Hello</code> as a container extension: <code>Class Hello does not exist</code>');
+        $this->_mockLogger->shouldReceive('error')->once()->with('(Add-on <code>2</code> of <code>2</code>: <code>mock add-on 2</code>) Failed to load <code>There</code> as a container extension: <code>Class There does not exist</code>');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to load <code>no such class</code> as a compiler pass: <code>Class no such class does not exist</code>');
 
         $mockAddon1 = $this->mock(tubepress_api_contrib_AddonInterface::_);
         $mockAddon2 = $this->mock(tubepress_api_contrib_AddonInterface::_);
@@ -75,8 +75,8 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
         $mockAddons = array($mockAddon1, $mockAddon2);
 
         $this->_mockIocContainer->shouldReceive('compile')->once();
-        $this->_mockIocContainer->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::any('FakeCompilerPass'));
-        $this->_mockIocContainer->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::any('FakeExtension'));
+        $this->_mockIocContainer->shouldReceive('addCompilerPass')->once()->with(Mockery::any('FakeCompilerPass'));
+        $this->_mockIocContainer->shouldReceive('registerExtension')->once()->with(Mockery::any('FakeExtension'));
 
         $this->_sut->compile($this->_mockIocContainer, $mockAddons);
 

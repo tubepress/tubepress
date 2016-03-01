@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_template_impl_php_Support implements ehough_templating_loader_LoaderInterface, ehough_templating_TemplateNameParserInterface
+class tubepress_template_impl_php_Support implements \Symfony\Component\Templating\Loader\LoaderInterface, \Symfony\Component\Templating\TemplateNameParserInterface
 {
     /**
      * @var tubepress_template_impl_ThemeTemplateLocator
@@ -24,13 +24,13 @@ class tubepress_template_impl_php_Support implements ehough_templating_loader_Lo
     /**
      * Loads a template.
      *
-     * @param ehough_templating_TemplateReferenceInterface $template A template
+     * @param \Symfony\Component\Templating\TemplateReferenceInterface $template A template
      *
-     * @return ehough_templating_storage_Storage|bool    false if the template cannot be loaded, a ehough_templating_storage_Storage instance otherwise
+     * @return \Symfony\Component\Templating\Storage\Storage|bool    false if the template cannot be loaded, a \Symfony\Component\Templating\Storage\Storage instance otherwise
      *
      * @api
      */
-    public function load(ehough_templating_TemplateReferenceInterface $template)
+    public function load(\Symfony\Component\Templating\TemplateReferenceInterface $template)
     {
         if (!$this->_themeTemplateLocator->exists($template->getLogicalName())) {
 
@@ -39,35 +39,35 @@ class tubepress_template_impl_php_Support implements ehough_templating_loader_Lo
 
         $path = $this->_themeTemplateLocator->getAbsolutePath($template->getLogicalName());
 
-        return new ehough_templating_storage_FileStorage($path);
+        return new \Symfony\Component\Templating\Storage\FileStorage($path);
     }
 
     /**
      * Returns true if the template is still fresh.
      *
-     * @param ehough_templating_TemplateReferenceInterface $template A template
+     * @param \Symfony\Component\Templating\TemplateReferenceInterface $template A template
      * @param int $time The last modification time of the cached template (timestamp)
      *
      * @return bool
      *
      * @api
      */
-    public function isFresh(ehough_templating_TemplateReferenceInterface $template, $time)
+    public function isFresh(\Symfony\Component\Templating\TemplateReferenceInterface $template, $time)
     {
         return $this->_themeTemplateLocator->isFresh($template->getLogicalName(), $time);
     }
 
     /**
-     * Convert a template name to a ehough_templating_TemplateReferenceInterface instance.
+     * Convert a template name to a \Symfony\Component\Templating\TemplateReferenceInterface instance.
      *
-     * @param string|ehough_templating_TemplateReferenceInterface $name A template name or a ehough_templating_TemplateReferenceInterface instance
+     * @param string|\Symfony\Component\Templating\TemplateReferenceInterface $name A template name or a \Symfony\Component\Templating\TemplateReferenceInterface instance
      *
-     * @return ehough_templating_TemplateReferenceInterface A template
+     * @return \Symfony\Component\Templating\TemplateReferenceInterface A template
      *
      * @api
      */
     public function parse($name)
     {
-        return new ehough_templating_TemplateReference("$name.tpl.php", 'php');
+        return new \Symfony\Component\Templating\TemplateReference("$name.tpl.php", 'php');
     }
 }

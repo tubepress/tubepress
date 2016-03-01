@@ -79,7 +79,7 @@ class tubepress_gallery_impl_listeners_GalleryListener
 
         if ($shouldLog) {
 
-            $this->_logger->debug(sprintf('Starting to build thumbnail gallery %s', $galleryId));
+            $this->_logDebug(sprintf('Starting to build thumbnail gallery <code>%s</code>', $galleryId));
         }
 
         $pageNumber = $this->_requestParameters->getParamValueAsInt('tubepress_page', 1);
@@ -87,7 +87,7 @@ class tubepress_gallery_impl_listeners_GalleryListener
         /* first grab the items */
         if ($shouldLog) {
 
-            $this->_logger->debug('Asking collector for a page.');
+            $this->_logDebug('Asking collector for a page.');
         }
 
         $mediaPage = $this->_collector->collectPage($pageNumber);
@@ -95,7 +95,7 @@ class tubepress_gallery_impl_listeners_GalleryListener
 
         if ($shouldLog) {
 
-            $this->_logger->debug(sprintf('Collector has delivered %d item(s)', $itemCount));
+            $this->_logDebug(sprintf('Collector has delivered <code>%d</code> item(s)', $itemCount));
         }
 
         $templateVars = array(
@@ -109,7 +109,7 @@ class tubepress_gallery_impl_listeners_GalleryListener
         /* we're done. tie up */
         if ($shouldLog) {
 
-            $this->_logger->debug(sprintf('Done assembling gallery %d', $galleryId));
+            $this->_logDebug(sprintf('Done assembling gallery <code>%d</code>', $galleryId));
         }
 
         $event->setSubject($html);
@@ -223,5 +223,10 @@ EOT;
 
             $candidate[$key] = (bool) $value;
         }
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Gallery Listener) %s', $msg));
     }
 }

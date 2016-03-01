@@ -20,12 +20,12 @@ class tubepress_test_http_oauth2_impl_options_ui_TokenDeletionFieldTest extends 
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPersistenceHelper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockOauth2Provider;
 

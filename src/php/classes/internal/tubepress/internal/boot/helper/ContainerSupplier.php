@@ -35,7 +35,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     private $_uncachedContainerSupplier;
 
     /**
-     * @var ehough_pulsar_MapClassLoader
+     * @var Symfony\Component\ClassLoader\MapClassLoader
      */
     private $_temporaryClassLoader;
 
@@ -56,7 +56,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug('System cache is available. Excellent!');
+                $this->_logDebug('System cache is available. Excellent!');
             }
 
             try {
@@ -79,14 +79,14 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Determining if system cache is available.');
+            $this->_logDebug('Determining if system cache is available.');
         }
 
         if (!$this->_bootSettings->isSystemCacheEnabled()) {
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug('System cache is disabled by user settings.php');
+                $this->_logDebug('System cache is disabled by user settings.php');
             }
 
             return false;
@@ -103,7 +103,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug(sprintf('%s is not a readable file.', $file));
+                $this->_logDebug(sprintf('<code>%s</code> is not a readable file.', $file));
             }
 
             return false;
@@ -111,7 +111,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug(sprintf('%s is a readable file. Now including it.', $file));
+            $this->_logDebug(sprintf('<code>%s</code> is a readable file. Now including it.', $file));
         }
 
         /** @noinspection PhpIncludeInspection */
@@ -123,7 +123,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
 
             if ($iocContainerHit) {
 
-                $this->_logger->debug(sprintf('Service container found in cache? %s', $iocContainerHit ? 'yes' : 'no'));
+                $this->_logDebug(sprintf('Service container found in cache? <code>%s</code>', $iocContainerHit ? 'yes' : 'no'));
             }
         }
 
@@ -137,23 +137,23 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Rehydrating cached service container.');
+            $this->_logDebug('Rehydrating cached service container.');
         }
 
         /** @noinspection PhpUndefinedClassInspection */
         /**
-         * @var $cachedContainer ehough_iconic_Container
+         * @var $cachedContainer \Symfony\Component\DependencyInjection\ContainerInterface
          */
-        $iconicContainer = new TubePressServiceContainer();
+        $symfonyContainer = new TubePressServiceContainer();
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Done rehydrating cached service container.');
+            $this->_logDebug('Done rehydrating cached service container.');
         }
 
-        $tubePressContainer = new tubepress_internal_ioc_Container($iconicContainer);
+        $tubePressContainer = new tubepress_internal_ioc_Container($symfonyContainer);
 
-        $this->_setEphemeralServicesToContainer($tubePressContainer, $iconicContainer);
+        $this->_setEphemeralServicesToContainer($tubePressContainer, $symfonyContainer);
 
         return $tubePressContainer;
     }
@@ -170,13 +170,13 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
+            $this->_logDebug('We cannot boot from cache. Will perform a full boot instead.');
         }
 
         $this->_buildTemporaryClassLoader();
         $this->_buildUncachedContainerSupplier();
 
-        $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_bootSettings);
+        $result             = $this->_uncachedContainerSupplier->getNewSymfonyContainer();
         $tubePressContainer = new tubepress_internal_ioc_Container($result);
 
         spl_autoload_unregister(array($this->_temporaryClassLoader, 'loadClass'));
@@ -186,12 +186,12 @@ class tubepress_internal_boot_helper_ContainerSupplier
         return $tubePressContainer;
     }
 
-    private function _setEphemeralServicesToContainer(tubepress_api_ioc_ContainerInterface $tubePressContainer,
-                                                      ehough_iconic_ContainerInterface              $iconicContainer)
+    private function _setEphemeralServicesToContainer(tubepress_api_ioc_ContainerInterface                      $tubePressContainer,
+                                                      \Symfony\Component\DependencyInjection\ContainerInterface $symfonyContainer)
     {
         $tubePressContainer->set('tubepress_api_ioc_ContainerInterface',      $tubePressContainer);
-        $tubePressContainer->set('ehough_iconic_ContainerInterface',                   $iconicContainer);
-        $tubePressContainer->set('tubepress_internal_logger_BootLogger',             $this->_logger);
+        $tubePressContainer->set('symfony_service_container',                 $symfonyContainer);
+        $tubePressContainer->set('tubepress_internal_logger_BootLogger',      $this->_logger);
         $tubePressContainer->set(tubepress_api_boot_BootSettingsInterface::_, $this->_bootSettings);
     }
 
@@ -199,14 +199,14 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         $cachePath = $this->_bootSettings->getPathToSystemCacheDirectory();
 
-        return sprintf('%s%sTubePress-%s-ServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR, TUBEPRESS_VERSION);
+        return sprintf('%s%sTubePressServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR);
     }
 
     private function _buildTemporaryClassLoader()
     {
-        if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+        if (!class_exists('Symfony\Component\ClassLoader\MapClassLoader', false)) {
 
-            require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/class-loader/MapClassLoader.php';
         }
 
         /**
@@ -214,7 +214,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
          */
         /** @noinspection PhpIncludeInspection */
         $fullClassMap = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
-        $this->_temporaryClassLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
+        $this->_temporaryClassLoader  = new \Symfony\Component\ClassLoader\MapClassLoader($fullClassMap);
         $this->_temporaryClassLoader->register();
     }
 
@@ -225,7 +225,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
             return;
         }
 
-        $finderFactory = new ehough_finder_FinderFactory();
+        $finderFactory = new tubepress_internal_finder_FinderFactory();
         $urlFactory    = new tubepress_url_impl_puzzle_UrlFactory();
         $langUtils     = new tubepress_util_impl_LangUtils();
         $stringUtils   = new tubepress_util_impl_StringUtils();
@@ -244,6 +244,11 @@ class tubepress_internal_boot_helper_ContainerSupplier
         );
 
         $this->_uncachedContainerSupplier = $uncached;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Container Supplier) %s', $msg));
     }
 
     public function ___setUncachedContainerSupplier(tubepress_internal_boot_helper_uncached_UncachedContainerSupplier $supplier)

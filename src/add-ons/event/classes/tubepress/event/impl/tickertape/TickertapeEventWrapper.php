@@ -13,13 +13,14 @@
  * Providers a wrapper to allow tubepress_api_event_EventInterface instances to be passed off as
  * ehough_tickertape_Event instances.
  */
-class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_api_event_EventInterface
+class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Component\EventDispatcher\Event implements tubepress_api_event_EventInterface
 {
     /**
      * @var tubepress_api_event_EventInterface
      */
     private $_delegate;
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(tubepress_api_event_EventInterface $event = null)
     {
         if (!$event) {
@@ -119,7 +120,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tick
      * @param string $key   Argument name.
      * @param mixed  $value Value.
      *
-     * @return ehough_tickertape_GenericEvent
+     * @return \Symfony\Component\EventDispatcher\Event
      */
     public function setArgument($key, $value)
     {
@@ -131,7 +132,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tick
      *
      * @param array $args Arguments.
      *
-     * @return ehough_tickertape_GenericEvent
+     * @return \Symfony\Component\EventDispatcher\Event
      */
     public function setArguments(array $args = array())
     {

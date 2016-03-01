@@ -117,7 +117,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
         $excludes = array(
 
             '/vendor/doctrine/',
-            '/vendor/symfony/',
             '/vendor/phpunit/',
             '/vendor/ehough/mockery/',
             '/vendor/composer/',
@@ -159,14 +158,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'SimpleXMLElement',
             '/src/php/scripts/boot.php',
             '/ehough/tickertape/debug/',
-            '/ehough/pulsar/Psr4ClassLoader.php',
-            '/ehough/pulsar/Debug',
-            '/ehough/iconic/loader/',
-            '/ehough/iconic/dumper/YamlDumper.php',
-            '/ehough/iconic/dumper/XmlDumper.php',
-            '/ehough/iconic/dumper/GraphvizDumper.php',
-            '/ehough/iconic/ExpressionLanguage.php',
-            '/ehough/iconic/Scope',
             '/Logstash',
             '/Loggly',
             '/Gelf',
@@ -200,7 +191,18 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'Twig/Test',
 
             'JonnyW',
-            '/vendor/jakoch'
+            '/vendor/jakoch',
+            '/vendor/hamcrest',
+            '/vendor/mockery',
+
+            '/vendor/symfony/config',
+            '/vendor/symfony/css-selector',
+            '/vendor/symfony/dom-crawler',
+            '/vendor/symfony/polyfill-mbstring',
+            '/vendor/symfony/process',
+            '/vendor/symfony/yaml',
+
+            '/vendor/tedivm/stash/tests',
         );
 
         return '~' . implode('|', $excludes) . '~';

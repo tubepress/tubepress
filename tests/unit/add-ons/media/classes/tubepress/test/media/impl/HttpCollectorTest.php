@@ -15,27 +15,27 @@
 class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpClient;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFeedHandler;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrl;
 
@@ -71,12 +71,12 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $this->_mockFeedHandler->shouldReceive('getName')->twice()->andReturn('feedhandlername');
         $this->_mockFeedHandler->shouldReceive('buildUrlForItem')->once()->with('item fun')->andReturn($this->_mockUrl);
-        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc');
+        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc', $this->_mockUrl);
         $this->_mockFeedHandler->shouldReceive('getCurrentResultCount')->once()->andReturn(1);
         $this->_mockFeedHandler->shouldReceive('getReasonUnableToUseItemAtIndex')->once()->with(0)->andReturnNull();
         $this->_mockFeedHandler->shouldReceive('getIdForItemAtIndex')->once()->with(0)->andReturn('some cool item');
         $this->_mockFeedHandler->shouldReceive('getNewItemEventArguments')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
+            ->with(Mockery::type('tubepress_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
         $this->_mockFeedHandler->shouldReceive('onAnalysisComplete')->once();
 
         $this->_setupNewHttpItemEvent();
@@ -98,13 +98,13 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $this->_mockFeedHandler->shouldReceive('getName')->times(3)->andReturn('feedhandlername');
         $this->_mockFeedHandler->shouldReceive('buildUrlForPage')->once()->with(33)->andReturn($this->_mockUrl);
-        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc');
+        $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc', $this->_mockUrl);
         $this->_mockFeedHandler->shouldReceive('getTotalResultCount')->once()->andReturn(22);
         $this->_mockFeedHandler->shouldReceive('getCurrentResultCount')->once()->andReturn(1);
         $this->_mockFeedHandler->shouldReceive('getReasonUnableToUseItemAtIndex')->once()->with(0)->andReturnNull();
         $this->_mockFeedHandler->shouldReceive('getIdForItemAtIndex')->once()->with(0)->andReturn('some cool item');
         $this->_mockFeedHandler->shouldReceive('getNewItemEventArguments')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
+            ->with(Mockery::type('tubepress_api_media_MediaItem'), 0)->andReturn(array('event' => 'args'));
         $this->_mockFeedHandler->shouldReceive('onAnalysisComplete')->once();
 
         $this->_setupNewHttpItemEvent();
@@ -120,7 +120,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
         $mockNewItemEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'), array('event' => 'args'))
+            ->with(Mockery::type('tubepress_api_media_MediaItem'), array('event' => 'args'))
             ->andReturn($mockNewItemEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
@@ -135,7 +135,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
         $mockNewPageEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_api_media_MediaPage'), array('pageNumber' => 33))
+            ->with(Mockery::type('tubepress_api_media_MediaPage'), array('pageNumber' => 33))
             ->andReturn($mockNewPageEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
@@ -163,29 +163,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $mockStream->shouldReceive('toString')->once()->andReturn('abc');
 
-        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $this->_mockUrl, ehough_mockery_Mockery::on(function ($opts) {
-
-            if (!is_array($opts)) {
-
-                return false;
-            }
-
-            if (count($opts) !== 1) {
-
-                return false;
-            }
-
-            $stream = $opts['debug'];
-
-            if (!is_resource($stream)) {
-
-                return false;
-            }
-
-            fwrite($stream, 'hello!');
-
-            return true;
-        }))->andReturn($mockHttpRequest);
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $this->_mockUrl)->andReturn($mockHttpRequest);
         $this->_mockHttpClient->shouldReceive('send')->once()->with($mockHttpRequest)->andReturn($mockHttpResponse);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($this->_mockUrl, $eventArgs)->andReturn($mockUrlEvent);

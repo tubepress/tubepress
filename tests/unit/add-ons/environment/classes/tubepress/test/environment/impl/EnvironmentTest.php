@@ -22,12 +22,12 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBootSettings;
 

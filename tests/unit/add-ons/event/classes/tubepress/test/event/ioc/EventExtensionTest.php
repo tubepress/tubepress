@@ -25,25 +25,21 @@ class tubepress_test_event_ioc_EventExtensionTest extends tubepress_api_test_ioc
     protected function prepareForLoad()
     {
         $this->expectRegistration(
-
-            'ehough_tickertape_ContainerAwareEventDispatcher',
-            'ehough_tickertape_ContainerAwareEventDispatcher'
-
-        )->withArgument(new tubepress_api_ioc_Reference('ehough_iconic_ContainerInterface'));
+            'container_aware_event_dispatcher',
+            'Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher'
+        )->withArgument(new tubepress_api_ioc_Reference('symfony_service_container'));
 
         $this->expectRegistration(
-
             tubepress_api_event_EventDispatcherInterface::_,
             'tubepress_event_impl_tickertape_EventDispatcher'
-
-        )->withArgument(new tubepress_api_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
+        )->withArgument(new tubepress_api_ioc_Reference('container_aware_event_dispatcher'));
     }
 
     protected function getExpectedExternalServicesMap()
     {
         return array(
 
-            'ehough_iconic_ContainerInterface' => 'ehough_iconic_ContainerInterface'
+            'symfony_service_container' => 'Symfony\Component\DependencyInjection\ContainerInterface'
         );
     }
 }

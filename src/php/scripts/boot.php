@@ -9,9 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-if (!class_exists('tubePressBootScript', false)) {
+if (!class_exists('tubepress_internal_boot_InitialBootstrapper', false)) {
 
-    require dirname(__FILE__) . '/boot_internal.php';
+    require dirname(__FILE__) . '/../classes/internal/tubepress/internal/boot/InitialBootstrapper.php';
 }
 
-return tubePressBootScript::getServiceContainer();
+return tubepress_internal_boot_InitialBootstrapper::getServiceContainer();

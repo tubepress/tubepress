@@ -17,12 +17,12 @@ class tubepress_wordpress_impl_wp_ActivationHook
     private $_bootSettings;
 
     /**
-     * @var ehough_filesystem_FilesystemInterface
+     * @var \Symfony\Component\Filesystem\Filesystem
      */
     private $_fs;
 
     public function __construct(tubepress_api_boot_BootSettingsInterface $bootSettings,
-                                ehough_filesystem_FilesystemInterface    $fileSystem)
+                                \Symfony\Component\Filesystem\Filesystem $fileSystem)
     {
         $this->_bootSettings = $bootSettings;
         $this->_fs           = $fileSystem;

@@ -20,7 +20,7 @@ class tubepress_internal_boot_helper_FatalErrorHandler
             return;
         }
 
-        if (strpos($_SERVER['REQUEST_URI'], 'tubepress-tried-recovery') !== false) {
+        if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'tubepress-tried-recovery') !== false) {
 
             return;
         }

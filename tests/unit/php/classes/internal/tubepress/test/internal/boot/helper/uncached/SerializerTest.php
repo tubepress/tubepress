@@ -20,7 +20,7 @@ class tubepress_test_internal_boot_helper_uncached_SerializerTest extends tubepr
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBootSettings;
 

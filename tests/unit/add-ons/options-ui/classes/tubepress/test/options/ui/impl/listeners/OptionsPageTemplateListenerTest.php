@@ -15,57 +15,57 @@
 class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockIncomingEvent;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEnvironment;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFieldProviderVimeo;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockMediaProviderVimeo;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockMediaProviderYouTube;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFieldProviderPlayer;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCategoryEmbedded;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCategoryGallerySource;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTranslator;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBaseUrl;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockStringUtils;
 
@@ -206,7 +206,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             'fields' => $this->_fieldsVar,
         ));
 
-        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(ehough_mockery_Mockery::on(array($this, '__verifyFinalTemplateVars')));
+        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(array($this, '__verifyFinalTemplateVars')));
     }
 
     private function _prepMockFieldProviders()

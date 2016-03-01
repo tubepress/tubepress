@@ -20,7 +20,7 @@ class tubepress_test_http_impl_RequestParametersTest extends tubepress_api_test_
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 

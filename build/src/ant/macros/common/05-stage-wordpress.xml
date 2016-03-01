@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="stage-wordpress">
+        <sequential>
+
+            <log msg="Copying user content skeleton into WP add-on for the activation hook" />
+
+            <copy todir="target/stage/tubepress/src/add-ons/wordpress/resources/user-content-skeleton">
+
+                <fileset dir="src/resources/user-content-skeleton" />
+            </copy>
+
+            <log msg="Moving WP-specific files to root directory" />
+
+            <move todir="target/stage/tubepress">
+                <fileset dir="target/stage/tubepress/src/add-ons/wordpress/resources/root-skeleton">
+                    <include name="**" />
+                </fileset>
+            </move>
+        </sequential>
+    </macrodef>
+
+</project>

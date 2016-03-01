@@ -50,7 +50,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Starting to build API cache driver. User candidate is "<code>%s</code>"', $dir));
+            $this->_logDebug(sprintf('Starting to build API cache driver. User candidate is "<code>%s</code>"', $dir));
         }
 
         /**
@@ -60,7 +60,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('"<code>%s</code>" is not a directory. Let\'s try to create it...', $dir));
+                $this->_logDebug(sprintf('"<code>%s</code>" is not a directory. Let\'s try to create it...', $dir));
             }
 
             @mkdir($dir, 0755, true);
@@ -73,7 +73,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('"<code>%s</code>" is a directory but we can\'t write to it. Let\'s try to change that...', $dir));
+                $this->_logDebug(sprintf('"<code>%s</code>" is a directory but we can\'t write to it. Let\'s try to change that...', $dir));
             }
 
             @chmod($dir, 0755);
@@ -86,20 +86,25 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('We don\'t have a directory that we can use for the API cache. Giving up and falling back to system directory.', $dir));
+                $this->_logDebug(sprintf('We don\'t have a directory that we can use for the API cache. Giving up and falling back to system directory.', $dir));
             }
 
             $dir = $this->_bootSettings->getPathToSystemCacheDirectory() . '/api-calls';
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Final API cache directory is "<code>%s</code>"', $dir));
+                $this->_logDebug(sprintf('Final API cache directory is "<code>%s</code>"', $dir));
             }
         }
 
-        $driver = new ehough_stash_driver_FileSystem();
+        $driver = new \Stash\Driver\FileSystem();
         $driver->setOptions(array('path' => $dir));
 
         return $driver;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(API Cache Driver - Filesystem) %s', $msg));
     }
 }

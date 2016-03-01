@@ -42,27 +42,27 @@ class tubepress_internal_boot_helper_uncached_Compiler
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Compiling IOC container.');
+            $this->_logDebug('Compiling service container.');
         }
 
         /**
-         * Load IOC container extensions.
+         * Load container extensions.
          */
         $this->_registerIocContainerExtensions($container, $addons);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done registering add-on IoC container extensions. Now registering add-on IoC compiler passes.');
+            $this->_logDebug('Done registering add-on service container extensions. Now registering compiler passes.');
         }
 
         /*
-         * Load IOC compiler passes.
+         * Load compiler passes.
          */
         $this->_registerIocCompilerPasses($container, $addons);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done registering add-on IoC compiler passes. Now compiling IoC container.');
+            $this->_logDebug('Done registering compiler passes. Now compiling container.');
         }
 
         /**
@@ -72,7 +72,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done compiling IoC container.');
+            $this->_logDebug('Done compiling service container.');
         }
     }
 
@@ -92,7 +92,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not register any IoC container extensions',
+                    $this->_logDebug(sprintf('(Add-on <code>%d</code> of <code>%d</code>: <code>%s</code>) Did not register any container extensions',
                         $index, $count, $addon->getName()));
                 }
 
@@ -105,7 +105,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Will attempt to load %s as an IoC container extension',
+                    $this->_logDebug(sprintf('(Add-on <code>%d</code> of <code>%d</code>: <code>%s</code>) Will attempt to load <code>%s</code> as a container extension',
                         $index, $count, $addon->getName(), $extensionClassName));
                 }
 
@@ -125,28 +125,37 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
     private function _registerIocCompilerPasses(tubepress_internal_ioc_ContainerBuilder $container, array $addons)
     {
-        $index             = 1;
         $count             = count($addons);
         $compilerPassArray = array();
 
         /**
          * @var $addon tubepress_api_contrib_AddonInterface
          */
-        foreach ($addons as $addon) {
+        for ($index = 1; $index <= $count; $index++) {
 
+            $addon          = $addons[($index - 1)];
             $compilerPasses = $addon->getMapOfCompilerPassClassNamesToPriorities();
 
             if (count($compilerPasses) === 0) {
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not register any IoC compiler passes',
+                    $this->_logDebug(sprintf('(Add-on <code>%d</code> of <code>%d</code>: <code>%s</code>) Did not register any compiler passes',
                         $index, $count, $addon->getName()));
                 }
 
-                $index++;
-
                 continue;
+            }
+
+            if ($this->_shouldLog) {
+
+                $this->_logDebug(sprintf('(Add-on <code>%d</code> of <code>%d</code>: <code>%s</code>) <code>%d</code> compiler pass(es) registered:',
+                    $index, $count, $addon->getName(), count($compilerPasses)));
+
+                foreach ($compilerPasses as $class => $priority) {
+
+                    $this->_logDebug(sprintf('&nbsp;&nbsp;&nbsp;<code>%s</code> at priority <code>%s</code>', $class, $priority));
+                }
             }
 
             $compilerPassArray = array_merge($compilerPassArray, $compilerPasses);
@@ -154,13 +163,17 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
         arsort($compilerPassArray, SORT_NUMERIC);
 
-        foreach (array_keys($compilerPassArray) as $compilerPass) {
+        if ($this->_shouldLog) {
 
-            if ($this->_shouldLog) {
+            $this->_logDebug('Final compiler pass order:');
 
-                $this->_logger->debug(sprintf('Will attempt to load %s as an IoC compiler pass',
-                    $compilerPass));
+            foreach ($compilerPassArray as $class => $priority) {
+
+                $this->_logDebug(sprintf('&nbsp;&nbsp;&nbsp;<code>%s</code> at priority <code>%s</code>', $class, $priority));
             }
+        }
+
+        foreach (array_keys($compilerPassArray) as $compilerPass) {
 
             try {
 
@@ -171,7 +184,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Successfully loaded %s as an IoC compiler pass',
+                    $this->_logDebug(sprintf('Successfully loaded <code>%s</code> as a compiler pass',
                         $compilerPass));
                 }
 
@@ -179,7 +192,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->error(sprintf('Failed to load %s as an IoC compiler pass: %s',
+                    $this->_logger->error(sprintf('Failed to load <code>%s</code> as a compiler pass: <code>%s</code>',
                         $compilerPass, $e->getMessage()));
                 }
             }
@@ -204,14 +217,14 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Successfully loaded %s as an IoC container extension', $index, $count, $addon->getName(), $extensionClassName));
+                $this->_logDebug(sprintf('(Add-on <code>%d</code> of <code>%d</code>: <code>%s</code>) Successfully loaded <code>%s</code> as a container extension', $index, $count, $addon->getName(), $extensionClassName));
             }
 
         } catch (Exception $e) {
 
             if ($this->_shouldLog) {
 
-                $this->_logger->error(sprintf('(Add-on %d of %d: %s) Failed to load %s as an IoC container extension: %s', $index, $count, $addon->getName(), $extensionClassName, $e->getMessage()));
+                $this->_logger->error(sprintf('(Add-on <code>%d</code> of <code>%d</code>: <code>%s</code>) Failed to load <code>%s</code> as a container extension: <code>%s</code>', $index, $count, $addon->getName(), $extensionClassName, $e->getMessage()));
             }
         }
     }
@@ -226,7 +239,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('%s is a legacy extension? %s', $extensionClassName, $isLegacy ? 'yes' : 'no'));
+                $this->_logDebug(sprintf('<code>%s</code> is a legacy extension? <code>%s</code>', $extensionClassName, $isLegacy ? 'yes' : 'no'));
             }
 
             return $isLegacy;
@@ -235,7 +248,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
             if ($this->_shouldLog) {
 
-                $this->_logger->error(sprintf('Failed to inspect %s: %s', $extensionClassName, $e->getMessage()));
+                $this->_logger->error(sprintf('Failed to inspect <code>%s</code>: <code>%s</code>', $extensionClassName, $e->getMessage()));
             }
 
             return false;
@@ -247,7 +260,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Converting %s', $extensionClassName));
+            $this->_logDebug(sprintf('Converting <code>%s</code>', $extensionClassName));
         }
 
         try {
@@ -259,7 +272,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->error(sprintf('Failed to read %s for %s', $path, $extensionClassName));
+                    $this->_logger->error(sprintf('Failed to read <code>%s</code> for <code>%s</code>', $path, $extensionClassName));
                 }
 
                 return;
@@ -305,7 +318,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Successfully read %s for %s. Now converting.', $path, $extensionClassName));
+                $this->_logDebug(sprintf('Successfully read <code>%s</code> for <code>%s</code>. Now converting.', $path, $extensionClassName));
             }
 
             $fileContents = str_replace('<?php', '', $fileContents);
@@ -318,7 +331,7 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Successfully loaded converted class? %s', $evalResult === null ? 'yes' : 'no'));
+                $this->_logDebug(sprintf('Successfully loaded converted class? <code>%s</code>', $evalResult === null ? 'yes' : 'no'));
             }
 
             $this->_registerModernExtension($container, $extensionClassName . '__converted', $index, $count, $addon);
@@ -327,10 +340,15 @@ class tubepress_internal_boot_helper_uncached_Compiler
 
             if ($this->_shouldLog) {
 
-                $this->_logger->error(sprintf('Failed to convert %s: %s', $extensionClassName, $e->getMessage()));
+                $this->_logger->error(sprintf('Failed to convert <code>%s</code>: <code>%s</code>', $extensionClassName, $e->getMessage()));
             }
 
             return false;
         }
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Compiler) %s', $msg));
     }
 }

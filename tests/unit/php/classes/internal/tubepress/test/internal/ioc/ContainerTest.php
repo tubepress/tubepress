@@ -20,13 +20,13 @@ class tubepress_test_internal_ioc_ContainerTest extends tubepress_api_test_TubeP
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainer;
 
     public function onSetup()
     {
-        $this->_mockContainer = $this->mock('ehough_iconic_ContainerInterface');
+        $this->_mockContainer = $this->mock('Symfony\Component\DependencyInjection\ContainerInterface');
         $this->_sut           = new tubepress_internal_ioc_Container($this->_mockContainer);
     }
 
@@ -69,7 +69,7 @@ class tubepress_test_internal_ioc_ContainerTest extends tubepress_api_test_TubeP
     public function testGet()
     {
         $bla = new stdClass();
-        $this->_mockContainer->shouldReceive('get')->once()->with('foo', ehough_iconic_ContainerInterface::NULL_ON_INVALID_REFERENCE)->andReturn($bla);
+        $this->_mockContainer->shouldReceive('get')->once()->with('foo', \Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE)->andReturn($bla);
         $result = $this->_sut->get('foo');
         $this->assertSame($bla, $result);
     }
