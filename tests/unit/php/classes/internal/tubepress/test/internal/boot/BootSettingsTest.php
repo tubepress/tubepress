@@ -244,7 +244,7 @@ EOF
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
         $path = $this->_userContentDirectory . 'foo';
-        mkdir($path, 0755, false);
+        mkdir($path . '/tubepress-99.99.99', 0755, true);
 
         if (!is_dir($path) || !is_writable($path)) {
 
@@ -267,7 +267,7 @@ EOF
 
         $actual = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertEquals($path, $actual);
+        $this->assertEquals($path . '/tubepress-99.99.99', $actual);
     }
 
     public function testGetPathToSystemCacheDirectoryNonExisting()
@@ -291,7 +291,7 @@ EOF
 
         $actual = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertEquals($path, $actual);
+        $this->assertEquals($path . '/tubepress-99.99.99', $actual);
     }
 
     public function testContainerStoragePathNonWritableDirectory()

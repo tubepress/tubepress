@@ -151,23 +151,44 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
     private function _setupClassLoader(array $addons)
     {
-        $addonClassMap = $this->_getClassMapFromAddons($addons);
-        $fullClassMap  = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
-        $finalClassMap = array_merge($fullClassMap, $addonClassMap);
-
+        $addonClassMap         = $this->_getClassMapFromAddons($addons);
+        $fullClassMap          = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
+        $finalClassMap         = array_merge($fullClassMap, $addonClassMap);
         $this->_mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($finalClassMap);
+        $systemCachePath       = $this->_bootSettings->getPathToSystemCacheDirectory();
+        $dumpPath              = $systemCachePath . DIRECTORY_SEPARATOR . 'classmap.php';
+        $exportedClassMap      = var_export($finalClassMap, true);
+        $toDump                = sprintf('<?php return %s;', $exportedClassMap);
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(
+                sprintf('Our final classmap has <code>%d</code> classes in it. We\'ll try to dump it to <code>%s</code>.',
+                count($finalClassMap),
+                $dumpPath
+            ));
+        }
+
         $this->_mapClassLoader->register();
 
-        $existingArtifacts = $this->_containerBuilder->getParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        $result = @file_put_contents($dumpPath, $toDump);
 
-        $artifacts = array_merge($existingArtifacts, array(
-            'classloading' => array(
-                'map' => $finalClassMap
-            )
-        ));
+        if ($this->_shouldLog) {
 
-        $this->_containerBuilder->setParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
-            $artifacts);
+            if ($result !== false) {
+
+                $msg = sprintf('Successfully wrote <code>%d</code> bytes to <code>%s</code>',
+                    $result,
+                    $dumpPath
+                );
+
+            } else {
+
+                $msg = sprintf('Unable to write to <code>%s</code>', $dumpPath);
+            }
+
+            $this->_logDebug($msg);
+        }
     }
 
     /**
@@ -188,7 +209,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
             $cachePath = $this->_bootSettings->getPathToSystemCacheDirectory();
 
-            $storagePath = sprintf('%s%sTubePress-%s-ServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR, TUBEPRESS_VERSION);
+            $storagePath = sprintf('%s%sTubePressServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR);
 
         } else {
 

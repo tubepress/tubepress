@@ -139,6 +139,30 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _01_loadMinimalClasses()
     {
+        $miniMap = array(
+            '\Symfony\Component\DependencyInjection\ContainerInterface' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/ContainerInterface.php',
+            '\Symfony\Component\DependencyInjection\IntrospectableContainerInterface' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/IntrospectableContainerInterface.php',
+            '\Symfony\Component\DependencyInjection\ResettableContainerInterface' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/ResettableContainerInterface.php',
+            '\Symfony\Component\DependencyInjection\Container' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/Container.php',
+        );
+
+        foreach ($miniMap as $classname => $absPath) {
+
+            $isInterface      = strpos($absPath, 'Interface.php') !== false;
+            $includeInterface = $isInterface && !interface_exists($classname, false);
+            $includeClass     = !$isInterface && !class_exists($classname, false);
+
+            if ($includeInterface || $includeClass) {
+
+                /** @noinspection PhpIncludeInspection */
+                require $absPath;
+            }
+        }
+
         $classConcatenationPath = TUBEPRESS_ROOT . '/src/php/scripts/classloading/classes.php';
 
         /**
@@ -213,36 +237,51 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _06_registerClassLoaderIfRequested()
     {
-        $container = self::$_SERVICE_CONTAINER;
-
         if (!$this->_bootSettings->isClassLoaderEnabled()) {
 
             return;
         }
 
-        if ($container->hasParameter(self::CONTAINER_PARAM_BOOT_ARTIFACTS)) {
+        $expectedPath = $this->_bootSettings->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . 'classmap.php';
+        $debugEnabled = $this->_bootLogger->isEnabled();
 
-            $bootArtifacts = $container->getParameter(self::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        if ($debugEnabled) {
 
-            if (!is_array($bootArtifacts) || !isset($bootArtifacts['classloading']) || !is_array($bootArtifacts['classloading'])) {
+            $this->_logDebug(sprintf('Attempting to include classmap from <code>%s</code>', $expectedPath));
+        }
 
-                return;
+        if (!is_readable($expectedPath)) {
+
+            if ($debugEnabled) {
+
+                $this->_logDebug(sprintf('<code>%s</code> is not readable. That\'s not great.', $expectedPath));
             }
 
-            $classLoadingArtifacts = $bootArtifacts['classloading'];
+            return;
+        }
 
-            if (isset($classLoadingArtifacts['map'])
-                && is_array($classLoadingArtifacts['map'])) {
+        if ($debugEnabled) {
 
-                if (!class_exists('Symfony\Component\ClassLoader\MapClassLoader', false)) {
+            $this->_logDebug(sprintf('<code>%s</code> is readable.', $expectedPath));
+        }
 
-                    require TUBEPRESS_ROOT . '/vendor/symfony/class-loader/MapClassLoader.php';
-                }
+        if (!class_exists('Symfony\Component\ClassLoader\MapClassLoader', false)) {
 
-                $mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($classLoadingArtifacts['map']);
+            require TUBEPRESS_ROOT . '/vendor/symfony/class-loader/MapClassLoader.php';
+        }
 
-                $mapClassLoader->register();
-            }
+        $classMap       = require $expectedPath;
+        $mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($classMap);
+
+        $mapClassLoader->register();
+
+        if ($debugEnabled) {
+
+            $this->_logDebug(sprintf('Successfully loaded a map of <code>%d</code> classes from <code>%s</code>.',
+
+                count($classMap),
+                $expectedPath
+            ));
         }
     }
 
@@ -255,8 +294,12 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
         $now = microtime(true);
 
-        $this->_logDebug(sprintf('Boot completed in <code>%f</code> milliseconds',
-            (($now - $this->_startTime) * 1000.0)));
+        $this->_logDebug(
+            sprintf(
+                'Boot completed in <code>%f</code> milliseconds. Actual performance will be better when debugging is not active.',
+                ($now - $this->_startTime) * 1000.0
+            )
+        );
 
         /**
          * @var $realLogger tubepress_api_log_LoggerInterface
@@ -317,6 +360,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
         }
 
         $filesystem->remove($dir);
+        $filesystem->mkdir($dir, 0755);
     }
 
     private function _logDebug($msg)

@@ -84,7 +84,7 @@ class tubepress_internal_boot_InitialBootstrapper
     {
         /**
          * We could call realpath() here but it's too darn expensive. So instead we peel off
-         * the last three dirs.
+         * the last few dirs.
          */
         $thisPath = __FILE__;
 

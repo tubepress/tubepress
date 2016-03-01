@@ -176,7 +176,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
         $this->_buildTemporaryClassLoader();
         $this->_buildUncachedContainerSupplier();
 
-        $result             = $this->_uncachedContainerSupplier->getNewSymfonyContainer($this->_bootSettings);
+        $result             = $this->_uncachedContainerSupplier->getNewSymfonyContainer();
         $tubePressContainer = new tubepress_internal_ioc_Container($result);
 
         spl_autoload_unregister(array($this->_temporaryClassLoader, 'loadClass'));
@@ -199,7 +199,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
     {
         $cachePath = $this->_bootSettings->getPathToSystemCacheDirectory();
 
-        return sprintf('%s%sTubePress-%s-ServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR, TUBEPRESS_VERSION);
+        return sprintf('%s%sTubePressServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR);
     }
 
     private function _buildTemporaryClassLoader()

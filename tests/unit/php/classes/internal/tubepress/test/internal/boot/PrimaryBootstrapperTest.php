@@ -61,8 +61,13 @@ class tubepress_test_internal_boot_PrimaryBootstrapperTest extends tubepress_api
 
     public function testBoot()
     {
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+
         $fakeCacheDir = sys_get_temp_dir() . '/foo/bar/hello';
-        $result       = mkdir($fakeCacheDir, 0755, true);
+
+        $fs->remove($fakeCacheDir);
+
+        $result = mkdir($fakeCacheDir, 0755, true);
 
         $this->assertTrue($result);
 
@@ -76,22 +81,17 @@ class tubepress_test_internal_boot_PrimaryBootstrapperTest extends tubepress_api
         $mockLogger->shouldReceive('onBootComplete')->once();
 
         $this->_mockServiceContainer->shouldReceive('get')->once()->with(tubepress_api_log_LoggerInterface::_)->andReturn($mockLogger);
-        $this->_mockServiceContainer->shouldReceive('hasParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(true);
-        $this->_mockServiceContainer->shouldReceive('getParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array(
-            'a' => 'b',
-            'classloading' => array('map' => array('hi' => 'there')),
-        ));
 
         $this->_bootSettings->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
         $this->_bootSettings->shouldReceive('shouldClearCache')->once()->andReturn(true);
-        $this->_bootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($fakeCacheDir);
+        $this->_bootSettings->shouldReceive('getPathToSystemCacheDirectory')->twice()->andReturn($fakeCacheDir);
 
         $this->_mockBootLogger->shouldReceive('flushTo')->once()->with($mockLogger);
         $this->_mockBootLogger->shouldReceive('onBootComplete')->once();
 
         $result = $this->_sut->getServiceContainer();
 
-        $this->assertFalse(is_dir($fakeCacheDir));
+        $this->assertTrue(is_dir($fakeCacheDir));
 
         $this->assertSame($this->_mockServiceContainer, $result);
 

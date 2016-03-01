@@ -92,8 +92,8 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
     {
         $this->_setupMocks(3);
 
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of <code>/abcdef/TubePress-99.99.99-ServiceContainer.php</code>');
-        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('/abcdef');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of <code>/abcdef/TubePressServiceContainer.php</code>');
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->atLeast(1)->andReturn('/abcdef');
 
         $result = $this->_sut->getNewSymfonyContainer();
 
@@ -106,11 +106,11 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
 
         $mockSystemDir = sys_get_temp_dir();
 
-        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($mockSystemDir);
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->atLeast(1)->andReturn($mockSystemDir);
 
         $result = $this->_sut->getNewSymfonyContainer();
 
-        $this->assertFileExists($mockSystemDir . '/TubePress-99.99.99-ServiceContainer.php');
+        $this->assertFileExists($mockSystemDir . '/TubePressServiceContainer.php');
 
         $this->assertInstanceOf('\Symfony\Component\DependencyInjection\ContainerInterface', $result);
     }
@@ -157,16 +157,6 @@ class tubepress_test_internal_boot_helper_uncached_UncachedContainerSupplierTest
             tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
             array('add-ons' => 'hiya')
         );
-        $this->_mockContainerBuilder->shouldReceive('getParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array('ww' => 'xx'));
-        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, Mockery::on(function ($arr) {
-
-            $ok = is_array($arr);
-
-            $ok = $ok && $arr['ww'] === 'xx';
-            $ok = $ok && is_array($arr['classloading']['map']);
-
-            return $ok;
-        }));
     }
 
     public function __callbackSerialize(array $addons, tubepress_api_boot_BootSettingsInterface $bootSettings)

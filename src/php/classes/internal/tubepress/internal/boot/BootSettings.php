@@ -384,6 +384,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
         }
 
         $path = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_DIR];
+        $path = $this->_addVersionToPath($path);
 
         if ($path === $this->_createDirectoryIfNecessary($path)) {
 
@@ -532,14 +533,15 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
     {
         if (function_exists('sys_get_temp_dir')) {
 
-            $tmp = rtrim(sys_get_temp_dir(), '/\\') . '/';
+            $tmp = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR;
 
         } else {
 
             $tmp = '/tmp/';
         }
 
-        $baseDir = $tmp . 'tubepress-system-cache-' . md5(dirname(__FILE__)) . '/';
+        $baseDir = $tmp . 'tubepress-system-cache-' . md5(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
+        $baseDir = $this->_addVersionToPath($baseDir);
 
         if ($baseDir === $this->_createDirectoryIfNecessary($baseDir)) {
 
@@ -559,6 +561,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
          */
         $userContentDirectory = $this->getUserContentDirectory();
         $cacheDirectory       = $userContentDirectory . DIRECTORY_SEPARATOR . 'system-cache';
+        $cacheDirectory       = $this->_addVersionToPath($cacheDirectory);
 
         if ($this->_shouldLog) {
 
@@ -626,5 +629,13 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
         }
 
         return $path;
+    }
+
+    private function _addVersionToPath($path)
+    {
+        return rtrim($path, DIRECTORY_SEPARATOR) .
+            DIRECTORY_SEPARATOR .
+            'tubepress-' .
+            TUBEPRESS_VERSION;
     }
 }
