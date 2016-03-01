@@ -39,7 +39,6 @@ phpunit.xml.dist
 /vendor/symfony/dependency-injection/Dumper/GraphvizDumper.php
 /vendor/symfony/dependency-injection/Dumper/XmlDumper.php
 /vendor/symfony/dependency-injection/Dumper/YamlDumper.php
-/vendor/symfony/dependency-injection/LazyProxy
 /vendor/symfony/dependency-injection/Loader/ClosureLoader.php
 /vendor/symfony/dependency-injection/Loader/IniFileLoader.php
 /vendor/symfony/dependency-injection/Loader/XmlFileLoader.php
