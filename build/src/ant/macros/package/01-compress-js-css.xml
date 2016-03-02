@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="compress-css">
+        <sequential>
+            <__npm-install />
+            <__save-dev-copies list-of-files="config/css-to-compress.txt" extension=".css" />
+            <apply executable="../../../src/npm/node_modules/.bin/uglifycss" parallel="false" dir="target/stage/tubepress" relative="true"
+                   failonerror="true">
+                <fileset dir="target/stage/tubepress/" includesfile="config/css-to-compress.txt"/>
+                <redirector>
+                    <outputmapper>
+                        <mapper type="glob" from="*" to="target/stage/tubepress/*"/>
+                    </outputmapper>
+                </redirector>
+            </apply>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="compress-js">
+        <sequential>
+            <__npm-install />
+            <__save-dev-copies list-of-files="config/js-to-compress.txt" extension=".js" />
+            <apply executable="../../../src/npm/node_modules/.bin/uglifyjs" parallel="false" dir="target/stage/tubepress" relative="true"
+                   failonerror="true">
+                <fileset dir="target/stage/tubepress/" includesfile="config/js-to-compress.txt"/>
+                <srcfile />
+                <arg value="--mangle" />
+                <arg value="--compress" />
+                <arg value="sequences,unsafe,conditionals,comparisons,booleans,loops,if_return,join_vars,cascade" />
+                <redirector>
+                    <outputmapper>
+                        <mapper type="glob" from="*" to="target/stage/tubepress/*"/>
+                    </outputmapper>
+                </redirector>
+            </apply>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="__npm-install">
+        <sequential>
+            <log msg="Installing npm modules" />
+            <exec executable="npm" failonerror="true" dir="src/npm">
+                <arg value="install" />
+                <arg value="--silent" />
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="__save-dev-copies">
+        <attribute name="list-of-files" />
+        <attribute name="extension" />
+        <sequential>
+            <log msg="Saving dev copies of files in @{list-of-files}" />
+            <copy todir="target/stage/tubepress">
+                <fileset dir="target/stage/tubepress/" includesfile="@{list-of-files}"/>
+                <mapper type="glob" from="*@{extension}" to="*-dev@{extension}" />
+            </copy>
+        </sequential>
+    </macrodef>
+
+</project>

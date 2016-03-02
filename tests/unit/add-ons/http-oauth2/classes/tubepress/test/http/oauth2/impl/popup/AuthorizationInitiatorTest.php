@@ -20,67 +20,67 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockNonceManager;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockRequestParams;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockOauth2Environment;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTemplating;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockProvider1;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockProvider2;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockAuthorizationUrl;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockAuthorizationQuery;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockRedirectionUrl;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPersistenceHelper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockAccessTokenFetcher;
 
@@ -330,7 +330,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
         $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('client_id', 'provider-2-clientId')->andReturn($this->_mockAuthorizationQuery);
         $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('response_type', 'code')->andReturn($this->_mockAuthorizationQuery);
-        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('state', ehough_mockery_Mockery::type('string'))->andReturn($this->_mockAuthorizationQuery);
+        $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('state', Mockery::type('string'))->andReturn($this->_mockAuthorizationQuery);
         $this->_mockAuthorizationQuery->shouldReceive('set')->once()->with('redirect_uri', 'redirect-uri')->andReturn($this->_mockAuthorizationQuery);
 
         $this->_mockProvider2->shouldReceive('onAuthorizationUrl')->once()->with($this->_mockAuthorizationUrl, 'provider-2-clientId', 'provider-2-secret');

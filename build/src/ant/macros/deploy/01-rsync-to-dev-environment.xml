@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="rsync-to-dev-environment">
+        <sequential>
+
+            <fail message="Property &quot;target&quot; needs to be set to a directory">
+                <condition>
+                    <or>
+                        <equals arg1="${target}" arg2=""/>
+                        <not>
+                            <isset property="target"/>
+                        </not>
+                    </or>
+                </condition>
+            </fail>
+
+            <log msg="Syncing TubePress build to ${target}" />
+
+            <exec executable="rsync" failonerror="true">
+                <arg value="-ah" />
+                <arg value="--delete" />
+                <arg value="target/stage/tubepress/" />
+                <arg value="${target}" />
+            </exec>
+
+        </sequential>
+    </macrodef>
+
+</project>

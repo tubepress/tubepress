@@ -76,12 +76,17 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Executing HTTP <code>%s</code> to <code>%s</code>', $request->getMethod(), $request->getUrl()));
-                $this->_logger->debug('Request headers follow:');
+                $this->_logDebug(sprintf('About to perform actual %s', $this->_stringifyRequest($request)));
+                $this->_logDebug('Request headers follow:');
                 $this->_logHeaders($request);
             }
 
             $response = $this->doSend($request);
+
+            if ($this->_shouldLog) {
+
+                $this->_logDebug(sprintf('%s has completed.', $this->_stringifyRequest($request)));
+            }
         }
 
         return $this->_dispatchResponseEvent($request, $response);
@@ -113,14 +118,22 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
             'request' => $request
         ));
 
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(sprintf('Dispatching <code>%s</code> event for %s',
+                tubepress_api_http_Events::EVENT_HTTP_RESPONSE,
+                $this->_stringifyRequest($request)
+            ));
+        }
+
         $this->_eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_RESPONSE, $event);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Response headers from <code>%s</code> to <code>%s</code> follow:', $request->getMethod(), $request->getUrl()));
+            $this->_logDebug(sprintf('Response headers from %s follow:', $this->_stringifyRequest($request)));
             $this->_logHeaders($response);
-            $this->_logger->debug(sprintf('Raw result for <code>%s</code> is in the HTML source for this page. <span style="display:none">%s</span>',
-                $request->getUrl(), htmlspecialchars($response->getBody()->toString())));
+            $this->_logDebug(sprintf('Raw result for %s is in the HTML source for this page. <span style="display:none">%s</span>',
+                $this->_stringifyRequest($request), htmlspecialchars($response->getBody()->toString())));
         }
 
         return $event->getSubject();
@@ -137,9 +150,23 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
             'response' => null
         ));
 
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(sprintf('Dispatching <code>%s</code> event for %s',
+                tubepress_api_http_Events::EVENT_HTTP_REQUEST,
+                $this->_stringifyRequest($request)
+            ));
+        }
+
         $this->_eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_REQUEST, $event);
 
         if (!$event->hasArgument('response') || $event->getArgument('response') === null) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logDebug(sprintf('No listeners created a response for %s. A network request will be made instead.',
+                    $this->_stringifyRequest($request)));
+            }
 
             return null;
         }
@@ -151,7 +178,19 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
 
         if (!($response instanceof tubepress_api_http_message_ResponseInterface)) {
 
+            if ($this->_shouldLog) {
+
+                $this->_logDebug(sprintf('A listener created a non-response for %s. A network request will be made instead.',
+                    $this->_stringifyRequest($request)));
+            }
+
             return null;
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(sprintf('A listener created a response for %s. No network request will be made.',
+                $this->_stringifyRequest($request)));
         }
 
         return $response;
@@ -173,7 +212,17 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
                 $value = '-- not shown during logging --';
             }
 
-            $this->_logger->debug(sprintf('<code>%s: %s</code>', $name, $value));
+            $this->_logger->debug(sprintf('&nbsp;&nbsp;&nbsp;<code>%s: %s</code>', $name, $value));
         }
+    }
+
+    private function _stringifyRequest(tubepress_api_http_message_RequestInterface $request)
+    {
+        return sprintf('<code>%s</code> to <code>%s</code>', $request->getMethod(), $request->getUrl());
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(HTTP Client) %s', $msg));
     }
 }

@@ -72,7 +72,7 @@ class tubepress_search_impl_listeners_SearchListener
 
             if ($shouldLog) {
 
-                $this->_logger->debug('Not configured for search results');
+                $this->_logDebug('Not configured for search results');
             }
 
             return;
@@ -90,7 +90,7 @@ class tubepress_search_impl_listeners_SearchListener
 
             if ($shouldLog) {
 
-                $this->_logger->debug('The user isn\'t searching.');
+                $this->_logDebug('The user isn\'t searching.');
             }
 
             return;
@@ -137,7 +137,7 @@ class tubepress_search_impl_listeners_SearchListener
 
             if ($shouldLog) {
 
-                $this->_logger->debug('User doesn\'t appear to be searching. Will not display anything.');
+                $this->_logDebug('User doesn\'t appear to be searching. Will not display anything.');
             }
 
             $event->setSubject('');
@@ -147,7 +147,7 @@ class tubepress_search_impl_listeners_SearchListener
 
         if ($shouldLog) {
 
-            $this->_logger->debug('User is searching. We\'ll handle this.');
+            $this->_logDebug('User is searching. We\'ll handle this.');
         }
 
         $provider  = $this->_findMediaProvider();
@@ -171,5 +171,10 @@ class tubepress_search_impl_listeners_SearchListener
         }
 
         return null;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Search Listener) %s', $msg));
     }
 }

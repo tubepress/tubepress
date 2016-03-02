@@ -20,12 +20,12 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubeP
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpRequestParams;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
@@ -53,7 +53,7 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubeP
     public function testError()
     {
         $this->_sut->onBootComplete();
-        $this->expectOutputRegex('~<span style="color: red">\[[0-9]{2}:[0-9]{2}\.[0-9]+ - ERROR\] some message {"foo":"bar"}</span><br />~');
+        $this->expectOutputRegex('~<span style="color: red">\[[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+ - ERROR\] some message {"foo":"bar"}</span><br />~');
         $this->_sut->error('some message', array('foo' => 'bar'));
         $this->assertTrue(true);
     }
@@ -61,7 +61,7 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubeP
     public function testDebug()
     {
         $this->_sut->onBootComplete();
-        $this->expectOutputRegex('~<span style="color: inherit">\[[0-9]{2}:[0-9]{2}\.[0-9]+ - INFO\] some message {"foo":"bar"}</span><br />~');
+        $this->expectOutputRegex('~<span style="color: inherit">\[[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+ - INFO\] some message {"foo":"bar"}</span><br />~');
         $this->_sut->debug('some message', array('foo' => 'bar'));
         $this->assertTrue(true);
     }
@@ -69,7 +69,7 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubeP
     public function testWrite()
     {
         $this->_sut->onBootComplete();
-        $this->expectOutputRegex('~<span style="color: red">\[[0-9]{2}:[0-9]{2}\.[0-9]+ - ERROR\] some message</span><br />~');
+        $this->expectOutputRegex('~<span style="color: red">\[[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+ - ERROR\] some message</span><br />~');
         $this->_sut->___write('some message', array(), true);
     }
 }

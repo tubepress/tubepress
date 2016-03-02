@@ -29,13 +29,13 @@ class tubepress_event_ioc_EventExtension implements tubepress_spi_ioc_ContainerE
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'ehough_tickertape_ContainerAwareEventDispatcher',
-            'ehough_tickertape_ContainerAwareEventDispatcher'
-        )->addArgument(new tubepress_api_ioc_Reference('ehough_iconic_ContainerInterface'));
+            'container_aware_event_dispatcher',
+            'Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher'
+        )->addArgument(new tubepress_api_ioc_Reference('symfony_service_container'));
 
         $containerBuilder->register(
             tubepress_api_event_EventDispatcherInterface::_,
             'tubepress_event_impl_tickertape_EventDispatcher'
-        )->addArgument(new tubepress_api_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
+        )->addArgument(new tubepress_api_ioc_Reference('container_aware_event_dispatcher'));
     }
 }

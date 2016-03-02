@@ -15,22 +15,12 @@
 class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockReference;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockTranslator;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockStringUtils;
 
@@ -58,7 +48,7 @@ class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepres
         $event = $this->_getMockEvent('value', array('foo', 'bar'));
 
         $this->_mockStringUtils->shouldReceive('redactSecrets')->once()->with('value')->andReturn('hi');
-        $this->_mockLogger->shouldReceive('error')->once()->with('Rejecting invalid value: \'name\' = \'hi\' (foo)');
+        $this->_mockLogger->shouldReceive('error')->once()->with('(Option Logger) Rejecting invalid value: <code>name</code> = <code>hi</code> (foo)');
 
         $this->_sut->onOptionSet($event);
         $this->assertTrue(true);
@@ -69,14 +59,14 @@ class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepres
         $event = $this->_getMockEvent('value', array());
 
         $this->_mockStringUtils->shouldReceive('redactSecrets')->once()->with('value')->andReturn('hi');
-        $this->_mockLogger->shouldReceive('debug')->once()->with('Accepted valid value: \'name\' = \'hi\'');
+        $this->_mockLogger->shouldReceive('debug')->once()->with('(Option Logger) Accepted valid value: <code>name</code> = <code>hi</code>');
 
         $this->_sut->onOptionSet($event);
         $this->assertTrue(true);
     }
 
     /**
-     * @return ehough_mockery_mockery_MockInterface
+     * @return Mockery\MockInterface
      */
     private function _getMockEvent($value, $subject)
     {

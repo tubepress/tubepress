@@ -12,7 +12,7 @@
 abstract class tubepress_test_http_impl_puzzle_streams_AbstractStreamTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockDelegate;
 

@@ -139,6 +139,30 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _01_loadMinimalClasses()
     {
+        $miniMap = array(
+            '\Symfony\Component\DependencyInjection\ContainerInterface' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/ContainerInterface.php',
+            '\Symfony\Component\DependencyInjection\IntrospectableContainerInterface' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/IntrospectableContainerInterface.php',
+            '\Symfony\Component\DependencyInjection\ResettableContainerInterface' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/ResettableContainerInterface.php',
+            '\Symfony\Component\DependencyInjection\Container' =>
+                TUBEPRESS_ROOT . '/vendor/symfony/dependency-injection/Container.php',
+        );
+
+        foreach ($miniMap as $classname => $absPath) {
+
+            $isInterface      = strpos($absPath, 'Interface.php') !== false;
+            $includeInterface = $isInterface && !interface_exists($classname, false);
+            $includeClass     = !$isInterface && !class_exists($classname, false);
+
+            if ($includeInterface || $includeClass) {
+
+                /** @noinspection PhpIncludeInspection */
+                require $absPath;
+            }
+        }
+
         $classConcatenationPath = TUBEPRESS_ROOT . '/src/php/scripts/classloading/classes.php';
 
         /**
@@ -157,6 +181,11 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
             $loggingRequested  = isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0;
             $this->_bootLogger = new tubepress_internal_logger_BootLogger($loggingRequested);
+
+            if ($loggingRequested) {
+
+                $this->_logDebug(sprintf('Hello! Thanks for using TubePress version <code>%s</code>', TUBEPRESS_VERSION));
+            }
         }
     }
 
@@ -179,7 +208,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
             ob_end_clean();
             $phpInfo = base64_encode($phpInfo);
 
-            $this->_bootLogger->debug(sprintf('<span style="display: none" class="php-debug">%s</span>', $phpInfo));
+            $this->_logDebug(sprintf('Check the HTML source for additional debug info. <span style="display: none" class="php-debug">%s</span>', $phpInfo));
         }
     }
     
@@ -192,11 +221,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
         if (!isset($this->_containerSupplier)) {
 
-            $this->_containerSupplier = new tubepress_internal_boot_helper_ContainerSupplier(
-                
-                $this->_bootLogger,
-                $this->_bootSettings
-            );
+            $this->_containerSupplier = new tubepress_internal_boot_helper_ContainerSupplier($this->_bootLogger, $this->_bootSettings);
         }
     }
 
@@ -212,36 +237,51 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _06_registerClassLoaderIfRequested()
     {
-        $container = self::$_SERVICE_CONTAINER;
-
         if (!$this->_bootSettings->isClassLoaderEnabled()) {
 
             return;
         }
 
-        if ($container->hasParameter(self::CONTAINER_PARAM_BOOT_ARTIFACTS)) {
+        $expectedPath = $this->_bootSettings->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . 'classmap.php';
+        $debugEnabled = $this->_bootLogger->isEnabled();
 
-            $bootArtifacts = $container->getParameter(self::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        if ($debugEnabled) {
 
-            if (!is_array($bootArtifacts) || !isset($bootArtifacts['classloading']) || !is_array($bootArtifacts['classloading'])) {
+            $this->_logDebug(sprintf('Attempting to include classmap from <code>%s</code>', $expectedPath));
+        }
 
-                return;
+        if (!is_readable($expectedPath)) {
+
+            if ($debugEnabled) {
+
+                $this->_logDebug(sprintf('<code>%s</code> is not readable. That\'s not great.', $expectedPath));
             }
 
-            $classLoadingArtifacts = $bootArtifacts['classloading'];
+            return;
+        }
 
-            if (isset($classLoadingArtifacts['map'])
-                && is_array($classLoadingArtifacts['map'])) {
+        if ($debugEnabled) {
 
-                if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+            $this->_logDebug(sprintf('<code>%s</code> is readable.', $expectedPath));
+        }
 
-                    require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
-                }
+        if (!class_exists('Symfony\Component\ClassLoader\MapClassLoader', false)) {
 
-                $mapClassLoader = new ehough_pulsar_MapClassLoader($classLoadingArtifacts['map']);
+            require TUBEPRESS_ROOT . '/vendor/symfony/class-loader/MapClassLoader.php';
+        }
 
-                $mapClassLoader->register();
-            }
+        $classMap       = require $expectedPath;
+        $mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($classMap);
+
+        $mapClassLoader->register();
+
+        if ($debugEnabled) {
+
+            $this->_logDebug(sprintf('Successfully loaded a map of <code>%d</code> classes from <code>%s</code>.',
+
+                count($classMap),
+                $expectedPath
+            ));
         }
     }
 
@@ -254,8 +294,12 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
         $now = microtime(true);
 
-        $this->_bootLogger->debug(sprintf('Boot completed in %f milliseconds',
-            (($now - $this->_startTime) * 1000.0)));
+        $this->_logDebug(
+            sprintf(
+                'Boot completed in <code>%f</code> milliseconds. Actual performance will be better when debugging is not active.',
+                ($now - $this->_startTime) * 1000.0
+            )
+        );
 
         /**
          * @var $realLogger tubepress_api_log_LoggerInterface
@@ -298,93 +342,30 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     private function _clearSystemCache()
     {
-        $dir       = $this->_bootSettings->getPathToSystemCacheDirectory();
-        $shouldLog = $this->_bootLogger->isEnabled();
+        if (!class_exists('\Symfony\Component\Filesystem\Filesystem', false)) {
 
-        if ($shouldLog) {
-
-            $this->_bootLogger->debug(sprintf('System cache clear requested. Attempting to recursively delete %s', $dir));
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Filesystem.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/ExceptionInterface.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/IOExceptionInterface.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/IOException.php';
+            require TUBEPRESS_ROOT . '/vendor/symfony/filesystem/Exception/FileNotFoundException.php';
         }
 
-        $this->_recursivelyDeleteDirectory($dir, $this->_bootLogger, $shouldLog);
+        $dir        = $this->_bootSettings->getPathToSystemCacheDirectory();
+        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
+
+        if ($this->_bootLogger->isEnabled()) {
+
+            $this->_logDebug(sprintf('System cache clear requested. Attempting to recursively delete <code>%s</code>', $dir));
+        }
+
+        $filesystem->remove($dir);
+        $filesystem->mkdir($dir, 0755);
     }
 
-    private function _recursivelyDeleteDirectory($dir, tubepress_api_log_LoggerInterface $logger, $shouldLog)
+    private function _logDebug($msg)
     {
-        if (!is_dir($dir)) {
-
-            return;
-        }
-
-        $objects = scandir($dir);
-
-        if ($shouldLog) {
-
-            $logger->debug(sprintf('Found %d objects in %s', count($objects), $dir));
-        }
-
-        foreach ($objects as $object) {
-
-            if ($object == '.' || $object == '..') {
-
-                continue;
-            }
-
-            $path = $dir . DIRECTORY_SEPARATOR . $object;
-
-            if (filetype($path) == 'dir') {
-
-                if ($shouldLog) {
-
-                    $logger->debug(sprintf('Recursing inside %s to delete it', $path));
-                }
-
-                $this->_recursivelyDeleteDirectory($path, $logger, $shouldLog);
-
-            } else  {
-
-                if ($shouldLog) {
-
-                    $logger->debug(sprintf('Attempting to delete %s', $path));
-                }
-
-                $success = unlink($path);
-
-                if ($shouldLog) {
-
-                    if ($success === true) {
-
-                        $logger->debug(sprintf('Successfully deleted %s', $path));
-
-                    } else {
-
-                        $logger->error(sprintf('Could not delete %s', $path));
-                    }
-                }
-            }
-
-        }
-
-        reset($objects);
-
-        if ($shouldLog) {
-
-            $logger->debug(sprintf('Attempting to delete directory %s', $dir));
-        }
-
-        $success = rmdir($dir);
-
-        if ($shouldLog) {
-
-            if ($success === true) {
-
-                $logger->debug(sprintf('Successfully deleted directory %s', $dir));
-
-            } else {
-
-                $logger->error(sprintf('Could not delete directory %s', $dir));
-            }
-        }
+        $this->_bootLogger->debug(sprintf('(Primary Bootstrapper) %s', $msg));
     }
 
     public function _handleFatalError()

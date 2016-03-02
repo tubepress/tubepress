@@ -29,7 +29,7 @@ abstract class tubepress_api_test_contrib_AbstractManifestTest extends tubepress
         $bootSettings  = new tubepress_internal_boot_BootSettings($logger, $urlFactory);
         $langUtils     = new tubepress_util_impl_LangUtils();
         $stringUtils   = new tubepress_util_impl_StringUtils();
-        $finderFactory = new ehough_finder_FinderFactory();
+        $finderFactory = new tubepress_internal_finder_FinderFactory();
 
         $manifestFinder = new tubepress_internal_boot_helper_uncached_contrib_ManifestFinder(
 

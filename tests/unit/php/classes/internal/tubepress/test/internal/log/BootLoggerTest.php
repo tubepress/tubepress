@@ -33,7 +33,7 @@ class tubepress_test_internal_logger_BootLoggerTest extends tubepress_api_test_T
     {
         $mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
 
-        $mockLogger->shouldReceive('debug')->once()->with(ehough_mockery_Mockery::on(function ($m) {
+        $mockLogger->shouldReceive('debug')->once()->with(Mockery::on(function ($m) {
 
             $utils = new tubepress_util_impl_StringUtils();
             return $utils->endsWith($m, 'something');

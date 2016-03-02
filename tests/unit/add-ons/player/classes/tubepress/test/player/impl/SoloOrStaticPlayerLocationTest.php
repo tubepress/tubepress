@@ -20,12 +20,12 @@ class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepres
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrl;
 

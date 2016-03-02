@@ -12,11 +12,11 @@
 class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_api_event_EventDispatcherInterface
 {
     /**
-     * @var ehough_tickertape_ContainerAwareEventDispatcher
+     * @var \Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
      */
     private $_wrappedDispatcher;
 
-    public function __construct(ehough_tickertape_ContainerAwareEventDispatcher $dispatcher)
+    public function __construct(\Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher $dispatcher)
     {
         $this->_wrappedDispatcher = $dispatcher;
     }
@@ -73,7 +73,7 @@ class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_api_e
      */
     public function dispatch($eventName, tubepress_api_event_EventInterface $event = null)
     {
-        if (!$event || (!($event instanceof ehough_tickertape_Event))) {
+        if (!$event || (!($event instanceof \Symfony\Component\EventDispatcher\Event))) {
 
             $event = new tubepress_event_impl_tickertape_TickertapeEventWrapper($event);
         }

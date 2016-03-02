@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo3_impl_options_ui_FieldProvider<extended>
  */
-class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_vimeo3_impl_options_ui_FieldProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo3_impl_options_ui_FieldProvider
@@ -20,7 +20,7 @@ class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockField;
 

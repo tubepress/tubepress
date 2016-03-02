@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_integration_mocks_MockCacheDriver implements ehough_stash_interfaces_DriverInterface
+class tubepress_test_integration_mocks_MockCacheDriver implements \Stash\Interfaces\DriverInterface
 {
     /**
      * Takes an array which is used to pass option values to the driver. As this is the only required function that is

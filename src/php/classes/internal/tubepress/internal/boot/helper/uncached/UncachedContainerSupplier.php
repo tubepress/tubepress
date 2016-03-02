@@ -32,7 +32,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     private $_containerBuilder;
 
     /**
-     * @var ehough_iconic_dumper_DumperInterface
+     * @var \Symfony\Component\DependencyInjection\Dumper\DumperInterface
      */
     private $_containerDumper;
 
@@ -42,7 +42,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     private $_bootSettings;
 
     /**
-     * @var ehough_pulsar_MapClassLoader
+     * @var Symfony\Component\ClassLoader\MapClassLoader
      */
     private $_mapClassLoader;
 
@@ -75,7 +75,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         $this->_addonFactory   = $addonFactory;
     }
 
-    public function getNewIconicContainer()
+    public function getNewSymfonyContainer()
     {
         if (!isset($this->_containerBuilder)) {
 
@@ -83,8 +83,8 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         }
 
         $this->_containerBuilder->set('tubepress_api_ioc_ContainerInterface',      $this->_containerBuilder);
-        $this->_containerBuilder->set('ehough_iconic_ContainerInterface',                   $this->_containerBuilder->getDelegateContainerBuilder());
-        $this->_containerBuilder->set('tubepress_internal_logger_BootLogger',             $this->_logger);
+        $this->_containerBuilder->set('symfony_service_container',                 $this->_containerBuilder->getDelegateContainerBuilder());
+        $this->_containerBuilder->set('tubepress_internal_logger_BootLogger',      $this->_logger);
         $this->_containerBuilder->set(tubepress_api_boot_BootSettingsInterface::_, $this->_bootSettings);
 
         $addons = $this->_findAllAddons();
@@ -101,7 +101,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
             spl_autoload_unregister(array($this->_mapClassLoader, 'loadClass'));
         }
 
-        return $this->_convertToIconicContainer($this->_containerBuilder);
+        return $this->_convertToSymfonyContainer($this->_containerBuilder);
     }
 
     private function _findAllAddons()
@@ -151,44 +151,65 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
     private function _setupClassLoader(array $addons)
     {
-        $addonClassMap = $this->_getClassMapFromAddons($addons);
-        $fullClassMap  = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
-        $finalClassMap = array_merge($fullClassMap, $addonClassMap);
+        $addonClassMap         = $this->_getClassMapFromAddons($addons);
+        $fullClassMap          = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
+        $finalClassMap         = array_merge($fullClassMap, $addonClassMap);
+        $this->_mapClassLoader = new \Symfony\Component\ClassLoader\MapClassLoader($finalClassMap);
+        $systemCachePath       = $this->_bootSettings->getPathToSystemCacheDirectory();
+        $dumpPath              = $systemCachePath . DIRECTORY_SEPARATOR . 'classmap.php';
+        $exportedClassMap      = var_export($finalClassMap, true);
+        $toDump                = sprintf('<?php return %s;', $exportedClassMap);
 
-        $this->_mapClassLoader = new ehough_pulsar_MapClassLoader($finalClassMap);
+        if ($this->_shouldLog) {
+
+            $this->_logDebug(
+                sprintf('Our final classmap has <code>%d</code> classes in it. We\'ll try to dump it to <code>%s</code>.',
+                count($finalClassMap),
+                $dumpPath
+            ));
+        }
+
         $this->_mapClassLoader->register();
 
-        $existingArtifacts = $this->_containerBuilder->getParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        $result = @file_put_contents($dumpPath, $toDump);
 
-        $artifacts = array_merge($existingArtifacts, array(
-            'classloading' => array(
-                'map' => $finalClassMap
-            )
-        ));
+        if ($this->_shouldLog) {
 
-        $this->_containerBuilder->setParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
-            $artifacts);
+            if ($result !== false) {
+
+                $msg = sprintf('Successfully wrote <code>%d</code> bytes to <code>%s</code>',
+                    $result,
+                    $dumpPath
+                );
+
+            } else {
+
+                $msg = sprintf('Unable to write to <code>%s</code>', $dumpPath);
+            }
+
+            $this->_logDebug($msg);
+        }
     }
 
     /**
      * @param tubepress_internal_ioc_ContainerBuilder $containerBuilder
      *
-     * @return ehough_iconic_ContainerInterface
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    private function _convertToIconicContainer(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
+    private function _convertToSymfonyContainer(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Preparing to store boot to cache.');
+            $this->_logDebug('Preparing to store boot to cache.');
         }
 
-        $dumpedContainerText = $this->_getDumpedIconicContainerAsString($containerBuilder->getDelegateContainerBuilder());
+        $dumpedContainerText = $this->_getDumpedSymfonyContainerAsString($containerBuilder->getDelegateContainerBuilder());
 
         if ($this->_bootSettings->isSystemCacheEnabled()) {
 
             $cachePath = $this->_bootSettings->getPathToSystemCacheDirectory();
 
-            $storagePath = sprintf('%s%sTubePress-%s-ServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR, TUBEPRESS_VERSION);
+            $storagePath = sprintf('%s%sTubePressServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR);
 
         } else {
 
@@ -199,7 +220,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Attempting to create all the parent directories of %s', $storagePath));
+                $this->_logDebug(sprintf('Attempting to create all the parent directories of <code>%s</code>', $storagePath));
             }
 
             $success = @mkdir(dirname($storagePath), 0755, true);
@@ -208,11 +229,11 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
                 if ($success === true) {
 
-                    $this->_logger->debug(sprintf('Created all the parent directories of %s', $storagePath));
+                    $this->_logDebug(sprintf('Created all the parent directories of <code>%s</code>', $storagePath));
 
                 } else {
 
-                    $this->_logger->error(sprintf('Failed to create all the parent directories of %s', $storagePath));
+                    $this->_logger->error(sprintf('Failed to create all the parent directories of <code>%s</code>', $storagePath));
                 }
             }
 
@@ -224,7 +245,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Now writing dumped container to %s', $storagePath));
+            $this->_logDebug(sprintf('Now writing dumped container to <code>%s</code>', $storagePath));
         }
 
         $success = @file_put_contents($storagePath, $dumpedContainerText) !== false;
@@ -233,7 +254,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Saved service container to %s. Now including it.', $storagePath));
+                $this->_logDebug(sprintf('Saved service container to <code>%s</code>. Now including it.', $storagePath));
             }
 
             if (!class_exists('TubePressServiceContainer', false)) {
@@ -246,7 +267,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
             if ($this->_shouldLog) {
 
-                $this->_logger->error(sprintf('Could not write service container to %s.', $storagePath));
+                $this->_logger->error(sprintf('Could not write service container to <code>%s</code>.', $storagePath));
             }
 
             return $containerBuilder->getDelegateContainerBuilder();
@@ -256,11 +277,11 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         return new TubePressServiceContainer();
     }
 
-    private function _getDumpedIconicContainerAsString(ehough_iconic_ContainerBuilder $containerBuilder)
+    private function _getDumpedSymfonyContainerAsString(\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Preparing to dump container builder to string');
+            $this->_logDebug('Preparing to dump container builder to string');
         }
 
         $dumpConfig = array(
@@ -270,14 +291,14 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
         if (!isset($this->_containerDumper)) {
 
-            $this->_containerDumper = new ehough_iconic_dumper_PhpDumper($containerBuilder);
+            $this->_containerDumper = new \Symfony\Component\DependencyInjection\Dumper\PhpDumper($containerBuilder);
         }
 
         $dumped = $this->_containerDumper->dump($dumpConfig);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Done dumping container builder to string. Check the HTML source to view the full' .
+            $this->_logDebug(sprintf('Done dumping container builder to string. Check the HTML source to view the full' .
                 ' container. <div style="display:none"><pre>%s</pre></div>', $dumped));
         }
 
@@ -288,7 +309,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Examining classloading data for %d add-ons', count($addons)));
+            $this->_logDebug(sprintf('Examining classloading data for <code>%d</code> add-ons', count($addons)));
         }
 
         $toReturn = array();
@@ -302,7 +323,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Add-on %s has a classmap of size %d',
+                $this->_logDebug(sprintf('Add-on <code>%s</code> has a classmap of size <code>%d</code>',
                     $addon->getName(), count($map)));
             }
 
@@ -311,7 +332,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Done gathering classmaps for %d add-ons.', count($addons)));
+            $this->_logDebug(sprintf('Done gathering classmaps for <code>%d</code> add-ons.', count($addons)));
         }
 
         return $toReturn;
@@ -327,7 +348,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
         $this->_containerBuilder = $containerBuilder;
     }
 
-    public function __setContainerDumper(ehough_iconic_dumper_DumperInterface $dumper)
+    public function __setContainerDumper(\Symfony\Component\DependencyInjection\Dumper\DumperInterface $dumper)
     {
         $this->_containerDumper = $dumper;
     }
@@ -335,5 +356,10 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     public function __setSerializer(array $callback)
     {
         $this->_serializer = $callback;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Uncached Container Supplier) %s', $msg));
     }
 }

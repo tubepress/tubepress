@@ -68,8 +68,8 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
     public function testRemoveDefinition()
     {
         $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
-        $iconicDefinition = $this->mock('ehough_iconic_Definition');
-        $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
+        $symfonyDefinition   = $this->mock('Symfony\Component\DependencyInjection\Definition');
+        $tubePressDefinition->shouldReceive('getUnderlyingSymfonyDefinition')->once()->andReturn($symfonyDefinition);
 
         $this->assertFalse($this->_sut->has('x'));
 
@@ -107,8 +107,8 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
         $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
         $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
-        $iconicDefinition = $this->mock('ehough_iconic_Definition');
-        $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
+        $symfonyDefinition = $this->mock('\Symfony\Component\DependencyInjection\Definition');
+        $tubePressDefinition->shouldReceive('getUnderlyingSymfonyDefinition')->once()->andReturn($symfonyDefinition);
         $this->_sut->compile();
 
         $this->_sut->setDefinition('x', $tubePressDefinition);
@@ -117,8 +117,8 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
     public function testSetDefinition()
     {
         $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
-        $iconicDefinition = $this->mock('ehough_iconic_Definition');
-        $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
+        $symfonyDefinition = $this->mock('\Symfony\Component\DependencyInjection\Definition');
+        $tubePressDefinition->shouldReceive('getUnderlyingSymfonyDefinition')->once()->andReturn($symfonyDefinition);
 
         $this->assertFalse($this->_sut->has('x'));
         $this->assertFalse($this->_sut->hasDefinition('x'));
@@ -140,8 +140,8 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
         $this->_sut->compile();
 
         $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
-        $iconicDefinition = $this->mock('ehough_iconic_Definition');
-        $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
+        $symfonyDefinition = $this->mock('\Symfony\Component\DependencyInjection\Definition');
+        $tubePressDefinition->shouldReceive('getUnderlyingSymfonyDefinition')->once()->andReturn($symfonyDefinition);
 
         $this->_sut->setDefinitions(array($tubePressDefinition));
     }
@@ -149,8 +149,8 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
     public function testSetDefinitions()
     {
         $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
-        $iconicDefinition = $this->mock('ehough_iconic_Definition');
-        $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
+        $symfonyDefinition = $this->mock('\Symfony\Component\DependencyInjection\Definition');
+        $tubePressDefinition->shouldReceive('getUnderlyingSymfonyDefinition')->once()->andReturn($symfonyDefinition);
         $this->assertEmpty($this->_sut->getDefinitions());
 
         $this->_sut->setDefinitions(array($tubePressDefinition));
@@ -161,7 +161,7 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
 
     public function testSetParameterFrozen()
     {
-        $this->setExpectedException('LogicException', 'Impossible to call set() on a frozen ehough_iconic_parameterbag_ParameterBag.');
+        $this->setExpectedException('LogicException', 'Impossible to call set() on a frozen ParameterBag.');
 
         $this->_sut->compile();
 
@@ -191,7 +191,7 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
         $mockContainer->shouldReceive('addDefinitions')->once()->with($mockDefs);
 
         $mockExtension = $this->mock('tubepress_spi_ioc_ContainerExtensionInterface');
-        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_internal_ioc_ContainerBuilder'));
+        $mockExtension->shouldReceive('load')->once()->with(Mockery::any('tubepress_internal_ioc_ContainerBuilder'));
 
         $this->_sut->registerExtension($mockExtension);
 

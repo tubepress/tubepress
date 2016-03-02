@@ -118,6 +118,8 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
      */
     public function getSerializationEncoding()
     {
+        $this->_init();
+
         return $this->_serializationEncoding;
     }
 
@@ -184,7 +186,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
 
                 if ($this->_isWordPress()) {
 
-                    if (! defined('WP_CONTENT_DIR' )) {
+                    if (!defined('WP_CONTENT_DIR')) {
 
                         define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
                     }
@@ -269,7 +271,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('No readable settings file at %s', $userSettingsFilePath));
+                $this->_log(sprintf('No readable settings file at <code>%s</code>', $userSettingsFilePath));
             }
         }
 
@@ -280,7 +282,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Detected candidate settings.php at %s', $settingsFilePath));
+            $this->_log(sprintf('Detected candidate settings.php at <code>%s</code>', $settingsFilePath));
         }
 
         try {
@@ -302,7 +304,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Successfully read %s: %s', $settingsFilePath, htmlspecialchars(json_encode($configArray))));
+                $this->_log(sprintf('Successfully read config values from <code>%s</code>', $settingsFilePath));
             }
 
             return $configArray;
@@ -311,7 +313,7 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Could not read settings.php from %s: %s',
+                $this->_log(sprintf('Could not read settings.php from <code>%s</code>: <code>%s</code>',
                     $settingsFilePath, $e->getMessage()));
             }
         }
@@ -333,14 +335,15 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Add-on blacklist: %s',       htmlspecialchars(json_encode($this->_addonBlacklistArray))));
-            $this->_logger->debug(sprintf('Class loader enabled? %s',   $this->_isClassLoaderEnabled ? 'yes' : 'no'));
-            $this->_logger->debug(sprintf('Cache directory: %s',        $this->_cacheDirectory));
-            $this->_logger->debug(sprintf('Cache enabled? %s',          $this->_isCacheEnabled ? 'yes' : 'no'));
-            $this->_logger->debug(sprintf('Serialization encoding: %s', $this->_serializationEncoding));
-            $this->_logger->debug(sprintf('Ajax URL: %s',               $this->_urlAjax));
-            $this->_logger->debug(sprintf('Base URL: %s',               $this->_urlBase));
-            $this->_logger->debug(sprintf('User content URL: %s',       $this->_urlUserContent));
+            $this->_log('Final settings from settings.php below:');
+            $this->_log(sprintf('Add-on blacklist: <code>%s</code>',       htmlspecialchars(json_encode($this->_addonBlacklistArray))));
+            $this->_log(sprintf('Class loader enabled? <code>%s</code>',   $this->_isClassLoaderEnabled ? 'yes' : 'no'));
+            $this->_log(sprintf('Cache directory: <code>%s</code>',        $this->_cacheDirectory));
+            $this->_log(sprintf('Cache enabled? <code>%s</code>',          $this->_isCacheEnabled ? 'yes' : 'no'));
+            $this->_log(sprintf('Serialization encoding: <code>%s</code>', $this->_serializationEncoding));
+            $this->_log(sprintf('Ajax URL: <code>%s</code>',               $this->_urlAjax));
+            $this->_log(sprintf('Base URL: <code>%s</code>',               $this->_urlBase));
+            $this->_log(sprintf('User content URL: <code>%s</code>',       $this->_urlUserContent));
         }
     }
 
@@ -381,26 +384,18 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
         }
 
         $path = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_DIR];
+        $path = $this->_addVersionToPath($path);
 
-        /**
-         * Is this a writable directory? If so, we're done.
-         */
-        if (is_dir($path) && is_writable($path)) {
+        if ($path === $this->_createDirectoryIfNecessary($path)) {
 
             return $path;
         }
 
-        /**
-         * Let's see if we can create this directory.
-         */
-        $createdDirectory = @mkdir($path, 0755, true);
+        if ($this->_shouldLog) {
 
-        /**
-         * Is this NOW a writable directory? If so, we're done.
-         */
-        if ($createdDirectory && is_dir($path) && is_writable($path)) {
-
-            return $path;
+            $this->_log(sprintf(
+                'Unable to use <code>%s</code>, so we will instead use the system temp directory', $path
+            ));
         }
 
         /**
@@ -497,13 +492,13 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
     {
         $default = 'base64';
 
-        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_ADDONS,
+        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CACHE,
             self::$_3RD_LEVEL_KEY_SERIALIZATION_ENC)) {
 
             return $default;
         }
 
-        $encoding = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_ADDONS]
+        $encoding = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE]
             [self::$_3RD_LEVEL_KEY_SERIALIZATION_ENC];
 
         if (!in_array($encoding, array('base64', 'none', 'urlencode'))) {
@@ -538,56 +533,109 @@ class tubepress_internal_boot_BootSettings implements tubepress_api_boot_BootSet
     {
         if (function_exists('sys_get_temp_dir')) {
 
-            $tmp = rtrim(sys_get_temp_dir(), '/\\') . '/';
+            $tmp = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR;
 
         } else {
 
             $tmp = '/tmp/';
         }
 
-        $baseDir = $tmp . 'tubepress-system-cache-' . md5(dirname(__FILE__)) . '/';
+        $baseDir = $tmp . 'tubepress-system-cache-' . md5(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
+        $baseDir = $this->_addVersionToPath($baseDir);
 
-        if (!is_dir($baseDir)) {
+        if ($baseDir === $this->_createDirectoryIfNecessary($baseDir)) {
 
-            @mkdir($baseDir, 0770, true);
+            return $baseDir;
         }
 
-        if (!is_writable($baseDir)) {
-
-            if (!$this->_isWordPress()) {
-
-                /**
-                 * There's really nothing else we can do at this point.
-                 */
-                return null;
-            }
+        if (!$this->_isWordPress()) {
 
             /**
-             * Let's try to use tubepress-content/system-cache as the cache directory.
+             * There's really nothing else we can do at this point.
              */
-            $userContentDirectory = $this->getUserContentDirectory();
-            $cacheDirectory       = $userContentDirectory . DIRECTORY_SEPARATOR . 'system-cache';
-
-            if (!is_dir($cacheDirectory)) {
-
-                @mkdir($cacheDirectory, 0755, true);
-            }
-
-            if (!is_dir($cacheDirectory) || !is_writable($cacheDirectory)) {
-
-                //welp, we tried!
-                return null;
-            }
-
-            return $cacheDirectory;
-
+            return null;
         }
 
-        return $baseDir;
+        /**
+         * Let's try to use tubepress-content/system-cache as the cache directory.
+         */
+        $userContentDirectory = $this->getUserContentDirectory();
+        $cacheDirectory       = $userContentDirectory . DIRECTORY_SEPARATOR . 'system-cache';
+        $cacheDirectory       = $this->_addVersionToPath($cacheDirectory);
+
+        if ($this->_shouldLog) {
+
+            $this->_log(sprintf('Trying to use <code>%s</code> as the system cache directory instead.', $cacheDirectory));
+        }
+
+        if ($cacheDirectory === $this->_createDirectoryIfNecessary($cacheDirectory)) {
+
+            return $cacheDirectory;
+        }
+
+        return null;
     }
 
     private function _isWordPress()
     {
         return defined('DB_NAME') && defined('ABSPATH');
+    }
+    
+    private function _log($msg)
+    {
+        $this->_logger->debug(sprintf('(Boot Settings) %s', $msg));
+    }
+
+    private function _createDirectoryIfNecessary($path)
+    {
+        if ($this->_shouldLog) {
+
+            $this->_log(sprintf('Seeing if we can use <code>%s</code> as our system cache directory', $path));
+        }
+
+        if (!is_dir($path)) {
+
+            if ($this->_shouldLog) {
+
+                $this->_log(sprintf('<code>%s</code> does not exist, so we will try to create it.', $path));
+            }
+
+            @mkdir($path, 0770, true);
+
+            if (!is_dir($path)) {
+
+                if ($this->_shouldLog) {
+
+                    $this->_log(sprintf('Tried and failed to create <code>%s</code>.', $path));
+                }
+
+                return null;
+            }
+        }
+
+        if (!is_writable($path)) {
+
+            if ($this->_shouldLog) {
+
+                $this->_log(sprintf('<code>%s</code> is a directory but we cannot write to it.', $path));
+            }
+
+            return null;
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_log(sprintf('<code>%s</code> is a writable directory, so we should be able to use it.', $path));
+        }
+
+        return $path;
+    }
+
+    private function _addVersionToPath($path)
+    {
+        return rtrim($path, DIRECTORY_SEPARATOR) .
+            DIRECTORY_SEPARATOR .
+            'tubepress-' .
+            TUBEPRESS_VERSION;
     }
 }

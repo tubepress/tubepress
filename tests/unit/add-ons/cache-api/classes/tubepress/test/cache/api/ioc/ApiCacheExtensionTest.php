@@ -41,13 +41,13 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_));
 
         $this->expectRegistration(
-            'ehough_stash_interfaces_PoolInterface',
-            'ehough_stash_Pool'
-        )->withMethodCall('setDriver', array(new tubepress_api_ioc_Reference('ehough_stash_interfaces_DriverInterface')));
+            'api_cache_pool',
+            'Stash\Pool'
+        )->withMethodCall('setDriver', array(new tubepress_api_ioc_Reference('api_cache_driver')));
 
         $this->expectRegistration(
-            'ehough_stash_interfaces_DriverInterface',
-            'ehough_stash_interfaces_DriverInterface'
+            'api_cache_driver',
+            'Stash\Interfaces\DriverInterface'
         )->withFactoryService('tubepress_cache_api_impl_stash_FilesystemCacheBuilder')
             ->withFactoryMethod('buildFilesystemDriver');
     }
@@ -59,7 +59,7 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_api_t
             'tubepress_cache_api_impl_listeners_ApiCacheListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('ehough_stash_interfaces_PoolInterface'))
+            ->withArgument(new tubepress_api_ioc_Reference('api_cache_pool'))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_http_Events::EVENT_HTTP_REQUEST,
                 'priority' => 100000,

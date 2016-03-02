@@ -290,7 +290,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'tubepress_wordpress_impl_wp_ActivationHook',
             'tubepress_wordpress_impl_wp_ActivationHook'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
+         ->addArgument(new tubepress_api_ioc_Reference('filesystem'));
 
         $containerBuilder->register(
             'tubepress_wordpress_impl_Callback',
@@ -337,8 +337,8 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
     private function _registerVendorServices(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'ehough_filesystem_FilesystemInterface',
-            'ehough_filesystem_Filesystem'
+            'filesystem',
+            'Symfony\Component\Filesystem\Filesystem'
         );
     }
 

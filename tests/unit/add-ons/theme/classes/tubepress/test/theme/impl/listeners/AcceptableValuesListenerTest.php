@@ -20,7 +20,7 @@ class tubepress_test_theme_impl_listeners_AcceptableValuesListenerTest extends t
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockThemeRegistry;
 

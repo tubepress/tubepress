@@ -20,7 +20,7 @@ class tubepress_test_api_listeners_options_FixedValuesListenerTest extends tubep
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEvent;
 

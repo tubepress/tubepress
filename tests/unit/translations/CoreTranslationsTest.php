@@ -13,7 +13,7 @@ class tubepress_test_translations_CoreTranslationsTest extends tubepress_api_tes
 {
     protected function getPoFilePaths()
     {
-        $finder = new ehough_finder_Finder();
+        $finder = new \Symfony\Component\Finder\Finder();
         $finder->files()
             ->in(TUBEPRESS_ROOT . '/src/translations/en')
             ->name('*.po')

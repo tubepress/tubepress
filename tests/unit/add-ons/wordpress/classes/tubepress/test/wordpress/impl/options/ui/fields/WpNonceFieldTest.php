@@ -20,12 +20,12 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends t
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockWpFunctionWrapper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockMessageService;
 

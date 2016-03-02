@@ -18,7 +18,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
     private $_context;
 
     /**
-     * @var ehough_finder_FinderFactoryInterface
+     * @var tubepress_internal_finder_FinderFactory
      */
     private $_finderFactory;
 
@@ -32,7 +32,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
                                 tubepress_api_util_LangUtilsInterface   $langUtils,
                                 tubepress_api_log_LoggerInterface       $log,
                                 tubepress_api_util_StringUtilsInterface $stringUtils,
-                                ehough_finder_FinderFactoryInterface    $finderFactory)
+                                tubepress_internal_finder_FinderFactory $finderFactory)
     {
         parent::__construct($log, $urlFactory, $langUtils, $stringUtils);
 
@@ -146,7 +146,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
 
             if (!$stringUrl) {
 
-                $errors[] = sprintf('%s %d is empty', ucwords($name), ($x + 1));
+                $errors[] = sprintf('%s <code>%d</code> is empty', ucwords($name), ($x + 1));
                 return;
             }
 
@@ -154,7 +154,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
 
             if (!$realUrl) {
 
-                $errors[] = sprintf('%s %d is invalid', ucwords($name), ($x + 1));
+                $errors[] = sprintf('%s <code>%d</code> is invalid', ucwords($name), ($x + 1));
                 return;
             }
 
@@ -323,14 +323,14 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
 
         if ($this->shouldLog()) {
 
-            $this->getLogger()->debug(sprintf('Looking for %s files in %s', $suffix, $rootDirectory));
+            $this->_logDebug(sprintf('Looking for <code>%s</code> files in <code>%s</code>', $suffix, $rootDirectory));
         }
 
         if (!is_dir($rootDirectory)) {
 
             if ($this->shouldLog()) {
 
-                $this->getLogger()->debug(sprintf('%s does not exist', $rootDirectory));
+                $this->_logDebug(sprintf('<code>%s</code> does not exist', $rootDirectory));
             }
 
             return array();
@@ -349,9 +349,14 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
 
         if ($this->shouldLog()) {
 
-            $this->getLogger()->debug(sprintf('Found %d %s templates in %s', count($toReturn), $suffix, $rootDirectory));
+            $this->_logDebug(sprintf('Found <code>%d</code> <code>%s</code> templates in <code>%s</code>', count($toReturn), $suffix, $rootDirectory));
         }
 
         return $toReturn;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->getLogger()->debug(sprintf('(Theme Factory) %s', $msg));
     }
 }

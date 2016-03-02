@@ -9,14 +9,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_template_impl_php_PhpEngine extends ehough_templating_PhpEngine
+class tubepress_template_impl_php_PhpEngine extends \Symfony\Component\Templating\PhpEngine
 {
     /**
      * Loads the given template.
      *
-     * @param string|ehough_templating_TemplateReferenceInterface $name A template name or a ehough_templating_TemplateReferenceInterface instance
+     * @param string|\Symfony\Component\Templating\TemplateReferenceInterface $name A template name or a \Symfony\Component\Templating\TemplateReferenceInterface instance
      *
-     * @return ehough_templating_storage_Storage A Storage instance
+     * @return \Symfony\Component\Templating\Storage\Storage A Storage instance
      *
      * @throws InvalidArgumentException if the template cannot be found
      */

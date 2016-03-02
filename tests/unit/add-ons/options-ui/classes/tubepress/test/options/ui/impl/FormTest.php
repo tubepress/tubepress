@@ -20,52 +20,52 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface[]
+     * @var Mockery\MockInterface[]
      */
     private $_mockFieldProviders;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPersistence;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTemplating;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockStringUtils;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCssAndJsHelper;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockRequestParams;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockSingleSourceField;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockMultiSourceField;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFieldProvider;
 
@@ -123,19 +123,19 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         $mockMultiClone2     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
 
         $this->_mockPersistence->shouldReceive('getCloneWithCustomBackend')->twice()
-            ->with(ehough_mockery_Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
+            ->with(Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
             ->andReturn($mockNewPersistence1, $mockNewPersistence2);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            ehough_mockery_Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on(array($this, '__verifyPrefix')),
             $mockNewPersistence1
 
         )->andReturn($mockMultiClone1);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            ehough_mockery_Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on(array($this, '__verifyPrefix')),
             $mockNewPersistence2
 
         )->andReturn($mockMultiClone2);
@@ -215,19 +215,19 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         $mockMultiClone2     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
 
         $this->_mockPersistence->shouldReceive('getCloneWithCustomBackend')->twice()
-            ->with(ehough_mockery_Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
+            ->with(Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
             ->andReturn($mockNewPersistence1, $mockNewPersistence2);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            ehough_mockery_Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on(array($this, '__verifyPrefix')),
             $mockNewPersistence1
 
         )->andReturn($mockMultiClone1);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            ehough_mockery_Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on(array($this, '__verifyPrefix')),
             $mockNewPersistence2
 
         )->andReturn($mockMultiClone2);
@@ -259,12 +259,12 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         $mockMultiClone     = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
 
         $this->_mockPersistence->shouldReceive('getCloneWithCustomBackend')->once()
-            ->with(ehough_mockery_Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
+            ->with(Mockery::type('tubepress_options_ui_impl_MultiSourcePersistenceBackend'))
             ->andReturn($mockNewPersistence);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            ehough_mockery_Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on(array($this, '__verifyPrefix')),
             $mockNewPersistence
 
         )->andReturn($mockMultiClone);

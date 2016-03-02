@@ -20,12 +20,12 @@ class tubepress_test_options_impl_ContextTest extends tubepress_test_options_imp
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockStorageManager;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockReference;
 

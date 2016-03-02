@@ -51,7 +51,8 @@ class tubepress_internal_logger_BootLogger implements tubepress_api_log_LoggerIn
         $traceData = explode("\n", $traceData);
 
         foreach ($traceData as $line) {
-            $this->error("<tt>$line</tt>");
+
+            $this->error("<code>$line</code>");
         }
 
         foreach ($this->_buffer as $message => $context) {
@@ -139,7 +140,7 @@ class tubepress_internal_logger_BootLogger implements tubepress_api_log_LoggerIn
         $timestamp    = floor($utimestamp);
         $milliseconds = round(($utimestamp - $timestamp) * 1000000);
 
-        return date(preg_replace('`(?<!\\\\)u`', $milliseconds, 'i:s.u'), $timestamp);
+        return date(preg_replace('`(?<!\\\\)u`', $milliseconds, 'H:i:s.u'), $timestamp);
     }
 
     /**

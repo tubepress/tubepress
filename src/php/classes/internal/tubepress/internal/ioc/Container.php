@@ -12,13 +12,13 @@
 class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInterface
 {
     /**
-     * @var ehough_iconic_ContainerInterface
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    private $_underlyingIconicContainer;
+    private $_underlyingSymfonyContainer;
 
-    public function __construct(ehough_iconic_ContainerInterface $delegate)
+    public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $delegate)
     {
-        $this->_underlyingIconicContainer = $delegate;
+        $this->_underlyingSymfonyContainer = $delegate;
     }
 
     /**
@@ -33,7 +33,7 @@ class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInt
      */
     public function get($id)
     {
-        return $this->_underlyingIconicContainer->get($id, ehough_iconic_ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        return $this->_underlyingSymfonyContainer->get($id, \Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE);
     }
 
     /**
@@ -50,7 +50,7 @@ class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInt
      */
     public function getParameter($name)
     {
-        return $this->_underlyingIconicContainer->getParameter($name);
+        return $this->_underlyingSymfonyContainer->getParameter($name);
     }
 
     /**
@@ -65,7 +65,7 @@ class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInt
      */
     public function has($id)
     {
-        return $this->_underlyingIconicContainer->has($id);
+        return $this->_underlyingSymfonyContainer->has($id);
     }
 
     /**
@@ -80,7 +80,7 @@ class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInt
      */
     public function hasParameter($name)
     {
-        return $this->_underlyingIconicContainer->hasParameter($name);
+        return $this->_underlyingSymfonyContainer->hasParameter($name);
     }
 
     /**
@@ -96,7 +96,7 @@ class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInt
      */
     public function set($id, $service)
     {
-        $this->_underlyingIconicContainer->set($id, $service);
+        $this->_underlyingSymfonyContainer->set($id, $service);
     }
 
     /**
@@ -112,6 +112,6 @@ class tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerInt
      */
     public function setParameter($name, $value)
     {
-        $this->_underlyingIconicContainer->setParameter($name, $value);
+        $this->_underlyingSymfonyContainer->setParameter($name, $value);
     }
 }

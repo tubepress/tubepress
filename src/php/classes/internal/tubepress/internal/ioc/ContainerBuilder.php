@@ -16,7 +16,7 @@
 class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Container implements tubepress_api_ioc_ContainerBuilderInterface, tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @var ehough_iconic_ContainerBuilder
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
      */
     private $_delegateContainerBuilder;
 
@@ -32,7 +32,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
 
     public function __construct()
     {
-        $this->_delegateContainerBuilder = new ehough_iconic_ContainerBuilder();
+        $this->_delegateContainerBuilder = new \Symfony\Component\DependencyInjection\ContainerBuilder();
 
         parent::__construct($this->_delegateContainerBuilder);
 
@@ -50,7 +50,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     /**
      * This is necessary so the boostrapper can dump the container to PHP.
      *
-     * @return ehough_iconic_ContainerBuilder
+     * @return \Symfony\Component\DependencyInjection\ContainerBuilder
      */
     public function getDelegateContainerBuilder()
     {
@@ -69,14 +69,14 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
 
         $compilerConfig = $this->_delegateContainerBuilder->getCompilerPassConfig();
         $compilerConfig->setRemovingPasses(array(
-            new ehough_iconic_compiler_RemovePrivateAliasesPass(),
-            new ehough_iconic_compiler_RemoveAbstractDefinitionsPass(),
-            new ehough_iconic_compiler_ReplaceAliasByActualDefinitionPass(),
-            new ehough_iconic_compiler_RepeatedPass(array(
-                new ehough_iconic_compiler_AnalyzeServiceReferencesPass(),
-                new ehough_iconic_compiler_RemoveUnusedDefinitionsPass(),
+            new \Symfony\Component\DependencyInjection\Compiler\RemovePrivateAliasesPass(),
+            new \Symfony\Component\DependencyInjection\Compiler\RemoveAbstractDefinitionsPass(),
+            new \Symfony\Component\DependencyInjection\Compiler\ReplaceAliasByActualDefinitionPass(),
+            new \Symfony\Component\DependencyInjection\Compiler\RepeatedPass(array(
+                new \Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass(),
+                new \Symfony\Component\DependencyInjection\Compiler\RemoveUnusedDefinitionsPass(),
             )),
-            new ehough_iconic_compiler_CheckExceptionOnInvalidReferenceBehaviorPass(),
+            new \Symfony\Component\DependencyInjection\Compiler\CheckExceptionOnInvalidReferenceBehaviorPass(),
         ));
 
         $this->_delegateContainerBuilder->compile();
@@ -116,7 +116,7 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
      */
     public function addDefinitions(array $definitions)
     {
-        $cleaned = array_map(array($this, 'toIconicDefinition'), $definitions);
+        $cleaned = array_map(array($this, 'toSymfonyDefinition'), $definitions);
 
         $this->_delegateContainerBuilder->addDefinitions($cleaned);
     }
@@ -164,11 +164,11 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     {
         try {
 
-            $iconicDefinition = $this->_delegateContainerBuilder->getDefinition($id);
+            $symfonyDefinition = $this->_delegateContainerBuilder->getDefinition($id);
 
-            return $this->toTubePressDefinition($iconicDefinition);
+            return $this->toTubePressDefinition($symfonyDefinition);
 
-        } catch (ehough_iconic_exception_InvalidArgumentException $e) {
+        } catch (\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
 
             return null;
         }
@@ -184,9 +184,9 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
      */
     public function getDefinitions()
     {
-        $iconicDefinitions = $this->_delegateContainerBuilder->getDefinitions();
+        $symfonyDefinitions = $this->_delegateContainerBuilder->getDefinitions();
 
-        return array_map(array($this, 'toTubePressDefinition'), $iconicDefinitions);
+        return array_map(array($this, 'toTubePressDefinition'), $symfonyDefinitions);
     }
 
     /**
@@ -255,12 +255,12 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
     {
         try {
 
-            $iconicDefinition = $this->toIconicDefinition($definition);
-            $added            = $this->_delegateContainerBuilder->setDefinition($id, $iconicDefinition);
+            $symfonyDefinition = $this->toSymfonyDefinition($definition);
+            $added             = $this->_delegateContainerBuilder->setDefinition($id, $symfonyDefinition);
 
             return $this->toTubePressDefinition($added);
 
-        } catch (ehough_iconic_exception_BadMethodCallException $e) {
+        } catch (\Symfony\Component\DependencyInjection\Exception\BadMethodCallException $e) {
 
             throw new BadMethodCallException($e->getMessage());
         }
@@ -276,13 +276,13 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
      */
     public function setDefinitions(array $definitions)
     {
-        $iconicDefininitions = array_map(array($this, 'toIconicDefinition'), $definitions);
+        $symfonyDefinitions = array_map(array($this, 'toSymfonyDefinition'), $definitions);
 
-        $this->_delegateContainerBuilder->setDefinitions($iconicDefininitions);
+        $this->_delegateContainerBuilder->setDefinitions($symfonyDefinitions);
     }
 
     /**
-     * Based heavily on ehough_iconic_compiler_MergeExtensionConfigurationPass.
+     * Based heavily on \Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass.
      *
      * @param tubepress_api_ioc_ContainerBuilderInterface $self
      *
@@ -341,22 +341,22 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
         $this->getParameterBag()->add($containerBuilder->getParameterBag()->all());
     }
 
-    public function toTubePressDefinition(ehough_iconic_Definition $definition)
+    public function toTubePressDefinition(\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        return tubepress_internal_ioc_Definition::fromIconicDefinition($definition);
+        return tubepress_internal_ioc_Definition::fromSymfonyDefinition($definition);
     }
 
-    public function toIconicDefinition(tubepress_api_ioc_DefinitionInterface $definition)
+    public function toSymfonyDefinition(tubepress_api_ioc_DefinitionInterface $definition)
     {
         if ($definition instanceof tubepress_internal_ioc_Definition) {
 
-            return $definition->getUnderlyingIconicDefinition();
+            return $definition->getUnderlyingSymfonyDefinition();
         }
 
-        $cleanedArguments = $this->convertToIconicReferenceIfNecessary($definition->getArguments());
-        $cleanedMethodCalls = $this->convertToIconicReferenceIfNecessary($definition->getMethodCalls());
+        $cleanedArguments = $this->convertToSymfonyReferenceIfNecessary($definition->getArguments());
+        $cleanedMethodCalls = $this->convertToSymfonyReferenceIfNecessary($definition->getMethodCalls());
 
-        $toReturn = new ehough_iconic_Definition($definition->getClass(), $cleanedArguments);
+        $toReturn = new \Symfony\Component\DependencyInjection\Definition($definition->getClass(), $cleanedArguments);
 
         $toReturn->setConfigurator($definition->getConfigurator());
         $toReturn->setDecoratedService($definition->getDecoratedService());
@@ -371,18 +371,18 @@ class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Con
         return $toReturn;
     }
 
-    public function convertToIconicReferenceIfNecessary($candidate)
+    public function convertToSymfonyReferenceIfNecessary($candidate)
     {
         if ($candidate instanceof tubepress_api_ioc_Reference) {
 
-            return new ehough_iconic_Reference("$candidate");
+            return new \Symfony\Component\DependencyInjection\Reference("$candidate");
         }
 
         if (is_array($candidate)) {
 
             foreach ($candidate as $name => $value) {
 
-                $candidate[$name] = $this->convertToIconicReferenceIfNecessary($candidate[$name]);
+                $candidate[$name] = $this->convertToSymfonyReferenceIfNecessary($candidate[$name]);
             }
         }
 

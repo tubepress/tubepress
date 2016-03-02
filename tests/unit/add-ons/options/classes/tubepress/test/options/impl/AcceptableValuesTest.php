@@ -20,7 +20,7 @@ class tubepress_test_options_impl_AcceptableValuesTest extends tubepress_api_tes
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcher;
 

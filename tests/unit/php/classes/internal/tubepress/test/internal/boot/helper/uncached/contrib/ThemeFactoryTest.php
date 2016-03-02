@@ -15,17 +15,17 @@
 class tubepress_test_internal_boot_helper_uncached_contrib_ThemeFactoryTest extends tubepress_test_internal_boot_helper_uncached_contrib_AbstractFactoryTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEnvironment;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockFinderFactory;
 
@@ -49,7 +49,7 @@ class tubepress_test_internal_boot_helper_uncached_contrib_ThemeFactoryTest exte
         return array(
 
             array(new stdClass(), 'Scripts must be a simple array of strings'),
-            array(array(''), 'Script 1 is empty'),
+            array(array(''), 'Script <code>1</code> is empty'),
         );
     }
 
@@ -155,7 +155,7 @@ class tubepress_test_internal_boot_helper_uncached_contrib_ThemeFactoryTest exte
     {
         $this->_mockContext = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEnvironment = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
-        $this->_mockFinderFactory = $this->mock('ehough_finder_FinderFactory');
+        $this->_mockFinderFactory = $this->mock('tubepress_internal_finder_FinderFactory');
 
         return new tubepress_internal_boot_helper_uncached_contrib_ThemeFactory(
 

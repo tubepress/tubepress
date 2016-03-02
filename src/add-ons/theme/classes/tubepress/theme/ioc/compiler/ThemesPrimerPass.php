@@ -29,7 +29,7 @@ class tubepress_theme_ioc_compiler_ThemesPrimerPass implements tubepress_spi_ioc
     private function _process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $id)
     {
         $logger         = $containerBuilder->get('tubepress_internal_logger_BootLogger');
-        $finderFactory  = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
+        $finderFactory  = $containerBuilder->get('finder_factory');
         $bootSettings   = $containerBuilder->get(tubepress_api_boot_BootSettingsInterface::_);
         $context        = $containerBuilder->get(tubepress_api_options_ContextInterface::_);
         $urlFactory     = $containerBuilder->get(tubepress_api_url_UrlFactoryInterface::_);

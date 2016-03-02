@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="suppress-directory-listings">
+        <sequential>
+
+            <log msg="Suppressing directory listings" />
+
+            <copy verbose="true" file="src/resources/directory-listing-suppressor.php" tofile="target/stage/tubepress/index.php" />
+            <copy verbose="true" file="src/resources/directory-listing-suppressor.php" tofile="target/stage/tubepress/web/index.php" />
+            <copy verbose="true" file="src/resources/directory-listing-suppressor.php" tofile="target/stage/tubepress/src/add-ons/wordpress/resources/user-content-skeleton/index.php" />
+
+        </sequential>
+    </macrodef>
+
+</project>

@@ -20,17 +20,17 @@ class tubepress_test_cache_api_impl_stash_FilesystemCacheBuilderTest extends tub
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockBootSettings;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
@@ -58,6 +58,6 @@ class tubepress_test_cache_api_impl_stash_FilesystemCacheBuilderTest extends tub
 
         $result = $this->_sut->buildFilesystemDriver();
 
-        $this->assertInstanceOf('ehough_stash_interfaces_DriverInterface', $result);
+        $this->assertInstanceOf('Stash\Interfaces\DriverInterface', $result);
     }
 }

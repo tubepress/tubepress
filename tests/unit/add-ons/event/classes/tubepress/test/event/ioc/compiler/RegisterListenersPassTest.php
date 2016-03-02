@@ -20,12 +20,12 @@ class tubepress_test_event_ioc_compiler_RegisterListenersPassTest extends tubepr
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainer;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEventDispatcherDefinition;
 

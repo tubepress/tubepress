@@ -22,12 +22,12 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockSettingsFileReader;
 
@@ -67,7 +67,7 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
         $file = $mockCacheDir . '/TubePress-' . TUBEPRESS_VERSION . '-ServiceContainer.php';
         $success = mkdir($mockCacheDir, 0755, true);
         $this->assertTrue($success);
-        $text = $this->_getDumpedEmptyIconicContainerBuilder();
+        $text = $this->_getDumpedEmptySymfonyContainerBuilder();
         file_put_contents($file, $text);
 
         $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(dirname($mockCacheDir));
@@ -84,7 +84,7 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
         $this->_completeUncachedTest();
     }
 
-    private function _getDumpedEmptyIconicContainerBuilder()
+    private function _getDumpedEmptySymfonyContainerBuilder()
     {
         return <<<XYZ
 <?php
@@ -95,14 +95,14 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
  * This class has been auto-generated
  * by the Symfony Dependency Injection Component.
  */
-class TubePressServiceContainer extends ehough_iconic_Container
+class TubePressServiceContainer extends Symfony\Component\DependencyInjection\Container
 {
     /**
      * Constructor.
      */
     public function __construct()
     {
-        parent::__construct(new ehough_iconic_parameterbag_ParameterBag(array('classMap' => array('x' => 'b'))));
+        parent::__construct(new \Symfony\Component\DependencyInjection\ParameterBag\ParameterBag(array('classMap' => array('x' => 'b'))));
     }
 }
 
@@ -112,17 +112,17 @@ XYZ;
 
     private function _completeUncachedTest()
     {
-        $mockIconicContainer  = $this->mock('ehough_iconic_ContainerInterface');
+        $mockSymfonyContainer = $this->mock('Symfony\Component\DependencyInjection\ContainerInterface');
         $mockUncachedProvider = $this->mock('tubepress_internal_boot_helper_uncached_UncachedContainerSupplier');
 
-        $mockUncachedProvider->shouldReceive('getNewIconicContainer')->once()->andReturn($mockIconicContainer);
+        $mockUncachedProvider->shouldReceive('getNewSymfonyContainer')->once()->andReturn($mockSymfonyContainer);
 
         $this->_sut->___setUncachedContainerSupplier($mockUncachedProvider);
 
-        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', ehough_mockery_Mockery::type('tubepress_api_ioc_ContainerInterface'));
-        $mockIconicContainer->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicContainer);
-        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
-        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_api_boot_BootSettingsInterface', $this->_mockSettingsFileReader);
+        $mockSymfonyContainer->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', Mockery::type('tubepress_api_ioc_ContainerInterface'));
+        $mockSymfonyContainer->shouldReceive('set')->once()->with('symfony_service_container', $mockSymfonyContainer);
+        $mockSymfonyContainer->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
+        $mockSymfonyContainer->shouldReceive('set')->once()->with('tubepress_api_boot_BootSettingsInterface', $this->_mockSettingsFileReader);
 
         $result = $this->_sut->getServiceContainer();
 

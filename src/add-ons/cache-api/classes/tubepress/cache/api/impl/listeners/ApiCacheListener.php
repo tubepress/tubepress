@@ -12,6 +12,11 @@
 class tubepress_cache_api_impl_listeners_ApiCacheListener
 {
     /**
+     * @var string
+     */
+    const HTTP_HEADER_CACHE_HIT = 'TubePress-API-Cache-Hit';
+
+    /**
      * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
@@ -22,13 +27,13 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     private $_context;
 
     /**
-     * @var ehough_stash_interfaces_PoolInterface
+     * @var \Stash\Interfaces\PoolInterface
      */
     private $_apiCache;
 
     public function __construct(tubepress_api_log_LoggerInterface      $logger,
                                 tubepress_api_options_ContextInterface $context,
-                                ehough_stash_interfaces_PoolInterface  $apiCache)
+                                \Stash\Interfaces\PoolInterface        $apiCache)
     {
         $this->_logger   = $logger;
         $this->_context  = $context;
@@ -58,7 +63,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
         $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(
 
             200,
-            array('TubePress-API-Cache-Hit' => 'true'),
+            array(self::HTTP_HEADER_CACHE_HIT => 'true'),
             puzzle_stream_Stream::factory($item->get())
         ));
 
@@ -83,7 +88,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
          */
         $httpResponse = $event->getSubject();
 
-        if ($httpResponse->hasHeader('TubePress-API-Cache-Hit')) {
+        if ($httpResponse->hasHeader(self::HTTP_HEADER_CACHE_HIT)) {
 
             return;
         }
@@ -122,7 +127,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     /**
      * @param tubepress_api_url_UrlInterface $url
      *
-     * @return ehough_stash_interfaces_ItemInterface
+     * @return \Stash\Interfaces\ItemInterface
      */
     private function _getItem(tubepress_api_url_UrlInterface $url)
     {
@@ -138,7 +143,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
         if ($isDebugEnabled && !$cacheEnabled) {
 
-            $this->_logger->debug('Skip API cache for debugging.');
+            $this->_logDebug('Skip API cache for debugging.');
 
             return false;
         }
@@ -156,7 +161,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
     /**
      * @param tubepress_api_url_UrlInterface $url
      *
-     * @return ehough_stash_interfaces_ItemInterface
+     * @return \Stash\Interfaces\ItemInterface
      */
     private function _getCachedItem(tubepress_api_url_UrlInterface $url)
     {
@@ -164,11 +169,11 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug(sprintf('Asking cache for <a href="%s">URL</a>', $url));
+            $this->_logDebug(sprintf('Asking cache for <code>%s</code>', $url));
         }
 
         /**
-         * @var $result ehough_stash_interfaces_ItemInterface
+         * @var $result \Stash\Interfaces\ItemInterface
          */
         $result = $this->_getItem($url);
 
@@ -176,14 +181,19 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
             if ($result->isMiss()) {
 
-                $this->_logger->debug(sprintf('Cache miss for <a href="%s">URL</a>.', $url));
+                $this->_logDebug(sprintf('Cache miss for <code>%s</code>.', $url));
 
             } else {
 
-                $this->_logger->debug(sprintf('Cache hit for <a href="%s">URL</a>.', $url));
+                $this->_logDebug(sprintf('Cache hit for <code>%s</code>.', $url));
             }
         }
 
         return $result;
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(API Cache Listener) %s', $msg));
     }
 }

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo3_impl_embedded_VimeoEmbeddedProvider
  */
-class tubepress_test_vimeo2_impl_embedded_VimeoEmbeddedProviderTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_vimeo3_impl_embedded_VimeoEmbeddedProviderTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo3_impl_embedded_VimeoEmbeddedProvider
@@ -20,22 +20,22 @@ class tubepress_test_vimeo2_impl_embedded_VimeoEmbeddedProviderTest extends tube
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLangUtils;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockUrlFactory;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockMediaItem;
 

@@ -20,12 +20,12 @@ class tubepress_test_api_options_ui_BaseFieldProviderTest extends tubepress_api_
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCategory;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockField;
 

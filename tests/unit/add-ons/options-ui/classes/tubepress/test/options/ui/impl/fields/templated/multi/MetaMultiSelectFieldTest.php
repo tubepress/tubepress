@@ -15,17 +15,17 @@
 class tubepress_test_app_impl_options_ui_fields_templated_multi_MetaMultiSelectFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_multi_AbstractMultiSelectFieldTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockOptionProvider;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockVideoProvider1;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockVideoProvider2;
 

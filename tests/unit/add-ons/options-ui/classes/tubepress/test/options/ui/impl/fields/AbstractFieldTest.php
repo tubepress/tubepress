@@ -15,12 +15,12 @@
 abstract class tubepress_test_options_ui_impl_fields_AbstractFieldTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPersistence;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockHttpRequestParams;
 
@@ -33,7 +33,7 @@ abstract class tubepress_test_options_ui_impl_fields_AbstractFieldTest extends t
     }
 
     /**
-     * @return ehough_mockery_mockery_MockInterface
+     * @return Mockery\MockInterface
      */
     protected function getMockPersistence()
     {

@@ -1,0 +1,8 @@
+web/js/tubepress.js
+web/js/gallery.js
+web/js/players/jqmodal-player.js
+web/js/players/normal-player.js
+web/js/players/popup-player.js
+web/js/players/shadowbox-player.js
+web/vendor/jqmodal/jqModal.js
+web/js/wordpress-ajax.js

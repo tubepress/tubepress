@@ -44,11 +44,12 @@ class tubepress_options_impl_listeners_LoggingListener
 
         if (count($errors) === 0) {
 
-            $this->_logger->debug(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $this->_stringUtils->redactSecrets($optionValue)));
+            $this->_logger->debug(sprintf('(Option Logger) Accepted valid value: <code>%s</code> = <code>%s</code>',
+                $optionName, $this->_stringUtils->redactSecrets($optionValue)));
 
         } else {
 
-            $this->_logger->error(sprintf("Rejecting invalid value: '%s' = '%s' (%s)",
+            $this->_logger->error(sprintf('(Option Logger) Rejecting invalid value: <code>%s</code> = <code>%s</code> (%s)',
                 $optionName, $this->_stringUtils->redactSecrets($optionValue),
                 $errors[0]));
         }

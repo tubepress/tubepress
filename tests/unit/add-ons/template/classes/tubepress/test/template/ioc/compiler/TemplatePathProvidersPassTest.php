@@ -20,12 +20,12 @@ class tubepress_test_template_ioc_compiler_TemplatePathProvidersPassTest extends
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContainer;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockTwigFsLoaderDefinition;
 

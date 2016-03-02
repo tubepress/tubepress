@@ -20,37 +20,37 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockLogger;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockEvent;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockPage;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockItemArray;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockRequestParams;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockCollector;
 
@@ -170,7 +170,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
     {
         $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, 'sortname');
 
-        $this->_mockPage->shouldReceive('setItems')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
+        $this->_mockPage->shouldReceive('setItems')->once()->with(Mockery::on(function ($arg) {
 
             return is_array($arg);
         }));
@@ -182,7 +182,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
     {
         $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, 'x');
 
-        $this->_mockPage->shouldReceive('setItems')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
+        $this->_mockPage->shouldReceive('setItems')->once()->with(Mockery::on(function ($arg) {
 
             return is_array($arg);
         }));
@@ -201,7 +201,7 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
     {
         $this->_setSortAndPerPageOrder(tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT, tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM);
 
-        $this->_mockPage->shouldReceive('setItems')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
+        $this->_mockPage->shouldReceive('setItems')->once()->with(Mockery::on(function ($arg) {
 
             return is_array($arg);
         }));
@@ -245,8 +245,8 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
         $mockProvider2->shouldReceive('getDisplayName')->andReturn('provider 2 friendly name');
         $mockProvider2->shouldReceive('compareForPerPageSort')->atLeast(1)->with(
 
-            ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'),
-            ehough_mockery_Mockery::type('tubepress_api_media_MediaItem'),
+            Mockery::type('tubepress_api_media_MediaItem'),
+            Mockery::type('tubepress_api_media_MediaItem'),
             'sortname'
         )->andReturnUsing(function () {
 

@@ -20,12 +20,12 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_a
     private $_sut;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockContext;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var Mockery\MockInterface
      */
     private $_mockThemeRegistry;
 

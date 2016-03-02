@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<project>
+
+    <macrodef name="package-starter-theme">
+        <sequential>
+            <log msg="Zipping up starter theme" />
+            <mkdir dir="target/stage/tubepress/web/themes/temp" />
+            <copy todir="target/stage/tubepress/web/themes/temp/starter">
+                <fileset dir="target/stage/tubepress/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter" />
+            </copy>
+            <zip destfile="target/stage/tubepress/web/themes/starter-theme.zip" basedir="target/stage/tubepress/web/themes/temp" />
+            <delete dir="target/stage/tubepress/web/themes/temp" />
+        </sequential>
+    </macrodef>
+</project>

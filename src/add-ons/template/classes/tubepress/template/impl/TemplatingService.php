@@ -15,7 +15,7 @@
 class tubepress_template_impl_TemplatingService implements tubepress_api_template_TemplatingInterface
 {
     /**
-     * @var ehough_templating_EngineInterface
+     * @var \Symfony\Component\Templating\EngineInterface
      */
     private $_delegate;
 
@@ -24,8 +24,8 @@ class tubepress_template_impl_TemplatingService implements tubepress_api_templat
      */
     private $_eventDispatcher;
 
-    public function __construct(ehough_templating_EngineInterface            $delegate,
-                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(\Symfony\Component\Templating\EngineInterface $delegate,
+                                tubepress_api_event_EventDispatcherInterface  $eventDispatcher)
     {
         $this->_delegate        = $delegate;
         $this->_eventDispatcher = $eventDispatcher;

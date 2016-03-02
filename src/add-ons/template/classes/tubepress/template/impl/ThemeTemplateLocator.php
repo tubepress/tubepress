@@ -157,7 +157,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Seeing if we can find <code>%s</code> in the theme hierarchy. %s.',
+            $this->_logDebug(sprintf('Seeing if we can find <code>%s</code> in the theme hierarchy. %s.',
                 $templateName, $this->_loggerPostfix($activeTheme)));
         }
 
@@ -170,12 +170,12 @@ class tubepress_template_impl_ThemeTemplateLocator
 
                 if ($cachedValue) {
 
-                    $this->_logger->debug(sprintf('Theme for template <code>%s</code> was found in the cache to be contained in theme <code>%s</code> version <code>%s</code>. %s.',
+                    $this->_logDebug(sprintf('Theme for template <code>%s</code> was found in the cache to be contained in theme <code>%s</code> version <code>%s</code>. %s.',
                         $templateName, $cachedValue->getName(), $cachedValue->getVersion(), $this->_loggerPostfix($activeTheme)));
 
                 } else {
 
-                    $this->_logger->debug(sprintf('We already tried to find a theme that contains <code>%s</code> in the theme hierarchy but didn\'t find it anywhere. %s.',
+                    $this->_logDebug(sprintf('We already tried to find a theme that contains <code>%s</code> in the theme hierarchy but didn\'t find it anywhere. %s.',
                         $templateName, $this->_loggerPostfix($activeTheme)));
                 }
             }
@@ -186,7 +186,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Looks like this is the first time searching for a theme that contains <code>%s</code>. %s.', $templateName, $this->_loggerPostfix($activeTheme)));
+                $this->_logDebug(sprintf('Looks like this is the first time searching for a theme that contains <code>%s</code>. %s.', $templateName, $this->_loggerPostfix($activeTheme)));
             }
         }
 
@@ -205,7 +205,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template source for <code>%s</code> was found in theme <code>%s</code> version <code>%s</code>. %s.',
+                    $this->_logDebug(sprintf('Template source for <code>%s</code> was found in theme <code>%s</code> version <code>%s</code>. %s.',
                         $templateName, $activeThemeName, $activeTheme->getVersion(), $this->_loggerPostfix($activeTheme)));
                 }
 
@@ -221,7 +221,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Template source for <code>%s</code> was not found in theme <code>%s</code>. Now trying its parent theme: <code>%s</code>.',
+                $this->_logDebug(sprintf('Template source for <code>%s</code> was not found in theme <code>%s</code>. Now trying its parent theme: <code>%s</code>.',
                     $templateName, $activeTheme->getName(), $nextThemeNameToCheck));
             }
 
@@ -250,7 +250,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Unable to find source of template <code>%s</code> from theme hierarchy.', $templateName));
+            $this->_logDebug(sprintf('Unable to find source of template <code>%s</code> from theme hierarchy.', $templateName));
         }
 
         return null;
@@ -259,5 +259,10 @@ class tubepress_template_impl_ThemeTemplateLocator
     private function _loggerPostfix(tubepress_api_theme_ThemeInterface $theme)
     {
         return sprintf('Theme <code>%s</code> version <code>%s</code>', $theme->getName(), $theme->getVersion());
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Theme Template Locator) %s', $msg));
     }
 }
