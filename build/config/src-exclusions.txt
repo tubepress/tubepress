@@ -11,6 +11,7 @@ composer.json
 phpunit.xml.dist
 *.md
 .php_cs
+/src/add-ons/*/tests
 /src/php/classes/public/tubepress/api/test
 /tests
 .travis.yml

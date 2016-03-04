@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_app_WordPressManifestValidityTest extends tubepress_api_test_contrib_AbstractManifestTest
+class tubepress_test_wordpress_WordPressManifestValidityTest extends tubepress_api_test_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
