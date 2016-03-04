@@ -11,6 +11,8 @@
 
 /**
  * @covers tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest extends tubepress_api_test_TubePressUnitTest
 {

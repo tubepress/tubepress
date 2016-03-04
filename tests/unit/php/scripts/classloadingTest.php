@@ -203,6 +203,8 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/vendor/symfony/yaml',
 
             '/vendor/tedivm/stash/tests',
+
+            '/src/add-ons/[^/]+/tests/'
         );
 
         return '~' . implode('|', $excludes) . '~';
