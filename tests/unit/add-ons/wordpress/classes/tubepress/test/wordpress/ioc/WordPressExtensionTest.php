@@ -215,6 +215,10 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 'event'    => 'tubepress.wordpress.action.wp_head',
                 'method'   => 'onAction_wp_head',
                 'priority' => 100000
+            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.jetpack_photon_skip_for_url',
+                'method'   => 'onFilter_jetpack_photon_skip_for_url',
+                'priority' => 100000,
             ));
 
         $this->expectRegistration(

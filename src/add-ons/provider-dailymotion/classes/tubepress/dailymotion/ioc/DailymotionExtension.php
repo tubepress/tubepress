@@ -181,15 +181,6 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR => array(
                 tubepress_dailymotion_api_Constants::OPTION_PLAYER_COLOR,
             ),
-            tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOM_ELEMENT_ID_OR_NAME => array(
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID,
-            ),
-            tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN => array(
-                tubepress_dailymotion_api_Constants::OPTION_PLAYER_ORIGIN_DOMAIN,
-            ),
-            tubepress_api_options_listeners_RegexValidatingListener::TYPE_TWO_DIGIT_COUNTRY_CODE => array(
-                tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY,
-            )
         );
 
         foreach ($validators as $type => $optionNames) {
@@ -226,6 +217,33 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
                 'tubepress_api_options_listeners_PatternValidatingListener'
             )->addArgument('/^.{0,150}$/')
              ->addArgument('"%s" cannot be longer than 150 characters')
+             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+             ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
+                'priority' => 100000,
+                'method'   => 'onOptionValidation',
+            ));
+        }
+
+        $patternValidators = array(
+            tubepress_api_options_listeners_RegexValidatingListener::TYPE_DOMAIN =>
+                '/^(?:(?!\-)(?:[a-zA-Z\d\-]{0,62}[a-zA-Z\d]\.){1,126}(?!\d+)[a-zA-Z\d]{1,63})?$/',
+
+            tubepress_dailymotion_api_Constants::OPTION_PLAYER_ID =>
+                '/^(?:[a-z]+[a-z0-9\-_:\.]*)?$/i',
+
+            tubepress_dailymotion_api_Constants::OPTION_FEED_COUNTRY =>
+                '/^(?:[A-Z]{2})?$/'
+        );
+
+        foreach ($patternValidators as $optionName => $pattern) {
+
+            $containerBuilder->register(
+                "pattern_validation.$optionName",
+                'tubepress_api_options_listeners_PatternValidatingListener'
+            )->addArgument($pattern)
+             ->addArgument('Invalid value supplied for "%s".')
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(

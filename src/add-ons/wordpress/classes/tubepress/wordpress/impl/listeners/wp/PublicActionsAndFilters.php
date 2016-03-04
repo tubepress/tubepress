@@ -150,6 +150,38 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         exit;
     }
 
+    public function onFilter_jetpack_photon_skip_for_url(tubepress_api_event_EventInterface $event)
+    {
+        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
+        $args       = $event->getArgument('args');
+        $imageUrl   = $args[0];
+        $domains    = array(
+            '.ytimg.com',
+            '.vimeocdn.com',
+            '.dmcdn.net',
+        );
+
+        try {
+
+            $imageUrl = $urlFactory->fromString($imageUrl);
+
+        } catch (\InvalidArgumentException $e) {
+
+            return;
+        }
+
+        $imageHost = $imageUrl->getHost();
+
+        foreach ($domains as $domain) {
+
+            if ($this->_stringUtils->endsWith($imageHost, $domain)) {
+
+                $event->setSubject(true);
+                return;
+            }
+        }
+    }
+
     private function _enqueueThemeResources(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions,
                                             tubepress_api_version_Version $version)
     {

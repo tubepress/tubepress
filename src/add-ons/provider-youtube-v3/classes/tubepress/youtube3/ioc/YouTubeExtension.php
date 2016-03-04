@@ -126,7 +126,6 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
 
         $validators = array(
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
-                tubepress_youtube3_api_Constants::OPTION_API_KEY,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE
@@ -151,6 +150,28 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
                     'method'   => 'onOption',
                 ));
             }
+        }
+
+        $validators = array(
+
+            tubepress_youtube3_api_Constants::OPTION_API_KEY => '/^[\w-]*$/'
+        );
+
+        foreach ($validators as $optionName => $pattern) {
+
+            $containerBuilder->register(
+
+                "pattern_validator_$optionName",
+                'tubepress_api_options_listeners_PatternValidatingListener'
+            )->addArgument($pattern)
+             ->addArgument('Invalid value supplied for "%s".')
+             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+             ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                 'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
+                 'priority' => 100000,
+                 'method'   => 'onOptionValidation',
+             ));
         }
     }
 

@@ -10,6 +10,7 @@
  */
 
 return array (
+    'APCUIterator' => TUBEPRESS_ROOT . '/vendor/symfony/polyfill-apcu/Resources/stubs/APCUIterator.php',
     'Automattic_Readme' => TUBEPRESS_ROOT . '/vendor/yahnis-elsts/plugin-update-checker/vendor/readme-parser.php',
     'Parsedown' => TUBEPRESS_ROOT . '/vendor/yahnis-elsts/plugin-update-checker/vendor/Parsedown.php',
     'PluginInfo' => TUBEPRESS_ROOT . '/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php',
@@ -330,6 +331,7 @@ return array (
     'Twig_Node_Expression_GetAttr' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/GetAttr.php',
     'Twig_Node_Expression_MethodCall' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/MethodCall.php',
     'Twig_Node_Expression_Name' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/Name.php',
+    'Twig_Node_Expression_NullCoalesce' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/NullCoalesce.php',
     'Twig_Node_Expression_Parent' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/Parent.php',
     'Twig_Node_Expression_TempName' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/TempName.php',
     'Twig_Node_Expression_Test' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Node/Expression/Test.php',
