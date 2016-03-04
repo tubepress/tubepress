@@ -65,6 +65,9 @@ class tubepress_wordpress_ApiIntegrator
 
         /** @noinspection PhpUndefinedFunctionInspection */
         add_filter('puc_request_info_result-tubepress', $filterCallback);
+
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_filter('jetpack_photon_skip_for_url', $filterCallback, 10, 3);
     }
 
     private function _addActions()

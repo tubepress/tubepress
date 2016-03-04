@@ -231,6 +231,10 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'event'    => 'tubepress.wordpress.action.wp_head',
             'method'   => 'onAction_wp_head',
             'priority' => 100000
+        ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.filter.jetpack_photon_skip_for_url',
+            'method'   => 'onFilter_jetpack_photon_skip_for_url',
+            'priority' => 100000,
         ));
 
         $containerBuilder->register(
