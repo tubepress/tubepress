@@ -78,7 +78,6 @@ class tubepress_wordpress_ApiIntegrator
             'admin_enqueue_scripts',
             'admin_head',
             'admin_menu',
-            'admin_notices',
             'admin_print_scripts-settings_page_tubepress',
             'init',
             'in_plugin_update_message-' . $this->_baseName . '/tubepress.php',

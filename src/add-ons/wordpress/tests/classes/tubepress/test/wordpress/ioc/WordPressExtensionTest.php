@@ -147,10 +147,6 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 'method'   => 'onAction_admin_menu',
                 'priority' => 100000
             ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.admin_notices',
-                'method'   => 'onAction_admin_notices',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
                 'method'   => 'onFilter_row_meta',
                 'priority' => 100000))

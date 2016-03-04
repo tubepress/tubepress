@@ -164,10 +164,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'method'   => 'onAction_admin_menu',
             'priority' => 100000
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => 'tubepress.wordpress.action.admin_notices',
-            'method'   => 'onAction_admin_notices',
-            'priority' => 100000
-        ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
             'method'   => 'onFilter_row_meta',
             'priority' => 100000))
