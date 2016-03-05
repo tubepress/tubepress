@@ -81,11 +81,11 @@ return array(
     'tubepress_url_impl_puzzle_PuzzleBasedUrl',
     'tubepress_url_impl_puzzle_UrlFactory',
     'tubepress_util_impl_StringUtils',
-    'tubepress_wordpress_impl_Callback',
+    'tubepress_wordpress_impl_EntryPoint',
     'tubepress_wordpress_impl_listeners_html_WpHtmlListener',
     'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters',
     'tubepress_wordpress_impl_options_WpPersistence',
     'tubepress_wordpress_impl_translation_WpTranslator',
-    'tubepress_wordpress_impl_wp_ActivationHook',
+    'tubepress_wordpress_impl_listeners_wp_ShortcodeListener',
     'tubepress_wordpress_impl_wp_WpFunctions',
 );

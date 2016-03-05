@@ -9,17 +9,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_Callback
+class tubepress_wordpress_impl_listeners_wp_ShortcodeListener
 {
     /**
      * @var tubepress_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
-
-    /**
-     * @var tubepress_wordpress_impl_wp_ActivationHook
-     */
-    private $_activationHook;
 
     /**
      * @var tubepress_api_html_HtmlGeneratorInterface
@@ -41,58 +36,51 @@ class tubepress_wordpress_impl_Callback
      */
     private $_optionMapCache;
 
+    /**
+     * @var tubepress_api_log_LoggerInterface
+     */
+    private $_logger;
+
+    /**
+     * @var bool
+     */
+    private $_loggingEnabled;
+
     public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher,
                                 tubepress_api_options_ContextInterface       $context,
                                 tubepress_api_html_HtmlGeneratorInterface    $htmlGenerator,
                                 tubepress_api_options_ReferenceInterface     $optionsReference,
-                                tubepress_wordpress_impl_wp_ActivationHook   $activationHook)
+                                tubepress_api_log_LoggerInterface            $logger)
     {
         $this->_eventDispatcher  = $eventDispatcher;
-        $this->_activationHook   = $activationHook;
         $this->_context          = $context;
         $this->_htmlGenerator    = $htmlGenerator;
         $this->_optionsReference = $optionsReference;
+        $this->_logger           = $logger;
+        $this->_loggingEnabled   = $logger->isEnabled();
     }
 
-    public function onFilter($filterName, array $args)
+    public function onShortcode(tubepress_api_event_EventInterface $incomingEvent)
     {
-        $subject = $args[0];
-        $args    = count($args) > 1 ? array_slice($args, 1) : array();
-        $event   = $this->_eventDispatcher->newEventInstance(
+        $subject                = $incomingEvent->getSubject();
+        $rawShortcodeAttributes = $subject[0];
+        $rawShortcodeContent    = isset($subject[1]) ? $subject[1] : '';
 
-            $subject,
-            array('args' => $args)
-        );
+        if (!is_array($rawShortcodeAttributes)) {
 
-        $this->_eventDispatcher->dispatch("tubepress.wordpress.filter.$filterName", $event);
-
-        return $event->getSubject();
-    }
-
-    public function onAction($actionName, array $args)
-    {
-        $event = $this->_eventDispatcher->newEventInstance($args);
-
-        $this->_eventDispatcher->dispatch("tubepress.wordpress.action.$actionName", $event);
-    }
-
-    public function onPluginActivation()
-    {
-        $this->_activationHook->execute();
-    }
-
-    public function onShortcode($optionMap, $content)
-    {
-        if (!is_array($optionMap)) {
-
-            $optionMap = array();
+            $rawShortcodeAttributes = array();
         }
 
-        $normalizedOptions = $this->_normalizeIncomingShortcodeOptionMap($optionMap);
+        if ($this->_loggingEnabled) {
+
+            $this->_logRawShortcode($rawShortcodeAttributes, $rawShortcodeContent);
+        }
+
+        $normalizedOptions = $this->_normalizeIncomingShortcodeOptionMap($rawShortcodeAttributes);
 
         $this->_context->setEphemeralOptions($normalizedOptions);
 
-        $event = $this->_buildShortcodeEvent($normalizedOptions, $content);
+        $event = $this->_buildShortcodeEvent($normalizedOptions, $rawShortcodeContent);
         $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::SHORTCODE_PARSED, $event);
 
         /* Get the HTML for this particular shortcode. */
@@ -101,7 +89,7 @@ class tubepress_wordpress_impl_Callback
         /* reset the context for the next shortcode */
         $this->_context->setEphemeralOptions(array());
 
-        return $toReturn;
+        $incomingEvent->setArgument('result', $toReturn);
     }
 
     private function _buildShortcodeEvent(array $normalizedOptions, $innerContent)
@@ -143,5 +131,39 @@ class tubepress_wordpress_impl_Callback
         }
 
         return $toReturn;
+    }
+
+    private function _logRawShortcode(array $rawShortcodeAttributes, $rawShortcodeContent)
+    {
+        $this->_logDebug(sprintf(
+
+            'WordPress sent us a shortcode to parse with <code>%d</code> attributes.',
+            count($rawShortcodeAttributes)
+        ));
+
+        if (count($rawShortcodeAttributes) > 0) {
+
+            $this->_logDebug('Attributes follow...');
+        }
+
+        foreach ($rawShortcodeAttributes as $key => $value) {
+
+            $printKey   = is_scalar($key) ? (string) $key : json_encode($key);
+            $printValue = is_scalar($value) ? (string) $value : json_encode($value);
+
+            $this->_logDebug(sprintf('<code>%s</code> : <code>%s</code>',
+
+                htmlspecialchars($printKey), htmlspecialchars($printValue)
+            ));
+        }
+
+        $printContent = is_scalar($rawShortcodeContent) ? (string) $rawShortcodeContent : json_encode($rawShortcodeContent);
+
+        $this->_logDebug(sprintf('Shortcode content is: <code>%s</code>', $printContent));
+    }
+
+    private function _logDebug($msg)
+    {
+        $this->_logger->debug(sprintf('(Shortcode Listener) %s', $msg));
     }
 }

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_wp_ActivationHook
+class tubepress_wordpress_impl_listeners_wp_ActivationListener
 {
     /**
      * @var tubepress_api_boot_BootSettingsInterface
@@ -28,7 +28,7 @@ class tubepress_wordpress_impl_wp_ActivationHook
         $this->_fs           = $fileSystem;
     }
 
-    public function execute()
+    public function onPluginActivation(tubepress_api_event_EventInterface $event)
     {
         /* add the content directory if it's not already there */
         if (!is_dir(WP_CONTENT_DIR . '/tubepress-content')) {
