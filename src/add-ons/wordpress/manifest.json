@@ -30,6 +30,7 @@
             "tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener" : "classes/tubepress/wordpress/impl/listeners/options/ui/OptionsPageListener.php",
             "tubepress_wordpress_impl_listeners_wp_ActivationListener"          : "classes/tubepress/wordpress/impl/listeners/wp/ActivationListener.php",
             "tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters"      : "classes/tubepress/wordpress/impl/listeners/wp/AdminActionsAndFilters.php",
+            "tubepress_wordpress_impl_listeners_wp_InitListener"                : "classes/tubepress/wordpress/impl/listeners/wp/InitListener.php",
             "tubepress_wordpress_impl_listeners_wp_PhotonListener"              : "classes/tubepress/wordpress/impl/listeners/wp/PhotonListener.php",
             "tubepress_wordpress_impl_listeners_wp_ShortcodeListener"           : "classes/tubepress/wordpress/impl/listeners/wp/ShortcodeListener.php",
             "tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters"     : "classes/tubepress/wordpress/impl/listeners/wp/PublicActionsAndFilters.php",
