@@ -801,6 +801,7 @@ return array (
     'tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/options/ui/OptionsPageListener.php',
     'tubepress_wordpress_impl_listeners_wp_ActivationListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/ActivationListener.php',
     'tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/AdminActionsAndFilters.php',
+    'tubepress_wordpress_impl_listeners_wp_PhotonListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/PhotonListener.php',
     'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/PublicActionsAndFilters.php',
     'tubepress_wordpress_impl_listeners_wp_ShortcodeListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/ShortcodeListener.php',
     'tubepress_wordpress_impl_options_WpPersistence' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/options/WpPersistence.php',

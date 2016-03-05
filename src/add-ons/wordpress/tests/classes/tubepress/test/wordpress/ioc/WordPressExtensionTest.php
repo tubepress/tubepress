@@ -232,6 +232,17 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 'event'    => 'tubepress.wordpress.action.wp_head',
                 'method'   => 'onAction_wp_head',
                 'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wp_PhotonListener',
+            'tubepress_wordpress_impl_listeners_wp_PhotonListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withArgument(array(
+                'ytimg.com',
+                'vimeocdn.com',
+                'dmcdn.net',
             ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.filter.jetpack_photon_skip_for_url',
                 'method'   => 'onFilter_jetpack_photon_skip_for_url',
