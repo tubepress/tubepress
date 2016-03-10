@@ -10,19 +10,19 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_listeners_wp_PhotonListener
+ * @covers tubepress_wordpress_impl_listeners_wpfilter_PhotonListener
  */
-class tubepress_test_wordpress_impl_listeners_wp_PhotonListenerTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_wpfilter_PhotonListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_wordpress_impl_listeners_wp_PhotonListener
+     * @var tubepress_wordpress_impl_listeners_wpfilter_PhotonListener
      */
     private $_sut;
 
     public function onSetup()
     {
 
-        $this->_sut = new tubepress_wordpress_impl_listeners_wp_PhotonListener(
+        $this->_sut = new tubepress_wordpress_impl_listeners_wpfilter_PhotonListener(
 
             new tubepress_url_impl_puzzle_UrlFactory(),
             new tubepress_util_impl_StringUtils(),

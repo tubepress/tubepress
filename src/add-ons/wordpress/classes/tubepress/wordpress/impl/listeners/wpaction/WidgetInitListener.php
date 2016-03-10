@@ -9,27 +9,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
+class tubepress_wordpress_impl_listeners_wpaction_WidgetInitListener
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
      */
     private $_wpFunctions;
-
-    /**
-     * @var tubepress_api_html_HtmlGeneratorInterface
-     */
-    private $_htmlGenerator;
-
-    /**
-     * @var tubepress_api_http_AjaxInterface
-     */
-    private $_ajaxHandler;
-
-    /**
-     * @var tubepress_api_http_RequestParametersInterface
-     */
-    private $_requestParameters;
 
     /**
      * @var tubepress_api_translation_TranslatorInterface
@@ -41,19 +26,13 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions        $wpFunctions,
-                                tubepress_api_html_HtmlGeneratorInterface      $htmlGenerator,
-                                tubepress_api_http_AjaxInterface               $ajaxHandler,
-                                tubepress_api_http_RequestParametersInterface  $requestParams,
-                                tubepress_api_translation_TranslatorInterface  $translator,
-                                tubepress_api_event_EventDispatcherInterface   $eventDispatcher)
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions       $wpFunctions,
+                                tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_event_EventDispatcherInterface  $eventDispatcher)
     {
-        $this->_wpFunctions       = $wpFunctions;
-        $this->_htmlGenerator     = $htmlGenerator;
-        $this->_ajaxHandler       = $ajaxHandler;
-        $this->_requestParameters = $requestParams;
-        $this->_translator        = $translator;
-        $this->_eventDispatcher   = $eventDispatcher;
+        $this->_wpFunctions     = $wpFunctions;
+        $this->_translator      = $translator;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     public function onAction_widgets_init(tubepress_api_event_EventInterface $event)
@@ -90,24 +69,5 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     public function __fireWidgetControlEvent()
     {
         $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS);
-    }
-
-    public function onAction_wp_head(tubepress_api_event_EventInterface $event)
-    {
-        /* no need to print anything in the head of the admin section */
-        if ($this->_wpFunctions->is_admin()) {
-
-            return;
-        }
-
-        /* this inline JS helps initialize TubePress */
-        print $this->_htmlGenerator->getCSS();
-        print $this->_htmlGenerator->getJS();
-    }
-
-    public function onAction_ajax(tubepress_api_event_EventInterface $event)
-    {
-        $this->_ajaxHandler->handle();
-        exit;
     }
 }

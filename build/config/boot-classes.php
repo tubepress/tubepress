@@ -83,8 +83,6 @@ return array(
     'tubepress_util_impl_StringUtils',
     'tubepress_wordpress_impl_EntryPoint',
     'tubepress_wordpress_impl_listeners_html_WpHtmlListener',
-    'tubepress_wordpress_impl_listeners_wp_InitListener',
-    'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters',
     'tubepress_wordpress_impl_options_WpPersistence',
     'tubepress_wordpress_impl_translation_WpTranslator',
     'tubepress_wordpress_impl_listeners_wp_ShortcodeListener',

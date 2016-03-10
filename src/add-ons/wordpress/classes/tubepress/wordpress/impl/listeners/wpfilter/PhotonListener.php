@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_listeners_wp_PhotonListener
+class tubepress_wordpress_impl_listeners_wpfilter_PhotonListener
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
@@ -26,8 +26,8 @@ class tubepress_wordpress_impl_listeners_wp_PhotonListener
      */
     private $_domainsToSearch;
 
-    public function __construct(tubepress_api_url_UrlFactoryInterface        $urlFactory,
-                                tubepress_api_util_StringUtilsInterface        $stringUtils,
+    public function __construct(tubepress_api_url_UrlFactoryInterface   $urlFactory,
+                                tubepress_api_util_StringUtilsInterface $stringUtils,
                                 array $domainsToSearch)
     {
         $this->_urlFactory      = $urlFactory;

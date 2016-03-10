@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
+ * @covers tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
  */
-class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
+     * @var tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
      */
     private $_sut;
 
@@ -23,21 +23,6 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      * @var Mockery\MockInterface
      */
     private $_mockWordPressFunctionWrapper;
-
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockEventDispatcher;
-
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockHttpRequestParameterService;
-
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockQss;
 
     /**
      * @var Mockery\MockInterface
@@ -54,85 +39,20 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      */
     private $_mockEnvironment;
 
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockOauth2Initiator;
-
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockOauth2Callback;
-
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockContext;
-
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockEventDispatcher             = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockHttpRequestParameterService = $this->mock(tubepress_api_http_RequestParametersInterface::_);
-        $this->_mockQss                         = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockForm                        = $this->mock(tubepress_api_options_ui_FormInterface::_);
         $this->_mockStringUtils                 = $this->mock(tubepress_api_util_StringUtilsInterface::_);
         $this->_mockEnvironment                 = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
-        $this->_mockOauth2Initiator             = $this->mock('tubepress_http_oauth2_impl_popup_AuthorizationInitiator');
-        $this->_mockOauth2Callback              = $this->mock('tubepress_http_oauth2_impl_popup_RedirectionCallback');
-        $this->_mockContext                     = $this->mock(tubepress_api_options_ContextInterface::_);
 
-        $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
+        $this->_sut = new tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener(
 
             $this->_mockWordPressFunctionWrapper,
-            $this->_mockQss,
-            $this->_mockHttpRequestParameterService,
-            $this->_mockEventDispatcher,
             $this->_mockForm,
             $this->_mockStringUtils,
-            $this->_mockEnvironment,
-            $this->_mockOauth2Initiator,
-            $this->_mockOauth2Callback,
-            $this->_mockContext
+            $this->_mockEnvironment
         );
-    }
-
-    public function testAdminMenu()
-    {
-        $this->_mockWordPressFunctionWrapper->shouldReceive('add_options_page')->once()->with(
-
-            'TubePress Options', 'TubePress', 'manage_options',
-            'tubepress', array($this->_sut, '__fireOptionsPageEvent')
-        );
-
-        $this->_mockWordPressFunctionWrapper->shouldReceive('add_submenu_page')->once()->with(
-
-            null, '', '', 'manage_options',
-            'tubepress_oauth2_start', array($this->_sut, '__noop')
-        );
-
-        $this->_mockWordPressFunctionWrapper->shouldReceive('add_submenu_page')->once()->with(
-
-            null, '', '', 'manage_options',
-            'tubepress_oauth2', array($this->_sut, '__noop')
-        );
-
-        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
-
-        $this->_sut->onAction_admin_menu($mockEvent);
-
-        $this->assertTrue(true);
-    }
-
-    public function testRunOptionsPage()
-    {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_wordpress_api_Constants::EVENT_OPTIONS_PAGE_INVOKED
-        );
-
-        $this->_sut->__fireOptionsPageEvent();
-
-        $this->assertTrue(true);
     }
 
     public function testAdminHead()
@@ -201,27 +121,6 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('settings_page_tubepress'));
         $this->_sut->onAction_admin_enqueue_scripts($mockEvent);
-
-        $this->assertTrue(true);
-    }
-
-    public function testRowMeta()
-    {
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugin_basename')->once()->with('core/tubepress.php')->andReturn('something');
-        $this->_mockWordPressFunctionWrapper->shouldReceive('__')->once()->with('Settings', 'tubepress')->andReturn('orange');
-
-        $mockEvent = $this->mock('tubepress_api_event_EventInterface');
-        $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('x', 1, 'three'));
-        $mockEvent->shouldReceive('getArgument')->once()->with('args')->andReturn(array('something'));
-        $mockEvent->shouldReceive('setSubject')->once()->with(array(
-
-            'x', 1, 'three',
-            '<a href="options-general.php?page=tubepress.php">orange</a>',
-            '<a href="http://support.tubepress.com/">Support</a>',
-
-        ));
-
-        $this->_sut->onFilter_row_meta($mockEvent);
 
         $this->assertTrue(true);
     }

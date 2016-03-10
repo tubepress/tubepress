@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_listeners_wp_InitListener
+ * @covers tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
  */
-class tubepress_test_wordpress_impl_listeners_wp_InitListenerTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_wpaction_ThemeCssJsListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_wordpress_impl_listeners_wp_InitListener
+     * @var tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
      */
     private $_sut;
 
@@ -46,7 +46,7 @@ class tubepress_test_wordpress_impl_listeners_wp_InitListenerTest extends tubepr
         $this->_mockStringUtils              = $this->mock(tubepress_api_util_StringUtilsInterface::_);
         $this->_mockEnvironment              = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
 
-        $this->_sut = new tubepress_wordpress_impl_listeners_wp_InitListener(
+        $this->_sut = new tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener(
 
             $this->_mockWordPressFunctionWrapper,
             $this->_mockEnvironment,

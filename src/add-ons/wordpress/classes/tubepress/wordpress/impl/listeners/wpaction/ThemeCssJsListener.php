@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_listeners_wp_InitListener
+class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
