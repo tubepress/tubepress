@@ -23,6 +23,31 @@ class tubepress_wordpress_api_Constants
     const EVENT_OPTIONS_PAGE_INVOKED  = 'tubepress.wordpress.event.optionsPageInvoked';
 
     /**
+     * This event is fired when the plugin is activated.
+     *
+     * @subject `array` An array of the arguments pass to the callback registered with register_activation_hook()
+     *                  (usually just an empty array?)
+     *
+     * @api
+     * @since 5.0.2
+     */
+    const EVENT_PLUGIN_ACTIVATION = 'tubepress.wordpress.plugin_activation';
+
+    /**
+     * This event is fired when WordPress passes TubePress a shortcode to parse. The shortcode listener
+     * will populate the "result" argument with the HTML that WordPress should insert.
+     *
+     * @subject `array` An array with:
+     *                  0: An associative array of shortcode attributes that WordPress found
+     *                  1: The shortcode content (might be empty)
+     *                  2: The shortcode keyword
+     *
+     * @api
+     * @since 5.0.2
+     */
+    const EVENT_SHORTCODE_FOUND = 'tubepress.wordpress.shortcode_found';
+
+    /**
      * This event is fired after TubePress parses a shortcode.
      *
      * @subject `tubepress_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.

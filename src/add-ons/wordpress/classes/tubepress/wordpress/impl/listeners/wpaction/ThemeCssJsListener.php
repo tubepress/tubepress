@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
+class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
@@ -27,26 +27,6 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     private $_htmlGenerator;
 
     /**
-     * @var tubepress_api_http_AjaxInterface
-     */
-    private $_ajaxHandler;
-
-    /**
-     * @var tubepress_api_http_RequestParametersInterface
-     */
-    private $_requestParameters;
-
-    /**
-     * @var tubepress_api_translation_TranslatorInterface
-     */
-    private $_translator;
-
-    /**
-     * @var tubepress_api_event_EventDispatcherInterface
-     */
-    private $_eventDispatcher;
-
-    /**
      * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environment;
@@ -57,58 +37,14 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     private $_urlCache;
 
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions        $wpFunctions,
-                                tubepress_api_util_StringUtilsInterface        $stringUtils,
+                                tubepress_api_environment_EnvironmentInterface $environment,
                                 tubepress_api_html_HtmlGeneratorInterface      $htmlGenerator,
-                                tubepress_api_http_AjaxInterface               $ajaxHandler,
-                                tubepress_api_http_RequestParametersInterface  $requestParams,
-                                tubepress_api_translation_TranslatorInterface  $translator,
-                                tubepress_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_api_environment_EnvironmentInterface $environment)
+                                tubepress_api_util_StringUtilsInterface        $stringUtils)
     {
-        $this->_wpFunctions       = $wpFunctions;
-        $this->_stringUtils       = $stringUtils;
-        $this->_htmlGenerator     = $htmlGenerator;
-        $this->_ajaxHandler       = $ajaxHandler;
-        $this->_requestParameters = $requestParams;
-        $this->_translator        = $translator;
-        $this->_eventDispatcher   = $eventDispatcher;
-        $this->_environment       = $environment;
-    }
-
-    public function onAction_widgets_init(tubepress_api_event_EventInterface $event)
-    {
-        if (!$event->hasArgument('unit-testing') && !class_exists('tubepress_wordpress_impl_wp_WpWidget')) {
-
-            require TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpWidget.php';
-        }
-
-        $this->_wpFunctions->register_widget('tubepress_wordpress_impl_wp_WpWidget');
-
-        /**
-         * These next three lines are deprecated!
-         */
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
-            $this->_translator->trans('Displays YouTube or Vimeo videos with TubePress. Limited to a single instance per site. Use the other TubePress widget instead!'));  //>(translatable)<
-        $this->_wpFunctions->wp_register_sidebar_widget('tubepress', 'TubePress (legacy)', array($this, '__fireWidgetHtmlEvent'), $widgetOps);
-        $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress (legacy)', array($this, '__fireWidgetControlEvent'));
-    }
-
-    /**
-     * @deprecated
-     */
-    public function __fireWidgetHtmlEvent($widgetOpts)
-    {
-        $event = $this->_eventDispatcher->newEventInstance($widgetOpts);
-
-        $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML, $event);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function __fireWidgetControlEvent()
-    {
-        $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS);
+        $this->_wpFunctions   = $wpFunctions;
+        $this->_environment   = $environment;
+        $this->_htmlGenerator = $htmlGenerator;
+        $this->_stringUtils   = $stringUtils;
     }
 
     public function onAction_init(tubepress_api_event_EventInterface $event)
@@ -129,57 +65,6 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_wpFunctions->wp_enqueue_script('tubepress_ajax', false, array(), false, false);
 
         $this->_enqueueThemeResources($this->_wpFunctions, $version);
-    }
-
-    public function onAction_wp_head(tubepress_api_event_EventInterface $event)
-    {
-        /* no need to print anything in the head of the admin section */
-        if ($this->_wpFunctions->is_admin()) {
-
-            return;
-        }
-
-        /* this inline JS helps initialize TubePress */
-        print $this->_htmlGenerator->getCSS();
-        print $this->_htmlGenerator->getJS();
-    }
-
-    public function onAction_ajax(tubepress_api_event_EventInterface $event)
-    {
-        $this->_ajaxHandler->handle();
-        exit;
-    }
-
-    public function onFilter_jetpack_photon_skip_for_url(tubepress_api_event_EventInterface $event)
-    {
-        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
-        $args       = $event->getArgument('args');
-        $imageUrl   = $args[0];
-        $domains    = array(
-            '.ytimg.com',
-            '.vimeocdn.com',
-            '.dmcdn.net',
-        );
-
-        try {
-
-            $imageUrl = $urlFactory->fromString($imageUrl);
-
-        } catch (\InvalidArgumentException $e) {
-
-            return;
-        }
-
-        $imageHost = $imageUrl->getHost();
-
-        foreach ($domains as $domain) {
-
-            if ($this->_stringUtils->endsWith($imageHost, $domain)) {
-
-                $event->setSubject(true);
-                return;
-            }
-        }
     }
 
     private function _enqueueThemeResources(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions,

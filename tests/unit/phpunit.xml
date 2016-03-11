@@ -10,6 +10,7 @@
 	   <testsuite name="unit">
            <directory>./add-ons</directory>
            <directory>./php</directory>
+           <directory>../../src/add-ons/*/tests</directory>
 	   </testsuite>
         <testsuite name="translations">
             <directory>./translations</directory>

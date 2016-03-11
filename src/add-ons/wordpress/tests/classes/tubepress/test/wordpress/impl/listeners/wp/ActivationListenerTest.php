@@ -10,13 +10,13 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_wp_ActivationHook
+ * @covers tubepress_wordpress_impl_listeners_wp_ActivationListener
  * @runTestsInSeparateProcesses
  */
-class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_wp_ActivationListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_wordpress_impl_wp_ActivationHook
+     * @var tubepress_wordpress_impl_listeners_wp_ActivationListener
      */
     private $_sut;
 
@@ -39,7 +39,7 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_
     {
         $this->_mockFilesystemInterface = $this->mock('Symfony\Component\Filesystem\Filesystem');
         $this->_mockSettingsFileReader  = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
-        $this->_sut = new tubepress_wordpress_impl_wp_ActivationHook(
+        $this->_sut = new tubepress_wordpress_impl_listeners_wp_ActivationListener(
 
             $this->_mockSettingsFileReader,
             $this->_mockFilesystemInterface
@@ -62,7 +62,7 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_
         $this->recursivelyDeleteDirectory($this->_userContentDirectory);
     }
 
-    public function testTotallyFreshInstallYo()
+    public function testTotallyFreshInstall()
     {
         $this->_mockFilesystemInterface->shouldReceive('mirror')->once()->with(
 
@@ -73,7 +73,7 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_api_
 
         $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/foo');
 
-        $this->_sut->execute();
+        $this->_sut->onPluginActivation($this->mock('tubepress_api_event_EventInterface'));
 
         $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/foo');
 

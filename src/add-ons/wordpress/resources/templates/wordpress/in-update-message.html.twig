@@ -1,0 +1,18 @@
+{#
+ # Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+{% set message = 'Enable automatic updates by supplying your TubePress API Key. <a href="%s" target="_blank">Learn how</a>.' | trans %} {# >(translatable)< #}
+
+<br />
+
+<div class="inline notice notice-warning">
+
+    {{ message | replace { '%s' : 'http://support.tubepress.com/customer/portal/articles/2278860-enable-automatic-plugin-updates' } |  raw }}
+
+</div>

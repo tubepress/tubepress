@@ -206,7 +206,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             'fields' => $this->_fieldsVar,
         ));
 
-        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(array($this, '__verifyFinalTemplateVars')));
+        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(function ($candidate) { return self::__verifyFinalTemplateVars($candidate); }));
     }
 
     private function _prepMockFieldProviders()

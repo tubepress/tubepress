@@ -28,6 +28,31 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
+     * Adds a hook for a shortcode tag.
+     *
+     * @param $tag      string   Shortcode tag to be searched in post content
+     * @param $function callable Hook to run when shortcode is found
+     *
+     * @return void
+     */
+    public function add_shortcode($tag, $function)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_shortcode($tag, $function);
+    }
+
+    /**
+     * Retrieve the name of the current filter or action.
+     *
+     * @return string Hook name of the current filter or action.
+     */
+    public function current_filter()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return current_filter();
+    }
+
+    /**
      * Use the function update_option() to update a named option/value pair to the options database table.
      * The option_name value is escaped with $wpdb->escape before the INSERT statement.
      *
@@ -172,8 +197,8 @@ class tubepress_wordpress_impl_wp_WpFunctions
     /**
      * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
      *
-     * @param string $name  Name of the option to// TODO: Implement add_options_page() method. be added. Use underscores to separate words, and do not
-     *                      use uppercaseâ€”this is going to be placed into the database.
+     * @param string $name Name of the option to be added. Must not exceed 64 characters. Use underscores to separate
+     *                     words, and do not use uppercase—this is going to be placed into the database.
      * @param string $value Value for this option name.
      *
      * @return void
@@ -510,7 +535,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_nonce_field($action, $name, $referrer, $echo)
     {
-        /** @noinspection PhpVoidFunctionResultUsedInspection */
+        /** @noinspection PhpUndefinedFunctionInspection */
         return wp_nonce_field($action, $name, $referrer, $echo);
     }
 
@@ -636,6 +661,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
         set_transient($transient, $value, $expiration);
     }
 
+    /** @noinspection PhpUndefinedClassInspection */
     /**
      * Retrieve the current user object (WP_User). Wrapper of get_currentuserinfo() using the global variable $current_user.
      *
@@ -659,6 +685,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
         register_widget($class);
     }
 
+    /** @noinspection PhpUndefinedClassInspection */
     /**
      * @return WP_Scripts
      */
@@ -666,8 +693,10 @@ class tubepress_wordpress_impl_wp_WpFunctions
 
         global $wp_scripts;
 
+        /** @noinspection PhpUndefinedClassInspection */
         if (!($wp_scripts instanceof WP_Scripts)) {
 
+            /** @noinspection PhpUndefinedClassInspection */
             $wp_scripts = new WP_Scripts();
         }
 

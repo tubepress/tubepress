@@ -154,14 +154,15 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterf
      */
     private function _createDateTimeFromFormat()
     {
-        if (version_compare(PHP_VERSION, '5.3') >= 0) {
+        $toReturn = DateTime::createFromFormat(
 
-            return DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), $this->_timezone)->setTimezone($this->_timezone);
-        }
+            'U.u',
+            sprintf('%.6F', microtime(true)),
+            $this->_timezone
+        );
 
-        $time = new DateTime('@' . time());
-        $time->setTimezone($this->_timezone);
+        $toReturn->setTimezone($this->_timezone);
 
-        return $time;
+        return $toReturn;
     }
 }

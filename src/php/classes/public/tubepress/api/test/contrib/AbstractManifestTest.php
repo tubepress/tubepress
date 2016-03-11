@@ -85,10 +85,20 @@ abstract class tubepress_api_test_contrib_AbstractManifestTest extends tubepress
 
     public function testClassMapIntegrity()
     {
-        $map      = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(dirname($this->getPathToManifest()));
-        $missing  = array();
-        $manifest = $this->_decodeManifest();
-        $toIgnore = $this->getClassNamesToIgnore();
+        $map          = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(dirname($this->getPathToManifest()));
+        $missing      = array();
+        $manifest     = $this->_decodeManifest();
+        $toIgnore     = $this->getClassNamesToIgnore();
+        $manifestPath = $this->getPathToManifest();
+        $manifestDir  = dirname($manifestPath);
+
+        foreach ($map as $className => $path) {
+
+            if (strpos($path, "$manifestDir/tests") === 0) {
+
+                unset($map[$className]);
+            }
+        }
 
         foreach ($map as $className => $path) {
 

@@ -32,9 +32,19 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
         $this->_registerOptions();
         $this->_registerOptionsUi();
         $this->_registerSingletons();
+        $this->_registerTemplatePathProvider();
         $this->_registerWpServices();
         $this->_registerVendorServices();
         $this->_registerHttpOauth2Services();
+    }
+
+    private function _registerTemplatePathProvider()
+    {
+        $this->expectRegistration(
+            'tubepress_api_template_BasePathProvider__wordpress',
+            'tubepress_api_template_BasePathProvider'
+        )->withArgument(array(TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/templates'))
+            ->withTag('tubepress_spi_template_PathProviderInterface.admin');
     }
 
     private function _registerOptions()
@@ -122,117 +132,17 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
     private function _registerListeners()
     {
         $this->expectRegistration(
-            'tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters',
-            'tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ui_FormInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_AuthorizationInitiator'))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_RedirectionCallback'))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
-                'method'   => 'onAction_admin_enqueue_scripts',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.admin_head',
-                'method'   => 'onAction_admin_head',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.admin_menu',
-                'method'   => 'onAction_admin_menu',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.admin_notices',
-                'method'   => 'onAction_admin_notices',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
-                'method'   => 'onFilter_row_meta',
-                'priority' => 100000))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.plugin_action_links',
-                'method'   => 'onFilter_row_meta',
-                'priority' => 100000
-            ))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.puc_request_info_query_args-tubepress',
-                'method'   => 'onFilter_PucRequestInfoQueryArgsTubePress',
-                'priority' => 100000))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.puc_request_info_result-tubepress',
-                'method'   => 'onFilter_PucRequestInfoResultTubePress',
-                'priority' => 100000))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.admin_print_scripts-settings_page_tubepress',
-                'method'   => 'onAction_admin_print_scripts',
-                'priority' => 100000))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2_start',
-                'method'   => 'onAction_load_admin_page_tubepress_oauth2_start',
-                'priority' => 100000))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2',
-                'method'   => 'onAction_load_admin_page_tubepress_oauth2',
-                'priority' => 100000))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => sprintf('tubepress.wordpress.action.in_plugin_update_message-%s/tubepress.php', basename(TUBEPRESS_ROOT)),
-                'method'   => 'onAction_in_plugin_update_message',
-                'priority' => 100000));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters',
-            'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_AjaxInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
-            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
-                'method'   => 'onAction_ajax',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.wp_ajax_tubepress',
-                'method'   => 'onAction_ajax',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.init',
-                'method'   => 'onAction_init',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.widgets_init',
-                'method'   => 'onAction_widgets_init',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.action.wp_head',
-                'method'   => 'onAction_wp_head',
-                'priority' => 100000
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.jetpack_photon_skip_for_url',
-                'method'   => 'onFilter_jetpack_photon_skip_for_url',
-                'priority' => 100000,
-            ));
-
-        $this->expectRegistration(
             'tubepress_wordpress_impl_listeners_html_WpHtmlListener',
             'tubepress_wordpress_impl_listeners_html_WpHtmlListener'
         )->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/scripts",
-                'method'   => 'onScriptsStylesTemplatePreRender',
-                'priority' => 100000,
-            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/styles",
-                'method'   => 'onScriptsStylesTemplatePreRender',
-                'priority' => 100000,
-            ));
+            'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/scripts",
+            'method'   => 'onScriptsStylesTemplatePreRender',
+            'priority' => 100000,
+        ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/styles",
+            'method'   => 'onScriptsStylesTemplatePreRender',
+            'priority' => 100000,
+        ));
 
         $this->expectRegistration(
             'tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener',
@@ -253,9 +163,178 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'tubepress_wordpress_impl_listeners_options_AdminThemeListener',
             'tubepress_wordpress_impl_listeners_options_AdminThemeListener'
         )->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_api_event_Events::OPTION_DEFAULT_VALUE . '.' . tubepress_api_options_Names::THEME_ADMIN,
-                'method'   => 'onDefaultValue',
+            'event'    => tubepress_api_event_Events::OPTION_DEFAULT_VALUE . '.' . tubepress_api_options_Names::THEME_ADMIN,
+            'method'   => 'onDefaultValue',
+            'priority' => 100000,
+        ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wp_ActivationListener',
+            'tubepress_wordpress_impl_listeners_wp_ActivationListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('filesystem'))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_wordpress_api_Constants::EVENT_PLUGIN_ACTIVATION,
+                'method'   => 'onPluginActivation',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wp_ShortcodeListener',
+            'tubepress_wordpress_impl_listeners_wp_ShortcodeListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event' => tubepress_wordpress_api_Constants::EVENT_SHORTCODE_FOUND,
+                'method' => 'onShortcode',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener',
+            'tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ui_FormInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
+                'method'   => 'onAction_admin_enqueue_scripts',
+                'priority' => 100000))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.admin_head',
+                'method'   => 'onAction_admin_head',
+                'priority' => 100000))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.admin_print_scripts-settings_page_tubepress',
+                'method'   => 'onAction_admin_print_scripts',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_AjaxListener',
+            'tubepress_wordpress_impl_listeners_wpaction_AjaxListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_AjaxInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
+                'method'   => 'onAction_ajax',
+                'priority' => 100000
+            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.wp_ajax_tubepress',
+                'method'   => 'onAction_ajax',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_HeadListener',
+            'tubepress_wordpress_impl_listeners_wpaction_HeadListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.wp_head',
+                'method'   => 'onAction_wp_head',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_MenuAndPageListener',
+            'tubepress_wordpress_impl_listeners_wpaction_MenuAndPageListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_AuthorizationInitiator'))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_popup_RedirectionCallback'))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.admin_menu',
+                'method'   => 'onAction_admin_menu',
+                'priority' => 100000))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2_start',
+                'method'   => 'onAction_load_admin_page_tubepress_oauth2_start',
+                'priority' => 100000))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.load-admin_page_tubepress_oauth2',
+                'method'   => 'onAction_load_admin_page_tubepress_oauth2',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener',
+            'tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.init',
+                'method'   => 'onAction_init',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_UpdateMessageListener',
+            'tubepress_wordpress_impl_listeners_wpaction_UpdateMessageListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => sprintf('tubepress.wordpress.action.in_plugin_update_message-%s/tubepress.php', basename(TUBEPRESS_ROOT)),
+                'method'   => 'onAction_in_plugin_update_message',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpaction_WidgetInitListener',
+            'tubepress_wordpress_impl_listeners_wpaction_WidgetInitListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.widgets_init',
+                'method'   => 'onAction_widgets_init',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpfilter_PhotonListener',
+            'tubepress_wordpress_impl_listeners_wpfilter_PhotonListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withArgument(array(
+                'ytimg.com',
+                'vimeocdn.com',
+                'dmcdn.net',
+            ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.jetpack_photon_skip_for_url',
+                'method'   => 'onFilter_jetpack_photon_skip_for_url',
                 'priority' => 100000,
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpfilter_PucListener',
+            'tubepress_wordpress_impl_listeners_wpfilter_PucListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.puc_request_info_query_args-tubepress',
+                'method'   => 'onFilter_PucRequestInfoQueryArgsTubePress',
+                'priority' => 100000))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.puc_request_info_result-tubepress',
+                'method'   => 'onFilter_PucRequestInfoResultTubePress',
+                'priority' => 100000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_wpfilter_RowMetaListener',
+            'tubepress_wordpress_impl_listeners_wpfilter_RowMetaListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
+                'method'   => 'onFilter_row_meta',
+                'priority' => 100000
             ));
     }
 
@@ -270,25 +349,38 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             tubepress_spi_options_PersistenceBackendInterface::_,
             'tubepress_wordpress_impl_options_WpPersistence'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_EntryPoint',
+            'tubepress_wordpress_impl_EntryPoint'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withArgument(array(
+                'admin_enqueue_scripts',
+                'admin_head',
+                'admin_menu',
+                'admin_print_scripts-settings_page_tubepress',
+                'init',
+                'in_plugin_update_message-' . basename(TUBEPRESS_ROOT) . '/tubepress.php',
+                'load-admin_page_tubepress_oauth2',
+                'load-admin_page_tubepress_oauth2_start',
+                'widgets_init',
+                'wp_ajax_nopriv_tubepress',
+                'wp_ajax_tubepress',
+                'wp_head',
+            ))->withArgument(array(
+                array('plugin_row_meta',      10, 2),
+                array('upgrader_pre_install', 10, 2),
+                array('puc_request_info_query_args-tubepress'),
+                array('puc_request_info_result-tubepress'),
+                array('jetpack_photon_skip_for_url', 10, 3),
+            ));
     }
 
     private function _registerWpServices()
     {
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_wp_ActivationHook',
-            'tubepress_wordpress_impl_wp_ActivationHook'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('filesystem'));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_Callback',
-            'tubepress_wordpress_impl_Callback'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_ActivationHook'));
-
         $this->expectRegistration(
             'tubepress_wordpress_impl_wp_Widget',
             'tubepress_wordpress_impl_wp_Widget'
@@ -315,11 +407,6 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             tubepress_wordpress_impl_wp_WpFunctions::_,
             'tubepress_wordpress_impl_wp_WpFunctions'
         );
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_wp_TemplatePathProvider',
-            'tubepress_wordpress_impl_wp_TemplatePathProvider'
-        )->withTag('tubepress_spi_template_PathProviderInterface.admin');
     }
 
     private function _registerVendorServices()
@@ -347,6 +434,9 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
         $mockField        = $this->mock('tubepress_api_options_ui_FieldInterface');
         $mockFieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
+        $mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
+
         return array(
 
             tubepress_api_options_ui_FormInterface::_                 => tubepress_api_options_ui_FormInterface::_,
@@ -368,6 +458,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             tubepress_api_options_PersistenceInterface::_             => tubepress_api_options_PersistenceInterface::_,
             'tubepress_http_oauth2_impl_popup_AuthorizationInitiator' => 'tubepress_http_oauth2_impl_popup_AuthorizationInitiator',
             'tubepress_http_oauth2_impl_popup_RedirectionCallback'    => 'tubepress_http_oauth2_impl_popup_RedirectionCallback',
+            tubepress_api_log_LoggerInterface::_                      => $mockLogger,
         );
     }
 }
