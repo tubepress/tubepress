@@ -69,6 +69,8 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
      */
     private $_mockFieldProvider;
 
+    private $_prefixValidator;
+    
     public function onSetup()
     {
         $this->_mockPersistence         = $this->mock('tubepress_options_impl_Persistence');
@@ -102,6 +104,11 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         );
 
         $this->_sut->setFieldProviders(array($this->_mockFieldProvider));
+        
+        $this->_prefixValidator = function ($candidate) {
+            
+            return is_string($candidate) && preg_match_all('/^tubepress-multisource-[0-9]+-$/', $candidate, $matches) === 1;
+        };
     }
 
     public function testSubmitNoErrors()
@@ -128,14 +135,14 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on($this->_prefixValidator),
             $mockNewPersistence1
 
         )->andReturn($mockMultiClone1);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on($this->_prefixValidator),
             $mockNewPersistence2
 
         )->andReturn($mockMultiClone2);
@@ -220,14 +227,14 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on($this->_prefixValidator),
             $mockNewPersistence1
 
         )->andReturn($mockMultiClone1);
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on($this->_prefixValidator),
             $mockNewPersistence2
 
         )->andReturn($mockMultiClone2);
@@ -264,7 +271,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
 
         $this->_mockMultiSourceField->shouldReceive('cloneForMultiSource')->once()->with(
 
-            Mockery::on(array($this, '__verifyPrefix')),
+            Mockery::on($this->_prefixValidator),
             $mockNewPersistence
 
         )->andReturn($mockMultiClone);
@@ -284,10 +291,5 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         $actual = $this->_sut->getHTML(array('some-error' => 'message'));
 
         $this->assertEquals('final result', $actual);
-    }
-
-    public function __verifyPrefix($candidate)
-    {
-        return is_string($candidate) && preg_match_all('/^tubepress-multisource-[0-9]+-$/', $candidate, $matches) === 1;
     }
 }

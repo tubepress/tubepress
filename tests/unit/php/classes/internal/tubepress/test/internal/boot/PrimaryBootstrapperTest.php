@@ -108,16 +108,17 @@ class tubepress_test_internal_boot_PrimaryBootstrapperTest extends tubepress_api
 
         $this->_mockBootLogger->shouldReceive('handleBootException')->once();
         $this->_mockBootLogger->shouldReceive('onBootComplete')->once();
-        $this->_mockBootLogger->shouldReceive('error')->atLeast(1)->with(Mockery::on(array($this, '__callbackTestBootException')));
+
+        $validator = function ($arg) {
+
+            $stringUtils = new tubepress_util_impl_StringUtils();
+            return $stringUtils->startsWith($arg, '<code>');
+        };
+
+        $this->_mockBootLogger->shouldReceive('error')->atLeast(1)->with(Mockery::on($validator));
 
         $this->_bootSettings->shouldReceive('shouldClearCache')->once()->andReturn(false);
 
         $this->_sut->getServiceContainer();
-    }
-
-    public function __callbackTestBootException($arg)
-    {
-        $stringUtils = new tubepress_util_impl_StringUtils();
-        return $stringUtils->startsWith($arg, '<code>');
     }
 }
