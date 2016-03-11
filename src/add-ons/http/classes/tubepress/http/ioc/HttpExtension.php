@@ -35,20 +35,10 @@ class tubepress_http_ioc_HttpExtension implements tubepress_spi_ioc_ContainerExt
 
     private function _registerClient(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $emitterDef = $containerBuilder->register(
+        $containerBuilder->register(
             'puzzle_event_Emitter',
             'puzzle_event_Emitter'
         );
-
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-
-            $containerBuilder->register(
-                'puzzle_subscriber_Chunked',
-                'puzzle_subscriber_Chunked'
-            );
-
-            $emitterDef->addMethodCall('attach', array(new tubepress_api_ioc_Reference('puzzle_subscriber_Chunked')));
-        }
 
         $containerBuilder->register(
             'puzzle.httpClient',
