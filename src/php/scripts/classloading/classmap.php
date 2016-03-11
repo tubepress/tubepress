@@ -10,7 +10,7 @@
  */
 
 return array (
-    'APCUIterator' => TUBEPRESS_ROOT . '/vendor/symfony/polyfill-apcu/Resources/stubs/APCUIterator.php',
+    'APCUIterator' => TUBEPRESS_ROOT . '/vendor/symfony/polyfill-apcu/bootstrap.php',
     'Automattic_Readme' => TUBEPRESS_ROOT . '/vendor/yahnis-elsts/plugin-update-checker/vendor/readme-parser.php',
     'Parsedown' => TUBEPRESS_ROOT . '/vendor/yahnis-elsts/plugin-update-checker/vendor/Parsedown.php',
     'PluginInfo' => TUBEPRESS_ROOT . '/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php',
