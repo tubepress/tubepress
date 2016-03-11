@@ -41,7 +41,21 @@ class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepre
 
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('id')->andReturn($mockDefinition);
 
-        $mockDefinition->shouldReceive('addMethodCall')->once()->with('someMethod', Mockery::on(array($this, '__validateReferences')));
+        $validator = function ($refs) {
+
+            $ok = is_array($refs) && is_array($refs[0]);
+
+            if (!$ok) {
+
+                return false;
+            }
+
+            $first = $refs[0][0];
+
+            return "$first" === 'some-other-id';
+        };
+
+        $mockDefinition->shouldReceive('addMethodCall')->once()->with('someMethod', Mockery::on($validator));
 
         $this->_sut->process($this->_mockContainer);
 
@@ -60,19 +74,5 @@ class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepre
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('id')->andReturn($mockDefinition);
 
         $this->_sut->process($this->_mockContainer);
-    }
-
-    public function __validateReferences($refs)
-    {
-        $ok = is_array($refs) && is_array($refs[0]);
-
-        if (!$ok) {
-
-            return false;
-        }
-
-        $first = $refs[0][0];
-
-        return "$first" === 'some-other-id';
     }
 }
