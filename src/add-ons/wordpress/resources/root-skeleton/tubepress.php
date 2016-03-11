@@ -17,7 +17,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 /**
- * Tell TubePress where we are (or "where we're at" if you're in Pittsburgh).
+ * Tell TubePress where we're located.
  */
 define('TUBEPRESS_ROOT', __DIR__);
 
@@ -31,7 +31,7 @@ define('TUBEPRESS_ROOT', __DIR__);
 $serviceContainer = require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
 
 /**
- * Get the WordPress entry service.
+ * Get the WordPress entry point service.
  *
  * @var $entryPoint tubepress_wordpress_impl_EntryPoint
  */
