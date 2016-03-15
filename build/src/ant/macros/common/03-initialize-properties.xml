@@ -14,9 +14,10 @@
 <project>
 
     <macrodef name="initialize-properties">
+        <attribute name="file" />
         <sequential>
-            <log msg="Initializing properties" />
-            <property file="config/version.properties" />
+            <log msg="Initializing properties from @{file}" />
+            <property file="@{file}" />
         </sequential>
     </macrodef>
 

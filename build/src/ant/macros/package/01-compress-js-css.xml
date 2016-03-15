@@ -39,6 +39,7 @@
                 <srcfile />
                 <arg value="--mangle" />
                 <arg value="--compress" />
+                <arg value="--comments" />
                 <arg value="sequences,unsafe,conditionals,comparisons,booleans,loops,if_return,join_vars,cascade" />
                 <redirector>
                     <outputmapper>
