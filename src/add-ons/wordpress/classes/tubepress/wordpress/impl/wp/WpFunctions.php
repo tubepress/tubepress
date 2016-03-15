@@ -69,6 +69,21 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
+     * Retrieve list of category objects.
+     *
+     * https://developer.wordpress.org/reference/functions/get_categories/
+     *
+     * @param array $args Change the defaults retrieving categories.
+     *
+     * @return array List of categories.
+     */
+    public function get_categories(array $args = array())
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_categories($args);
+    }
+
+    /**
      * Get the current locale.
      *
      * If the locale is set, then it will filter the locale in the 'locale' filter
@@ -105,23 +120,10 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
-     * Returns an array of pages that are in the blog, optionally constrained by parameters.
-     * This array is not tree-like (hierarchical).
-     *
-     * @param array $args See http://codex.wordpress.org/Function_Reference/get_pages.
-     *
-     * @return array An array containing all the Pages matching the request. The returned array is an array of "page" objects.
-     *               See http://codex.wordpress.org/Function_Reference/get_pages.
-     */
-    public function get_pages($args)
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        return get_pages($args);
-    }
-
-    /**
      * Returns the available page templates in the currently active theme.
      * It searches all the current theme's template files for the commented Template Name: name of template.
+     *
+     * https://codex.wordpress.org/Function_Reference/get_page_templates
      *
      * @return array Where key is the filename and value is the name of the template.
      */
@@ -129,6 +131,23 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         return get_page_templates();
+    }
+
+    /**
+     * Returns an array of post status names or objects.
+     *
+     * https://codex.wordpress.org/Function_Reference/get_post_stati
+     *
+     * @param array  $args     Array of key => value pairs used to filter results.
+     * @param string $output   Whether to output names or objects.
+     * @param string $operator Whether to return statuses matching ALL ('and') or ANY ('or') arguments.
+     *
+     * @return array An array of post names or objects, depending on $output parameter.
+     */
+    public function get_post_stati(array $args = array(), $output = 'names', $operator = 'and')
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_post_stati($args, $output, $operator);
     }
 
     /**
@@ -145,14 +164,49 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
-     * Retrieve the numeric ID of the current post. This tag must be within The Loop.
+     * Returns the registered post types as found in $wp_post_types.
      *
-     * @return integer The ID of the current post.
+     * https://codex.wordpress.org/Function_Reference/get_post_types
+     *
+     * @param array $args      An array of key value arguments to match against the post types.
+     * @param string $output   The type of output to return, either 'names' or 'objects'.
+     * @param string $operator Operator (and/or) to use with multiple $args.
+     *
+     * @return array A list of post names or objects.
      */
-    public function get_the_ID()
+    public function get_post_types(array $args = array(), $output = 'names', $operator = 'and')
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return get_the_ID();
+        return get_post_types($args, $output, $operator);
+    }
+
+    /**
+     * Retrieve an array of objects for each term in post_tag taxonomy.
+     *
+     * https://codex.wordpress.org/Function_Reference/get_tags
+     *
+     * @param array $args
+     *
+     * @return array Returns either an array of objects or an empty array.
+     */
+    public function get_tags(array $args = array())
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_tags($args);
+    }
+
+    /**
+     * Retrieves an array of users matching the criteria given in $args.
+     *
+     * @param array $args See https://codex.wordpress.org/Function_Reference/get_users
+     *
+     * @return array An array of IDs, stdClass objects, or WP_User objects, depending on the value of the 'fields'
+     *               parameter.
+     */
+    public function get_users(array $args = array())
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_users($args);
     }
 
     /**
@@ -207,19 +261,6 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         add_option($name, $value);
-    }
-
-    /**
-     * A safe way of removing a named option/value pair from the options database table.
-     *
-     * @param string $name Name of the option to be deleted.
-     *
-     * @return boolean TRUE if the option has been successfully deleted, otherwise FALSE.
-     */
-    public function delete_option($name)
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        delete_option($name);
     }
 
     /**
@@ -556,25 +597,6 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
-     * Localizes a script, but only if script has already been added. Can also be used to include arbitrary Javascript data in a page.
-     *
-     * @param string $handle     The script handle you are attaching the data for.
-     * @param string $objectName The name for the Javascript object which will contain the data. Note that this should
-     *                           be unique to both the script and to the plugin or theme. Thus, the value here should
-     *                           be properly prefixed with the slug or another unique value, to prevent conflicts.
-     *                           However, as this is a Javascript object name, it cannot contain dashes.
-     *                           Use underscores or camelCasing.
-     * @param array $l10n        The data itself. The data can be either a single or multi (as of 3.3) dimensional array.
-     *
-     * @return void
-     */
-    public function wp_localize_script($handle, $objectName, array $l10n)
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        wp_localize_script($handle, $objectName, $l10n);
-    }
-
-    /**
      * The admin_url template tag retrieves the url to the admin area for the current site with the appropriate
      * protocol, 'https' if is_ssl() and 'http' otherwise. If scheme is 'http' or 'https', is_ssl() is overridden.
      *
@@ -627,50 +649,6 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         return wp_load_alloptions();
-    }
-
-    /**
-     * Get the value of a transient.
-     *
-     * @param $transient string Transient name. Expected to not be SQL-escaped.
-     *
-     * @return mixed Value of transient. If the transient does not exist, does not have a value, or has expired,
-     *               then get_transient will return false. This should be checked using the identity operator ( === )
-     *               instead of the normal equality operator, because an integer value of zero (or other "empty" data)
-     *               could be the data you're wanting to store. Because of this "false" value, transients should not
-     *               be used to hold plain boolean values. Put them into an array or convert them to integers instead.
-     */
-    public function get_transient($transient)
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        return get_transient($transient);
-    }
-
-    /**
-     * Set/update the value of a transient.
-     *
-     * @param $transient  string Transient name. Expected to not be SQL-escaped. Should be 45 characters or less in length.
-     * @param $value      mixed  Transient value. Expected to not be SQL-escaped.
-     * @param $expiration int    Time until expiration in seconds from now, or 0 for never expires.
-     *
-     * @return boolean False if value was not set and true if value was set.
-     */
-    public function set_transient($transient, $value, $expiration = 0)
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        set_transient($transient, $value, $expiration);
-    }
-
-    /** @noinspection PhpUndefinedClassInspection */
-    /**
-     * Retrieve the current user object (WP_User). Wrapper of get_currentuserinfo() using the global variable $current_user.
-     *
-     * @return WP_User WP_User object where it can be retrieved using member variables.
-     */
-    public function wp_get_current_user()
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        return wp_get_current_user();
     }
 
     /**

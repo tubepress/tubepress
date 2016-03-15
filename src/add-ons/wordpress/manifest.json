@@ -27,6 +27,7 @@
             "tubepress_wordpress_impl_EntryPoint"                                     : "classes/tubepress/wordpress/impl/EntryPoint.php",
             "tubepress_wordpress_impl_http_oauth2_Oauth2Environment"                  : "classes/tubepress/wordpress/impl/http/oauth2/Oauth2Environment.php",
             "tubepress_wordpress_impl_listeners_html_WpHtmlListener"                  : "classes/tubepress/wordpress/impl/listeners/html/WpHtmlListener.php",
+            "tubepress_wordpress_impl_listeners_options_AcceptableValuesListener"     : "classes/tubepress/wordpress/impl/listeners/options/AcceptableValuesListener.php",
             "tubepress_wordpress_impl_listeners_options_AdminThemeListener"           : "classes/tubepress/wordpress/impl/listeners/options/AdminThemeListener.php",
             "tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener"       : "classes/tubepress/wordpress/impl/listeners/options/ui/OptionsPageListener.php",
             "tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener" : "classes/tubepress/wordpress/impl/listeners/wpaction/AdminHeadAndScriptsListener.php",
@@ -41,8 +42,8 @@
             "tubepress_wordpress_impl_listeners_wpfilter_PucListener"                 : "classes/tubepress/wordpress/impl/listeners/wpfilter/PucListener.php",
             "tubepress_wordpress_impl_listeners_wpfilter_RowMetaListener"             : "classes/tubepress/wordpress/impl/listeners/wpfilter/RowMetaListener.php",
             "tubepress_wordpress_impl_listeners_wp_ShortcodeListener"                 : "classes/tubepress/wordpress/impl/listeners/wp/ShortcodeListener.php",
+            "tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField"           : "classes/tubepress/wordpress/impl/options/ui/fields/WpMultiSelectField.php",
             "tubepress_wordpress_impl_options_ui_fields_WpNonceField"                 : "classes/tubepress/wordpress/impl/options/ui/fields/WpNonceField.php",
-            "tubepress_wordpress_impl_options_ui_WpFieldProvider"                     : "classes/tubepress/wordpress/impl/options/ui/WpFieldProvider.php",
             "tubepress_wordpress_impl_options_WpPersistence"                          : "classes/tubepress/wordpress/impl/options/WpPersistence.php",
             "tubepress_wordpress_impl_translation_WpTranslator"                       : "classes/tubepress/wordpress/impl/translation/WpTranslator.php",
             "tubepress_wordpress_impl_wp_Widget"                                      : "classes/tubepress/wordpress/impl/wp/Widget.php",
@@ -50,8 +51,6 @@
             "tubepress_wordpress_impl_wp_WpWidget"                                    : "classes/tubepress/wordpress/impl/wp/WpWidget.php",
             "tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass"                : "classes/tubepress/wordpress/ioc/compiler/EnvironmentCompilerPass.php",
             "tubepress_wordpress_ioc_WordPressExtension"                              : "classes/tubepress/wordpress/ioc/WordPressExtension.php"
-
-
         }
     }
 }
