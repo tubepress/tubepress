@@ -120,20 +120,6 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
-     * Returns the available page templates in the currently active theme.
-     * It searches all the current theme's template files for the commented Template Name: name of template.
-     *
-     * https://codex.wordpress.org/Function_Reference/get_page_templates
-     *
-     * @return array Where key is the filename and value is the name of the template.
-     */
-    public function get_page_templates()
-    {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        return get_page_templates();
-    }
-
-    /**
      * Returns an array of post status names or objects.
      *
      * https://codex.wordpress.org/Function_Reference/get_post_stati
@@ -148,6 +134,21 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         return get_post_stati($args, $output, $operator);
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
+    /**
+     * Retrieve full permalink for current post or post ID.
+     *
+     * @param int|WP_Post $post Post ID or post object. Default is the global $post.
+     * @param bool        $leavename Whether to keep post name or page name.
+     *
+     * @return string|false The permalink URL or false if post does not exist.
+     */
+    public function get_permalink($post, $leavename = false)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_permalink($post, $leavename);
     }
 
     /**
@@ -193,6 +194,23 @@ class tubepress_wordpress_impl_wp_WpFunctions
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         return get_tags($args);
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
+    /**
+     * Retrieve user info by a given field.
+     *
+     * https://developer.wordpress.org/reference/functions/get_user_by/
+     *
+     * @param string     $field The field to retrieve the user with. id | ID | slug | email | login.
+     * @param int|string $value A value for $field. A user ID, slug, email address, or login name.
+     *
+     * @return WP_User|bool WP_User object on success, false on failure.
+     */
+    public function get_user_by($field, $value)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_user_by($field, $value);
     }
 
     /**
@@ -643,6 +661,18 @@ class tubepress_wordpress_impl_wp_WpFunctions
     }
 
     /**
+     * Insert or update a post.
+     *
+     * @param array $postArray An array of elements that make up a post to update or insert.
+     * @param bool  $wpError   Whether to allow return of WP_Error on failure
+     */
+    public function wp_insert_post(array $postArray, $wpError = false)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return wp_insert_post($postArray, $wpError);
+    }
+
+    /**
      * @return array List of all options.
      */
     public function wp_load_alloptions()
@@ -679,5 +709,21 @@ class tubepress_wordpress_impl_wp_WpFunctions
         }
 
         return $wp_scripts;
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
+    /**
+     * Gets a WP_Theme object for a theme.
+     *
+     * @param string $stylesheet Directory name for the theme. Defaults to current theme.
+     * @param string $theme_root Absolute path of the theme root to look in. If not specified, the value returned by
+     *                           get_raw_theme_root() will be used.
+     *
+     * @return WP_Theme
+     */
+    public function wp_get_theme($stylesheet = null, $theme_root = null)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return wp_get_theme($stylesheet, $theme_root);
     }
 }

@@ -12,25 +12,23 @@
 class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
 {
     /**
-     * @var tubepress_wordpress_impl_wp_WpFunctions
+     * @var tubepress_wordpress_impl_wp_ResourceRepository
      */
-    private $_wpFunctions;
+    private $_resourceRepository;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
+    public function __construct(tubepress_wordpress_impl_wp_ResourceRepository $resourceRepo)
     {
-        $this->_wpFunctions = $wpFunctions;
+        $this->_resourceRepository = $resourceRepo;
     }
 
     public function onWpPostCategories(tubepress_api_event_EventInterface $event)
     {
-        $result     = array();
-        $categories = $this->_wpFunctions->get_categories(array(
-            'hide_empty' => false,
-        ));
+        $terms   = $this->_resourceRepository->getAllCategories();
+        $result = array();
 
-        foreach ($categories as $category) {
+        foreach ($terms as $term) {
 
-            $result[$category->slug] = $category->name;
+            $result[$term->slug] = $term->name;
         }
 
         $this->_sortArrayAndSetAsSubject($result, $event);
@@ -38,14 +36,12 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
 
     public function onWpPostTags(tubepress_api_event_EventInterface $event)
     {
+        $terms   = $this->_resourceRepository->getAllTags();
         $result = array();
-        $tags   = $this->_wpFunctions->get_tags(array(
-            'hide_empty' => false,
-        ));
 
-        foreach ($tags as $tag) {
+        foreach ($terms as $term) {
 
-            $result[$tag->slug] = $tag->name;
+            $result[$term->slug] = $term->name;
         }
 
         $this->_sortArrayAndSetAsSubject($result, $event);
@@ -53,32 +49,20 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
 
     public function onWpPostTemplate(tubepress_api_event_EventInterface $event)
     {
-        $result           = array();
-        $templates        = $this->_wpFunctions->get_page_templates();
-        $defaultTemplates = array(
-            'default' => 'index.php',
-        );
-        $templates = array_merge($templates, $defaultTemplates);
+        $templates = $this->_resourceRepository->getPageTemplates();
 
-        foreach ($templates as $displayName => $fileName) {
-
-            $result[$fileName] = "$displayName ($fileName)";
-        }
-
-        $this->_sortArrayAndSetAsSubject($result, $event);
+        $this->_sortArrayAndSetAsSubject($templates, $event);
     }
 
     public function onWpPostType(tubepress_api_event_EventInterface $event)
     {
+        $types  = $this->_resourceRepository->getAllUsablePostTypes();
         $result = array();
-        $types  = $this->_wpFunctions->get_post_types(array('public' => true));
 
         foreach ($types as $type) {
 
-            $result[$type] = $type;
+            $result[$type->name] = $type->labels->singular_name;
         }
-
-        unset($result['attachment']);
 
         $this->_sortArrayAndSetAsSubject($result, $event);
     }
@@ -86,15 +70,12 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
     public function onWpPostStatus(tubepress_api_event_EventInterface $event)
     {
         $result   = array();
-        $statuses = $this->_wpFunctions->get_post_stati();
+        $statuses = $this->_resourceRepository->getAllUsablePostStatuses();
 
         foreach ($statuses as $status) {
 
-            $result[$status] = $status;
+            $result[$status->name] = $status->label;
         }
-
-        unset($result['auto-draft']);
-        unset($result['inherit']);
 
         $this->_sortArrayAndSetAsSubject($result, $event);
     }
@@ -102,9 +83,9 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
     public function onWpUser(tubepress_api_event_EventInterface $event)
     {
         $result   = array();
-        $allUsers = $this->_wpFunctions->get_users(array('who' => 'author'));
+        $authors = $this->_resourceRepository->getAuthors();
 
-        foreach ($allUsers as $user) {
+        foreach ($authors as $user) {
 
             $loginName = $user->user_login;
             $display   = $user->display_name;

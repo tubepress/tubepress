@@ -816,6 +816,7 @@ return array (
     'tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/options/ui/fields/WpMultiSelectField.php',
     'tubepress_wordpress_impl_options_ui_fields_WpNonceField' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/options/ui/fields/WpNonceField.php',
     'tubepress_wordpress_impl_translation_WpTranslator' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/translation/WpTranslator.php',
+    'tubepress_wordpress_impl_wp_ResourceRepository' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/ResourceRepository.php',
     'tubepress_wordpress_impl_wp_Widget' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/Widget.php',
     'tubepress_wordpress_impl_wp_WpFunctions' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpFunctions.php',
     'tubepress_wordpress_impl_wp_WpWidget' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpWidget.php',
