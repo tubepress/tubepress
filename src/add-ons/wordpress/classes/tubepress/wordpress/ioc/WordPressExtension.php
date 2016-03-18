@@ -69,7 +69,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => null,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE      => tubepress_wordpress_api_Constants::AUTOPOST_DATA_SOURCE_UPLOAD,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => '{{ title }}',
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS      => 'publish',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS      => 'pending',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE             => 'post',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_COMMENTS   => true,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_PING       => true,
@@ -291,7 +291,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_ResourceRepository'));
         $fieldReferences[] = new tubepress_api_ioc_Reference('tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField__tags');
 
         $containerBuilder->register(
@@ -304,7 +304,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
             ->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
-            ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_AcceptableValuesInterface::_));
+            ->addArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_ResourceRepository'));
         $fieldReferences[] = new tubepress_api_ioc_Reference('tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField__categories');
 
         $fieldMap = array(
@@ -568,11 +568,11 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'method'   => 'onWpPostTemplate',
             'priority' => 100000
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TAGS,
+            'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TAGS,
             'method'   => 'onWpPostTags',
             'priority' => 100000
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES,
+            'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES,
             'method'   => 'onWpPostCategories',
             'priority' => 100000
         ));

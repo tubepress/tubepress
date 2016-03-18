@@ -42,7 +42,7 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpMultiSelectFieldTest ext
     /**
      * @var Mockery\MockInterface
      */
-    private $_mockAcceptableValues;
+    private $_mockResourceRepo;
 
     public function onSetup()
     {
@@ -50,7 +50,7 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpMultiSelectFieldTest ext
         $this->_mockRequestParams     = $this->mock(tubepress_api_http_RequestParametersInterface::_);
         $this->_mockPersistence       = $this->mock(tubepress_api_options_PersistenceInterface::_);
         $this->_mockTemplating        = $this->mock(tubepress_api_template_TemplatingInterface::_);
-        $this->_mockAcceptableValues  = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
+        $this->_mockResourceRepo      = $this->mock('tubepress_wordpress_impl_wp_ResourceRepository');
 
         $this->_sut = new tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField(
             'id',
@@ -60,7 +60,7 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpMultiSelectFieldTest ext
             $this->_mockRequestParams,
             $this->_mockTemplating,
             $this->_mockWpFunctionWrapper,
-            $this->_mockAcceptableValues
+            $this->_mockResourceRepo
         );
     }
 
@@ -85,11 +85,17 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpMultiSelectFieldTest ext
 
     public function testGetHTML()
     {
+        $tag1 = new stdClass();
+        $tag2 = new stdClass();
+
+        $tag1->slug = 'foo';
+        $tag2->slug = 'goo';
+
+        $tag1->name = 'Yo foo';
+        $tag2->name = 'Yo goo';
+
         $this->_mockPersistence->shouldReceive('fetch')->once()->with('id')->andReturn('foo,bar');
-        $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with('id')->andReturn(array(
-            'foo' => 'Yo foo',
-            'goo' => 'Yo goo',
-        ));
+        $this->_mockResourceRepo->shouldReceive('getAllTags')->once()->andReturn(array($tag2, $tag1));
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with(
             'options-ui/fields/multiselect',
             array(

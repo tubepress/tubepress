@@ -127,52 +127,54 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         $this->_sut->onWpPostTemplate($this->_mockEvent);
     }
 
-    public function testCategories()
+    /**
+     * @dataProvider getDataTerms
+     */
+    public function testTerms($method, $resourceRepoMethod, $incoming, $expected = null)
     {
-        $category1 = new stdClass();
-        $category2 = new stdClass();
+        $term1 = new stdClass();
+        $term2 = new stdClass();
 
-        $category1->slug = 'category1-slug';
-        $category1->name = 'Cat 1';
+        $term1->slug = 'term1-slug';
+        $term1->name = 'Term 1';
 
-        $category2->slug = 'category2-slug';
-        $category2->name = 'Cat 2';
+        $term2->slug = 'term2-slug';
+        $term2->name = 'Term 2';
 
-        $fakeCats = array(
-            $category2, $category1
+        $fakeTerms = array(
+            $term2, $term1
         );
-        $this->_mockResourceRepo->shouldReceive('getAllCategories')->once()->andReturn($fakeCats);
+        $this->_mockResourceRepo->shouldReceive($resourceRepoMethod)->once()->andReturn($fakeTerms);
 
-        $this->_setupEventForSubjectSet(array(
-            'category1-slug' => 'Cat 1',
-            'category2-slug' => 'Cat 2',
-        ));
+        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incoming);
 
-        $this->_sut->onWpPostCategories($this->_mockEvent);
+        if ($incoming) {
+
+            $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', $expected);
+        }
+
+        $this->_sut->$method($this->_mockEvent);
     }
 
-    public function testTags()
+    public function getDataTerms()
     {
-        $tag1 = new stdClass();
-        $tag2 = new stdClass();
-
-        $tag1->slug = 'tag1-slug';
-        $tag1->name = 'Tag 1';
-
-        $tag2->slug = 'tag2-slug';
-        $tag2->name = 'Tag 2';
-
-        $fakeTags = array(
-            $tag2, $tag1
+        $methods = array(
+            array('onWpPostTags', 'getAllTags'),
+            array('onWpPostCategories', 'getAllCategories'),
         );
-        $this->_mockResourceRepo->shouldReceive('getAllTags')->once()->andReturn($fakeTags);
 
-        $this->_setupEventForSubjectSet(array(
-            'tag1-slug' => 'Tag 1',
-            'tag2-slug' => 'Tag 2',
-        ));
+        $toReturn = array();
 
-        $this->_sut->onWpPostTags($this->_mockEvent);
+        foreach ($methods as $set) {
+
+            $toReturn[] = array($set[0], $set[1], '', null);
+            $toReturn[] = array($set[0], $set[1], 'foo', null);
+            $toReturn[] = array($set[0], $set[1], 'term1-slug, foo', 'term1-slug');
+            $toReturn[] = array($set[0], $set[1], 'term1-slug, foo,    term2-slug', 'term1-slug,term2-slug');
+            $toReturn[] = array($set[0], $set[1], 'term1-slug, term1-slug', 'term1-slug');
+        }
+
+        return $toReturn;
     }
 
     private function _setupEventForSubjectSet(array $array)

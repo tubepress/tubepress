@@ -23,28 +23,16 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
 
     public function onWpPostCategories(tubepress_api_event_EventInterface $event)
     {
-        $terms   = $this->_resourceRepository->getAllCategories();
-        $result = array();
+        $terms = $this->_resourceRepository->getAllCategories();
 
-        foreach ($terms as $term) {
-
-            $result[$term->slug] = $term->name;
-        }
-
-        $this->_sortArrayAndSetAsSubject($result, $event);
+        $this->_handleIncomingTerms($terms, $event, 'categories');
     }
 
     public function onWpPostTags(tubepress_api_event_EventInterface $event)
     {
-        $terms   = $this->_resourceRepository->getAllTags();
-        $result = array();
+        $terms = $this->_resourceRepository->getAllTags();
 
-        foreach ($terms as $term) {
-
-            $result[$term->slug] = $term->name;
-        }
-
-        $this->_sortArrayAndSetAsSubject($result, $event);
+        $this->_handleIncomingTerms($terms, $event, 'tags');
     }
 
     public function onWpPostTemplate(tubepress_api_event_EventInterface $event)
@@ -110,5 +98,50 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
         $toSet = array_merge($current, $array);
 
         $event->setSubject($toSet);
+    }
+
+    private function _handleIncomingTerms(array $registeredTerms, tubepress_api_event_EventInterface $event, $name)
+    {
+        $optionValue = $event->getArgument('optionValue');
+
+        if (!$optionValue) {
+
+            //no tags or categories requested
+            return;
+        }
+
+        $exploded = preg_split('~\s*,\s*~', $optionValue);
+
+        if (!is_array($exploded)) {
+
+            //this should never happen, right?
+            return;
+        }
+
+        $toKeep = array();
+
+        foreach ($exploded as $incomingTerm) {
+
+            foreach ($registeredTerms as $registeredTerm) {
+
+                if ($registeredTerm->slug === $incomingTerm) {
+
+                    $toKeep[] = $incomingTerm;
+                    break;
+                }
+            }
+        }
+
+        if (count($toKeep) === 0) {
+
+            $newValue = null;
+
+        } else {
+
+            $toKeep   = array_unique($toKeep);
+            $newValue = implode(',', $toKeep);
+        }
+
+        $event->setArgument('optionValue', $newValue);
     }
 }

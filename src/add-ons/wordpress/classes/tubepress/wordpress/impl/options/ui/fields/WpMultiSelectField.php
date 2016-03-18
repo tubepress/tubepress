@@ -17,16 +17,16 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
     private $_wpFunctions;
 
     /**
-     * @var tubepress_api_options_AcceptableValuesInterface
+     * @var tubepress_wordpress_impl_wp_ResourceRepository
      */
-    private $_acceptableValues;
+    private $_resourceRepo;
 
     public function __construct($id, $untranslatedDisplayName, $untranslatedDescription,
                                 tubepress_api_options_PersistenceInterface      $persistence,
                                 tubepress_api_http_RequestParametersInterface   $requestParams,
                                 tubepress_api_template_TemplatingInterface      $templating,
                                 tubepress_wordpress_impl_wp_WpFunctions         $wpFunctions,
-                                tubepress_api_options_AcceptableValuesInterface $acceptableValues)
+                                tubepress_wordpress_impl_wp_ResourceRepository  $resourceRepo)
     {
         parent::__construct(
             $id,
@@ -37,8 +37,8 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
             $untranslatedDescription
         );
 
-        $this->_wpFunctions      = $wpFunctions;
-        $this->_acceptableValues = $acceptableValues;
+        $this->_wpFunctions  = $wpFunctions;
+        $this->_resourceRepo = $resourceRepo;
     }
 
     /**
@@ -65,7 +65,23 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
      */
     protected function getUngroupedChoicesArray()
     {
-        return $this->_acceptableValues->getAcceptableValues($this->getId());
+        if ($this->getId() === tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES) {
+            
+            $terms = $this->_resourceRepo->getAllCategories();
+            
+        } else {
+            
+            $terms = $this->_resourceRepo->getAllTags();
+        }
+        
+        $toReturn = array();
+        
+        foreach ($terms as $term) {
+            
+            $toReturn[$term->slug] = $term->name;
+        }
+        
+        return $toReturn;
     }
 
     /**
