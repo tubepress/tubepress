@@ -57,6 +57,24 @@ class tubepress_wordpress_api_Constants
      */
     const SHORTCODE_PARSED = 'tubepress.app.shortcode.parsed';
 
+    const OPTION_AUTOPOST_ENABLE           = 'wpAutoPostEnable';
+    const OPTION_AUTOPOST_AUTHOR           = 'wpAutoPostAuthor';
+    const OPTION_AUTOPOST_DATE_SOURCE      = 'wpAutoPostDateSource';
+    const OPTION_AUTOPOST_TITLE_FORMAT     = 'wpAutoPostTitleTemplate';
+    const OPTION_AUTOPOST_CONTENT_TEMPLATE = 'wpAutoPostContentTemplate';
+    const OPTION_AUTOPOST_POST_STATUS      = 'wpAutoPostStatus';
+    const OPTION_AUTOPOST_TYPE             = 'wpAutoPostType';
+    const OPTION_AUTOPOST_ALLOW_COMMENTS   = 'wpAutoPostAllowComments';
+    const OPTION_AUTOPOST_ALLOW_PING       = 'wpAutoPostAllowPings';
+    const OPTION_AUTOPOST_PASSWORD         = 'wpAutoPostPassword';
+    const OPTION_AUTOPOST_TAGS             = 'wpAutoPostTags';
+    const OPTION_AUTOPOST_CATEGORIES       = 'wpAutoPostCategories';
+    const OPTION_AUTOPOST_PAGE_TEMPLATE    = 'wpAutoPostPageTemplate';
+    const OPTION_AUTOPOST_META_MAP         = 'wpAutoPostMetaTemplate';
+
+    const AUTOPOST_DATA_SOURCE_UPLOAD    = 'upload';
+    const AUTOPOST_DATA_SOURCE_DISCOVERY = 'discovery';
+
     /**
      * @deprecated
      */

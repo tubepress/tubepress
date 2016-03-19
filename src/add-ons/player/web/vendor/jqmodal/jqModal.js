@@ -1,4 +1,6 @@
-/*!
+/**
+ * @license
+ *
  * jqModal - Minimalist Modaling with jQuery
  *
  * Copyright (c) 2007-2014 Brice Burgess @iceburg_net

@@ -178,6 +178,9 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             case 'oauth2TokenSelection':
                 return $this->_buildOauth2TokenSelection($options);
 
+            case 'textarea':
+                return $this->_buildTextArea($id);
+
             default:
                 throw new InvalidArgumentException('Unknown field type: ' . $type);
         }
@@ -318,6 +321,19 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
         }
 
         return $toReturn;
+    }
+
+    private function _buildTextArea($id)
+    {
+        return new tubepress_options_ui_impl_fields_templated_single_SingleOptionField(
+
+            $id,
+            'options-ui/fields/textarea',
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_optionReference
+        );
     }
 
     private function _buildMultiSourceTextArea($id)
