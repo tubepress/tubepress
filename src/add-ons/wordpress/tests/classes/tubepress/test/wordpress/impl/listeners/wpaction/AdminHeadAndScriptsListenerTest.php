@@ -103,8 +103,8 @@ class tubepress_test_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListen
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-0', false, array(), false, false);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-1', false, array(), false, false);
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-css-url', 'core/tubepress.php')->andReturn('<<system-style-url>>');
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-js-url', 'core/tubepress.php')->andReturn('<<system-script-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-css-url', basename(TUBEPRESS_ROOT) . '/tubepress.php')->andReturn('<<system-style-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-js-url', basename(TUBEPRESS_ROOT) . '/tubepress.php')->andReturn('<<system-script-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-css-url')->andReturn('<<user-style-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-js-url')->andReturn('<<user-script-url>>');
 
