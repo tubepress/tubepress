@@ -95,12 +95,12 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
                 continue;
             }
 
-            if ($stringUtils->endsWith($path, 'vendor/ehough/stash/src/main/php/ehough/stash/session/SessionHandlerInterface_Legacy.php')) {
+            if ($stringUtils->endsWith($path, 'vendor/tedivm/stash/src/Stash/Session/SessionHandlerInterface_Legacy.php')) {
 
                 $path = str_replace('_Legacy.php', '.php', $path);
             }
 
-            if ($stringUtils->endsWith($path, 'vendor/ehough/stash/src/main/php/ehough/stash/session/SessionHandlerInterface_Modern.php')) {
+            if ($stringUtils->endsWith($path, 'vendor/tedivm/stash/src/Stash/Session/SessionHandlerInterface_Modern.php')) {
 
                 $path = str_replace('_Modern.php', '.php', $path);
             }
@@ -181,9 +181,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'processor/Uid',
             'processor/Web',
             '/psr/test/',
-
-            '/ehough/stash/driver/Apc.php',
-            '/ehough/stash/driver/Redis.php',
 
             '/ContainerAwareTrait\.php$',
             '/PrimaryBootstrapper.php',

@@ -56,7 +56,7 @@ return array (
     'Stash\\Item' => TUBEPRESS_ROOT . '/vendor/tedivm/stash/src/Stash/Item.php',
     'Stash\\Pool' => TUBEPRESS_ROOT . '/vendor/tedivm/stash/src/Stash/Pool.php',
     'Stash\\Session' => TUBEPRESS_ROOT . '/vendor/tedivm/stash/src/Stash/Session.php',
-    'Stash\\Session\\SessionHandlerInterface' => TUBEPRESS_ROOT . '/vendor/tedivm/stash/src/Stash/Session/SessionHandlerInterface_Legacy.php',
+    'Stash\\Session\\SessionHandlerInterface' => TUBEPRESS_ROOT . '/vendor/tedivm/stash/src/Stash/Session/SessionHandlerInterface.php',
     'Stash\\Utilities' => TUBEPRESS_ROOT . '/vendor/tedivm/stash/src/Stash/Utilities.php',
     'Symfony\\Component\\ClassLoader\\ClassLoader' => TUBEPRESS_ROOT . '/vendor/symfony/class-loader/ClassLoader.php',
     'Symfony\\Component\\ClassLoader\\ClassMapGenerator' => TUBEPRESS_ROOT . '/vendor/symfony/class-loader/ClassMapGenerator.php',
