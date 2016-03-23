@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
  */
-class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_options_ui_OptionsPageListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener

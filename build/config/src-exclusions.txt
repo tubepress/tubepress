@@ -58,3 +58,5 @@ phpunit.xml.dist
 /vendor/twig/twig/lib/Twig/Test
 /vendor/twig/twig/README.rst
 /vendor/twig/twig/test
+/package.json
+/node_modules

@@ -36,7 +36,7 @@ class tubepress_test_wordpress_impl_listeners_wpfilter_RowMetaListenerTest exten
 
     public function testRowMeta()
     {
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugin_basename')->once()->with('core/tubepress.php')->andReturn('something');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugin_basename')->once()->with(basename(TUBEPRESS_ROOT) . '/tubepress.php')->andReturn('something');
         $this->_mockWordPressFunctionWrapper->shouldReceive('__')->once()->with('Settings', 'tubepress')->andReturn('orange');
 
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');

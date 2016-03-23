@@ -1,6 +1,6 @@
 .DS_Store
 /bin
-/build/src/npm/node_modules/
+node_modules/
 /build/target/
 /.idea*
 /vendor

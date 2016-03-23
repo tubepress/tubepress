@@ -23,7 +23,7 @@
 
     <target name="stage" depends="clean">
         <create-build-directories />
-        <initialize-properties />
+        <initialize-properties file="config/version.properties" />
         <stage-base-src />
         <stage-wordpress />
         <suppress-directory-listings />

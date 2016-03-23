@@ -102,7 +102,6 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_api_test_TubePr
             '/Loggly',
             '/Gelf',
             '/Flowdock',
-            '/ehough/stash/driver/sub/Sqlite',
             '/WinCache',
             'XcacheClassLoader',
             'ZendMonitorHandler',

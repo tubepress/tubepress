@@ -159,7 +159,7 @@ class tubepress_wordpress_impl_listeners_wp_ShortcodeListener
 
         $printContent = is_scalar($rawShortcodeContent) ? (string) $rawShortcodeContent : json_encode($rawShortcodeContent);
 
-        $this->_logDebug(sprintf('Shortcode content is: <code>%s</code>', $printContent));
+        $this->_logDebug(sprintf('Shortcode content is: <code>%s</code>', htmlspecialchars($printContent)));
     }
 
     private function _logDebug($msg)

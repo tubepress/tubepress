@@ -1,5 +1,3 @@
-<?xml version="1.0"?>
-<!--
 /**
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
@@ -9,16 +7,27 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
--->
 
-<project>
+module.exports = {
 
-    <macrodef name="initialize-properties">
-        <attribute name="file" />
-        <sequential>
-            <log msg="Initializing properties from @{file}" />
-            <property file="@{file}" />
-        </sequential>
-    </macrodef>
+    context : __dirname + '/../../src/js',
 
-</project>
+    entry: "./entry.js",
+
+    output: {
+
+        filename: "bundle.js"
+    },
+
+    module: {
+
+        loaders: [
+            { test: /\.css$/, loader: "style!css" }
+        ]
+    },
+
+    resolveLoader: {
+
+        fallback: __dirname + "/../src/npm/node_modules"
+    }
+};
