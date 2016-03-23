@@ -1,6 +1,6 @@
 {
-  "name" : "tubepress-build",
-  "version" : "0.0.1",
+  "name" : "tubepress/core",
+  "version" : "1.0.0",
   "author" : "TubePress LLC",
   "license" : "MPL-2.0",
   "contributors" : [
@@ -10,8 +10,10 @@
     }
   ],
   "dependencies" : {
-    "uglify-js" : "*",
-    "uglifycss" : "*",
-    "webpack"   : "*"
+    "css-loader"   : "*",
+    "style-loader" : "*",
+    "uglify-js"    : "*",
+    "uglifycss"    : "*",
+    "webpack"      : "*"
   }
 }
