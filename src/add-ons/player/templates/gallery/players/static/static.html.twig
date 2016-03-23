@@ -12,7 +12,7 @@
  #
  # An outer wrapper for the title and embed.
  #}
-<div class="tubepress-static-player" style="width: {{ embeddedWidthPx }}px">
+<div class="tubepress-static-player" style="width: {% if responsiveEmbeds %}100%{% else %}{{ embeddedWidthPx }}px{% endif %}">
 
     {% block staticPlayerTitle %}
 
