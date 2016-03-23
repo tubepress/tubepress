@@ -62,7 +62,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE           => false,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => null,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE      => tubepress_wordpress_api_Constants::AUTOPOST_DATA_SOURCE_UPLOAD,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => '{{ title }}',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => '{{ item.title }}',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS      => 'pending',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE             => 'post',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_COMMENTS   => true,
@@ -72,7 +72,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES       => null,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PAGE_TEMPLATE    => null,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP         => '{}',
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => '[tubepress video="{{ id }}" title="false" length="true" description="true" descriptionLimit="0"]'
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => '[tubepress video="{{ item.id }}" title="false" length="true" description="true" descriptionLimit="0"]'
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                 tubepress_api_options_Names::SHORTCODE_KEYWORD                      => 'Shortcode keyword',        //>(translatable)<,
@@ -238,10 +238,10 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE,
             ),
             'text' => array(
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PASSWORD,
             ),
             'textarea' => array(
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE,
             )
