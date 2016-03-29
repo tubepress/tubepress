@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
  */
-class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest extends tubepress_api_test_TubePressUnitTest
+class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener

@@ -269,6 +269,6 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
 
     private function _getFileContents($filename)
     {
-        return file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/provider-vimeo-v3/fixtures/' . $filename);
+        return file_get_contents(TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v3/tests/fixtures/' . $filename);
     }
 }

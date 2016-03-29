@@ -65,7 +65,7 @@ In 2015, these officer-involved shootings were more likely in Kern County, Calif
 
     public function singleVideoXml()
     {
-        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/provider-vimeo-v3/resources/vimeo-single-video.txt');
+        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v3/resources/vimeo-single-video.txt');
 
         $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 
@@ -74,7 +74,7 @@ In 2015, these officer-involved shootings were more likely in Kern County, Calif
 
     public function galleryXml()
     {
-        return file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/provider-vimeo-v3/fixtures/video-list.json');
+        return file_get_contents(TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v3/tests/fixtures/video-list.json');
     }
 
     private function _prepareEvent($feed, $index)

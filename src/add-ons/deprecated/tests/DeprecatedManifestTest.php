@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_app_deprecated_DeprecatedManifestTest extends tubepress_api_test_contrib_AbstractManifestTest
+class tubepress_test_deprecated_DeprecatedManifestTest extends tubepress_api_test_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
