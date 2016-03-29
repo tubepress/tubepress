@@ -127,10 +127,10 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "PhantomInstaller\\Installer::installPhantomJS"
+      "npm install"
     ],
     "post-update-cmd": [
-      "PhantomInstaller\\Installer::installPhantomJS"
+      "npm update"
     ]
   }
 }
