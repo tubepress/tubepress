@@ -137,7 +137,7 @@ class tubepress_wordpress_impl_listeners_wp_ShortcodeListener
     {
         $this->_logDebug(sprintf(
 
-            'WordPress sent us a shortcode to parse with <code>%d</code> attributes.',
+            'WordPress sent us a shortcode to parse with <code>%d</code> attribute(s).',
             count($rawShortcodeAttributes)
         ));
 
