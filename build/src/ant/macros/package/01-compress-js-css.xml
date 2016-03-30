@@ -15,7 +15,6 @@
 
     <macrodef name="compress-css">
         <sequential>
-            <__npm-install />
             <__save-dev-copies list-of-files="config/css-to-compress.txt" extension=".css" />
             <apply executable="../../../../node_modules/.bin/uglifycss" parallel="false" dir="target/stage/tubepress" relative="true"
                    failonerror="true">
@@ -31,7 +30,6 @@
 
     <macrodef name="compress-js">
         <sequential>
-            <__npm-install />
             <__save-dev-copies list-of-files="config/js-to-compress.txt" extension=".js" />
             <apply executable="../../../../node_modules/.bin/uglifyjs" parallel="false" dir="target/stage/tubepress" relative="true"
                    failonerror="true">
@@ -47,16 +45,6 @@
                     </outputmapper>
                 </redirector>
             </apply>
-        </sequential>
-    </macrodef>
-
-    <macrodef name="__npm-install">
-        <sequential>
-            <log msg="Installing npm modules" />
-            <exec executable="npm" failonerror="true" dir="../">
-                <arg value="install" />
-                <arg value="--silent" />
-            </exec>
         </sequential>
     </macrodef>
 

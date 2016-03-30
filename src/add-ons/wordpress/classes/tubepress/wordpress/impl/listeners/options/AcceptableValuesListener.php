@@ -75,13 +75,27 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
 
         foreach ($authors as $user) {
 
-            $loginName = $user->user_login;
+            $loginName = $this->_deIntegerizeLoginName($user->user_login);
             $display   = $user->display_name;
 
             $result[$loginName] = $display;
         }
 
         $this->_sortArrayAndSetAsSubject($result, $event);
+    }
+
+    /**
+     * Some WP users have names that are integers. This messes up TubePress's validation so
+     * we prepend those names with a prefix.
+     */
+    private function _deIntegerizeLoginName($incoming)
+    {
+        if ((string) intval($incoming) === "$incoming") {
+
+            return "tubepress_wp_user_$incoming";
+        }
+
+        return $incoming;
     }
 
     private function _sortArrayAndSetAsSubject(array $array, tubepress_api_event_EventInterface $event)

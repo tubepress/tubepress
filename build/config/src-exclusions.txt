@@ -17,6 +17,7 @@ phpunit.xml.dist
 .travis.yml
 /vendor/autoload.php
 /vendor/bin
+/vendor/composer/installed.json
 /vendor/doctrine
 /vendor/hamcrest
 /vendor/jakoch
