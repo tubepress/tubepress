@@ -121,11 +121,6 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
         }
 
         $validators = array(
-            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
-                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
-                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
-                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE
-            ),
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_YOUTUBE_VIDEO_ID => array(
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE
             )
@@ -148,9 +143,14 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_api_tes
             }
         }
 
+        $oneOrMoreWordCharGroups = '/^[\w-]+(?:\s+\+\s+[\w-]+)*$/';
+
         $validators = array(
 
-            tubepress_youtube3_api_Constants::OPTION_API_KEY => '/^[\w-]*$/'
+            tubepress_youtube3_api_Constants::OPTION_API_KEY                 => '/^[\w-]*$/',
+            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE  => $oneOrMoreWordCharGroups,
+            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE => $oneOrMoreWordCharGroups,
+            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE      => $oneOrMoreWordCharGroups,
         );
 
         foreach ($validators as $optionName => $pattern) {
