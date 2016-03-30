@@ -22,7 +22,7 @@ class tubepress_wordpress_impl_listeners_wp_ActivationListener
     private $_fs;
 
     public function __construct(tubepress_api_boot_BootSettingsInterface $bootSettings,
-                                \Symfony\Component\Filesystem\Filesystem $fileSystem)
+        \Symfony\Component\Filesystem\Filesystem $fileSystem)
     {
         $this->_bootSettings = $bootSettings;
         $this->_fs           = $fileSystem;
@@ -46,12 +46,28 @@ class tubepress_wordpress_impl_listeners_wp_ActivationListener
                 WP_CONTENT_DIR . '/tubepress-content/themes/starter');
         }
 
-        /* add templates to the starter theme if necessary */
-        if (!is_dir(WP_CONTENT_DIR . '/tubepress-content/themes/starter/templates')) {
+        $templatePaths = array(
+            'src/add-ons/embedded-embedplus/templates',
+            'src/add-ons/embedded-jwplayer5/templates',
+            'src/add-ons/gallery/templates',
+            'src/add-ons/html/templates',
+            'src/add-ons/player/templates',
+            'src/add-ons/pro-player/templates',
+            'src/add-ons/pro-search/templates',
+            'src/add-ons/provider-dailymotion/templates',
+            'src/add-ons/provider-vimeo-v3/templates',
+            'src/add-ons/provider-youtube-v3/templates',
+            'src/add-ons/search/templates',
+            'src/add-ons/single/templates',
+        );
 
+        foreach ($templatePaths as $templatePath) {
+
+            /* add templates to the starter theme if necessary */
             $this->_tryToMirror(
-                TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
-                WP_CONTENT_DIR . '/tubepress-content/themes/starter/templates');
+                TUBEPRESS_ROOT . "/$templatePath",
+                WP_CONTENT_DIR . '/tubepress-content/themes/starter/templates'
+            );
         }
     }
 
