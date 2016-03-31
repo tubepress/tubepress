@@ -59,7 +59,6 @@ upgrade_phpunit_if_necessary ()
 
 run_composer_install ()
 {
-    echo "Travis PHP version is $TRAVIS_PHP_VERSION"
     composer install
 }
 

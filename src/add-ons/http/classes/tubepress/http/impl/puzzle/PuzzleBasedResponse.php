@@ -120,6 +120,13 @@ class tubepress_http_impl_puzzle_PuzzleBasedResponse extends tubepress_http_impl
      */
     public function toJson(array $config = array())
     {
+        $body = (string) $this->getBody();
+
+        if (!$body) {
+
+            return null;
+        }
+
         return $this->_delegate->json($config);
     }
 }
