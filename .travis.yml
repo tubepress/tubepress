@@ -7,7 +7,7 @@ php:
   - 7
   - hhvm
 before_script:
-  composer install --prefer-source
+  tests/travis-build-setup.sh
 script: "phpunit -d memory_limit=2048M --verbose -c tests/unit/phpunit.xml --testsuite unit"
 matrix:
   fast_finish: true
