@@ -430,7 +430,7 @@ EOF
     {
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
-        $bootConfigAsString = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/php/classes/internal/fixtures/boot-settings-files/' . $filename . '.php');
+        $bootConfigAsString = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/classes/internal/fixtures/boot-settings-files/' . $filename . '.php');
 
         $this->_writeBootConfig($bootConfigAsString);
 

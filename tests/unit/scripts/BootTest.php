@@ -12,7 +12,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_api_test_TubePr
 {
     public function onSetup()
     {
-        define('TUBEPRESS_CONTENT_DIRECTORY', TUBEPRESS_ROOT . '/tests/unit/php/scripts/fixtures/mock-user-content-dir');
+        define('TUBEPRESS_CONTENT_DIRECTORY', TUBEPRESS_ROOT . '/tests/unit/scripts/fixtures/mock-user-content-dir');
     }
 
     public function onTearDown()

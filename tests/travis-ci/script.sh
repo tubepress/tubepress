@@ -9,4 +9,4 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
-phpunit -d memory_limit=2048M --verbose -c tests/unit/phpunit.xml --testsuite unit
+phpunit -d memory_limit=2048M --verbose -c tests/phpunit.xml --testsuite unit

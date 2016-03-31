@@ -44,8 +44,8 @@ class tubepress_test_internal_boot_helper_uncached_CompilerTest extends tubepres
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/tests/unit/php/classes/internal/fixtures/mock-classes/FakeCompilerPass.php';
-        require_once TUBEPRESS_ROOT . '/tests/unit/php/classes/internal/fixtures/mock-classes/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/tests/unit/classes/internal/fixtures/mock-classes/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/tests/unit/classes/internal/fixtures/mock-classes/FakeExtension.php';
     }
 
     public function testCompile()

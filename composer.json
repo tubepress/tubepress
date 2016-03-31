@@ -85,15 +85,14 @@
 
       "tubepress_build_" : "build/php/classes",
 
-      "tubepress_test_api_"      : "tests/unit/php/classes/public",
-      "tubepress_test_internal_" : "tests/unit/php/classes/internal",
+      "tubepress_test_api_"      : "tests/unit/classes/public",
+      "tubepress_test_internal_" : "tests/unit/classes/internal",
 
       "tubepress_test_options_ui_"    : "src/add-ons/options-ui/tests/classes",
-      "tubepress_test_translations_"  : "tests/unit/translations/classes",
 
       "tubepress_test_integration_" : "tests/integration/classes",
 
-      "tubepress_test_scripts_boot_" : "tests/unit/php/scripts/fixtures/mock-user-content-dir/add-ons/bootmocks/classes"
+      "tubepress_test_scripts_boot_" : "tests/unit/scripts/fixtures/mock-user-content-dir/add-ons/bootmocks/classes"
     }
   },
   "config": {

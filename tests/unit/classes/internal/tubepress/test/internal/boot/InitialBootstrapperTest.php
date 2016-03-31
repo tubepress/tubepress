@@ -38,7 +38,7 @@ class tubepress_test_internal_boot_InitialBootstrapperTest extends PHPUnit_Frame
         $this->assertTrue(defined('TUBEPRESS_VERSION'));
 
         $actualTubePressRoot   = realpath(TUBEPRESS_ROOT);
-        $expectedTubePressRoot = realpath(__DIR__ . '/../../../../../../../../../');
+        $expectedTubePressRoot = realpath(__DIR__ . '/../../../../../../../..');
 
         $this->assertTrue(is_dir($actualTubePressRoot));
         $this->assertTrue(is_dir($expectedTubePressRoot));

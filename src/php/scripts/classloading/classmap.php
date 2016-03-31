@@ -561,7 +561,6 @@ return array (
     'tubepress_api_test_TubePressUnitTest' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/test/TubePressUnitTest.php',
     'tubepress_api_test_contrib_AbstractManifestTest' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/test/contrib/AbstractManifestTest.php',
     'tubepress_api_test_ioc_AbstractContainerExtensionTest' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/test/ioc/AbstractContainerExtensionTest.php',
-    'tubepress_api_test_translation_AbstractTranslationsTest' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/test/translation/AbstractTranslationsTest.php',
     'tubepress_api_theme_ThemeInterface' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/theme/ThemeInterface.php',
     'tubepress_api_translation_TranslatorInterface' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/translation/TranslatorInterface.php',
     'tubepress_api_url_QueryInterface' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/url/QueryInterface.php',
