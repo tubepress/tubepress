@@ -370,13 +370,21 @@ class tubepress_internal_boot_PrimaryBootstrapper
 
     public function _handleFatalError()
     {
+        $lastError = error_get_last();
+
+        if (!is_array($lastError) || !$this->_bootLogger->isEnabled()) {
+
+            //no error or logging not enabled
+            return;
+        }
+
         if (!class_exists('tubepress_internal_boot_helper_FatalErrorHandler', false)) {
             
             require __DIR__ . '/helper/FatalErrorHandler.php';
         }
         
         $handler = new tubepress_internal_boot_helper_FatalErrorHandler();
-        $handler->onFatalError();
+        $handler->onFatalError($this->_bootLogger, $lastError);
     }
 
     /***********************************************************************************************************
