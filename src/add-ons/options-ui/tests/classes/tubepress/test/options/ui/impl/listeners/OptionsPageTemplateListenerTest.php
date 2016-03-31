@@ -206,7 +206,22 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             'fields' => $this->_fieldsVar,
         ));
 
-        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(function ($candidate) {
+        $gallerySourceCategory = $this->_mockCategoryGallerySource;
+        $embeddedCategory      = $this->_mockCategoryEmbedded;
+        $vimeoFieldProvider    = $this->_mockFieldProviderVimeo;
+        $playerFieldProvider   = $this->_mockFieldProviderPlayer;
+        $baseUrl               = $this->_mockBaseUrl;
+        $fieldsVar             = $this->_fieldsVar;
+
+        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(function ($candidate) use (
+
+            $gallerySourceCategory,
+            $embeddedCategory,
+            $vimeoFieldProvider,
+            $playerFieldProvider,
+            $baseUrl,
+            $fieldsVar
+        ) {
 
             if (!is_array($candidate)) {
 
@@ -219,8 +234,8 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             }
 
             if ($candidate['categories'] !== array(
-                    $this->_mockCategoryGallerySource,
-                    $this->_mockCategoryEmbedded)) {
+                    $gallerySourceCategory,
+                    $embeddedCategory)) {
 
                 return false;
             }
@@ -248,13 +263,13 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             }
 
             if ($candidate['fieldProviders'] !== array(
-                    'field-provider-vimeo' => $this->_mockFieldProviderVimeo,
-                    'field-provider-player'  => $this->_mockFieldProviderPlayer)) {
+                    'field-provider-vimeo' => $vimeoFieldProvider,
+                    'field-provider-player'  => $playerFieldProvider)) {
 
                 return false;
             }
 
-            if ($candidate['baseUrl'] !== $this->_mockBaseUrl) {
+            if ($candidate['baseUrl'] !== $baseUrl) {
 
                 return false;
             }
@@ -264,7 +279,7 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
                 return false;
             }
 
-            if ($candidate['fields'] !== $this->_fieldsVar) {
+            if ($candidate['fields'] !== $fieldsVar) {
 
                 return false;
             }
@@ -339,4 +354,5 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
         $this->_mockCategoryEmbedded->shouldReceive('getId')->atLeast(1)->andReturn(tubepress_api_options_ui_CategoryNames::EMBEDDED);
         $this->_mockCategoryGallerySource->shouldReceive('getId')->atLeast(1)->andReturn(tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE);
     }
+
 }
