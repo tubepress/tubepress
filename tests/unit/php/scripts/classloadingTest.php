@@ -201,7 +201,9 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
 
             '/vendor/tedivm/stash/tests',
 
-            '/src/add-ons/[^/]+/tests/'
+            '/src/add-ons/[^/]+/tests/',
+
+            'DeepCopy'
         );
 
         return '~' . implode('|', $excludes) . '~';

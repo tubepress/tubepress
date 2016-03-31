@@ -58,8 +58,8 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_
             $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(200, array(), puzzle_stream_Stream::factory('{"foo": "')));
             $response->toJson();
         } catch (puzzle_exception_ParseException $e) {
-            if (version_compare(PHP_VERSION, '5.3') >= 0) {
-                $this->assertEquals('Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON', $e->getMessage());
+            if (version_compare(PHP_VERSION, '7.0') >= 0) {
+                $this->assertEquals('Unable to parse JSON data: JSON_ERROR_CTRL_CHAR - Unexpected control character found', $e->getMessage());
             } else {
                 $this->assertEquals('Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON', $e->getMessage());
             }

@@ -16,6 +16,11 @@ MAJOR_PHP_VERSION=$(( MAJOR_PHP_VERSION ))
 
 if [ "$MAJOR_PHP_VERSION" != "5" ]; then
 
+    echo "Upgrading PHPUnit to 5.2. First removing version 4.8"
     composer remove  --dev phpunit/phpunit
+
+    echo "Done removing PHPUnit 4.8. Now installing PHPUnit 5.2"
     composer require --dev phpunit/phpunit ^5.2
+
+    echo "Done installing PHPUnit 5.2"
 fi
