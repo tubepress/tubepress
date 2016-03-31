@@ -29,12 +29,23 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
     /**
      * @var Mockery\MockInterface
      */
-    private $_mockSettingsFileReader;
+    private $_mockBootSettings;
+
+    /**
+     * @var Mockery\MockInterface
+     */
+    private $_mockUncachedContainerSupplier;
+
+    /**
+     * @var string
+     */
+    private $_mockSystemCacheDirectory;
 
     public function onSetup()
     {
-        $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockSettingsFileReader = $this->mock('tubepress_internal_boot_BootSettings');
+        $this->_mockLogger                    = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockBootSettings              = $this->mock('tubepress_internal_boot_BootSettings');
+        $this->_mockUncachedContainerSupplier = $this->mock('tubepress_internal_boot_helper_uncached_UncachedContainerSupplier');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -42,95 +53,98 @@ class tubepress_test_internal_boot_helper_ContainerSupplierTest extends tubepres
         $this->_sut = new tubepress_internal_boot_helper_ContainerSupplier(
 
             $this->_mockLogger,
-            $this->_mockSettingsFileReader
+            $this->_mockBootSettings
         );
+
+        $this->_sut->___setUncachedContainerSupplier($this->_mockUncachedContainerSupplier);
+
+        $this->_mockSystemCacheDirectory = sys_get_temp_dir() . '/tubepress-container-supplier-test';
+
+        if (is_dir($this->_mockSystemCacheDirectory)) {
+
+            $this->recursivelyDeleteDirectory($this->_mockSystemCacheDirectory);
+        }
+
+        $created = mkdir($this->_mockSystemCacheDirectory, 0755, true);
+
+        $this->assertTrue($created);
     }
 
     public function onTeardown()
     {
-        $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/tubepress-container-supplier-test');
+        $this->recursivelyDeleteDirectory($this->_mockSystemCacheDirectory);
+
+        $this->assertFalse(is_dir($this->_mockSystemCacheDirectory));
     }
 
-    public function testGetContainerNoSuchFile()
+    public function testSystemCacheDisabled()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
-        $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('abc');
+        $this->_mockBootSettings->shouldReceive('isSystemCacheEnabled')->once()->andReturn(false);
 
-        $this->_completeUncachedTest();
+        $this->_runUncachedContainerTest();
     }
 
-    public function testCacheSuccess()
+    public function testNoSavedContainerOnFilesystem()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
+        $this->_mockBootSettings->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($this->_mockSystemCacheDirectory);
 
-        $mockCacheDir = sys_get_temp_dir() . '/tubepress-container-supplier-test';
-        $file = $mockCacheDir . '/TubePress-' . TUBEPRESS_VERSION . '-ServiceContainer.php';
-        $success = mkdir($mockCacheDir, 0755, true);
-        $this->assertTrue($success);
-        $text = $this->_getDumpedEmptySymfonyContainerBuilder();
-        file_put_contents($file, $text);
-
-        $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(dirname($mockCacheDir));
-
-        $result = $this->_sut->getServiceContainer();
-
-        $this->_verifyResult($result);
+        $this->_runUncachedContainerTest();
     }
 
-    public function testCacheDisabled()
+    public function testSavedContainerDoesNotContainerContainerClass()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(false);
+        $this->_mockBootSettings->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($this->_mockSystemCacheDirectory);
 
-        $this->_completeUncachedTest();
+        $fakeClass = '<?php class foo{}';
+        $target    = $this->_mockSystemCacheDirectory . DIRECTORY_SEPARATOR . 'TubePressServiceContainer.php';
+
+        file_put_contents($target, $fakeClass);
+
+        $this->_runUncachedContainerTest();
     }
 
-    private function _getDumpedEmptySymfonyContainerBuilder()
+    public function testContainerClassExists()
     {
-        return <<<XYZ
-<?php
+        $this->_mockBootSettings->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
 
-/**
- * TubePressServiceContainer
- *
- * This class has been auto-generated
- * by the Symfony Dependency Injection Component.
- */
-class TubePressServiceContainer extends Symfony\Component\DependencyInjection\Container
-{
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct(new \Symfony\Component\DependencyInjection\ParameterBag\ParameterBag(array('classMap' => array('x' => 'b'))));
-    }
-}
+        eval('class TubePressServiceContainer extends Symfony\Component\DependencyInjection\Container {}');
 
-XYZ;
-
+        $this->_confirmContainerReturned();
     }
 
-    private function _completeUncachedTest()
+    public function testContainerFoundOnFilesystem()
     {
-        $mockSymfonyContainer = $this->mock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $mockUncachedProvider = $this->mock('tubepress_internal_boot_helper_uncached_UncachedContainerSupplier');
+        $this->_mockBootSettings->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($this->_mockSystemCacheDirectory);
 
-        $mockUncachedProvider->shouldReceive('getNewSymfonyContainer')->once()->andReturn($mockSymfonyContainer);
+        $content = '<?php class TubePressServiceContainer extends Symfony\Component\DependencyInjection\Container {}';
+        $target  = $this->_mockSystemCacheDirectory . DIRECTORY_SEPARATOR . 'TubePressServiceContainer.php';
 
-        $this->_sut->___setUncachedContainerSupplier($mockUncachedProvider);
+        file_put_contents($target, $content);
 
-        $mockSymfonyContainer->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', Mockery::type('tubepress_api_ioc_ContainerInterface'));
-        $mockSymfonyContainer->shouldReceive('set')->once()->with('symfony_service_container', $mockSymfonyContainer);
-        $mockSymfonyContainer->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
-        $mockSymfonyContainer->shouldReceive('set')->once()->with('tubepress_api_boot_BootSettingsInterface', $this->_mockSettingsFileReader);
-
-        $result = $this->_sut->getServiceContainer();
-
-        $this->_verifyResult($result);
+        $this->_confirmContainerReturned();
     }
 
-    private function _verifyResult($container)
+    private function _runUncachedContainerTest()
     {
-        $this->assertInstanceOf('tubepress_api_ioc_ContainerInterface', $container);
+        $fakeSymfonyContainer = $this->mock('\Symfony\Component\DependencyInjection\ContainerInterface');
+
+        $this->_mockUncachedContainerSupplier->shouldReceive('getNewSymfonyContainer')->once()->andReturn($fakeSymfonyContainer);
+
+        $fakeSymfonyContainer->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface',      \Mockery::type('tubepress_api_ioc_ContainerInterface'));
+        $fakeSymfonyContainer->shouldReceive('set')->once()->with('symfony_service_container',                 $fakeSymfonyContainer);
+        $fakeSymfonyContainer->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger',      $this->_mockLogger);
+        $fakeSymfonyContainer->shouldReceive('set')->once()->with(tubepress_api_boot_BootSettingsInterface::_, $this->_mockBootSettings);
+
+        $this->_confirmContainerReturned();
+    }
+
+    private function _confirmContainerReturned()
+    {
+        $actual = $this->_sut->getServiceContainer();
+
+        $this->assertInstanceOf('tubepress_api_ioc_ContainerInterface', $actual);
     }
 }
