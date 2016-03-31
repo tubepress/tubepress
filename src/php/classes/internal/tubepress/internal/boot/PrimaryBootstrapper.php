@@ -372,7 +372,7 @@ class tubepress_internal_boot_PrimaryBootstrapper
     {
         if (!class_exists('tubepress_internal_boot_helper_FatalErrorHandler', false)) {
             
-            require dirname(__FILE__) . '/helper/FatalErrorHandler.php';
+            require __DIR__ . '/helper/FatalErrorHandler.php';
         }
         
         $handler = new tubepress_internal_boot_helper_FatalErrorHandler();

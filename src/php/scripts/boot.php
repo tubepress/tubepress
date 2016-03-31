@@ -11,7 +11,7 @@
 
 if (!class_exists('tubepress_internal_boot_InitialBootstrapper', false)) {
 
-    require dirname(__FILE__) . '/../classes/internal/tubepress/internal/boot/InitialBootstrapper.php';
+    require __DIR__ . '/../classes/internal/tubepress/internal/boot/InitialBootstrapper.php';
 }
 
 return tubepress_internal_boot_InitialBootstrapper::getServiceContainer();
