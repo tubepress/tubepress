@@ -146,7 +146,7 @@ Download the Android version here: https://play.google.com/store/apps/details?id
             tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL,
             Mockery::on(function ($url) {
 
-                return preg_match_all('~^http://i.ytimg.com/vi/NpOd4oLEKyg/[1,2,3].jpg$~', $url) === 1;
+                return preg_match_all('~^http://i.ytimg.com/vi/NpOd4oLEKyg/[1,2,3].jpg$~', $url, $matches) === 1;
             })
         );
 
