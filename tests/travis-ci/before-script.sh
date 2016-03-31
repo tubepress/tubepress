@@ -49,6 +49,7 @@ upgrade_phpunit_if_necessary ()
 
         composer remove  --dev phpunit/phpunit
         composer remove  --dev mockery/mockery
+        composer remove  --dev hamcrest/hamcrest-php
 
         composer require --dev mockery/mockery dev-master
         composer require --dev phpunit/phpunit

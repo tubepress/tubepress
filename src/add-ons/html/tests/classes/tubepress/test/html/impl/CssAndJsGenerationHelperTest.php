@@ -69,15 +69,25 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
     /**
      * @dataProvider dataForCSSorJS
      */
-    public function testGetCSSorJS($invoker, $getter, $themeGetter, $templateName, $templateVars,
+    public function testGetCSSorJS($invoker, $urlsGetter, $themeGetter, $templateName, $templateVars,
                                    $eventName, $parentThemeRetrievals, $baseUrlLookups, $userContentLookups,
                                    $getParentThemeCalls)
     {
-        list($finalUrls, $mockCurrentTheme, $mockParentTheme) =
-            $this->testGetUrlsCSS($getter, $eventName, $parentThemeRetrievals, $baseUrlLookups, $userContentLookups, $getParentThemeCalls);
+        list($finalUrls, $mockCurrentTheme, $mockParentTheme) = $this->testGetUrlsCSS(
 
-        $mockCurrentTheme->shouldReceive($themeGetter)->once()->andReturn('current theme data');
-        $mockParentTheme->shouldReceive($themeGetter)->once()->andReturn('parent theme data');
+            $urlsGetter,
+            $eventName,
+            $parentThemeRetrievals,
+            $baseUrlLookups,
+            $userContentLookups,
+            $getParentThemeCalls
+        );
+
+        if ($themeGetter) {
+
+            $mockCurrentTheme->shouldReceive($themeGetter)->once()->andReturn('current theme data');
+            $mockParentTheme->shouldReceive($themeGetter)->once()->andReturn('parent theme data');
+        }
 
         $finalTemplateVars = array_merge($templateVars, array('urls' => $finalUrls));
 
@@ -103,8 +113,6 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
     public function testGetUrlsCSS($getter, $eventName, $parentThemeRetrievals, $baseUrlLookups, $userContentUrlLookups,
                                    $getParentThemeCalls)
     {
-        $js = $getter === 'getUrlsJS';
-
         $mockBaseUrl        = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockUserContentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
