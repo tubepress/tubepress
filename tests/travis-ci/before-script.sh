@@ -47,7 +47,7 @@ upgrade_phpunit_if_necessary ()
     if [ "$MAJOR_PHP_VERSION" != "5" ]; then
 
         echo "Upgrading PHPUnit. First removing version 4.8."
-        composer remove  --dev phpunit/phpunit
+        composer remove  --dev phpunit/phpunit --update-with-dependencies
 
         echo "Done removing PHPUnit 4.8. Now installing latest PHPUnit."
         composer require --dev phpunit/phpunit
