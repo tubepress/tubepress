@@ -42,15 +42,17 @@ get_php_major_version_as_string ()
 # PHP 7 and HHVM need
 upgrade_phpunit_if_necessary ()
 {
+    MAJOR_PHP_VERSION=$(get_php_major_version_as_string)
+
     if [ "$MAJOR_PHP_VERSION" != "5" ]; then
 
-        echo "Upgrading PHPUnit to 5.2. First removing version 4.8"
+        echo "Upgrading PHPUnit. First removing version 4.8."
         composer remove  --dev phpunit/phpunit
 
-        echo "Done removing PHPUnit 4.8. Now installing PHPUnit 5.2"
-        composer require --dev phpunit/phpunit ^5.2
+        echo "Done removing PHPUnit 4.8. Now installing latest PHPUnit."
+        composer require --dev phpunit/phpunit
 
-        echo "Done installing PHPUnit 5.2"
+        echo "Done installing latest PHPUnit"
     fi
 }
 
