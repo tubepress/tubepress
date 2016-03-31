@@ -108,11 +108,9 @@ class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_i
 
     public function testTemplateData()
     {
-        $tmpFile = tmpfile();
-        fwrite($tmpFile, 'hi');
-        $data = stream_get_meta_data($tmpFile);
-        $path = $data['uri'];
-        $map = array('a' => $path);
+        $tempFilePath = tempnam(null, 'tubepress-filesystem-theme-test');
+        file_put_contents($tempFilePath, 'hi');
+        $map = array('a' => $tempFilePath);
 
         /**
          * @var $theme tubepress_internal_theme_FilesystemTheme
@@ -125,7 +123,7 @@ class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_i
         $this->assertFalse($theme->hasTemplateSource('b'));
 
         $this->assertEquals('hi', $theme->getTemplateSource('a'));
-        $this->assertEquals($path, $theme->getTemplateCacheKey('a'));
+        $this->assertEquals($tempFilePath, $theme->getTemplateCacheKey('a'));
 
         $this->assertTrue($theme->isTemplateSourceFresh('a', time() + 30000));
         $this->assertFalse($theme->isTemplateSourceFresh('a', 0));
