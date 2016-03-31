@@ -44,30 +44,35 @@ class tubepress_test_internal_boot_BootSettingsTest extends tubepress_api_test_T
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_mockUrlFactory->shouldReceive('fromString')->andReturnUsing(array($this, '__callbackRealUrlFactory'));
+        $this->_mockUrlFactory->shouldReceive('fromString')->andReturnUsing(function ($string) {
 
-        $this->_sut = new tubepress_internal_boot_BootSettings($this->_mockLogger, $this->_mockUrlFactory);
+            $realFactory = new tubepress_url_impl_puzzle_UrlFactory();
+
+            return $realFactory->fromString($string);
+        });
 
         $this->_userContentDirectory = sys_get_temp_dir() . '/tubepress-boot-settings-test/';
+        $this->_sut                  = new tubepress_internal_boot_BootSettings(
+
+            $this->_mockLogger,
+            $this->_mockUrlFactory
+        );
 
         if (is_dir($this->_userContentDirectory)) {
 
             $this->recursivelyDeleteDirectory($this->_userContentDirectory);
         }
 
-        mkdir($this->_userContentDirectory . '/config', 0777, true);
+        $directoryCreated = mkdir($this->_userContentDirectory . '/config', 0777, true);
+
+        $this->assertTrue($directoryCreated);
     }
 
     public function onTearDown()
     {
         $this->recursivelyDeleteDirectory($this->_userContentDirectory);
-    }
 
-    public function __callbackRealUrlFactory($incoming)
-    {
-        $realFactory = new tubepress_url_impl_puzzle_UrlFactory();
-
-        return $realFactory->fromString($incoming);
+        $this->assertFalse(is_dir($this->_userContentDirectory));
     }
 
     /**
