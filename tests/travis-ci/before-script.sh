@@ -39,7 +39,8 @@ get_php_major_version_as_string ()
 }
 
 #
-# PHP 7 and HHVM need
+# PHP 7 and HHVM need PHPUnit 5.x to work correctly.
+#
 upgrade_phpunit_if_necessary ()
 {
     MAJOR_PHP_VERSION=$(get_php_major_version_as_string)
@@ -47,7 +48,7 @@ upgrade_phpunit_if_necessary ()
     if [ "$MAJOR_PHP_VERSION" != "5" ]; then
 
         echo "Upgrading PHPUnit. First removing version 4.8."
-        composer remove  --dev phpunit/phpunit --update-with-dependencies
+        composer remove  --dev phpunit/phpunit
 
         echo "Done removing PHPUnit 4.8. Now installing latest PHPUnit."
         composer require --dev phpunit/phpunit
@@ -58,13 +59,15 @@ upgrade_phpunit_if_necessary ()
 
 run_composer_install ()
 {
-    composer install --prefer-source
+    echo "Travis PHP version is $TRAVIS_PHP_VERSION"
+    composer install
 }
 
 ##############################################################################################
 #### MAIN ROUTINE
 ##############################################################################################
 
+upgrade_phpunit_if_necessary
+
 run_composer_install
 
-upgrade_phpunit_if_necessary
