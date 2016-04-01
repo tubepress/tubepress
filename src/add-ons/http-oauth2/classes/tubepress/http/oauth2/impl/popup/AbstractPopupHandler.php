@@ -94,7 +94,10 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
 
                 } catch (Exception $e) {
 
-                    //ignore
+                    if (defined('HHVM_VERSION')) {
+
+                        print_r($e);
+                    }
                 }
             }
 
