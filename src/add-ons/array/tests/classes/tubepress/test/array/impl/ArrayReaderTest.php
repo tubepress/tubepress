@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -33,10 +33,10 @@ class tubepress_test_array_impl_ArrayReaderTest extends tubepress_api_test_TubeP
 
             'foo' => array(
 
-                'bar' => 'hi'
+                'bar' => 'hi',
             ),
 
-            'x' => 'y'
+            'x' => 'y',
         );
 
         $actual = $this->_sut->getAsString($x, $path, $default);
@@ -51,7 +51,7 @@ class tubepress_test_array_impl_ArrayReaderTest extends tubepress_api_test_TubeP
             array('', null, null),
             array('x', 'y', null),
             array('foo.bar', 'hi', null),
-            array('x.no', null, null)
+            array('x.no', null, null),
         );
     }
 }

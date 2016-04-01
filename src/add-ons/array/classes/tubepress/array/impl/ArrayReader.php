@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,21 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * @api
- * @since 4.1.0
- */
 class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReaderInterface
 {
     /**
-     * @api
-     * @since 4.1.0
-     *
-     * @param array $array
-     * @param $path
-     * @param int $default
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getAsInteger(array $array, $path, $default = 0)
     {
@@ -38,14 +27,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
     }
 
     /**
-     * @api
-     * @since 4.1.0
-     *
-     * @param array $array
-     * @param $path
-     * @param float $default
-     *
-     * @return float
+     * {@inheritdoc}
      */
     public function getAsFloat(array $array, $path, $default = 0.0)
     {
@@ -60,14 +42,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
     }
 
     /**
-     * @api
-     * @since 4.1.0
-     *
-     * @param array $array
-     * @param $path
-     * @param bool $default
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function getAsBoolean(array $array, $path, $default = false)
     {
@@ -82,14 +57,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
     }
 
     /**
-     * @api
-     * @since 4.1.0
-     *
-     * @param array $array
-     * @param $path
-     * @param string $default
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getAsString(array $array, $path, $default = '')
     {
@@ -104,14 +72,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
     }
 
     /**
-     * @api
-     * @since 4.1.0
-     *
-     * @param array $array
-     * @param $path
-     * @param array $default
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getAsArray(array $array, $path, $default = array())
     {
@@ -135,9 +96,9 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
         return $value;
     }
 
-
     /**
      * @param string $aPath
+     *
      * @return array
      */
     private function toPathKeys($aPath)
@@ -155,6 +116,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
 
     /**
      * @param string $aPath
+     *
      * @return mixed
      */
     private function _getValueFromPath(array $array, $aPath)
@@ -166,7 +128,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
 
             if (!is_array($intermediate) || !array_key_exists($pathKey, $intermediate)) {
 
-                return null;
+                return;
             }
 
             $intermediate = $intermediate[$pathKey];

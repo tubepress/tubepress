@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -13,9 +13,6 @@ class tubepress_test_array_ArrayManifestTest extends tubepress_api_test_contrib_
 {
     public function testManifest()
     {
-        /**
-         * @var $addon tubepress_api_contrib_AddonInterface
-         */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress/array', $addon->getName());
