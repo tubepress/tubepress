@@ -41,16 +41,16 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_api_te
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD => 'Monitor templates for changes',    //>(translatable)<
-                    tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => 'Template cache directory',         //>(translatable)<
-                    tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED    => 'Enable template cache',            //>(translatable)<
+                    tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD => 'Monitor templates for changes',    
+                    tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => 'Template cache directory',         
+                    tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED    => 'Enable template cache',            
 
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD => 'Automatically recompile templates when they are changed. Turning on the monitor is very useful if you are developing custom templates, but doing so also incurs a performance penalty. If you are unsure, leave this disabled.',    //>(translatable)<
-                    tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory where TubePress can store cached templates.',         //>(translatable)<
-                    tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED    => 'Compile and cache Twig templates to pure PHP for maximum performance. Most users should leave this enabled.',            //>(translatable)<
+                    tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD => 'Automatically recompile templates when they are changed. Turning on the monitor is very useful if you are developing custom templates, but doing so also incurs a performance penalty. If you are unsure, leave this disabled.',    
+                    tubepress_api_options_Names::TEMPLATE_CACHE_DIR        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory where TubePress can store cached templates.',         
+                    tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED    => 'Compile and cache Twig templates to pure PHP for maximum performance. Most users should leave this enabled.',            
                 ),
             ));
     }

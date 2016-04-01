@@ -111,14 +111,14 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_api_test_ioc_A
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
 
-                    tubepress_api_options_Names::HTML_HTTPS  => 'Enable HTTPS',       //>(translatable)<
-                    tubepress_api_options_Names::HTTP_METHOD => 'HTTP method',        //>(translatable)<
+                    tubepress_api_options_Names::HTML_HTTPS  => 'Enable HTTPS',       
+                    tubepress_api_options_Names::HTTP_METHOD => 'HTTP method',        
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::HTML_HTTPS                  => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
-                    tubepress_api_options_Names::HTTP_METHOD                 => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
+                    tubepress_api_options_Names::HTML_HTTPS                  => 'Serve thumbnails and embedded video player over a secure connection.',  
+                    tubepress_api_options_Names::HTTP_METHOD                 => 'Defines the HTTP method used in most TubePress Ajax operations',  
                 ),
             ))->withArgument(array(
 

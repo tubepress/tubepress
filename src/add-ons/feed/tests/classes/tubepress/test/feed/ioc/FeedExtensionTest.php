@@ -71,18 +71,18 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'Video blacklist',                    //>(translatable)<
-                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'Maximum total videos to retrieve',   //>(translatable)<
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => 'Thumbnails per page',                //>(translatable)<,
-                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Per-page sort order',                //>(translatable)<
+                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'Video blacklist',                    
+                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'Maximum total videos to retrieve',   
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => 'Thumbnails per page',
+                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Per-page sort order',                
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'A list of video IDs that should never be displayed.',                                          //>(translatable)<
-                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', //>(translatable)<
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => sprintf('Default is %s. Maximum is %s.', 20, 50),                                               //>(translatable)<
-                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Additional sort order applied to each individual page of a gallery',                           //>(translatable)<
+                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'A list of video IDs that should never be displayed.',                                          
+                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', 
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => sprintf('Default is %s. Maximum is %s.', 20, 50),                                               
+                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Additional sort order applied to each individual page of a gallery',                           
 
                 ),
             ))->withArgument(array(
@@ -119,8 +119,8 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
 
         $fixedValuesMap = array(
             tubepress_api_options_Names::FEED_PER_PAGE_SORT => array(
-                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE   => 'none',           //>(translatable)<
-                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM => 'random',         //>(translatable)<
+                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE   => 'none',           
+                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM => 'random',         
             )
         );
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
@@ -174,7 +174,7 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
 
         $categoryReferences = array();
         $categories = array(
-            array(tubepress_api_options_ui_CategoryNames::FEED, 'Feed'),          //>(translatable)<
+            array(tubepress_api_options_ui_CategoryNames::FEED, 'Feed'),          
         );
         foreach ($categories as $categoryIdAndLabel) {
 

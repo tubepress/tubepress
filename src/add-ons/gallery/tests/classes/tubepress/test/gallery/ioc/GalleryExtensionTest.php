@@ -110,28 +110,28 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::GALLERY_AJAX_PAGINATION => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),  //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_AUTONEXT        => 'Play videos sequentially without user intervention', //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_FLUID_THUMBS    => 'Use "fluid" thumbnails',             //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_HQ_THUMBS       => 'Use high-quality thumbnails',        //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE  => 'Show pagination above thumbnails',   //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_PAGINATE_BELOW  => 'Show pagination below thumbnails',   //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_RANDOM_THUMBS   => 'Randomize thumbnail images',         //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_THUMB_HEIGHT    => 'Height (px) of thumbs',              //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_THUMB_WIDTH     => 'Width (px) of thumbs',               //>(translatable)<
+                    tubepress_api_options_Names::GALLERY_AJAX_PAGINATION => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),
+                    tubepress_api_options_Names::GALLERY_AUTONEXT        => 'Play videos sequentially without user intervention',
+                    tubepress_api_options_Names::GALLERY_FLUID_THUMBS    => 'Use "fluid" thumbnails',
+                    tubepress_api_options_Names::GALLERY_HQ_THUMBS       => 'Use high-quality thumbnails',
+                    tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE  => 'Show pagination above thumbnails',
+                    tubepress_api_options_Names::GALLERY_PAGINATE_BELOW  => 'Show pagination below thumbnails',
+                    tubepress_api_options_Names::GALLERY_RANDOM_THUMBS   => 'Randomize thumbnail images',
+                    tubepress_api_options_Names::GALLERY_THUMB_HEIGHT    => 'Height (px) of thumbs',
+                    tubepress_api_options_Names::GALLERY_THUMB_WIDTH     => 'Width (px) of thumbs',
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::GALLERY_AJAX_PAGINATION => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),  //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_AUTONEXT        => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_FLUID_THUMBS    => 'Dynamically set thumbnail spacing based on the width of their container.', //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_HQ_THUMBS       => 'Note: this option cannot be used with the "randomize thumbnails" feature.', //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE  => 'Only applies to galleries that span multiple pages.', //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_PAGINATE_BELOW  => 'Only applies to galleries that span multiple pages.', //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_RANDOM_THUMBS   => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_THUMB_HEIGHT    => sprintf('Default is %s.', 90),   //>(translatable)<
-                    tubepress_api_options_Names::GALLERY_THUMB_WIDTH     => sprintf('Default is %s.', 120),  //>(translatable)<
+                    tubepress_api_options_Names::GALLERY_AJAX_PAGINATION => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),
+                    tubepress_api_options_Names::GALLERY_AUTONEXT        => 'When a video finishes, this will start playing the next video in the gallery.',
+                    tubepress_api_options_Names::GALLERY_FLUID_THUMBS    => 'Dynamically set thumbnail spacing based on the width of their container.',
+                    tubepress_api_options_Names::GALLERY_HQ_THUMBS       => 'Note: this option cannot be used with the "randomize thumbnails" feature.',
+                    tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE  => 'Only applies to galleries that span multiple pages.',
+                    tubepress_api_options_Names::GALLERY_PAGINATE_BELOW  => 'Only applies to galleries that span multiple pages.',
+                    tubepress_api_options_Names::GALLERY_RANDOM_THUMBS   => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.',
+                    tubepress_api_options_Names::GALLERY_THUMB_HEIGHT    => sprintf('Default is %s.', 90),
+                    tubepress_api_options_Names::GALLERY_THUMB_WIDTH     => sprintf('Default is %s.', 120),
 
                 ),
             ))->withArgument(array(
@@ -209,8 +209,8 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
 
         $categoryReferences = array();
         $categories = array(
-            array(tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE, 'Which videos?'), //>(translatable)<
-            array(tubepress_api_options_ui_CategoryNames::THUMBNAILS,     'Thumbnails'),    //>(translatable)<
+            array(tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE, 'Which videos?'),
+            array(tubepress_api_options_ui_CategoryNames::THUMBNAILS,     'Thumbnails'),
         );
         foreach ($categories as $categoryIdAndLabel) {
 

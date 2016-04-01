@@ -48,12 +48,12 @@ class tubepress_test_logger_ioc_LoggerExtensionTest extends tubepress_api_test_i
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::DEBUG_ON => 'Enable debugging',   //>(translatable)<
+                    tubepress_api_options_Names::DEBUG_ON => 'Enable debugging',   
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::DEBUG_ON => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
+                    tubepress_api_options_Names::DEBUG_ON => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  
 
                 ),
             ))->withArgument(array());

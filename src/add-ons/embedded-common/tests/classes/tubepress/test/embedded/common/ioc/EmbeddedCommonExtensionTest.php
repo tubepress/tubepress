@@ -49,23 +49,23 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY        => 'Auto-play all videos',                               //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => 'Max height (px)',                                    //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => '"Lazy" play videos',                                 //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_LOOP            => 'Loop',                                               //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'Implementation',                                     //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO       => 'Show title and rating before video starts',          //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_WIDTH           => 'Max width (px)',                                     //>(translatable)<
-                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => 'Responsive embeds',    //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY        => 'Auto-play all videos',                               
+                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => 'Max height (px)',                                    
+                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => '"Lazy" play videos',                                 
+                    tubepress_api_options_Names::EMBEDDED_LOOP            => 'Loop',                                               
+                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'Implementation',                                     
+                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO       => 'Show title and rating before video starts',          
+                    tubepress_api_options_Names::EMBEDDED_WIDTH           => 'Max width (px)',                                     
+                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => 'Responsive embeds',    
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => sprintf('Default is %s.', 390), //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
-                    tubepress_api_options_Names::EMBEDDED_WIDTH           => sprintf('Default is %s.', 640), //>(translatable)<
-                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => 'Auto-resize media players to best fit the viewer\'s screen.', //>(translatable)<
+                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => sprintf('Default is %s.', 390), 
+                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => 'Auto-play each video after thumbnail click.', 
+                    tubepress_api_options_Names::EMBEDDED_LOOP            => 'Continue playing the video until the user stops it.', 
+                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', 
+                    tubepress_api_options_Names::EMBEDDED_WIDTH           => sprintf('Default is %s.', 640), 
+                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => 'Auto-resize media players to best fit the viewer\'s screen.', 
                 ),
             ))->withArgument(array(
 
@@ -177,7 +177,7 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
             $serviceId,
             'tubepress_options_ui_impl_BaseElement'
         )->withArgument(tubepress_api_options_ui_CategoryNames::EMBEDDED)
-            ->withArgument('Player');                                                           //>(translatable)<
+            ->withArgument('Player');                                                           
 
         $categoryReferences[] = new tubepress_api_ioc_Reference($serviceId);
 

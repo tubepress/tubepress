@@ -334,24 +334,24 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => 'Main color', //>(translatable)<
+                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => 'Main color', 
 
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE      => 'Videos from this Vimeo album',       //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE => 'Videos this Vimeo user appears in',  //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE    => 'Videos in this Vimeo channel',       //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE      => 'Videos from this Vimeo group',       //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE      => 'Videos this Vimeo user likes',       //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',                   //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user', //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE   => 'Videos in this Vimeo category',      //>(translatable)<
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE        => 'Videos tagged with', //>(translatable)<
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE      => 'Videos from this Vimeo album',       
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE => 'Videos this Vimeo user appears in',  
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE    => 'Videos in this Vimeo channel',       
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE      => 'Videos from this Vimeo group',       
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE      => 'Videos this Vimeo user likes',       
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',                   
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user', 
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE   => 'Videos in this Vimeo category',      
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE        => 'Videos tagged with', 
 
-                    tubepress_vimeo3_api_Constants::OPTION_LIKES => 'Number of likes',  //>(translatable)<
+                    tubepress_vimeo3_api_Constants::OPTION_LIKES => 'Number of likes',  
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s.', "999999"), //>(translatable)<
+                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s.', "999999"), 
                 ),
             ));
     }

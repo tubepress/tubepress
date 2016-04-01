@@ -93,12 +93,12 @@ class tubepress_test_search_ioc_SearchExtensionTest extends tubepress_api_test_i
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::SEARCH_ONLY_USER => 'Restrict search results to videos from author', //>(translatable)<
+                    tubepress_api_options_Names::SEARCH_ONLY_USER => 'Restrict search results to videos from author', 
 
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_api_options_Names::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
+                    tubepress_api_options_Names::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      
 
                 ),
             ))->withArgument(array());

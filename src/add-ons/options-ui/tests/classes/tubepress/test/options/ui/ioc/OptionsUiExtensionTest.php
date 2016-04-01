@@ -161,7 +161,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_api
     {
         $categoryReferences = array();
         $categories = array(
-            array(tubepress_api_options_ui_CategoryNames::ADVANCED, 'Advanced'),      //>(translatable)<
+            array(tubepress_api_options_ui_CategoryNames::ADVANCED, 'Advanced'),      
         );
         foreach ($categories as $categoryIdAndLabel) {
 
@@ -201,7 +201,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_api
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
+                    tubepress_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', 
                 ),
 
             ))->withArgument(array());

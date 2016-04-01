@@ -100,7 +100,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             'tubepress_player_impl_JsPlayerLocation__jqmodal',
             'tubepress_player_impl_JsPlayerLocation'
         )->withArgument(tubepress_api_options_AcceptableValues::PLAYER_LOC_JQMODAL)
-            ->withArgument('with jqModal')                                          //>(translatable)<)
+            ->withArgument('with jqModal')
             ->withArgument('gallery/players/jqmodal/static')
             ->withArgument('gallery/players/jqmodal/ajax')
             ->withTag('tubepress_spi_player_PlayerLocationInterface');
@@ -109,7 +109,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             'tubepress_player_impl_JsPlayerLocation__normal',
             'tubepress_player_impl_JsPlayerLocation'
         )->withArgument(tubepress_api_options_AcceptableValues::PLAYER_LOC_NORMAL)
-            ->withArgument('normally (at the top of your gallery)')                 //>(translatable)<
+            ->withArgument('normally (at the top of your gallery)')                 
             ->withArgument('gallery/players/normal/static')
             ->withArgument('gallery/players/normal/ajax')
             ->withTag('tubepress_spi_player_PlayerLocationInterface');
@@ -118,7 +118,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             'tubepress_player_impl_JsPlayerLocation__popup',
             'tubepress_player_impl_JsPlayerLocation'
         )->withArgument(tubepress_api_options_AcceptableValues::PLAYER_LOC_POPUP)
-            ->withArgument('in a popup window')                 //>(translatable)<
+            ->withArgument('in a popup window')                 
             ->withArgument('gallery/players/popup/static')
             ->withArgument('gallery/players/popup/ajax')
             ->withTag('tubepress_spi_player_PlayerLocationInterface');
@@ -127,7 +127,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             'tubepress_player_impl_JsPlayerLocation__shadowbox',
             'tubepress_player_impl_JsPlayerLocation'
         )->withArgument(tubepress_api_options_AcceptableValues::PLAYER_LOC_SHADOWBOX)
-            ->withArgument('with Shadowbox')                 //>(translatable)<
+            ->withArgument('with Shadowbox')                 
             ->withArgument('gallery/players/shadowbox/static')
             ->withArgument('gallery/players/shadowbox/ajax')
             ->withTag('tubepress_spi_player_PlayerLocationInterface');
@@ -136,7 +136,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             'tubepress_player_impl_SoloOrStaticPlayerLocation__solo',
             'tubepress_player_impl_SoloOrStaticPlayerLocation'
         )->withArgument(tubepress_api_options_AcceptableValues::PLAYER_LOC_SOLO)
-            ->withArgument('in a new window on its own')                 //>(translatable)<
+            ->withArgument('in a new window on its own')                 
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
             ->withTag('tubepress_spi_player_PlayerLocationInterface');
 
@@ -144,7 +144,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
             'tubepress_player_impl_SoloOrStaticPlayerLocation__static',
             'tubepress_player_impl_SoloOrStaticPlayerLocation'
         )->withArgument(tubepress_api_options_AcceptableValues::PLAYER_LOC_STATIC)
-            ->withArgument('statically (page refreshes on each thumbnail click)')                 //>(translatable)<
+            ->withArgument('statically (page refreshes on each thumbnail click)')                 
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
             ->withArgument('gallery/players/static/static')
             ->withTag('tubepress_spi_player_PlayerLocationInterface');
@@ -177,7 +177,7 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_api_test_i
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::PLAYER_LOCATION          => 'Play each video',      //>(translatable)<
+                    tubepress_api_options_Names::PLAYER_LOCATION          => 'Play each video',      
                     tubepress_api_options_Names::EMBEDDED_SCROLL_ON       => 'Scroll page to embedded player after thumbnail click',
                     tubepress_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Scroll duration (ms)',
                     tubepress_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Scroll offset (px)',

@@ -90,16 +90,16 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
                     tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => '000000',
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color',//>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => 'Front color',     //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => 'Light color',     //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color',
+                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => 'Front color',     
+                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => 'Light color',     
+                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s.', "FFFFFF"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s.', "000000"),   //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s.', "FFFFFF"),   
+                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s.', "000000"),   
+                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s.', "000000"),   
+                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s.', "000000"),   
                 )
             ))->withTag(tubepress_api_options_ReferenceInterface::_);
     }

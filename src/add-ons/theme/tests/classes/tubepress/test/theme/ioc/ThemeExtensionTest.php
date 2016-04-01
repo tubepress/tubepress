@@ -118,7 +118,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
                     tubepress_api_options_Names::THEME_ADMIN => 'tubepress/admin-default',
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::THEME => 'Theme',  //>(translatable)<
+                    tubepress_api_options_Names::THEME => 'Theme',  
                 ),
             ));
     }
@@ -139,7 +139,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
             'theme_category',
             'tubepress_options_ui_impl_BaseElement'
         )->withArgument(tubepress_api_options_ui_CategoryNames::THEME)
-            ->withArgument('Theme'); //>(translatable)<
+            ->withArgument('Theme'); 
 
         $categoryReferences = array(new tubepress_api_ioc_Reference('theme_category'));
 

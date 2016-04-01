@@ -83,12 +83,12 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_api
     public function testGetFeedSortNamesToLabels()
     {
         $expected = array(
-            tubepress_youtube3_api_Constants::ORDER_BY_DEFAULT        => 'default',                         //>(translatable)<
-            tubepress_youtube3_api_Constants::ORDER_BY_NEWEST         => 'date published (newest first)',   //>(translatable)<
-            tubepress_youtube3_api_Constants::ORDER_BY_RATING         => 'rating',                          //>(translatable)<
-            tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE      => 'relevance',                       //>(translatable)<
-            tubepress_youtube3_api_Constants::ORDER_BY_TITLE          => 'title',                           //>(translatable)<
-            tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT     => 'view count',                      //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_DEFAULT        => 'default',                         
+            tubepress_youtube3_api_Constants::ORDER_BY_NEWEST         => 'date published (newest first)',   
+            tubepress_youtube3_api_Constants::ORDER_BY_RATING         => 'rating',                          
+            tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE      => 'relevance',                       
+            tubepress_youtube3_api_Constants::ORDER_BY_TITLE          => 'title',                           
+            tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT     => 'view count',                      
         );
 
         $this->assertEquals($expected, $this->_sut->getMapOfFeedSortNamesToUntranslatedLabels());
