@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-$fixers = array(
+$contribFixers = array(
 
     'align_double_arrow',                   // Align double arrow symbols in consecutive lines.
 
@@ -25,12 +25,24 @@ $fixers = array(
 
     'ordered_use',                          // Ordering use statements.
 
-    '-phpdoc_no_empty_return',
+    '-phpdoc_no_empty_return',              // @return void and @return null annotations should be omitted from phpdocs.
 
-    '-braces'
+    '-braces',                              // The body of each structure MUST be enclosed by braces. Braces should be
+                                            // properly placed. Body of braces should be properly indented. TubePress
+                                            // excludes this because we like to keep a blank line after control structure
+                                            // opening braces.
+
+    'php4_constructor',                     // Convert PHP4-style constructors to __construct. Warning! This could
+                                            // change code behavior.
+
+    'php_unit_construct',                   // PHPUnit assertion method calls like "->assertSame(true, $foo)" should be
+                                            // written with dedicated method like "->assertTrue($foo)". Warning! This
+                                            // could change code behavior.
+
+    'short_echo_tag',                       // Replace short-echo <?= with long format <?php echo syntax.
 );
 
 return Symfony\CS\Config\Config::create()
     ->level(\Symfony\CS\FixerInterface::SYMFONY_LEVEL)
-    ->fixers($fixers)
+    ->fixers($contribFixers)
     ->setUsingCache(true);
