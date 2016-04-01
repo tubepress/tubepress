@@ -75,46 +75,44 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => '[tubepress video="{{ item.id }}" title="false" length="true" description="true" descriptionLimit="0"]'
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD                      => 'Shortcode keyword',        //>(translatable)<,
-                tubepress_api_options_Names::TUBEPRESS_API_KEY                      => 'tubepress.com API Key',    //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE           => 'Enable auto post',         //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => 'Author',                   //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE      => 'Date source',              //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => 'Title template',           //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS      => 'Status',                   //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE             => 'Type',                     //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_COMMENTS   => 'Allow comments',           //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_PING       => 'Allow pings',              //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PASSWORD         => 'Password',                 //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TAGS             => 'Tags',                     //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES       => 'Categories',               //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PAGE_TEMPLATE    => 'Page template',            //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP         => 'Metadata template',        //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => 'Content template',         //>(translatable)<,
+                tubepress_api_options_Names::SHORTCODE_KEYWORD                      => 'Shortcode keyword',
+                tubepress_api_options_Names::TUBEPRESS_API_KEY                      => 'tubepress.com API Key',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE           => 'Enable auto post',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => 'Author',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE      => 'Date source',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => 'Title template',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS      => 'Status',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE             => 'Type',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_COMMENTS   => 'Allow comments',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_PING       => 'Allow pings',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PASSWORD         => 'Password',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TAGS             => 'Tags',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES       => 'Categories',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PAGE_TEMPLATE    => 'Page template',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP         => 'Metadata template',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => 'Content template',
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.',         //>(translatable)<,
-                tubepress_api_options_Names::TUBEPRESS_API_KEY => sprintf('Enable automatic plugin updates by supplying your <a href="%s" target="_blank">TubePress API key</a>.',   //>(translatable)<,
+                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.',
+                tubepress_api_options_Names::TUBEPRESS_API_KEY => sprintf('Enable automatic plugin updates by supplying your <a href="%s" target="_blank">TubePress API key</a>.',
                     'https://dashboard.tubepress.com/profile'
                 ),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE          => sprintf('Create and link a WordPress post or page for every video displayed by TubePress. See the <a href="%s" target="_blank">documentation</a> for details.',           //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE          => sprintf('Create and link a WordPress post or page for every video displayed by TubePress. See the <a href="%s" target="_blank">documentation</a> for details.',
                     'http://support.tubepress.com/customer/portal/articles/2360408-auto-post'),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE     => 'TubePress will assign a publish date for each post. You may choose to use either the video upload date or the date that TubePress creates the post.',                     //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT    => sprintf('A <a href="%s" target="_blank">Twig</a> fragment used to create post titles. <a href="%s" target="_blank">Here</a> is a list of available variables.',      //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE     => 'TubePress will assign a publish date for each post. You may choose to use either the video upload date or the date that TubePress creates the post.',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT    => sprintf('A <a href="%s" target="_blank">Twig</a> fragment used to create post titles. <a href="%s" target="_blank">Here</a> is a list of available variables.',
                     'http://twig.sensiolabs.org/', 'http://support.tubepress.com/customer/portal/articles/2360408-auto-post#variables'),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE            => sprintf('Each new post should be of this <a href="%s" target="_blank">type</a>.',                                     //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE            => sprintf('Each new post should be of this <a href="%s" target="_blank">type</a>.',
                     'https://codex.wordpress.org/Post_Types'),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS     => sprintf('TubePress will only display videos when their corresponding <a href="%s" target="_blank">post status</a> is public. Selecting a non-public status here (e.g. <code>Pending</code>) will allow you to review posts before they are published.', //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS     => sprintf('TubePress will only display videos when their corresponding <a href="%s" target="_blank">post status</a> is public. Selecting a non-public status here (e.g. <code>Pending</code>) will allow you to review posts before they are published.',
                     'https://codex.wordpress.org/Post_Status'),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PASSWORD        => 'Set a password to restrict viewing of each new post. Leave this field blank to disable.',                            //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TAGS            => 'Assign these WordPress tags to each new post.',                                                                      //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES      => 'Assign these WordPress categories to each new post.',                                                                //>(translatable)<,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PAGE_TEMPLATE   => sprintf('Each new page should use this <a href="%s" target="_blank">template</a> from your WordPress theme.',                         //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PASSWORD        => 'Set a password to restrict viewing of each new post. Leave this field blank to disable.',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_PAGE_TEMPLATE   => sprintf('Each new page should use this <a href="%s" target="_blank">template</a> from your WordPress theme.',
                     'https://codex.wordpress.org/Templates'),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP        => sprintf('For advanced users. A <a href="%s" target="_blank">Twig</a> fragment, which must compile to a simple JSON object with scalar keys and values, that defines post metadata to be inserted. <a href="%s" target="_blank">Here</a> is a list of available variables.',     //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP        => sprintf('For advanced users. A <a href="%s" target="_blank">Twig</a> fragment, which must compile to a simple JSON object with scalar keys and values, that defines post metadata to be inserted. <a href="%s" target="_blank">Here</a> is a list of available variables.',     
                     'http://twig.sensiolabs.org/', 'http://support.tubepress.com/customer/portal/articles/2360408-auto-post#variables'),
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => sprintf('A <a href="%s" target="_blank">Twig</a> fragment used to create post contents. <a href="%s" target="_blank">Here</a> is a list of available variables.',  //>(translatable)<,
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => sprintf('A <a href="%s" target="_blank">Twig</a> fragment used to create post contents. <a href="%s" target="_blank">Here</a> is a list of available variables.',
                     'http://twig.sensiolabs.org/', 'http://support.tubepress.com/customer/portal/articles/2360408-auto-post#variables'),
             ),
         ))
@@ -212,7 +210,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'tubepress_api_options_ui_BaseFieldProvider__wordpress',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->withArgument('field-provider-wordpress')
-            ->withArgument('WordPress')                     //>(translatable)<
+            ->withArgument('WordPress')                     
             ->withArgument(false)
             ->withArgument(false)
             ->withArgument($categoryReferences)
@@ -269,8 +267,8 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField__tags',
             'tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField'
         )->withArgument(tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TAGS)
-            ->withArgument('Tags')                                 //>(translatable)<,
-            ->withArgument('Assign these tags to each new post.')  //>(translatable)<,
+            ->withArgument('Tags')
+            ->withArgument('Assign these tags to each new post.')
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
@@ -282,8 +280,8 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField__categories',
             'tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField'
         )->withArgument(tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES)
-            ->withArgument('Categories')                                 //>(translatable)<,
-            ->withArgument('Assign these categories to each new post.')  //>(translatable)<,
+            ->withArgument('Categories')                                
+            ->withArgument('Assign these categories to each new post.')
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_ . '.admin'))
@@ -314,7 +312,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_api_
             'tubepress_api_options_ui_BaseFieldProvider__wp_autopost',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->withArgument('field-provider-wp_autopost')
-            ->withArgument('Auto Post')                     //>(translatable)<
+            ->withArgument('Auto Post')                     
             ->withArgument(false)
             ->withArgument(true)
             ->withArgument(array())
