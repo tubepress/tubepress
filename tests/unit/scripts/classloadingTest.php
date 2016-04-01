@@ -193,11 +193,14 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/vendor/mockery',
 
             '/vendor/symfony/config',
+            '/vendor/symfony/console',
             '/vendor/symfony/css-selector',
             '/vendor/symfony/dom-crawler',
             '/vendor/symfony/polyfill-mbstring',
             '/vendor/symfony/process',
+            '/vendor/symfony/stopwatch',
             '/vendor/symfony/yaml',
+            '/vendor/fabpot',
 
             '/vendor/tedivm/stash/tests',
 
