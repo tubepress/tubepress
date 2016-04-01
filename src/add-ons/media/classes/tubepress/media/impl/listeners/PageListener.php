@@ -178,8 +178,7 @@ class tubepress_media_impl_listeners_PageListener
                 $this->_context->get(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP)
             );
 
-        $firstCut       = $limit == 0 ? $totalResults : min($limit, $totalResults);
-        $secondCut      = min($firstCut, $this->_calculateRealMax($firstCut));
+        $secondCut      = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $mediaItemArray = $event->getSubject()->getItems();
         $resultCount    = count($mediaItemArray);
 
@@ -239,25 +238,6 @@ class tubepress_media_impl_listeners_PageListener
         $mediaPage->setItems($items);
 
         $event->setSubject($mediaPage);
-    }
-
-    private function _calculateRealMax($reported)
-    {
-        $mode = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
-
-        switch ($mode) {
-            case 'tag':
-                //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
-                return 500;
-            case 'favorites':
-                //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
-                return 50;
-            case 'playlist':
-                //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
-                return 200;
-        }
-
-        return $reported;
     }
 
     public function __perPageSort(tubepress_api_media_MediaItem $first, tubepress_api_media_MediaItem $second)

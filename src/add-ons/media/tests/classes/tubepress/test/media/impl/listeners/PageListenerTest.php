@@ -150,7 +150,6 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP)->andReturn(888);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)->andReturn(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES);
 
         $videoArray = array('x', 'y');
 
