@@ -71,13 +71,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface The base TubePress URL.
-     *
-     * @throws RuntimeException If the base URL was not set or cannot be determined.
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getBaseUrl()
     {
@@ -114,19 +108,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Set the TubePress base URL.
-     *
-     * @deprecated Use settings.php instead.
-     *
-     * @param string|tubepress_api_url_UrlInterface $url The new base URL.
-     *
-     * @throws InvalidArgumentException If unable to parse URL.
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setBaseUrl($url)
     {
@@ -136,13 +118,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface The user content URL.
-     *
-     * @throws RuntimeException If the user content URL was not set or cannot be determined.
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUserContentUrl()
     {
@@ -176,19 +152,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Set the user content URL.
-     *
-     * @deprecated Use settings.php instead.
-     *
-     * @param string|tubepress_api_url_UrlInterface $url The user content URL.
-     *
-     * @throws InvalidArgumentException If unable to parse URL.
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setUserContentUrl($url)
     {
@@ -198,11 +162,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface The Ajax endpoint URL.
-     *
-     * @api
-     *
-     * @since 4.0.9
+     * {@inheritdoc}
      */
     public function getAjaxEndpointUrl()
     {
@@ -238,13 +198,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Detects if the user is running TubePress Pro.
-     *
-     * @return bool True is the user is running TubePress Pro. False otherwise.
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isPro()
     {
@@ -252,13 +206,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Get the current TubePress version.
-     *
-     * @return tubepress_api_version_Version The current version.
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getVersion()
     {
@@ -266,11 +214,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_collection_MapInterface
-     *
-     * @api
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getProperties()
     {
