@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -24,6 +24,7 @@ class tubepress_environment_ioc_EnvironmentExtension implements tubepress_spi_io
      * @return void
      *
      * @api
+     *
      * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

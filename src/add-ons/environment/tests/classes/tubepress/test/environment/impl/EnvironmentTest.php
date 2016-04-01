@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -136,7 +136,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testGetBaseUrlNoBootSettingsMultiWpSsl()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         define('ABSPATH', 'some abspath');
         define('DB_USER', 'user');
         define('DOMAIN_MAPPING', true);
@@ -190,8 +190,8 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testGetUserContentUrlFromBootSettingsGood()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $mockUrl    = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockBootSettings->shouldReceive('getUrlUserContent')->once()->andReturn($mockUrl);
 
         $result = $this->_sut->getUserContentUrl();
@@ -205,7 +205,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
      */
     public function testGetUserContentUrlWp()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         define('ABSPATH', 'some abspath');
         define('DB_USER', 'user');
 
@@ -227,8 +227,8 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testGetAjaxUrlFromBootSettingsGood()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $mockUrl    = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockBootSettings->shouldReceive('getUrlAjaxEndpoint')->once()->andReturn($mockUrl);
 
         $result = $this->_sut->getAjaxEndpointUrl();
@@ -242,7 +242,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
      */
     public function testGetAjaxUrlWp()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         define('ABSPATH', 'some abspath');
         define('DB_USER', 'user');
 
@@ -264,7 +264,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testDefaults()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut  = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
         $mockBaseUrl = $this->mock('tubepress_api_url_UrlInterface');
         $mockUserUrl = $this->mock('tubepress_api_url_UrlInterface');
 
@@ -282,8 +282,8 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testSetUserContentUrlAsRealUrl()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $mockUrl    = $this->mock('tubepress_api_url_UrlInterface');
 
         $mockUrl->shouldReceive('freeze')->once();
 
@@ -293,8 +293,8 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testSetUserContentUrlAsString()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $mockUrl    = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('abc')->andReturn($mockUrl);
         $mockUrl->shouldReceive('freeze')->once();
         $this->_sut->setUserContentUrl('abc');
@@ -303,8 +303,8 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testSetBaseUrlAsRealUrl()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $mockUrl    = $this->mock('tubepress_api_url_UrlInterface');
         $mockUrl->shouldReceive('freeze')->once();
         $this->_sut->setBaseUrl($mockUrl);
         $this->assertSame($mockUrl, $this->_sut->getBaseUrl());
@@ -312,8 +312,8 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_api_test
 
     public function testSetBaseUrlAsString()
     {
-        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_sut = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $mockUrl    = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('abc')->andReturn($mockUrl);
         $mockUrl->shouldReceive('freeze')->once();
         $this->_sut->setBaseUrl('abc');
