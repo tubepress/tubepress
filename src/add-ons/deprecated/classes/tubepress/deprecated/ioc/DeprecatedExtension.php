@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
@@ -24,6 +21,7 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_spi_ioc_
      * @return void
      *
      * @api
+     *
      * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -36,19 +34,19 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_spi_ioc_
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
-            'method' => 'setMediaProviders'))
+            'method' => 'setMediaProviders', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'method'   => 'onTemplate',
-            'priority' => 90000))
+            'priority' => 90000, ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onTemplate',
-            'priority' => 94000))
+            'priority' => 94000, ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onSingleTemplate',
-            'priority' => 92000
+            'priority' => 92000,
         ));
 
         $containerBuilder->register(
@@ -60,23 +58,23 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_spi_ioc_
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'method'   => 'onGalleryTemplate',
-            'priority' => 92000))
+            'priority' => 92000, ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/static',
             'method'   => 'onPlayerTemplate',
-            'priority' => 98000))
+            'priority' => 98000, ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax',
             'method'   => 'onPlayerTemplate',
-            'priority' => 98000))
+            'priority' => 98000, ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
             'method'   => 'onSearchInputTemplate',
-            'priority' => 98000))
+            'priority' => 98000, ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onSingleItemTemplate',
-            'priority' => 96000
+            'priority' => 96000,
           ));
     }
 }
