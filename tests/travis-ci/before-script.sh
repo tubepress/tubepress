@@ -47,12 +47,15 @@ upgrade_phpunit_if_necessary ()
 
     if [ "$MAJOR_PHP_VERSION" != "5" ]; then
 
+        # upgrade PHPUnit to 5.x
         composer remove  --dev phpunit/phpunit
-        composer remove  --dev mockery/mockery
-        composer remove  --dev hamcrest/hamcrest-php
-
-        composer require --dev mockery/mockery dev-master
         composer require --dev phpunit/phpunit
+
+        # go nuclear on composer, just to be extra sure
+        rm -rf vendor composer.lock
+
+        # then re-install
+        composer install
     fi
 }
 

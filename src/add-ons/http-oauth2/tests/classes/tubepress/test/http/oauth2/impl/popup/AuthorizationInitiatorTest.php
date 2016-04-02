@@ -22,11 +22,6 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     /**
      * @var Mockery\MockInterface
      */
-    private $_mockNonceManager;
-
-    /**
-     * @var Mockery\MockInterface
-     */
     private $_mockRequestParams;
 
     /**
@@ -67,11 +62,6 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     /**
      * @var Mockery\MockInterface
      */
-    private $_mockRedirectionUrl;
-
-    /**
-     * @var Mockery\MockInterface
-     */
     private $_mockPersistenceHelper;
 
     /**
@@ -96,6 +86,8 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
         $this->_mockAccessTokenFetcher = $this->mock('tubepress_http_oauth2_impl_util_AccessTokenFetcher');
 
+        session_unset();
+
         $this->_sut = new tubepress_http_oauth2_impl_popup_AuthorizationInitiator(
             $this->_mockRequestParams,
             $this->_mockTemplating,
@@ -109,10 +101,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
     public function onTearDown()
     {
-        if (isset($_SESSION)) {
-            unset($_SESSION['tubepress_oauth2_state_provider-1-name']);
-            unset($_SESSION['tubepress_oauth2_state_provider-2-name']);
-        }
+        session_unset();
     }
 
     public function testCodeSuccess()
