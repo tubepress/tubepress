@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,14 +15,7 @@
 class tubepress_embedplus_ioc_EmbedPlusExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Allows extensions to load services into the TubePress IOC container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -39,7 +39,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_Tub
             'options' => array(
                 tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'embedplus',
                 tubepress_api_options_Names::EMBEDDED_HEIGHT      => 44,
-            )
+            ),
         ));
 
         $mockEvent->shouldReceive('setSubject')->once()->with(
@@ -47,7 +47,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_Tub
                 'options' => array(
                     tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'embedplus',
                     tubepress_api_options_Names::EMBEDDED_HEIGHT      => 74,
-                )
+                ),
             )
         );
 
@@ -61,8 +61,8 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_Tub
 
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array(
             'options' => array(
-                tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'xyz'
-            )
+                tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'xyz',
+            ),
         ));
 
         $this->_sut->onGalleryInitJs($mockEvent);
@@ -92,7 +92,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_Tub
 
         $actual   = $this->_sut->getTemplateVariables($mockMediaItem);
         $expected = array(
-            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
         );
 
         $this->assertEquals($expected, $actual);
@@ -107,4 +107,3 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_api_test_Tub
         $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/embedded-embedplus/templates'), $this->_sut->getTemplateDirectories());
     }
 }
-
