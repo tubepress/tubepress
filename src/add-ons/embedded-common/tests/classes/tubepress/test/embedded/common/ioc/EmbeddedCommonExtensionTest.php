@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -38,34 +38,34 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
             ->withArgument(array(
 
                 tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY        => false,
-                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => 390,
-                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => true,
-                    tubepress_api_options_Names::EMBEDDED_LOOP            => false,
-                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => tubepress_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED,
-                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO       => false,
-                    tubepress_api_options_Names::EMBEDDED_WIDTH           => 640,
-                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => true,
+                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY    => false,
+                    tubepress_api_options_Names::EMBEDDED_HEIGHT      => 390,
+                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY    => true,
+                    tubepress_api_options_Names::EMBEDDED_LOOP        => false,
+                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => tubepress_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED,
+                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO   => false,
+                    tubepress_api_options_Names::EMBEDDED_WIDTH       => 640,
+                    tubepress_api_options_Names::RESPONSIVE_EMBEDS    => true,
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY        => 'Auto-play all videos',                               
-                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => 'Max height (px)',                                    
-                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => '"Lazy" play videos',                                 
-                    tubepress_api_options_Names::EMBEDDED_LOOP            => 'Loop',                                               
-                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'Implementation',                                     
-                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO       => 'Show title and rating before video starts',          
-                    tubepress_api_options_Names::EMBEDDED_WIDTH           => 'Max width (px)',                                     
-                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => 'Responsive embeds',    
+                    tubepress_api_options_Names::EMBEDDED_AUTOPLAY    => 'Auto-play all videos',
+                    tubepress_api_options_Names::EMBEDDED_HEIGHT      => 'Max height (px)',
+                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY    => '"Lazy" play videos',
+                    tubepress_api_options_Names::EMBEDDED_LOOP        => 'Loop',
+                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'Implementation',
+                    tubepress_api_options_Names::EMBEDDED_SHOW_INFO   => 'Show title and rating before video starts',
+                    tubepress_api_options_Names::EMBEDDED_WIDTH       => 'Max width (px)',
+                    tubepress_api_options_Names::RESPONSIVE_EMBEDS    => 'Responsive embeds',
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_api_options_Names::EMBEDDED_HEIGHT          => sprintf('Default is %s.', 390), 
-                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY        => 'Auto-play each video after thumbnail click.', 
-                    tubepress_api_options_Names::EMBEDDED_LOOP            => 'Continue playing the video until the user stops it.', 
-                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', 
-                    tubepress_api_options_Names::EMBEDDED_WIDTH           => sprintf('Default is %s.', 640), 
-                    tubepress_api_options_Names::RESPONSIVE_EMBEDS        => 'Auto-resize media players to best fit the viewer\'s screen.', 
+                    tubepress_api_options_Names::EMBEDDED_HEIGHT      => sprintf('Default is %s.', 390),
+                    tubepress_api_options_Names::EMBEDDED_LAZYPLAY    => 'Auto-play each video after thumbnail click.',
+                    tubepress_api_options_Names::EMBEDDED_LOOP        => 'Continue playing the video until the user stops it.',
+                    tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).',
+                    tubepress_api_options_Names::EMBEDDED_WIDTH       => sprintf('Default is %s.', 640),
+                    tubepress_api_options_Names::RESPONSIVE_EMBEDS    => 'Auto-resize media players to best fit the viewer\'s screen.',
                 ),
             ))->withArgument(array(
 
@@ -107,37 +107,37 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
             ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => 'tubepress_spi_embedded_EmbeddedProviderInterface',
-                'method' => 'setEmbeddedProviders'))
+                'method' => 'setEmbeddedProviders', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::GALLERY_INIT_JS,
                 'priority' => 98000,
-                'method'   => 'onGalleryInitJs'))
+                'method'   => 'onGalleryInitJs', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL,
                 'priority' => 100000,
-                'method'   => 'onAcceptableValues'))
+                'method'   => 'onAcceptableValues', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_SELECT . '.single/embedded',
                 'priority' => 100000,
-                'method'   => 'onEmbeddedTemplateSelect'))
+                'method'   => 'onEmbeddedTemplateSelect', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
                 'priority' => 100000,
-                'method'   => 'onSingleItemTemplatePreRender'))
+                'method'   => 'onSingleItemTemplatePreRender', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax',
                 'priority' => 100000,
-                'method'   => 'onPlayerTemplatePreRender'))
+                'method'   => 'onPlayerTemplatePreRender', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/static',
                 'priority' => 100000,
-                'method'   => 'onPlayerTemplatePreRender'));
+                'method'   => 'onPlayerTemplatePreRender', ));
     }
 
     private function _registerOptionsUi()
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::EMBEDDED_LAZYPLAY,
                 tubepress_api_options_Names::EMBEDDED_SHOW_INFO,
@@ -172,15 +172,14 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
         }
 
         $categoryReferences = array();
-        $serviceId = 'embedded_category_' . tubepress_api_options_ui_CategoryNames::EMBEDDED;
+        $serviceId          = 'embedded_category_' . tubepress_api_options_ui_CategoryNames::EMBEDDED;
         $this->expectRegistration(
             $serviceId,
             'tubepress_options_ui_impl_BaseElement'
         )->withArgument(tubepress_api_options_ui_CategoryNames::EMBEDDED)
-            ->withArgument('Player');                                                           
+            ->withArgument('Player');
 
         $categoryReferences[] = new tubepress_api_ioc_Reference($serviceId);
-
 
         $fieldMap = array(
             tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
