@@ -52,7 +52,7 @@ upgrade_phpunit_if_necessary ()
         composer require --dev phpunit/phpunit
 
         # go nuclear on composer, just to be extra sure
-        rm -rf vendor composer.lock
+        rm -rf vendor composer.lock bin /tmp/php*
 
         # then re-install
         composer install
