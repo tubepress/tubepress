@@ -88,7 +88,7 @@ class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_spi_ioc_Con
                  tubepress_api_options_Names::CACHE_CLEANING_FACTOR  => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.',                   //>(translatable)<
                  tubepress_api_options_Names::CACHE_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory.',       //>(translatable)<
                  tubepress_api_options_Names::CACHE_ENABLED          => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
-                 tubepress_api_options_Names::CACHE_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, 'six hours'), //>(translatable)<
+                 tubepress_api_options_Names::CACHE_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours"), //>(translatable)<
              ),
          ));
 

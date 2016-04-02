@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -61,7 +49,7 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
                 tubepress_api_options_Names::CACHE_HTML_CLEANING_KEY     => 'The name of the HTTP request parameter that, when set to <code>true</code>, can remotely flush the cache. For instance, if you enter <code>foobar</code>, then adding <code>?foobar=true</code> to the end of a URL would remotely trigger a clear of the cache.', //>(translatable)<
                 tubepress_api_options_Names::CACHE_HTML_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory.', //>(translatable)<
                 tubepress_api_options_Names::CACHE_HTML_ENABLED          => 'Store TubePress\'s HTML output in a cache file to significantly improve performance at the slight expense of freshness.', //>(translatable)<
-                tubepress_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours")  //>(translatable)<
+                tubepress_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours"),  //>(translatable)<
             ),
         ))->addArgument(array(
 
@@ -82,8 +70,8 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
                 tubepress_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
             ),
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
-                tubepress_api_options_Names::CACHE_HTML_CLEANING_KEY
-            )
+                tubepress_api_options_Names::CACHE_HTML_CLEANING_KEY,
+            ),
         );
 
         foreach ($toValidate as $type => $optionNames) {
@@ -106,7 +94,7 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_spi_ioc_C
     private function _registerOptionsUiFieldProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::CACHE_HTML_ENABLED,
             ),
