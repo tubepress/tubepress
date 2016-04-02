@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Adds shortcode handlers to TubePress.
- */
 class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 {
     /**
@@ -30,7 +27,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
     private $_logger;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $_shouldLog;
 
@@ -53,7 +50,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
             $this->_logDebug(sprintf('Starting to build API cache driver. User candidate is "<code>%s</code>"', $dir));
         }
 
-        /**
+        /*
          * If a path was given, but it's not a directory, let's try to create it.
          */
         if ($dir && !is_dir($dir)) {
@@ -66,7 +63,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
             @mkdir($dir, 0755, true);
         }
 
-        /**
+        /*
          * If the directory exists, but isn't writable, let's try to change that.
          */
         if ($dir && is_dir($dir) && !is_writable($dir)) {
@@ -79,7 +76,7 @@ class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
             @chmod($dir, 0755);
         }
 
-        /**
+        /*
          * If we don't have a writable directory, use the system temp directory.
          */
         if (!is_dir($dir) || !is_writable($dir)) {
