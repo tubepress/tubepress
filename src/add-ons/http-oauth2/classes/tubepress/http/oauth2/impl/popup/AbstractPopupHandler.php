@@ -260,11 +260,16 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
 
     private function _getSessionKey(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
-        $sessionStarted = @session_start();
+        $sessionStatus = session_status();
 
-        if (!$sessionStarted) {
+        if ($sessionStatus !== PHP_SESSION_ACTIVE) {
 
-            $this->bail('Unable to start session.');
+            $sessionStarted = @session_start();
+
+            if (!$sessionStarted) {
+
+                $this->bail('Unable to start session.');
+            }
         }
 
         return 'tubepress_oauth2_state_' . $provider->getName();
