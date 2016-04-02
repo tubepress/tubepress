@@ -32,11 +32,6 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
     /**
      * @var Mockery\MockInterface
      */
-    private $_mockEventDispatcher;
-
-    /**
-     * @var Mockery\MockInterface
-     */
     private $_mockProvider1;
 
     /**
@@ -80,6 +75,9 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
         $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
         $this->_mockOauth2Environment  = $this->mock(tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_);
 
+        @session_destroy();
+        session_unset();
+
         $this->_sut = new tubepress_http_oauth2_impl_popup_RedirectionCallback(
             $this->_mockRequestParams,
             $this->_mockTemplating,
@@ -92,10 +90,8 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
 
     public function onTearDown()
     {
-        if (isset($_SESSION)) {
-            unset($_SESSION['tubepress_oauth2_state_provider-1-name']);
-            unset($_SESSION['tubepress_oauth2_state_provider-2-name']);
-        }
+        @session_destroy();
+        session_unset();
     }
 
     public function testSuccess()
