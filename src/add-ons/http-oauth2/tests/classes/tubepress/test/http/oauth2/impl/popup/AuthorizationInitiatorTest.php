@@ -86,6 +86,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
         $this->_mockAccessTokenFetcher = $this->mock('tubepress_http_oauth2_impl_util_AccessTokenFetcher');
 
+        @session_destroy();
         session_unset();
 
         $this->_sut = new tubepress_http_oauth2_impl_popup_AuthorizationInitiator(
@@ -101,6 +102,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
     public function onTearDown()
     {
+        @session_destroy();
         session_unset();
     }
 
