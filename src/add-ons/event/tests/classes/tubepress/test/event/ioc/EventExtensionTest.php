@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -39,7 +39,7 @@ class tubepress_test_event_ioc_EventExtensionTest extends tubepress_api_test_ioc
     {
         return array(
 
-            'symfony_service_container' => 'Symfony\Component\DependencyInjection\ContainerInterface'
+            'symfony_service_container' => 'Symfony\Component\DependencyInjection\ContainerInterface',
         );
     }
 }

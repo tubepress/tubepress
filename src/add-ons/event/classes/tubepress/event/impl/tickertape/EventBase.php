@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -11,9 +11,6 @@
 
 /**
  * A base class for events thrown around in TubePress.
- *
- * @api
- * @since 4.0.0
  */
 class tubepress_event_impl_tickertape_EventBase extends \Symfony\Component\EventDispatcher\GenericEvent implements tubepress_api_event_EventInterface
 {

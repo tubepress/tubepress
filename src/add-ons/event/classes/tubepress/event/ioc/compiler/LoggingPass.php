@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -12,10 +12,7 @@
 class tubepress_event_ioc_compiler_LoggingPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -45,10 +42,10 @@ class tubepress_event_ioc_compiler_LoggingPass implements tubepress_spi_ioc_Comp
                 continue;
             }
 
-            $eventName          = $details[0];
-            $callbackServiceId  = $details[1][0];
-            $callbackMethod     = $details[1][1];
-            $priority           = count($details) > 2 ? $details[2] : 0;
+            $eventName         = $details[0];
+            $callbackServiceId = $details[1][0];
+            $callbackMethod    = $details[1][1];
+            $priority          = count($details) > 2 ? $details[2] : 0;
 
             if (!$containerBuilder->hasDefinition($callbackServiceId)) {
 
