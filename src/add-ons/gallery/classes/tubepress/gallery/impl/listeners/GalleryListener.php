@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_gallery_impl_listeners_GalleryListener
 {
     /**
@@ -68,8 +65,8 @@ class tubepress_gallery_impl_listeners_GalleryListener
 
     public function onHtmlGeneration(tubepress_api_event_EventInterface $event)
     {
-        $galleryId   = $this->_context->get(tubepress_api_options_Names::HTML_GALLERY_ID);
-        $shouldLog   = $this->_logger->isEnabled();
+        $galleryId = $this->_context->get(tubepress_api_options_Names::HTML_GALLERY_ID);
+        $shouldLog = $this->_logger->isEnabled();
 
         if ($galleryId == '') {
 
@@ -129,7 +126,6 @@ class tubepress_gallery_impl_listeners_GalleryListener
             tubepress_api_options_Names::HTTP_METHOD,
         );
 
-
         foreach ($requiredOptionNames as $optionName) {
 
             $optionsToAdd[$optionName] = $this->_context->get($optionName);
@@ -151,8 +147,8 @@ class tubepress_gallery_impl_listeners_GalleryListener
 
     public function onGalleryTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $existingArgs array
+        /*
+         * @var array
          */
         $existingArgs = $event->getSubject();
 
@@ -177,7 +173,7 @@ class tubepress_gallery_impl_listeners_GalleryListener
         $galleryId = $this->_context->get(tubepress_api_options_Names::HTML_GALLERY_ID);
         $jsEvent   = $this->_eventDispatcher->newEventInstance(array(), array(
             'mediaPage'  => $event->getArgument('mediaPage'),
-            'pageNumber' => $event->getArgument('pageNumber')
+            'pageNumber' => $event->getArgument('pageNumber'),
         ));
 
         $this->_eventDispatcher->dispatch(tubepress_api_event_Events::GALLERY_INIT_JS, $jsEvent);

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -87,7 +87,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
         $this->_mockMediaPage = new tubepress_api_media_MediaPage();
         $this->_mockMediaPage->setTotalResultCount(500);
 
-        $this->_mockFullUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $this->_mockFullUrl   = $this->mock('tubepress_api_url_UrlInterface');
         $this->_mockFullQuery = $this->mock('tubepress_api_url_QueryInterface');
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($this->_mockFullUrl);
 
@@ -98,7 +98,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
         $this->_mockCurrentThemeService->shouldReceive('getCurrentTheme')->atLeast(1)->andReturn($this->_mockCurrentTheme);
 
         $this->_sut = new tubepress_gallery_impl_listeners_PaginationListener(
-            
+
             $this->_mockContext,
             $this->_mockUrlFactory,
             $this->_mockRequestParams,
@@ -170,7 +170,6 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
         $this->_mockFullUrl->shouldReceive('getQuery')->times(9)->andReturn($this->_mockFullQuery);
         $this->_mockFullUrl->shouldReceive('__toString')->atLeast(1)->andReturn('/foo.bar?hello=goodbye&something=el%21se');
 
-
         $this->_test($expectedHtml);
     }
 
@@ -191,17 +190,16 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
         $this->_mockFullUrl->shouldReceive('getQuery')->times(8)->andReturn($this->_mockFullQuery);
         $this->_mockFullUrl->shouldReceive('__toString')->atLeast(1)->andReturn('/foo.bar?hello=goodbye&something=el%21se');
 
-
         $this->_test($expectedHtml);
     }
 
     private function _test($finalPaginationHtml)
     {
         $initial = array(
-            'abc' => 'xyz',
+            'abc'                                            => 'xyz',
             tubepress_api_template_VariableNames::MEDIA_PAGE => $this->_mockMediaPage,
         );
-        $final   = array(
+        $final = array(
             tubepress_api_template_VariableNames::GALLERY_PAGINATION_HTML        => $finalPaginationHtml,
             tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP    => true,
             tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM => true,

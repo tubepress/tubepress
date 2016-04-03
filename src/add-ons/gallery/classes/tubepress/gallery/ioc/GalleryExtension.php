@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -40,10 +28,10 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
             'tubepress_api_template_BasePathProvider__gallery',
             'tubepress_api_template_BasePathProvider'
         )->addArgument(array(
-            TUBEPRESS_ROOT . '/src/add-ons/gallery/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/gallery/templates',
         ))->addTag('tubepress_spi_template_PathProviderInterface');
     }
-    
+
     private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
@@ -58,7 +46,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'priority' => 96000,
-            'method'   => 'onGalleryTemplatePreRender'
+            'method'   => 'onGalleryTemplatePreRender',
         ));
 
         $containerBuilder->register(
@@ -74,19 +62,19 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'priority' => 100000,
-            'method'   => 'onGalleryTemplatePreRender'))
+            'method'   => 'onGalleryTemplatePreRender', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main',
             'priority' => 100000,
-            'method'   => 'onPostGalleryTemplateRender'))
+            'method'   => 'onPostGalleryTemplateRender', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::GALLERY_INIT_JS,
             'priority' => 100000,
-            'method'   => 'onGalleryInitJs'))
+            'method'   => 'onGalleryInitJs', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 92000,
-            'method'   => 'onHtmlGeneration'));
+            'method'   => 'onHtmlGeneration', ));
     }
 
     private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -175,7 +163,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::GALLERY_AJAX_PAGINATION,
                 tubepress_api_options_Names::GALLERY_FLUID_THUMBS,
@@ -212,7 +200,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
         }
 
         $categoryReferences = array();
-        $categories = array(
+        $categories         = array(
             array(tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE, 'Which videos?'), //>(translatable)<
             array(tubepress_api_options_ui_CategoryNames::THUMBNAILS,     'Thumbnails'),    //>(translatable)<
         );
@@ -233,7 +221,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
                 tubepress_api_options_Names::GALLERY_SOURCE,
             ),
             tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
-                tubepress_api_options_Names::GALLERY_AUTONEXT
+                tubepress_api_options_Names::GALLERY_AUTONEXT,
             ),
             tubepress_api_options_ui_CategoryNames::THUMBNAILS => array(
                 tubepress_api_options_Names::GALLERY_THUMB_HEIGHT,
@@ -243,7 +231,7 @@ class tubepress_gallery_ioc_GalleryExtension implements tubepress_spi_ioc_Contai
                 tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE,
                 tubepress_api_options_Names::GALLERY_PAGINATE_BELOW,
                 tubepress_api_options_Names::GALLERY_HQ_THUMBS,
-                tubepress_api_options_Names::GALLERY_RANDOM_THUMBS
+                tubepress_api_options_Names::GALLERY_RANDOM_THUMBS,
             ),
         );
 

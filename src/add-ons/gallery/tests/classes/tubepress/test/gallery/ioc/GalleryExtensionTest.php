@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -36,7 +36,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             'tubepress_api_template_BasePathProvider__gallery',
             'tubepress_api_template_BasePathProvider'
         )->withArgument(array(
-            TUBEPRESS_ROOT . '/src/add-ons/gallery/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/gallery/templates',
         ))->withTag('tubepress_spi_template_PathProviderInterface');
     }
 
@@ -54,7 +54,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
                 'priority' => 96000,
-                'method'   => 'onGalleryTemplatePreRender'
+                'method'   => 'onGalleryTemplatePreRender',
             ));
 
         $this->expectRegistration(
@@ -70,19 +70,19 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
                 'priority' => 100000,
-                'method'   => 'onGalleryTemplatePreRender'))
+                'method'   => 'onGalleryTemplatePreRender', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main',
                 'priority' => 100000,
-                'method'   => 'onPostGalleryTemplateRender'))
+                'method'   => 'onPostGalleryTemplateRender', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::GALLERY_INIT_JS,
                 'priority' => 100000,
-                'method'   => 'onGalleryInitJs'))
+                'method'   => 'onGalleryInitJs', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::HTML_GENERATION,
                 'priority' => 92000,
-                'method'   => 'onHtmlGeneration'));
+                'method'   => 'onHtmlGeneration', ));
     }
 
     private function _registerOptions()
@@ -171,7 +171,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
     private function _registerOptionsUi()
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::GALLERY_AJAX_PAGINATION,
                 tubepress_api_options_Names::GALLERY_FLUID_THUMBS,
@@ -208,7 +208,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
         }
 
         $categoryReferences = array();
-        $categories = array(
+        $categories         = array(
             array(tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE, 'Which videos?'),
             array(tubepress_api_options_ui_CategoryNames::THUMBNAILS,     'Thumbnails'),
         );
@@ -229,7 +229,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
                 tubepress_api_options_Names::GALLERY_SOURCE,
             ),
             tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
-                tubepress_api_options_Names::GALLERY_AUTONEXT
+                tubepress_api_options_Names::GALLERY_AUTONEXT,
             ),
             tubepress_api_options_ui_CategoryNames::THUMBNAILS => array(
                 tubepress_api_options_Names::GALLERY_THUMB_HEIGHT,
@@ -239,7 +239,7 @@ class tubepress_test_gallery_ioc_GalleryExtensionTest extends tubepress_api_test
                 tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE,
                 tubepress_api_options_Names::GALLERY_PAGINATE_BELOW,
                 tubepress_api_options_Names::GALLERY_HQ_THUMBS,
-                tubepress_api_options_Names::GALLERY_RANDOM_THUMBS
+                tubepress_api_options_Names::GALLERY_RANDOM_THUMBS,
             ),
         );
 
