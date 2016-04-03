@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,10 +15,7 @@
 class tubepress_ioc_compiler_TaggedServicesConsumerPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
