@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -7,7 +7,8 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */ 
+ */
+
 class tubepress_test_http_impl_puzzle_MessageTest extends tubepress_api_test_TubePressUnitTest
 {
     public function testHasProtocolVersion()
@@ -27,7 +28,7 @@ class tubepress_test_http_impl_puzzle_MessageTest extends tubepress_api_test_Tub
     public function testInitializesMessageWithProtocolVersionOption()
     {
         $m = new puzzle_message_Request('GET', '/', array(), null, array(
-            'protocol_version' => '10'
+            'protocol_version' => '10',
         ));
         $this->assertEquals(10, $m->getProtocolVersion());
     }
@@ -84,11 +85,11 @@ class tubepress_test_http_impl_puzzle_MessageTest extends tubepress_api_test_Tub
         $h = new tubepress_test_lib_http_impl_puzzle_message_MessageTest__foo(new tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar());
         $h->addHeaders(array(
             'foo' => ' bar',
-            'baz' => array(' bam ', 'boo')
+            'baz' => array(' bam ', 'boo'),
         ));
         $this->assertEquals(array(
             'foo' => array('bar'),
-            'baz' => array('bam', 'boo')
+            'baz' => array('bam', 'boo'),
         ), $h->getHeaders());
     }
 
@@ -221,5 +222,4 @@ class tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar extends puzzl
 
 class tubepress_test_lib_http_impl_puzzle_message_MessageTest__foo extends tubepress_http_impl_puzzle_AbstractMessage
 {
-    
 }

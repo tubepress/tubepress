@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -33,7 +33,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Closes the stream and any underlying resources.
+     * {@inheritdoc}
      */
     public function close()
     {
@@ -41,9 +41,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Separates any underlying resources from the stream.
-     *
-     * After the stream has been detached, the stream is in an unusable state.
+     * {@inheritdoc}
      */
     public function detach()
     {
@@ -51,9 +49,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Returns true if the stream is at the end of the stream.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function eof()
     {
@@ -61,12 +57,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Returns the remaining contents in a string, up to maxlength bytes.
-     *
-     * @param int $maxLength The maximum bytes to read. Defaults to -1 (read
-     *                       all the remaining buffer).
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getContents($maxLength = -1)
     {
@@ -74,9 +65,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Get the size of the stream if known
-     *
-     * @return int|null Returns the size in bytes if known, or null if unknown
+     * {@inheritdoc}
      */
     public function getSize()
     {
@@ -84,9 +73,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Returns whether or not the stream is readable
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isReadable()
     {
@@ -94,9 +81,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Returns whether or not the stream is seekable
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSeekable()
     {
@@ -104,9 +89,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Returns whether or not the stream is writable
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isWritable()
     {
@@ -114,13 +97,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Read data from the stream
-     *
-     * @param int $length Read up to $length bytes from the object and return
-     *                    them. Fewer than $length bytes may be returned if
-     *                    underlying stream call returns fewer bytes.
-     *
-     * @return string     Returns the data read from the stream.
+     * {@inheritdoc}
      */
     public function read($length)
     {
@@ -128,18 +105,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Seek to a position in the stream
-     *
-     * @param int $offset Stream offset
-     * @param int $whence Specifies how the cursor position will be calculated
-     *                    based on the seek offset. Valid values are identical
-     *                    to the built-in PHP $whence values for `fseek()`.
-     *                    SEEK_SET: Set position equal to offset bytes
-     *                    SEEK_CUR: Set position to current location plus offset
-     *                    SEEK_END: Set position to end-of-stream plus offset
-     *
-     * @return bool Returns TRUE on success or FALSE on failure
-     * @link   http://www.php.net/manual/en/function.fseek.php
+     * {@inheritdoc}
      */
     public function seek($offset, $whence = SEEK_SET)
     {
@@ -147,9 +113,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Returns the current position of the file read/write pointer
-     *
-     * @return int|bool Returns the position of the file pointer or false on error
+     * {@inheritdoc}
      */
     public function tell()
     {
@@ -157,12 +121,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Write data to the stream
-     *
-     * @param string $string The string that is to be written.
-     *
-     * @return int|bool Returns the number of bytes written to the stream on
-     *                  success or FALSE on failure.
+     * {@inheritdoc}
      */
     public function write($string)
     {
@@ -170,12 +129,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Attempts to seek to the beginning of the stream and reads all data into
-     * a string until the end of the stream is reached.
-     *
-     * Warning: This could attempt to load a large amount of data into memory.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function toString()
     {
@@ -183,9 +137,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Alias of toString()
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function __toString()
     {
@@ -193,9 +145,7 @@ class tubepress_http_impl_puzzle_streams_PuzzleBasedStream implements tubepress_
     }
 
     /**
-     * Flush the write buffers of the stream.
-     *
-     * @return bool Returns true on success and false on failure
+     * {@inheritdoc}
      */
     public function flush()
     {

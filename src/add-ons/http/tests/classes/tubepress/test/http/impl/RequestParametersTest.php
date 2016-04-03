@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -61,7 +61,6 @@ class tubepress_test_http_impl_RequestParametersTest extends tubepress_api_test_
         $mockSingleEvent->shouldReceive('getSubject')->once()->andReturn('abc');
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('syz', array('optionName' => 'something'))->andReturn($mockSingleEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT . '.something', $mockSingleEvent);
-
 
         $result = $this->_sut->getParamValue('something');
 

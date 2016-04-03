@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Handles incoming Ajax requests and outputs a response.
- */
 class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxInterface
 {
     /**
@@ -20,7 +17,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxI
     private $_logger;
 
     /**
-     * @var boolean Is debugging enabled?
+     * @var bool Is debugging enabled?
      */
     private $_isDebugEnabled;
 
@@ -59,12 +56,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxI
     }
 
     /**
-     * Handle the Ajax request.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function handle()
     {
@@ -76,6 +68,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxI
         if (!$this->_requestParameters->hasParam('tubepress_action')) {
 
             $this->_errorOut(new RuntimeException('Missing "tubepress_action" parameter'), 400);
+
             return;
         }
 
@@ -89,6 +82,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxI
         } catch (Exception $e) {
 
             $this->_errorOut($e, 500);
+
             return;
         }
 
@@ -110,7 +104,7 @@ class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_api_http_AjaxI
 
         $args = array(
 
-            'exception' => $e
+            'exception' => $e,
         );
         $response = $this->_templating->renderTemplate('exception/ajax', $args);
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -35,12 +35,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     }
 
     /**
-     * Get the request's configuration options
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getConfig()
     {
@@ -48,12 +43,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     }
 
     /**
-     * Get the HTTP method of the request
-     *
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getMethod()
     {
@@ -61,12 +51,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     }
 
     /**
-     * Gets the request URL.
-     *
-     * @return tubepress_api_url_UrlInterface Returns the URL.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUrl()
     {
@@ -74,12 +59,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     }
 
     /**
-     * @param array $config The incoming configuration.
-     *
-     * @return tubepress_api_http_message_RequestInterface Self.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setConfig(array $config)
     {
@@ -88,14 +68,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     }
 
     /**
-     * Set the HTTP method of the request
-     *
-     * @param string $method HTTP method
-     *
-     * @return tubepress_api_http_message_RequestInterface Self.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setMethod($method)
     {
@@ -105,14 +78,7 @@ class tubepress_http_impl_puzzle_PuzzleBasedRequest extends tubepress_http_impl_
     }
 
     /**
-     * Sets the request URL.
-     *
-     * @param tubepress_api_url_UrlInterface $url Request URL.
-     *
-     * @return tubepress_api_http_message_RequestInterface Self.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setUrl(tubepress_api_url_UrlInterface $url)
     {

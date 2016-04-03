@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -50,7 +50,7 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedRequestTest extends tubepress_a
         $r = new puzzle_message_Request('GET', 'http://test.com/test', array('foo' => 'baz'), puzzle_stream_Stream::factory('body'));
         $r = new tubepress_http_impl_puzzle_PuzzleBasedRequest($r);
         $s = explode("\r\n", (string) $r);
-        $this->assertEquals("GET /test HTTP/1.1", $s[0]);
+        $this->assertEquals('GET /test HTTP/1.1', $s[0]);
         $this->assertContains('Host: test.com', $s);
         $this->assertContains('foo: baz', $s);
         $this->assertContains('', $s);
@@ -59,8 +59,8 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedRequestTest extends tubepress_a
 
     public function testSettingUrlOverridesHostHeaders()
     {
-        $r = new puzzle_message_Request('GET', 'http://test.com/test');
-        $r = new tubepress_http_impl_puzzle_PuzzleBasedRequest($r);
+        $r       = new puzzle_message_Request('GET', 'http://test.com/test');
+        $r       = new tubepress_http_impl_puzzle_PuzzleBasedRequest($r);
         $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
         $mockUrl->shouldReceive('getHost')->once()->andReturn('baz.com');
         $mockUrl->shouldReceive('getPath')->once()->andReturn('/bar');

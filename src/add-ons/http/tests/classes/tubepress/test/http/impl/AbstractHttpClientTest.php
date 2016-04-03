@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -125,12 +125,13 @@ if (!class_exists('tubepress_test_lib_impl_http_AbstractHttpClientTest__client')
         }
 
         /**
-         * Sends a single request
+         * Sends a single request.
          *
          * @param tubepress_api_http_message_RequestInterface $request Request to send
          *
          * @return tubepress_api_http_message_ResponseInterface
-         * @throws LogicException When the underlying implementation does not populate a response
+         *
+         * @throws LogicException                                When the underlying implementation does not populate a response
          * @throws tubepress_api_http_exception_RequestException When an error is encountered
          */
         protected function doSend(tubepress_api_http_message_RequestInterface $request)

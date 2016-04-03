@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -41,9 +41,9 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api
 
     public function onSetup()
     {
-        $this->_mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockEmitter = $this->mock('puzzle_event_EmitterInterface');
-        $this->_mockPuzzleClient = $this->mock('puzzle_Client');
+        $this->_mockLogger          = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockEmitter         = $this->mock('puzzle_event_EmitterInterface');
+        $this->_mockPuzzleClient    = $this->mock('puzzle_Client');
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_mockPuzzleClient->shouldReceive('setDefaultOption')->once()->with('verify', TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cacert.pem');
@@ -116,6 +116,7 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api
             $this->assertEquals('something bad', $e->getMessage());
             $this->assertTrue($e->getRequest() instanceof tubepress_api_http_message_RequestInterface);
             $this->assertTrue($e->getResponse() instanceof tubepress_api_http_message_ResponseInterface);
+
             return;
         }
 
@@ -125,7 +126,7 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api
     public function testSendNormal()
     {
         $mockPuzzleBody = $this->mock('puzzle_stream_StreamInterface');
-        $mockConfig = $this->mock('puzzle_Collection');
+        $mockConfig     = $this->mock('puzzle_Collection');
         $mockConfig->shouldReceive('toArray')->once()->andReturn(array('some' => 'config'));
         $mockPuzzleRequest = $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2), 3);
         $mockPuzzleRequest->shouldReceive('getHeaders')->times(2)->andReturn(array('foo' => 'bar'));

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,14 +15,7 @@
 class tubepress_http_impl_ResponseCode implements tubepress_api_http_ResponseCodeInterface
 {
     /**
-     * Set a new HTTP response code.
-     *
-     * @param int $code The new HTTP response code.
-     *
-     * @return int The current HTTP response code.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setResponseCode($code)
     {
@@ -37,10 +30,7 @@ class tubepress_http_impl_ResponseCode implements tubepress_api_http_ResponseCod
     }
 
     /**
-     * @return int The current HTTP response code.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCurrentResponseCode()
     {
@@ -56,7 +46,7 @@ class tubepress_http_impl_ResponseCode implements tubepress_api_http_ResponseCod
 
     public function __simulatedHttpResponseCode($code = null)
     {
-        if ($code !== NULL) {
+        if ($code !== null) {
 
             switch ($code) {
                 case 100: $text = 'Continue'; break;
