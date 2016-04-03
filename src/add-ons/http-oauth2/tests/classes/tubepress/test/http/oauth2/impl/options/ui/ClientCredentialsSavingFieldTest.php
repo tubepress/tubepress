@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -46,7 +46,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientCredentialsSavingFieldTes
     public function testSubmit()
     {
         $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_api_options_Names::OAUTH2_CLIENT_DETAILS)->andReturn(json_encode(array(
-            'foo' => array('id' => 'someId', 'secret' => 'someSecret')
+            'foo' => array('id' => 'someId', 'secret' => 'someSecret'),
         )));
 
         $this->_mockOauth2Provider->shouldReceive('getName')->once()->andReturn('provider-name');

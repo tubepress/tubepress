@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -105,7 +105,7 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
 
         $mockCurrentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockQuery      = $this->mock('tubepress_api_url_QueryInterface');
-        $mockToken = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
+        $mockToken      = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
         $mockCurrentUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
 
         $mockQuery->shouldReceive('get')->once()->with('state')->andReturn('some state');
@@ -121,9 +121,9 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
         $this->_mockAccessTokenFetcher->shouldReceive('fetchWithCodeGrant')->once()->with($this->_mockProvider2, 'remote-code')->andReturn($mockToken);
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/finish', array(
-            'provider' => $this->_mockProvider2,
+            'provider'    => $this->_mockProvider2,
             'titleFormat' => 'Successfully connected to %s',
-            'slug' => 'some slug',
+            'slug'        => 'some slug',
         ))->andReturn('abc');
 
         $this->expectOutputString('abc');
@@ -176,7 +176,7 @@ class tubepress_test_http_oauth2_impl_popup_RedirectionCallbackTest extends tube
     {
         $this->_sut->setOauth2Providers(array(
             $this->_mockProvider1,
-            $this->_mockProvider2
+            $this->_mockProvider2,
         ));
     }
 

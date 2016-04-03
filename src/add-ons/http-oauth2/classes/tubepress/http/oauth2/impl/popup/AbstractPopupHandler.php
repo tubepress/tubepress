@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tubepress_http_oauth2_impl_AbstractProviderConsumer
 {
     /**
@@ -98,24 +95,22 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
                 }
             }
 
-            print $this->_renderedResult;
+            echo $this->_renderedResult;
         }
     }
 
     /**
      * @return void
      */
-    protected abstract function execute();
+    abstract protected function execute();
 
     /**
      * @return string[]
      */
-    protected abstract function getRequiredParamNames();
+    abstract protected function getRequiredParamNames();
 
     /**
-     * @param string $providerName
-     *
-     * @return tubepress_spi_http_oauth2_Oauth2ProviderInterface
+     * {@inheritdoc}
      */
     protected function getProviderByName($providerName)
     {
@@ -198,13 +193,13 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
         $finalVars = array_merge($vars, $templateVars);
         $out       = $this->_templating->renderTemplate("oauth2/$templateName", $finalVars);
 
-        print $out;
+        echo $out;
     }
 
     protected function bail($message)
     {
         $this->_renderedResult = $this->_templating->renderTemplate('oauth2/error', array(
-            'message' => $message
+            'message' => $message,
         ));
 
         throw new RuntimeException();
@@ -260,7 +255,7 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
 
     private function _getSessionKey(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider)
     {
-        if ( version_compare(phpversion(), '5.4.0', '>=') ) {
+        if (version_compare(phpversion(), '5.4.0', '>=')) {
 
             $sessionStatus = session_status();
             $sessionActive = $sessionStatus === PHP_SESSION_ACTIVE;

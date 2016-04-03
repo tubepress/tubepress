@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,9 +56,9 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
 
             'provider-1' => array(
                 'foo' => array(
-                    'access_token' => 'something'
-                )
-            )
+                    'access_token' => 'something',
+                ),
+            ),
         )));
 
         $mockProvider->shouldReceive('getName')->once()->andReturn('provider-1');
@@ -74,16 +74,16 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
 
                 'provider-1' => array(
                     'foo' => array(
-                        'access_token' => 'something'
+                        'access_token' => 'something',
                     ),
                     'slug' => array(
                         'access_token'  => 'new-access-token',
                         'expiry_unix'   => time() + 500,
                         'extra'         => array('hi' => 'there'),
                         'refresh_token' => 'refresh-token',
-                    )
+                    ),
 
-                ))));
+                ), )));
 
         $this->_mockPersistence->shouldReceive('flushSaveQueue')->once();
 
@@ -99,22 +99,22 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::OAUTH2_TOKENS)->andReturn(json_encode(array(
             'name' => array(
                 'slug1' => array(
-                    'access_token' => 'slug1token',
+                    'access_token'  => 'slug1token',
                     'refresh_token' => 'slug1refresh',
-                    'expiry_unix' => '3333',
-                    'extra' => array(
-                        'foo' => 'bar'
-                    )
+                    'expiry_unix'   => '3333',
+                    'extra'         => array(
+                        'foo' => 'bar',
+                    ),
                 ),
                 'slug2' => array(
-                    'access_token' => 'slug2token',
+                    'access_token'  => 'slug2token',
                     'refresh_token' => 'slug2refresh',
-                    'expiry_unix' => '777',
-                    'extra' => array(
-                        'fooz' => 'baz'
-                    )
-                )
-            )
+                    'expiry_unix'   => '777',
+                    'extra'         => array(
+                        'fooz' => 'baz',
+                    ),
+                ),
+            ),
         )));
 
         $actual = $this->_sut->getStoredToken($mockProvider);
@@ -132,6 +132,7 @@ class tubepress_test_http_oauth2_impl_util_PersistenceHelperTest extends tubepre
         $this->_mockArrayReader->shouldReceive('getAsString')->once()->with($stored, 'name.' . $point, null)->andReturnUsing(function ($arr, $path, $default) {
 
             $reader = new tubepress_array_impl_ArrayReader();
+
             return $reader->getAsString($arr, $path, $default);
         });
 

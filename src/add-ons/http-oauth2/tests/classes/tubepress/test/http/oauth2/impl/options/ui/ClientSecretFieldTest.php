@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -54,7 +54,7 @@ class tubepress_test_http_oauth2_impl_options_ui_ClientSecretFieldTest extends t
 
         return array(
             'id'    => 'clientSecret_provider-name',
-            'value' => 'client-secret'
+            'value' => 'client-secret',
         );
     }
 

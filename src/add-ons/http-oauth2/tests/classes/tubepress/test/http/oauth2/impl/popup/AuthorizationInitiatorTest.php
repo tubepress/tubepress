@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -124,9 +124,9 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockAuthorizationUrl->shouldReceive('__toString')->once()->andReturn('abc');
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/start', array(
-            'provider' => $this->_mockProvider2,
+            'provider'    => $this->_mockProvider2,
             'titleFormat' => 'Redirecting to %s',
-            'url' => $this->_mockAuthorizationUrl,
+            'url'         => $this->_mockAuthorizationUrl,
         ))->andReturn('abc');
 
         $this->expectOutputString('abc');
@@ -275,7 +275,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     {
         $this->_sut->setOauth2Providers(array(
             $this->_mockProvider1,
-            $this->_mockProvider2
+            $this->_mockProvider2,
         ));
     }
 
@@ -309,7 +309,6 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
         $this->_mockProvider2->shouldReceive('getAuthorizationGrantType')->once()->andReturn('code');
         $this->_mockProvider2->shouldReceive('isClientSecretUsed')->once()->andReturn(true);
-
 
         $this->_mockAuthorizationQuery = $this->mock('tubepress_api_url_QueryInterface');
 

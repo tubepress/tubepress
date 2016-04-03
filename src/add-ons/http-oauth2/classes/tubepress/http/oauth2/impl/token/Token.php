@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth_v2_TokenInterface
 {
     /**
@@ -35,10 +32,7 @@ class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth
     private $_extraParams = array();
 
     /**
-     * @api
-     * @since 4.2.0
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getAccessToken()
     {
@@ -46,10 +40,7 @@ class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth
     }
 
     /**
-     * @api
-     * @since 4.2.0
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getEndOfLifeUnixTime()
     {
@@ -57,10 +48,7 @@ class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth
     }
 
     /**
-     * @api
-     * @since 4.2.0
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getRefreshToken()
     {
@@ -68,10 +56,7 @@ class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth
     }
 
     /**
-     * @api
-     * @since 4.2.0
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getExtraParams()
     {
@@ -131,6 +116,9 @@ class tubepress_http_oauth2_impl_token_Token implements tubepress_api_http_oauth
         $this->_endOfLifeUnixTime = self::EOL_NEVER_EXPIRES;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isExpired()
     {
         $eolUnixTime = $this->getEndOfLifeUnixTime();

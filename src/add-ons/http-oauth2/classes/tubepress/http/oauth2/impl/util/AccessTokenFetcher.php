@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_util_AccessTokenFetcher
 {
     /**
@@ -53,7 +50,7 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
                 'code'         => $code,
                 'grant_type'   => 'authorization_code',
                 'redirect_uri' => "$redirectUri",
-            )
+            ),
         ));
         $clientId     = $this->_persistenceHelper->getClientId($provider);
         $clientSecret = $this->_persistenceHelper->getClientSecret($provider);
@@ -71,9 +68,9 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         $clientSecret = $this->_persistenceHelper->getClientSecret($provider);
         $request      = $this->_httpClient->createRequest('POST', $tokenUrl, array(
             'body' => array(
-                'grant_type'   => 'refresh_token',
-                'refresh_token' => $token->getRefreshToken()
-            )
+                'grant_type'    => 'refresh_token',
+                'refresh_token' => $token->getRefreshToken(),
+            ),
         ));
 
         $provider->onRefreshTokenRequest($request, $token, $clientId, $clientSecret);
@@ -88,8 +85,8 @@ class tubepress_http_oauth2_impl_util_AccessTokenFetcher
         $clientSecret = $this->_persistenceHelper->getClientSecret($provider);
         $request      = $this->_httpClient->createRequest('POST', $tokenUrl, array(
             'body' => array(
-                'grant_type' => 'client_credentials'
-            )
+                'grant_type' => 'client_credentials',
+            ),
         ));
 
         $provider->onAccessTokenRequest($request, $clientId, $clientSecret);

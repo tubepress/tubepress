@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -44,10 +44,10 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_http_Events::EVENT_HTTP_REQUEST,
                 'priority' => 99000,       //API cache runs at 100K, so lets run after that
-                'method'   => 'onHttpRequest'
+                'method'   => 'onHttpRequest',
             ))->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-                'tag' => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
-                'method' => 'setOauth2Providers'
+                'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
+                'method' => 'setOauth2Providers',
             ));
     }
 
@@ -127,7 +127,7 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
             'tubepress_api_template_BasePathProvider__oauth2',
             'tubepress_api_template_BasePathProvider'
         )->withArgument(array(
-            TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/templates',
         ))->withTag('tubepress_spi_template_PathProviderInterface.admin');
     }
 
@@ -158,7 +158,7 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
                 'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
                 'method' => 'setOauth2Providers',
             ));
-        
+
         $this->expectRegistration(
             'tubepress_spi_options_ui_FieldProviderInterface__oauth2',
             'tubepress_api_options_ui_BaseFieldProvider'
@@ -169,35 +169,34 @@ class tubepress_test_http_oauth2_ioc_Oauth2ExtensionTest extends tubepress_api_t
             ->withArgument(array())
             ->withArgument(array(
                 new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField'),
-                new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_TokenDeletionField')
+                new tubepress_api_ioc_Reference('tubepress_http_oauth2_impl_options_ui_TokenDeletionField'),
             ))
             ->withArgument(array())
             ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
-
 
     protected function getExpectedExternalServicesMap()
     {
         $logger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
-        $mockField = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $mockField        = $this->mock('tubepress_api_options_ui_FieldInterface');
         $mockfieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
         $mockfieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
         return array(
-            tubepress_api_http_RequestParametersInterface::_          => tubepress_api_http_RequestParametersInterface::_,
-            tubepress_api_event_EventDispatcherInterface::_           => tubepress_api_event_EventDispatcherInterface::_,
+            tubepress_api_http_RequestParametersInterface::_        => tubepress_api_http_RequestParametersInterface::_,
+            tubepress_api_event_EventDispatcherInterface::_         => tubepress_api_event_EventDispatcherInterface::_,
             tubepress_api_template_TemplatingInterface::_ . '.admin'  => tubepress_api_template_TemplatingInterface::_,
-            tubepress_api_environment_EnvironmentInterface::_         => tubepress_api_environment_EnvironmentInterface::_,
-            tubepress_api_options_PersistenceInterface::_             => tubepress_api_options_PersistenceInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_                  => tubepress_api_url_UrlFactoryInterface::_,
-            tubepress_api_http_HttpClientInterface::_                 => tubepress_api_http_HttpClientInterface::_,
-            tubepress_api_array_ArrayReaderInterface::_               => tubepress_api_array_ArrayReaderInterface::_,
-            tubepress_api_options_ContextInterface::_                 => tubepress_api_options_ContextInterface::_,
+            tubepress_api_environment_EnvironmentInterface::_       => tubepress_api_environment_EnvironmentInterface::_,
+            tubepress_api_options_PersistenceInterface::_           => tubepress_api_options_PersistenceInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_                => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_http_HttpClientInterface::_               => tubepress_api_http_HttpClientInterface::_,
+            tubepress_api_array_ArrayReaderInterface::_             => tubepress_api_array_ArrayReaderInterface::_,
+            tubepress_api_options_ContextInterface::_               => tubepress_api_options_ContextInterface::_,
             tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_ => tubepress_api_http_oauth2_Oauth2EnvironmentInterface::_,
-            tubepress_api_log_LoggerInterface::_                      => $logger,
-            tubepress_api_options_ui_FieldBuilderInterface::_         => $mockfieldBuilder,
+            tubepress_api_log_LoggerInterface::_                    => $logger,
+            tubepress_api_options_ui_FieldBuilderInterface::_       => $mockfieldBuilder,
         );
     }
 }

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -98,7 +98,7 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
 
         $mockBody->shouldReceive('toString')->once()->andReturn(json_encode(array(
             'access_token' => 'token',
-            'token_type'   => 'x'
+            'token_type'   => 'x',
         )));
 
         $this->_sut->fetchWithCodeGrant($this->_mockProvider, 'the code');
@@ -148,7 +148,7 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
         $response->shouldReceive('getBody')->once()->andReturn($mockBody);
 
         $mockBody->shouldReceive('toString')->once()->andReturn(json_encode(array(
-            'error' => 'foobar'
+            'error' => 'foobar',
         )));
 
         $this->_sut->fetchWithCodeGrant($this->_mockProvider, 'the code');
@@ -189,10 +189,10 @@ class tubepress_test_http_oauth2_impl_util_AccessTokenFetcherTest extends tubepr
         $this->_mockRedirectionEndpointCalculator->shouldReceive('getRedirectionUrl')->once()->with($this->_mockProvider)->andReturn($mockRedirectUrl);
         $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('POST', $mockTokenUrl, array(
             'body' => array(
-                'code' => 'the code',
-                'grant_type' => 'authorization_code',
-                'redirect_uri' => 'redirect url'
-            )
+                'code'         => 'the code',
+                'grant_type'   => 'authorization_code',
+                'redirect_uri' => 'redirect url',
+            ),
         ))->andReturn($mockHttpRequest);
         $this->_mockHttpClient->shouldReceive('send')->once()->with($mockHttpRequest)->andReturn($mockHttpResp);
 
