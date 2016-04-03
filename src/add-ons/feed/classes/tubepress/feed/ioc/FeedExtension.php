@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -41,18 +29,18 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
         )->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_ORDER_BY,
             'priority' => 100000,
-            'method'   => 'onOrderBy'
+            'method'   => 'onOrderBy',
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::GALLERY_SOURCE,
             'priority' => 100000,
-            'method'   => 'onMode'
+            'method'   => 'onMode',
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
+            'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
             'priority' => 100000,
-            'method' => 'onPerPageSort'
+            'method'   => 'onPerPageSort',
         ))->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
-            'method' => 'setMediaProviders'
+            'method' => 'setMediaProviders',
         ));
     }
 
@@ -125,7 +113,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
             tubepress_api_options_Names::FEED_PER_PAGE_SORT => array(
                 tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE   => 'none',           //>(translatable)<
                 tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM => 'random',         //>(translatable)<
-            )
+            ),
         );
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
             $containerBuilder->register(
@@ -135,7 +123,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'priority' => 100000,
                 'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
-                'method'   => 'onAcceptableValues'
+                'method'   => 'onAcceptableValues',
             ));
         }
     }
@@ -143,7 +131,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'dropdown' => array(
                 tubepress_api_options_Names::FEED_PER_PAGE_SORT,
             ),
@@ -152,7 +140,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
                 tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST,
             ),
             'orderBy' => array(
-                tubepress_api_options_Names::FEED_ORDER_BY
+                tubepress_api_options_Names::FEED_ORDER_BY,
             ),
             'multiSourceText' => array(
                 tubepress_api_options_Names::FEED_RESULTS_PER_PAGE,
@@ -177,7 +165,7 @@ class tubepress_feed_ioc_FeedExtension implements tubepress_spi_ioc_ContainerExt
         }
 
         $categoryReferences = array();
-        $categories = array(
+        $categories         = array(
             array(tubepress_api_options_ui_CategoryNames::FEED, 'Feed'),          //>(translatable)<
         );
         foreach ($categories as $categoryIdAndLabel) {

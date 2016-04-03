@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -37,18 +37,18 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
         )->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_ORDER_BY,
             'priority' => 100000,
-            'method'   => 'onOrderBy'
+            'method'   => 'onOrderBy',
         ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::GALLERY_SOURCE,
             'priority' => 100000,
-            'method'   => 'onMode'
+            'method'   => 'onMode',
         ))->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
+            'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::FEED_PER_PAGE_SORT,
             'priority' => 100000,
-            'method' => 'onPerPageSort'
+            'method'   => 'onPerPageSort',
         ))->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
-            'method' => 'setMediaProviders'
+            'method' => 'setMediaProviders',
         ));
     }
 
@@ -71,18 +71,18 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'Video blacklist',                    
-                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'Maximum total videos to retrieve',   
+                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'Video blacklist',
+                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'Maximum total videos to retrieve',
                     tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => 'Thumbnails per page',
-                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Per-page sort order',                
+                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Per-page sort order',
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'A list of video IDs that should never be displayed.',                                          
-                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', 
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => sprintf('Default is %s. Maximum is %s.', 20, 50),                                               
-                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Additional sort order applied to each individual page of a gallery',                           
+                    tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST => 'A list of video IDs that should never be displayed.',
+                    tubepress_api_options_Names::FEED_RESULT_COUNT_CAP  => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE  => sprintf('Default is %s. Maximum is %s.', 20, 50),
+                    tubepress_api_options_Names::FEED_PER_PAGE_SORT     => 'Additional sort order applied to each individual page of a gallery',
 
                 ),
             ))->withArgument(array(
@@ -119,9 +119,9 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
 
         $fixedValuesMap = array(
             tubepress_api_options_Names::FEED_PER_PAGE_SORT => array(
-                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE   => 'none',           
-                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM => 'random',         
-            )
+                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE   => 'none',
+                tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM => 'random',
+            ),
         );
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
             $this->expectRegistration(
@@ -131,7 +131,7 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                     'priority' => 100000,
                     'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
-                    'method'   => 'onAcceptableValues'
+                    'method'   => 'onAcceptableValues',
                 ));
         }
     }
@@ -139,7 +139,7 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
     private function _registerOptionsUi()
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'dropdown' => array(
                 tubepress_api_options_Names::FEED_PER_PAGE_SORT,
             ),
@@ -148,7 +148,7 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
                 tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST,
             ),
             'orderBy' => array(
-                tubepress_api_options_Names::FEED_ORDER_BY
+                tubepress_api_options_Names::FEED_ORDER_BY,
             ),
             'multiSourceText' => array(
                 tubepress_api_options_Names::FEED_RESULTS_PER_PAGE,
@@ -173,8 +173,8 @@ class tubepress_test_feed_ioc_FeedExtensionTest extends tubepress_api_test_ioc_A
         }
 
         $categoryReferences = array();
-        $categories = array(
-            array(tubepress_api_options_ui_CategoryNames::FEED, 'Feed'),          
+        $categories         = array(
+            array(tubepress_api_options_ui_CategoryNames::FEED, 'Feed'),
         );
         foreach ($categories as $categoryIdAndLabel) {
 
