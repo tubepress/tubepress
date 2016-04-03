@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGeneratorInterface
 {
     /**
@@ -53,12 +50,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
     }
 
     /**
-     * Generates the HTML for the given shortcode.
-     *
-     * @return string The HTML, or the error message if there was a problem.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getHtml()
     {
@@ -68,7 +60,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
 
             $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_GENERATION, $htmlGenerationEventPre);
 
-            /**
+            /*
              * @var $selected string
              */
             $html = $htmlGenerationEventPre->getSubject();
@@ -82,8 +74,8 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
 
             $this->_eventDispatcher->dispatch(tubepress_api_event_Events::HTML_GENERATION_POST, $htmlGenerationEventPost);
 
-            /**
-             * @var $html string
+            /*
+             * @var string
              */
             $html = $htmlGenerationEventPost->getSubject();
 
@@ -102,12 +94,8 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
         }
     }
 
-
     /**
-     * @return tubepress_api_url_UrlInterface[]
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUrlsCSS()
     {
@@ -115,10 +103,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface[]
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUrlsJS()
     {
@@ -126,10 +111,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
     }
 
     /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCSS()
     {
@@ -137,10 +119,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_api_html_HtmlGenera
     }
 
     /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getJS()
     {

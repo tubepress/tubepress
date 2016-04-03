@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -60,7 +48,8 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
              'event'    => tubepress_api_event_Events::HTML_SCRIPTS,
              'priority' => 100000,
-             'method'   => 'onScripts'));
+             'method'   => 'onScripts', 
+         ));
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -75,19 +64,20 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::HTML_GLOBAL_JS_CONFIG,
             'priority' => 100000,
-            'method'   => 'onGlobalJsConfig'
+            'method'   => 'onGlobalJsConfig',
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>   tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT,
+            'event'    => tubepress_api_event_Events::HTML_EXCEPTION_CAUGHT,
             'priority' => 100000,
-            'method'   => 'onException'
+            'method'   => 'onException',
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles',
             'priority' => 100000,
-            'method'   => 'onPostStylesTemplateRender'
+            'method'   => 'onPostStylesTemplateRender',
         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts',
             'priority' => 100000,
-            'method'   => 'onPostScriptsTemplateRender'));
+            'method'   => 'onPostScriptsTemplateRender', 
+        ));
     }
 
     private function _registerPathProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -124,8 +114,8 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::HTML_HTTPS                  => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
-                    tubepress_api_options_Names::HTTP_METHOD                 => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
+                    tubepress_api_options_Names::HTML_HTTPS  => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
+                    tubepress_api_options_Names::HTTP_METHOD => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
                 ),
             ))->addArgument(array(
 
@@ -164,7 +154,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
         $fixedValuesMap = array(
             tubepress_api_options_Names::HTTP_METHOD => array(
                 'GET'  => 'GET',
-                'POST' => 'POST'
+                'POST' => 'POST',
             ),
         );
         foreach ($fixedValuesMap as $optionName => $valuesMap) {
@@ -175,7 +165,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'priority' => 100000,
                 'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
-                'method'   => 'onAcceptableValues'
+                'method'   => 'onAcceptableValues',
             ));
         }
     }
@@ -183,7 +173,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_spi_ioc_ContainerExt
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::HTML_HTTPS,
             ),

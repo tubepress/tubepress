@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_html_impl_CssAndJsGenerationHelper
 {
     /**
@@ -87,23 +84,11 @@ class tubepress_html_impl_CssAndJsGenerationHelper
         $this->_cache = new tubepress_internal_collection_Map();
     }
 
-    /**
-     * @return tubepress_api_url_UrlInterface[]
-     *
-     * @api
-     * @since 4.0.0
-     */
     public function getUrlsCSS()
     {
         return $this->_getUrls('cached-urls-css', 'getUrlsCSS', $this->_eventNameUrlsCss);
     }
 
-    /**
-     * @return tubepress_api_url_UrlInterface[]
-     *
-     * @api
-     * @since 4.0.0
-     */
     public function getUrlsJS()
     {
         return $this->_getUrls('cached-urls-js', 'getUrlsJS', $this->_eventNameUrlsJs);
@@ -113,8 +98,8 @@ class tubepress_html_impl_CssAndJsGenerationHelper
     {
         if (!$this->_cache->containsKey($cacheKey)) {
 
-            $currentTheme   = $this->_currentThemeService->getCurrentTheme();
-            $themeScripts   = $this->_recursivelyGetFromTheme($currentTheme, $themeGetter);
+            $currentTheme = $this->_currentThemeService->getCurrentTheme();
+            $themeScripts = $this->_recursivelyGetFromTheme($currentTheme, $themeGetter);
 
             $urls = $this->_fireEventAndReturnSubject($eventName, $themeScripts);
 
@@ -124,12 +109,6 @@ class tubepress_html_impl_CssAndJsGenerationHelper
         return $this->_cache->get($cacheKey);
     }
 
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
     public function getCSS()
     {
         $cssUrls      = $this->getUrlsCSS();
@@ -139,16 +118,10 @@ class tubepress_html_impl_CssAndJsGenerationHelper
         return $this->_templating->renderTemplate($this->_templateNameCss, array(
 
             'inlineCSS' => $css,
-            'urls'      => $cssUrls
+            'urls'      => $cssUrls,
         ));
     }
 
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
     public function getJS()
     {
         $jsUrls = $this->getUrlsJS();

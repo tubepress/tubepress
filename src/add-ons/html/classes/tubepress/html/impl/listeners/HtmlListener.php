@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_html_impl_listeners_HtmlListener
 {
     /**
@@ -47,8 +44,8 @@ class tubepress_html_impl_listeners_HtmlListener
 
     public function onGlobalJsConfig(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $config array
+        /*
+         * @var array
          */
         $config = $event->getSubject();
 
@@ -79,8 +76,8 @@ class tubepress_html_impl_listeners_HtmlListener
             return;
         }
 
-        /**
-         * @var $exception Exception
+        /*
+         * @var Exception
          */
         $exception = $event->getSubject();
         $traceData = $exception->getTraceAsString();

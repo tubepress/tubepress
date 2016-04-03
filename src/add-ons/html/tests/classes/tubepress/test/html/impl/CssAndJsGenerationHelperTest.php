@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -102,7 +102,7 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
     {
         return array(
 
-            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'css-template-name', array('inlineCSS' => 'parent theme datacurrent theme data',), 'css-event', 2, 4, 4, 2),
+            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'css-template-name', array('inlineCSS' => 'parent theme datacurrent theme data'), 'css-event', 2, 4, 4, 2),
             array('getJS', 'getUrlsJS', null, 'js-template-name', array(), 'js-event', 1, 2, 2, 1),
         );
     }
@@ -155,7 +155,7 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
 
         return array(
 
-            $finalUrls, $mockCurrentTheme, $mockParentTheme
+            $finalUrls, $mockCurrentTheme, $mockParentTheme,
         );
     }
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -106,7 +106,7 @@ class tubepress_test_html_impl_HtmlGeneratorTest extends tubepress_api_test_Tube
             array('getUrlsJS'),
             array('getUrlsCSS'),
             array('getCSS'),
-            array('getJS')
+            array('getJS'),
         );
     }
 }
