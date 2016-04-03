@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,13 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterface
 {
     /**
-     * @var boolean
+     * @var bool
      */
     private $_enabled;
 
@@ -46,11 +43,15 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterf
         $this->_timezone = new DateTimeZone(@date_default_timezone_get() ? @date_default_timezone_get() : 'UTC');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function onBootComplete()
     {
         if (!$this->_enabled) {
 
             unset($this->_bootMessageBuffer);
+
             return;
         }
 
@@ -63,10 +64,7 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterf
     }
 
     /**
-     * @return bool True if debugging is active, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isEnabled()
     {
@@ -74,16 +72,7 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterf
     }
 
     /**
-     * Log a normal message. Users *should* call isEnabled() before calling this
-     * function to avoid unnecessary overhead.
-     *
-     * @param string $message The message to log.
-     * @param array  $context Optional context variables.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function debug($message, array $context = array())
     {
@@ -91,16 +80,7 @@ class tubepress_logger_impl_HtmlLogger implements tubepress_api_log_LoggerInterf
     }
 
     /**
-     * Log a message. Users *should* call isEnabled() before calling this
-     * function to avoid unnecessary overhead.
-     *
-     * @param string $message The message to log.
-     * @param array  $context Optional context variables.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function error($message, array $context = array())
     {
