@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,20 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Allows extensions to load services into the TubePress IOC container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -63,7 +53,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event' => tubepress_api_event_Events::OPTION_SET . ".$optionName",
+                'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
                 'priority' => 98000,
                 'method'   => 'onOption',
             ));
@@ -76,7 +66,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
              ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'priority' => 100000,
                 'method'   => 'onOption',
-                'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName"
+                'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
            ));
         }
     }
@@ -95,7 +85,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
                 tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => '000000',
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color',//>(translatable)<
+                tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color', //>(translatable)<
                 tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => 'Front color',     //>(translatable)<
                 tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => 'Light color',     //>(translatable)<
                 tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    //>(translatable)<
@@ -132,7 +122,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
         }
 
         $fieldReferences = array();
-        for ($x = 0; $x < $fieldIndex; $x++) {
+        for ($x = 0; $x < $fieldIndex; ++$x) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('jwplayer_field_' . $x);
         }
 
@@ -143,7 +133,8 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_spi_ioc_Con
                 tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
                 tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
                 tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT,
-                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)
+                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN,
+            ),
         );
 
         $containerBuilder->register(

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -39,10 +39,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     }
 
     /**
-     * @return string The display name of this embedded player service.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -50,10 +47,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     }
 
     /**
-     * @return string[] The names of the media providers that this provider can handle.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCompatibleMediaProviderNames()
     {
@@ -63,10 +57,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     }
 
     /**
-     * @return string The name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -74,10 +65,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     }
 
     /**
-     * @return string The template name for this provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateName()
     {
@@ -85,12 +73,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
@@ -109,15 +92,12 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     }
 
     /**
-     * @return string[] A set of absolute filesystem directory paths
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateDirectories()
     {
         return array(
-            TUBEPRESS_ROOT . '/src/add-ons/embedded-jwplayer5/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/embedded-jwplayer5/templates',
         );
     }
 }
