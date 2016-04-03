@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_media_ioc_MediaExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -43,15 +31,15 @@ class tubepress_media_ioc_MediaExtension implements tubepress_spi_ioc_ContainerE
                 tubepress_api_media_CollectorInterface::_,
                 tubepress_api_url_UrlFactoryInterface::_,
             ),
-            'tubepress_media_impl_listeners_CollectionListener' => array(),
+            'tubepress_media_impl_listeners_CollectionListener'  => array(),
             'tubepress_media_impl_listeners_DispatchingListener' => array(
-                tubepress_api_event_EventDispatcherInterface::_
+                tubepress_api_event_EventDispatcherInterface::_,
             ),
         );
 
         $servicesConsumers = array(
             'tubepress_media_impl_listeners_CollectionListener' => array(
-                tubepress_spi_media_MediaProviderInterface::__ => 'setMediaProviders'
+                tubepress_spi_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
         );
 
@@ -64,11 +52,11 @@ class tubepress_media_ioc_MediaExtension implements tubepress_spi_ioc_ContainerE
                 93000  => array('tubepress_media_impl_listeners_PageListener' => 'filterDuplicates'),
             ),
             tubepress_api_event_Events::MEDIA_PAGE_REQUEST => array(
-                100000 => array('tubepress_media_impl_listeners_CollectionListener'  => 'onMediaPageRequest'),
+                100000 => array('tubepress_media_impl_listeners_CollectionListener' => 'onMediaPageRequest'),
                 98000  => array('tubepress_media_impl_listeners_DispatchingListener' => 'onMediaPageRequest'),
             ),
             tubepress_api_event_Events::MEDIA_ITEM_REQUEST => array(
-                100000 => array('tubepress_media_impl_listeners_CollectionListener'  => 'onMediaItemRequest'),
+                100000 => array('tubepress_media_impl_listeners_CollectionListener' => 'onMediaItemRequest'),
                 98000  => array('tubepress_media_impl_listeners_DispatchingListener' => 'onMediaItemRequest'),
             ),
         );
@@ -98,7 +86,7 @@ class tubepress_media_ioc_MediaExtension implements tubepress_spi_ioc_ContainerE
 
                         'event'    => $eventName,
                         'method'   => $method,
-                        'priority' => $priority
+                        'priority' => $priority,
                     ));
                 }
             }
@@ -111,7 +99,7 @@ class tubepress_media_ioc_MediaExtension implements tubepress_spi_ioc_ContainerE
 
                 $def->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                     'tag'    => $tag,
-                    'method' => $method
+                    'method' => $method,
                 ));
             }
         }

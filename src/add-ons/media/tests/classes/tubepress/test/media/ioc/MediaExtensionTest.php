@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -52,7 +52,7 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_http_HttpClientInterface::_));
     }
-    
+
     private function _registerListeners()
     {
         $listenerData = array(
@@ -64,15 +64,15 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
                 tubepress_api_media_CollectorInterface::_,
                 tubepress_api_url_UrlFactoryInterface::_,
             ),
-            'tubepress_media_impl_listeners_CollectionListener' => array(),
+            'tubepress_media_impl_listeners_CollectionListener'  => array(),
             'tubepress_media_impl_listeners_DispatchingListener' => array(
-                tubepress_api_event_EventDispatcherInterface::_
+                tubepress_api_event_EventDispatcherInterface::_,
             ),
         );
 
         $servicesConsumers = array(
             'tubepress_media_impl_listeners_CollectionListener' => array(
-                tubepress_spi_media_MediaProviderInterface::__ => 'setMediaProviders'
+                tubepress_spi_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
         );
 
@@ -85,11 +85,11 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
                 93000  => array('tubepress_media_impl_listeners_PageListener' => 'filterDuplicates'),
             ),
             tubepress_api_event_Events::MEDIA_PAGE_REQUEST => array(
-                100000 => array('tubepress_media_impl_listeners_CollectionListener'  => 'onMediaPageRequest'),
+                100000 => array('tubepress_media_impl_listeners_CollectionListener' => 'onMediaPageRequest'),
                 98000  => array('tubepress_media_impl_listeners_DispatchingListener' => 'onMediaPageRequest'),
             ),
             tubepress_api_event_Events::MEDIA_ITEM_REQUEST => array(
-                100000 => array('tubepress_media_impl_listeners_CollectionListener'  => 'onMediaItemRequest'),
+                100000 => array('tubepress_media_impl_listeners_CollectionListener' => 'onMediaItemRequest'),
                 98000  => array('tubepress_media_impl_listeners_DispatchingListener' => 'onMediaItemRequest'),
             ),
         );
@@ -119,7 +119,7 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
 
                         'event'    => $eventName,
                         'method'   => $method,
-                        'priority' => $priority
+                        'priority' => $priority,
                     ));
                 }
             }
@@ -132,7 +132,7 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
 
                 $def->shouldReceive('addTag')->once()->with(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                     'tag'    => $tag,
-                    'method' => $method
+                    'method' => $method,
                 ));
             }
         }
@@ -145,7 +145,7 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
 
         return array(
 
-            tubepress_api_log_LoggerInterface::_         => $logger,
+            tubepress_api_log_LoggerInterface::_              => $logger,
             tubepress_api_event_EventDispatcherInterface::_   => tubepress_api_event_EventDispatcherInterface::_,
             tubepress_api_http_HttpClientInterface::_         => tubepress_api_http_HttpClientInterface::_,
             tubepress_api_options_ContextInterface::_         => tubepress_api_options_ContextInterface::_,
@@ -153,7 +153,7 @@ class tubepress_test_media_ioc_MediaExtensionTest extends tubepress_api_test_ioc
             tubepress_api_translation_TranslatorInterface::_  => tubepress_api_translation_TranslatorInterface::_,
             tubepress_api_environment_EnvironmentInterface::_ => tubepress_api_environment_EnvironmentInterface::_,
             tubepress_api_http_RequestParametersInterface::_  => tubepress_api_http_RequestParametersInterface::_,
-            tubepress_api_url_UrlFactoryInterface::_     => tubepress_api_url_UrlFactoryInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_          => tubepress_api_url_UrlFactoryInterface::_,
         );
     }
 }

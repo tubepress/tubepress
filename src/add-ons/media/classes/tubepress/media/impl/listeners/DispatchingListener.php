@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,8 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- */
 class tubepress_media_impl_listeners_DispatchingListener
 {
     /**
@@ -34,7 +32,7 @@ class tubepress_media_impl_listeners_DispatchingListener
         $pageNumber = $event->getArgument('pageNumber');
 
         $event = $this->_eventDispatcher->newEventInstance($page, array(
-            'pageNumber' => $pageNumber
+            'pageNumber' => $pageNumber,
         ));
 
         $page = $this->_dispatchAndReturnSubject($event, tubepress_api_event_Events::MEDIA_PAGE_NEW);

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,8 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- */
 class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpCollectorInterface
 {
     /**
@@ -43,6 +41,9 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
         $this->_eventDispatcher = $eventDispatcher;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function collectSingle($itemId, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
         if ($this->_shouldLog) {
@@ -65,9 +66,12 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
             return $mediaItemArray[0];
         }
 
-        return null;
+        return;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function collectPage($currentPage, tubepress_spi_media_HttpFeedHandlerInterface $feedHandler)
     {
         $toReturn  = new tubepress_api_media_MediaPage();
@@ -85,7 +89,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
             $this->_logDebug(sprintf('Reported total result count is %d video(s)', $reportedTotalResultCount));
         }
 
-        /**
+        /*
          * If no results, we can shortcut things here.
          */
         if ($reportedTotalResultCount < 1) {
@@ -121,7 +125,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
             $this->_logDebug(sprintf('Now attempting to build %d item(s) from raw feed', $total));
         }
 
-        for ($index = 0; $index < $total; $index++) {
+        for ($index = 0; $index < $total; ++$index) {
 
             $failureMessage = $feedHandler->getReasonUnableToUseItemAtIndex($index);
 
@@ -172,7 +176,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
 
             $httpRequest = $this->_httpClient->createRequest('GET', $url);
 
-            /**
+            /*
              * Allows the cache to recognize this as an API call.
              */
             $httpRequest->setConfig(array_merge($httpRequest->getConfig(), array('tubepress-remote-api-call' => true)));

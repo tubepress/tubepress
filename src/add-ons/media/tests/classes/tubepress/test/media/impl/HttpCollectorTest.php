@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -66,7 +66,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
     {
         $this->_setupHttpClient(tubepress_api_event_Events::MEDIA_ITEM_HTTP_URL, array(
 
-            'itemId'   => 'item fun',
+            'itemId' => 'item fun',
         ));
 
         $this->_mockFeedHandler->shouldReceive('getName')->twice()->andReturn('feedhandlername');
@@ -82,7 +82,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
         $this->_setupNewHttpItemEvent();
 
         /**
-         * @var $result tubepress_api_media_MediaItem
+         * @var tubepress_api_media_MediaItem
          */
         $result = $this->_sut->collectSingle('item fun', $this->_mockFeedHandler);
 
@@ -147,7 +147,7 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
     private function _setupHttpClient($eventName, array $eventArgs)
     {
-        $mockUrlEvent     = $this->mock('tubepress_api_event_EventInterface');
+        $mockUrlEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $mockHttpRequest  = $this->mock('tubepress_api_http_message_RequestInterface');
         $mockHttpResponse = $this->mock('tubepress_api_http_message_ResponseInterface');
@@ -155,8 +155,8 @@ class tubepress_test_media_impl_HttpCollectorTest extends tubepress_api_test_Tub
 
         $mockHttpRequest->shouldReceive('getConfig')->once()->andReturn(array('hi' => 'there'));
         $mockHttpRequest->shouldReceive('setConfig')->once()->with(array(
-            'hi' => 'there',
-            'tubepress-remote-api-call' => true
+            'hi'                        => 'there',
+            'tubepress-remote-api-call' => true,
         ));
 
         $mockHttpResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
