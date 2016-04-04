@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -31,8 +31,8 @@ class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepres
 
     public function onSetup()
     {
-        $this->_mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockStringUtils  = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockLogger      = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockStringUtils = $this->mock(tubepress_api_util_StringUtilsInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
 

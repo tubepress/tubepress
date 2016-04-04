@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -126,14 +126,14 @@ class tubepress_test_options_impl_PersistenceTest extends tubepress_test_options
 
     public function testFetchAllMissingYesPersist()
     {
-        $arr = array('foo' => 'bar');
-        $final = array('foo' => 'bar', 'bla' => array(1,2,3));
+        $arr   = array('foo' => 'bar');
+        $final = array('foo' => 'bar', 'bla' => array(1, 2, 3));
 
         $this->_mockBackend->shouldReceive('fetchAllCurrentlyKnownOptionNamesToValues')->twice()->andReturn($arr, $final);
-        $this->_mockBackend->shouldReceive('createEach')->once()->with(array('bla' => array(1,2,3)))->andReturnNull();
+        $this->_mockBackend->shouldReceive('createEach')->once()->with(array('bla' => array(1, 2, 3)))->andReturnNull();
 
         $this->_mockOptionsReference->shouldReceive('isMeantToBePersisted')->once()->with('bla')->andReturn(true);
-        $this->_mockOptionsReference->shouldReceive('getDefaultValue')->once()->with('bla')->andReturn(array(1,2,3));
+        $this->_mockOptionsReference->shouldReceive('getDefaultValue')->once()->with('bla')->andReturn(array(1, 2, 3));
 
         $this->_mockOptionsReference->shouldReceive('getAllOptionNames')->twice()->andReturn(array('foo', 'bla'));
 

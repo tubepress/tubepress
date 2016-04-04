@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -41,10 +41,10 @@ class tubepress_test_options_impl_listeners_BasicOptionValidityTest extends tube
 
     public function onSetup()
     {
-        $this->_mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
-        $this->_mockReference  = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockAcceptableValues  = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
-        $this->_mockLangUtils  = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockTranslator       = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockReference        = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockAcceptableValues = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
+        $this->_mockLangUtils        = $this->mock(tubepress_api_util_LangUtilsInterface::_);
 
         $this->_sut = new tubepress_options_impl_listeners_BasicOptionValidity(
 

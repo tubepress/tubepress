@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -44,7 +44,7 @@ class tubepress_options_impl_listeners_StringMagicListener
 
     private function _magic(&$value)
     {
-        /** If it's an array, send each element through the filter. */
+        /* If it's an array, send each element through the filter. */
         if (is_array($value)) {
 
             foreach ($value as $key => $subValue) {
@@ -54,8 +54,8 @@ class tubepress_options_impl_listeners_StringMagicListener
             }
         }
 
-        /** We're only interested in strings. */
-        if (! is_string($value)) {
+        /* We're only interested in strings. */
+        if (!is_string($value)) {
 
             return;
         }

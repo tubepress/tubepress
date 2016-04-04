@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -42,7 +42,7 @@ class tubepress_test_options_ioc_OptionsExtensionTest extends tubepress_api_test
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
             ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_api_options_ReferenceInterface::_,
-                'method' => 'setReferences'
+                'method' => 'setReferences',
             ));
 
         $this->expectRegistration(
@@ -51,7 +51,7 @@ class tubepress_test_options_ioc_OptionsExtensionTest extends tubepress_api_test
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_spi_options_PersistenceBackendInterface::_));
-        
+
         $this->_registerListeners();
     }
 
@@ -97,10 +97,10 @@ class tubepress_test_options_ioc_OptionsExtensionTest extends tubepress_api_test
         return array(
             tubepress_api_event_EventDispatcherInterface::_      => tubepress_api_event_EventDispatcherInterface::_,
             tubepress_spi_options_PersistenceBackendInterface::_ => tubepress_spi_options_PersistenceBackendInterface::_,
-            tubepress_api_log_LoggerInterface::_            => tubepress_api_log_LoggerInterface::_,
-            tubepress_api_util_StringUtilsInterface::_      => tubepress_api_util_StringUtilsInterface::_,
+            tubepress_api_log_LoggerInterface::_                 => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_util_StringUtilsInterface::_           => tubepress_api_util_StringUtilsInterface::_,
             tubepress_api_translation_TranslatorInterface::_     => tubepress_api_translation_TranslatorInterface::_,
-            tubepress_api_util_LangUtilsInterface::_        => tubepress_api_util_LangUtilsInterface::_,
+            tubepress_api_util_LangUtilsInterface::_             => tubepress_api_util_LangUtilsInterface::_,
         );
     }
 }

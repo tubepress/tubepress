@@ -40,9 +40,10 @@ $contribFixers = array(
                                             // could change code behavior.
 
     'short_echo_tag',                       // Replace short-echo <?= with long format <?php echo syntax.
+
+    '-empty_return'                         // A return statement wishing to return nothing should be simply "return".
 );
 
 return Symfony\CS\Config\Config::create()
     ->level(\Symfony\CS\FixerInterface::SYMFONY_LEVEL)
-    ->fixers($contribFixers)
-    ->setUsingCache(true);
+    ->fixers($contribFixers);
