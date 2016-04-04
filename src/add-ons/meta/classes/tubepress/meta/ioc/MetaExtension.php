@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -43,15 +31,16 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
-            'method' => 'setMediaProviders'))
-         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
+            'method' => 'setMediaProviders',
+         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'priority' => 98000,
-            'method'   => 'onPreTemplate'))
-         ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
+            'method'   => 'onPreTemplate',
+         ))->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'priority' => 98000,
-            'method'   => 'onPreTemplate'));
+            'method'   => 'onPreTemplate',
+         ));
     }
 
     private function _registerOptions(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -128,19 +117,19 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::META_RELATIVE_DATES,
             ),
             'fieldProviderFilter' => array(
-                tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID
+                tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID,
             ),
             'text' => array(
                 tubepress_api_options_Names::META_DATEFORMAT,
                 tubepress_api_options_Names::META_DESC_LIMIT,
             ),
             'metaMultiSelect' => array(
-                'does not matter'
+                'does not matter',
             ),
         );
 
@@ -162,7 +151,7 @@ class tubepress_meta_ioc_MetaExtension implements tubepress_spi_ioc_ContainerExt
         }
 
         $categoryReferences = array();
-        $categories = array(
+        $categories         = array(
             array(tubepress_api_options_ui_CategoryNames::META, 'Meta'),          //>(translatable)<
         );
         foreach ($categories as $categoryIdAndLabel) {

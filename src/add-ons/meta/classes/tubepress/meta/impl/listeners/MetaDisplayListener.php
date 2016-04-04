@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -47,8 +47,8 @@ class tubepress_meta_impl_listeners_MetaDisplayListener
 
     public function onPreTemplate(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $templateVars array
+        /*
+         * @var array
          */
         $templateVars = $event->getSubject();
 
@@ -60,7 +60,7 @@ class tubepress_meta_impl_listeners_MetaDisplayListener
         $vars = array(
 
             tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS   => $this->_getLabelMap(),
-            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => $this->_getToShowMap()
+            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => $this->_getToShowMap(),
         );
 
         $templateVars = array_merge($templateVars, $vars);
@@ -121,7 +121,7 @@ class tubepress_meta_impl_listeners_MetaDisplayListener
                     }
                 }
 
-                /**
+                /*
                  * The description is best kept as the last element.
                  */
                 if (isset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_api_options_Names::META_DISPLAY_DESCRIPTION])) {
