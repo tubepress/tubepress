@@ -99,7 +99,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenSelectionField extends tubepres
      */
     public function onSubmit()
     {
-        return;
+        return null;
     }
 
     /**

@@ -82,7 +82,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
      */
     public function onSubmit()
     {
-        return;
+        return null;
     }
 
     /**

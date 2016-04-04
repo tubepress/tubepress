@@ -74,7 +74,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientInstructionsField extends tube
      */
     public function onSubmit()
     {
-        return;
+        return null;
     }
 
     /**

@@ -82,7 +82,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenDeletionField extends tubepress
             return $this->sendToStorage(tubepress_api_options_Names::OAUTH2_TOKENS, json_encode($toSave));
         }
 
-        return;
+        return null;
     }
 
     /**

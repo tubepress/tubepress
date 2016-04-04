@@ -128,7 +128,7 @@ class tubepress_array_impl_ArrayReader implements tubepress_api_array_ArrayReade
 
             if (!is_array($intermediate) || !array_key_exists($pathKey, $intermediate)) {
 
-                return;
+                return null;
             }
 
             $intermediate = $intermediate[$pathKey];

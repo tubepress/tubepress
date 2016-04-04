@@ -37,7 +37,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
         /* Are we sure we have it? */
         if (!($this->hasParam($name))) {
 
-            return;
+            return null;
         }
 
         $request  = $this->_getGETandPOSTarray();

@@ -21,11 +21,6 @@ class tubepress_http_oauth2_impl_options_ui_ClientSecretField extends tubepress_
      */
     private $_provider;
 
-    /**
-     * @var tubepress_api_translation_TranslatorInterface
-     */
-    private $_translator;
-
     public function __construct(tubepress_spi_http_oauth2_Oauth2ProviderInterface $provider,
                                 tubepress_api_options_PersistenceInterface        $persistence,
                                 tubepress_api_http_RequestParametersInterface     $requestParams,
@@ -65,7 +60,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientSecretField extends tubepress_
      */
     public function onSubmit()
     {
-        return;
+        return null;
     }
 
     /**

@@ -100,7 +100,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
             /*
              * Not meant to be persisted. Just ignore.
              */
-            return;
+            return null;
         }
 
         $errors = $this->_getErrors($optionName, $optionValue);
@@ -133,7 +133,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
     {
         if (!isset($this->_saveQueue) || count($this->_saveQueue) === 0) {
 
-            return;
+            return null;
         }
 
         $result = $this->_backend->saveAll($this->_saveQueue);

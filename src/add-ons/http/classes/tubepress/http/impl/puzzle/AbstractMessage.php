@@ -50,7 +50,7 @@ abstract class tubepress_http_impl_puzzle_AbstractMessage implements tubepress_a
 
         if (!$puzzleBody) {
 
-            return;
+            return null;
         }
 
         if ($puzzleBody instanceof tubepress_http_impl_puzzle_streams_PuzzleStream) {

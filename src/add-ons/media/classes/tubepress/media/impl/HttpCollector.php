@@ -66,7 +66,7 @@ class tubepress_media_impl_HttpCollector implements tubepress_api_media_HttpColl
             return $mediaItemArray[0];
         }
 
-        return;
+        return null;
     }
 
     /**
