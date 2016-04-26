@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -86,11 +86,11 @@ class tubepress_test_dailymotion_impl_listeners_media_HttpItemListenerTest exten
             tubepress_api_media_MediaItem::ATTRIBUTE_TITLE                   => 'Cognitive Psychology  Free Books',
             tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY           => array('Cognitive Psychology'),
             tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION             => 'Download Here http://readsbooksonline.com.playsterpdf.com/?book=0534514219<br /><br /><br /><br />Cognitive Psychology  Free Books <br />',
-            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS => 6,
-            tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL         => 'http://www.dailymotion.com/video/x3pbbgh_cognitive-psychology-free-books_lifestyle',
-            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT       => 45363234,
-            tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME => 'Fake Channel',
-            tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL => 'http://s2.dmcdn.net/SsU0I/x180-Xzy.jpg',
+            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS        => 6,
+            tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL                => 'http://www.dailymotion.com/video/x3pbbgh_cognitive-psychology-free-books_lifestyle',
+            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT              => 45363234,
+            tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME   => 'Fake Channel',
+            tubepress_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL           => 'http://s2.dmcdn.net/SsU0I/x180-Xzy.jpg',
         );
 
         foreach ($expectedRawAttributes as $attributeName => $attributeValue) {
@@ -102,9 +102,8 @@ class tubepress_test_dailymotion_impl_listeners_media_HttpItemListenerTest exten
 
             'formatNumberAttribute' => array(
 
-
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED, 0, ),
 
             ),
 
@@ -112,26 +111,26 @@ class tubepress_test_dailymotion_impl_listeners_media_HttpItemListenerTest exten
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
                     tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
-                    tubepress_api_options_Names::META_DESC_LIMIT),
+                    tubepress_api_options_Names::META_DESC_LIMIT, ),
             ),
 
             'formatDurationAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED, ),
             ),
 
             'formatDateAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED, ),
             ),
 
             'implodeArrayAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', '),
-            )
+                    tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ', ),
+            ),
         );
 
         foreach ($formatAttributesMap as $method => $calls) {

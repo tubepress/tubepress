@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_dailymotion_impl_listeners_media_HttpItemListener
 {
     /**
@@ -153,7 +152,7 @@ class tubepress_dailymotion_impl_listeners_media_HttpItemListener
     {
         $preferredSize = $this->_context->get(tubepress_dailymotion_api_Constants::OPTION_THUMB_SIZE);
         $preferredSize = str_replace('px', '', $preferredSize);
-        $url          = $this->_relativeQueryAsString($json, $index, sprintf('thumbnail_%s_url', $preferredSize));
+        $url           = $this->_relativeQueryAsString($json, $index, sprintf('thumbnail_%s_url', $preferredSize));
 
         if (!$url) {
 

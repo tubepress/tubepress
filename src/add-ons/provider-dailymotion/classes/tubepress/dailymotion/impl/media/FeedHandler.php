@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_media_HttpFeedHandlerInterface
 {
     private static $_URL_BASE = 'https://api.dailymotion.com';
@@ -75,10 +74,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * @return string The name of this feed handler. Never empty or null. All lowercase alphanumerics and dashes.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -86,34 +82,19 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Gather data that might be needed from the feed to build attributes for this media item.
-     *
-     * @param tubepress_api_media_MediaItem $mediaItemId The media item.
-     * @param int                               $index       The zero-based index.
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getNewItemEventArguments(tubepress_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
 
             'feedAsArray'    => $this->_feedAsArray,
-            'zeroBasedIndex' => $index
+            'zeroBasedIndex' => $index,
         );
     }
 
     /**
-     * Builds a URL for a list of videos
-     *
-     * @param int $currentPage The current page number of the gallery.
-     *
-     * @return tubepress_api_url_UrlInterface The request URL for this gallery.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function buildUrlForPage($currentPage)
     {
@@ -130,16 +111,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Builds a request url for a single video
-     *
-     * @param string $id The video ID to search for
-     *
-     * @throws InvalidArgumentException If unable to build a URL for the given video.
-     *
-     * @return tubepress_api_url_UrlInterface The URL for the single video given.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function buildUrlForItem($id)
     {
@@ -153,12 +125,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Count the total videos in this feed result.
-     *
-     * @return int The total result count of this query.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTotalResultCount()
     {
@@ -168,14 +135,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Determine why the given item cannot be used.
-     *
-     * @param integer $index The index into the feed.
-     *
-     * @return string The reason why we can't work with this media item, or null if we can.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getReasonUnableToUseItemAtIndex($index)
     {
@@ -224,12 +184,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Count the number of videos that we think are in this feed.
-     *
-     * @return integer A count of videos in this feed.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCurrentResultCount()
     {
@@ -239,14 +194,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Perform pre-construction activites for the feed.
-     *
-     * @param mixed $feed The feed to construct.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function onAnalysisStart($feed, tubepress_api_url_UrlInterface $url)
     {
@@ -271,7 +219,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
 
         if (isset($this->_feedAsArray['id'])) {
 
-            $item = $this->_feedAsArray;
+            $item               = $this->_feedAsArray;
             $this->_feedAsArray = array(
 
                 'list' => array($item),
@@ -280,12 +228,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Perform post-construction activites for the feed.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function onAnalysisComplete()
     {
@@ -320,7 +263,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
 
             $finalSort = 'relevance';
 
-        } else if (isset($sortMap[$requestedSort])) {
+        } elseif (isset($sortMap[$requestedSort])) {
 
             $finalSort = $sortMap[$requestedSort];
         }
@@ -480,14 +423,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
     }
 
     /**
-     * Get the item ID of an element of the feed.
-     *
-     * @param integer $index The index into the feed.
-     *
-     * @return string The globally unique item ID.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getIdForItemAtIndex($index)
     {
@@ -534,7 +470,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
             return $total;
         }
 
-        /**
+        /*
          * Dailymotion doesn't return the total result count, which sucks because that means we'll need to
          * "manually" calculate it in order to show pagination.
          *
@@ -587,7 +523,7 @@ class tubepress_dailymotion_impl_media_FeedHandler implements tubepress_spi_medi
             ));
         }
 
-        /**
+        /*
          * There are 4 possible cases here:
          *
          * 1. We have over 10,000 results.

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -62,7 +62,7 @@ class tubepress_test_dailymotion_impl_listeners_options_TransformListenerTest ex
     {
         return array(
             array('hi', 'there', false),
-            array('hi', '', false)
+            array('hi', '', false),
         );
     }
 }

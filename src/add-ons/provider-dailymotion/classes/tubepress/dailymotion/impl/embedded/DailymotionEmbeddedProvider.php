@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,14 +9,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Embedded player command for native Vimeo
- */
 class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
 {
-    private static $_URL_PARAM_ID               = 'id';
-    private static $_URL_PARAM_AUTOPLAY         = 'autoplay';
-    private static $_URL_PARAM_UI_START_SCREEN  = 'ui-start_screen_info';
+    private static $_URL_PARAM_ID              = 'id';
+    private static $_URL_PARAM_AUTOPLAY        = 'autoplay';
+    private static $_URL_PARAM_UI_START_SCREEN = 'ui-start_screen_info';
 
     /**
      * @var tubepress_api_options_ContextInterface
@@ -43,10 +40,7 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     }
 
     /**
-     * @return string[] The names of the media providers that this provider can handle.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCompatibleMediaProviderNames()
     {
@@ -56,10 +50,7 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     }
 
     /**
-     * @return string The name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -67,10 +58,7 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     }
 
     /**
-     * @return string The template name for this provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateName()
     {
@@ -78,12 +66,7 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
@@ -102,10 +85,7 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     }
 
     /**
-     * @return string The display name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -113,16 +93,13 @@ class tubepress_dailymotion_impl_embedded_DailymotionEmbeddedProvider implements
     }
 
     /**
-     * @return string[] A set of absolute filesystem directory paths
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateDirectories()
     {
         return array(
 
-            TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/provider-dailymotion/templates',
         );
     }
 

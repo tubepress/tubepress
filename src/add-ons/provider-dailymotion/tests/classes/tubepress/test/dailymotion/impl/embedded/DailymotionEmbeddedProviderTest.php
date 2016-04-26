@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -91,7 +91,7 @@ class tubepress_test_dailymotion_impl_embedded_DailymotionEmbeddedProviderTest e
 
         $expected = array(
             tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
-            'player_id' => 'player-id',
+            'player_id'                                             => 'player-id',
         );
 
         foreach ($query as $key => $value) {
@@ -114,12 +114,11 @@ class tubepress_test_dailymotion_impl_embedded_DailymotionEmbeddedProviderTest e
                     tubepress_api_options_Names::EMBEDDED_SHOW_INFO       => true,
                 ),
                 array(
-                    'autoplay' => '1',
+                    'autoplay'             => '1',
                     'ui-start_screen_info' => '1',
-                    'id' => 'player-id',
-                )
+                    'id'                   => 'player-id',
+                ),
             ),
         );
     }
 }
-
