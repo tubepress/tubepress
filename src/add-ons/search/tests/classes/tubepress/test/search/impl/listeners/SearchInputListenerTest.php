@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -49,7 +49,7 @@ class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest exten
     public function testYouTubeFavorites()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SEARCH_RESULTS_URL)->andReturn('');
-        $mockUrl = $this->mock('tubepress_api_url_UrlInterface');
+        $mockUrl   = $this->mock('tubepress_api_url_UrlInterface');
         $mockQuery = $this->mock('tubepress_api_url_QueryInterface');
         $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $mockUrl->shouldReceive('toString')->once()->andReturn('abcabc');
@@ -58,13 +58,13 @@ class tubepress_test_search_impl_listeners_SearchInputTemplateListenerTest exten
         $mockQuery->shouldReceive('toArray')->once()->andReturn(array('foo' => 'bar', 'something' => 'else'));
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($mockUrl);
 
-        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_search')->andReturn("search for something");
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_search')->andReturn('search for something');
 
         $expected = array(
-            'foo'                                                          => 'bar',
+            'foo'                                                      => 'bar',
             tubepress_api_template_VariableNames::SEARCH_HANDLER_URL   => 'abcabc',
             tubepress_api_template_VariableNames::SEARCH_HIDDEN_INPUTS => array('foo' => 'bar', 'something' => 'else'),
-            tubepress_api_template_VariableNames::SEARCH_TERMS         => 'search for something'
+            tubepress_api_template_VariableNames::SEARCH_TERMS         => 'search for something',
         );
 
         $event = $this->mock('tubepress_api_event_EventInterface');

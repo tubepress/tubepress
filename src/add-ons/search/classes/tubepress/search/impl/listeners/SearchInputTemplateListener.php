@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -40,8 +40,8 @@ class tubepress_search_impl_listeners_SearchInputTemplateListener
 
     public function onSearchInputTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $existingTemplateVars array
+        /*
+         * @var array
          */
         $existingTemplateVars = $event->getSubject();
         $resultsUrl           = $this->_context->get(tubepress_api_options_Names::SEARCH_RESULTS_URL);
