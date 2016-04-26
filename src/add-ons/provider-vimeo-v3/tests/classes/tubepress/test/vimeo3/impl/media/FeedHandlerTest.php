@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -209,7 +209,6 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
     {
         $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
-
         $this->setExpectedException('RuntimeException', 'The requested group could not be found');
         $rawFeed = $this->_getVimeoErrorJson();
         $this->_sut->onAnalysisStart($rawFeed, $mockUrl);
@@ -240,7 +239,7 @@ class tubepress_test_vimeo3_impl_media_FeedHandlerTest extends tubepress_api_tes
     public function testNewItemArgs()
     {
         $mockMediaItem = $this->mock('tubepress_api_media_MediaItem');
-        $mockUrl = $this->mock(tubepress_api_url_UrlInterface::_);
+        $mockUrl       = $this->mock(tubepress_api_url_UrlInterface::_);
 
         $rawFeed = $this->_getVideoListJson();
         $this->_sut->onAnalysisStart($rawFeed, $mockUrl);

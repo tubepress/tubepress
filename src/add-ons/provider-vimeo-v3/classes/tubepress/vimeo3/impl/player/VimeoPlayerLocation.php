@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,16 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Plays videos with jqmodal.
- */
 class tubepress_vimeo3_impl_player_VimeoPlayerLocation implements tubepress_spi_player_PlayerLocationInterface
 {
     /**
-     * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -26,10 +20,7 @@ class tubepress_vimeo3_impl_player_VimeoPlayerLocation implements tubepress_spi_
     }
 
     /**
-     * @return string The human-readable name of this player location.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -37,31 +28,19 @@ class tubepress_vimeo3_impl_player_VimeoPlayerLocation implements tubepress_spi_
     }
 
     /**
-     * Get the data required to populate the invoking HTML anchor.
-     *
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array An associative array where the keys are HTML <a> attribute names and the values are
-     *               the corresponding attribute values. May be empty nut never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAttributesForInvocationAnchor(tubepress_api_media_MediaItem $mediaItem)
     {
         return array(
             'target' => '_blank',
             'rel'    => 'external nofollow',
-            'href'   => sprintf('https://vimeo.com/%d', $mediaItem->getId())
+            'href'   => sprintf('https://vimeo.com/%d', $mediaItem->getId()),
         );
     }
 
     /**
-     * @return string The template name that this player location uses when it is loaded
-     *                statically on a gallery page, or null if not required on static page load.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getStaticTemplateName()
     {
@@ -69,11 +48,7 @@ class tubepress_vimeo3_impl_player_VimeoPlayerLocation implements tubepress_spi_
     }
 
     /**
-     * @return string The template name that this player location uses when it is loaded
-     *                dynamically via Ajax, or null if not used via Ajax.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAjaxTemplateName()
     {

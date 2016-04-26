@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -26,9 +26,9 @@ class tubepress_test_vimeo3_impl_options_ui_FieldProviderTest extends tubepress_
 
     public function onSetup()
     {
-        $this->_mockField      = $this->mock('tubepress_api_options_ui_FieldInterface');
-        $map = array(
-            'x' => array('a', 'b', 'c')
+        $this->_mockField = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $map              = array(
+            'x' => array('a', 'b', 'c'),
         );
 
         $this->_sut = new tubepress_vimeo3_impl_options_ui_FieldProvider(
@@ -52,7 +52,7 @@ class tubepress_test_vimeo3_impl_options_ui_FieldProviderTest extends tubepress_
         $this->assertTrue($this->_sut->isAbleToBeFilteredFromGui());
         $this->assertTrue($this->_sut->fieldsShouldBeInSeparateBoxes());
         $this->assertEquals(array(
-            'x' => array('a', 'b', 'c')
+            'x' => array('a', 'b', 'c'),
         ), $this->_sut->getCategoryIdsToFieldIdsMap());
     }
 }

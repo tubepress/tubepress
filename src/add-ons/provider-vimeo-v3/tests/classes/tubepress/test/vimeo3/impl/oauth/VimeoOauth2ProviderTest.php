@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -60,20 +60,20 @@ class tubepress_test_vimeo3_impl_oauth_VimeoOauth2ProviderTest extends tubepress
 
             array('Eric Hough', array(
                 'user' => array(
-                    'name' => 'Eric Hough'
-                )
+                    'name' => 'Eric Hough',
+                ),
             )),
             array('Eric Hough', array(
                 'user' => array(
-                    'name' => 'Eric Hough'
+                    'name' => 'Eric Hough',
                 ),
-                'scope' => 'foobar'
+                'scope' => 'foobar',
             )),
             array('Eric Hough (All Access)', array(
                 'user' => array(
-                    'name' => 'Eric Hough'
+                    'name' => 'Eric Hough',
                 ),
-                'scope' => 'foobar private something'
+                'scope' => 'foobar private something',
             )),
             array('Basic access (public videos only)', array()),
         );

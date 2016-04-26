@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -14,7 +14,6 @@
  */
 class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_ioc_AbstractContainerExtensionTest
 {
-
     /**
      * @return tubepress_spi_ioc_ContainerExtensionInterface
      */
@@ -56,7 +55,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.vimeo_v3',
                 'method'   => 'onHttpItem',
-                'priority' => 100000
+                'priority' => 100000,
             ));
 
         $this->expectRegistration(
@@ -71,7 +70,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
 
         $validators = array(
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_STRING_HEXCOLOR => array(
-                tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR
+                tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR,
             ),
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE,
@@ -80,7 +79,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE,
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE,
                 tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE,
-            )
+            ),
         );
 
         foreach ($validators as $type => $optionNames) {
@@ -103,15 +102,15 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE,
                 'method'   => 'onAlbumValue',
-                'priority' => 100000))
+                'priority' => 100000, ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'   => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE,
-                'method'  => 'onGroupValue',
-                'priority' => 100000))
+                'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE,
+                'method'   => 'onGroupValue',
+                'priority' => 100000, ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'   => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE,
-                'method'  => 'onChannelValue',
-                'priority' => 100000));
+                'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE,
+                'method'   => 'onChannelValue',
+                'priority' => 100000, ));
     }
 
     private function _registerMediaProvider()
@@ -149,31 +148,31 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
         $gallerySourceMap = array(
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_ALBUM,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_LIKES,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CATEGORY,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE, ),
 
             array(tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_TAG,
-                tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE),
+                tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE, ),
         );
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
@@ -196,7 +195,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
                 ->withArgument($gallerySourceFieldArray[0])
                 ->withArgument('gallerySourceRadio')
                 ->withArgument(array(
-                    'additionalField' => new tubepress_api_ioc_Reference('vimeo_options_subfield_' . $fieldIndex++)
+                    'additionalField' => new tubepress_api_ioc_Reference('vimeo_options_subfield_' . $fieldIndex++),
                 ));
         }
 
@@ -218,7 +217,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withArgument('does-not-matter')
             ->withArgument('oauth2ClientInstructions')
             ->withArgument(array(
-                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'),
             ));
 
         $this->expectRegistration(
@@ -230,7 +229,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withArgument('does-not-matter')
             ->withArgument('oauth2ClientId')
             ->withArgument(array(
-                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'),
             ));
 
         $this->expectRegistration(
@@ -242,7 +241,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withArgument('does-not-matter')
             ->withArgument('oauth2ClientSecret')
             ->withArgument(array(
-                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'),
             ));
 
         $this->expectRegistration(
@@ -254,7 +253,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withArgument('does-not-matter')
             ->withArgument('oauth2TokenManagement')
             ->withArgument(array(
-                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'),
             ));
 
         $this->expectRegistration(
@@ -266,11 +265,11 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
             ->withArgument('does-not-matter')
             ->withArgument('oauth2TokenSelection')
             ->withArgument(array(
-                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider')
+                'provider' => new tubepress_api_ioc_Reference('tubepress_vimeo3_impl_oauth_VimeoOauth2Provider'),
             ));
-        
+
         $fieldReferences = array();
-        for ($x = 0; $x < $fieldIndex; $x++) {
+        for ($x = 0; $x < $fieldIndex; ++$x) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('vimeo_options_field_' . $x);
         }
 
@@ -306,7 +305,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
                     'clientSecret_vimeoV3',
                     'tokenManagement_vimeoV3',
                     'tokenSelection_vimeoV3',
-                )
+                ),
             ))
             ->withTag('tubepress_spi_options_ui_FieldProviderInterface');
     }
@@ -334,24 +333,24 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => 'Main color', 
+                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => 'Main color',
 
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE      => 'Videos from this Vimeo album',       
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE => 'Videos this Vimeo user appears in',  
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE    => 'Videos in this Vimeo channel',       
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE      => 'Videos from this Vimeo group',       
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE      => 'Videos this Vimeo user likes',       
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',                   
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user', 
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE   => 'Videos in this Vimeo category',      
-                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE        => 'Videos tagged with', 
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_ALBUM_VALUE      => 'Videos from this Vimeo album',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_APPEARS_IN_VALUE => 'Videos this Vimeo user appears in',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CHANNEL_VALUE    => 'Videos in this Vimeo channel',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_GROUP_VALUE      => 'Videos from this Vimeo group',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_LIKES_VALUE      => 'Videos this Vimeo user likes',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_SEARCH_VALUE     => 'Vimeo search for',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_UPLOADEDBY_VALUE => 'Videos uploaded by this Vimeo user',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_CATEGORY_VALUE   => 'Videos in this Vimeo category',
+                    tubepress_vimeo3_api_Constants::OPTION_VIMEO_TAG_VALUE        => 'Videos tagged with',
 
-                    tubepress_vimeo3_api_Constants::OPTION_LIKES => 'Number of likes',  
+                    tubepress_vimeo3_api_Constants::OPTION_LIKES => 'Number of likes',
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s.', "999999"), 
+                    tubepress_vimeo3_api_Constants::OPTION_PLAYER_COLOR => sprintf('Default is %s.', '999999'),
                 ),
             ));
     }
@@ -366,7 +365,7 @@ class tubepress_test_vimeo3_ioc_VimeoExtensionTest extends tubepress_api_test_io
 
     protected function getExpectedExternalServicesMap()
     {
-        $mockField = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $mockField        = $this->mock('tubepress_api_options_ui_FieldInterface');
         $mockfieldBuilder = $this->mock(tubepress_api_options_ui_FieldBuilderInterface::_);
         $mockfieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
