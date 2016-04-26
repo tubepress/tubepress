@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -18,12 +18,12 @@ class tubepress_test_util_impl_LangUtilsTest extends tubepress_api_test_TubePres
      * @var tubepress_util_impl_LangUtils
      */
     private $_sut;
-    
+
     public function onSetup()
     {
         $this->_sut = new tubepress_util_impl_LangUtils();
     }
-    
+
     public function testAssocArray()
     {
         $this->assertFalse($this->_sut->isAssociativeArray(array(1, 2)));
@@ -53,11 +53,10 @@ class tubepress_test_util_impl_LangUtilsTest extends tubepress_api_test_TubePres
         return array(
 
             array(array(3), false),
-            array(array(new stdClass), false),
-            array(array('5', new stdClass), false),
+            array(array(new stdClass()), false),
+            array(array('5', new stdClass()), false),
             array(array('5', 3), false),
-            array(array('4'), true)
+            array(array('4'), true),
         );
     }
 }
-
