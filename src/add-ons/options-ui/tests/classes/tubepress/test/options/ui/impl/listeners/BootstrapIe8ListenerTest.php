@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -59,12 +59,12 @@ class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends 
         $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
 
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn(array(
-            $mockBootstrapUrl
+            $mockBootstrapUrl,
         ));
         $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(array(
             $mockShivUrl,
             $mockRespondUrl,
-            $mockBootstrapUrl
+            $mockBootstrapUrl,
         ));
 
         $this->_sut->__setServerVars(array('HTTP_USER_AGENT' => 'MSIE 8;'));

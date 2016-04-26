@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -70,25 +70,25 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
     private $_mockFieldProvider;
 
     private $_prefixValidator;
-    
+
     public function onSetup()
     {
-        $this->_mockPersistence         = $this->mock('tubepress_options_impl_Persistence');
-        $this->_mockTemplating          = $this->mock(tubepress_api_template_TemplatingInterface::_);
-        $this->_mockStringUtils         = $this->mock(tubepress_api_util_StringUtilsInterface::_);
-        $this->_mockCssAndJsHelper      = $this->mock('tubepress_html_impl_CssAndJsGenerationHelper');
-        $this->_mockRequestParams       = $this->mock(tubepress_api_http_RequestParametersInterface::_);
-        $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockSingleSourceField   = $this->mock('tubepress_api_options_ui_FieldInterface');
-        $this->_mockMultiSourceField    = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
-        $this->_mockFieldProvider       = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
+        $this->_mockPersistence       = $this->mock('tubepress_options_impl_Persistence');
+        $this->_mockTemplating        = $this->mock(tubepress_api_template_TemplatingInterface::_);
+        $this->_mockStringUtils       = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockCssAndJsHelper    = $this->mock('tubepress_html_impl_CssAndJsGenerationHelper');
+        $this->_mockRequestParams     = $this->mock(tubepress_api_http_RequestParametersInterface::_);
+        $this->_mockLogger            = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockSingleSourceField = $this->mock('tubepress_api_options_ui_FieldInterface');
+        $this->_mockMultiSourceField  = $this->mock('tubepress_api_options_ui_MultiSourceFieldInterface');
+        $this->_mockFieldProvider     = $this->mock('tubepress_spi_options_ui_FieldProviderInterface');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_mockFieldProvider->shouldReceive('getFields')->atLeast(1)->andReturn(array(
             $this->_mockSingleSourceField,
-            $this->_mockMultiSourceField
+            $this->_mockMultiSourceField,
         ));
 
         $this->_mockSingleSourceField->shouldReceive('getId')->atLeast(1)->andReturn('single-field-id');
@@ -104,9 +104,9 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
         );
 
         $this->_sut->setFieldProviders(array($this->_mockFieldProvider));
-        
+
         $this->_prefixValidator = function ($candidate) {
-            
+
             return is_string($candidate) && preg_match_all('/^tubepress-multisource-[0-9]+-$/', $candidate, $matches) === 1;
         };
     }
@@ -117,7 +117,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
 
             'tubepress-multisource-999-something' => 'ms-value-1',
             'tubepress-multisource-888-something' => 'ms-value-2',
-            'foo' => 'bar',
+            'foo'                                 => 'bar',
         ));
 
         $this->_mockPersistence->shouldReceive('fetchAll')->once()->andReturn(array(
@@ -209,7 +209,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
             ),
             array(
                 'fuzz' => 'bot',
-            )
+            ),
         );
 
         $this->_mockPersistence->shouldReceive('fetchAll')->once()->andReturn(array(
@@ -244,8 +244,8 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('options-ui/form', array(
 
-            'errors'        => array('some-error' => 'message'),
-            'fields'        => array(
+            'errors' => array('some-error' => 'message'),
+            'fields' => array(
                 'single-field-id'        => $this->_mockSingleSourceField,
                 'multisource-field-id-1' => $mockMultiClone1,
                 'multisource-field-id-2' => $mockMultiClone2,
@@ -280,10 +280,10 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_api_test_Tub
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('options-ui/form', array(
 
-            'errors'        => array('some-error' => 'message'),
-            'fields'        => array(
+            'errors' => array('some-error' => 'message'),
+            'fields' => array(
                 'single-field-id'      => $this->_mockSingleSourceField,
-                'multisource-field-id' => $mockMultiClone
+                'multisource-field-id' => $mockMultiClone,
             ),
             'justSubmitted' => false,
         ))->andReturn('final result');

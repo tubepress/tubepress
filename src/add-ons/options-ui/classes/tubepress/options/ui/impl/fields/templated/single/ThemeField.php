@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -41,6 +41,9 @@ class tubepress_options_ui_impl_fields_templated_single_ThemeField extends tubep
         $this->_themeRegistry = $themeRegistry;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getAdditionalTemplateVariables()
     {
         $vars         = parent::getAdditionalTemplateVariables();
@@ -99,21 +102,21 @@ class tubepress_options_ui_impl_fields_templated_single_ThemeField extends tubep
     {
         $raw = array(
 
-            'authors'       => $theme->getAuthors(),
-            'description'   => $theme->getDescription(),
+            'authors'     => $theme->getAuthors(),
+            'description' => $theme->getDescription(),
             //'keywords'      => $theme->getKeywords(),
-            'license'       => $theme->getLicense(),
-            'screenshots'   => $theme->getScreenshots(),
-            'support'       => array(
-                'demo'          => $theme->getDemoUrl(),
-                'homepage'      => $theme->getHomepageUrl(),
-                'docs'          => $theme->getDocumentationUrl(),
-                'download'      => $theme->getDownloadUrl(),
-                'bugs'          => $theme->getBugTrackerUrl(),
-                'forum'         => $theme->getForumUrl(),
-                'sourceCode'    => $theme->getSourceCodeUrl(),
+            'license'     => $theme->getLicense(),
+            'screenshots' => $theme->getScreenshots(),
+            'support'     => array(
+                'demo'       => $theme->getDemoUrl(),
+                'homepage'   => $theme->getHomepageUrl(),
+                'docs'       => $theme->getDocumentationUrl(),
+                'download'   => $theme->getDownloadUrl(),
+                'bugs'       => $theme->getBugTrackerUrl(),
+                'forum'      => $theme->getForumUrl(),
+                'sourceCode' => $theme->getSourceCodeUrl(),
             ),
-            'version'       => $theme->getVersion(),
+            'version' => $theme->getVersion(),
         );
 
         return $this->_deepToString($raw);

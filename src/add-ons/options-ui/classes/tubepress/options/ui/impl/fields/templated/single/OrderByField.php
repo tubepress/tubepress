@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -45,12 +45,7 @@ class tubepress_options_ui_impl_fields_templated_single_OrderByField extends tub
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isProOnly()
     {
@@ -58,10 +53,7 @@ class tubepress_options_ui_impl_fields_templated_single_OrderByField extends tub
     }
 
     /**
-     * @param $prefix
-     * @param tubepress_api_options_PersistenceInterface $persistence
-     *
-     * @return tubepress_api_options_ui_FieldInterface
+     * {@inheritdoc}
      */
     public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {

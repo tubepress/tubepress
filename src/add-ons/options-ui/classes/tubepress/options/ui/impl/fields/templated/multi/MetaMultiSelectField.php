@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -51,7 +51,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     }
 
     /**
-     * @return string[] An array of currently selected values, which may be empty.
+     * {@inheritdoc}
      */
     protected function getCurrentlySelectedValues()
     {
@@ -70,7 +70,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     }
 
     /**
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     protected function onSubmitAllMissing()
     {
@@ -91,9 +91,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     }
 
     /**
-     * @param array $values The incoming values for this field.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     protected function onSubmitMixed(array $values)
     {
@@ -113,8 +111,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     }
 
     /**
-     * @return array An associative array of translated group names to associative array of
-     *               value => untranslated display names
+     * {@inheritdoc}
      */
     protected function getGroupedChoicesArray()
     {
@@ -147,12 +144,7 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isProOnly()
     {
@@ -160,28 +152,40 @@ class tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField exte
     }
 
     /**
-     * @return array An associative array of value => untranslated display names
+     * {@inheritdoc}
      */
     protected function getUngroupedChoicesArray()
     {
         return array();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAllChoices()
     {
         return $this->_getAllMetaOptionNames();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUntranslatedLabelForChoice($choice)
     {
         return $this->_optionsReference->getUntranslatedLabel($choice);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getMediaProviders()
     {
         return $this->_mediaProviders;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function providerRecognizesChoice(tubepress_spi_media_MediaProviderInterface $mp, $choice)
     {
         $metaNames = $mp->getMapOfMetaOptionNamesToAttributeDisplayNames();

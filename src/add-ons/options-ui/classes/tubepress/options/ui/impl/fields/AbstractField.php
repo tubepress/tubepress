@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -14,7 +14,7 @@
  */
 abstract class tubepress_options_ui_impl_fields_AbstractField extends tubepress_options_ui_impl_BaseElement implements tubepress_api_options_ui_FieldInterface
 {
-    protected static $PROPERTY_UNTRANS_DESCRIPTION  = 'untranslatedDescription';
+    protected static $PROPERTY_UNTRANS_DESCRIPTION = 'untranslatedDescription';
 
     /**
      * @var tubepress_api_options_PersistenceInterface
@@ -68,10 +68,7 @@ abstract class tubepress_options_ui_impl_fields_AbstractField extends tubepress_
     }
 
     /**
-     * @return string The optional description of this element that is displayed to the user. May be empty or null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDescription()
     {

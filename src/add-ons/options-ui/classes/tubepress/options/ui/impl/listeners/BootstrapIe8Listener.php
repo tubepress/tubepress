@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
 {
     /**
@@ -51,8 +50,8 @@ class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
 
     private function _containsBootstrap(array $urls)
     {
-        /**
-         * @var $urls tubepress_api_url_UrlInterface[]
+        /*
+         * @var tubepress_api_url_UrlInterface[]
          */
         foreach ($urls as $url) {
 
@@ -106,7 +105,7 @@ class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
     }
 
     /**
-     * THIS IS HERE FOR TESTING ONLY
+     * THIS IS HERE FOR TESTING ONLY.
      *
      * @param array $serverVars
      */
