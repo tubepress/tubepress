@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -40,10 +40,10 @@ class tubepress_test_shortcode_ioc_ShortcodeExtensionTest extends tubepress_api_
         $logger->shouldReceive('isEnabled')->once()->andReturn(true);
 
         return array(
-            tubepress_api_log_LoggerInterface::_       => $logger,
+            tubepress_api_log_LoggerInterface::_            => $logger,
             tubepress_api_options_ContextInterface::_       => tubepress_api_options_ContextInterface::_,
             tubepress_api_event_EventDispatcherInterface::_ => tubepress_api_event_EventDispatcherInterface::_,
-            tubepress_api_util_StringUtilsInterface::_ => tubepress_api_util_StringUtilsInterface::_
+            tubepress_api_util_StringUtilsInterface::_      => tubepress_api_util_StringUtilsInterface::_,
         );
     }
 }

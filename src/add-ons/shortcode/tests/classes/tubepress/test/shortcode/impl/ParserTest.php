@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -52,7 +52,6 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
         $this->_sut = new tubepress_shortcode_impl_Parser($this->_mockLogger, $this->_mockExecutionContext, $this->_mockEventDispatcher, $this->_mockStringUtils);
     }
 
-
     public function testNothingToParse()
     {
         $shortcode = '[bu mode=&#8216;playlist&#8217;  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
@@ -68,11 +67,11 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
         $shortcode = '[butters mode=&#8216;playlist&#8217;  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $expected = array(
-            tubepress_api_options_Names::GALLERY_SOURCE                => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_api_options_Names::GALLERY_SOURCE                     => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
             tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR                          => 'false',
-            tubepress_api_options_Names::FEED_RESULT_COUNT_CAP                => 200,
-            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE              => 3
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR                => 'false',
+            tubepress_api_options_Names::FEED_RESULT_COUNT_CAP              => 200,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE              => 3,
         );
 
         $this->_setupExpectedFilters($expected, $shortcode);
@@ -91,11 +90,11 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
 
         $shortcode = '[butters mode=&#8216;playlist&#8217; playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
-        $expected = array(tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+        $expected = array(tubepress_api_options_Names::GALLERY_SOURCE       => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
             tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR => 'true',
-            tubepress_api_options_Names::FEED_RESULT_COUNT_CAP => 200,
-            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 3
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR                => 'true',
+            tubepress_api_options_Names::FEED_RESULT_COUNT_CAP              => 200,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE              => 3,
         );
 
         $this->_setupExpectedFilters($expected, $shortcode);
@@ -114,17 +113,15 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
 
         $shortcode = '[butters mode=&#8216;playlist&#8217;, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
 
-
         $expected = array(
-            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_api_options_Names::GALLERY_SOURCE                     => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
             tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR => 'true',
-            tubepress_api_options_Names::FEED_RESULT_COUNT_CAP => 200,
-            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE => 3
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR                => 'true',
+            tubepress_api_options_Names::FEED_RESULT_COUNT_CAP              => 200,
+            tubepress_api_options_Names::FEED_RESULTS_PER_PAGE              => 3,
         );
 
         $this->_setupExpectedFilters($expected, $shortcode);
-
 
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with($expected);
 
@@ -157,12 +154,11 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
         $shortcode = '[butters mode=&#8216;playlist&#8217; playlistValue=&#8242;foobar&#8242;]';
 
         $expected = array(
-            tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar'
+            tubepress_api_options_Names::GALLERY_SOURCE                     => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar',
         );
 
         $this->_setupExpectedFilters($expected, $shortcode);
-
 
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with($expected);
 
@@ -178,8 +174,8 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
 
         $shortcode = '[butters mode=&#34;playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
-        $expected = array(tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar'
+        $expected = array(tubepress_api_options_Names::GALLERY_SOURCE       => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar',
         );
 
         $this->_setupExpectedFilters($expected, $shortcode);
@@ -197,10 +193,9 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $shortcode = '[butters mode=playlist    ]';
-        $expected = array(tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST);
+        $expected  = array(tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected, $shortcode);
-
 
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with($expected);
 
@@ -236,7 +231,7 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
 
         $expected = array(tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters( $expected, $shortcode);
+        $this->_setupExpectedFilters($expected, $shortcode);
 
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with($expected);
 
@@ -284,7 +279,7 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
 
         $expected = array(tubepress_api_options_Names::GALLERY_SOURCE => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters( $expected, $shortcode);
+        $this->_setupExpectedFilters($expected, $shortcode);
 
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with($expected);
 
@@ -352,4 +347,3 @@ class tubepress_test_shortcode_impl_ParserTest extends tubepress_api_test_TubePr
         $this->_mockStringUtils->shouldReceive('redactSecrets')->twice()->with($shortcode);
     }
 }
-

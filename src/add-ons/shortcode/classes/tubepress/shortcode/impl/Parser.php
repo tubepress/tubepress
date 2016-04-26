@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -38,7 +38,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserI
      * @var tubepress_api_util_StringUtilsInterface
      */
     private $_stringUtils;
-    
+
     /**
      * @var string
      */
@@ -57,13 +57,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserI
     }
 
     /**
-     * This function is used to parse a shortcode into options that TubePress can use.
-     *
-     * @param string $content The haystack in which to search
-     *
-     * @return array The associative array of parsed options.
-     *
-     * @deprecated
+     * {@inheritdoc}
      */
     public function parse($content)
     {
@@ -105,7 +99,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserI
             $text    = self::_convertQuotes($text);
             $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s*,)?(?:\s|$)/';
 
-            if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
+            if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
 
                 if ($this->_shouldLog) {
 
@@ -127,24 +121,15 @@ class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserI
     }
 
     /**
-     * Determines if the given content contains a shortcode.
-     *
-     * @param string $content The content to search through
-     * @param string $trigger The shortcode trigger word
-     *
-     * @return boolean True if there's a shortcode in the content, false otherwise.
-     *
-     * @deprecated
+     * {@inheritdoc}
      */
-    public function somethingToParse($content, $trigger = "tubepress")
+    public function somethingToParse($content, $trigger = 'tubepress')
     {
         return preg_match("/\[$trigger\b(.*)\]/", $content) === 1;
     }
 
     /**
-     * @return string|null The last shortcode used, or null if never parsed.
-     *
-     * @deprecated
+     * {@inheritdoc}
      */
     public function getLastShortcodeUsed()
     {
@@ -152,36 +137,36 @@ class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserI
     }
 
     /**
-     * Handles the detection of a custom options
+     * Handles the detection of a custom options.
      *
-     * @param array                            $match         The array shortcode matches
+     * @param array $match The array shortcode matches
      *
      * @return array The name value pair array.
      */
     private function _buildNameValuePairArray($match)
     {
-        $toReturn        = array();
-        $value           = null;
+        $toReturn = array();
+        $value    = null;
 
         foreach ($match as $m) {
 
-            if (! empty($m[1])) {
+            if (!empty($m[1])) {
 
                 $name  = $m[1];
                 $value = $m[2];
 
-            } elseif (! empty($m[3])) {
+            } elseif (!empty($m[3])) {
 
                 $name  = $m[3];
                 $value = $m[4];
 
-            } elseif (! empty($m[5])) {
+            } elseif (!empty($m[5])) {
 
                 $name  = $m[5];
                 $value = $m[6];
             }
 
-            if (! isset($name) || ! isset($value)) {
+            if (!isset($name) || !isset($value)) {
 
                 continue;
             }
@@ -206,7 +191,7 @@ class tubepress_shortcode_impl_Parser implements tubepress_api_shortcode_ParserI
             $filtered = $event->getSubject();
 
             $event = $this->_eventDispatcher->newEventInstance($filtered, array(
-                'optionName' => $name
+                'optionName' => $name,
             ));
 
             $this->_eventDispatcher->dispatch(
