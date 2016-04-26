@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -90,26 +90,26 @@ class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_api_test_T
                     'HTTPS'       => 'on',
                     'SERVER_PORT' => 33,
                     'SERVER_NAME' => 'host.name',
-                    'REQUEST_URI' => '/foo/bar.php?test=foo&bla'
+                    'REQUEST_URI' => '/foo/bar.php?test=foo&bla',
                 ),
-                'https://host.name:33/foo/bar.php?test=foo&bla'
+                'https://host.name:33/foo/bar.php?test=foo&bla',
             ),
             array(
                 array(
                     'HTTPS'       => 'off',
                     'SERVER_PORT' => 44,
                     'SERVER_NAME' => 'foo.name',
-                    'REQUEST_URI' => '/bar/bar.php?test=foo&bla'
+                    'REQUEST_URI' => '/bar/bar.php?test=foo&bla',
                 ),
-                'http://foo.name:44/bar/bar.php?test=foo&bla'
+                'http://foo.name:44/bar/bar.php?test=foo&bla',
             ),
             array(
                 array(
                     'SERVER_PORT' => 80,
                     'SERVER_NAME' => 'foo.bar',
-                    'REQUEST_URI' => '/bar/foo.php?test=foo&bla'
+                    'REQUEST_URI' => '/bar/foo.php?test=foo&bla',
                 ),
-                'http://foo.bar/bar/foo.php?test=foo&bla'
+                'http://foo.bar/bar/foo.php?test=foo&bla',
             ),
         );
     }
