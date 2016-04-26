@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -58,7 +58,7 @@ class tubepress_test_single_ioc_SingleExtensionTest extends tubepress_api_test_i
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::HTML_GENERATION,
                 'priority' => 94000,
-                'method'   => 'onHtmlGeneration'
+                'method'   => 'onHtmlGeneration',
             ));
     }
 
@@ -75,7 +75,7 @@ class tubepress_test_single_ioc_SingleExtensionTest extends tubepress_api_test_i
     protected function getExpectedExternalServicesMap()
     {
         return array(
-            tubepress_api_log_LoggerInterface::_     => tubepress_api_log_LoggerInterface::_,
+            tubepress_api_log_LoggerInterface::_          => tubepress_api_log_LoggerInterface::_,
             tubepress_api_options_ContextInterface::_     => tubepress_api_options_ContextInterface::_,
             tubepress_api_media_CollectorInterface::_     => tubepress_api_media_CollectorInterface::_,
             tubepress_api_template_TemplatingInterface::_ => tubepress_api_template_TemplatingInterface::_,
