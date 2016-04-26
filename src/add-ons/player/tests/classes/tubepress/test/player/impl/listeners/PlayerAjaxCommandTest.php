@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -91,7 +91,7 @@ class tubepress_test_player_impl_listeners_PlayerAjaxListenerTest extends tubepr
         $mockVideo->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_TITLE, 'video title');
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('gallery/player/ajax', array(
-            tubepress_api_template_VariableNames::MEDIA_ITEM => $mockVideo
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mockVideo,
         ))->andReturn('player-html');
 
         $this->_mockVideoCollector->shouldReceive('collectSingle')->once()->andReturn($mockVideo);

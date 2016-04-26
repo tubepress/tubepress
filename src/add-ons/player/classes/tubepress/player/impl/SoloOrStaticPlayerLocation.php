@@ -1,6 +1,6 @@
 <?php
-/**
- * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+/*
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com).
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_impl_JsPlayerLocation
 {
     /**
@@ -27,15 +26,7 @@ class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_
     }
 
     /**
-     * Get the data required to populate the invoking HTML anchor.
-     *
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array An associative array where the keys are HTML <a> attribute names and the values are
-     *               the corresponding attribute values. May be empty nut never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAttributesForInvocationAnchor(tubepress_api_media_MediaItem $mediaItem)
     {
@@ -45,7 +36,7 @@ class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_
 
         return array(
             'rel'  => 'nofollow',
-            'href' => $this->_url->toString()
+            'href' => $this->_url->toString(),
         );
     }
 }

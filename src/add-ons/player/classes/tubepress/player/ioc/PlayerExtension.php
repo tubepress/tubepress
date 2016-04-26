@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -47,8 +35,8 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_ResponseCodeInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-             'event'     => tubepress_api_event_Events::HTTP_AJAX . '.playerHtml',
-             'priority'  => 100000,
+             'event'    => tubepress_api_event_Events::HTTP_AJAX . '.playerHtml',
+             'priority' => 100000,
              'method'   => 'onAjax',
         ));
 
@@ -59,31 +47,31 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_template_TemplatingInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => 'tubepress_spi_player_PlayerLocationInterface',
-            'method' => 'setPlayerLocations'))
+            'method' => 'setPlayerLocations', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::MEDIA_PAGE_NEW,
             'priority' => 92000,
-            'method'   => 'onNewMediaPage'))
+            'method'   => 'onNewMediaPage', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::PLAYER_LOCATION,
             'priority' => 100000,
-            'method'   => 'onAcceptableValues'))
+            'method'   => 'onAcceptableValues', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_SELECT . '.gallery/player/static',
             'priority' => 100000,
-            'method'   => 'onStaticPlayerTemplateSelection'))
+            'method'   => 'onStaticPlayerTemplateSelection', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_SELECT . '.gallery/player/ajax',
             'priority' => 100000,
-            'method'   => 'onAjaxPlayerTemplateSelection'))
+            'method'   => 'onAjaxPlayerTemplateSelection', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'priority' => 94000,
-            'method'   => 'onGalleryTemplatePreRender'))
+            'method'   => 'onGalleryTemplatePreRender', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::GALLERY_INIT_JS,
             'priority' => 96000,
-            'method'   => 'onGalleryInitJs'));
+            'method'   => 'onGalleryInitJs', ));
 
         $containerBuilder->register(
             'tubepress_player_impl_listeners_SoloPlayerListener',
@@ -94,7 +82,7 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 98000,
-            'method'   => 'onHtmlGeneration'
+            'method'   => 'onHtmlGeneration',
         ));
     }
 
@@ -231,7 +219,7 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_spi_ioc_Containe
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::EMBEDDED_SCROLL_ON,
             ),

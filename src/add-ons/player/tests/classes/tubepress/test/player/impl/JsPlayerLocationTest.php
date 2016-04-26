@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -35,4 +35,3 @@ class tubepress_test_player_impl_JsPlayerLocationTest extends tubepress_api_test
         $this->assertEquals(array(), $this->_sut->getAttributesForInvocationAnchor($mockMediaItem));
     }
 }
-

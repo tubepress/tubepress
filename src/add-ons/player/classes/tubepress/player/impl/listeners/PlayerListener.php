@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_player_impl_listeners_PlayerListener
 {
     /**
@@ -42,8 +41,8 @@ class tubepress_player_impl_listeners_PlayerListener
 
     public function onNewMediaPage(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $mediaPage tubepress_api_media_MediaPage
+        /*
+         * @var tubepress_api_media_MediaPage
          */
         $mediaPage = $event->getSubject();
         $items     = $mediaPage->getItems();
@@ -89,8 +88,8 @@ class tubepress_player_impl_listeners_PlayerListener
 
         $toAdd = array();
 
-        /**
-         * @var $playerLocation tubepress_spi_player_PlayerLocationInterface
+        /*
+         * @var tubepress_spi_player_PlayerLocationInterface
          */
         foreach ($this->_playerLocationNameToInstanceMap as $name => $playerLocation) {
 
@@ -114,13 +113,13 @@ class tubepress_player_impl_listeners_PlayerListener
             return;
         }
 
-        /**
-         * @var $templateVars array
+        /*
+         * @var array
          */
         $templateVars = $event->getSubject();
 
-        /**
-         * @var $mediaPage tubepress_api_media_MediaPage
+        /*
+         * @var tubepress_api_media_MediaPage
          */
         $mediaPage = $templateVars['mediaPage'];
         $items     = $mediaPage->getItems();
@@ -133,7 +132,7 @@ class tubepress_player_impl_listeners_PlayerListener
         $mediaItem = $items[0];
 
         $playerTemplateVars = array(
-            tubepress_api_template_VariableNames::MEDIA_ITEM => $mediaItem
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mediaItem,
         );
 
         $playerHtml = $this->_templating->renderTemplate('gallery/player/static', $playerTemplateVars);
@@ -180,7 +179,7 @@ class tubepress_player_impl_listeners_PlayerListener
         }
 
         $options = array(
-            tubepress_api_options_Names::PLAYER_LOCATION => $activePlayerLocation->getName()
+            tubepress_api_options_Names::PLAYER_LOCATION => $activePlayerLocation->getName(),
         );
 
         $args['options'] = array_merge($args['options'], $options);
