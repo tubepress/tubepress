@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -83,12 +83,12 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_api
     public function testGetFeedSortNamesToLabels()
     {
         $expected = array(
-            tubepress_youtube3_api_Constants::ORDER_BY_DEFAULT        => 'default',                         
-            tubepress_youtube3_api_Constants::ORDER_BY_NEWEST         => 'date published (newest first)',   
-            tubepress_youtube3_api_Constants::ORDER_BY_RATING         => 'rating',                          
-            tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE      => 'relevance',                       
-            tubepress_youtube3_api_Constants::ORDER_BY_TITLE          => 'title',                           
-            tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT     => 'view count',                      
+            tubepress_youtube3_api_Constants::ORDER_BY_DEFAULT    => 'default',
+            tubepress_youtube3_api_Constants::ORDER_BY_NEWEST     => 'date published (newest first)',
+            tubepress_youtube3_api_Constants::ORDER_BY_RATING     => 'rating',
+            tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE  => 'relevance',
+            tubepress_youtube3_api_Constants::ORDER_BY_TITLE      => 'title',
+            tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT => 'view count',
         );
 
         $this->assertEquals($expected, $this->_sut->getMapOfFeedSortNamesToUntranslatedLabels());
@@ -97,12 +97,12 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_api
     public function testGetMetaOptionNamesToDisplayNames()
     {
         $expected = array(
-            tubepress_api_options_Names::META_DISPLAY_TITLE       => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
-            tubepress_api_options_Names::META_DISPLAY_LENGTH      => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
-            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_URL         => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
-            tubepress_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_TITLE    => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+            tubepress_api_options_Names::META_DISPLAY_LENGTH   => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR   => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_URL      => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
+            tubepress_api_options_Names::META_DISPLAY_CATEGORY => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
             tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
             tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,

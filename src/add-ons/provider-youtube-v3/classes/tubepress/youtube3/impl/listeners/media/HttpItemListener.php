@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_youtube3_impl_listeners_media_HttpItemListener
 {
     /**
@@ -110,13 +109,13 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $value = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            'publishedAt'
+            'publishedAt',
         ));
 
         if ($value !== '') {
 
             $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
-                $this->_timeUtils->rfc3339toUnixTime($value);;
+                $this->_timeUtils->rfc3339toUnixTime($value);
         }
     }
 
@@ -127,13 +126,13 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $channelId = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CHANNEL_ID
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CHANNEL_ID,
         ));
 
         $channelTitle = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CHANNEL_TITLE
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CHANNEL_TITLE,
         ));
 
         $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]      = $channelId;
@@ -147,7 +146,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $title = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_TITLE
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_TITLE,
         ));
 
         $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_TITLE] = $title;
@@ -158,7 +157,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $description = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_DESCRIPTION
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_DESCRIPTION,
         ));
 
         $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION] = nl2br($description);
@@ -171,7 +170,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_THUMBS,
             'default',
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_THUMBS_URL
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_THUMBS_URL,
         ));
 
         if ($this->_context->get(tubepress_api_options_Names::GALLERY_RANDOM_THUMBS)) {
@@ -196,7 +195,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $tags = $this->_relativeQueryAsArray($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_TAGS
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_TAGS,
         ));
 
         $toReturn[tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY] = $tags;
@@ -207,7 +206,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $rawDuration = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS_DURATION
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS_DURATION,
         ));
 
         $dateInterval = new \DateInterval($rawDuration);
@@ -223,7 +222,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $categoryId = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CATEGORY_ID
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_CATEGORY_ID,
         ));
 
         $categoryUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
@@ -260,7 +259,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $viewCountRaw = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_VIEWS
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_VIEWS,
         ));
 
         if ($viewCountRaw !== '') {
@@ -274,7 +273,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $count = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_LIKES
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_LIKES,
         ));
 
         if ($count !== '') {
@@ -288,7 +287,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $count = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_DISLIKES
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_DISLIKES,
         ));
 
         if ($count !== '') {
@@ -302,7 +301,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $count = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_FAVORITES
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_FAVORITES,
         ));
 
         if ($count !== '') {
@@ -316,7 +315,7 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
         $count = $this->_relativeQueryAsString($json, $index, array(
 
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_COMMENTS
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS_COMMENTS,
         ));
 
         if ($count !== '') {

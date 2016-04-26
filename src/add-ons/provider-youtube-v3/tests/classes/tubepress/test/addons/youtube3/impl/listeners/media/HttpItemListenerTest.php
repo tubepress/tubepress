@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -127,7 +127,7 @@ Download the Android version here: https://play.google.com/store/apps/details?id
                 '2016',
                 'Army',
                 'Bad Idea',
-                'Control'),
+                'Control', ),
             tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS => 233,
             tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL         => 'https://youtu.be/media-item-id',
             tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT       => 75490,
@@ -155,48 +155,48 @@ Download the Android version here: https://play.google.com/store/apps/details?id
             'formatNumberAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED, 0, ),
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED, 0, ),
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT, 0, ),
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED, 0, ),
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED, 0, ),
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED, 0),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED, 0, ),
             ),
 
             'truncateStringAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
                     tubepress_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
-                    tubepress_api_options_Names::META_DESC_LIMIT),
+                    tubepress_api_options_Names::META_DESC_LIMIT, ),
             ),
 
             'formatDurationAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED, ),
             ),
 
             'formatDateAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED),
+                    tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED, ),
             ),
 
             'implodeArrayAttribute' => array(
 
                 array(tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY,
-                    tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', '),
-            )
+                    tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ', ),
+            ),
         );
 
         foreach ($formatAttributesMap as $method => $calls) {

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_youtube3_impl_ApiUtility
 {
     const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/';
@@ -25,8 +24,8 @@ class tubepress_youtube3_impl_ApiUtility
     /**
      * Everything supports the "id" and "snippet" parts. At least so far.
      */
-    const PART_ID                     = 'id';
-    const PART_SNIPPET                = 'snippet';
+    const PART_ID      = 'id';
+    const PART_SNIPPET = 'snippet';
 
     /**
      * search only supports the snippet part, so nothing special for it.
@@ -47,22 +46,22 @@ class tubepress_youtube3_impl_ApiUtility
     /**
      * Query keys specific to videos.
      */
-    const QUERY_VIDEOS_ID   = 'id';
+    const QUERY_VIDEOS_ID    = 'id';
     const QUERY_VIDEOS_CHART = 'chart';
 
     /**
-     * Query keys specific to playlistItems
+     * Query keys specific to playlistItems.
      */
-    const QUERY_PLITEMS_PL_ID  = 'playlistId';
+    const QUERY_PLITEMS_PL_ID = 'playlistId';
 
     /**
-     * Query keys specific to channels
+     * Query keys specific to channels.
      */
     const QUERY_CHANNELS_ID          = 'id';
     const QUERY_CHANNELS_FORUSERNAME = 'forUsername';
 
     /**
-     * Query keys specific to search
+     * Query keys specific to search.
      */
     const QUERY_SEARCH_CHANNEL_ID = 'channelId';
     const QUERY_SEARCH_EMBEDDABLE = 'videoEmbeddable';
@@ -74,7 +73,7 @@ class tubepress_youtube3_impl_ApiUtility
     const QUERY_SEARCH_TYPE       = 'type';
 
     /**
-     * Query keys specific to categories
+     * Query keys specific to categories.
      */
     const QUERY_CATEGORIES_ID = 'id';
 
@@ -94,14 +93,14 @@ class tubepress_youtube3_impl_ApiUtility
     const RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_UPLOADS   = 'uploads';
 
     /**
-     * playlistItem resource fields
+     * playlistItem resource fields.
      */
     const RESOURCE_PLITEM_SNIPPET                      = 'snippet';
     const RESOURCE_PLITEM_SNIPPET_RESOURCE_ID          = 'resourceId';
     const RESOURCE_PLITEM_SNIPPET_RESOURCE_ID_VIDEO_ID = 'videoId';
 
     /**
-     * search resource fields
+     * search resource fields.
      */
     const RESOURCE_SEARCH_ID          = 'id';
     const RESOURCE_SEARCH_ID_VIDEO_ID = 'videoId';
@@ -178,7 +177,8 @@ class tubepress_youtube3_impl_ApiUtility
 
     /**
      * @param tubepress_api_url_UrlInterface $url
-     * @param array $requestOpts
+     * @param array                          $requestOpts
+     *
      * @return array
      */
     public function getDecodedApiResponse(tubepress_api_url_UrlInterface $url, $requestOpts = array())

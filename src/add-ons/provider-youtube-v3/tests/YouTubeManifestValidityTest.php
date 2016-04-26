@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,13 +8,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_test_app_YouTubeManifestValidityTest extends tubepress_api_test_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
-        /**
-         * @var $addon tubepress_api_contrib_AddonInterface
+        /*
+         * @var tubepress_api_contrib_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 

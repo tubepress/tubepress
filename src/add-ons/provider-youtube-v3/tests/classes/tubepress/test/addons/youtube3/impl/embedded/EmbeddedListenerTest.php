@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -41,11 +41,11 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
 
     public function onSetup()
     {
-        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockContext        = $this->mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockLangUtils      = $this->mock(tubepress_api_util_LangUtilsInterface::_);
-        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockMediaItem      = $this->mock('tubepress_api_media_MediaItem');
+        $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockContext    = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockLangUtils  = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockMediaItem  = $this->mock('tubepress_api_media_MediaItem');
 
         $this->_sut = new tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider(
             $this->_mockContext,
@@ -74,8 +74,8 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED)->andReturn(false);
 
         $mockFullUrl = $this->mock('tubepress_api_url_UrlInterface');
-        $mockUrl2 = $this->mock('tubepress_api_url_UrlInterface');
-        $mockQuery = $this->mock('tubepress_api_url_QueryInterface');
+        $mockUrl2    = $this->mock('tubepress_api_url_UrlInterface');
+        $mockQuery   = $this->mock('tubepress_api_url_QueryInterface');
         $mockUrl2->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $mockFullUrl->shouldReceive('getScheme')->once()->andReturn('sdy');
         $mockFullUrl->shouldReceive('getHost')->once()->andReturn('too.net');
@@ -97,7 +97,7 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
         $expected = array(
-            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2,
         );
 
         $actual = $this->_sut->getTemplateVariables($this->_mockMediaItem);

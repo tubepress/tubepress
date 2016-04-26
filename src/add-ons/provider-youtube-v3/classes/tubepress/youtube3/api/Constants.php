@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -26,6 +26,7 @@ class tubepress_youtube3_api_Constants
 
     /**
      * @api
+     *
      * @since 4.1.0
      */
     const OPTION_API_KEY = 'googleApiKey';
@@ -38,12 +39,12 @@ class tubepress_youtube3_api_Constants
      *
      * @deprecated
      */
-    const OPTION_YOUTUBE_MOST_POPULAR_VALUE   = 'youtubeMostPopularValue';
+    const OPTION_YOUTUBE_MOST_POPULAR_VALUE = 'youtubeMostPopularValue';
 
     /**
      * Related/responses.
      */
-    const OPTION_YOUTUBE_RELATED_VALUE   = 'youtubeRelatedValue';
+    const OPTION_YOUTUBE_RELATED_VALUE = 'youtubeRelatedValue';
 
     /**
      * Users/playlist/search/favorites etc.
@@ -62,23 +63,22 @@ class tubepress_youtube3_api_Constants
     /**
      * @deprecated
      */
-    const OPTION_RATING  = 'rating';
+    const OPTION_RATING = 'rating';
 
     /**
      * @deprecated
      */
     const OPTION_RATINGS = 'ratings';
 
-
     /**
      * @deprecated
      */
-    const GALLERYSOURCE_YOUTUBE_MOST_POPULAR   = 'youtubeMostPopular';
+    const GALLERYSOURCE_YOUTUBE_MOST_POPULAR = 'youtubeMostPopular';
 
     /**
      * Related/responses.
      */
-    const GALLERYSOURCE_YOUTUBE_RELATED   = 'youtubeRelated';
+    const GALLERYSOURCE_YOUTUBE_RELATED = 'youtubeRelated';
 
     /**
      * Users/playlist/search/favorites etc.
@@ -106,37 +106,43 @@ class tubepress_youtube3_api_Constants
 
     /**
      * @api
+     *
      * @since 3.1.2
      */
     const ORDER_BY_DEFAULT = 'default';
 
     /**
      * @api
+     *
      * @since 4.0.0
      */
-    const ORDER_BY_NEWEST        = 'newest';
+    const ORDER_BY_NEWEST = 'newest';
 
     /**
      * @api
+     *
      * @since 4.0.0
      */
-    const ORDER_BY_TITLE         = 'title';
+    const ORDER_BY_TITLE = 'title';
 
     /**
      * @api
+     *
      * @since 4.0.0
      */
-    const ORDER_BY_RATING        = 'rating';
+    const ORDER_BY_RATING = 'rating';
 
     /**
      * @api
+     *
      * @since 4.0.0
      */
-    const ORDER_BY_RELEVANCE     = 'relevance';
+    const ORDER_BY_RELEVANCE = 'relevance';
 
     /**
      * @api
+     *
      * @since 4.0.0
      */
-    const ORDER_BY_VIEW_COUNT    = 'viewCount';
+    const ORDER_BY_VIEW_COUNT = 'viewCount';
 }
