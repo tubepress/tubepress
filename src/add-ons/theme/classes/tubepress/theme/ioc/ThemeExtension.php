@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -85,7 +73,7 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerE
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
            'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_api_options_Names::THEME,
            'priority' => 100000,
-           'method'   => 'onPreValidationSet'
+           'method'   => 'onPreValidationSet',
         ));
 
         $containerBuilder->register(
@@ -95,7 +83,7 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerE
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
            'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::THEME,
            'priority' => 100000,
-           'method'   => 'onAcceptableValues'
+           'method'   => 'onAcceptableValues',
         ));
 
         $containerBuilder->register(
@@ -105,7 +93,7 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerE
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::THEME_ADMIN,
             'priority' => 100000,
-            'method'   => 'onAcceptableValues'
+            'method'   => 'onAcceptableValues',
         ));
     }
 
@@ -149,7 +137,7 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_spi_ioc_ContainerE
 
         $fieldMap = array(
             tubepress_api_options_ui_CategoryNames::THEME => array(
-                tubepress_api_options_Names::THEME
+                tubepress_api_options_Names::THEME,
             ),
         );
 

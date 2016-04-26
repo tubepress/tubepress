@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,10 +15,7 @@
 class tubepress_theme_ioc_compiler_ThemesPrimerPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -28,15 +25,15 @@ class tubepress_theme_ioc_compiler_ThemesPrimerPass implements tubepress_spi_ioc
 
     private function _process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $id)
     {
-        $logger         = $containerBuilder->get('tubepress_internal_logger_BootLogger');
-        $finderFactory  = $containerBuilder->get('finder_factory');
-        $bootSettings   = $containerBuilder->get(tubepress_api_boot_BootSettingsInterface::_);
-        $context        = $containerBuilder->get(tubepress_api_options_ContextInterface::_);
-        $urlFactory     = $containerBuilder->get(tubepress_api_url_UrlFactoryInterface::_);
-        $langUtils      = $containerBuilder->get(tubepress_api_util_LangUtilsInterface::_);
-        $stringUtils    = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
-        $serializer     = new tubepress_internal_boot_helper_uncached_Serializer($bootSettings);
-        $factory        = new tubepress_internal_boot_helper_uncached_contrib_ThemeFactory(
+        $logger        = $containerBuilder->get('tubepress_internal_logger_BootLogger');
+        $finderFactory = $containerBuilder->get('finder_factory');
+        $bootSettings  = $containerBuilder->get(tubepress_api_boot_BootSettingsInterface::_);
+        $context       = $containerBuilder->get(tubepress_api_options_ContextInterface::_);
+        $urlFactory    = $containerBuilder->get(tubepress_api_url_UrlFactoryInterface::_);
+        $langUtils     = $containerBuilder->get(tubepress_api_util_LangUtilsInterface::_);
+        $stringUtils   = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
+        $serializer    = new tubepress_internal_boot_helper_uncached_Serializer($bootSettings);
+        $factory       = new tubepress_internal_boot_helper_uncached_contrib_ThemeFactory(
             $context, $urlFactory, $langUtils, $logger, $stringUtils, $finderFactory
         );
 

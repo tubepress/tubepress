@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,14 +9,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_theme_impl_listeners_LegacyThemeListener
 {
     private static $_LEGACY_THEME_VALUES = array(
 
-        'default', 'youtube', 'vimeo', 'sidebar'
+        'default', 'youtube', 'vimeo', 'sidebar',
     );
 
     /**
@@ -49,6 +46,7 @@ class tubepress_theme_impl_listeners_LegacyThemeListener
             }
 
             $event->setArgument('optionValue', "tubepress/legacy-$themeValue");
+
             return;
         }
 
