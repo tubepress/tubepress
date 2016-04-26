@@ -16,28 +16,28 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-/**
+/*
  * Tell TubePress where we're located.
  */
 define('TUBEPRESS_ROOT', __DIR__);
 
-/**
+/*
  * Boot TubePress and get the service container. On a properly-tuned server this should
- * take < 5 ms
+ * take < 5 ms.
  *
- * @var $serviceContainer tubepress_api_ioc_ContainerInterface
+ * @var tubepress_api_ioc_ContainerInterface
  */
-/** @noinspection PhpIncludeInspection */
+/* @noinspection PhpIncludeInspection */
 $serviceContainer = require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
 
-/**
+/*
  * Get the WordPress entry point service.
  *
- * @var $entryPoint tubepress_wordpress_impl_EntryPoint
+ * @var tubepress_wordpress_impl_EntryPoint
  */
 $entryPoint = $serviceContainer->get('tubepress_wordpress_impl_EntryPoint');
 
-/**
+/*
  * This integrates TubePress with WordPress filters, hooks, activation hooks, etc.
  */
 $entryPoint->start();

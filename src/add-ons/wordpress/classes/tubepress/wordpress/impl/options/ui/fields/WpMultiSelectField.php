@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -42,7 +42,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
     }
 
     /**
-     * @return string[] An array of currently selected values, which may be empty.
+     * {@inheritdoc}
      */
     protected function getCurrentlySelectedValues()
     {
@@ -50,7 +50,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
     }
 
     /**
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     protected function onSubmitAllMissing()
     {
@@ -61,33 +61,31 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
     }
 
     /**
-     * @return array An associative array of value => untranslated display names
+     * {@inheritdoc}
      */
     protected function getUngroupedChoicesArray()
     {
         if ($this->getId() === tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CATEGORIES) {
-            
+
             $terms = $this->_resourceRepo->getAllCategories();
-            
+
         } else {
-            
+
             $terms = $this->_resourceRepo->getAllTags();
         }
-        
+
         $toReturn = array();
-        
+
         foreach ($terms as $term) {
-            
+
             $toReturn[$term->slug] = $term->name;
         }
-        
+
         return $toReturn;
     }
 
     /**
-     * @param array $values The incoming values for this field.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     protected function onSubmitMixed(array $values)
     {
@@ -97,12 +95,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpMultiSelectField extends tube
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isProOnly()
     {

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -117,7 +117,7 @@ class tubepress_test_wordpress_impl_http_oauth2_Oauth2EnvironmentTest extends tu
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockUrl, array(
-            'provider' => $this->_mockOauth2Provider
+            'provider' => $this->_mockOauth2Provider,
         ))->andReturn($mockEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(

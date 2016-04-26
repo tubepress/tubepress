@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -97,7 +97,7 @@ class tubepress_wordpress_impl_wp_ResourceRepository
 
             $authors = $this->_wpFunctions->get_users(
                 array(
-                    'who' => 'author'
+                    'who' => 'author',
                 )
             );
 
@@ -157,7 +157,7 @@ class tubepress_wordpress_impl_wp_ResourceRepository
             $wpTheme  = $this->_wpFunctions->wp_get_theme();
             $toReturn = array();
 
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             $templates = $wpTheme->get_page_templates();
 
             foreach ($templates as $displayName => $fileName) {

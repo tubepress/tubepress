@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -44,7 +44,7 @@ class tubepress_wordpress_impl_listeners_wpaction_WidgetInitListener
 
         $this->_wpFunctions->register_widget('tubepress_wordpress_impl_wp_WpWidget');
 
-        /**
+        /*
          * These next three lines are deprecated!
          */
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -31,10 +31,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return string The optional description of this element that is displayed to the user. May be empty or null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDescription()
     {
@@ -42,10 +39,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return string The widget HTML for this form element.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getWidgetHTML()
     {
@@ -53,9 +47,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * Invoked when the element is submitted by the user.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
@@ -65,9 +57,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
+     * {@inheritdoc}
      */
     public function isProOnly()
     {
@@ -75,7 +65,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return string The name of the item that is displayed to the user.
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -83,7 +73,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return string The page-unique identifier for this item.
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -91,7 +81,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @return tubepress_api_collection_MapInterface
+     * {@inheritdoc}
      */
     public function getProperties()
     {
@@ -99,13 +89,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     }
 
     /**
-     * @param string $name  The property name.
-     * @param mixed  $value The property value.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setProperty($name, $value)
     {

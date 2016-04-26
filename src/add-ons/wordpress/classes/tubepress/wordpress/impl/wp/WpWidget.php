@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -35,8 +35,8 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
 
     public function __construct()
     {
-        /** @noinspection PhpUndefinedClassInspection */
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedClassInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         parent::__construct(
             'tubepress_widget_gattaca',
             'TubePress',
@@ -56,14 +56,14 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
      */
     public function widget($args, $instance)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        $title   = empty($instance['title']) ? '' : $instance['title'];
-        $text    = empty($instance['text'])  ? '' : $instance['text'];
+        /* @noinspection PhpUndefinedFunctionInspection */
+        $title = empty($instance['title']) ? '' : $instance['title'];
+        $text  = empty($instance['text'])  ? '' : $instance['text'];
 
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         $title = apply_filters('widget_title', $title, $instance, 'tubepress_widget_gattaca');
 
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         $text = do_shortcode($text);
 
         echo $args['before_widget'];
@@ -87,8 +87,8 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
     {
         $sc = $this->_getServiceContainer();
 
-        /**
-         * @var $templating tubepress_api_template_TemplatingInterface
+        /*
+         * @var tubepress_api_template_TemplatingInterface
          */
         $templating = $sc->get(tubepress_api_template_TemplatingInterface::_ . '.admin');
 
@@ -107,10 +107,10 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
             self::$_TEMPLATE_VAR_TITLE_FIELD_NAME  => $this->get_field_name('title'),
             self::$_TEMPLATE_VAR_TITLE_FIELD_VALUE => $title,
 
-            self::$_TEMPLATE_VAR_TEXT_FIELD_ID     => $this->get_field_id('text'),
-            self::$_TEMPLATE_VAR_TEXT_FIELD_NAME   => $this->get_field_name('text'),
-            self::$_TEMPLATE_VAR_TEXT_FIELD_DESC   => __(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"), "tubepress"), //>(translatable)<
-            self::$_TEMPLATE_VAR_TEXT_FIELD_VALUE  => $text,
+            self::$_TEMPLATE_VAR_TEXT_FIELD_ID    => $this->get_field_id('text'),
+            self::$_TEMPLATE_VAR_TEXT_FIELD_NAME  => $this->get_field_name('text'),
+            self::$_TEMPLATE_VAR_TEXT_FIELD_DESC  => __(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"), "tubepress"), //>(translatable)<
+            self::$_TEMPLATE_VAR_TEXT_FIELD_VALUE => $text,
         );
 
         echo $templating->renderTemplate('wordpress/modern-widget-controls', $templateVars);
@@ -157,8 +157,8 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
         $toImplode = array();
         $sc        = $this->_getServiceContainer();
 
-        /**
-         * @var $context tubepress_api_options_ContextInterface
+        /*
+         * @var tubepress_api_options_ContextInterface
          */
         $context = $sc->get(tubepress_api_options_ContextInterface::_);
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -75,13 +75,13 @@ class tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
         $cssStrings = array_map($callback, $cssUrls);
         $jsStrings  = array_map($callback, $jsUrls);
 
-        for ($x = 0; $x < count($cssStrings); $x++) {
+        for ($x = 0; $x < count($cssStrings); ++$x) {
 
             $this->_wpFunctions->wp_register_style('tubepress-' . $x, $cssStrings[$x]);
             $this->_wpFunctions->wp_enqueue_style('tubepress-' . $x);
         }
 
-        for ($x = 0; $x < count($jsStrings); $x++) {
+        for ($x = 0; $x < count($jsStrings); ++$x) {
 
             $this->_wpFunctions->wp_register_script('tubepress-' . $x, $jsStrings[$x]);
             $this->_wpFunctions->wp_enqueue_script('tubepress-' . $x, false, array(), false, false);
@@ -103,7 +103,7 @@ class tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
         $wpScripts->remove('jquery-core');
         $wpScripts->remove('jquery-migrate');
 
-        $wpScripts->add('jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.11.3' );
+        $wpScripts->add('jquery', false, array('jquery-core', 'jquery-migrate'), '1.11.3');
         $wpScripts->add('jquery-core', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js', array(), '1.11.3');
         $wpScripts->add('jquery-migrate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js', array(), '1.2.1');
     }
@@ -134,7 +134,7 @@ class tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
 
             $isSystem = true;
 
-        } else if (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
+        } elseif (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
 
             //this should never happen
             return $urlAsString;

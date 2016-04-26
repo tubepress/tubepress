@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -51,7 +51,7 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         $user2->display_name = 'User 2';
 
         $fakeUsers = array(
-            $user2, $user1
+            $user2, $user1,
         );
         $this->_mockResourceRepo->shouldReceive('getAuthors')->once()->andReturn($fakeUsers);
 
@@ -75,7 +75,7 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         $status2->label = 'status 2 label';
 
         $this->_mockResourceRepo->shouldReceive('getAllUsablePostStatuses')->once()->andReturn(array(
-            $status2, $status1
+            $status2, $status1,
         ));
 
         $this->_setupEventForSubjectSet(array(
@@ -101,7 +101,7 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         $type2->labels->singular_name = 'type 2 label';
 
         $this->_mockResourceRepo->shouldReceive('getAllUsablePostTypes')->once()->andReturn(array(
-            $type2, $type1
+            $type2, $type1,
         ));
 
         $this->_setupEventForSubjectSet(array(
@@ -142,7 +142,7 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         $term2->name = 'Term 2';
 
         $fakeTerms = array(
-            $term2, $term1
+            $term2, $term1,
         );
         $this->_mockResourceRepo->shouldReceive($resourceRepoMethod)->once()->andReturn($fakeTerms);
 

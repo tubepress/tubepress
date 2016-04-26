@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -88,7 +88,7 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_api_test_TubePr
         $this->_mockWpFunctions     = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $this->_mockStringUtils     = $this->mock(tubepress_api_util_StringUtilsInterface::_);
 
-        $this->_mockTranslator->shouldReceive('trans')->atLeast(1)->andReturnUsing( function ($key) {
+        $this->_mockTranslator->shouldReceive('trans')->atLeast(1)->andReturnUsing(function ($key) {
             return "<<$key>>";
         });
 
@@ -138,16 +138,16 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_api_test_TubePr
         $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_api_options_Names::GALLERY_THUMB_WIDTH => 22135));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
             tubepress_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
-            tubepress_api_options_Names::META_DISPLAY_VIEWS                  => false,
-            tubepress_api_options_Names::META_DISPLAY_DESCRIPTION            => true,
+            tubepress_api_options_Names::META_DISPLAY_VIEWS       => false,
+            tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => true,
             tubepress_api_options_Names::META_DESC_LIMIT          => 50,
-            tubepress_api_options_Names::PLAYER_LOCATION => 'shadowbox',
-            tubepress_api_options_Names::GALLERY_THUMB_HEIGHT        => 105,
-            tubepress_api_options_Names::GALLERY_THUMB_WIDTH         => 22135,
-            tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE      => false,
-            tubepress_api_options_Names::GALLERY_PAGINATE_BELOW      => false,
-            tubepress_api_options_Names::THEME               => 'tubepress/default',
-            tubepress_api_options_Names::GALLERY_FLUID_THUMBS        => false
+            tubepress_api_options_Names::PLAYER_LOCATION          => 'shadowbox',
+            tubepress_api_options_Names::GALLERY_THUMB_HEIGHT     => 105,
+            tubepress_api_options_Names::GALLERY_THUMB_WIDTH      => 22135,
+            tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE   => false,
+            tubepress_api_options_Names::GALLERY_PAGINATE_BELOW   => false,
+            tubepress_api_options_Names::THEME                    => 'tubepress/default',
+            tubepress_api_options_Names::GALLERY_FLUID_THUMBS     => false,
         ));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array());
 
@@ -162,7 +162,7 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_api_test_TubePr
                 'before_widget' => 'before_widget',
                 'before_title'  => 'before_title',
                 'after_title'   => 'after_title',
-                'after_widget'  => 'after_widget'
+                'after_widget'  => 'after_widget',
             )
         );
 

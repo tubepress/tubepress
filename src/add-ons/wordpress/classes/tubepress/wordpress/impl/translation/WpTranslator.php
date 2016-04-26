@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  * 
  * This file is part of TubePress (http://tubepress.com)
@@ -25,17 +25,7 @@ class tubepress_wordpress_impl_translation_WpTranslator extends tubepress_intern
     }
 
     /**
-     * Translates the given message.
-     *
-     * @param string      $id         The message id (may also be an object that can be cast to string)
-     * @param string|null $domain     The domain for the message or null to use the default
-     * @param string|null $locale     The locale or null to use the default
-     *
-     * @throws InvalidArgumentException If the locale contains invalid characters
-     *
-     * @return string The translated string
-     *
-     * @api
+     * {@inheritdoc}
      */
     protected function translate($id, $domain = null, $locale = null)
     {
@@ -45,13 +35,7 @@ class tubepress_wordpress_impl_translation_WpTranslator extends tubepress_intern
     }
 
     /**
-     * Sets the current locale.
-     *
-     * @param string $locale The locale
-     *
-     * @throws InvalidArgumentException If the locale contains invalid characters
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function setLocale($locale)
     {
@@ -59,11 +43,7 @@ class tubepress_wordpress_impl_translation_WpTranslator extends tubepress_intern
     }
 
     /**
-     * Returns the current locale.
-     *
-     * @return string The locale
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function getLocale()
     {

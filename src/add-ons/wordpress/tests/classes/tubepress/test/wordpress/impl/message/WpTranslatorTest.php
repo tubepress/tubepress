@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,11 +56,11 @@ class tubepress_test_wordpress_impl_message_WpTranslatorTest extends tubepress_a
 
     public function testGetKey()
     {
-        $result = $this->_sut->trans('foo') === "[[foo]]";
+        $result = $this->_sut->trans('foo') === '[[foo]]';
 
         if (!$result) {
 
-            print "foo did not resolve to [[foo]]";
+            echo 'foo did not resolve to [[foo]]';
         }
 
         $this->assertTrue($result);

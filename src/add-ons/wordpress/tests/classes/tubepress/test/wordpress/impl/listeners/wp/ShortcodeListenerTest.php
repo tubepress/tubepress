@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -95,7 +95,7 @@ class tubepress_test_wordpress_impl_listeners_wp_ShortcodeListenerTest extends t
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_wordpress_api_Constants::SHORTCODE_PARSED, $mockEvent);
 
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn(array(
-            $incomingAttributes, 'shortcode content'
+            $incomingAttributes, 'shortcode content',
         ));
 
         $this->_mockIncomingEvent->shouldReceive('setArgument')->once()->with('result', 'html for shortcode');
@@ -108,7 +108,7 @@ class tubepress_test_wordpress_impl_listeners_wp_ShortcodeListenerTest extends t
         return array(
 
             array('', array()),
-            array(array('foo' => 'bar'), array('foO' => 'bar'))
+            array(array('foo' => 'bar'), array('foO' => 'bar')),
         );
     }
 }

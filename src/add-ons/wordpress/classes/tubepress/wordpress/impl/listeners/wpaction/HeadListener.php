@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -37,7 +37,7 @@ class tubepress_wordpress_impl_listeners_wpaction_HeadListener
         }
 
         /* this inline JS helps initialize TubePress */
-        print $this->_htmlGenerator->getCSS();
-        print $this->_htmlGenerator->getJS();
+        echo $this->_htmlGenerator->getCSS();
+        echo $this->_htmlGenerator->getJS();
     }
 }

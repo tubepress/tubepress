@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -41,10 +41,10 @@ class tubepress_test_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListen
 
     public function onSetup()
     {
-        $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockForm                        = $this->mock(tubepress_api_options_ui_FormInterface::_);
-        $this->_mockStringUtils                 = $this->mock(tubepress_api_util_StringUtilsInterface::_);
-        $this->_mockEnvironment                 = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
+        $this->_mockForm                     = $this->mock(tubepress_api_options_ui_FormInterface::_);
+        $this->_mockStringUtils              = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockEnvironment              = $this->mock(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener(
 
@@ -89,7 +89,7 @@ class tubepress_test_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListen
         $mockUserJsUrl->shouldReceive('toString')->once()->andReturn('--user-url--/something/user-js-url');
 
         $mockCssUrls = array($mockSystemCssUrl, $mockUserCssUrl);
-        $mockJsUrls = array($mockSystemJsUrl, $mockUserJsUrl);
+        $mockJsUrls  = array($mockSystemJsUrl, $mockUserJsUrl);
         $this->_mockForm->shouldReceive('getUrlsCSS')->once()->andReturn($mockCssUrls);
         $this->_mockForm->shouldReceive('getUrlsJS')->once()->andReturn($mockJsUrls);
 

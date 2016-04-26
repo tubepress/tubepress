@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -81,7 +81,7 @@ class tubepress_test_wordpress_impl_listeners_wpaction_ThemeCssJsListenerTest ex
 
         $themeStyles  = array($mockSystemStyleUrl, $mockUserStyleUrl);
         $themeScripts = array($mockSysJsUrl, $mockSystemScriptUrl, $mockUserScriptUrl);
-        $mockVersion = $this->mock('tubepress_api_version_Version');
+        $mockVersion  = $this->mock('tubepress_api_version_Version');
         $mockVersion->shouldReceive('__toString')->atLeast(1)->andReturn('tubepress-version');
 
         $this->_mockEnvironment->shouldReceive('getVersion')->once()->andReturn($mockVersion);
