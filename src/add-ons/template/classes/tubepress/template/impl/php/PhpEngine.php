@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,17 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_template_impl_php_PhpEngine extends \Symfony\Component\Templating\PhpEngine
 {
     /**
-     * Loads the given template.
-     *
-     * @param string|\Symfony\Component\Templating\TemplateReferenceInterface $name A template name or a \Symfony\Component\Templating\TemplateReferenceInterface instance
-     *
-     * @return \Symfony\Component\Templating\Storage\Storage A Storage instance
-     *
-     * @throws InvalidArgumentException if the template cannot be found
+     * {@inheritdoc}
      */
     protected function load($name)
     {

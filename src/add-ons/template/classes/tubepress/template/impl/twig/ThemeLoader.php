@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_template_impl_twig_ThemeLoader implements Twig_LoaderInterface
 {
     /**
@@ -22,13 +21,7 @@ class tubepress_template_impl_twig_ThemeLoader implements Twig_LoaderInterface
     }
 
     /**
-     * Gets the source code of a template, given its name.
-     *
-     * @param string $name The name of the template to load
-     *
-     * @return string The template source code
-     *
-     * @throws Twig_Error_Loader When $name is not found
+     * {@inheritdoc}
      */
     public function getSource($name)
     {
@@ -41,13 +34,7 @@ class tubepress_template_impl_twig_ThemeLoader implements Twig_LoaderInterface
     }
 
     /**
-     * Gets the cache key to use for the cache for a given template name.
-     *
-     * @param string $name The name of the template to load
-     *
-     * @return string The cache key
-     *
-     * @throws Twig_Error_Loader When $name is not found
+     * {@inheritdoc}
      */
     public function getCacheKey($name)
     {
@@ -60,14 +47,7 @@ class tubepress_template_impl_twig_ThemeLoader implements Twig_LoaderInterface
     }
 
     /**
-     * Returns true if the template is still fresh.
-     *
-     * @param string $name The template name
-     * @param int    $time The last modification time of the cached template
-     *
-     * @return bool    true if the template is fresh, false otherwise
-     *
-     * @throws Twig_Error_Loader When $name is not found
+     * {@inheritdoc}
      */
     public function isFresh($name, $time)
     {

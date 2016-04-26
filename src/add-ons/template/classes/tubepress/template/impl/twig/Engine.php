@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -63,10 +63,6 @@ class tubepress_template_impl_twig_Engine implements \Symfony\Component\Templati
 
     /**
      * {@inheritdoc}
-     *
-     * It also supports Twig_Template as name parameter.
-     *
-     * @throws Twig_Error if something went wrong like a thrown exception while rendering the template
      */
     public function render($name, array $parameters = array())
     {
@@ -77,8 +73,6 @@ class tubepress_template_impl_twig_Engine implements \Symfony\Component\Templati
 
     /**
      * {@inheritdoc}
-     *
-     * It also supports Twig_Template as name parameter.
      */
     public function exists($name)
     {
@@ -111,8 +105,6 @@ class tubepress_template_impl_twig_Engine implements \Symfony\Component\Templati
 
     /**
      * {@inheritdoc}
-     *
-     * It also supports Twig_Template as name parameter.
      */
     public function supports($name)
     {
@@ -123,7 +115,7 @@ class tubepress_template_impl_twig_Engine implements \Symfony\Component\Templati
      * Loads the given template.
      *
      * @param string|\Symfony\Component\Templating\TemplateReferenceInterface|Twig_Template $name A template name or an instance of
-     *                                                                                \Symfony\Component\Templating\TemplateReferenceInterface or Twig_Template
+     *                                                                                            \Symfony\Component\Templating\TemplateReferenceInterface or Twig_Template
      *
      * @return Twig_TemplateInterface A Twig_TemplateInterface instance
      *

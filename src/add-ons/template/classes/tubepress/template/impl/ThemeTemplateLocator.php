@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  * 
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_template_impl_ThemeTemplateLocator
 {
     /**
@@ -99,7 +96,6 @@ class tubepress_template_impl_ThemeTemplateLocator
         return $theme->getTemplatePath($name);
     }
 
-
     /**
      * Returns true if the template is still fresh.
      *
@@ -136,6 +132,7 @@ class tubepress_template_impl_ThemeTemplateLocator
 
     /**
      * @param $templateName
+     *
      * @return null|tubepress_api_theme_ThemeInterface
      */
     private function _findThemeForTemplate($templateName)
