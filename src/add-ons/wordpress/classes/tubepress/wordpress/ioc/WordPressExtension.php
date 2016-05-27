@@ -56,7 +56,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             tubepress_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE              => 'TubePress',
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE          => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
-                tubepress_api_options_Names::SHORTCODE_KEYWORD                      => 'tubepress',
                 tubepress_api_options_Names::TUBEPRESS_API_KEY                      => null,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE           => false,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => null,
@@ -74,7 +73,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE => '[tubepress video="{{ item.id }}" title="false" length="true" description="true" descriptionLimit="0"]',
             ),
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD                      => 'Shortcode keyword',        //>(translatable)<,
                 tubepress_api_options_Names::TUBEPRESS_API_KEY                      => 'tubepress.com API Key',    //>(translatable)<,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE           => 'Enable auto post',         //>(translatable)<,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => 'Author',                   //>(translatable)<,
@@ -93,7 +91,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.',         //>(translatable)<,
                 tubepress_api_options_Names::TUBEPRESS_API_KEY => sprintf('Enable automatic plugin updates by supplying your <a href="%s" target="_blank">TubePress API key</a>.',   //>(translatable)<,
                     'https://dashboard.tubepress.com/profile'
                 ),
@@ -136,9 +133,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
         ))->addTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(
-            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
-                tubepress_api_options_Names::SHORTCODE_KEYWORD,
-            ),
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
                 tubepress_api_options_Names::TUBEPRESS_API_KEY,
             ),
