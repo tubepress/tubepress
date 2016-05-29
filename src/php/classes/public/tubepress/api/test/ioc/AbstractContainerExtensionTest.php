@@ -75,7 +75,7 @@ abstract class tubepress_api_test_ioc_AbstractContainerExtensionTest extends tub
         foreach ($this->_expectedDecoratedServices as $serviceId) {
 
             $decoratedDefinition = new tubepress_internal_ioc_Definition($serviceId);
-            $decoratedDefinition->setFactoryClass('ehough_mockery_Mockery');
+            $decoratedDefinition->setFactoryClass('Mockery');
             $decoratedDefinition->setFactoryMethod('mock');
             $decoratedDefinition->addArgument($serviceId);
 
