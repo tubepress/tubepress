@@ -21,8 +21,7 @@ class tubepress_internal_boot_helper_FatalErrorHandler
             }
 
             $logger->error(sprintf(
-                'Fatal error (type <code>%s</code>) detected on line <code>%s</code> of <code>%s</code>: <code>%s</code>. ' .
-                'PHP will shut down. Please contact TubePress support for assistance.',
+                'Fatal error (type <code>%s</code>) detected on line <code>%s</code> of <code>%s</code>: <code>%s</code>',
                 $error['type'],
                 $error['line'],
                 htmlspecialchars($error['file']),

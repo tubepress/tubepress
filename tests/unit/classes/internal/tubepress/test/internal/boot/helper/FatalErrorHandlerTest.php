@@ -45,8 +45,7 @@ class tubepress_test_internal_boot_helper_FatalErrorHandlerTest extends tubepres
         if ($shouldRun) {
 
             $this->_mockLogger->shouldReceive('error')->once()->with(sprintf(
-                'Fatal error (type <code>%s</code>) detected on line <code>33</code> of <code>some-file.php</code>: <code>hi &lt; there!</code>. ' .
-                'PHP will shut down. Please contact TubePress support for assistance.',
+                'Fatal error (type <code>%s</code>) detected on line <code>33</code> of <code>some-file.php</code>: <code>hi &lt; there!</code>',
                 $type
             ));
         }
