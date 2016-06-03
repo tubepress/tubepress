@@ -102,12 +102,12 @@ abstract class tubepress_http_oauth2_impl_popup_AbstractPopupHandler extends tub
     /**
      * @return void
      */
-    abstract protected function execute();
+    protected abstract function execute();
 
     /**
      * @return string[]
      */
-    abstract protected function getRequiredParamNames();
+    protected abstract function getRequiredParamNames();
 
     /**
      * {@inheritdoc}

@@ -382,7 +382,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
 
         $fieldReferences = array();
 
-        for ($x = 0; $x < $fieldIndex; ++$x) {
+        for ($x = 0; $x < $fieldIndex; $x++) {
 
             $fieldReferences[] = new tubepress_api_ioc_Reference('youtube_options_field_' . $x);
         }

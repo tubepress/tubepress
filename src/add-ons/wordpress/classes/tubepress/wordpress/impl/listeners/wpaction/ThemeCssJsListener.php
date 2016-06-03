@@ -78,7 +78,7 @@ class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
         $styleCount     = count($stylesStrings);
         $scriptCount    = count($scriptsStrings);
 
-        for ($x = 0; $x < $styleCount; ++$x) {
+        for ($x = 0; $x < $styleCount; $x++) {
 
             $handle = 'tubepress-theme-' . $x;
 
@@ -86,7 +86,7 @@ class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
             $wpFunctions->wp_enqueue_style($handle);
         }
 
-        for ($x = 0; $x < $scriptCount; ++$x) {
+        for ($x = 0; $x < $scriptCount; $x++) {
 
             if ($this->_stringUtils->endsWith($scriptsStrings[$x], '/web/js/tubepress.js')) {
 
@@ -130,7 +130,7 @@ class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
 
             $isSystem = true;
 
-        } elseif (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
+        } else if (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
 
             //this should never happen
             return $urlAsString;

@@ -320,7 +320,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
 
         $toReturn = array();
 
-        for ($index = 0; $index < count($decodedSources); ++$index) {
+        for ($index = 0; $index < count($decodedSources); $index++) {
 
             $decodedSource = $decodedSources[$index];
             $mergedOptions = array_merge($allPersistedOptions, $decodedSource);

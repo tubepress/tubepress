@@ -88,7 +88,7 @@ class tubepress_media_impl_listeners_PageListener
 
             } else {
 
-                ++$blacklistCount;
+                $blacklistCount++;
             }
         }
 
@@ -201,7 +201,7 @@ class tubepress_media_impl_listeners_PageListener
         $ids       = array();
         $removed   = 0;
 
-        for ($x = 0; $x < count($items); ++$x) {
+        for ($x = 0; $x < count($items); $x++) {
 
             $mediaItem = $items[$x];
             $id        = $mediaItem->getId();
@@ -214,7 +214,7 @@ class tubepress_media_impl_listeners_PageListener
                 }
 
                 unset($items[$x]);
-                ++$removed;
+                $removed++;
 
             } else {
 
@@ -327,7 +327,7 @@ class tubepress_media_impl_listeners_PageListener
         /*
          * @var tubepress_api_media_MediaItem[]
          */
-        for ($x = 0; $x < count($mediaItems); ++$x) {
+        for ($x = 0; $x < count($mediaItems); $x++) {
 
             $mediaItem = $mediaItems[$x];
             $id        = $mediaItem->getId();

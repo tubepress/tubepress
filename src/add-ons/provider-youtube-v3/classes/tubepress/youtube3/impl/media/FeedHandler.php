@@ -745,7 +745,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         $ids           = array();
         $selectedQuery = null;
 
-        for ($index = 0; $index < count($items); ++$index) {
+        for ($index = 0; $index < count($items); $index++) {
 
             if ($this->getReasonUnableToUseItemAtIndex($index) !== null) {
 
@@ -756,7 +756,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
                     $this->_logDebug(sprintf('Skipping video at index <code>%d</code>: <code>%s</code>', $index, $reason));
                 }
 
-                ++$this->_skippedVideoCount;
+                $this->_skippedVideoCount++;
 
                 unset($this->_feedAsArray[tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS][$index]);
 

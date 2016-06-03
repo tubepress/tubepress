@@ -75,13 +75,13 @@ class tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
         $cssStrings = array_map($callback, $cssUrls);
         $jsStrings  = array_map($callback, $jsUrls);
 
-        for ($x = 0; $x < count($cssStrings); ++$x) {
+        for ($x = 0; $x < count($cssStrings); $x++) {
 
             $this->_wpFunctions->wp_register_style('tubepress-' . $x, $cssStrings[$x]);
             $this->_wpFunctions->wp_enqueue_style('tubepress-' . $x);
         }
 
-        for ($x = 0; $x < count($jsStrings); ++$x) {
+        for ($x = 0; $x < count($jsStrings); $x++) {
 
             $this->_wpFunctions->wp_register_script('tubepress-' . $x, $jsStrings[$x]);
             $this->_wpFunctions->wp_enqueue_script('tubepress-' . $x, false, array(), false, false);
@@ -134,7 +134,7 @@ class tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
 
             $isSystem = true;
 
-        } elseif (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
+        } else if (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
 
             //this should never happen
             return $urlAsString;

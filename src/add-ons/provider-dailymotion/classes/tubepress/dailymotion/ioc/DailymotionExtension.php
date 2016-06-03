@@ -776,7 +776,7 @@ class tubepress_dailymotion_ioc_DailymotionExtension implements tubepress_spi_io
 
         $fieldReferences = array();
 
-        for ($x = 0; $x < $fieldIndex; ++$x) {
+        for ($x = 0; $x < $fieldIndex; $x++) {
 
             $fieldReferences[] = new tubepress_api_ioc_Reference('dailymotion_options_field_' . $x);
         }
