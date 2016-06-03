@@ -49,6 +49,7 @@ upgrade_phpunit_if_necessary ()
 
         # upgrade PHPUnit to 5.x
         composer remove  --dev phpunit/phpunit
+        composer remove  --dev phpunit/phpunit-mock-objects
         composer require --dev phpunit/phpunit
 
         # go nuclear on composer, just to be extra sure
