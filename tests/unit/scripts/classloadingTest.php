@@ -201,6 +201,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/vendor/symfony/stopwatch',
             '/vendor/symfony/yaml',
             '/vendor/fabpot',
+            '/vendor/friendsofphp',
 
             '/vendor/tedivm/stash/tests',
 
