@@ -22,6 +22,7 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
     private static $_SORT_DESC         = 'desc';
     private static $_SORT_DURATION     = 'duration';
     private static $_SORT_LIKES        = 'likes';
+    private static $_SORT_MANUAL       = 'manual';
     private static $_SORT_PLAYS        = 'plays';
     private static $_SORT_RELEVANT     = 'relevant';
 
@@ -206,6 +207,18 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
 
         $map = array(
 
+            /*
+             * https://developer.vimeo.com/api/endpoints/me#/albums
+             *
+             *   manual
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             * modified_time
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_ALBUM => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST           => $_dateDesc,
@@ -214,7 +227,20 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_ALPHABETICAL_Z_A => $_alphaDesc,
                 tubepress_vimeo3_api_Constants::ORDER_BY_SHORTEST         => $_shortest,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LONGEST          => $_longest,
+                tubepress_vimeo3_api_Constants::ORDER_BY_LIKES            => $_likes,
+                tubepress_vimeo3_api_Constants::ORDER_BY_VIEW_COUNT       => $_viewCount,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/users#/{user_id}/appearances
+             *
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST           => $_dateDesc,
@@ -226,6 +252,18 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_VIEW_COUNT       => $_viewCount,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LIKES            => $_likes,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/categories#/{category}/videos
+             *
+             *   relevant
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CATEGORY => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_RELEVANCE        => $_relevance,
@@ -238,6 +276,20 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_LONGEST          => $_longest,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LIKES            => $_likes,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/channels#/{channel_id}/videos
+             *
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             * added
+             * modified_time
+             *   manual
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST           => $_dateDesc,
@@ -249,6 +301,17 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_SHORTEST         => $_shortest,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LONGEST          => $_longest,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/groups#/{group_id}/videos
+             *
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_GROUP => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST           => $_dateDesc,
@@ -260,6 +323,17 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_SHORTEST         => $_shortest,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LONGEST          => $_longest,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/users#/{user_id}/likes
+             *
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_LIKES => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST           => $_dateDesc,
@@ -271,6 +345,18 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_VIEW_COUNT       => $_viewCount,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LIKES            => $_likes,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/videos#
+             *
+             *   relevant
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_SEARCH => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_RELEVANCE        => $_relevance,
@@ -283,6 +369,14 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_VIEW_COUNT       => $_viewCount,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LIKES            => $_likes,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/tags#/{word}/videos
+             *
+             * created_time
+             * name
+             * duration
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_TAG => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST => array(
@@ -296,6 +390,19 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
                 tubepress_vimeo3_api_Constants::ORDER_BY_SHORTEST         => $_shortest,
                 tubepress_vimeo3_api_Constants::ORDER_BY_LONGEST          => $_longest,
             ),
+
+            /*
+             * https://developer.vimeo.com/api/endpoints/users#/{user_id}/videos
+             *
+             *   date
+             *   alphabetical
+             *   plays
+             *   likes
+             * comments
+             *   duration
+             * default
+             * modified_time
+             */
             tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY => array(
 
                 tubepress_vimeo3_api_Constants::ORDER_BY_NEWEST           => $_dateDesc,
@@ -336,8 +443,11 @@ class tubepress_vimeo3_impl_media_FeedHandler implements tubepress_spi_media_Htt
         switch ($currentMode) {
 
             case tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_ALBUM:
-            case tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN;
             case tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL:
+
+                return array(self::$_SORT_MANUAL);
+                
+            case tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN;
             case tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_GROUP:
             case tubepress_vimeo3_api_Constants::GALLERYSOURCE_VIMEO_LIKES:
 
