@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,7 +56,7 @@ class tubepress_test_template_ioc_compiler_TemplatePathProvidersPassTest extends
             ));
         $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_spi_template_PathProviderInterface.admin')
             ->andReturn(array(
-                'bar' => array()
+                'bar' => array(),
             ));
 
         $mockProvider1 = $this->mock('tubepress_spi_template_PathProviderInterface');

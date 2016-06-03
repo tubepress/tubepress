@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -42,16 +42,16 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
     public function onRequest(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $httpRequest tubepress_api_http_message_RequestInterface
+        /*
+         * @var tubepress_api_http_message_RequestInterface
          */
         $httpRequest = $event->getSubject();
-        
+
         if (!$this->_shouldExecute($httpRequest)) {
-            
+
             return;
         }
-        
+
         $url  = $httpRequest->getUrl();
         $item = $this->_getCachedItem($url);
 
@@ -73,8 +73,8 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
     public function onResponse(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $httpRequest tubepress_api_http_message_RequestInterface
+        /*
+         * @var tubepress_api_http_message_RequestInterface
          */
         $httpRequest = $event->getArgument('request');
 
@@ -83,8 +83,8 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
             return;
         }
 
-        /**
-         * @var $httpResponse tubepress_api_http_message_ResponseInterface
+        /*
+         * @var tubepress_api_http_message_ResponseInterface
          */
         $httpResponse = $event->getSubject();
 
@@ -115,7 +115,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
         $cleaningFactor = $this->_context->get(tubepress_api_options_Names::CACHE_CLEANING_FACTOR);
         $cleaningFactor = intval($cleaningFactor);
 
-        /**
+        /*
          * Handle cleaning factor.
          */
         if ($cleaningFactor > 0 && rand(1, $cleaningFactor) === 1) {
@@ -172,8 +172,8 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
             $this->_logDebug(sprintf('Asking cache for <code>%s</code>', $url));
         }
 
-        /**
-         * @var $result \Stash\Interfaces\ItemInterface
+        /*
+         * @var \Stash\Interfaces\ItemInterface
          */
         $result = $this->_getItem($url);
 

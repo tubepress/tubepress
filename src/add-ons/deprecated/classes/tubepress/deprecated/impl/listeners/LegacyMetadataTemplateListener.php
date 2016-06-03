@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -11,7 +11,7 @@
 
 /**
  * This listener is responsible for populating the template with the following
- * variables:
+ * variables:.
  *
  * TEMPLATE_VAR_META_LABELS
  * TEMPLATE_VAR_META_SHOULD_SHOW
@@ -97,8 +97,8 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
             $labels[$metaName]     = $this->_translator->trans($untranslatedLabel);
         }
 
-        $templateVars[tubepress_api_const_template_Variable::META_SHOULD_SHOW]         = $shouldShow;
-        $templateVars[tubepress_api_const_template_Variable::META_LABELS] = $labels;
+        $templateVars[tubepress_api_const_template_Variable::META_SHOULD_SHOW] = $shouldShow;
+        $templateVars[tubepress_api_const_template_Variable::META_LABELS]      = $labels;
     }
 
     private function _getAllMetaOptionNames()

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -22,9 +22,9 @@ class tubepress_test_util_impl_TimeUtilsTest extends tubepress_api_test_TubePres
     public function onSetup()
     {
         $stringUtils = new tubepress_util_impl_StringUtils();
-        $this->_sut = new tubepress_util_impl_TimeUtils($stringUtils);
+        $this->_sut  = new tubepress_util_impl_TimeUtils($stringUtils);
     }
-    
+
     public function testGetRelativeTimePastDecade()
     {
         $result = $this->_sut->getRelativeTime(1000000000);
@@ -34,7 +34,7 @@ class tubepress_test_util_impl_TimeUtilsTest extends tubepress_api_test_TubePres
     public function testGetRelativeTimePast5Years()
     {
         $result = $this->_sut->getRelativeTime(1288760400);
-        $this->assertEquals('5 years ago', $result);
+        $this->assertEquals('6 years ago', $result);
     }
 
     /**
@@ -86,6 +86,7 @@ class tubepress_test_util_impl_TimeUtilsTest extends tubepress_api_test_TubePres
         if (setlocale(LC_TIME, 'es_ES') !== 'es_ES') {
 
             $this->markTestSkipped('Missing es_ES locale');
+
             return;
         };
 
@@ -93,4 +94,3 @@ class tubepress_test_util_impl_TimeUtilsTest extends tubepress_api_test_TubePres
         $this->assertEquals('lunes 3 de noviembre, 1980, 09:03:22 EST', $result);
     }
 }
-

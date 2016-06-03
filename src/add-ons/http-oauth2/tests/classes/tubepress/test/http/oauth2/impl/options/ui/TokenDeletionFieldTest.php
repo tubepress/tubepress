@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -46,7 +46,7 @@ class tubepress_test_http_oauth2_impl_options_ui_TokenDeletionFieldTest extends 
     public function testSubmit()
     {
         $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_api_options_Names::OAUTH2_TOKENS)->andReturn(json_encode(array(
-            'provider-name' => array('id' => array('hi' => 'there'))
+            'provider-name' => array('id' => array('hi' => 'there')),
         )));
 
         $this->_mockOauth2Provider->shouldReceive('getName')->once()->andReturn('provider-name');

@@ -95,9 +95,9 @@ abstract class tubepress_api_test_TubePressUnitTest extends PHPUnit_Framework_Te
 
     protected function getTemporaryFile()
     {
-        $handle = tmpfile();
-        $meta   = stream_get_meta_data($handle);
+        $path   = tempnam(null, 'tubepress-unit-test');
+        $handle = fopen($path, 'w+');
 
-        return array($handle, $meta['uri']);
+        return array($handle, $path);
     }
 }

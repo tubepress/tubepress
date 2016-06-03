@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -20,7 +20,7 @@ class tubepress_wordpress_api_Constants
     const OPTION_WP_PAGE_WHITELIST = 'wpPageWhitelist';
     const OPTION_WP_PAGE_BLACKLIST = 'wpPageBlacklist';
 
-    const EVENT_OPTIONS_PAGE_INVOKED  = 'tubepress.wordpress.event.optionsPageInvoked';
+    const EVENT_OPTIONS_PAGE_INVOKED = 'tubepress.wordpress.event.optionsPageInvoked';
 
     /**
      * This event is fired when the plugin is activated.
@@ -29,6 +29,7 @@ class tubepress_wordpress_api_Constants
      *                  (usually just an empty array?)
      *
      * @api
+     *
      * @since 5.0.2
      */
     const EVENT_PLUGIN_ACTIVATION = 'tubepress.wordpress.plugin_activation';
@@ -43,6 +44,7 @@ class tubepress_wordpress_api_Constants
      *                  2: The shortcode keyword
      *
      * @api
+     *
      * @since 5.0.2
      */
     const EVENT_SHORTCODE_FOUND = 'tubepress.wordpress.shortcode_found';
@@ -53,6 +55,7 @@ class tubepress_wordpress_api_Constants
      * @subject `tubepress_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
      *
      * @api
+     *
      * @since 4.1.11
      */
     const SHORTCODE_PARSED = 'tubepress.app.shortcode.parsed';
@@ -78,7 +81,7 @@ class tubepress_wordpress_api_Constants
     /**
      * @deprecated
      */
-    const EVENT_WIDGET_PUBLIC_HTML    = 'tubepress.wordpress.event.widget.publicHtml';
+    const EVENT_WIDGET_PUBLIC_HTML = 'tubepress.wordpress.event.widget.publicHtml';
 
     /**
      * @deprecated

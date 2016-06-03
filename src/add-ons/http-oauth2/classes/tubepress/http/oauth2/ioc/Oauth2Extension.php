@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -48,10 +36,10 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_http_Events::EVENT_HTTP_REQUEST,
             'priority' => 99000,       //API cache runs at 100K, so lets run after that
-            'method'   => 'onHttpRequest'))
-         ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-            'tag' => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
-            'method' => 'setOauth2Providers'
+            'method'   => 'onHttpRequest', 
+         ))->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_spi_http_oauth2_Oauth2ProviderInterface::_,
+            'method' => 'setOauth2Providers',
          ));
     }
 
@@ -174,7 +162,7 @@ class tubepress_http_oauth2_ioc_Oauth2Extension implements tubepress_spi_ioc_Con
             'tubepress_api_template_BasePathProvider__oauth2',
             'tubepress_api_template_BasePathProvider'
         )->addArgument(array(
-            TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/http-oauth2/templates',
         ))->addTag('tubepress_spi_template_PathProviderInterface.admin');
     }
 }

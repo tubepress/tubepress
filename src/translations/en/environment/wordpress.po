@@ -36,3 +36,81 @@ msgstr ""
 
 msgid "Enable automatic plugin updates by supplying your <a href=\"%s\" target=\"_blank\">TubePress API key</a>."
 msgstr ""
+
+msgid "Enable automatic updates by supplying your TubePress API Key. <a href=\"%s\" target=\"_blank\">Learn how</a>."
+msgstr ""
+
+msgid "Auto Post"
+msgstr ""
+
+msgid "Enable auto post"
+msgstr ""
+
+msgid "Create and link a WordPress post or page for every video displayed by TubePress. See the <a href=\"%s\" target=\"_blank\">documentation</a> for details."
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Each new post should be of this <a href=\"%s\" target=\"_blank\">type</a>."
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "TubePress will only display videos when their corresponding <a href=\"%s\" target=\"_blank\">post status</a> is public. Selecting a non-public status here (e.g. <code>Pending</code>) will allow you to review posts before they are published."
+msgstr ""
+
+msgid "Page template"
+msgstr ""
+
+msgid "Each new page should use this <a href=\"%s\" target=\"_blank\">template</a> from your WordPress theme."
+msgstr ""
+
+msgid "Title template"
+msgstr ""
+
+msgid "A <a href=\"%s\" target=\"_blank\">Twig</a> fragment used to create post titles. <a href=\"%s\" target=\"_blank\">Here</a> is a list of available variables."
+msgstr ""
+
+msgid "Content template"
+msgstr ""
+
+msgid "A <a href=\"%s\" target=\"_blank\">Twig</a> fragment used to create post contents. <a href=\"%s\" target=\"_blank\">Here</a> is a list of available variables."
+msgstr ""
+
+msgid "Tags"
+msgstr ""
+
+msgid "Assign these tags to each new post."
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Assign these categories to each new post."
+msgstr ""
+
+msgid "Date source"
+msgstr ""
+
+msgid "TubePress will assign a publish date for each post. You may choose to use either the video upload date or the date that TubePress creates the post."
+msgstr ""
+
+msgid "Allow comments"
+msgstr ""
+
+msgid "Allow pings"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Set a password to restrict viewing of each new post. Leave this field blank to disable."
+msgstr ""
+
+msgid "Metadata template"
+msgstr ""
+
+msgid "For advanced users. A <a href=\"%s\" target=\"_blank\">Twig</a> fragment, which must compile to a simple JSON object with scalar keys and values, that defines post metadata to be inserted. <a href=\"%s\" target=\"_blank\">Here</a> is a list of available variables."
+msgstr ""

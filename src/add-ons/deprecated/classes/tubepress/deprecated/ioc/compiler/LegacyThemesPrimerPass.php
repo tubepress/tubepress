@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,12 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Discovers add-ons for TubePress.
- */
 class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepress_spi_ioc_CompilerPassInterface
 {
-    private static $_LEGACY_TEMPLATE_MAP      = array(
+    private static $_LEGACY_TEMPLATE_MAP = array(
         'gallery/main.tpl.php'  => 'gallery.tpl.php',
         'search/input.tpl.php'  => 'search/search_input.tpl.php',
         'search/output.tpl.php' => 'search/search_output.tpl.php',
@@ -25,6 +22,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
      * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
+     *
      * @since 4.0.0
      */
     public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -60,7 +58,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         $toReturn = array();
 
         /**
-         * @var $stringUtils tubepress_api_util_StringUtilsInterface
+         * @var tubepress_api_util_StringUtilsInterface
          */
         $stringUtils = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
 
@@ -97,12 +95,12 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
     private function _getTemplateMapForLegacyDirectory(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $path)
     {
         /**
-         * @var $finderFactory tubepress_internal_finder_FinderFactory
+         * @var tubepress_internal_finder_FinderFactory
          */
         $finderFactory = $containerBuilder->get('finder_factory');
 
         /**
-         * @var $stringUtils tubepress_api_util_StringUtilsInterface
+         * @var tubepress_api_util_StringUtilsInterface
          */
         $stringUtils = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
         $finder      = $finderFactory->createFinder();
@@ -154,14 +152,14 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         }
 
         /**
-         * @var $finderFactory tubepress_internal_finder_FinderFactory
+         * @var tubepress_internal_finder_FinderFactory
          */
         $finderFactory = $containerBuilder->get('finder_factory');
         $finder        = $finderFactory->createFinder()->directories()->in($userThemeDir)->depth('< 1');
         $toReturn      = array();
 
         /**
-         * @var $candidateLegacyThemeDir SplFileInfo
+         * @var SplFileInfo
          */
         foreach ($finder as $candidateLegacyThemeDir) {
 
@@ -170,7 +168,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
 
             if ($baseName === 'starter') {
 
-                /**
+                /*
                  * Ignore the starter theme.
                  */
                 continue;
@@ -182,19 +180,19 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
             }
 
             /**
-             * @var $themeFactory tubepress_internal_boot_helper_uncached_contrib_ThemeFactory
+             * @var tubepress_internal_boot_helper_uncached_contrib_ThemeFactory
              */
             $themeFactory = $containerBuilder->get('tubepress_internal_boot_helper_uncached_contrib_ThemeFactory');
             $templateMap  = $this->_getTemplateMapForLegacyDirectory($containerBuilder, $themeRoot);
             $manifestPath = $bootSettings->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . 'foobar';
             $manifestData = array(
-                'name'     => "unknown/legacy-$baseName",
-                'version'  => '1.0.0',
-                'title'    => "$baseName (legacy)",
-                'authors'  => array(
+                'name'    => "unknown/legacy-$baseName",
+                'version' => '1.0.0',
+                'title'   => "$baseName (legacy)",
+                'authors' => array(
                     array('name' => 'Unknown'),
                 ),
-                'license'  => array(
+                'license' => array(
                     'type' => 'MPL-2.0',
                     'urls' => array('http://www.mozilla.org/MPL/2.0/'),
                 ),

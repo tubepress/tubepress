@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -38,23 +38,23 @@ class tubepress_test_feed_impl_listeners_AcceptableValuesListenerTest extends tu
     {
         $this->_sut = new tubepress_feed_impl_listeners_AcceptableValuesListener();
 
-        $this->_mockIncomingEvent = $this->mock('tubepress_api_event_EventInterface');
+        $this->_mockIncomingEvent  = $this->mock('tubepress_api_event_EventInterface');
         $this->_mockMediaProvider1 = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
         $this->_mockMediaProvider2 = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
 
         $this->_sut->setMediaProviders(array(
             $this->_mockMediaProvider1,
-            $this->_mockMediaProvider2
+            $this->_mockMediaProvider2,
         ));
     }
 
     public function testMode()
     {
         $this->_mockMediaProvider1->shouldReceive('getGallerySourceNames')->once()->andReturn(array(
-            'a', 'b'
+            'a', 'b',
         ));
         $this->_mockMediaProvider2->shouldReceive('getGallerySourceNames')->once()->andReturn(array(
-            'c', 'd'
+            'c', 'd',
         ));
 
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn(array('foo', 'bar'));
@@ -72,7 +72,7 @@ class tubepress_test_feed_impl_listeners_AcceptableValuesListenerTest extends tu
     {
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn(array('foo' => 'bar'));
         $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(array(
-            'foo' => 'bar',
+            'foo'                                                               => 'bar',
             tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE          => 'none',
             tubepress_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',
             tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST        => 'date published (newest first)',

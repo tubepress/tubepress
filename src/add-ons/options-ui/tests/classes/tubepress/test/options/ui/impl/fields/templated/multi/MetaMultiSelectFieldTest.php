@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -37,8 +37,8 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_MetaMultiSelectF
     protected function onAfterTemplateBasedFieldSetup()
     {
         $this->_mockOptionProvider = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockVideoProvider1  = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
-        $this->_mockVideoProvider2  = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
+        $this->_mockVideoProvider1 = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
+        $this->_mockVideoProvider2 = $this->mock(tubepress_spi_media_MediaProviderInterface::__);
     }
 
     protected function getAdditionalExpectedTemplateVariables()
@@ -60,9 +60,9 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_MetaMultiSelectF
             'ungroupedChoices'        => array(),
             'groupedChoices'          => array(
                 'Provider 1 / Provider 2' => array('foo' => 'FOO'),
-                'Provider 2' => array('bar' => 'BAR'),
-                'Provider 1' => array('buzz' => 'BUZZ'),
-            )
+                'Provider 2'              => array('bar' => 'BAR'),
+                'Provider 1'              => array('buzz' => 'BUZZ'),
+            ),
         );
     }
 
@@ -143,7 +143,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_MetaMultiSelectF
     {
         $this->_mockVideoProvider1->shouldReceive('getMapOfMetaOptionNamesToAttributeDisplayNames')->atLeast(1)->andReturn(array(
 
-            'foo' => 'bla',
+            'foo'  => 'bla',
             'buzz' => 'boo',
         ));
         $this->_mockVideoProvider2->shouldReceive('getMapOfMetaOptionNamesToAttributeDisplayNames')->atLeast(1)->andReturn(array(

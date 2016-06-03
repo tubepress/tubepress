@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -18,11 +18,6 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
      * @var tubepress_http_oauth2_impl_popup_AuthorizationInitiator
      */
     private $_sut;
-
-    /**
-     * @var Mockery\MockInterface
-     */
-    private $_mockNonceManager;
 
     /**
      * @var Mockery\MockInterface
@@ -67,11 +62,6 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     /**
      * @var Mockery\MockInterface
      */
-    private $_mockRedirectionUrl;
-
-    /**
-     * @var Mockery\MockInterface
-     */
     private $_mockPersistenceHelper;
 
     /**
@@ -96,6 +86,9 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockPersistenceHelper  = $this->mock('tubepress_http_oauth2_impl_util_PersistenceHelper');
         $this->_mockAccessTokenFetcher = $this->mock('tubepress_http_oauth2_impl_util_AccessTokenFetcher');
 
+        @session_destroy();
+        session_unset();
+
         $this->_sut = new tubepress_http_oauth2_impl_popup_AuthorizationInitiator(
             $this->_mockRequestParams,
             $this->_mockTemplating,
@@ -109,10 +102,8 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
     public function onTearDown()
     {
-        if (isset($_SESSION)) {
-            unset($_SESSION['tubepress_oauth2_state_provider-1-name']);
-            unset($_SESSION['tubepress_oauth2_state_provider-2-name']);
-        }
+        @session_destroy();
+        session_unset();
     }
 
     public function testCodeSuccess()
@@ -133,9 +124,9 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
         $this->_mockAuthorizationUrl->shouldReceive('__toString')->once()->andReturn('abc');
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('oauth2/start', array(
-            'provider' => $this->_mockProvider2,
+            'provider'    => $this->_mockProvider2,
             'titleFormat' => 'Redirecting to %s',
-            'url' => $this->_mockAuthorizationUrl,
+            'url'         => $this->_mockAuthorizationUrl,
         ))->andReturn('abc');
 
         $this->expectOutputString('abc');
@@ -284,7 +275,7 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
     {
         $this->_sut->setOauth2Providers(array(
             $this->_mockProvider1,
-            $this->_mockProvider2
+            $this->_mockProvider2,
         ));
     }
 
@@ -318,7 +309,6 @@ class tubepress_test_http_oauth2_impl_popup_AuthorizationInitiatorTest extends t
 
         $this->_mockProvider2->shouldReceive('getAuthorizationGrantType')->once()->andReturn('code');
         $this->_mockProvider2->shouldReceive('isClientSecretUsed')->once()->andReturn(true);
-
 
         $this->_mockAuthorizationQuery = $this->mock('tubepress_api_url_QueryInterface');
 

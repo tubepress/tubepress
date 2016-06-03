@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,10 +15,7 @@
 class tubepress_options_ui_impl_fields_templated_single_MultiSourceDropdownField extends tubepress_options_ui_impl_fields_templated_single_DropdownField implements tubepress_api_options_ui_MultiSourceFieldInterface
 {
     /**
-     * @param $prefix
-     * @param tubepress_api_options_PersistenceInterface $persistence
-     *
-     * @return tubepress_api_options_ui_FieldInterface
+     * {@inheritdoc}
      */
     public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {

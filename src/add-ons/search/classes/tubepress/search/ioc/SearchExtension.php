@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -45,19 +33,19 @@ class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_Containe
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_spi_media_MediaProviderInterface::__,
-            'method' => 'setMediaProviders'))
+            'method' => 'setMediaProviders', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_api_event_Events::HTML_GENERATION,
+            'event'    => tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 100000,
-            'method'   => 'onHtmlGenerationSearchInput'))
+            'method'   => 'onHtmlGenerationSearchInput', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_api_event_Events::HTML_GENERATION,
+            'event'    => tubepress_api_event_Events::HTML_GENERATION,
             'priority' => 96000,
-            'method'   => 'onHtmlGenerationSearchOutput'))
+            'method'   => 'onHtmlGenerationSearchOutput', ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::SEARCH_PROVIDER,
+            'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::SEARCH_PROVIDER,
             'priority' => 100000,
-            'method'   => 'onAcceptableValues'));
+            'method'   => 'onAcceptableValues', ));
 
         $containerBuilder->register(
             'tubepress_search_impl_listeners_SearchInputTemplateListener',
@@ -66,9 +54,9 @@ class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_Containe
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_http_RequestParametersInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
+            'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
             'priority' => 100000,
-            'method'   => 'onSearchInputTemplatePreRender'));
+            'method'   => 'onSearchInputTemplatePreRender', ));
     }
 
     private function _registerTemplatePathProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -109,7 +97,7 @@ class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_Containe
 
         $toValidate = array(
             tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
-                tubepress_api_options_Names::SEARCH_ONLY_USER
+                tubepress_api_options_Names::SEARCH_ONLY_USER,
             ),
         );
 
@@ -133,9 +121,9 @@ class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_Containe
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'multiSourceText' => array(
-                tubepress_api_options_Names::SEARCH_ONLY_USER
+                tubepress_api_options_Names::SEARCH_ONLY_USER,
             ),
         );
 

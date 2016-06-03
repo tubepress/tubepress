@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,10 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * @api
- * @since 4.0.0
- */
 class tubepress_options_impl_Persistence implements tubepress_api_options_PersistenceInterface
 {
     /**
@@ -57,16 +53,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
     }
 
     /**
-     * Retrieve the current value of an option from this storage manager.
-     *
-     * @param string $optionName The name of the option
-     *
-     * @return mixed|null The option's stored value.
-     *
-     * @throws InvalidArgumentException If no option with the given name is known.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function fetch($optionName)
     {
@@ -81,8 +68,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
     }
 
     /**
-     * @return array An associative array of all the options known by this manager. The keys are option
-     *               names and the values are the stored option values.
+     * {@inheritdoc}
      */
     public function fetchAll()
     {
@@ -97,19 +83,11 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
     }
 
     /**
-     * Queue a name-value pair for storage. No validation is performed.
-     *
-     * @param string $optionName  The option name.
-     * @param mixed  $optionValue The option value.
-     *
-     * @return string|null Null if the option was accepted for storage, otherwise a string error message.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function queueForSave($optionName, $optionValue)
     {
-        /**
+        /*
          * Init the queue if need be.
          */
         if (!isset($this->_saveQueue)) {
@@ -119,7 +97,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
 
         if (!$this->_optionsReference->isMeantToBePersisted($optionName)) {
 
-            /**
+            /*
              * Not meant to be persisted. Just ignore.
              */
             return null;
@@ -134,13 +112,13 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
 
         if ($this->_noChangeBetweenIncomingAndCurrent($optionName, $optionValue)) {
 
-            /**
+            /*
              * No change. Ignore.
              */
             return null;
         }
 
-        /**
+        /*
          * Option passed validation and is meant to be persisted.
          */
         $this->_saveQueue[$optionName] = $optionValue;
@@ -149,10 +127,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
     }
 
     /**
-     * Flush the save queue. This public function will empty the queue regardless of whether or not an error occurred during
-     * save.
-     *
-     * @return null|string Null if the flush succeeded and all queued options were saved, otherwise a string error message.
+     * {@inheritdoc}
      */
     public function flushSaveQueue()
     {
@@ -165,7 +140,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
 
         unset($this->_saveQueue);
 
-        /**
+        /*
          * Rebuild cache of option values.
          */
         $this->_forceReloadOfOptionsCache();
@@ -191,8 +166,8 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
         $toPersist               = array();
         $missingOptions          = array_diff($optionNamesFromProvider, array_keys($optionsInThisStorageManager));
 
-        /**
-         * @var $optionName string
+        /*
+         * @var string
          */
         foreach ($missingOptions as $optionName) {
 
@@ -249,6 +224,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
      * @param $optionValue
      * @param array $errors
      * @param $eventName
+     *
      * @return tubepress_api_event_EventInterface
      */
     private function _dispatch($optionName, $optionValue, array $errors, $eventName)
@@ -256,7 +232,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
         $event = $this->_eventDispatcher->newEventInstance($errors, array(
 
             'optionName'  => $optionName,
-            'optionValue' => $optionValue
+            'optionValue' => $optionValue,
         ));
 
         $this->_eventDispatcher->dispatch($eventName, $event);
@@ -268,7 +244,7 @@ class tubepress_options_impl_Persistence implements tubepress_api_options_Persis
     {
         $event = $this->_eventDispatcher->newEventInstance($optionValue, array(
 
-            'optionName' => $optionName
+            'optionName' => $optionName,
         ));
 
         $this->_eventDispatcher->dispatch(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);

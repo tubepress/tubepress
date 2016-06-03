@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http_oauth2_impl_AbstractProviderConsumer
 {
     /**
@@ -63,7 +60,7 @@ class tubepress_http_oauth2_impl_listeners_Oauth2Listener extends tubepress_http
     public function onHttpRequest(tubepress_api_event_EventInterface $event)
     {
         /**
-         * @var $request tubepress_api_http_message_RequestInterface
+         * @var tubepress_api_http_message_RequestInterface
          */
         $request       = $event->getSubject();
         $providers     = $this->getAllProviders();

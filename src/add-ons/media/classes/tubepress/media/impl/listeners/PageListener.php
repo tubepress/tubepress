@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Filters out any videos that the user has in their blacklist.
- */
 class tubepress_media_impl_listeners_PageListener
 {
     private $_logger;
@@ -45,23 +42,17 @@ class tubepress_media_impl_listeners_PageListener
 
     private static $_perPageSortMap = array(
 
-        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT =>
-            tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT => tubepress_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
 
-        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST =>
-            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST => tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
 
-        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST =>
-            tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST => tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
 
-        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_DURATION =>
-            tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_DURATION => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
 
-        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_TITLE =>
-            tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_TITLE => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
 
-        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT =>
-            tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
+        tubepress_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT => tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
     );
 
     public function __construct(tubepress_api_log_LoggerInterface             $logger,
@@ -78,8 +69,8 @@ class tubepress_media_impl_listeners_PageListener
 
     public function blacklist(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $mediaItems tubepress_api_media_MediaItem[]
+        /*
+         * @var tubepress_api_media_MediaItem[]
          */
         $mediaItems     = $event->getSubject()->getItems();
         $blacklist      = $this->_context->get(tubepress_api_options_Names::FEED_ITEM_ID_BLACKLIST);
@@ -132,7 +123,7 @@ class tubepress_media_impl_listeners_PageListener
             $this->_logDebug(sprintf('Per-page sort order is set to <code>%s</code>.', $this->_perPageSortOrder));
         }
 
-        /** No sort requested? */
+        /* No sort requested? */
         if ($this->_perPageSortOrder === tubepress_api_options_AcceptableValues::PER_PAGE_SORT_NONE) {
 
             if ($this->_shouldLog) {
@@ -143,7 +134,7 @@ class tubepress_media_impl_listeners_PageListener
             return;
         }
 
-        /** Grab a handle to the videos. */
+        /* Grab a handle to the videos. */
         $mediaItems = $event->getSubject()->getItems();
 
         if ($this->_perPageSortOrder === tubepress_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM) {
@@ -165,7 +156,7 @@ class tubepress_media_impl_listeners_PageListener
 
         $mediaItems = array_values($mediaItems);
 
-        /** Modify the feed result. */
+        /* Modify the feed result. */
         $event->getSubject()->setItems($mediaItems);
     }
 
@@ -178,8 +169,7 @@ class tubepress_media_impl_listeners_PageListener
                 $this->_context->get(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP)
             );
 
-        $firstCut       = $limit == 0 ? $totalResults : min($limit, $totalResults);
-        $secondCut      = min($firstCut, $this->_calculateRealMax($firstCut));
+        $secondCut      = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $mediaItemArray = $event->getSubject()->getItems();
         $resultCount    = count($mediaItemArray);
 
@@ -203,8 +193,8 @@ class tubepress_media_impl_listeners_PageListener
 
     public function filterDuplicates(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $mediaPage tubepress_api_media_MediaPage
+        /*
+         * @var tubepress_api_media_MediaPage
          */
         $mediaPage = $event->getSubject();
         $items     = $mediaPage->getItems();
@@ -220,7 +210,7 @@ class tubepress_media_impl_listeners_PageListener
 
                 if ($this->_shouldLog) {
 
-                    $this->_logDebug(sprintf('Duplicate item detected (<code>%s</code>). Now removing.',$id));
+                    $this->_logDebug(sprintf('Duplicate item detected (<code>%s</code>). Now removing.', $id));
                 }
 
                 unset($items[$x]);
@@ -239,25 +229,6 @@ class tubepress_media_impl_listeners_PageListener
         $mediaPage->setItems($items);
 
         $event->setSubject($mediaPage);
-    }
-
-    private function _calculateRealMax($reported)
-    {
-        $mode = $this->_context->get(tubepress_api_options_Names::GALLERY_SOURCE);
-
-        switch ($mode) {
-            case 'tag':
-                //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
-                return 500;
-            case 'favorites':
-                //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
-                return 50;
-            case 'playlist':
-                //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
-                return 200;
-        }
-
-        return $reported;
     }
 
     public function __perPageSort(tubepress_api_media_MediaItem $first, tubepress_api_media_MediaItem $second)
@@ -353,8 +324,8 @@ class tubepress_media_impl_listeners_PageListener
 
     private function _moveItemUpFront($mediaItems, $targetId)
     {
-        /**
-         * @var $mediaItems tubepress_api_media_MediaItem[]
+        /*
+         * @var tubepress_api_media_MediaItem[]
          */
         for ($x = 0; $x < count($mediaItems); $x++) {
 
@@ -378,8 +349,8 @@ class tubepress_media_impl_listeners_PageListener
 
     private function _mediaItemArrayAlreadyHasItem($mediaItems, $targetId)
     {
-        /**
-         * @var $mediaItem tubepress_api_media_MediaItem
+        /*
+         * @var tubepress_api_media_MediaItem
          */
         foreach ($mediaItems as $mediaItem) {
 
@@ -390,6 +361,7 @@ class tubepress_media_impl_listeners_PageListener
                 return true;
             }
         }
+
         return false;
     }
 
@@ -404,6 +376,7 @@ class tubepress_media_impl_listeners_PageListener
 
             return false;
         }
+
         return true;
     }
 

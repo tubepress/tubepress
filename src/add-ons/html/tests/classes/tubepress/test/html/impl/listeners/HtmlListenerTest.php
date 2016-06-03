@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -87,7 +87,7 @@ class tubepress_test_html_impl_listeners_HtmlListenerTest extends tubepress_api_
                 'base' => 'mockBaseUrl',
                 'usr'  => 'mock-user-url',
                 'ajax' => 'mock-ajax-url',
-            )
+            ),
         ));
 
         $this->_sut->onGlobalJsConfig($this->_mockEvent);

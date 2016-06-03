@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -51,7 +51,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
         $mockTheme->shouldReceive('getScreenshots')->once()->andReturn(array('some', 'screen', 'shot'));
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);
 
-        $actual = $this->getSut()->getThemeDataAsJson();
+        $actual   = $this->getSut()->getThemeDataAsJson();
         $expected = '{"theme name":{"authors":["theme author"],"description":"theme description","license":{"type":"foo license","urls":["http:\/\/foo.bar"]},"screenshots":["some","screen","shot"],"support":{"demo":"http:\/\/foo.bar\/demo","homepage":"http:\/\/foo.bar\/home","docs":"http:\/\/foo.bar\/docs","download":"http:\/\/foo.bar\/download","bugs":"http:\/\/foo.bar\/bugs","forum":"http:\/\/foo.bar\/forum","sourceCode":"http:\/\/foo.bar\/source"},"version":"8.0.0"}}';
 
         $this->assertEquals($expected, $actual);
@@ -75,7 +75,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
     {
         $this->_mockLangUtils        = $this->mock(tubepress_api_util_LangUtilsInterface::_);
         $this->_mockAcceptableValues = $this->mock(tubepress_api_options_AcceptableValuesInterface::_);
-        $this->_mockThemeRegistry  = $this->mock(tubepress_api_contrib_RegistryInterface::_);
+        $this->_mockThemeRegistry    = $this->mock(tubepress_api_contrib_RegistryInterface::_);
     }
 
     protected function getId()
@@ -100,11 +100,11 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
 
         $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getId())->andReturn(array(
 
-            'foo' => 'abc', 'smack' => 'xyz'
+            'foo' => 'abc', 'smack' => 'xyz',
         ));
 
         return array(
-            'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz')
+            'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz'),
         );
     }
 

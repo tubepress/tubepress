@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -30,7 +30,7 @@ class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_api_
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::GALLERY_INIT_JS,
                 'method'   => 'onGalleryInitJs',
-                'priority' => 94000
+                'priority' => 94000,
             ));
     }
 

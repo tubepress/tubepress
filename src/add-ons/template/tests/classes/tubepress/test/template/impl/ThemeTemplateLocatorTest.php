@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -177,7 +177,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         return array(
 
             array(true),
-            array(false)
+            array(false),
         );
     }
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Pulls out info from $_GET or $_POST.
- */
 abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_http_HttpClientInterface
 {
     /**
@@ -38,16 +35,7 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
     }
 
     /**
-     * Send a GET request
-     *
-     * @param string|tubepress_api_url_UrlInterface $url     URL
-     * @param array                                 $options Array of request options to apply.
-     *
-     * @return tubepress_api_http_message_ResponseInterface
-     * @throws tubepress_api_http_exception_RequestException When an error is encountered
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function get($url = null, $options = array())
     {
@@ -57,16 +45,7 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
     }
 
     /**
-     * Sends a single request
-     *
-     * @param tubepress_api_http_message_RequestInterface $request Request to send
-     *
-     * @return tubepress_api_http_message_ResponseInterface
-     * @throws LogicException When the underlying implementation does not populate a response
-     * @throws tubepress_api_http_exception_RequestException When an error is encountered
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function send(tubepress_api_http_message_RequestInterface $request)
     {
@@ -101,21 +80,23 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
     }
 
     /**
-     * Sends a single request
+     * Sends a single request.
      *
      * @param tubepress_api_http_message_RequestInterface $request Request to send
      *
      * @return tubepress_api_http_message_ResponseInterface
-     * @throws LogicException When the underlying implementation does not populate a response
+     *
+     * @throws LogicException                                When the underlying implementation does not populate a
+     *                                                       response
      * @throws tubepress_api_http_exception_RequestException When an error is encountered
      */
-    protected abstract function doSend(tubepress_api_http_message_RequestInterface $request);
+    abstract protected function doSend(tubepress_api_http_message_RequestInterface $request);
 
     private function _dispatchResponseEvent(tubepress_api_http_message_RequestInterface  $request,
                                             tubepress_api_http_message_ResponseInterface $response)
     {
         $event = $this->_eventDispatcher->newEventInstance($response, array(
-            'request' => $request
+            'request' => $request,
         ));
 
         if ($this->_shouldLog) {
@@ -147,7 +128,7 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
     private function _getQuickResponse(tubepress_api_http_message_RequestInterface $request)
     {
         $event = $this->_eventDispatcher->newEventInstance($request, array(
-            'response' => null
+            'response' => null,
         ));
 
         if ($this->_shouldLog) {
@@ -172,7 +153,7 @@ abstract class tubepress_http_impl_AbstractHttpClient implements tubepress_api_h
         }
 
         /**
-         * @var $response tubepress_api_http_message_ResponseInterface
+         * @var tubepress_api_http_message_ResponseInterface
          */
         $response = $event->getArgument('response');
 

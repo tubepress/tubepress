@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,6 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_AbstractHttpClient implements puzzle_event_SubscriberInterface
 {
     /**
@@ -37,20 +38,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     }
 
     /**
-     * Create and return a new {@see tubepress_api_http_message_RequestInterface} object.
-     *
-     * Use an absolute path to override the base path of the client, or a
-     * relative path to append to the base path of the client. The URL can
-     * contain the query string as well.
-     *
-     * @param string                                      $method  HTTP method
-     * @param string|array|tubepress_api_url_UrlInterface $url     URL
-     * @param array                                       $options Array of request options to apply.
-     *
-     * @return tubepress_api_http_message_RequestInterface
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function createRequest($method, $url = null, array $options = array())
     {
@@ -60,17 +48,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     }
 
     /**
-     * Get default request options of the client.
-     *
-     * @param string|null $keyOrPath The Path to a particular default request
-     *     option to retrieve or pass null to retrieve all default request
-     *     options. The syntax uses "/" to denote a path through nested PHP
-     *     arrays. For example, "headers/content-type".
-     *
-     * @return mixed
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getDefaultOption($keyOrPath = null)
     {
@@ -78,13 +56,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     }
 
     /**
-     * Sends a single request
-     *
-     * @param tubepress_api_http_message_RequestInterface $request Request to send
-     *
-     * @return tubepress_api_http_message_ResponseInterface
-     * @throws LogicException When the underlying adapter does not populate a response
-     * @throws tubepress_api_http_exception_RequestException When an error is encountered
+     * {@inheritdoc}
      */
     protected function doSend(tubepress_api_http_message_RequestInterface $request)
     {
@@ -130,19 +102,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     }
 
     /**
-     * Set a default request option on the client so that any request created
-     * by the client will use the provided default value unless overridden
-     * explicitly when creating a request.
-     *
-     * @param string|null $keyOrPath The Path to a particular configuration
-     *     value to set. The syntax uses a path notation that allows you to
-     *     specify nested configuration values (e.g., 'headers/content-type').
-     * @param mixed $value Default request option value to set
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setDefaultOption($keyOrPath, $value)
     {
@@ -158,7 +118,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
         $eventDispatcher   = $this->getEventDispatcher();
 
         $event = $eventDispatcher->newEventInstance($tubePressResponse, array(
-            'request' => $tubePressRequest
+            'request' => $tubePressRequest,
         ));
 
         $eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_RESPONSE_HEADERS, $event);
@@ -172,7 +132,7 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
 
         $event = $eventDispatcher->newEventInstance($tubePressException, array(
 
-            'response' => null
+            'response' => null,
         ));
 
         $eventDispatcher->dispatch(tubepress_api_http_Events::EVENT_HTTP_ERROR, $event);
@@ -193,26 +153,14 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
     }
 
     /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * The returned array keys MUST map to an event name. Each array value
-     * MUST be an array in which the first element is the name of a function
-     * on the EventSubscriber. The second element in the array is optional, and
-     * if specified, designates the event priority.
-     *
-     * For example:
-     *
-     *  - ['eventName' => ['methodName']]
-     *  - ['eventName' => ['methodName', $priority]]
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getEvents()
     {
         return array(
 
             'headers' => array('onHeaders'),
-            'error'   => array('onError')
+            'error'   => array('onError'),
         );
     }
 

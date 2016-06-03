@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -131,22 +131,22 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
         $this->_mockMediaProviderYouTube->shouldReceive('getName')->once()->andReturn('youtube-media-provider');
         $this->_mockMediaProviderVimeo->shouldReceive('getName')->once()->andReturn('vimeo-media-provider');
 
-        $ytProps = new tubepress_internal_collection_Map();
+        $ytProps    = new tubepress_internal_collection_Map();
         $vimeoProps = new tubepress_internal_collection_Map();
 
         $ytProps->put('miniIconUrl', 'yt-icon');
         $vimeoProps->put('miniIconUrl', 'vimeo-icon');
-        $ytProps->put('untranslatedModeTemplateMap',array(
-            'tag' => 'tag template',
+        $ytProps->put('untranslatedModeTemplateMap', array(
+            'tag'  => 'tag template',
             'user' => 'user template',
         ));
-        $vimeoProps->put('untranslatedModeTemplateMap',array(
+        $vimeoProps->put('untranslatedModeTemplateMap', array(
             'vimeoChannel' => 'template for channel',
-            'vimeoAlbum' => 'template for album',
+            'vimeoAlbum'   => 'template for album',
         ));
 
         $this->_mockMediaProviderYouTube->shouldReceive('getGallerySourceNames')->once()->andReturn(array(
-            'tag', 'user'
+            'tag', 'user',
         ));
         $this->_mockMediaProviderVimeo->shouldReceive('getGallerySourceNames')->once()->andReturn(array(
             'vimeoChannel', 'vimeoAlbum',
@@ -206,7 +206,107 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
             'fields' => $this->_fieldsVar,
         ));
 
-        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(function ($candidate) { return self::__verifyFinalTemplateVars($candidate); }));
+        $gallerySourceCategory = $this->_mockCategoryGallerySource;
+        $embeddedCategory      = $this->_mockCategoryEmbedded;
+        $vimeoFieldProvider    = $this->_mockFieldProviderVimeo;
+        $playerFieldProvider   = $this->_mockFieldProviderPlayer;
+        $baseUrl               = $this->_mockBaseUrl;
+        $fieldsVar             = $this->_fieldsVar;
+
+        $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(Mockery::on(function ($candidate) use (
+
+            $gallerySourceCategory,
+            $embeddedCategory,
+            $vimeoFieldProvider,
+            $playerFieldProvider,
+            $baseUrl,
+            $fieldsVar
+        ) {
+
+            if (!is_array($candidate)) {
+
+                return false;
+            }
+
+            if ($candidate['foo'] !== 'bar') {
+
+                return false;
+            }
+
+            if ($candidate['categories'] !== array(
+                    $gallerySourceCategory,
+                    $embeddedCategory, )) {
+
+                return false;
+            }
+
+            if ($candidate['categoryIdToProviderIdToFieldsMap'] !== array(
+                    tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
+                        'field-provider-player' => array(
+                            'coreEmbeddedOption',
+                        ),
+                        'field-provider-vimeo' => array(
+                            'vimeoEmbeddedOption',
+                        ),
+                    ),
+                    tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
+                        'field-provider-player' => array(
+                            'coreGallerySource',
+                        ),
+                        'field-provider-vimeo' => array(
+                            'vimeoGallerySource',
+                        ),
+                    ),
+                )) {
+
+                return false;
+            }
+
+            if ($candidate['fieldProviders'] !== array(
+                    'field-provider-vimeo' => $vimeoFieldProvider,
+                    'field-provider-player' => $playerFieldProvider, )) {
+
+                return false;
+            }
+
+            if ($candidate['baseUrl'] !== $baseUrl) {
+
+                return false;
+            }
+
+            if ($candidate['isPro'] !== true) {
+
+                return false;
+            }
+
+            if ($candidate['fields'] !== $fieldsVar) {
+
+                return false;
+            }
+
+            if (!is_array($candidate['gallerySources']) || count($candidate['gallerySources']) !== 2) {
+
+                return false;
+            }
+
+            $firstSource = $candidate['gallerySources'][0];
+
+            if (!is_array($firstSource)) {
+
+                return false;
+            }
+
+            if ($firstSource['id'] !== 999999) {
+
+                return false;
+            }
+
+            if ($candidate['mediaProviderPropertiesAsJson'] !== '{"vimeo-media-provider":{"displayName":"Vimeo","sourceNames":["vimeoChannel","vimeoAlbum"],"miniIconUrl":"vimeo-icon","untranslatedModeTemplateMap":{"vimeoChannel":"template for channel","vimeoAlbum":"template for album"}},"youtube-media-provider":{"displayName":"YouTube","sourceNames":["tag","user"],"miniIconUrl":"yt-icon","untranslatedModeTemplateMap":{"tag":"tag template","user":"user template"}}}') {
+
+            }
+
+            return true;
+        }));
     }
 
     private function _prepMockFieldProviders()
@@ -216,11 +316,11 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
 
         $this->_mockFieldProviderVimeo->shouldReceive('getCategories')->atLeast(1)->andReturn(array(
             $this->_mockCategoryEmbedded,
-            $this->_mockCategoryGallerySource
+            $this->_mockCategoryGallerySource,
         ));
 
         $this->_mockFieldProviderPlayer->shouldReceive('getCategories')->atLeast(1)->andReturn(array(
-            $this->_mockCategoryGallerySource
+            $this->_mockCategoryGallerySource,
         ));
 
         $this->_mockFieldProviderVimeo->shouldReceive('getCategoryIdsToFieldIdsMap')->atLeast(1)->andReturn(array(
@@ -254,109 +354,4 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
         $this->_mockCategoryGallerySource->shouldReceive('getId')->atLeast(1)->andReturn(tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE);
     }
 
-    public function __verifyFinalTemplateVars($candidate)
-    {
-        if (!is_array($candidate)) {
-
-            return false;
-        }
-
-        if ($candidate['foo'] !== 'bar') {
-
-            return false;
-        }
-
-        if ($candidate['categories'] !== array(
-                $this->_mockCategoryGallerySource,
-            $this->_mockCategoryEmbedded)) {
-
-            return false;
-        }
-
-        if ($candidate['categoryIdToProviderIdToFieldsMap'] !== array(
-                tubepress_api_options_ui_CategoryNames::EMBEDDED => array(
-                    'field-provider-player' => array(
-                        'coreEmbeddedOption'
-                    ),
-                    'field-provider-vimeo' => array(
-                        'vimeoEmbeddedOption',
-                    ),
-                ),
-                tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
-                    'field-provider-player' => array(
-                        'coreGallerySource'
-                    ),
-                    'field-provider-vimeo' => array(
-                        'vimeoGallerySource',
-                    ),
-                ),
-            )) {
-
-            return false;
-        }
-
-        if ($candidate['fieldProviders'] !== array(
-                'field-provider-vimeo' => $this->_mockFieldProviderVimeo,
-                'field-provider-player'  => $this->_mockFieldProviderPlayer)) {
-
-            return false;
-        }
-
-        if ($candidate['baseUrl'] !== $this->_mockBaseUrl) {
-
-            return false;
-        }
-
-        if ($candidate['isPro'] !== true) {
-
-            return false;
-        }
-
-        if ($candidate['fields'] !== $this->_fieldsVar) {
-
-            return false;
-        }
-
-        if (!is_array($candidate['gallerySources']) || count($candidate['gallerySources']) !== 2) {
-
-            return false;
-        }
-
-        $firstSource = $candidate['gallerySources'][0];
-
-        if (!is_array($firstSource)) {
-
-            return false;
-        }
-
-        if ($firstSource['id'] !== 999999) {
-
-            return false;
-        }
-
-        if ($candidate['mediaProviderPropertiesAsJson'] !== '{"vimeo-media-provider":{"displayName":"Vimeo","sourceNames":["vimeoChannel","vimeoAlbum"],"miniIconUrl":"vimeo-icon","untranslatedModeTemplateMap":{"vimeoChannel":"template for channel","vimeoAlbum":"template for album"}},"youtube-media-provider":{"displayName":"YouTube","sourceNames":["tag","user"],"miniIconUrl":"yt-icon","untranslatedModeTemplateMap":{"tag":"tag template","user":"user template"}}}') {
-
-
-        }
-
-        return true;
-
-        //array(
-//            'gallerySources' => array(
-//                array(
-//                    'id'                          => '999999',
-//                    'icon'                        => '',
-//                    'title'                       => '',
-//                    'gallerySourceFieldProviders' => array(),
-//                    'feedOptionFieldProviders'    => array(),
-//                ),
-//                array(
-//                    'id'                          => '888888',
-//                    'icon'                        => '',
-//                    'title'                       => '',
-//                    'gallerySourceFieldProviders' => array(),
-//                    'feedOptionFieldProviders'    => array(),
-//                )
-//            ),
-    }
 }

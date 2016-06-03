@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_HttpFeedHandlerInterface
 {
     /**
@@ -67,10 +66,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * @return string The name of this feed handler. Never empty or null. All lowercase alphanumerics and dashes.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -78,15 +74,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Apply any data that might be needed from the feed to build attributes for this media item.
-     *
-     * @param tubepress_api_media_MediaItem $mediaItemId The media item.
-     * @param int                               $index       The zero-based index.
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getNewItemEventArguments(tubepress_api_media_MediaItem $mediaItemId, $index)
     {
@@ -94,19 +82,12 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
             'feedAsArray'     => $this->_feedAsArray,
             'metadataAsArray' => $this->_metadataAsArray,
-            'zeroBasedIndex'  => $index
+            'zeroBasedIndex'  => $index,
         );
     }
 
     /**
-     * Builds a URL for a list of videos
-     *
-     * @param int $currentPage The current page number of the gallery.
-     *
-     * @return tubepress_api_url_UrlInterface The request URL for this gallery.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function buildUrlForPage($currentPage)
     {
@@ -149,16 +130,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Builds a request url for a single video
-     *
-     * @param string $id The video ID to search for
-     *
-     * @throws InvalidArgumentException If unable to build a URL for the given video.
-     *
-     * @return tubepress_api_url_UrlInterface The URL for the single video given.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function buildUrlForItem($id)
     {
@@ -174,12 +146,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Count the total videos in this feed result.
-     *
-     * @return int The total result count of this query.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTotalResultCount()
     {
@@ -195,14 +162,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Determine why the given item cannot be used.
-     *
-     * @param integer $index The index into the feed.
-     *
-     * @return string The reason why we can't work with this video, or null if we can.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getReasonUnableToUseItemAtIndex($index)
     {
@@ -217,7 +177,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         $title = $this->_arrayReader->getAsString($item, sprintf('%s.%s',
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET_TITLE));
-        $desc  = $this->_arrayReader->getAsString($item, sprintf('%s.%s',
+        $desc = $this->_arrayReader->getAsString($item, sprintf('%s.%s',
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
             tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_DESCRIPTION));
 
@@ -235,12 +195,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Count the number of videos that we think are in this feed.
-     *
-     * @return integer A count of videos in this feed.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCurrentResultCount()
     {
@@ -250,14 +205,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Perform pre-construction activites for the feed.
-     *
-     * @param mixed $feed The feed to construct.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function onAnalysisStart($feed, tubepress_api_url_UrlInterface $url)
     {
@@ -292,12 +240,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Perform post-construction activites for the feed.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function onAnalysisComplete()
     {
@@ -306,14 +249,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * Get the item ID of an element of the feed.
-     *
-     * @param integer $index The index into the feed.
-     *
-     * @return string The globally unique item ID.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getIdForItemAtIndex($index)
     {
@@ -340,9 +276,9 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
             tubepress_youtube3_impl_ApiUtility::PART_ID,
             tubepress_youtube3_impl_ApiUtility::PART_SNIPPET
         );
-        $key  = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_API_KEY);
+        $key = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_API_KEY);
 
-        /**
+        /*
          * Check to see if we're using the short-lived "shared" API key from TubePress 4.1.0 - 4.1.6.
          */
         if (!$key || $key === 'AIzaSyDENt00ayilKKoHolD9WGB_b9zvDjiHIso') {
@@ -360,7 +296,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * https://developers.google.com/youtube/v3/migration-guide#favorites
+     * https://developers.google.com/youtube/v3/migration-guide#favorites.
      *
      * @param $userChannelId
      *
@@ -416,7 +352,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * https://developers.google.com/youtube/v3/migration-guide#favorites
+     * https://developers.google.com/youtube/v3/migration-guide#favorites.
      *
      * @param $userChannelId
      *
@@ -449,7 +385,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
         if (count($responseItems) > 0) {
 
-            $firstItem      = $responseItems[0];
+            $firstItem          = $responseItems[0];
             $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
 
                 tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
@@ -472,7 +408,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
     }
 
     /**
-     * https://developers.google.com/youtube/v3/guides/working_with_channel_ids#v3
+     * https://developers.google.com/youtube/v3/guides/working_with_channel_ids#v3.
      *
      * @param $candidate
      *
@@ -599,7 +535,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART,   tubepress_youtube3_impl_ApiUtility::PART_ID);
         $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN);
 
-        for ($page = 2; $page <= $currentPage; $page++) {
+        for ($page = 2; $page <= $currentPage; ++$page) {
 
             if ($nextToken !== null) {
 
@@ -627,12 +563,14 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         if ($requestedSortOrder === tubepress_api_options_AcceptableValues::ORDER_BY_DEFAULT) {
 
             $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE);
+
             return;
         }
 
         if ($requestedSortOrder === tubepress_youtube3_api_Constants::ORDER_BY_NEWEST) {
 
             $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, 'date');
+
             return;
         }
 
@@ -646,7 +584,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         if (in_array($requestedSortOrder, array(
             tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE,
             tubepress_youtube3_api_Constants::ORDER_BY_RATING,
-            tubepress_youtube3_api_Constants::ORDER_BY_TITLE))) {
+            tubepress_youtube3_api_Constants::ORDER_BY_TITLE, ))) {
 
             $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, $requestedSortOrder);
         }
@@ -738,8 +676,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
 
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH:
 
-                $tags   = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE);
-                $tags   = str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $tags);
+                $tags = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE);
+                $tags = str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $tags);
 
                 $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_Q, $tags);
 
@@ -863,12 +801,12 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
         $url = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
         $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEOS);
 
-        $partsToRequest  = array(
+        $partsToRequest = array(
 
             tubepress_youtube3_impl_ApiUtility::PART_ID,
             tubepress_youtube3_impl_ApiUtility::PART_SNIPPET,
             tubepress_youtube3_impl_ApiUtility::PART_VIDEO_STATISTICS,
-            tubepress_youtube3_impl_ApiUtility::PART_VIDEO_CONTENT_DETAILS
+            tubepress_youtube3_impl_ApiUtility::PART_VIDEO_CONTENT_DETAILS,
         );
 
         $fieldsToRequest = array(
@@ -884,7 +822,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_spi_media_H
             tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS,
             implode(',', $fieldsToRequest));
 
-        /**
+        /*
          * author           //snippet.channelId and snippet.channelTitle
          * category         //snippet.categoryId
          * comments count   //statistics.commentCount

@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -17,14 +16,14 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
      */
     private $_mockEventDispatcher;
 
-    public final function onSetup()
+    final public function onSetup()
     {
         $this->_mockEventDispatcher = $this->mock(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->doSetup();
     }
 
-    protected abstract function doSetup();
+    abstract protected function doSetup();
 
     protected function getMockEventDispatcher()
     {
@@ -48,7 +47,7 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
         $mockThirdEvent  = $this->mock('tubepress_api_event_EventInterface');
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($incomingValue, array(
-            'optionName'  => $optionName,
+            'optionName' => $optionName,
         ))->andReturn($mockFirstEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
             tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockFirstEvent
@@ -57,8 +56,8 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(), array(
 
-            'optionName' => $optionName,
-            'optionValue' => 'abc'
+            'optionName'  => $optionName,
+            'optionValue' => 'abc',
         ))->andReturn($mockSecondEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
             tubepress_api_event_Events::OPTION_SET . '.' . $optionName,
@@ -69,8 +68,8 @@ abstract class tubepress_test_options_impl_AbstractOptionReaderTest extends tube
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($errors, array(
 
-            'optionName' => $optionName,
-            'optionValue' => 'xyz'
+            'optionName'  => $optionName,
+            'optionValue' => 'xyz',
         ))->andReturn($mockThirdEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
             tubepress_api_event_Events::OPTION_SET,

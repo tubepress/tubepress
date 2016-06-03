@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,6 +56,7 @@ class tubepress_wordpress_impl_listeners_wpfilter_PhotonListener
             if ($imageHost === "$domain" || $this->_stringUtils->endsWith($imageHost, ".$domain")) {
 
                 $event->setSubject(true);
+
                 return;
             }
         }

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -43,7 +43,7 @@ class tubepress_test_cache_api_impl_stash_FilesystemCacheBuilderTest extends tub
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut              = new tubepress_cache_api_impl_stash_FilesystemCacheBuilder(
+        $this->_sut = new tubepress_cache_api_impl_stash_FilesystemCacheBuilder(
 
             $this->_mockContext,
             $this->_mockBootSettings,

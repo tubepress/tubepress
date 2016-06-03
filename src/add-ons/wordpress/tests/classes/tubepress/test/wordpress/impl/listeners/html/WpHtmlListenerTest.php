@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -29,7 +29,7 @@ class tubepress_test_wordpress_impl_listeners_html_WpHtmlListenerTest extends tu
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
         $mockEvent->shouldReceive('setSubject')->once()->with(array(
-            'urls' => array()
+            'urls' => array(),
         ));
 
         $this->_sut->onScriptsStylesTemplatePreRender($mockEvent);

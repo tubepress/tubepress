@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -18,7 +18,6 @@ class tubepress_test_dailymotion_impl_media_MediaProviderTest extends tubepress_
      * @var tubepress_dailymotion_impl_media_MediaProvider
      */
     private $_sut;
-
 
     /**
      * @var Mockery\MockInterface
@@ -153,13 +152,13 @@ class tubepress_test_dailymotion_impl_media_MediaProviderTest extends tubepress_
     {
         $expected = array(
 
-            tubepress_api_options_Names::META_DISPLAY_TITLE       => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
-            tubepress_api_options_Names::META_DISPLAY_LENGTH      => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
-            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_URL         => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
-            tubepress_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
-            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_TITLE    => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+            tubepress_api_options_Names::META_DISPLAY_LENGTH   => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR   => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_URL      => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
+            tubepress_api_options_Names::META_DISPLAY_CATEGORY => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
 
             tubepress_api_options_Names::META_DISPLAY_ID          => tubepress_api_media_MediaItem::ATTRIBUTE_ID,
             tubepress_api_options_Names::META_DISPLAY_VIEWS       => tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,

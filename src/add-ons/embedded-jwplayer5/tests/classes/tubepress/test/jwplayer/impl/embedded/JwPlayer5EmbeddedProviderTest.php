@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -35,7 +35,6 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
     private $_mockEnvironment;
 
     public function onSetup() {
-
 
         $this->_mockUrlFactory  = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockContext     = $this->mock(tubepress_api_options_ContextInterface::_);
@@ -78,13 +77,13 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
 
         $actual   = $this->_sut->getTemplateVariables($mockMediaItem);
         $expected = array(
-            'userContentUrl' => $mockBaseUrl,
-            'autostart' => 'autoplay?',
+            'userContentUrl'                                        => $mockBaseUrl,
+            'autostart'                                             => 'autoplay?',
             tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
-            tubepress_jwplayer5_api_OptionNames::COLOR_FRONT => 'front-color',
-            tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT => 'light-color',
-            tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'screen-color',
-            tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'back-color'
+            tubepress_jwplayer5_api_OptionNames::COLOR_FRONT        => 'front-color',
+            tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT        => 'light-color',
+            tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN       => 'screen-color',
+            tubepress_jwplayer5_api_OptionNames::COLOR_BACK         => 'back-color',
         );
 
         $this->assertEquals($expected, $actual);

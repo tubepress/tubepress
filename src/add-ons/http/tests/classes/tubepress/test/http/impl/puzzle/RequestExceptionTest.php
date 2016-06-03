@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -36,8 +36,8 @@ class tubepress_test_http_impl_puzzle_RequestExceptionTest extends tubepress_api
 
     public function onSetup()
     {
-        $this->_mockPuzzleRequest   = $this->mock('puzzle_message_RequestInterface');
-        $this->_mockPuzzleResponse  = $this->mock('puzzle_message_ResponseInterface');
+        $this->_mockPuzzleRequest  = $this->mock('puzzle_message_RequestInterface');
+        $this->_mockPuzzleResponse = $this->mock('puzzle_message_ResponseInterface');
         $this->_mockPuzzleResponse->shouldReceive('getStatusCode')->times(3)->andReturn(404);
         $this->_mockPuzzleResponse->shouldReceive('getReasonPhrase')->once()->andReturn('some reason!');
         $this->_mockPuzzleResponse->shouldReceive('getEffectiveUrl')->once()->andReturn('http://bar.foo/z/y.php?test=true#frag');

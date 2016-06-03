@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -23,8 +23,8 @@ class tubepress_http_impl_listeners_UserAgentListener
 
     public function onRequest(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $request tubepress_api_http_message_RequestInterface
+        /*
+         * @var tubepress_api_http_message_RequestInterface
          */
         $request = $event->getSubject();
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,11 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Holds the current options for TubePress. This is the default options,
- * usually in persistent storage somewhere, and custom options parsed
- * from a shortcode
- */
 class tubepress_options_impl_Context implements tubepress_api_options_ContextInterface
 {
     /**
@@ -49,16 +44,7 @@ class tubepress_options_impl_Context implements tubepress_api_options_ContextInt
     }
 
     /**
-     * Gets the value of an option. Memory will be checked first, then the option value
-     * will be retrieved from persistent storage.
-     *
-     * @param string $optionName The name of the option to retrieve.
-     *
-     * @throws InvalidArgumentException If no option with the given name is known.
-     *
-     * @return mixed The option value.
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function get($optionName)
     {
@@ -84,12 +70,7 @@ class tubepress_options_impl_Context implements tubepress_api_options_ContextInt
     }
 
     /**
-     * Get options persisted in memory.
-     *
-     * @return array An associative array of options stored in memory. The array keys are option names
-     *               and the values are the values stored in memory.
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getEphemeralOptions()
     {
@@ -97,16 +78,7 @@ class tubepress_options_impl_Context implements tubepress_api_options_ContextInt
     }
 
     /**
-     * Sets the value of an option in memory. This will *not* affect persistent storage.
-     *
-     * @param string $optionName  The name of the option
-     * @param mixed  $optionValue The option value
-     *
-     * @return null|string A string error message if there was a problem with the option or value,
-     *                     otherwise null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setEphemeralOption($optionName, $optionValue)
     {
@@ -123,15 +95,7 @@ class tubepress_options_impl_Context implements tubepress_api_options_ContextInt
     }
 
     /**
-     * Sets all ephemeral option values, overwriting anything in memory. This will *not* affect persistent storage.
-     *
-     * @param array $customOpts An associative array of options. The array keys are option names
-     *                          and the values are the values stored in memory.
-     *
-     * @return array An array of error messages. May be empty, never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setEphemeralOptions(array $customOpts)
     {
@@ -178,7 +142,7 @@ class tubepress_options_impl_Context implements tubepress_api_options_ContextInt
     {
         $event = $this->_eventDispatcher->newEventInstance($optionValue, array(
 
-            'optionName' => $optionName
+            'optionName' => $optionName,
         ));
 
         $this->_eventDispatcher->dispatch(tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
@@ -191,7 +155,7 @@ class tubepress_options_impl_Context implements tubepress_api_options_ContextInt
         $event = $this->_eventDispatcher->newEventInstance($errors, array(
 
             'optionName'  => $optionName,
-            'optionValue' => $optionValue
+            'optionValue' => $optionValue,
         ));
 
         $this->_eventDispatcher->dispatch($eventName, $event);

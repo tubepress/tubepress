@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -46,6 +46,9 @@ class tubepress_options_ui_impl_fields_templated_single_SpectrumColorField exten
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getAdditionalTemplateVariables()
     {
         return array(
@@ -75,7 +78,7 @@ class tubepress_options_ui_impl_fields_templated_single_SpectrumColorField exten
     }
 
     /**
-     * @param boolean $showAlpha
+     * @param bool $showAlpha
      */
     public function setShowAlpha($showAlpha)
     {
@@ -83,7 +86,7 @@ class tubepress_options_ui_impl_fields_templated_single_SpectrumColorField exten
     }
 
     /**
-     * @param boolean $showInput
+     * @param bool $showInput
      */
     public function setShowInput($showInput)
     {
@@ -91,7 +94,7 @@ class tubepress_options_ui_impl_fields_templated_single_SpectrumColorField exten
     }
 
     /**
-     * @param boolean $showSelectionPalette
+     * @param bool $showSelectionPalette
      */
     public function setShowSelectionPalette($showSelectionPalette)
     {

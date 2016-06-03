@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -31,8 +31,8 @@ class tubepress_test_event_ioc_compiler_RegisterListenersPassTest extends tubepr
 
     public function onSetup()
     {
-        $this->_sut           = new tubepress_event_ioc_compiler_RegisterListenersPass();
-        $this->_mockContainer = $this->mock('tubepress_api_ioc_ContainerBuilderInterface');
+        $this->_sut                           = new tubepress_event_ioc_compiler_RegisterListenersPass();
+        $this->_mockContainer                 = $this->mock('tubepress_api_ioc_ContainerBuilderInterface');
         $this->_mockEventDispatcherDefinition = $this->mock('tubepress_platform_api_ioc_Definition');
     }
 

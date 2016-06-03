@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
+        colors="true"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        processIsolation="false"
+        bootstrap="bootstrap.php">
+
+	<testsuites>
+
+	   <testsuite name="unit">
+           <directory>./unit</directory>
+           <directory>../src/add-ons/*/tests</directory>
+	   </testsuite>
+
+        <testsuite name="translations">
+            <directory>./translations</directory>
+        </testsuite>
+
+	</testsuites>
+
+    <filter>
+        <whitelist>
+           <directory suffix=".php">../src</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>

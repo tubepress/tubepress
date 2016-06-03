@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -37,7 +37,7 @@ class tubepress_dailymotion_impl_listeners_options_transform_UserTransformer
 
         $incoming = trim($incoming, '/');
 
-        /**
+        /*
          * Might be
          *
          * 1. http://www.dailymotion.com/user/foobar/1

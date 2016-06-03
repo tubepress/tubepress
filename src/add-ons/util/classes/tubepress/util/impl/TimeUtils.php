@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -11,7 +11,6 @@
 
 /**
  * Time conversion utilities.
- *
  */
 class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInterface
 {
@@ -27,24 +26,18 @@ class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInter
 
     //Grabbed from http://www.weberdev.com/get_example-4769.html
     /**
-     * Converts a unix timestamp to relative time.
-     *
-     * @param integer $timestamp The Unix timestamp.
-     *
-     * @return string The relative time of this timestamp.
-     *
-     * @throws LogicException
+     * {@inheritdoc}
      */
     public function getRelativeTime($timestamp)
     {
         $difference = time() - $timestamp;
-        $a = array(
-            31104000 =>  'year',
-            2592000  =>  'month',
-            86400    =>  'day',
-            3600     =>  'hour',
-            60       =>  'minute',
-            1        =>  'second'
+        $a          = array(
+            31104000 => 'year',
+            2592000  => 'month',
+            86400    => 'day',
+            3600     => 'hour',
+            60       => 'minute',
+            1        => 'second',
         );
 
         foreach ($a as $secs => $str) {
@@ -63,11 +56,7 @@ class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInter
     }
 
     /**
-     * Converts a count of seconds to a minutes:seconds format.
-     *
-     * @param int $seconds The count of seconds.
-     *
-     * @return string The time in minutes:seconds format
+     * {@inheritdoc}
      */
     public function secondsToHumanTime($seconds)
     {
@@ -83,11 +72,7 @@ class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInter
     }
 
     /**
-     * Converts gdata timestamps to unix time
-     *
-     * @param string $rfcTime The RFC 3339 format of time
-     *
-     * @return int Unix time for the given RFC 3339 time
+     * {@inheritdoc}
      */
     public function rfc3339toUnixTime($rfcTime)
     {
@@ -114,16 +99,7 @@ class tubepress_util_impl_TimeUtils implements tubepress_api_util_TimeUtilsInter
     }
 
     /**
-     * Given a unix time, return a human-readable version.
-     *
-     * @param int|string $unixTime The given unix time.
-     * @param string     $format   The time format.
-     * @param bool       $relative Convert to relative time, instead.
-     *
-     * @return string A human readable time.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function unixTimeToHumanReadable($unixTime, $format, $relative)
     {

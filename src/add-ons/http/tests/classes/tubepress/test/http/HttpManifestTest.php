@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -13,8 +13,8 @@ class tubepress_test_http_HttpManifestTest extends tubepress_api_test_contrib_Ab
 {
     public function testManifest()
     {
-        /**
-         * @var $addon tubepress_api_contrib_AddonInterface
+        /*
+         * @var tubepress_api_contrib_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 

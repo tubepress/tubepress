@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField extends tubepress_options_ui_impl_fields_AbstractField
 {
     /**
@@ -33,14 +30,8 @@ class tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField extends
         $this->_persistenceHelper = $persistenceHelper;
     }
 
-
     /**
-     * Invoked when the element is submitted by the user.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
@@ -79,12 +70,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField extends
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isProOnly()
     {
@@ -92,10 +78,7 @@ class tubepress_http_oauth2_impl_options_ui_ClientCredentialsSavingField extends
     }
 
     /**
-     * @return string The widget HTML for this form element.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getWidgetHTML()
     {

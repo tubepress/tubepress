@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -49,12 +49,12 @@ class tubepress_player_impl_listeners_SoloPlayerListener
     }
 
     /**
-     * @return boolean True if this handler is interested in generating HTML, false otherwise.
+     * @return bool True if this handler is interested in generating HTML, false otherwise.
      */
     private function _shouldExecute()
     {
-        $playerName  = $this->_context->get(tubepress_api_options_Names::PLAYER_LOCATION);
-        $shouldLog   = $this->_logger->isEnabled();
+        $playerName = $this->_context->get(tubepress_api_options_Names::PLAYER_LOCATION);
+        $shouldLog  = $this->_logger->isEnabled();
 
         if ($playerName !== 'solo') {
 
@@ -84,7 +84,7 @@ class tubepress_player_impl_listeners_SoloPlayerListener
 
     private function _handle(tubepress_api_event_EventInterface $event)
     {
-        $itemId    = $this->_requestParams->getParamValue('tubepress_item');;
+        $itemId    = $this->_requestParams->getParamValue('tubepress_item');
         $shouldLog = $this->_logger->isEnabled();
 
         if ($shouldLog) {

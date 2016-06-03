@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -14,7 +14,7 @@
  */
 class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_test_TubePressUnitTest
 {
-    const RFC3986_BASE = "http://a/b/c/d;p?q";
+    const RFC3986_BASE = 'http://a/b/c/d;p?q';
 
     /**
      * @dataProvider dataProviderGetToString
@@ -105,7 +105,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_te
         $this->assertFalse($url->isAbsolute());
 
         $url = 'http://michael:test@test.com:80/path/123?q=abc#test';
-        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
+        $u   = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
         $this->assertEquals('http://michael:test@test.com/path/123?q=abc#test', (string) $u);
         $this->assertTrue($u->isAbsolute());
     }
@@ -150,13 +150,13 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_te
 
         $this->assertEquals(array(
             'fragment' => 'fragment',
-            'host' => 'www.test.com',
-            'pass' => 'pass',
-            'path' => '/path/path2/',
-            'port' => 8081,
-            'query' => 'a=1&b=2',
-            'scheme' => 'http',
-            'user' => 'test'
+            'host'     => 'www.test.com',
+            'pass'     => 'pass',
+            'path'     => '/path/path2/',
+            'port'     => 8081,
+            'query'    => 'a=1&b=2',
+            'scheme'   => 'http',
+            'user'     => 'test',
         ), $url->getParts());
     }
 
@@ -170,7 +170,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_te
         $url->setPath('/test/123/abc');
         $this->assertEquals(array('', 'test', '123', 'abc'), $url->getPathSegments());
 
-        $parts = parse_url('http://www.test.com/test');
+        $parts         = parse_url('http://www.test.com/test');
         $parts['path'] = '';
         $this->assertEquals('http://www.test.com', puzzle_Url::buildUrl($parts));
         $parts['path'] = 'test';
@@ -180,7 +180,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_te
     public function testAddsQueryIfPresent()
     {
         $this->assertEquals('?foo=bar', puzzle_Url::buildUrl(array(
-            'query' => 'foo=bar'
+            'query' => 'foo=bar',
         )));
     }
 
@@ -197,7 +197,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_te
     }
 
     /**
-     * URL combination data provider
+     * URL combination data provider.
      *
      * @return array
      */
@@ -279,7 +279,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_api_te
         $this->assertEquals('a=123', (string) $url->setQuery('a=123')->getQuery());
         $this->assertEquals('https://b:a@example.com:8080/foo/bar?a=123#abc', (string) $url);
         $this->assertEquals('b=boo', (string) $url->setQuery(new tubepress_url_impl_puzzle_PuzzleBasedQuery(new puzzle_Query(array(
-            'b' => 'boo'
+            'b' => 'boo',
         ))))->getQuery());
         $this->assertEquals('https://b:a@example.com:8080/foo/bar?b=boo#abc', (string) $url);
     }

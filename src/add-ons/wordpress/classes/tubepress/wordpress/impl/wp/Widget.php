@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -112,7 +112,7 @@ class tubepress_wordpress_impl_wp_Widget
             tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE   => false,
             tubepress_api_options_Names::GALLERY_PAGINATE_BELOW   => false,
             tubepress_api_options_Names::THEME                    => 'tubepress/default',
-            tubepress_api_options_Names::GALLERY_FLUID_THUMBS     => false
+            tubepress_api_options_Names::GALLERY_FLUID_THUMBS     => false,
         );
 
         /* now apply the user's options */
@@ -132,7 +132,7 @@ class tubepress_wordpress_impl_wp_Widget
         $out = $this->_htmlGenerator->getHtml();
 
         /* do the standard WordPress widget dance */
-        /** @noinspection PhpUndefinedVariableInspection */
+        /* @noinspection PhpUndefinedVariableInspection */
         echo $before_widget . $before_title .
             $this->_context->get(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE) .
             $after_title . $out . $after_widget;

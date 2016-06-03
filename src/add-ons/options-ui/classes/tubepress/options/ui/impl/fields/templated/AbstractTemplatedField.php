@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -38,7 +38,7 @@ abstract class tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
     }
 
     /**
-     * @return string The widget HTML for this form element.
+     * {@inheritdoc}
      */
     public function getWidgetHTML()
     {

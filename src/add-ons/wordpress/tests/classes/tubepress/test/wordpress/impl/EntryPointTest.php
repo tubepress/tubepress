@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -59,7 +59,7 @@ class tubepress_test_wordpress_impl_EntryPointTest extends tubepress_api_test_Tu
             array(
                 array('filter1'),
                 array('filter2', 20, 4),
-                array('filter3', 15)
+                array('filter3', 15),
             )
         );
 

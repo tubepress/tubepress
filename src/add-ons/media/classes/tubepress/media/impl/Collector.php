@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * Simple media item collector.
- */
 class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInterface
 {
     /**
@@ -20,7 +17,7 @@ class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInt
     private $_logger;
 
     /**
-     * @var boolean Is debug enabled?
+     * @var bool Is debug enabled?
      */
     private $_shouldLog;
 
@@ -52,12 +49,7 @@ class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInt
     }
 
     /**
-     * Collects a media gallery page.
-     *
-     * @return tubepress_api_media_MediaPage The media gallery page, never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function collectPage($currentPage)
     {
@@ -75,7 +67,7 @@ class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInt
             return $this->_collectPage($modeValueFromContext, $currentPage);
         }
 
-        /**
+        /*
          * Did the user include mode in their ephemeral options?
          */
         if (isset($originalEphemeralOptions[tubepress_api_options_Names::GALLERY_SOURCE])) {
@@ -144,7 +136,7 @@ class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInt
     private function _collectPage($modeValue, $currentPage)
     {
         $eventArgs = array(
-            'pageNumber' => $currentPage
+            'pageNumber' => $currentPage,
         );
 
         $collectionEvent = $this->_eventDispatcher->newEventInstance($modeValue, $eventArgs);
@@ -160,14 +152,7 @@ class tubepress_media_impl_Collector implements tubepress_api_media_CollectorInt
     }
 
     /**
-     * Fetch a single media item.
-     *
-     * @param string $id The media item ID to fetch.
-     *
-     * @return tubepress_api_media_MediaItem The media item, or null not found.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function collectSingle($id)
     {

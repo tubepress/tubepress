@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -99,14 +99,14 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpMultiSelectFieldTest ext
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with(
             'options-ui/fields/multiselect',
             array(
-                'id' => 'id',
+                'id'                      => 'id',
                 'currentlySelectedValues' => array('foo', 'bar'),
-                'ungroupedChoices' => array(
+                'ungroupedChoices'        => array(
                     'foo' => 'Yo foo',
                     'goo' => 'Yo goo',
                 ),
                 'groupedChoices' => array(),
-                'selectText' => 'select ...',
+                'selectText'     => 'select ...',
             )
         )->andReturn('hi');
 

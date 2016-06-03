@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -34,10 +34,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * @api
- * @since 4.1.11
- */
 class tubepress_shortcode_impl_Shortcode implements tubepress_api_shortcode_ShortcodeInterface
 {
     /**
@@ -62,7 +58,7 @@ class tubepress_shortcode_impl_Shortcode implements tubepress_api_shortcode_Shor
             throw new InvalidArgumentException('Shortcode name must be a string');
         }
 
-        /**
+        /*
          * Ensure no leading or trailing spaces around the name.
          */
         $name = trim($name);
@@ -77,7 +73,7 @@ class tubepress_shortcode_impl_Shortcode implements tubepress_api_shortcode_Shor
             throw new InvalidArgumentException('Shortcode attributes must be an array');
         }
 
-        if (!empty($attributes) && count(array_filter(array_keys($attributes),'is_string')) !== count($attributes)) {
+        if (!empty($attributes) && count(array_filter(array_keys($attributes), 'is_string')) !== count($attributes)) {
 
             throw new InvalidArgumentException('Shortcode attributes must be an associative array');
         }
@@ -93,10 +89,7 @@ class tubepress_shortcode_impl_Shortcode implements tubepress_api_shortcode_Shor
     }
 
     /**
-     * @api
-     * @since 4.1.11
-     *
-     * @return string The "name" of this shortcode.
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -104,10 +97,7 @@ class tubepress_shortcode_impl_Shortcode implements tubepress_api_shortcode_Shor
     }
 
     /**
-     * @api
-     * @since 4.1.11
-     *
-     * @return array An associative array of attribute names to attribute values. May be empty, never null.
+     * {@inheritdoc}
      */
     public function getAttributes()
     {
@@ -115,10 +105,7 @@ class tubepress_shortcode_impl_Shortcode implements tubepress_api_shortcode_Shor
     }
 
     /**
-     * @api
-     * @since 4.1.11
-     *
-     * @return string The "inner" content of this shortcode. May be null.
+     * {@inheritdoc}
      */
     public function getInnerContent()
     {

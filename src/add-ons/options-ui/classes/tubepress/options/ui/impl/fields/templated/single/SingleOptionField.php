@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -40,9 +40,9 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
                                 tubepress_api_template_TemplatingInterface    $templating,
                                 tubepress_api_options_ReferenceInterface      $optionReference)
     {
-        $this->_optionProvider    = $optionReference;
-        $this->_templateName      = $templateName;
-        $this->_optionName        = $optionName;
+        $this->_optionProvider = $optionReference;
+        $this->_templateName   = $templateName;
+        $this->_optionName     = $optionName;
 
         if (!$this->_optionProvider->optionExists($optionName)) {
 
@@ -64,10 +64,7 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     }
 
     /**
-     * @return string The page-unique identifier for this item.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -75,9 +72,7 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
+     * {@inheritdoc}
      */
     public function isProOnly()
     {
@@ -85,9 +80,7 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     }
 
     /**
-     * Handles form submission.
-     *
-     * @return array An array of failure messages if there's a problem, otherwise null.
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
@@ -112,12 +105,12 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     }
 
     /**
-     * @return array An associative array of template variables for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateVariables()
     {
-        $id      = $this->getId();
-        $value   = $this->convertStorageFormatToStringValueForHTML($this->getOptionPersistence()->fetch($this->_optionName));
+        $id    = $this->getId();
+        $value = $this->convertStorageFormatToStringValueForHTML($this->getOptionPersistence()->fetch($this->_optionName));
 
         return array_merge(array(
 
@@ -163,7 +156,7 @@ class tubepress_options_ui_impl_fields_templated_single_SingleOptionField extend
     }
 
     /**
-     * @return string The absolute path to the template for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateName()
     {

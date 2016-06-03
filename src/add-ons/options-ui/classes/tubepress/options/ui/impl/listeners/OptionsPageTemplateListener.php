@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 {
     private static $_TEMPLATE_VAR_CATEGORIES           = 'categories';
@@ -254,7 +253,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
     }
 
     /**
-     * @param string                                                   $groupNumber
+     * @param string                                               $groupNumber
      * @param tubepress_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
      *
      * @return array
@@ -283,11 +282,11 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
         foreach ($fieldsInGroup as $field) {
 
-            $currentFieldId        = $field->getId();
-            $originalFieldId       = str_replace("tubepress-multisource-$groupNumber-", '', $currentFieldId);
-            $actualFieldProvider   = $this->_findFieldProviderForFieldId($originalFieldId);
-            $actualCategory        = $this->_getCategoryIdOfFieldId($originalFieldId, $actualFieldProvider);
-            $actualFieldProviderId = $actualFieldProvider->getId();
+            $currentFieldId                                       = $field->getId();
+            $originalFieldId                                      = str_replace("tubepress-multisource-$groupNumber-", '', $currentFieldId);
+            $actualFieldProvider                                  = $this->_findFieldProviderForFieldId($originalFieldId);
+            $actualCategory                                       = $this->_getCategoryIdOfFieldId($originalFieldId, $actualFieldProvider);
+            $actualFieldProviderId                                = $actualFieldProvider->getId();
             $fieldProviderIdToInstanceMap[$actualFieldProviderId] = $actualFieldProvider;
 
             if ($gallerySources && $actualCategory !== tubepress_api_options_ui_CategoryNames::GALLERY_SOURCE) {
@@ -314,7 +313,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
         foreach ($fieldProviderIdToFieldsMap as $fieldProviderId => $fields) {
 
-            $actualFieldProvider = $fieldProviderIdToInstanceMap[$fieldProviderId];
+            $actualFieldProvider     = $fieldProviderIdToInstanceMap[$fieldProviderId];
             $wrappedFieldProviders[] = new tubepress_options_ui_impl_MultiSourceFieldProviderWrapper($actualFieldProvider, $fields);
         }
 
@@ -413,8 +412,8 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
         $toReturn   = array();
         $categories = $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES];
 
-        /**
-         * @var $category tubepress_api_options_ui_ElementInterface
+        /*
+         * @var tubepress_api_options_ui_ElementInterface
          */
         foreach ($categories as $category) {
 
@@ -491,7 +490,7 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 
         $internalTemplateVars = array(
             'gallerySourceFieldProviders',
-            'feedOptionFieldProviders'
+            'feedOptionFieldProviders',
         );
 
         foreach ($gallerySources as &$gallerySource) {
@@ -509,7 +508,6 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
             }
         }
     }
-
 
     /**
      * @param tubepress_spi_options_ui_FieldProviderInterface[] $multiSourceFieldProviders
@@ -580,13 +578,13 @@ class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
             return;
         }
 
-        /**
-         * @var $newCategories tubepress_api_options_ui_ElementInterface[]
+        /*
+         * @var tubepress_api_options_ui_ElementInterface[]
          */
         $newCategories = array();
 
-        /**
-         * @var $existingCategories tubepress_api_options_ui_ElementInterface[]
+        /*
+         * @var tubepress_api_options_ui_ElementInterface[]
          */
         $existingCategories = $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES];
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -73,4 +73,3 @@ class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_api_test_TubeP
         $this->_sut->___write('some message', array(), true);
     }
 }
-

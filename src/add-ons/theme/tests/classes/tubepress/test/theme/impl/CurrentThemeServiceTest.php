@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -31,8 +31,8 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_a
 
     public function onSetup()
     {
-        $this->_mockContext             = $this->mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockThemeRegistry       = $this->mock(tubepress_api_contrib_RegistryInterface::_);
+        $this->_mockContext       = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockThemeRegistry = $this->mock(tubepress_api_contrib_RegistryInterface::_);
 
         $this->_sut = new tubepress_theme_impl_CurrentThemeService(
             $this->_mockContext,
@@ -74,7 +74,7 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_a
             array('theme1', 0),
             array('', 1),
             array('foobar', 2),
-            array('hiya', 3)
+            array('hiya', 3),
         );
     }
 }

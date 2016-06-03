@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -72,7 +72,7 @@ class tubepress_test_url_impl_puzzle_PuzzleBasedQueryTest extends tubepress_api_
             'foo' => 0,
             'baz' => '0',
             'bar' => null,
-            'boo' => false
+            'boo' => false,
         )));
         $this->assertEquals('foo=0&baz=0&bar&boo=', (string) $query);
     }

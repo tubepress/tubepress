@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -49,12 +49,12 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceDrop
 
         $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getId())->andReturn(array(
 
-            'foo' => 'abc', 'smack' => 'xyz'
+            'foo' => 'abc', 'smack' => 'xyz',
         ));
 
         return array(
-            'prefix' => '',
-            'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz')
+            'prefix'           => '',
+            'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz'),
         );
     }
 

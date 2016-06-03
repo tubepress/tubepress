@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -47,7 +47,7 @@ class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tube
 
     public function testInt()
     {
-        $event  = $this->_buildEvent(5, 5);
+        $event = $this->_buildEvent(5, 5);
 
         $event->shouldReceive('setArgument')->once()->with('optionValue', 5);
 
@@ -61,13 +61,13 @@ class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tube
         $mockTopEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockTopEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn(array(
             'deep' => array(
-                'deeper' => array('true')
-            )
+                'deeper' => array('true'),
+            ),
         ));
         $mockTopEvent->shouldReceive('setArgument')->once()->with('optionValue', array(
             'deep' => array(
-                'deeper' => array(true)
-            )
+                'deeper' => array(true),
+            ),
         ));
 
         $this->_sut->onSet($mockTopEvent);

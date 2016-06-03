@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -22,13 +22,13 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_SpectrumColorFi
     protected function getAdditionalExpectedTemplateVariables()
     {
         return array(
-            
+
             'preferredFormat' => 'hex',
-            'showAlpha' => false,
-            'showInput' => true,
-            'showPalette' => true,
-            'cancelText' => 'cancel',
-            'chooseText' => 'Choose',
+            'showAlpha'       => false,
+            'showInput'       => true,
+            'showPalette'     => true,
+            'cancelText'      => 'cancel',
+            'chooseText'      => 'Choose',
         );
     }
 

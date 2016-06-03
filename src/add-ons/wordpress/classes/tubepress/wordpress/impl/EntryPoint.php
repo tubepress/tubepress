@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -347,7 +347,7 @@ class tubepress_wordpress_impl_EntryPoint
 
             $this->_logDebug(sprintf('End dispatch of event <code>%s</code>', $eventName));
         }
-        
+
         return $event;
     }
 

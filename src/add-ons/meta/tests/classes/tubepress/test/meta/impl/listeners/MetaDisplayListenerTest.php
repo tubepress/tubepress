@@ -1,6 +1,6 @@
 <?php
-/**
- * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+/*
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com).
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -38,7 +38,7 @@ class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepre
      * @var tubepress_meta_impl_listeners_MetaDisplayListener
      */
     private $_sut;
-    
+
     public function onSetup()
     {
         $this->_mockIncomingEvent    = $this->mock('tubepress_api_event_EventInterface');
@@ -72,13 +72,13 @@ class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepre
         $this->_mockContext->shouldReceive('get')->once()->with('meta2')->andReturn(true);
 
         $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(array(
-            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS   => array(
+            tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS => array(
                 'attribute1' => 'meta1 label',
                 'attribute2' => 'meta2 label',
             ),
             tubepress_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW => array(
-                'attribute2'
-            )
+                'attribute2',
+            ),
         ));
 
         $this->_sut->onPreTemplate($this->_mockIncomingEvent);

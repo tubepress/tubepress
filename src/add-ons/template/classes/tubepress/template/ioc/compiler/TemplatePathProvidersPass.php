@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,14 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_template_ioc_compiler_TemplatePathProvidersPass implements tubepress_spi_ioc_CompilerPassInterface
 {
     /**
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -35,8 +31,8 @@ class tubepress_template_ioc_compiler_TemplatePathProvidersPass implements tubep
 
         foreach ($providerIds as $providerId => $tags) {
 
-            /**
-             * @var $provider tubepress_spi_template_PathProviderInterface
+            /*
+             * @var tubepress_spi_template_PathProviderInterface
              */
             $provider    = $containerBuilder->get($providerId);
             $directories = $provider->getTemplateDirectories();

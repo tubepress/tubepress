@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,27 +15,17 @@
 class tubepress_util_impl_LangUtils implements tubepress_api_util_LangUtilsInterface
 {
     /**
-     * @param mixed $candidate
-     *
-     * @return bool True if the argument is an associative array, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isAssociativeArray($candidate)
     {
         return is_array($candidate)
-            && ! empty($candidate)
-            && count(array_filter(array_keys($candidate),'is_string')) == count($candidate);
+            && !empty($candidate)
+            && count(array_filter(array_keys($candidate), 'is_string')) == count($candidate);
     }
 
     /**
-     * @param mixed $candidate The value to convert to a one or a zero.
-     *
-     * @return string '1' or '0', depending on the boolean conversion of the incoming value.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function booleanToStringOneOrZero($candidate)
     {
@@ -48,12 +38,7 @@ class tubepress_util_impl_LangUtils implements tubepress_api_util_LangUtilsInter
     }
 
     /**
-     * @param mixed $candidate
-     *
-     * @return bool True if the given value is a non-associative array whose values are all strings.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isSimpleArrayOfStrings($candidate)
     {

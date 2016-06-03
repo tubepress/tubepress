@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,7 +56,7 @@ class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
         }
 
         $baseName = basename(TUBEPRESS_ROOT);
-        $ajaxUrl  = $this->_wpFunctions->plugins_url("web/js/wordpress-ajax.js", "$baseName/tubepress.php");
+        $ajaxUrl  = $this->_wpFunctions->plugins_url('web/js/wordpress-ajax.js', "$baseName/tubepress.php");
         $version  = $this->_environment->getVersion();
 
         $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'), "$version");
@@ -96,7 +96,7 @@ class tubepress_wordpress_impl_listeners_wpaction_ThemeCssJsListener
             } else {
 
                 $handle = 'tubepress-theme-' . $x;
-                $deps    = array('tubepress');
+                $deps   = array('tubepress');
             }
 
             $wpFunctions->wp_register_script($handle, $scriptsStrings[$x], $deps, "$version");

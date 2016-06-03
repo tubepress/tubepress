@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -31,7 +31,7 @@ class tubepress_test_options_impl_ContextTest extends tubepress_test_options_imp
 
     protected function doSetup()
     {
-        $this->_mockStorageManager  = $this->mock(tubepress_api_options_PersistenceInterface::_);
+        $this->_mockStorageManager = $this->mock(tubepress_api_options_PersistenceInterface::_);
         $this->_mockReference      = $this->mock(tubepress_api_options_ReferenceInterface::_);
 
         $this->_sut = new tubepress_options_impl_Context(
@@ -88,6 +88,4 @@ class tubepress_test_options_impl_ContextTest extends tubepress_test_options_imp
         $this->assertEquals(array('something bad'), $result);
     }
 
-
 }
-

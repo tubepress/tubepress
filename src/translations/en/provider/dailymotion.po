@@ -184,7 +184,7 @@ msgstr ""
 msgid "Only include videos with a vertical resolution of 720p or higher."
 msgstr ""
 
-msgid "Only include videos shorter than or equal to the given number of minutes. Set to <code>0</code> disable this filter."
+msgid "Only include videos shorter than or equal to the given number of minutes. Set to <code>0</code> to disable this filter."
 msgstr ""
 
 msgid "Only include videos longer than or equal to the given number of minutes."

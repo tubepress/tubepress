@@ -6,9 +6,8 @@ php:
   - 5.6
   - 7
   - hhvm
-before_script:
-  composer install --prefer-source
-script: "phpunit -d memory_limit=2048M --verbose -c tests/unit/phpunit.xml --testsuite unit"
+before_script: tests/travis-ci/before-script.sh
+script: tests/travis-ci/script.sh
 matrix:
   fast_finish: true
 sudo: false

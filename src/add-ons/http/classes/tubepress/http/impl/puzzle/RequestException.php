@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,6 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 class tubepress_http_impl_puzzle_RequestException extends tubepress_api_http_exception_RequestException
 {
     /**
@@ -25,7 +26,7 @@ class tubepress_http_impl_puzzle_RequestException extends tubepress_api_http_exc
         parent::__construct($delegate->getMessage(), $delegate->getCode());
 
         $delegateRequest = $delegate->getRequest();
-        $this->_request = $delegateRequest instanceof tubepress_api_http_message_RequestInterface ?
+        $this->_request  = $delegateRequest instanceof tubepress_api_http_message_RequestInterface ?
             $delegateRequest : new tubepress_http_impl_puzzle_PuzzleBasedRequest($delegateRequest);
 
         $delegateResponse = $delegate->getResponse();
@@ -37,12 +38,9 @@ class tubepress_http_impl_puzzle_RequestException extends tubepress_api_http_exc
     }
 
     /**
-     * Get the request that caused the exception
+     * Get the request that caused the exception.
      *
      * @return tubepress_api_http_message_RequestInterface
-     *
-     * @api
-     * @since 4.0.0
      */
     public function getRequest()
     {
@@ -50,12 +48,9 @@ class tubepress_http_impl_puzzle_RequestException extends tubepress_api_http_exc
     }
 
     /**
-     * Get the associated response
+     * Get the associated response.
      *
      * @return tubepress_api_http_message_ResponseInterface|null
-     *
-     * @api
-     * @since 4.0.0
      */
     public function getResponse()
     {

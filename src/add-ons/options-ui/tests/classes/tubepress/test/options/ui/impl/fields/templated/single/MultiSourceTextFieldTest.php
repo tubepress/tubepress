@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -18,8 +18,8 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceText
     {
         $this->setExpectedException('InvalidArgumentException', 'Text fields must have a non-negative size.');
 
-        /**
-         * @var $field tubepress_options_ui_impl_fields_templated_single_TextField
+        /*
+         * @var tubepress_options_ui_impl_fields_templated_single_TextField
          */
         $field = $this->getSut();
 
@@ -51,7 +51,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceText
     {
         return array(
             'prefix' => '',
-            'size' => 99
+            'size'   => 99,
         );
     }
 

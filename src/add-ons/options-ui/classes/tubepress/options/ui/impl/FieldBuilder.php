@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -93,18 +93,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
     }
 
     /**
-     * Builds a new field.
-     *
-     * @param string $id      The unique ID of this field.
-     * @param string $type    The type of the field. (e.g. text, radio, dropdown, multi, etc)
-     * @param array  $options An optional array of options to contruct the field.
-     *
-     * @return tubepress_api_options_ui_FieldInterface A new instance of the field.
-     *
-     * @throws InvalidArgumentException If unable to build the given type.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function newInstance($id, $type, array $options = array())
     {
@@ -115,7 +104,7 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
 
             case 'gallerySourceRadio':
                 return $this->_buildGallerySourceRadio($id, $options);
-            
+
             case 'bool':
             case 'boolean':
                 return $this->_buildBooleanField($id);
@@ -123,19 +112,19 @@ class tubepress_options_ui_impl_FieldBuilder implements tubepress_api_options_ui
             case 'multiSourceBool':
             case 'multiSourceBoolean':
                 return $this->_buildMultiSourceBoolean($id);
-            
+
             case 'dropdown':
                 return $this->_buildDropdown($id);
 
             case 'multiSourceDropdown':
                 return $this->_buildMultiSourceDropdown($id);
-            
+
             case 'hidden':
                 return $this->_buildHidden($id);
-            
+
             case 'spectrum':
                 return $this->_buildSpectrum($id, $options);
-            
+
             case 'text':
                 return $this->_buildText($id, $options);
 

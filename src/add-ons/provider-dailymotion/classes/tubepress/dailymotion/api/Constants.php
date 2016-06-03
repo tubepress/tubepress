@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 interface tubepress_dailymotion_api_Constants
 {
     const GALLERY_SOURCE_FAVORITES     = 'dailymotionFavorites';
@@ -44,8 +41,8 @@ interface tubepress_dailymotion_api_Constants
     const OPTION_PLAYER_ORIGIN_DOMAIN  = 'dailymotionPlayerOriginDomain';
     const OPTION_PLAYER_ID             = 'dailymotionPlayerId';
 
-    const OPTION_FEED_FAMILY_FILTER  = 'dailymotionFamilyFilter';
-    const OPTION_FEED_LOCALE         = 'dailymotionLocale';
+    const OPTION_FEED_FAMILY_FILTER = 'dailymotionFamilyFilter';
+    const OPTION_FEED_LOCALE        = 'dailymotionLocale';
 
     const OPTION_FEED_COUNTRY            = 'dailymotionCountry';
     const OPTION_FEED_LANGUAGE_DETECTED  = 'dailymotionLanguageDetected';
@@ -64,8 +61,8 @@ interface tubepress_dailymotion_api_Constants
     const OPTION_FEED_OWNERS_FILTER      = 'dailymotionOnlyOwners';
     const OPTION_FEED_SEARCH             = 'dailymotionOnlySearch';
 
-    const OPTION_THUMBS_RATIO        = 'dailymotionThumbnailRatio';
-    const OPTION_THUMB_SIZE          = 'dailymotionThumbnailPreferredSize';
+    const OPTION_THUMBS_RATIO = 'dailymotionThumbnailRatio';
+    const OPTION_THUMB_SIZE   = 'dailymotionThumbnailPreferredSize';
 
     const ORDER_BY_DEFAULT    = 'default';
     const ORDER_BY_NEWEST     = 'newest';

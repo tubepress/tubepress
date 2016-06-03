@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -41,11 +41,11 @@ class tubepress_test_vimeo3_impl_embedded_VimeoEmbeddedProviderTest extends tube
 
     public function onSetup() {
 
-        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockContext        = $this->mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockLangUtils      = $this->mock(tubepress_api_util_LangUtilsInterface::_);
-        $this->_mockUrlFactory     = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_mockMediaItem      = $this->mock('tubepress_api_media_MediaItem');
+        $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockContext    = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockLangUtils  = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockUrlFactory = $this->mock(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_mockMediaItem  = $this->mock('tubepress_api_media_MediaItem');
 
         $this->_sut = new tubepress_vimeo3_impl_embedded_VimeoEmbeddedProvider(
 
@@ -90,7 +90,7 @@ class tubepress_test_vimeo3_impl_embedded_VimeoEmbeddedProviderTest extends tube
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
         $expected = array(
-            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl,
         );
 
         $actual = $this->_sut->getTemplateVariables($this->_mockMediaItem);
@@ -98,4 +98,3 @@ class tubepress_test_vimeo3_impl_embedded_VimeoEmbeddedProviderTest extends tube
         $this->assertEquals($expected, $actual);
     }
 }
-

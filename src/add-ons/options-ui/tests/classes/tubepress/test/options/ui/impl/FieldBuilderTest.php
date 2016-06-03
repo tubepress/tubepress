@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -103,7 +103,7 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_api_
         $mockOauth2Provider->shouldReceive('getName')->once()->andReturn('vimeoV3');
 
         $actual = $this->_sut->newInstance('foobar', 'oauth2TokenManagement', array(
-            'provider' => $mockOauth2Provider
+            'provider' => $mockOauth2Provider,
         ));
 
         $this->assertInstanceOf('tubepress_http_oauth2_impl_options_ui_TokenManagementField', $actual);

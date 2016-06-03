@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
 {
     /**
@@ -41,7 +40,7 @@ class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
             $errors = $this->_form->onSubmit();
         }
 
-        print $this->_form->getHtml($errors, $justSubmitted);
+        echo $this->_form->getHtml($errors, $justSubmitted);
     }
 
     public function onTemplateSelect(tubepress_api_event_EventInterface $event)

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_api_test_translation_AbstractTranslationsTest extends tubepress_api_test_TubePressUnitTest
+abstract class tubepress_test_translations_AbstractTranslationsTest extends tubepress_api_test_TubePressUnitTest
 {
     /**
      * @var string

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -23,7 +23,7 @@ class tubepress_test_dailymotion_impl_listeners_options_LanguageLocaleListenerTe
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('existing' => 'option'));
         $mockEvent->shouldReceive('setSubject')->once()->with(array(
             'existing' => 'option',
-            'foo' => 'bar'
+            'foo'      => 'bar',
         ));
 
         $sut = new tubepress_dailymotion_impl_listeners_options_LanguageLocaleListener($mockSupplier);

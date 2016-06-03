@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -32,13 +32,16 @@ abstract class tubepress_options_ui_impl_fields_templated_multi_AbstractMultiSel
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getTemplateName()
     {
         return 'options-ui/fields/multiselect';
     }
 
     /**
-     * @return array An associative array of template variables for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateVariables()
     {
@@ -53,22 +56,20 @@ abstract class tubepress_options_ui_impl_fields_templated_multi_AbstractMultiSel
     }
 
     /**
-     * Invoked when the element is submitted by the user.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
         $id = $this->getId();
 
-        if (! $this->getHttpRequestParameters()->hasParam($id)) {
+        if (!$this->getHttpRequestParameters()->hasParam($id)) {
 
             return $this->onSubmitAllMissing();
         }
 
         $vals = $this->getHttpRequestParameters()->getParamValue($id);
 
-        if (! is_array($vals)) {
+        if (!is_array($vals)) {
 
             /* this should never happen. */
             return null;

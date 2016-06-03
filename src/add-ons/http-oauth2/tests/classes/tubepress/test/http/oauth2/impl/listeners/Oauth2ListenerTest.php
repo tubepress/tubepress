@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -101,7 +101,7 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
         $this->_mockProvider1->shouldReceive('wantsToAuthorizeRequest')->once()->with($this->_mockHttpRequest)->andReturn(false);
         $this->_mockProvider2->shouldReceive('wantsToAuthorizeRequest')->once()->with($this->_mockHttpRequest)->andReturn(true);
 
-        $mockToken = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
+        $mockToken    = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
         $mockNewToken = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
         $mockToken->shouldReceive('isExpired')->once()->andReturn(true);
         $mockToken->shouldReceive('getRefreshToken')->once()->andReturn('refresh-token');
@@ -124,7 +124,7 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
         $this->_mockProvider1->shouldReceive('wantsToAuthorizeRequest')->once()->with($this->_mockHttpRequest)->andReturn(false);
         $this->_mockProvider2->shouldReceive('wantsToAuthorizeRequest')->once()->with($this->_mockHttpRequest)->andReturn(true);
 
-        $mockToken = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
+        $mockToken    = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
         $mockNewToken = $this->mock('tubepress_api_http_oauth_v2_TokenInterface');
         $mockToken->shouldReceive('isExpired')->once()->andReturn(true);
         $mockToken->shouldReceive('getRefreshToken')->once()->andReturn('refresh-token');
@@ -187,7 +187,6 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
         $this->_mockProvider1->shouldReceive('wantsToAuthorizeRequest')->once()->with($this->_mockHttpRequest)->andReturn(false);
         $this->_mockProvider2->shouldReceive('wantsToAuthorizeRequest')->once()->with($this->_mockHttpRequest)->andReturn(false);
 
-
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_sut->onHttpRequest($this->_mockEvent);
@@ -203,7 +202,7 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
     public function testNonApiRequest1()
     {
         $this->_mockHttpRequest->shouldReceive('getConfig')->atLeast(1)->andReturn(array(
-            'foo' => 'bar'
+            'foo' => 'bar',
         ));
 
         $this->_sut->onHttpRequest($this->_mockEvent);
@@ -212,7 +211,7 @@ class tubepress_test_http_oauth2_impl_listeners_Oauth2ListenerTest extends tubep
     private function _setupRemoteApiCall($true)
     {
         $this->_mockHttpRequest->shouldReceive('getConfig')->atLeast(1)->andReturn(array(
-            'tubepress-remote-api-call' => $true
+            'tubepress-remote-api-call' => $true,
         ));
     }
 

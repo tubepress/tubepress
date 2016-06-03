@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -67,11 +55,12 @@ class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_spi_ioc_Con
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
              'event'    => tubepress_api_http_Events::EVENT_HTTP_REQUEST,
              'priority' => 100000,
-             'method'   => 'onRequest'))
+             'method'   => 'onRequest',
+             ))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
              'event'    => tubepress_api_http_Events::EVENT_HTTP_RESPONSE,
              'priority' => 100000,
-             'method'   => 'onResponse'
+             'method'   => 'onResponse',
          ));
     }
 
@@ -99,7 +88,7 @@ class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_spi_ioc_Con
                  tubepress_api_options_Names::CACHE_CLEANING_FACTOR  => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.',                   //>(translatable)<
                  tubepress_api_options_Names::CACHE_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writable directory.',       //>(translatable)<
                  tubepress_api_options_Names::CACHE_ENABLED          => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
-                 tubepress_api_options_Names::CACHE_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours") //>(translatable)<
+                 tubepress_api_options_Names::CACHE_LIFETIME_SECONDS => sprintf('Cache entries will be considered stale after the specified number of seconds. Default is %s (%s).', 21600, "six hours"), //>(translatable)<
              ),
          ));
 
@@ -132,7 +121,7 @@ class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_spi_ioc_Con
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::CACHE_ENABLED,
             ),
@@ -161,7 +150,7 @@ class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_spi_ioc_Con
         }
 
         $categoryReferences = array();
-        $categories = array(
+        $categories         = array(
             array(tubepress_api_options_ui_CategoryNames::CACHE, 'Cache'),         //>(translatable)<,
         );
         foreach ($categories as $categoryIdAndLabel) {

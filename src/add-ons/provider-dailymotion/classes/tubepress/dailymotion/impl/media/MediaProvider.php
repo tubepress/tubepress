@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -76,9 +76,8 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
         $this->getProperties()->put('untranslatedModeTemplateMap', self::$_MODE_TEMPLATE_MAP);
     }
 
-
     /**
-     * @return array An array of the valid option values for the "mode" option.
+     * {@inheritdoc}
      */
     public function getGallerySourceNames()
     {
@@ -86,7 +85,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -94,7 +93,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @return string The human-readable name of this video provider.
+     * {@inheritdoc}
      */
     public function getDisplayName()
     {
@@ -102,18 +101,18 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @return array An array of meta names
+     * {@inheritdoc}
      */
     public function getMapOfMetaOptionNamesToAttributeDisplayNames()
     {
         return array(
 
-            tubepress_api_options_Names::META_DISPLAY_TITLE       => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
-            tubepress_api_options_Names::META_DISPLAY_LENGTH      => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
-            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_URL         => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
-            tubepress_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_TITLE    => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+            tubepress_api_options_Names::META_DISPLAY_LENGTH   => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR   => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_URL      => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
+            tubepress_api_options_Names::META_DISPLAY_CATEGORY => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
             tubepress_api_options_Names::META_DISPLAY_ID          => tubepress_api_media_MediaItem::ATTRIBUTE_ID,
             tubepress_api_options_Names::META_DISPLAY_VIEWS       => tubepress_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
@@ -123,14 +122,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * Ask this media provider if it recognizes the given item ID.
-     *
-     * @param string $mediaId The globally unique media item identifier.
-     *
-     * @return boolean True if this provider recognizes the given item ID, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function ownsItem($mediaId)
     {
@@ -138,10 +130,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @return string The name of the "mode" value that this provider uses for searching.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getSearchModeName()
     {
@@ -149,10 +138,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @return string The option name where TubePress should put the users search results.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getSearchQueryOptionName()
     {
@@ -160,10 +146,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getMapOfFeedSortNamesToUntranslatedLabels()
     {
@@ -181,14 +164,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * Collects a media gallery page.
-     *
-     * @param int $pageNumber The page number.
-     *
-     * @return tubepress_api_media_MediaPage The media gallery page, never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function collectPage($pageNumber)
     {
@@ -196,14 +172,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * Fetch a single media item.
-     *
-     * @param string $id The media item ID to fetch.
-     *
-     * @return tubepress_api_media_MediaItem The media item, or null not found.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function collectSingle($id)
     {
@@ -213,10 +182,7 @@ class tubepress_dailymotion_impl_media_MediaProvider implements tubepress_spi_me
     }
 
     /**
-     * @api
-     * @since 4.1.11
-     *
-     * @return tubepress_api_collection_MapInterface
+     * {@inheritdoc}
      */
     public function getProperties()
     {

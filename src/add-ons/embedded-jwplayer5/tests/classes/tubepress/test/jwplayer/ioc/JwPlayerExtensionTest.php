@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -58,7 +58,7 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
                 ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
                 ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event' => tubepress_api_event_Events::OPTION_SET . ".$optionName",
+                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
                     'priority' => 98000,
                     'method'   => 'onOption',
                 ));
@@ -71,7 +71,7 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
                 ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                     'priority' => 100000,
                     'method'   => 'onOption',
-                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName"
+                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
                 ));
         }
     }
@@ -90,16 +90,16 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
                     tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => '000000',
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color',//>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => 'Front color',     //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => 'Light color',     //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',    //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => 'Background color',
+                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => 'Front color',
+                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => 'Light color',
+                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => 'Screen color',
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s.', "FFFFFF"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s.', "000000"),   //>(translatable)<
-                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s.', "000000"),   //>(translatable)<
+                    tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => sprintf('Default is %s.', "FFFFFF"),   
+                    tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => sprintf('Default is %s.', "000000"),   
+                    tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => sprintf('Default is %s.', "000000"),   
+                    tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => sprintf('Default is %s.', "000000"),   
                 )
             ))->withTag(tubepress_api_options_ReferenceInterface::_);
     }
@@ -129,7 +129,7 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
         }
 
         $fieldReferences = array();
-        for ($x = 0; $x < $fieldIndex; $x++) {
+        for ($x = 0; $x < $fieldIndex; ++$x) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('jwplayer_field_' . $x);
         }
 
@@ -140,7 +140,8 @@ class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_api_t
                 tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
                 tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
                 tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT,
-                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)
+                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN,
+            ),
         );
 
         $this->expectRegistration(

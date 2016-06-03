@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -81,7 +81,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_SET . '.' . tubepress_api_options_Names::THEME,
                 'priority' => 100000,
-                'method'   => 'onPreValidationSet'
+                'method'   => 'onPreValidationSet',
             ));
 
         $this->expectRegistration(
@@ -91,7 +91,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::THEME,
                 'priority' => 100000,
-                'method'   => 'onAcceptableValues'
+                'method'   => 'onAcceptableValues',
             ));
 
         $this->expectRegistration(
@@ -101,7 +101,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_api_options_Names::THEME_ADMIN,
                 'priority' => 100000,
-                'method'   => 'onAcceptableValues'
+                'method'   => 'onAcceptableValues',
             ));
     }
 
@@ -118,7 +118,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
                     tubepress_api_options_Names::THEME_ADMIN => 'tubepress/admin-default',
                 ),
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::THEME => 'Theme',  //>(translatable)<
+                    tubepress_api_options_Names::THEME => 'Theme',
                 ),
             ));
     }
@@ -139,13 +139,13 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
             'theme_category',
             'tubepress_options_ui_impl_BaseElement'
         )->withArgument(tubepress_api_options_ui_CategoryNames::THEME)
-            ->withArgument('Theme'); //>(translatable)<
+            ->withArgument('Theme');
 
         $categoryReferences = array(new tubepress_api_ioc_Reference('theme_category'));
 
         $fieldMap = array(
             tubepress_api_options_ui_CategoryNames::THEME => array(
-                tubepress_api_options_Names::THEME
+                tubepress_api_options_Names::THEME,
             ),
         );
 
@@ -173,8 +173,8 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_api_test_ioc
         return array(
             tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS => array(
                 'themes'       => base64_encode(serialize(array($theme))),
-                'admin-themes' => base64_encode(serialize(array($adminTheme)))
-            )
+                'admin-themes' => base64_encode(serialize(array($adminTheme))),
+            ),
         );
     }
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -65,14 +65,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * Collects a media gallery page.
-     *
-     * @param int $pageNumber The page number.
-     *
-     * @return tubepress_api_media_MediaPage The media gallery page, never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function collectPage($pageNumber)
     {
@@ -80,14 +73,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * Fetch a single media item.
-     *
-     * @param string $id The media item ID to fetch.
-     *
-     * @return tubepress_api_media_MediaItem The media item, or null not found.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function collectSingle($id)
     {
@@ -95,12 +81,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @param string $itemId The item ID.
-     *
-     * @return bool True if this provider "owns" the given item ID, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function ownsItem($itemId)
     {
@@ -108,7 +89,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return array An array of the valid option values for the "mode" option.
+     * {@inheritdoc}
      */
     public function getGallerySourceNames()
     {
@@ -116,7 +97,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -124,7 +105,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return string The human-readable name of this video provider.
+     * {@inheritdoc}
      */
     public function getDisplayName()
     {
@@ -132,10 +113,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return string The name of the "mode" value that this provider uses for searching.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getSearchModeName()
     {
@@ -143,10 +121,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return string The option name where TubePress should put the users search results.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getSearchQueryOptionName()
     {
@@ -154,10 +129,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getMapOfFeedSortNamesToUntranslatedLabels()
     {
@@ -172,21 +144,18 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @return string[] An array of meta names
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getMapOfMetaOptionNamesToAttributeDisplayNames()
     {
         return array(
 
-            tubepress_api_options_Names::META_DISPLAY_TITLE       => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
-            tubepress_api_options_Names::META_DISPLAY_LENGTH      => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_AUTHOR      => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
-            tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
-            tubepress_api_options_Names::META_DISPLAY_URL         => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
-            tubepress_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_TITLE    => tubepress_api_media_MediaItem::ATTRIBUTE_TITLE,
+            tubepress_api_options_Names::META_DISPLAY_LENGTH   => tubepress_api_media_MediaItem::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_AUTHOR   => tubepress_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_api_options_Names::META_DISPLAY_KEYWORDS => tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_api_options_Names::META_DISPLAY_URL      => tubepress_api_media_MediaItem::ATTRIBUTE_HOME_URL,
+            tubepress_api_options_Names::META_DISPLAY_CATEGORY => tubepress_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
             tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
             tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
@@ -201,10 +170,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_spi_media
     }
 
     /**
-     * @api
-     * @since 4.1.11
-     *
-     * @return tubepress_api_collection_MapInterface
+     * {@inheritdoc}
      */
     public function getProperties()
     {

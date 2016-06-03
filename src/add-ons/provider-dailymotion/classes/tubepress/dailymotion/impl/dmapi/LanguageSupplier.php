@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -11,10 +11,7 @@
 class tubepress_dailymotion_impl_dmapi_LanguageSupplier extends tubepress_dailymotion_impl_dmapi_AbstractLanguageLocaleSupplier
 {
     /**
-     * @param       $code
-     * @param array $entry
-     *
-     * @return string|null
+     * {@inheritdoc}
      */
     protected function getDisplayNameFromCode($code, array $entry)
     {

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -67,7 +67,7 @@ In 2015, these officer-involved shootings were more likely in Kern County, Calif
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/add-ons/provider-vimeo-v3/resources/vimeo-single-video.txt');
 
-        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str);
 
         return $out;
     }
@@ -79,7 +79,7 @@ In 2015, these officer-involved shootings were more likely in Kern County, Calif
 
     private function _prepareEvent($feed, $index)
     {
-        $item = new tubepress_api_media_MediaItem('id');
+        $item         = new tubepress_api_media_MediaItem('id');
         $mockProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
         $mockProvider->shouldReceive('getName')->andReturn('vimeo');
         $item->setAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER, $mockProvider);
@@ -116,7 +116,7 @@ In 2015, these officer-involved shootings were more likely in Kern County, Calif
             tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME, tubepress_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED);
         $this->_mockAttributeFormatter->shouldReceive('implodeArrayAttribute')->once()->with($item,
             tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORD_ARRAY, tubepress_api_media_MediaItem::ATTRIBUTE_KEYWORDS_FORMATTED, ', ');
-        
+
         return $event;
     }
 }

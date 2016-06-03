@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -10,14 +10,9 @@
  */
 
 /**
- * @api
- * @since 4.0.0
- *
  * @deprecated Use tubepress_api_template_VariableNames instead. Will be removed in TubePress 5.0.0.
- *
  * @see tubepress_api_template_VariableNames
  */
 interface tubepress_app_api_template_VariableNames extends tubepress_api_template_VariableNames
 {
-
 }

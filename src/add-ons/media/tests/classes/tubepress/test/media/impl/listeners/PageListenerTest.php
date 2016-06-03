@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -150,7 +150,6 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::FEED_RESULT_COUNT_CAP)->andReturn(888);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)->andReturn(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES);
 
         $videoArray = array('x', 'y');
 
@@ -252,9 +251,9 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
 
            $array = array(0, 1, -1);
            $randKeys = array_rand($array, 1);
+
            return $randKeys[0];
         });
-
 
         $toReturn[] = $mockItem1;
         $toReturn[] = $mockItem2;
@@ -263,4 +262,3 @@ class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_api
         return $toReturn;
     }
 }
-

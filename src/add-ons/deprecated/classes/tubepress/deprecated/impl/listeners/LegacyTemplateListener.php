@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,7 +56,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
         if (isset($existingTemplateVars[tubepress_api_template_VariableNames::MEDIA_PAGE])) {
 
             /**
-             * @var $page tubepress_api_media_MediaPage
+             * @var tubepress_api_media_MediaPage
              */
             $page = $existingTemplateVars[tubepress_api_template_VariableNames::MEDIA_PAGE];
 
@@ -105,7 +105,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
             return;
         }
 
-        $existingTemplateVars = $event->getSubject();
+        $existingTemplateVars                                                       = $event->getSubject();
         $existingTemplateVars[tubepress_api_const_template_Variable::SEARCH_BUTTON] = $this->_translator->trans('Search');
         $event->setSubject($existingTemplateVars);
     }
@@ -148,6 +148,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
         if (!isset($templateVars[tubepress_api_const_template_Variable::PLAYER_HTML])) {
 
             $templateVars[tubepress_api_const_template_Variable::PLAYER_HTML] = '';
+
             return;
         }
 
@@ -165,8 +166,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
     var tubePressDomInjector = tubePressDomInjector || [];
     tubePressDomInjector.push(['loadJs', '$jsPath']);
 </script>
-EOT
-        ;
+EOT;
 
         if ($append) {
 

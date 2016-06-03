@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -44,6 +44,9 @@ class tubepress_options_ui_impl_fields_templated_single_TextField extends tubepr
         $this->_size = intval($size);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getAdditionalTemplateVariables()
     {
         return array(

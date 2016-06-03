@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -51,9 +51,9 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
 
         $toAdd = array_merge($current, $toAdd);
         ksort($toAdd);
-        $toAdd = array_reverse($toAdd, true);
+        $toAdd                                                                       = array_reverse($toAdd, true);
         $toAdd[tubepress_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED] = 'Provider default';  //>(translatable)<
-        $toAdd = array_reverse($toAdd, true);
+        $toAdd                                                                       = array_reverse($toAdd, true);
 
         $event->setSubject(array_merge($current, $toAdd));
     }
@@ -65,8 +65,8 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
             return;
         }
 
-        /**
-         * @var $embeddedProvider tubepress_spi_embedded_EmbeddedProviderInterface
+        /*
+         * @var tubepress_spi_embedded_EmbeddedProviderInterface
          */
         $embeddedProvider = $event->getArgument('embeddedProvider');
 
@@ -80,8 +80,8 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
 
     public function onSingleItemTemplatePreRender(tubepress_api_event_EventInterface $event)
     {
-        /**
-         * @var $existingTemplateVars array
+        /*
+         * @var array
          */
         $existingTemplateVars = $event->getSubject();
 
@@ -90,8 +90,8 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
             return;
         }
 
-        /**
-         * @var $mediaItem tubepress_api_media_MediaItem
+        /*
+         * @var tubepress_api_media_MediaItem
          */
         $mediaItem        = $existingTemplateVars[tubepress_api_template_VariableNames::MEDIA_ITEM];
         $embeddedProvider = $this->_selectEmbeddedProvider($mediaItem);
@@ -120,7 +120,7 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
     public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
         $args             = $event->getSubject();
-        $optionsToAdd    = array();
+        $optionsToAdd     = array();
         $optionNamesToAdd = array(
 
             tubepress_api_options_Names::EMBEDDED_HEIGHT,
@@ -162,13 +162,13 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
     {
         $requestedEmbeddedPlayerName = $this->_context->get(tubepress_api_options_Names::EMBEDDED_PLAYER_IMPL);
 
-        /**
-         * @var $mediaProvider tubepress_spi_media_MediaProviderInterface
+        /*
+         * @var tubepress_spi_media_MediaProviderInterface
          */
         $mediaProvider     = $item->getAttribute(tubepress_api_media_MediaItem::ATTRIBUTE_PROVIDER);
         $mediaProviderName = $mediaProvider->getName();
 
-        /**
+        /*
          * The user has requested a specific embedded player that is registered. Let's see if the provider agrees.
          */
         if ($requestedEmbeddedPlayerName !== tubepress_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED) {
@@ -186,7 +186,7 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
             }
         }
 
-        /**
+        /*
          * Do we have an embedded provider whose name exactly matches the provider? If so, let's use that. This
          * should be the common case.
          */
@@ -198,7 +198,7 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
             }
         }
 
-        /**
+        /*
          * Running out of options. See if we can find *any* player that can handle videos from this provider.
          */
         foreach ($this->_embeddedProviders as $embeddedProvider) {
@@ -209,7 +209,7 @@ class tubepress_embedded_common_impl_listeners_EmbeddedListener
             }
         }
 
-        /**
+        /*
          * None of the registered embedded players support the calculated provider. I give up.
          */
         throw new RuntimeException(sprintf('No embedded providers could generate HTML for item %s', $item->getId()));

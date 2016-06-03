@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_player_impl_listeners_PlayerAjaxListener
 {
     /**
@@ -92,6 +91,7 @@ class tubepress_player_impl_listeners_PlayerAjaxListener
 
             $this->_responseCode->setResponseCode(404);
             $ajaxEvent->setArgument('handled', true);
+
             return;
         }
 
@@ -102,18 +102,18 @@ class tubepress_player_impl_listeners_PlayerAjaxListener
 
         $playerHtml = $this->_templating->renderTemplate('gallery/player/ajax', array(
 
-            tubepress_api_template_VariableNames::MEDIA_ITEM => $mediaItem
+            tubepress_api_template_VariableNames::MEDIA_ITEM => $mediaItem,
         ));
 
         $toReturn = array(
 
             'mediaItem' => $mediaItem->toHtmlSafeArray(),
-            'html'      => $playerHtml
+            'html'      => $playerHtml,
         );
 
         $this->_responseCode->setResponseCode(200);
 
-        print json_encode($toReturn);
+        echo json_encode($toReturn);
 
         $ajaxEvent->setArgument('handled', true);
     }

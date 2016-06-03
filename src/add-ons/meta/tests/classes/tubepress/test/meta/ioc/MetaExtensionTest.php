@@ -1,6 +1,6 @@
 <?php
-/**
- * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+/*
+ * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com).
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -39,15 +39,15 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
             ->withTag(tubepress_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_spi_media_MediaProviderInterface::__,
-                'method' => 'setMediaProviders'))
+                'method' => 'setMediaProviders',))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
+                'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
                 'priority' => 98000,
-                'method'   => 'onPreTemplate'))
+                'method'   => 'onPreTemplate', ))
             ->withTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    =>  tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
+                'event'    => tubepress_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
                 'priority' => 98000,
-                'method'   => 'onPreTemplate'));
+                'method'   => 'onPreTemplate', ));
     }
 
     private function _registerOptions()
@@ -75,26 +75,26 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::META_DATEFORMAT          => 'Date format',                //>(translatable)<
-                    tubepress_api_options_Names::META_DESC_LIMIT          => 'Maximum description length', //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_AUTHOR      => 'Author',           //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_CATEGORY    => 'Category',         //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => 'Description',      //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_ID          => 'ID',               //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => 'Keywords',         //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_LENGTH      => 'Runtime',          //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_TITLE       => 'Title',            //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_UPLOADED    => 'Date posted',      //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_URL         => 'URL',              //>(translatable)<
-                    tubepress_api_options_Names::META_DISPLAY_VIEWS       => 'View count',       //>(translatable)<
-                    tubepress_api_options_Names::META_RELATIVE_DATES      => 'Use relative dates',         //>(translatable)<
+                    tubepress_api_options_Names::META_DATEFORMAT          => 'Date format',
+                    tubepress_api_options_Names::META_DESC_LIMIT          => 'Maximum description length',
+                    tubepress_api_options_Names::META_DISPLAY_AUTHOR      => 'Author',
+                    tubepress_api_options_Names::META_DISPLAY_CATEGORY    => 'Category',
+                    tubepress_api_options_Names::META_DISPLAY_DESCRIPTION => 'Description',
+                    tubepress_api_options_Names::META_DISPLAY_ID          => 'ID',
+                    tubepress_api_options_Names::META_DISPLAY_KEYWORDS    => 'Keywords',
+                    tubepress_api_options_Names::META_DISPLAY_LENGTH      => 'Runtime',
+                    tubepress_api_options_Names::META_DISPLAY_TITLE       => 'Title',
+                    tubepress_api_options_Names::META_DISPLAY_UPLOADED    => 'Date posted',
+                    tubepress_api_options_Names::META_DISPLAY_URL         => 'URL',
+                    tubepress_api_options_Names::META_DISPLAY_VIEWS       => 'View count',
+                    tubepress_api_options_Names::META_RELATIVE_DATES      => 'Use relative dates',
 
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_api_options_Names::META_DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
-                    tubepress_api_options_Names::META_DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
-                    tubepress_api_options_Names::META_RELATIVE_DATES => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
+                    tubepress_api_options_Names::META_DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),
+                    tubepress_api_options_Names::META_DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.',
+                    tubepress_api_options_Names::META_RELATIVE_DATES => 'e.g. "yesterday" instead of "November 3, 1980".',
                 ),
             ))->withArgument(array());
 
@@ -124,19 +124,19 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
     private function _registerOptionsUi()
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::META_RELATIVE_DATES,
             ),
             'fieldProviderFilter' => array(
-                tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID
+                tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID,
             ),
             'text' => array(
                 tubepress_api_options_Names::META_DATEFORMAT,
                 tubepress_api_options_Names::META_DESC_LIMIT,
             ),
             'metaMultiSelect' => array(
-                'does not matter'
+                'does not matter',
             ),
         );
 
@@ -158,8 +158,8 @@ class tubepress_test_meta_ioc_MetaExtensionTest extends tubepress_api_test_ioc_A
         }
 
         $categoryReferences = array();
-        $categories = array(
-            array(tubepress_api_options_ui_CategoryNames::META, 'Meta'),          //>(translatable)<
+        $categories         = array(
+            array(tubepress_api_options_ui_CategoryNames::META, 'Meta'),
         );
         foreach ($categories as $categoryIdAndLabel) {
 

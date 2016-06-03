@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -69,15 +69,25 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
     /**
      * @dataProvider dataForCSSorJS
      */
-    public function testGetCSSorJS($invoker, $getter, $themeGetter, $templateName, $templateVars,
+    public function testGetCSSorJS($invoker, $urlsGetter, $themeGetter, $templateName, $templateVars,
                                    $eventName, $parentThemeRetrievals, $baseUrlLookups, $userContentLookups,
                                    $getParentThemeCalls)
     {
-        list($finalUrls, $mockCurrentTheme, $mockParentTheme) =
-            $this->testGetUrlsCSS($getter, $eventName, $parentThemeRetrievals, $baseUrlLookups, $userContentLookups, $getParentThemeCalls);
+        list($finalUrls, $mockCurrentTheme, $mockParentTheme) = $this->testGetUrlsCSS(
 
-        $mockCurrentTheme->shouldReceive($themeGetter)->once()->andReturn('current theme data');
-        $mockParentTheme->shouldReceive($themeGetter)->once()->andReturn('parent theme data');
+            $urlsGetter,
+            $eventName,
+            $parentThemeRetrievals,
+            $baseUrlLookups,
+            $userContentLookups,
+            $getParentThemeCalls
+        );
+
+        if ($themeGetter) {
+
+            $mockCurrentTheme->shouldReceive($themeGetter)->once()->andReturn('current theme data');
+            $mockParentTheme->shouldReceive($themeGetter)->once()->andReturn('parent theme data');
+        }
 
         $finalTemplateVars = array_merge($templateVars, array('urls' => $finalUrls));
 
@@ -92,7 +102,7 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
     {
         return array(
 
-            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'css-template-name', array('inlineCSS' => 'parent theme datacurrent theme data',), 'css-event', 2, 4, 4, 2),
+            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'css-template-name', array('inlineCSS' => 'parent theme datacurrent theme data'), 'css-event', 2, 4, 4, 2),
             array('getJS', 'getUrlsJS', null, 'js-template-name', array(), 'js-event', 1, 2, 2, 1),
         );
     }
@@ -103,8 +113,6 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
     public function testGetUrlsCSS($getter, $eventName, $parentThemeRetrievals, $baseUrlLookups, $userContentUrlLookups,
                                    $getParentThemeCalls)
     {
-        $js = $getter === 'getUrlsJS';
-
         $mockBaseUrl        = $this->mock(tubepress_api_url_UrlInterface::_);
         $mockUserContentUrl = $this->mock(tubepress_api_url_UrlInterface::_);
 
@@ -147,7 +155,7 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_ap
 
         return array(
 
-            $finalUrls, $mockCurrentTheme, $mockParentTheme
+            $finalUrls, $mockCurrentTheme, $mockParentTheme,
         );
     }
 

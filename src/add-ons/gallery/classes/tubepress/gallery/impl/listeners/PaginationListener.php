@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -48,12 +48,12 @@ class tubepress_gallery_impl_listeners_PaginationListener
                                 tubepress_theme_impl_CurrentThemeService      $currentThemeService,
                                 tubepress_api_translation_TranslatorInterface $translator)
     {
-        $this->_context              = $context;
-        $this->_urlFactory           = $urlFactory;
-        $this->_requestParams        = $requestParams;
-        $this->_templating           = $templating;
+        $this->_context             = $context;
+        $this->_urlFactory          = $urlFactory;
+        $this->_requestParams       = $requestParams;
+        $this->_templating          = $templating;
         $this->_currentThemeService = $currentThemeService;
-        $this->_translator           = $translator;
+        $this->_translator          = $translator;
     }
 
     public function onGalleryTemplatePreRender(tubepress_api_event_EventInterface $event)
@@ -62,11 +62,9 @@ class tubepress_gallery_impl_listeners_PaginationListener
         $mediaPage           = $currentTemplateVars['mediaPage'];
         $pagination          = $this->_getHtml($mediaPage->getTotalResultCount());
         $newTemplateVars     = array_merge($currentTemplateVars, array(
-            tubepress_api_template_VariableNames::GALLERY_PAGINATION_HTML     => $pagination,
-            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP =>
-                (bool) $this->_context->get(tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE),
-            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM =>
-                (bool) $this->_context->get(tubepress_api_options_Names::GALLERY_PAGINATE_BELOW)
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_HTML        => $pagination,
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_TOP    => (bool) $this->_context->get(tubepress_api_options_Names::GALLERY_PAGINATE_ABOVE),
+            tubepress_api_template_VariableNames::GALLERY_PAGINATION_SHOW_BOTTOM => (bool) $this->_context->get(tubepress_api_options_Names::GALLERY_PAGINATE_BELOW),
         ));
 
         $event->setSubject($newTemplateVars);
@@ -163,13 +161,13 @@ class tubepress_gallery_impl_listeners_PaginationListener
             if ($page > 1) {
                 $url->getQuery()->set($pagestring, $prev);
                 $pagination .= $this->_buildAnchorOpener($url, true, $prev);
-                $pagination .= "&laquo; " .
-                    $this->_translator->trans('prev') .                                     //>(translatable)<
+                $pagination .= '&laquo; ' .
+                    $this->_translator->trans('prev') . //>(translatable)<
                     '</a>';
             }
 
             if ($lastpage < 7 + ($adjacents * 2)) {
-                for ($counter = 1; $counter <= $lastpage; $counter++) {
+                for ($counter = 1; $counter <= $lastpage; ++$counter) {
                     if ($counter == $page) {
                         $pagination .= "<span class=\"current\">$counter</span>";
                     } else {
@@ -181,7 +179,7 @@ class tubepress_gallery_impl_listeners_PaginationListener
             } elseif ($lastpage >= 7 + ($adjacents * 2)) {
 
                 if ($page < 1 + ($adjacents * 3)) {
-                    for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
+                    for ($counter = 1; $counter < 4 + ($adjacents * 2); ++$counter) {
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
@@ -200,13 +198,13 @@ class tubepress_gallery_impl_listeners_PaginationListener
                 } elseif ($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
                     $url->getQuery()->set($pagestring, 1);
                     $pagination .= $this->_buildAnchorOpener($url, true, 1);
-                    $pagination .= "1</a>";
+                    $pagination .= '1</a>';
                     $url->getQuery()->set($pagestring, 2);
                     $pagination .= $this->_buildAnchorOpener($url, true, 2);
-                    $pagination .= "2</a>";
+                    $pagination .= '2</a>';
                     $pagination .= self::DOTS;
 
-                    for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
+                    for ($counter = $page - $adjacents; $counter <= $page + $adjacents; ++$counter) {
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
@@ -227,13 +225,13 @@ class tubepress_gallery_impl_listeners_PaginationListener
                 } else {
                     $url->getQuery()->set($pagestring, 1);
                     $pagination .= $this->_buildAnchorOpener($url, true, 1);
-                    $pagination .= "1</a>";
+                    $pagination .= '1</a>';
                     $url->getQuery()->set($pagestring, 2);
                     $pagination .= $this->_buildAnchorOpener($url, true, 1);
-                    $pagination .= "2</a>";
+                    $pagination .= '2</a>';
                     $pagination .= self::DOTS;
 
-                    for ($counter = $lastpage - (1 + ($adjacents * 3)); $counter <= $lastpage; $counter++) {
+                    for ($counter = $lastpage - (1 + ($adjacents * 3)); $counter <= $lastpage; ++$counter) {
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
@@ -247,15 +245,16 @@ class tubepress_gallery_impl_listeners_PaginationListener
             if ($page < $counter - 1) {
                 $url->getQuery()->set($pagestring, $next);
                 $pagination .= $this->_buildAnchorOpener($url, true, $next);
-                $pagination .= $this->_translator->trans('next') .             //>(translatable)<
+                $pagination .= $this->_translator->trans('next') . //>(translatable)<
                     ' &raquo;</a>';
             } else {
                 $pagination .= '<span class="disabled">' .
-                    $this->_translator->trans('next') .             //>(translatable)<
+                    $this->_translator->trans('next') . //>(translatable)<
                     ' &raquo;</span>';
             }
             $pagination .= "</div>\n";
         }
+
         return $pagination;
     }
 

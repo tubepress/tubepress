@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -68,7 +68,7 @@ class tubepress_test_dailymotion_impl_dmapi_LocaleSupplierTest extends tubepress
                 'locale',
                 $this->_getJsonLocales(),
                 array(
-                    'none' => 'select ...',
+                    'none'  => 'select ...',
                     'de_AT' => 'de_AT - Deutsch (Österreich)',
                     'es_AR' => 'es_AR - Español (Argentina)',
                 ),
@@ -102,7 +102,6 @@ class tubepress_test_dailymotion_impl_dmapi_LocaleSupplierTest extends tubepress
 		"currency": "EUR"
 	}]
 }
-EOT
-            ;
+EOT;
     }
 }

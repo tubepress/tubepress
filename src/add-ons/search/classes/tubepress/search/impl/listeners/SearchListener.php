@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_search_impl_listeners_SearchListener
 {
     /**
@@ -65,7 +62,7 @@ class tubepress_search_impl_listeners_SearchListener
 
     public function onHtmlGenerationSearchOutput(tubepress_api_event_EventInterface $event)
     {
-        $shouldLog   = $this->_logger->isEnabled();
+        $shouldLog = $this->_logger->isEnabled();
 
         /* not configured at all for search results */
         if ($this->_context->get(tubepress_api_options_Names::HTML_OUTPUT) !== tubepress_api_options_AcceptableValues::OUTPUT_SEARCH_RESULTS) {
@@ -86,7 +83,7 @@ class tubepress_search_impl_listeners_SearchListener
         $hasSearchTerms        = $rawSearchTerms != '';
 
         /* the user is not searching and we don't have to show results */
-        if (! $hasSearchTerms && ! $mustShowSearchResults) {
+        if (!$hasSearchTerms && !$mustShowSearchResults) {
 
             if ($shouldLog) {
 
@@ -110,8 +107,8 @@ class tubepress_search_impl_listeners_SearchListener
 
         $toAdd = array();
 
-        /**
-         * @var $mediaProvider tubepress_spi_media_MediaProviderInterface
+        /*
+         * @var tubepress_spi_media_MediaProviderInterface
          */
         foreach ($this->_mediaProviders as $mediaProvider) {
 
@@ -133,7 +130,7 @@ class tubepress_search_impl_listeners_SearchListener
         $shouldLog      = $this->_logger->isEnabled();
 
         /* if the user isn't searching, don't display anything */
-        if (! $hasSearchTerms) {
+        if (!$hasSearchTerms) {
 
             if ($shouldLog) {
 
@@ -142,6 +139,7 @@ class tubepress_search_impl_listeners_SearchListener
 
             $event->setSubject('');
             $event->stopPropagation();
+
             return;
         }
 

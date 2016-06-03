@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -118,8 +118,8 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
             'ephemeral' => array(
 
                 'x'   => 'y',
-                'foo' => 'bar'
-            )
+                'foo' => 'bar',
+            ),
         ));
 
         $this->_sut->onGalleryInitJs($this->_mockEvent);
@@ -137,9 +137,9 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array('mediaPage' => $this->_mockMediaPage));
         $this->_mockEvent->shouldReceive('setSubject')->once()->with(array_merge(array(
-            'mediaPage' => $this->_mockMediaPage,
-            tubepress_api_template_VariableNames::HTML_WIDGET_ID => 47,
-            tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX => 556,
+            'mediaPage'                                                       => $this->_mockMediaPage,
+            tubepress_api_template_VariableNames::HTML_WIDGET_ID              => 47,
+            tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX  => 556,
             tubepress_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX => 984,
         ), $expected));
 
@@ -165,7 +165,7 @@ class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepres
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(), array(
             'mediaPage'  => $mockPage,
-            'pageNumber' => 12
+            'pageNumber' => 12,
         ))->andReturn($internalEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_Events::GALLERY_INIT_JS, $internalEvent);

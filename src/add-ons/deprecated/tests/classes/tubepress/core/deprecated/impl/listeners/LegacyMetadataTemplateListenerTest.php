@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -39,14 +39,13 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest ext
      */
     private $_mockMediaProvider;
 
-
     public function onSetup()
     {
 
-        $this->_mockExecutionContext      = $this->mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockOptionReference   = $this->mock(tubepress_api_options_ReferenceInterface::_);
-        $this->_mockMediaProvider = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
-        $this->_mockTranslator = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockExecutionContext = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockOptionReference  = $this->mock(tubepress_api_options_ReferenceInterface::_);
+        $this->_mockMediaProvider    = $this->mock(tubepress_spi_media_MediaProviderInterface::_);
+        $this->_mockTranslator       = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener(
             $this->_mockExecutionContext,
@@ -66,7 +65,7 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest ext
         $event = $this->mock('tubepress_api_event_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn($mockTemplate);
         $event->shouldReceive('setSubject')->once()->with(array(
-            'foo' => 'bar',
+            'foo'                                                   => 'bar',
             tubepress_api_const_template_Variable::META_SHOULD_SHOW => array('meta' => '<<value of meta>>'),
             tubepress_api_const_template_Variable::META_LABELS      => array('meta' => '##video-meta##'),
         ));
@@ -85,10 +84,9 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListenerTest ext
             'meta' => 'something',
         ));
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with('meta')->andReturn("<<value of meta>>");
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with('meta')->andReturn('<<value of meta>>');
         $this->_mockOptionReference->shouldReceive('optionExists')->once()->with('meta')->andReturn(true);
         $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with('meta')->andReturn('meta label!');
-        $this->_mockTranslator->shouldReceive('trans')->once()->with("meta label!")->andReturn("##video-meta##");
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('meta label!')->andReturn('##video-meta##');
     }
 }
-

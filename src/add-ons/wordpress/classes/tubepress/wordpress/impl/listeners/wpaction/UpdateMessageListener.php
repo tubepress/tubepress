@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -34,7 +34,7 @@ class tubepress_wordpress_impl_listeners_wpaction_UpdateMessageListener
 
             $html = $this->_templating->renderTemplate('wordpress/in-update-message');
 
-            print $html;
+            echo $html;
         }
     }
 }

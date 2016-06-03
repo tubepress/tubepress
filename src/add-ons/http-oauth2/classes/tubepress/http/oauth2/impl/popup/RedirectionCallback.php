@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_http_oauth2_impl_popup_AbstractPopupHandler
 {
     /**
@@ -43,12 +40,12 @@ class tubepress_http_oauth2_impl_popup_RedirectionCallback extends tubepress_htt
         $this->getPersistenceHelper()->saveToken($provider, $slug, $token);
 
         $this->renderSuccess('finish', 'Successfully connected to %s', $provider, array(
-            'slug' => $slug
+            'slug' => $slug,
         ));
     }
 
     /**
-     * @return string[]
+     * {@inheritdoc}
      */
     protected function getRequiredParamNames()
     {

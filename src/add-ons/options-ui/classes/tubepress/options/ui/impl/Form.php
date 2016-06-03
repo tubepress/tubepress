@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -86,10 +86,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * @param array   $errors        An associative array, which may be empty, of field IDs to error messages.
-     * @param boolean $justSubmitted True if the form was just submitted, false otherwise.
-     *
-     * @return string The HTML for the options page.
+     * {@inheritdoc}
      */
     public function getHTML(array $errors = array(), $justSubmitted = false)
     {
@@ -106,14 +103,12 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * Invoked when the page is submitted by the user.
-     *
-     * @return array An associative array, which may be empty, of field IDs to error messages.
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
-        /**
-         * @var tubepress_api_options_ui_FieldInterface[] $fields
+        /*
+         * @var tubepress_api_options_ui_FieldInterface[]
          */
         $fields = $this->_buildFieldsArray(true);
         $errors = array();
@@ -134,10 +129,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface[]
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUrlsCSS()
     {
@@ -145,10 +137,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface[]
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUrlsJS()
     {
@@ -156,10 +145,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCSS()
     {
@@ -167,10 +153,7 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
     }
 
     /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getJS()
     {
@@ -206,8 +189,8 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
         $fields            = array_merge($fields, $multiSourceFields);
         $toReturn          = array();
 
-        /**
-         * @var $fields tubepress_api_options_ui_FieldInterface[]
+        /*
+         * @var tubepress_api_options_ui_FieldInterface[]
          */
         foreach ($fields as $field) {
 
@@ -216,8 +199,8 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
 
         if (isset($toReturn[tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID])) {
 
-            /**
-             * @var $filterField tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField
+            /*
+             * @var tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField
              */
             $filterField = $toReturn[tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID];
 
@@ -254,8 +237,8 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
             $this->_multiSourcePersistenceBackends[] = $backend;
             $this->_multiSourcePersistenceServices[] = $multiSourcePersistence;
 
-            /**
-             * @var $multiSourceFields tubepress_api_options_ui_MultiSourceFieldInterface[]
+            /*
+             * @var tubepress_api_options_ui_MultiSourceFieldInterface[]
              */
             foreach ($multiSourceFields as $multiSourceField) {
 
@@ -265,8 +248,8 @@ class tubepress_options_ui_impl_Form implements tubepress_api_options_ui_FormInt
 
         $toReturn = array();
 
-        /**
-         * @var $fieldClones tubepress_api_options_ui_FieldInterface[]
+        /*
+         * @var tubepress_api_options_ui_FieldInterface[]
          */
         foreach ($fieldClones as $collectedField) {
 

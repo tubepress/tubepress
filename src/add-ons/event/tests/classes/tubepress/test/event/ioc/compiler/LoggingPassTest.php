@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -37,10 +37,10 @@ class tubepress_test_event_ioc_compiler_LoggingPassTest extends tubepress_api_te
                 array(
                     'eventName',
                     array('listener-service-id', 'method'),
-                    30
+                    30,
                 ),
             ),
-            array('somethingElse', array())
+            array('somethingElse', array()),
         );
 
         $eventDispatcherDefinition = $this->mock(tubepress_api_event_EventDispatcherInterface::_);

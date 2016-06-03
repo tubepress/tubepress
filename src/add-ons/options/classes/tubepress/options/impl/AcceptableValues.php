@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_options_impl_AcceptableValues implements tubepress_api_options_AcceptableValuesInterface
 {
     /**
@@ -25,18 +22,12 @@ class tubepress_options_impl_AcceptableValues implements tubepress_api_options_A
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return array An associative array of values to untranslated descriptions that the given
-     *               option can accept. May be null if the option does not support discrete values.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAcceptableValues($optionName)
     {
         $event = $this->_eventDispatcher->newEventInstance(null, array(
-            'optionName' => $optionName
+            'optionName' => $optionName,
         ));
         $this->_eventDispatcher->dispatch(
 

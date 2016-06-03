@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -51,12 +51,12 @@ abstract class tubepress_dailymotion_impl_dmapi_AbstractLanguageLocaleSupplier
                                 $urlAsString,
                                 $codeKey)
     {
-        $this->_urlFactory      = $urlFactory;
-        $this->_stringUtils     = $stringUtils;
-        $this->_apiUtility      = $apiUtility;
-        $this->_arrayReader     = new tubepress_array_impl_ArrayReader();
-        $this->_urlAsString     = (string) $urlAsString;
-        $this->_codeKey         = (string) $codeKey;
+        $this->_urlFactory  = $urlFactory;
+        $this->_stringUtils = $stringUtils;
+        $this->_apiUtility  = $apiUtility;
+        $this->_arrayReader = new tubepress_array_impl_ArrayReader();
+        $this->_urlAsString = (string) $urlAsString;
+        $this->_codeKey     = (string) $codeKey;
     }
 
     public function getValueMap()
@@ -88,7 +88,7 @@ abstract class tubepress_dailymotion_impl_dmapi_AbstractLanguageLocaleSupplier
 
             $this->_cache = array_merge(
 
-                array("none" => 'select ...'),
+                array('none' => 'select ...'),
                 $this->_cache
             );
         }

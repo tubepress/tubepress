@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -35,7 +35,7 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_
     public function testConvertsToStringAndSeeksToByteZero()
     {
         $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(200));
-        $s = new tubepress_http_impl_puzzle_streams_PuzzleBasedStream(puzzle_stream_Stream::factory('foo'));
+        $s        = new tubepress_http_impl_puzzle_streams_PuzzleBasedStream(puzzle_stream_Stream::factory('foo'));
         $s->read(1);
         $response->setBody($s);
         $this->assertEquals("HTTP/1.1 200 OK\r\n\r\nfoo", (string) $response);
@@ -43,7 +43,7 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_
 
     public function testParsesJsonResponses()
     {
-        $json = '{"foo": "bar"}';
+        $json     = '{"foo": "bar"}';
         $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(200, array(), puzzle_stream_Stream::factory($json)));
         $this->assertEquals(array('foo' => 'bar'), $response->toJson());
         $this->assertEquals(json_decode($json), $response->toJson(array('object' => true)));
@@ -58,11 +58,12 @@ class tubepress_test_http_impl_puzzle_PuzzleBasedResponseTest extends tubepress_
             $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(200, array(), puzzle_stream_Stream::factory('{"foo": "')));
             $response->toJson();
         } catch (puzzle_exception_ParseException $e) {
-            if (version_compare(PHP_VERSION, '5.3') >= 0) {
-                $this->assertEquals('Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON', $e->getMessage());
+            if (version_compare(PHP_VERSION, '7.0') >= 0) {
+                $this->assertEquals('Unable to parse JSON data: JSON_ERROR_CTRL_CHAR - Unexpected control character found', $e->getMessage());
             } else {
                 $this->assertEquals('Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON', $e->getMessage());
             }
+
             return;
         }
         $this->fail('Should have thrown exception');

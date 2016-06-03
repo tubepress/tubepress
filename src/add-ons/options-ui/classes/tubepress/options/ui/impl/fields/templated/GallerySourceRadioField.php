@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -48,10 +48,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     }
 
     /**
-     * @return string The page-unique identifier for this item.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -59,7 +56,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     }
 
     /**
-     * @return string The absolute path to the template for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateName()
     {
@@ -67,7 +64,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     }
 
     /**
-     * @return array An associative array of template variables for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateVariables()
     {
@@ -84,9 +81,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     }
 
     /**
-     * Invoked when the element is submitted by the user.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
@@ -98,6 +93,9 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
         return $this->_additionalField->onSubmit();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUntranslatedDescription()
     {
         if ($this->_additionalField) {
@@ -108,6 +106,9 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
         return parent::getUntranslatedDescription();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUntranslatedDisplayName()
     {
         if ($this->_additionalField) {
@@ -119,12 +120,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isProOnly()
     {
@@ -137,10 +133,7 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
     }
 
     /**
-     * @param $prefix
-     * @param tubepress_api_options_PersistenceInterface $persistence
-     *
-     * @return tubepress_api_options_ui_FieldInterface
+     * {@inheritdoc}
      */
     public function cloneForMultiSource($prefix, tubepress_api_options_PersistenceInterface $persistence)
     {
@@ -150,8 +143,8 @@ class tubepress_options_ui_impl_fields_templated_GallerySourceRadioField extends
 
         if ($this->_additionalField && $this->_additionalField instanceof tubepress_api_options_ui_MultiSourceFieldInterface) {
 
-            /**
-             * @var $temp tubepress_api_options_ui_MultiSourceFieldInterface
+            /*
+             * @var tubepress_api_options_ui_MultiSourceFieldInterface
              */
             $temp = $this->_additionalField;
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -39,7 +39,7 @@ class tubepress_test_wordpress_impl_listeners_wp_ActivationListenerTest extends 
     {
         $this->_mockFilesystemInterface = $this->mock('Symfony\Component\Filesystem\Filesystem');
         $this->_mockSettingsFileReader  = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
-        $this->_sut = new tubepress_wordpress_impl_listeners_wp_ActivationListener(
+        $this->_sut                     = new tubepress_wordpress_impl_listeners_wp_ActivationListener(
 
             $this->_mockSettingsFileReader,
             $this->_mockFilesystemInterface
@@ -69,7 +69,6 @@ class tubepress_test_wordpress_impl_listeners_wp_ActivationListenerTest extends 
             TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/user-content-skeleton',
             $this->_userContentDirectory . '/tubepress-content'
         );
-
 
         $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/foo');
 

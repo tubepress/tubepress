@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -32,7 +32,7 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends t
     public function onSetup()
     {
         $this->_mockWpFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockMessageService = $this->mock(tubepress_api_translation_TranslatorInterface::_);
+        $this->_mockMessageService    = $this->mock(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_options_ui_fields_WpNonceField($this->_mockWpFunctionWrapper);
     }

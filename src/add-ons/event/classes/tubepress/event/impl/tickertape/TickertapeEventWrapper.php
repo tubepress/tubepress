@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -32,13 +32,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Get argument by key.
-     *
-     * @param string $key Key.
-     *
-     * @throws InvalidArgumentException If key is not found.
-     *
-     * @return mixed Contents of array key.
+     * {@inheritdoc}
      */
     public function getArgument($key)
     {
@@ -46,9 +40,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Getter for all arguments.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getArguments()
     {
@@ -56,12 +48,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Returns the EventDispatcher that dispatches this Event
-     *
-     * @return tubepress_api_event_EventDispatcherInterface
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getDispatcher()
     {
@@ -69,11 +56,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Gets the event's name.
-     *
-     * @return string
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -81,7 +64,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * @return mixed The subject of the event.
+     * {@inheritdoc}
      */
     public function getSubject()
     {
@@ -89,11 +72,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Has argument.
-     *
-     * @param string $key Key of arguments array.
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function hasArgument($key)
     {
@@ -101,26 +80,15 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Returns whether further event listeners should be triggered.
-     *
-     * @see Event::stopPropagation
-     * @return Boolean Whether propagation was already stopped for this event.
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function isPropagationStopped()
     {
         return $this->_delegate->isPropagationStopped();
     }
 
-
     /**
-     * Add argument to event.
-     *
-     * @param string $key   Argument name.
-     * @param mixed  $value Value.
-     *
-     * @return \Symfony\Component\EventDispatcher\Event
+     * {@inheritdoc}
      */
     public function setArgument($key, $value)
     {
@@ -128,11 +96,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Set args property.
-     *
-     * @param array $args Arguments.
-     *
-     * @return \Symfony\Component\EventDispatcher\Event
+     * {@inheritdoc}
      */
     public function setArguments(array $args = array())
     {
@@ -140,26 +104,15 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Allows listeners to replace the subject with a new item.
-     *
-     * @param mixed $subject The new subject for the event.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function setSubject($subject)
     {
         $this->_delegate->setSubject($subject);
     }
 
-
     /**
-     * Stops the propagation of the event to further event listeners.
-     *
-     * If multiple event listeners are connected to the same event, no
-     * further event listener will be triggered once any trigger calls
-     * stopPropagation().
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function stopPropagation()
     {
@@ -167,13 +120,7 @@ class tubepress_event_impl_tickertape_TickertapeEventWrapper extends \Symfony\Co
     }
 
     /**
-     * Sets the event's name property.
-     *
-     * @param string $name The event name.
-     *
-     * @throws BadMethodCallException Always.
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function setName($name)
     {

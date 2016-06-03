@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -46,6 +46,9 @@ class tubepress_options_ui_impl_fields_templated_single_DropdownField extends tu
         $this->_acceptableValues = $acceptableValues;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getAdditionalTemplateVariables()
     {
         $map = $this->_acceptableValues->getAcceptableValues($this->getOptionName());

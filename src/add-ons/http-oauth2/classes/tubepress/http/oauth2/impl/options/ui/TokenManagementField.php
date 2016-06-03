@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepress_options_ui_impl_fields_templated_AbstractTemplatedField
 {
     /**
@@ -44,7 +41,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
     }
 
     /**
-     * @return string The absolute path to the template for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateName()
     {
@@ -52,7 +49,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
     }
 
     /**
-     * @return array An associative array of template variables for this field.
+     * {@inheritdoc}
      */
     protected function getTemplateVariables()
     {
@@ -81,12 +78,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
     }
 
     /**
-     * Invoked when the element is submitted by the user.
-     *
-     * @return string|null A string error message to be displayed to the user, or null if no problem.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function onSubmit()
     {
@@ -94,12 +86,7 @@ class tubepress_http_oauth2_impl_options_ui_TokenManagementField extends tubepre
     }
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isProOnly()
     {

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -63,7 +63,7 @@ class tubepress_wordpress_impl_listeners_wpfilter_PucListener
 
             if (!$apiKey) {
 
-                /**
+                /*
                  * We don't want to downgrade Pro users that haven't entered an API key.
                  */
                 $pluginInfo->download_url = null;
@@ -71,7 +71,7 @@ class tubepress_wordpress_impl_listeners_wpfilter_PucListener
 
             if (property_exists($pluginInfo, 'download_url') && strpos($pluginInfo->download_url, 'free') !== false) {
 
-                /**
+                /*
                  * Extra assurance that we don't downgrade Pro users
                  */
                 $pluginInfo->download_url = null;

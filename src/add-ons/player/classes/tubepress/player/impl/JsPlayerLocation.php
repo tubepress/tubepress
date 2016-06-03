@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 class tubepress_player_impl_JsPlayerLocation implements tubepress_spi_player_PlayerLocationInterface
 {
     /**
@@ -40,10 +39,7 @@ class tubepress_player_impl_JsPlayerLocation implements tubepress_spi_player_Pla
     }
 
     /**
-     * @return string The name of this player location.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -51,10 +47,7 @@ class tubepress_player_impl_JsPlayerLocation implements tubepress_spi_player_Pla
     }
 
     /**
-     * @return string The display name of this player location.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -62,11 +55,7 @@ class tubepress_player_impl_JsPlayerLocation implements tubepress_spi_player_Pla
     }
 
     /**
-     * @return string The template name that this player location uses when it is loaded
-     *                statically on a gallery page, or null if not required on static page load.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getStaticTemplateName()
     {
@@ -74,11 +63,7 @@ class tubepress_player_impl_JsPlayerLocation implements tubepress_spi_player_Pla
     }
 
     /**
-     * @return string The template name that this player location uses when it is loaded
-     *                dynamically via Ajax, or null if not used via Ajax.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAjaxTemplateName()
     {
@@ -86,15 +71,7 @@ class tubepress_player_impl_JsPlayerLocation implements tubepress_spi_player_Pla
     }
 
     /**
-     * Get the data required to populate the invoking HTML anchor.
-     *
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array An associative array where the keys are HTML <a> attribute names and the values are
-     *               the corresponding attribute values. May be empty nut never null.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAttributesForInvocationAnchor(tubepress_api_media_MediaItem $mediaItem)
     {

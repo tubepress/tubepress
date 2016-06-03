@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -103,7 +103,7 @@ class tubepress_wordpress_impl_listeners_wpaction_AdminHeadAndScriptsListener
         $wpScripts->remove('jquery-core');
         $wpScripts->remove('jquery-migrate');
 
-        $wpScripts->add('jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.11.3' );
+        $wpScripts->add('jquery', false, array('jquery-core', 'jquery-migrate'), '1.11.3');
         $wpScripts->add('jquery-core', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js', array(), '1.11.3');
         $wpScripts->add('jquery-migrate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js', array(), '1.2.1');
     }

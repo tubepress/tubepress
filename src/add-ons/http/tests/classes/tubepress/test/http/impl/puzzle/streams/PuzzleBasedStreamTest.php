@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -19,10 +19,9 @@ class tubepress_test_http_impl_puzzle_streams_PuzzleBasedStreamTest extends tube
         return 'puzzle_stream_StreamInterface';
     }
 
-    protected  function getSutClass()
+    protected function getSutClass()
     {
         return 'tubepress_http_impl_puzzle_streams_PuzzleBasedStream';
     }
-
 
 }

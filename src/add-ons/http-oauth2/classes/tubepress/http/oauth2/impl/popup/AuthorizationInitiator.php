@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_http_oauth2_impl_popup_AbstractPopupHandler
 {
     /**
@@ -109,7 +106,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         $this->_redirect($url);
 
         $this->renderSuccess('start', 'Redirecting to %s', $provider, array(
-            'url' => $url
+            'url' => $url,
         ));
     }
 
@@ -121,7 +118,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         $this->getPersistenceHelper()->saveToken($provider, $slug, $token);
 
         $this->renderSuccess('finish', 'Successfully connected to %s', $provider, array(
-            'slug' => $slug
+            'slug' => $slug,
         ));
     }
 
@@ -157,7 +154,7 @@ class tubepress_http_oauth2_impl_popup_AuthorizationInitiator extends tubepress_
         $provider->onAuthorizationUrl($authorizationUrl, $clientId, $clientSecret);
 
         $event = $this->_eventDispatcher->newEventInstance($authorizationUrl, array(
-            'provider' => $provider
+            'provider' => $provider,
         ));
 
         $this->_eventDispatcher->dispatch(tubepress_api_event_Events::OAUTH2_URL_AUTHORIZATION, $event);

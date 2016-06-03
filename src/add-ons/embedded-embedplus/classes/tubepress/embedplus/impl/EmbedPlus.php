@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -27,10 +27,7 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_Embed
     }
 
     /**
-     * @return string[] The names of the media providers that this provider can handle.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCompatibleMediaProviderNames()
     {
@@ -38,10 +35,7 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_Embed
     }
 
     /**
-     * @return string The name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -49,10 +43,7 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_Embed
     }
 
     /**
-     * @return string The template name for this provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateName()
     {
@@ -60,10 +51,7 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_Embed
     }
 
     /**
-     * @return string The display name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -71,38 +59,26 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_Embed
     }
 
     /**
-     * @return string[] A set of absolute filesystem directory paths
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateDirectories()
     {
         return array(
 
-            TUBEPRESS_ROOT . '/src/add-ons/embedded-embedplus/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/embedded-embedplus/templates',
         );
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
         return array(
-            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL =>
-                $this->_urlFactory->fromString(sprintf('http://www.youtube.com/embed/%s', $mediaItem->getId()))
+            tubepress_api_template_VariableNames::EMBEDDED_DATA_URL => $this->_urlFactory->fromString(sprintf('http://www.youtube.com/embed/%s', $mediaItem->getId())),
         );
     }
 
-    /**
-     *
-     */
     public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
         $args = $event->getSubject();
@@ -119,8 +95,8 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_spi_embedded_Embed
             return;
         }
 
-        $existingHeight = $args[self::$_OPTIONS][tubepress_api_options_Names::EMBEDDED_HEIGHT];
-        $newHeight      = intval($existingHeight) + 30;
+        $existingHeight                                                      = $args[self::$_OPTIONS][tubepress_api_options_Names::EMBEDDED_HEIGHT];
+        $newHeight                                                           = intval($existingHeight) + 30;
         $args[self::$_OPTIONS][tubepress_api_options_Names::EMBEDDED_HEIGHT] = $newHeight;
 
         $event->setSubject($args);

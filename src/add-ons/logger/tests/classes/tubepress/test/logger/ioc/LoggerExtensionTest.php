@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -26,7 +26,7 @@ class tubepress_test_logger_ioc_LoggerExtensionTest extends tubepress_api_test_i
     {
         $this->_registerOptions();
         $this->_registerOptionsUi();
-        
+
         $this->expectRegistration(
             tubepress_api_log_LoggerInterface::_,
             'tubepress_logger_impl_HtmlLogger'
@@ -48,12 +48,12 @@ class tubepress_test_logger_ioc_LoggerExtensionTest extends tubepress_api_test_i
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_api_options_Names::DEBUG_ON => 'Enable debugging',   //>(translatable)<
+                    tubepress_api_options_Names::DEBUG_ON => 'Enable debugging',
                 ),
 
                 tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
 
-                    tubepress_api_options_Names::DEBUG_ON => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
+                    tubepress_api_options_Names::DEBUG_ON => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',
 
                 ),
             ))->withArgument(array());
@@ -62,7 +62,7 @@ class tubepress_test_logger_ioc_LoggerExtensionTest extends tubepress_api_test_i
     private function _registerOptionsUi()
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::DEBUG_ON,
             ),
@@ -87,7 +87,7 @@ class tubepress_test_logger_ioc_LoggerExtensionTest extends tubepress_api_test_i
 
         $fieldMap = array(
             tubepress_api_options_ui_CategoryNames::ADVANCED => array(
-                tubepress_api_options_Names::DEBUG_ON
+                tubepress_api_options_Names::DEBUG_ON,
             ),
         );
 

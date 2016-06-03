@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -36,11 +36,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFacto
     }
 
     /**
-     * @param string $url The URL to parse.
-     *
-     * @return tubepress_api_url_UrlInterface
-     *
-     * @throws InvalidArgumentException If unable to parse URL.
+     * {@inheritdoc}
      */
     public function fromString($url)
     {
@@ -53,13 +49,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFacto
     }
 
     /**
-     * The current URL shown to the user.
-     *
-     * @return tubepress_api_url_UrlInterface
-     *
-     * @throws RuntimeException If unable to determine current URL.
-     *
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function fromCurrent()
     {
@@ -77,7 +67,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFacto
         $requiredServerVars = array(
             self::$_KEY_PORT,
             self::$_KEY_NAME,
-            self::$_KEY_URI
+            self::$_KEY_URI,
         );
 
         foreach ($requiredServerVars as $requiredServerVar) {
@@ -105,7 +95,7 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFacto
 
         } else {
 
-            $toReturn .= $this->_serverVars[self::$_KEY_NAME].$this->_serverVars[self::$_KEY_URI];
+            $toReturn .= $this->_serverVars[self::$_KEY_NAME] . $this->_serverVars[self::$_KEY_URI];
         }
 
         try {

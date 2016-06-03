@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_options_impl_DispatchingReference implements tubepress_api_options_ReferenceInterface
 {
     /**
@@ -35,12 +32,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * Fetch all the option names known to TubePress.
-     *
-     * @return string[]
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAllOptionNames()
     {
@@ -50,12 +42,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * @param string $optionName The option name.
-     *
-     * @return bool True if an option with the given name exists, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function optionExists($optionName)
     {
@@ -65,55 +52,29 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * Get a property for the given option.
-     *
-     * @param string $optionName   The option name.
-     * @param string $propertyName The property name.
-     *
-     * @return tubepress_api_collection_MapInterface
-     *
-     * @throws InvalidArgumentException If the option name does not exist, or no such property for the option.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getProperty($optionName, $propertyName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $this->_nameToReferenceMap[$optionName]->getProperty($optionName, $propertyName);
     }
 
     /**
-     * @param string $optionName   The option name.
-     * @param string $propertyName The property name.
-     *
-     * @return bool True if this object contains a property with the given name, false otherwise.
-     *
-     * @throws InvalidArgumentException If the option name does not exist
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function hasProperty($optionName, $propertyName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $this->_nameToReferenceMap[$optionName]->hasProperty($optionName, $propertyName);
     }
 
     /**
-     * @param string $optionName   The option name.
-     * @param string $propertyName The property name.
-     *
-     * @return bool The property value as converted to boolean.
-     *
-     * @throws InvalidArgumentException If the option name does not exist, or no such property for the option.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getPropertyAsBoolean($optionName, $propertyName)
     {
@@ -121,20 +82,13 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return mixed The default value for this option. May be null.
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function getDefaultValue($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $raw = $this->_nameToReferenceMap[$optionName]->getDefaultValue($optionName);
 
         return $this->_dispatchEventAndReturnSubject($optionName, $raw,
@@ -142,20 +96,13 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return string The human-readable description of this option. May be empty or null.
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function getUntranslatedDescription($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $raw = $this->_nameToReferenceMap[$optionName]->getUntranslatedDescription($optionName);
 
         return $this->_dispatchEventAndReturnSubject($optionName, $raw,
@@ -163,20 +110,13 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return string The short label for this option. 30 chars or less. May be null.
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function getUntranslatedLabel($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $raw = $this->_nameToReferenceMap[$optionName]->getUntranslatedLabel($optionName);
 
         return $this->_dispatchEventAndReturnSubject($optionName, $raw,
@@ -184,74 +124,46 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return bool True if this option can be set via shortcode, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function isAbleToBeSetViaShortcode($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $this->_nameToReferenceMap[$optionName]->isAbleToBeSetViaShortcode($optionName);
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return bool True if this option takes on only boolean values, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function isBoolean($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $this->_nameToReferenceMap[$optionName]->isBoolean($optionName);
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return bool Should we store this option in persistent storage?
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function isMeantToBePersisted($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $this->_nameToReferenceMap[$optionName]->isMeantToBePersisted($optionName);
     }
 
     /**
-     * @param $optionName string The option name.
-     *
-     * @return bool Is this option Pro only?
-     *
-     * @api
-     * @since 4.0.0
-     *
-     * @throws InvalidArgumentException If the option does not exist.
+     * {@inheritdoc}
      */
     public function isProOnly($optionName)
     {
         $this->_assertExists($optionName);
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $this->_nameToReferenceMap[$optionName]->isProOnly($optionName);
     }
 
@@ -291,7 +203,7 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     private function _dispatchEventAndReturnSubject($optionName, $value, $eventName)
     {
         $event = $this->_eventDispatcher->newEventInstance($value, array(
-            'optionName' => $optionName
+            'optionName' => $optionName,
         ));
 
         $this->_eventDispatcher->dispatch("$eventName.$optionName", $event);

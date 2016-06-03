@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -50,7 +50,6 @@ class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepres
         $this->_mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $this->_mockUrl->shouldReceive('toString')->once()->andReturn('xyz');
 
-
         $mockQuery->shouldReceive('set')->once()->with('tubepress_item', 'abc');
 
         $expected = array(
@@ -61,4 +60,3 @@ class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepres
         $this->assertEquals($expected, $this->_sut->getAttributesForInvocationAnchor($mockMediaItem));
     }
 }
-

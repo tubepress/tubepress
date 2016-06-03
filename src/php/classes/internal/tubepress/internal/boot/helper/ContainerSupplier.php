@@ -233,8 +233,12 @@ class tubepress_internal_boot_helper_ContainerSupplier
             $this->_logger, $urlFactory, $langUtils, $stringUtils, $this->_bootSettings
         );
         $manifestFinder = new tubepress_internal_boot_helper_uncached_contrib_ManifestFinder(
-            TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'add-ons', DIRECTORY_SEPARATOR . 'add-ons', 'manifest.json',
-            $this->_logger, $this->_bootSettings, $finderFactory
+            TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'add-ons', 
+            DIRECTORY_SEPARATOR . 'add-ons',
+            'manifest.json',
+            $this->_logger,
+            $this->_bootSettings,
+            $finderFactory
         );
         $uncached = new tubepress_internal_boot_helper_uncached_UncachedContainerSupplier(
 

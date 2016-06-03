@@ -9,9 +9,14 @@
       "email" : "eric@tubepress.com"
     }
   ],
-  "dependencies" : {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tubepress/tubepress.git"
+  },
+  "devDependencies" : {
     "css-loader"   : "*",
     "style-loader" : "*",
+    "typescript"   : "*",
     "uglify-js"    : "*",
     "uglifycss"    : "*",
     "webpack"      : "*"

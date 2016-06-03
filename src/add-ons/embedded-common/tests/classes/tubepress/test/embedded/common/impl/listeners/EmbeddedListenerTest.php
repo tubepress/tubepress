@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -104,8 +104,8 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
 
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn($initialTemplateVars);
         $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(array_merge($initialTemplateVars, array(
-            'embeddedSource' => 'hiya',
-            'embeddedWidthPx' => 'embedded-width',
+            'embeddedSource'   => 'hiya',
+            'embeddedWidthPx'  => 'embedded-width',
             'embeddedHeightPx' => 'embedded-height',
             'responsiveEmbeds' => 'responsive',
         )));
@@ -186,7 +186,7 @@ class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends
 
         $mockEvent = $this->mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array(
-            'foo' => 'bar'
+            'foo' => 'bar',
         ));
 
         $mockEvent->shouldReceive('setSubject')->once()->with(array(

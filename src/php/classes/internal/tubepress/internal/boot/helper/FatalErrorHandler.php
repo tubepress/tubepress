@@ -11,41 +11,37 @@
 
 class tubepress_internal_boot_helper_FatalErrorHandler
 {
-    public function onFatalError()
+    public function onFatalError(tubepress_api_log_LoggerInterface $logger, array $error)
     {
-        $error = error_get_last();
+        try {
 
-        if (!is_array($error) || !isset($error['file'])) {
-
-            return;
-        }
-
-        if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'tubepress-tried-recovery') !== false) {
-
-            return;
-        }
-
-        $needle     = sprintf('TubePress-%s-ServiceContainer.php', TUBEPRESS_VERSION);
-        $fileName   = $error['file'];
-        $fileLength = strlen($needle);
-        $start      = $fileLength * -1;
-
-        if (substr($fileName, $start) === $needle) {
-
-            $unlinked = unlink($fileName);
-
-            if ($unlinked !== true || !isset($_SERVER['REQUEST_URI'])) {
+            if (!$this->_isErrorFatal($error)) {
 
                 return;
             }
 
-            $uri = $_SERVER['REQUEST_URI'] . '&tubepress-tried-recovery';
+            $logger->error(sprintf(
+                'Fatal error (type <code>%s</code>) detected on line <code>%s</code> of <code>%s</code>: <code>%s</code>',
+                $error['type'],
+                $error['line'],
+                htmlspecialchars($error['file']),
+                htmlspecialchars($error['message'])
+            ));
 
-            echo <<<YYY
-<div>TubePress detected a fatal error with its system cache and is attempting to resolve the issue. Refreshing this page now...</div>
-<script type="text/javascript">window.location.replace("$uri");</script>
-YYY
-            ;
+        } catch (\Exception $e) {
+
+            //we tried
         }
+    }
+
+    private function _isErrorFatal(array $error)
+    {
+        $level   = $error['type'];
+        $errors  = E_ERROR;
+        $errors |= E_PARSE;
+        $errors |= E_CORE_ERROR;
+        $errors |= E_COMPILE_ERROR;
+
+        return ($level & $errors) > 0;
     }
 }

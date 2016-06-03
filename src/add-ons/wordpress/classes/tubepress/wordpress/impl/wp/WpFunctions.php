@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -23,7 +23,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function __($message, $domain)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return $message == '' ? '' : __($message, $domain);
     }
 
@@ -37,7 +37,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function add_shortcode($tag, $function)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         add_shortcode($tag, $function);
     }
 
@@ -48,7 +48,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function current_filter()
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return current_filter();
     }
 
@@ -60,11 +60,11 @@ class tubepress_wordpress_impl_wp_WpFunctions
      * @param string $value The NEW value for this option name. This value can be a string, an array,
      *                      an object or a serialized value.
      *
-     * @return boolean True if option value has changed, false if not or if update failed.
+     * @return bool True if option value has changed, false if not or if update failed.
      */
     public function update_option($name, $value)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return update_option($name, $value);
     }
 
@@ -79,7 +79,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_categories(array $args = array())
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_categories($args);
     }
 
@@ -102,7 +102,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_locale()
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_locale();
     }
 
@@ -115,7 +115,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_option($name)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_option($name);
     }
 
@@ -132,7 +132,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_post_stati(array $args = array(), $output = 'names', $operator = 'and')
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_post_stati($args, $output, $operator);
     }
 
@@ -140,14 +140,14 @@ class tubepress_wordpress_impl_wp_WpFunctions
     /**
      * Retrieve full permalink for current post or post ID.
      *
-     * @param int|WP_Post $post Post ID or post object. Default is the global $post.
+     * @param int|WP_Post $post      Post ID or post object. Default is the global $post.
      * @param bool        $leavename Whether to keep post name or page name.
      *
      * @return string|false The permalink URL or false if post does not exist.
      */
     public function get_permalink($post, $leavename = false)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_permalink($post, $leavename);
     }
 
@@ -160,7 +160,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_posts($args)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_posts($args);
     }
 
@@ -169,7 +169,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      *
      * https://codex.wordpress.org/Function_Reference/get_post_types
      *
-     * @param array $args      An array of key value arguments to match against the post types.
+     * @param array  $args     An array of key value arguments to match against the post types.
      * @param string $output   The type of output to return, either 'names' or 'objects'.
      * @param string $operator Operator (and/or) to use with multiple $args.
      *
@@ -177,7 +177,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_post_types(array $args = array(), $output = 'names', $operator = 'and')
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_post_types($args, $output, $operator);
     }
 
@@ -192,7 +192,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_tags(array $args = array())
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_tags($args);
     }
 
@@ -209,7 +209,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_user_by($field, $value)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_user_by($field, $value);
     }
 
@@ -223,7 +223,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function get_users(array $args = array())
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return get_users($args);
     }
 
@@ -236,7 +236,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_dequeue_script($handle)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_dequeue_script($handle);
     }
 
@@ -249,7 +249,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_dequeue_style($handle)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_dequeue_style($handle);
     }
 
@@ -262,44 +262,44 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_deregister_script($handle)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_deregister_script($handle);
     }
 
     /**
      * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
      *
-     * @param string $name Name of the option to be added. Must not exceed 64 characters. Use underscores to separate
-     *                     words, and do not use uppercase—this is going to be placed into the database.
+     * @param string $name  Name of the option to be added. Must not exceed 64 characters. Use underscores to separate
+     *                      words, and do not use uppercase—this is going to be placed into the database.
      * @param string $value Value for this option name.
      *
      * @return void
      */
     public function add_option($name, $value)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         add_option($name, $value);
     }
 
     /**
      * Add a sub menu page.
      *
-     * @param string $parent_slug The slug name for the parent menu (or the file name of a standard WordPress
-     *                            admin page). Set to 'options.php' if you want to create a page that doesn't appear
-     *                            in any menu
-     * @param string $page_title  The text to be displayed in the title tags of the page when the menu is selected
-     * @param string $menu_title  The text to be used for the menu
-     * @param string $capability  The capability required for this menu to be displayed to the user.
-     * @param string $menu_slug   The slug name to refer to this menu by (should be unique for this menu). If you want
-     *                            to NOT duplicate the parent menu item, you need to set the name of the $menu_slug
-     *                            exactly the same as the parent slug.
-     * @param callback $function  The function to be called to output the content for this page.
+     * @param string   $parent_slug The slug name for the parent menu (or the file name of a standard WordPress
+     *                              admin page). Set to 'options.php' if you want to create a page that doesn't appear
+     *                              in any menu
+     * @param string   $page_title  The text to be displayed in the title tags of the page when the menu is selected
+     * @param string   $menu_title  The text to be used for the menu
+     * @param string   $capability  The capability required for this menu to be displayed to the user.
+     * @param string   $menu_slug   The slug name to refer to this menu by (should be unique for this menu). If you want
+     *                              to NOT duplicate the parent menu item, you need to set the name of the $menu_slug
+     *                              exactly the same as the parent slug.
+     * @param callback $function    The function to be called to output the content for this page.
      *
      * @return string The resulting page's hook_suffix, or false if the user does not have the capability required...
      */
     public function add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function);
     }
 
@@ -316,7 +316,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function add_options_page($pageTitle, $menuTitle, $capability, $menu_slug, $callback)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return add_options_page($pageTitle, $menuTitle, $capability, $menu_slug, $callback);
     }
 
@@ -332,18 +332,18 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function check_admin_referer($action, $queryArg)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return check_admin_referer($action, $queryArg);
     }
 
     /**
      * This Conditional Tag checks if the Dashboard or the administration panel is being displayed.
      *
-     * @return boolean True on success, otherwise false.
+     * @return bool True on success, otherwise false.
      */
     public function is_admin()
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return is_admin();
     }
 
@@ -357,7 +357,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function plugins_url($path, $plugin)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return plugins_url($path, $plugin);
     }
 
@@ -370,26 +370,26 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function plugin_basename($file)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return plugin_basename($file);
     }
 
     /**
      * The safe and recommended method of adding JavaScript to a WordPress generated page.
      *
-     * @param string $handle     Name of the script.
-     * @param string $src        URL to the script, e.g. http://example.com/wp-content/themes/my-theme/my-theme-script.js.
-     * @param array  $deps       Array of the handles of all the registered scripts that this script depends on,
-     *                           that is the scripts that must be loaded before this script.
-     * @param string $ver        String specifying the script version number, if it has one,
-     *                           which is concatenated to the end of the path as a query string.
-     * @param boolean $in_footer If this parameter is true, the script is placed before the </body> end tag.
+     * @param string $handle    Name of the script.
+     * @param string $src       URL to the script, e.g. http://example.com/wp-content/themes/my-theme/my-theme-script.js.
+     * @param array  $deps      Array of the handles of all the registered scripts that this script depends on,
+     *                          that is the scripts that must be loaded before this script.
+     * @param string $ver       String specifying the script version number, if it has one,
+     *                          which is concatenated to the end of the path as a query string.
+     * @param bool   $in_footer If this parameter is true, the script is placed before the </body> end tag.
      *
      * @return void
      */
     public function wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_enqueue_script($handle, $src, $deps, $ver, $in_footer);
     }
 
@@ -402,7 +402,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_enqueue_style($handle)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_enqueue_style($handle);
     }
 
@@ -419,7 +419,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_register_script($handle, $src, $deps = array(), $version = null, $inFooter = false)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_register_script($handle, $src, $deps, $version, $inFooter);
     }
 
@@ -435,7 +435,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_register_sidebar_widget($id, $name, $callback, $options)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_register_sidebar_widget($id, $name, $callback, $options);
     }
 
@@ -449,7 +449,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_register_style($handle, $src, $deps = array(), $version = null)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_register_style($handle, $src, $deps, $version);
     }
 
@@ -464,7 +464,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_register_widget_control($id, $name, $callback)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         wp_register_widget_control($id, $name, $callback);
     }
 
@@ -483,7 +483,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function add_action($tag, $function, $priority, $acceptedArgs)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         add_action($tag, $function, $priority, $acceptedArgs);
     }
 
@@ -497,22 +497,23 @@ class tubepress_wordpress_impl_wp_WpFunctions
      *                             functions with the same priority are executed in the order in which they were
      *                             added to the action.
      * @param int    $acceptedArgs The number of arguments the function accepts.
+     *
      * @return void
      */
     public function add_filter($tag, $function, $priority, $acceptedArgs)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         add_filter($tag, $function, $priority, $acceptedArgs);
     }
 
     /**
      * Checks if SSL is being used.
      *
-     * @return boolean True if SSL, false otherwise.
+     * @return bool True if SSL, false otherwise.
      */
     public function is_ssl()
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return is_ssl();
     }
 
@@ -528,7 +529,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function load_plugin_textdomain($domain, $absPath, $relPath)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         load_plugin_textdomain($domain, $absPath, $relPath);
     }
 
@@ -541,7 +542,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function site_url()
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return site_url();
     }
 
@@ -555,7 +556,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function content_url($path = '')
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return content_url($path);
     }
 
@@ -577,24 +578,24 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function register_activation_hook($file, $function)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return register_activation_hook($file, $function);
     }
 
     /**
      * Retrieves or displays the nonce hidden form field.
      *
-     * @param string  $action   Action name. Should give the context to what is taking place. Optional but recommended.
-     * @param string  $name     Nonce name. This is the name of the nonce hidden form field to be created.
-     *                                      Once the form is submitted, you can access the generated nonce via $_POST[$name].
-     * @param boolean $referrer Whether also the referer hidden form field should be created with the wp_referer_field()
-     * @param boolean $echo     Whether to display or return the nonce hidden form field, and also the referer hidden form field if the $referer argument is set to true.
+     * @param string $action   Action name. Should give the context to what is taking place. Optional but recommended.
+     * @param string $name     Nonce name. This is the name of the nonce hidden form field to be created.
+     *                         Once the form is submitted, you can access the generated nonce via $_POST[$name].
+     * @param bool   $referrer Whether also the referer hidden form field should be created with the wp_referer_field()
+     * @param bool   $echo     Whether to display or return the nonce hidden form field, and also the referer hidden form field if the $referer argument is set to true.
      *
      * @return mixed
      */
     public function wp_nonce_field($action, $name, $referrer, $echo)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return wp_nonce_field($action, $name, $referrer, $echo);
     }
 
@@ -604,13 +605,13 @@ class tubepress_wordpress_impl_wp_WpFunctions
      * @param string $nonce  Nonce to verify.
      * @param string $action Action name. Should give the context to what is taking place and be the same when the nonce was created.
      *
-     * @return boolean|integer False if the nonce is invalid. Otherwise returns an integer with the value of
-     *                         1 if the nonce has been generated in the past 12 hours or less.
-     *                         2 if the nonce was generated between 12 and 24 hours ago.
+     * @return bool|int False if the nonce is invalid. Otherwise returns an integer with the value of
+     *                  1 if the nonce has been generated in the past 12 hours or less.
+     *                  2 if the nonce was generated between 12 and 24 hours ago.
      */
     public function wp_verify_nonce($nonce, $action)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return wp_verify_nonce($nonce, $action);
     }
 
@@ -627,7 +628,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function admin_url($path = null, $scheme = 'admin')
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return admin_url($path, $scheme);
     }
 
@@ -642,7 +643,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function current_user_can($capability, $args = null)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return current_user_can($capability, $args);
     }
 
@@ -656,7 +657,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_create_nonce($action = null)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return wp_create_nonce($action);
     }
 
@@ -668,7 +669,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_insert_post(array $postArray, $wpError = false)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return wp_insert_post($postArray, $wpError);
     }
 
@@ -677,7 +678,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_load_alloptions()
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return wp_load_alloptions();
     }
 
@@ -685,11 +686,12 @@ class tubepress_wordpress_impl_wp_WpFunctions
      * Registers a widget.
      *
      * @param string $class
+     *
      * @return void
      */
     public function register_widget($class)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         register_widget($class);
     }
 
@@ -701,10 +703,10 @@ class tubepress_wordpress_impl_wp_WpFunctions
 
         global $wp_scripts;
 
-        /** @noinspection PhpUndefinedClassInspection */
+        /* @noinspection PhpUndefinedClassInspection */
         if (!($wp_scripts instanceof WP_Scripts)) {
 
-            /** @noinspection PhpUndefinedClassInspection */
+            /* @noinspection PhpUndefinedClassInspection */
             $wp_scripts = new WP_Scripts();
         }
 
@@ -723,7 +725,7 @@ class tubepress_wordpress_impl_wp_WpFunctions
      */
     public function wp_get_theme($stylesheet = null, $theme_root = null)
     {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        /* @noinspection PhpUndefinedFunctionInspection */
         return wp_get_theme($stylesheet, $theme_root);
     }
 }

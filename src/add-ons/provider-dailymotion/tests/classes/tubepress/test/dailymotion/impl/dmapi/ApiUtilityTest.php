@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -68,8 +68,8 @@ class tubepress_test_dailymotion_impl_dmapi_ApiUtilityTest extends tubepress_api
 
         $mockRequest->shouldReceive('getConfig')->once()->andReturn(array('initial' => 'config'));
         $mockRequest->shouldReceive('setConfig')->once()->with(array(
-            'initial' => 'config',
-            'tubepress-remote-api-call' => true
+            'initial'                   => 'config',
+            'tubepress-remote-api-call' => true,
         ));
 
         $mockUrl->shouldReceive('toString')->once()->andReturn('some url');
@@ -101,14 +101,14 @@ class tubepress_test_dailymotion_impl_dmapi_ApiUtilityTest extends tubepress_api
                 json_encode(array(
                     'error' => array(
                         'message' => 'hi!',
-                    )
+                    ),
                 )), 'Dailymotion responded with an error: hi!', null,
             ),
             array(
                 json_encode(array(
                     'dm' => 'response',
                 )), null, array('dm' => 'response'),
-            )
+            ),
         );
     }
 
@@ -133,7 +133,7 @@ class tubepress_test_dailymotion_impl_dmapi_ApiUtilityTest extends tubepress_api
             ),
             array(
                 array('error' => array('message' => 'hello')), 'Dailymotion responded with an error: hello',
-            )
+            ),
         );
     }
 }

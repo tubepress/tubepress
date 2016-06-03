@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,22 +9,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_ContainerExtensionInterface
 {
     /**
-     * Called during construction of the TubePress service container. If an add-on intends to add
-     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
-     * will be completely empty, and after this method is executed will be merged into the primary service container.
-     *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -65,7 +53,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
     private function _registerOptionsUiFieldProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldReferences = array();
-        $fieldMap = array(
+        $fieldMap        = array(
             'boolean' => array(
                 tubepress_api_options_Names::TEMPLATE_CACHE_AUTORELOAD,
                 tubepress_api_options_Names::TEMPLATE_CACHE_ENABLED,
@@ -117,12 +105,12 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
     {
         $parallelServices = array(
             '',
-            '.admin'
+            '.admin',
         );
 
         foreach ($parallelServices as $serviceSuffix) {
 
-            /**
+            /*
              * Theme template locators.
              */
             $containerBuilder->register(
@@ -133,7 +121,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_contrib_RegistryInterface::_ . '.' . tubepress_api_theme_ThemeInterface::_ . $serviceSuffix))
              ->addArgument(new tubepress_api_ioc_Reference('tubepress_theme_impl_CurrentThemeService' . $serviceSuffix));
 
-            /**
+            /*
              * Twig loaders.
              */
             $containerBuilder->register(
@@ -149,14 +137,14 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
 
             $twigLoaderReferences = array(
                 new tubepress_api_ioc_Reference('tubepress_template_impl_twig_ThemeLoader' . $serviceSuffix),
-                new tubepress_api_ioc_Reference('Twig_Loader_Filesystem' . $serviceSuffix)
+                new tubepress_api_ioc_Reference('Twig_Loader_Filesystem' . $serviceSuffix),
             );
             $containerBuilder->register(
                 'Twig_LoaderInterface' . $serviceSuffix,
                 'Twig_Loader_Chain'
             )->addArgument($twigLoaderReferences);
 
-            /**
+            /*
              * Twig environment builder.
              */
             $containerBuilder->register(
@@ -167,7 +155,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
 
-            /**
+            /*
              * Twig environment.
              */
             $containerBuilder->register(
@@ -176,7 +164,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
             )->setFactoryService('tubepress_template_impl_twig_EnvironmentBuilder' . $serviceSuffix)
              ->setFactoryMethod('buildTwigEnvironment');
 
-            /**
+            /*
              * Twig engine
              */
             $containerBuilder->register(
@@ -185,7 +173,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
             )->addArgument(new tubepress_api_ioc_Reference('Twig_Environment' . $serviceSuffix));
         }
 
-        /**
+        /*
          * Register PHP engine support
          */
         $containerBuilder->register(
@@ -193,7 +181,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
             'tubepress_template_impl_php_Support'
         )->addArgument(new tubepress_api_ioc_Reference('tubepress_template_impl_ThemeTemplateLocator'));
 
-        /**
+        /*
          * Register the PHP templating engine
          */
         $containerBuilder->register(
@@ -202,12 +190,12 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
         )->addArgument(new tubepress_api_ioc_Reference('tubepress_template_impl_php_Support'))
          ->addArgument(new tubepress_api_ioc_Reference('tubepress_template_impl_php_Support'));
 
-        /**
+        /*
          * Public templating engine
          */
         $engineReferences = array(
             new tubepress_api_ioc_Reference('tubepress_template_impl_php_PhpEngine'),
-            new tubepress_api_ioc_Reference('tubepress_template_impl_twig_Engine')
+            new tubepress_api_ioc_Reference('tubepress_template_impl_twig_Engine'),
         );
         $containerBuilder->register(
             'tubepress_template_impl_DelegatingEngine',
@@ -215,7 +203,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_spi_ioc_Cont
         )->addArgument($engineReferences)
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_));
 
-        /**
+        /*
          * Final templating services
          */
         $containerBuilder->register(

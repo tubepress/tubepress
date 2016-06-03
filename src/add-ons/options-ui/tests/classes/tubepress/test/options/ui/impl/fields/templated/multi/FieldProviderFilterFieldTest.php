@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -92,8 +92,8 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_FieldProviderFil
 
         return array(
             'currentlySelectedValues' => array('d'),
-            'ungroupedChoices' => array('a' => 'A', 'b' => 'B', 'd' => 'D'),
-            'groupedChoices' => array(),
+            'ungroupedChoices'        => array('a' => 'A', 'b' => 'B', 'd' => 'D'),
+            'groupedChoices'          => array(),
         );
 
     }
@@ -120,4 +120,3 @@ class tubepress_test_app_impl_options_ui_fields_templated_multi_FieldProviderFil
         return 'provider_filter_field';
     }
 }
-

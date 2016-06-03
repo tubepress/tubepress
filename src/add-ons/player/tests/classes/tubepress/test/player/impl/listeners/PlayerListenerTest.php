@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -139,7 +139,7 @@ class tubepress_test_player_impl_listeners_PlayerListenerTest extends tubepress_
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array('mediaPage' => $this->_mockMediaPage));
         $this->_mockEvent->shouldReceive('setSubject')->once()->with(array(
-            'mediaPage' => $this->_mockMediaPage,
+            'mediaPage'                                       => $this->_mockMediaPage,
             tubepress_api_template_VariableNames::PLAYER_HTML => 'static-player',
         ));
 

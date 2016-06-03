@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -19,7 +19,7 @@ class tubepress_wordpress_impl_options_WpPersistence implements tubepress_spi_op
      * Prefix all our option names in the WordPress DB
      * with this value. Helps avoid naming conflicts.
      */
-    private static $_optionPrefix = "tubepress-";
+    private static $_optionPrefix = 'tubepress-';
 
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
@@ -32,12 +32,7 @@ class tubepress_wordpress_impl_options_WpPersistence implements tubepress_spi_op
     }
 
     /**
-     * Creates multiple options in storage.
-     *
-     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
-     *                                      element in the array, we will call createIfNotExists($name, $value)
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function createEach(array $optionNamesToValuesMap)
     {
@@ -57,7 +52,7 @@ class tubepress_wordpress_impl_options_WpPersistence implements tubepress_spi_op
     }
 
     /**
-     * @return array An associative array of all option names to values.
+     * {@inheritdoc}
      */
     public function fetchAllCurrentlyKnownOptionNamesToValues()
     {
@@ -83,9 +78,7 @@ class tubepress_wordpress_impl_options_WpPersistence implements tubepress_spi_op
     }
 
     /**
-     * @param array $optionNamesToValues An associative array of option names to values.
-     *
-     * @return null|string Null if the save succeeded and all queued options were saved, otherwise a string error message.
+     * {@inheritdoc}
      */
     public function saveAll(array $optionNamesToValues)
     {
@@ -94,7 +87,7 @@ class tubepress_wordpress_impl_options_WpPersistence implements tubepress_spi_op
             $this->_wpFunctions->update_option(self::$_optionPrefix . $optionName, $optionValue);
         }
 
-        /**
+        /*
          * WordPress API is silly.
          *
          * http://codex.wordpress.org/Function_Reference/update_option

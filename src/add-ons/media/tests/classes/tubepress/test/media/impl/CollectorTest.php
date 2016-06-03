@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -67,7 +67,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
         $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
-            'foo' => 'bar',
+            'foo'                                       => 'bar',
             tubepress_api_options_Names::GALLERY_SOURCE => 'some source',
         ));
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)
@@ -77,7 +77,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $mockCollectionEvent->shouldReceive('hasArgument')->once()->with('mediaPage')->andReturn(false);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('some source', array(
-            'pageNumber' => 78
+            'pageNumber' => 78,
         ))->andReturn($mockCollectionEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
             ->with(tubepress_api_event_Events::MEDIA_PAGE_REQUEST, $mockCollectionEvent);
@@ -91,7 +91,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
         $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
-            'foo' => 'bar',
+            'foo'                                       => 'bar',
             tubepress_api_options_Names::GALLERY_SOURCE => 'some source',
         ));
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::GALLERY_SOURCE)
@@ -104,7 +104,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $mockCollectionEvent->shouldReceive('getArgument')->once()->with('mediaPage')->andReturn($mockMediaPage);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('some source', array(
-            'pageNumber' => 78
+            'pageNumber' => 78,
         ))->andReturn($mockCollectionEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
             ->with(tubepress_api_event_Events::MEDIA_PAGE_REQUEST, $mockCollectionEvent);
@@ -134,7 +134,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $mockCollectionEvent->shouldReceive('getArgument')->once()->with('mediaPage')->andReturn($mockMediaPage);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('some source', array(
-            'pageNumber' => 78
+            'pageNumber' => 78,
         ))->andReturn($mockCollectionEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
             ->with(tubepress_api_event_Events::MEDIA_PAGE_REQUEST, $mockCollectionEvent);
@@ -157,12 +157,12 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_options_Names::SOURCES)
             ->andReturn(json_encode(array(array('stored' => 'source'))));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
-           'foo'     => 'bar',
-            'stored' => 'source',
+           'foo'                                        => 'bar',
+            'stored'                                    => 'source',
             tubepress_api_options_Names::GALLERY_SOURCE => 'some source',
         ));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
-            'foo'     => 'bar',
+            'foo' => 'bar',
         ));
 
         $mockMediaPage = $this->mock('tubepress_api_media_MediaPage');
@@ -172,7 +172,7 @@ class tubepress_test_media_impl_CollectorTest extends tubepress_api_test_TubePre
         $mockCollectionEvent->shouldReceive('getArgument')->once()->with('mediaPage')->andReturn($mockMediaPage);
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('some source', array(
-            'pageNumber' => 78
+            'pageNumber' => 78,
         ))->andReturn($mockCollectionEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
             ->with(tubepress_api_event_Events::MEDIA_PAGE_REQUEST, $mockCollectionEvent);

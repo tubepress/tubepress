@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -10,22 +10,22 @@
  */
 
 /**
- * Detects TubePress's environment
+ * Detects TubePress's environment.
  */
 class tubepress_environment_impl_Environment implements tubepress_api_environment_EnvironmentInterface
 {
     /**
-     * tubepress_api_url_UrlInterface The base URL
+     * tubepress_api_url_UrlInterface The base URL.
      */
     private static $_PROPERTY_URL_BASE = 'urlBase';
 
     /**
-     * tubepress_api_url_UrlInterface The user content URL
+     * tubepress_api_url_UrlInterface The user content URL.
      */
     private static $_PROPERTY_URL_USERCONTENT = 'urlUserContent';
 
     /**
-     * tubepress_api_url_UrlInterface The Ajax endpoint URL
+     * tubepress_api_url_UrlInterface The Ajax endpoint URL.
      */
     private static $_PROPERTY_URL_AJAX = 'urlAjax';
 
@@ -71,18 +71,13 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface The base TubePress URL.
-     *
-     * @throws RuntimeException If the base URL was not set or cannot be determined.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getBaseUrl()
     {
         if (!$this->_properties->containsKey(self::$_PROPERTY_URL_BASE)) {
 
-            /**
+            /*
              * See if it was defined in boot settings.
              */
             $fromBootSettings = $this->_bootSettings->getUrlBase();
@@ -113,18 +108,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Set the TubePress base URL.
-     *
-     * @deprecated Use settings.php instead.
-     *
-     * @param string|tubepress_api_url_UrlInterface $url The new base URL.
-     *
-     * @throws InvalidArgumentException If unable to parse URL.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setBaseUrl($url)
     {
@@ -134,12 +118,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface The user content URL.
-     *
-     * @throws RuntimeException If the user content URL was not set or cannot be determined.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUserContentUrl()
     {
@@ -173,18 +152,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Set the user content URL.
-     *
-     * @deprecated Use settings.php instead.
-     *
-     * @param string|tubepress_api_url_UrlInterface $url The user content URL.
-     *
-     * @throws InvalidArgumentException If unable to parse URL.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function setUserContentUrl($url)
     {
@@ -194,16 +162,13 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_url_UrlInterface The Ajax endpoint URL.
-     *
-     * @api
-     * @since 4.0.9
+     * {@inheritdoc}
      */
     public function getAjaxEndpointUrl()
     {
         if (!$this->_properties->containsKey(self::$_PROPERTY_URL_AJAX)) {
 
-            /**
+            /*
              * See if it was defined in boot settings.
              */
             $fromBootSettings = $this->_bootSettings->getUrlAjaxEndpoint();
@@ -233,12 +198,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Detects if the user is running TubePress Pro.
-     *
-     * @return boolean True is the user is running TubePress Pro. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function isPro()
     {
@@ -246,12 +206,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * Get the current TubePress version.
-     *
-     * @return tubepress_api_version_Version The current version.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getVersion()
     {
@@ -259,10 +214,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     }
 
     /**
-     * @return tubepress_api_collection_MapInterface
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getProperties()
     {
@@ -305,7 +257,7 @@ class tubepress_environment_impl_Environment implements tubepress_api_environmen
     {
         $isWpMuDomainMapped = defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
 
-        /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
+        /* http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
         if ($isWpMuDomainMapped) {
 
             $scheme = $this->_wpFunctionsInterface->is_ssl() ? 'https://' : 'http://';

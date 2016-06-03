@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,92 +15,58 @@
 class tubepress_util_impl_StringUtils implements tubepress_api_util_StringUtilsInterface
 {
     /**
-     * Replaces the first occurence of a string by another string
-     *
-     * @param string $search  The needle
-     * @param string $replace The replacement string
-     * @param string $str     The haystack
-     *
-     * @return string The haystack with the first needle replaced
-     *                by the replacement string
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function replaceFirst($search, $replace, $str)
     {
         $l    = strlen($str);
         $a    = strpos($str, $search);
         $b    = $a + strlen($search);
-        $temp = substr($str, 0, $a) . $replace . substr($str, $b, ($l-$b));
+        $temp = substr($str, 0, $a) . $replace . substr($str, $b, ($l - $b));
+
         return $temp;
     }
 
     /**
-     * @param string $string The incoming string.
-     *
-     * @return string The string without new lines.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function removeNewLines($string)
     {
         return str_replace(array("\r\n", "\r", "\n"), '', $string);
     }
 
+    // http://programming-oneliners.blogspot.com/2006/03/remove-blank-empty-lines-php-29.html
     /**
-     * Grabbed from http://programming-oneliners.blogspot.com/2006/03/remove-blank-empty-lines-php-29.html
-     *
-     * @param string $string The string to modify
-     *
-     * @return string The string with most empty lines removed.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function removeEmptyLines($string)
     {
         return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
     }
 
+    // http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
     /**
-     * http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
-     *
-     * @param string $haystack Haystack.
-     * @param string $needle   Needle.
-     *
-     * @return bool True if the haystack starts with the needle. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function startsWith($haystack, $needle)
     {
-        if (! is_string($haystack) || ! is_string($needle)) {
+        if (!is_string($haystack) || !is_string($needle)) {
 
             return false;
         }
 
         $length = strlen($needle);
 
-        return (substr($haystack, 0, $length) === $needle);
+        return substr($haystack, 0, $length) === $needle;
     }
 
+    // http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
     /**
-     * http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
-     *
-     * @param string $haystack Haystack.
-     * @param string $needle   Needle.
-     *
-     * @return bool True if the haystack ends with the needle. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function endsWith($haystack, $needle)
     {
-        if (! is_string($haystack) || ! is_string($needle)) {
+        if (!is_string($haystack) || !is_string($needle)) {
 
             return false;
         }
@@ -108,21 +74,12 @@ class tubepress_util_impl_StringUtils implements tubepress_api_util_StringUtilsI
         $length = strlen($needle);
         $start  = $length * -1; //negative
 
-        return (substr($haystack, $start) === $needle);
+        return substr($haystack, $start) === $needle;
     }
 
+    // http://us2.php.net/manual/en/function.stripslashes.php#92524
     /**
-     * Strips slashes recursively.
-     *
-     * http://us2.php.net/manual/en/function.stripslashes.php#92524
-     *
-     * @param string $text  The incoming string.
-     * @param int    $times The recursion depth.
-     *
-     * @return string The modified text.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function stripslashes_deep($text, $times = 2) {
 
@@ -132,21 +89,14 @@ class tubepress_util_impl_StringUtils implements tubepress_api_util_StringUtilsI
         while (strstr($text, '\\') && $i != $times) {
 
             $text = stripslashes($text);
-            $i++;
+            ++$i;
         }
 
         return $text;
     }
 
     /**
-     * Masks hex strings.
-     *
-     * @param string $string The incoming string.
-     *
-     * @return string The same string with hex sequences replaced by asterisks.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function redactSecrets($string)
     {

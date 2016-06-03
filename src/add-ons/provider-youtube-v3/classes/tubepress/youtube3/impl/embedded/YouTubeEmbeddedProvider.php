@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubepress_spi_embedded_EmbeddedProviderInterface, tubepress_spi_template_PathProviderInterface
 {
     /**
@@ -39,10 +36,7 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     }
 
     /**
-     * @return string[] The names of the media providers that this provider can handle.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getCompatibleMediaProviderNames()
     {
@@ -52,10 +46,7 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     }
 
     /**
-     * @return string The name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -63,10 +54,7 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     }
 
     /**
-     * @return string The template name for this provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateName()
     {
@@ -74,12 +62,7 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $mediaItem
-     *
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateVariables(tubepress_api_media_MediaItem $mediaItem)
     {
@@ -90,10 +73,7 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     }
 
     /**
-     * @return string The display name of this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getUntranslatedDisplayName()
     {
@@ -101,16 +81,13 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     }
 
     /**
-     * @return string[] A set of absolute filesystem directory paths
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getTemplateDirectories()
     {
         return array(
 
-            TUBEPRESS_ROOT . '/src/add-ons/provider-youtube-v3/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/provider-youtube-v3/templates',
         );
     }
 
@@ -121,13 +98,13 @@ class tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider  implements tubep
         $url        = $this->_urlFactory->fromCurrent();
         $origin     = $url->getScheme() . '://' . $url->getHost();
 
-        $autoPlay        = $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY);
-        $loop            = $this->_context->get(tubepress_api_options_Names::EMBEDDED_LOOP);
-        $showInfo        = $this->_context->get(tubepress_api_options_Names::EMBEDDED_SHOW_INFO);
-        $autoHide        = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_AUTOHIDE);
-        $fullscreen      = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_FULLSCREEN);
-        $modestBranding  = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING);
-        $showRelated     = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED);
+        $autoPlay       = $this->_context->get(tubepress_api_options_Names::EMBEDDED_AUTOPLAY);
+        $loop           = $this->_context->get(tubepress_api_options_Names::EMBEDDED_LOOP);
+        $showInfo       = $this->_context->get(tubepress_api_options_Names::EMBEDDED_SHOW_INFO);
+        $autoHide       = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_AUTOHIDE);
+        $fullscreen     = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_FULLSCREEN);
+        $modestBranding = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_MODEST_BRANDING);
+        $showRelated    = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED);
 
         $embedQuery->set('autohide',       $this->_getAutoHideValue($autoHide));
         $embedQuery->set('autoplay',       $this->_langUtils->booleanToStringOneOrZero($autoPlay));

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -23,7 +23,7 @@ class tubepress_test_util_impl_StringUtilsTest extends tubepress_api_test_TubePr
     {
         $this->_sut = new tubepress_util_impl_StringUtils();
     }
-    
+
     public function testStartsWith()
     {
         $this->assertTrue($this->_sut->startsWith('something', 'some'));
@@ -42,7 +42,7 @@ class tubepress_test_util_impl_StringUtilsTest extends tubepress_api_test_TubePr
 
     public function testCanReplaceFirstOnlyFirstOccurence()
     {
-        $this->assertEquals("zxx", $this->_sut->replaceFirst("x", "z", "xxx"));
+        $this->assertEquals('zxx', $this->_sut->replaceFirst('x', 'z', 'xxx'));
     }
 
     public function testRemoveNewLines()
@@ -54,14 +54,14 @@ class tubepress_test_util_impl_StringUtilsTest extends tubepress_api_test_TubePr
 
     public function testRemoveEmptyLines()
     {
-        $val = "
+        $val = '
 
         test
 
         two
 
         three
-        ";
+        ';
 
         $this->assertEquals("\n        test\n        two\n        three\n        ", $this->_sut->removeEmptyLines($val));
     }
@@ -72,8 +72,8 @@ class tubepress_test_util_impl_StringUtilsTest extends tubepress_api_test_TubePr
 
             '\"Hello\"' => '"Hello"',
             '\\"Hi\\"'  => '"Hi"',
-            "\\\\\\x"    => 'x',
-            "\'you\\'"   => "'you'"
+            '\\\\\\x'   => 'x',
+            "\'you\\'"  => "'you'",
         );
 
         foreach ($testPatterns as $input => $expected) {

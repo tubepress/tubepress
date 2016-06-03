@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -72,7 +72,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
 
     protected function onAfterTemplateBasedFieldSetup()
     {
-        $this->_mockContext = $this->mock(tubepress_api_options_ContextInterface::_);
+        $this->_mockContext         = $this->mock(tubepress_api_options_ContextInterface::_);
         $this->_mockAdditionalField = $this->mock('tubepress_api_options_ui_FieldInterface');
     }
 

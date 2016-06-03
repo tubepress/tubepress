@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -15,7 +15,7 @@
 class tubepress_http_impl_RequestParameters implements tubepress_api_http_RequestParametersInterface
 {
     /**
-     * @var array A merged array of $_GET and $_POST for this request.
+     * @var array A merged array of and $_POST for this request.
      */
     private $_cachedMergedGetAndPostArray;
 
@@ -30,20 +30,11 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
     }
 
     /**
-     * Gets the parameter value from PHP's $_GET or $_POST array.
-     *
-     * @param string $name The name of the parameter.
-     *
-     * @return mixed The raw value of the parameter. Can be anything that would
-     *               otherwise be found in PHP's $_GET or $_POST array. Returns null
-     *               if the parameter is not set on this request.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getParamValue($name)
     {
-        /** Are we sure we have it? */
+        /* Are we sure we have it? */
         if (!($this->hasParam($name))) {
 
             return null;
@@ -65,7 +56,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
         );
 
         $event = $this->_eventDispatcher->newEventInstance($event->getSubject(), array(
-            'optionName' => $name
+            'optionName' => $name,
         ));
         $this->_eventDispatcher->dispatch(
 
@@ -77,26 +68,14 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
     }
 
     /**
-     * Gets the parameter value from PHP's $_GET or $_POST array. If the hasParam($name) returs false, this
-     *  behaves just like getParamvalue($name). Otherwise, if the raw parameter value is numeric, a conversion
-     *  will be attempted.
-     *
-     * @param string $name    The name of the parameter.
-     * @param int    $default The default value is the raw value is not integral.
-     *
-     * @return mixed The raw value of the parameter. Can be anything that would
-     *               otherwise be found in PHP's $_GET or $_POST array. Returns null
-     *               if the parameter is not set on this request.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getParamValueAsInt($name, $default)
     {
         $raw = $this->getParamValue($name);
 
-        /** Not numeric? */
-        if (! is_numeric($raw) || ($raw < 1)) {
+        /* Not numeric? */
+        if (!is_numeric($raw) || ($raw < 1)) {
 
             return $default;
         }
@@ -105,14 +84,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
     }
 
     /**
-     * Determines if the parameter is set in PHP's $_GET or $_POST array.
-     *
-     * @param string $name The name of the parameter.
-     *
-     * @return mixed True if the parameter is found in PHP's $_GET or $_POST array, false otherwise.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function hasParam($name)
     {
@@ -122,12 +94,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
     }
 
     /**
-     * Returns a map of param name => param value for ALL parameters in the request.
-     *
-     * @return array A map of param name => param value for ALL parameters in the request.
-     *
-     * @api
-     * @since 4.0.0
+     * {@inheritdoc}
      */
     public function getAllParams()
     {
@@ -144,7 +111,7 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
 
     private function _getGETandPOSTarray()
     {
-        if (! isset($this->_cachedMergedGetAndPostArray)) {
+        if (!isset($this->_cachedMergedGetAndPostArray)) {
 
             $this->_cachedMergedGetAndPostArray = array_merge($_GET, $_POST);
         }
@@ -152,4 +119,3 @@ class tubepress_http_impl_RequestParameters implements tubepress_api_http_Reques
         return $this->_cachedMergedGetAndPostArray;
     }
 }
-

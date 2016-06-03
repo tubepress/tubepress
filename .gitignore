@@ -1,7 +1,7 @@
 .DS_Store
-/bin
-node_modules/
-/build/target/
 /.idea*
+.php_cs.cache
+/bin
+/build/target
+/node_modules
 /vendor
-/tubepress.php

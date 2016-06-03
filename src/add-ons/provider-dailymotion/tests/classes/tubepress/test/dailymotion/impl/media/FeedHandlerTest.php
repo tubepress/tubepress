@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -135,9 +135,8 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
         $mockUrl->shouldReceive('addPath')->once()->with('abc')->andReturn($mockUrl);
         $mockUrl->shouldReceive('getQuery')->atLeast(1)->andReturn($mockQuery);
 
-
         $query = array(
-            'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total'
+            'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
         );
 
         foreach ($query as $key => $value) {
@@ -191,93 +190,93 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
 
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FAVORITES,
-                    tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE         => 'some-user',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
+                    tubepress_api_options_Names::GALLERY_SOURCE                 => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FAVORITES,
+                    tubepress_dailymotion_api_Constants::OPTION_FAVORITES_VALUE => 'some-user',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE          => 44,
+                    tubepress_api_options_Names::FEED_ORDER_BY                  => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
                 ),
                 array(
                     'user', 'some-user', 'favorites',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                ),
             ),
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_USER,
-                    tubepress_dailymotion_api_Constants::OPTION_USER_VALUE              => 'some-user',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
+                    tubepress_api_options_Names::GALLERY_SOURCE            => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_USER,
+                    tubepress_dailymotion_api_Constants::OPTION_USER_VALUE => 'some-user',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE     => 44,
+                    tubepress_api_options_Names::FEED_ORDER_BY             => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
 
                 ),
                 array(
                     'user', 'some-user', 'videos',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                ),
             ),
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_PLAYLIST,
-                    tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE          => 'some-playlist',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
+                    tubepress_api_options_Names::GALLERY_SOURCE                => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_PLAYLIST,
+                    tubepress_dailymotion_api_Constants::OPTION_PLAYLIST_VALUE => 'some-playlist',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE         => 44,
+                    tubepress_api_options_Names::FEED_ORDER_BY                 => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
 
                 ),
                 array(
                     'playlist', 'some-playlist', 'videos',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                ),
             ),
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_LIST,
-                    tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE              => 'one,  two   , three',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
+                    tubepress_api_options_Names::GALLERY_SOURCE            => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_LIST,
+                    tubepress_dailymotion_api_Constants::OPTION_LIST_VALUE => 'one,  two   , three',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE     => 44,
+                    tubepress_api_options_Names::FEED_ORDER_BY             => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
 
                 ),
                 array(
                     'videos',
                 ),
                 array(
-                    'ids'               => 'one,two,three',
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                )
+                    'ids'    => 'one,two,three',
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                ),
             ),
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FEATURED,
-                    tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE          => 'some-user',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
+                    tubepress_api_options_Names::GALLERY_SOURCE                => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_FEATURED,
+                    tubepress_dailymotion_api_Constants::OPTION_FEATURED_VALUE => 'some-user',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE         => 44,
+                    tubepress_api_options_Names::FEED_ORDER_BY                 => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
 
                 ),
                 array(
-                    'user', 'some-user', 'features'
+                    'user', 'some-user', 'features',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                ),
             ),
             array(
                 array(
@@ -291,45 +290,45 @@ class tubepress_test_dailymotion_impl_media_FeedHandlerTest extends tubepress_ap
                     'videos',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                    'search'            => 'some search',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                    'search' => 'some search',
+                ),
             ),
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_RELATED,
-                    tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE           => 'some-video-id',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
+                    tubepress_api_options_Names::GALLERY_SOURCE               => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_RELATED,
+                    tubepress_dailymotion_api_Constants::OPTION_RELATED_VALUE => 'some-video-id',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE        => 44,
                 ),
                 array(
                     'video', 'some-video-id', 'related',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                ),
             ),
             array(
                 array(
-                    tubepress_api_options_Names::GALLERY_SOURCE                         => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_TAG,
-                    tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE               => 'tag1  , tag2',
-                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE                  => 44,
-                    tubepress_api_options_Names::FEED_ORDER_BY                          => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
+                    tubepress_api_options_Names::GALLERY_SOURCE           => tubepress_dailymotion_api_Constants::GALLERY_SOURCE_TAG,
+                    tubepress_dailymotion_api_Constants::OPTION_TAG_VALUE => 'tag1  , tag2',
+                    tubepress_api_options_Names::FEED_RESULTS_PER_PAGE    => 44,
+                    tubepress_api_options_Names::FEED_ORDER_BY            => tubepress_dailymotion_api_Constants::ORDER_BY_VIEW_COUNT,
                 ),
                 array(
                     'videos',
                 ),
                 array(
-                    'page'              => 33,
-                    'limit'             => 3,
-                    'sort'              => 'visited',
-                    'fields'            => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
-                    'tags' => 'tag1,tag2',
-                )
+                    'page'   => 33,
+                    'limit'  => 3,
+                    'sort'   => 'visited',
+                    'fields' => 'id,access_error,allow_embed,private,private_id,published,channel.name,created_time,description,duration,owner.id,owner.screenname,owner.url,tags,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,thumbnail_url,title,url,views_total',
+                    'tags'   => 'tag1,tag2',
+                ),
             ),
         );
     }

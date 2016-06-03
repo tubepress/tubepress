@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -56,7 +56,7 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_multi_Abstrac
     protected final function getExpectedTemplateVariables()
     {
         $dis = array(
-            'id' => $this->getSut()->getId(),
+            'id'         => $this->getSut()->getId(),
             'selectText' => 'select ...',
         );
         $fromChild = $this->getAdditionalExpectedTemplateVariables();

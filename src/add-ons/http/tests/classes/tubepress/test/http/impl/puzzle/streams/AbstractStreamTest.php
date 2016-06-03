@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -21,16 +21,16 @@ abstract class tubepress_test_http_impl_puzzle_streams_AbstractStreamTest extend
      */
     private $_sut;
 
-    public final function onSetup()
+    final public function onSetup()
     {
         $this->_mockDelegate = $this->mock($this->getExpectedDelegateClass());
         $sutClass            = $this->getSutClass();
-        $this->_sut  = new $sutClass($this->_mockDelegate);
+        $this->_sut          = new $sutClass($this->_mockDelegate);
     }
 
-    protected abstract function getExpectedDelegateClass();
+    abstract protected function getExpectedDelegateClass();
 
-    protected abstract function getSutClass();
+    abstract protected function getSutClass();
 
     public function testDetach()
     {

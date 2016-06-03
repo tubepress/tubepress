@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -48,7 +48,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $status5->name = 'future';
 
         $fakestatuss = array(
-            $status2, $status1, $status5, $status4, $status3
+            $status2, $status1, $status5, $status4, $status3,
         );
 
         $this->_mockWpFunctions->shouldReceive('get_post_stati')->once()->with(
@@ -58,7 +58,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $actual = $this->_sut->getAllUsablePostStatuses();
 
         $expected = array(
-            $status2, $status1
+            $status2, $status1,
         );
 
         $this->assertEquals($expected, $actual);
@@ -79,7 +79,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $type5->name = 'nav_menu_item';
 
         $fakeTypes = array(
-            $type2, $type1, $type5, $type4, $type3
+            $type2, $type1, $type5, $type4, $type3,
         );
 
         $this->_mockWpFunctions->shouldReceive('get_post_types')->once()->with(
@@ -89,7 +89,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $actual = $this->_sut->getAllUsablePostTypes();
 
         $expected = array(
-            $type2, $type1
+            $type2, $type1,
         );
 
         $this->assertEquals($expected, $actual);
@@ -101,7 +101,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $author2 = new stdClass();
 
         $fakeAuthors = array(
-            $author2, $author1
+            $author2, $author1,
         );
 
         $this->_mockWpFunctions->shouldReceive('get_users')->once()->with(array(
@@ -126,7 +126,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
 
         $this->_mockWpFunctions->shouldReceive('wp_get_theme')->once()->andReturn($fakeTheme);
 
-        $actual = $this->_sut->getPageTemplates();
+        $actual   = $this->_sut->getPageTemplates();
         $expected = array(
             'index.php'   => 'default',
             'hello.php'   => 'hello there',
@@ -142,7 +142,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $term2 = new stdClass();
 
         $fakeTerms = array(
-            $term2, $term1
+            $term2, $term1,
         );
 
         $this->_mockWpFunctions->shouldReceive('get_categories')->once()->with(array(
@@ -160,7 +160,7 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
         $term2 = new stdClass();
 
         $fakeTerms = array(
-            $term2, $term1
+            $term2, $term1,
         );
 
         $this->_mockWpFunctions->shouldReceive('get_tags')->once()->with(array(

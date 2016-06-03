@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
@@ -9,10 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * @api
- * @since 4.0.0
- */
 class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_AttributeFormatterInterface
 {
     /**
@@ -40,10 +36,7 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_Att
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $item
-     * @param string                            $sourceAttributeName
-     * @param string                            $destinationAttributeName
-     * @param string                            $optionName
+     * {@inheritdoc}
      */
     public function truncateStringAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                                $destinationAttributeName, $optionName)
@@ -72,10 +65,7 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_Att
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $item
-     * @param string                            $sourceAttributeName
-     * @param string                            $destinationAttributeName
-     * @param int                               $precision
+     * {@inheritdoc}
      */
     public function formatNumberAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                              $destinationAttributeName, $precision)
@@ -91,9 +81,7 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_Att
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $item
-     * @param string                            $sourceAttributeName
-     * @param string                            $destinationAttributeName
+     * {@inheritdoc}
      */
     public function formatDateAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                            $destinationAttributeName)
@@ -103,7 +91,7 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_Att
             return;
         }
 
-        /**
+        /*
          * Hacky way of warming up the translation service and thus setting locale etc.
          */
         $this->_translator->trans('');
@@ -118,9 +106,7 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_Att
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $item
-     * @param string                            $sourceAttributeName
-     * @param string                            $destinationAttributeName
+     * {@inheritdoc}
      */
     public function formatDurationAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                                $destinationAttributeName)
@@ -137,10 +123,7 @@ class tubepress_media_impl_AttributeFormatter implements tubepress_api_media_Att
     }
 
     /**
-     * @param tubepress_api_media_MediaItem $item
-     * @param string                            $sourceAttributeName
-     * @param string                            $destinationAttributeName
-     * @param string                            $glue
+     * {@inheritdoc}
      */
     public function implodeArrayAttribute(tubepress_api_media_MediaItem $item, $sourceAttributeName,
                                              $destinationAttributeName, $glue)
