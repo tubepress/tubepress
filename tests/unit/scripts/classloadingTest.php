@@ -207,7 +207,9 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
 
             '/src/add-ons/[^/]+/tests/',
 
-            'DeepCopy'
+            'DeepCopy',
+
+            '/vendor/webmozart',
         );
 
         return '~' . implode('|', $excludes) . '~';

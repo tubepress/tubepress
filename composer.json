@@ -12,13 +12,13 @@
     }
   ],
   "require": {
-    "symfony/finder"                     : "2.8.6",
-    "symfony/filesystem"                 : "2.8.6",
-    "symfony/dependency-injection"       : "2.8.6",
-    "symfony/class-loader"               : "2.8.6",
+    "symfony/finder"                     : "2.8.7",
+    "symfony/filesystem"                 : "2.8.7",
+    "symfony/dependency-injection"       : "2.8.7",
+    "symfony/class-loader"               : "2.8.7",
     "tedivm/stash"                       : "0.12.3",
-    "symfony/event-dispatcher"           : "2.8.6",
-    "symfony/templating"                 : "2.8.6",
+    "symfony/event-dispatcher"           : "2.8.7",
+    "symfony/templating"                 : "2.8.7",
     "puzzlehttp/puzzle"                  : "~4.2.0",
     "twig/twig"                          : "1.24.1",
     "yahnis-elsts/plugin-update-checker" : "~2.1"
