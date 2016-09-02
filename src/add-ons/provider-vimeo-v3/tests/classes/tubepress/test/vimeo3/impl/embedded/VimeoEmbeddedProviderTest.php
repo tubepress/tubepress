@@ -85,7 +85,6 @@ class tubepress_test_vimeo3_impl_embedded_VimeoEmbeddedProviderTest extends tube
         $mockQuery->shouldReceive('set')->once()->with('portrait', 'troooo');
         $mockQuery->shouldReceive('set')->once()->with('byline', 'troooo');
         $mockQuery->shouldReceive('set')->once()->with('title', 'troooo');
-        $mockQuery->shouldReceive('set')->once()->with('api', 1);
 
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
