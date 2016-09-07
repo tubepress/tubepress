@@ -15,9 +15,16 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
      */
     private $_resourceRepository;
 
-    public function __construct(tubepress_wordpress_impl_wp_ResourceRepository $resourceRepo)
+    /**
+     * @var tubepress_api_util_LangUtilsInterface
+     */
+    private $_langUtils;
+
+    public function __construct(tubepress_wordpress_impl_wp_ResourceRepository $resourceRepo,
+                                tubepress_api_util_LangUtilsInterface          $langUtils)
     {
         $this->_resourceRepository = $resourceRepo;
+        $this->_langUtils          = $langUtils;
     }
 
     public function onWpPostCategories(tubepress_api_event_EventInterface $event)
@@ -38,7 +45,19 @@ class tubepress_wordpress_impl_listeners_options_AcceptableValuesListener
     {
         $templates = $this->_resourceRepository->getPageTemplates();
 
-        $this->_sortArrayAndSetAsSubject($templates, $event);
+        unset($templates['index.php']);
+
+        $templates = $this->_langUtils->arrayUnshiftAssociative($templates, 'index.php', 'default');
+        $current   = $event->getSubject();
+
+        if (!is_array($current)) {
+
+            $current = array();
+        }
+
+        $toSet = array_merge($current, $templates);
+
+        $event->setSubject($toSet);
     }
 
     public function onWpPostType(tubepress_api_event_EventInterface $event)

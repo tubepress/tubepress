@@ -536,6 +536,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
             'tubepress_wordpress_impl_listeners_options_AcceptableValuesListener',
             'tubepress_wordpress_impl_listeners_options_AcceptableValuesListener'
         )->addArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_ResourceRepository'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR,
             'method'   => 'onWpUser',

@@ -55,6 +55,32 @@ class tubepress_util_impl_LangUtils implements tubepress_api_util_LangUtilsInter
         return array_reduce($candidate, array($this, '__callback_isSimpleArrayOfStrings'));
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function arrayUnshiftAssociative(array $array, $key, $value)
+    {
+        if ($this->isAssociativeArray($array)) {
+
+            $array       = array_reverse($array, true);
+            $array[$key] = $value;
+            $array       = array_reverse($array, true);
+
+        } else {
+
+            if (count($array) === 0) {
+
+                $array[$key] = $value;
+
+            } else {
+
+                array_unshift($array, $value);
+            }
+        }
+
+        return $array;
+    }
+
     public function __callback_isSimpleArrayOfStrings($carry, $item)
     {
         if ($carry === null) {

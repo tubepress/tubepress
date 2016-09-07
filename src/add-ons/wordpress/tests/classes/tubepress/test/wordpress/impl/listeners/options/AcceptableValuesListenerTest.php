@@ -35,7 +35,8 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         $this->_mockEvent        = $this->mock('tubepress_api_event_EventInterface');
         $this->_sut              = new tubepress_wordpress_impl_listeners_options_AcceptableValuesListener(
 
-            $this->_mockResourceRepo
+            $this->_mockResourceRepo,
+            new tubepress_util_impl_LangUtils()
         );
     }
 
@@ -120,6 +121,7 @@ class tubepress_test_wordpress_impl_listeners_options_AcceptableValuesListenerTe
         ));
 
         $this->_setupEventForSubjectSet(array(
+            'index.php' => 'default',
             'hello.php' => 'Hello',
             'hiya.php'  => 'How Are You',
         ));

@@ -117,8 +117,8 @@ class tubepress_test_wordpress_impl_wp_ResourceRepositoryTest extends tubepress_
     {
         $fakeTemplates = array(
 
-            'hello there' => 'hello.php',
-            'goodbye now' => 'goodbye.php',
+            'hello.php'   => 'hello there',
+            'goodbye.php' => 'goodbye now',
         );
 
         $fakeTheme = $this->mock('stdClass');

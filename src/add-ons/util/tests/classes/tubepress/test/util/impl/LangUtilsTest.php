@@ -24,20 +24,41 @@ class tubepress_test_util_impl_LangUtilsTest extends tubepress_api_test_TubePres
         $this->_sut = new tubepress_util_impl_LangUtils();
     }
 
-    public function testAssocArray()
+    /**
+     * @dataProvider getDataIsAssociativeArray
+     */
+    public function testAssocArray($expected, $incoming)
     {
-        $this->assertFalse($this->_sut->isAssociativeArray(array(1, 2)));
-        $this->assertFalse($this->_sut->isAssociativeArray(array()));
-        $this->assertFalse($this->_sut->isAssociativeArray(array('foo' => 'bar', 3)));
-        $this->assertTrue($this->_sut->isAssociativeArray(array('foo' => 'bar', 'smack' => 'crack')));
+        $this->assertEquals($expected, $this->_sut->isAssociativeArray($incoming));
     }
 
-    public function testBooleanToOneOrZero()
+    public function getDataIsAssociativeArray()
     {
-        $this->assertEquals('1', $this->_sut->booleanToStringOneOrZero(true));
-        $this->assertEquals('0', $this->_sut->booleanToStringOneOrZero(false));
-        $this->assertEquals('1', $this->_sut->booleanToStringOneOrZero('1'));
-        $this->assertEquals('0', $this->_sut->booleanToStringOneOrZero('0'));
+        return array(
+            array(false, array(1, 2)),
+            array(false, array()),
+            array(false, array('foo' => 'bar', 3)),
+            array(true,  array('foo' => 'bar', 'smack' => 'crack')),
+            array(false, 1),
+        );
+    }
+
+    /**
+     * @dataProvider getDataBooleaenToOneOrZero
+     */
+    public function testBooleanToOneOrZero($expected, $incoming)
+    {
+        $this->assertEquals($expected, $this->_sut->booleanToStringOneOrZero($incoming));
+    }
+
+    public function getDataBooleaenToOneOrZero()
+    {
+        return array(
+            array('1', true),
+            array('0', false),
+            array('1', '1'),
+            array('0', '0'),
+        );
     }
 
     /**
@@ -57,6 +78,27 @@ class tubepress_test_util_impl_LangUtilsTest extends tubepress_api_test_TubePres
             array(array('5', new stdClass()), false),
             array(array('5', 3), false),
             array(array('4'), true),
+        );
+    }
+
+    /**
+     * @dataProvider getDataArrayUnshiftAssociative
+     */
+    public function testArrayUnshiftAssociative(array $incoming, $key, $value, array $expected)
+    {
+        $actual = $this->_sut->arrayUnshiftAssociative($incoming, $key, $value);
+
+        $this->assertTrue(is_array($actual));
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function getDataArrayUnshiftAssociative()
+    {
+        return array(
+            array(array('foo' => 'bar'),                 'hi', 'there', array('hi' => 'there', 'foo' => 'bar')),
+            array(array('foo' => 'bar', 'hi' => 'gone'), 'hi', 'there', array('hi' => 'there', 'foo' => 'bar')),
+            array(array(),                               'hi', 'foo',   array('hi' => 'foo')),
+            array(array(1,2,3),                          'hi', 'foo',   array('foo',1,2,3)),
         );
     }
 }

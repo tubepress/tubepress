@@ -119,7 +119,6 @@ class tubepress_vimeo3_impl_embedded_VimeoEmbeddedProvider implements tubepress_
         $query->set(self::$_URL_PARAM_PORTRAIT, $this->_langUtils->booleanToStringOneOrZero($showInfo));
         $query->set(self::$_URL_PARAM_BYLINE,   $this->_langUtils->booleanToStringOneOrZero($showInfo));
         $query->set(self::$_URL_PARAM_TITLE,    $this->_langUtils->booleanToStringOneOrZero($showInfo));
-        $query->set(self::$_URL_PARAM_JS_API, 1);
 
         return $link;
     }

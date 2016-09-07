@@ -155,15 +155,9 @@ class tubepress_wordpress_impl_wp_ResourceRepository
         if (!$this->_cache->containsKey('templates')) {
 
             $wpTheme  = $this->_wpFunctions->wp_get_theme();
-            $toReturn = array();
 
             /* @noinspection PhpUndefinedMethodInspection */
-            $templates = $wpTheme->get_page_templates();
-
-            foreach ($templates as $displayName => $fileName) {
-
-                $toReturn[$fileName] = $displayName;
-            }
+            $toReturn = $wpTheme->get_page_templates();
 
             $toReturn['index.php'] = 'default';
 

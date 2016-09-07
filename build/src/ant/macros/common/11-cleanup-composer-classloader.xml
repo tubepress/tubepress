@@ -16,11 +16,18 @@
     <macrodef name="cleanup-composer-classloader">
         <sequential>
 
-            <in-place-sed expression="/\/hamcrest\//d" file="vendor/composer/autoload_classmap.php" />
-            <in-place-sed expression="/\/phpunit\//d" file="vendor/composer/autoload_classmap.php" />
+            <in-place-sed expression="/\/hamcrest\//d"  file="vendor/composer/autoload_classmap.php" />
+            <in-place-sed expression="/\/phpunit\//d"   file="vendor/composer/autoload_classmap.php" />
             <in-place-sed expression="/\/sebastian\//d" file="vendor/composer/autoload_classmap.php" />
 
             <in-place-sed expression="/\/hamcrest\//d" file="vendor/composer/autoload_files.php" />
+
+            <in-place-sed expression="/\s\+'tubepress_test_/d"                    file="vendor/composer/autoload_namespaces.php" />
+            <in-place-sed expression="/phpDocumentor\|Sepia\|Prophecy\|Mockery/d" file="vendor/composer/autoload_namespaces.php" />
+
+            <in-place-sed expression="/phpunit\|hamcrest\|SebastianBergmann/d" file="vendor/composer/autoload_static.php" />
+
+
 
         </sequential>
     </macrodef>

@@ -51,4 +51,21 @@ interface tubepress_api_util_LangUtilsInterface
      * @since 4.0.0
      */
     function isSimpleArrayOfStrings($candidate);
+
+
+    /**
+     * array_unshift() that can handle associative arrays.
+     *
+     * @param array $array The array to modify
+     * @param mixed $key   The key
+     * @param mixed $value The value
+     *
+     * @return array A modified version of the original array with the given key and value prepended to the front.
+     *               This function does not check for key collisions. If a non-empty, non-associative array is passed,
+     *               array_unshift() will be used instead and $key will be ignored.
+     *
+     * @api
+     * @since 5.1.3
+     */
+    function arrayUnshiftAssociative(array $array, $key, $value);
 }
