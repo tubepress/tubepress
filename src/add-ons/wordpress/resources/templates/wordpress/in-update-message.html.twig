@@ -9,10 +9,19 @@
  #}
 {% set message = 'Enable automatic updates by supplying your TubePress API Key. <a href="%s" target="_blank">Learn how</a>.' | trans %} {# >(translatable)< #}
 
-<br />
+{# close out the already-open <p> tag so we don't nest any elements #}
+</p>
 
 <div class="inline notice notice-warning">
 
-    {{ message | replace { '%s' : 'http://support.tubepress.com/customer/portal/articles/2278860-enable-automatic-plugin-updates' } |  raw }}
+    {# open a <p> for better font styling #}
+    <p>
+
+        {{ message | replace({ '%s' : 'http://support.tubepress.com/customer/portal/articles/2278860-enable-automatic-plugin-updates' }) |  raw }}
+
+    </p>
 
 </div>
+
+{# open a dummy <p> and just hide it #}
+<p style="display:none">
