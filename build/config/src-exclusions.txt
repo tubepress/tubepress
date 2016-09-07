@@ -2,13 +2,16 @@
 /build
 composer.*
 composer.json
+.coveralls*
 /dev
+.editorconfig
 .git
 .gitignore
 /.idea
 /.idea-*
 /.idea.*
 phpunit.xml.dist
+Makefile
 *.md
 .php_cs*
 /src/add-ons/*/tests
@@ -62,5 +65,6 @@ phpunit.xml.dist
 /vendor/twig/twig/lib/Twig/Test
 /vendor/twig/twig/README.rst
 /vendor/twig/twig/test
+/vendor/webmozart
 /package.json
 /node_modules
