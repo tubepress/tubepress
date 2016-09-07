@@ -55,7 +55,7 @@ class tubepress_test_wordpress_impl_EntryPointTest extends tubepress_api_test_Tu
             $this->_mockPersistence,
             $this->_mockLogger,
             $this->_mockEventDispatcher,
-            array('action1', 'action2'),
+            array('action1', 'action2', array('action3', 11), array('action4', 5, 33)),
             array(
                 array('filter1'),
                 array('filter2', 20, 4),
@@ -186,6 +186,18 @@ class tubepress_test_wordpress_impl_EntryPointTest extends tubepress_api_test_Tu
             'action2',
             array($this->_sut, 'callback_onAction'),
             10, 1
+        );
+
+        $this->_mockWpFunctions->shouldReceive('add_action')->once()->with(
+            'action3',
+            array($this->_sut, 'callback_onAction'),
+            11, 1
+        );
+
+        $this->_mockWpFunctions->shouldReceive('add_action')->once()->with(
+            'action4',
+            array($this->_sut, 'callback_onAction'),
+            5, 33
         );
 
         $this->_mockWpFunctions->shouldReceive('register_activation_hook')->once()->with(

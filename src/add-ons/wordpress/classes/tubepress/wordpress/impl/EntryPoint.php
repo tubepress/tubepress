@@ -224,49 +224,7 @@ class tubepress_wordpress_impl_EntryPoint
                 throw new \InvalidArgumentException('Filter data must be an array');
             }
 
-            if (!is_string($filterData[0])) {
-
-                throw new \InvalidArgumentException('One of your requested filters has a non-string filter name');
-            }
-
-            $dataCount = count($filterData);
-
-            if ($dataCount < 1 || $dataCount > 3) {
-
-                throw new InvalidArgumentException('Filter data must be an array of size 1 to 3');
-            }
-
-            $filterName = $filterData[0];
-
-            switch ($dataCount) {
-
-                case 3:
-
-                    $priority = intval($filterData[1]);
-                    $argCount = intval($filterData[2]);
-                    break;
-
-                case 2:
-
-                    $priority = intval($filterData[1]);
-                    $argCount = 1;
-                    break;
-
-                default:
-
-                    $priority = 10;
-                    $argCount = 1;
-            }
-
-            if ($this->_loggingEnabled) {
-
-                $this->_logDebug(sprintf('
-                    <code>add_filter()</code> for <code>%s</code> with priority <code>%d</code> and <code>%d</code> argument(s)',
-                    $filterName, $priority, $argCount
-                ));
-            }
-
-            $this->_wpFunctions->add_filter($filterName, $filterCallback, $priority, $argCount);
+            $this->_addFilterOrActionToWordPress($filterData, $filterCallback, 'add_filter');
         }
     }
 
@@ -274,15 +232,68 @@ class tubepress_wordpress_impl_EntryPoint
     {
         $actionCallback = array($this, 'callback_onAction');
 
-        foreach ($this->_actions as $interestingAction) {
+        foreach ($this->_actions as $actionData) {
 
-            if ($this->_loggingEnabled) {
+            $this->_addFilterOrActionToWordPress($actionData, $actionCallback, 'add_action');
+        }
+    }
 
-                $this->_logDebug(sprintf('<code>add_action()</code> for <code>%s</code>', $interestingAction));
+    private function _addFilterOrActionToWordPress($incoming, $callback, $method)
+    {
+        $priority = 10;
+        $argCount = 1;
+
+        if (is_array($incoming)) {
+
+            $dataCount = count($incoming);
+
+            if ($dataCount < 1 || $dataCount > 3) {
+
+                throw new InvalidArgumentException('Filter or action data must be an array of size 1 to 3');
             }
 
-            $this->_wpFunctions->add_action($interestingAction, $actionCallback, 10, 1);
+            if (!is_string($incoming[0])) {
+
+                throw new \InvalidArgumentException('One of your requested filters or actions has a non-string name');
+            }
+
+            $name = $incoming[0];
+
+            switch ($dataCount) {
+
+                case 3:
+
+                    $priority = intval($incoming[1]);
+                    $argCount = intval($incoming[2]);
+                    break;
+
+                case 2:
+
+                    $priority = intval($incoming[1]);
+                    $argCount = 1;
+                    break;
+
+                default:
+
+                    break;
+            }
+
+            $filterOrActionName = $name;
+
+        } else {
+
+            $filterOrActionName = "$incoming";
         }
+
+        if ($this->_loggingEnabled) {
+
+            $this->_logDebug(sprintf('
+                <code>%s()</code> for <code>%s</code> with priority <code>%d</code> and <code>%d</code> argument(s)',
+                $method, $filterOrActionName, $priority, $argCount
+            ));
+        }
+
+        $this->_wpFunctions->$method($filterOrActionName, $callback, $priority, $argCount);
     }
 
     private function _addActivationListener()
