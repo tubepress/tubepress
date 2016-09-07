@@ -82,17 +82,6 @@ class tubepress_test_internal_ioc_ContainerBuilderTest extends tubepress_api_tes
         $this->assertFalse($this->_sut->has('x'));
     }
 
-    public function testSetServiceFrozen()
-    {
-        $this->setExpectedException('BadMethodCallException', 'Setting service "x" on a frozen container is not allowed.');
-
-        $this->_sut->compile();
-
-        $service = new stdClass();
-
-        $this->_sut->set('x', $service);
-    }
-
     public function testSetService()
     {
         $service = new stdClass();
