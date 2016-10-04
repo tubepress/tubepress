@@ -370,6 +370,7 @@ return array (
     'Twig_Profiler_Node_EnterProfile' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Profiler/Node/EnterProfile.php',
     'Twig_Profiler_Node_LeaveProfile' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Profiler/Node/LeaveProfile.php',
     'Twig_Profiler_Profile' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Profiler/Profile.php',
+    'Twig_RuntimeLoaderInterface' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/RuntimeLoaderInterface.php',
     'Twig_Sandbox_SecurityError' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Sandbox/SecurityError.php',
     'Twig_Sandbox_SecurityNotAllowedFilterError' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedFilterError.php',
     'Twig_Sandbox_SecurityNotAllowedFunctionError' => TUBEPRESS_ROOT . '/vendor/twig/twig/lib/Twig/Sandbox/SecurityNotAllowedFunctionError.php',
