@@ -181,6 +181,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             'processor/Uid',
             'processor/Web',
             '/psr/test/',
+            '/psr/log/',
 
             '/ContainerAwareTrait\.php$',
             '/PrimaryBootstrapper.php',
@@ -195,6 +196,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_api_tes
             '/vendor/symfony/config',
             '/vendor/symfony/console',
             '/vendor/symfony/css-selector',
+            '/vendor/symfony/debug',
             '/vendor/symfony/dom-crawler',
             '/vendor/symfony/polyfill-mbstring',
             '/vendor/symfony/process',

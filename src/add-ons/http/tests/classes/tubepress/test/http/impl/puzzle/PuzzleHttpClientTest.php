@@ -128,7 +128,7 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api
         $mockPuzzleBody = $this->mock('puzzle_stream_StreamInterface');
         $mockConfig     = $this->mock('puzzle_Collection');
         $mockConfig->shouldReceive('toArray')->once()->andReturn(array('some' => 'config'));
-        $mockPuzzleRequest = $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2), 3);
+        $mockPuzzleRequest = $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2, 'decode_content' => 'gzip'), 3);
         $mockPuzzleRequest->shouldReceive('getHeaders')->times(2)->andReturn(array('foo' => 'bar'));
         $mockPuzzleRequest->shouldReceive('getBody')->once()->andReturn($mockPuzzleBody);
         $mockPuzzleRequest->shouldReceive('getConfig')->once()->andReturn($mockConfig);
@@ -172,7 +172,7 @@ class tubepress_test_http_impl_puzzle_PuzzleHttpClientTest extends tubepress_api
 
     public function testCreateRequest()
     {
-        $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2), 1);
+        $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2, 'decode_content' => 'gzip'), 1);
 
         $request = $this->_sut->createRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2));
 
