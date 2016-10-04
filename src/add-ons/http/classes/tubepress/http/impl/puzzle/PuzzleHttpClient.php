@@ -42,6 +42,11 @@ class tubepress_http_impl_puzzle_PuzzleHttpClient extends tubepress_http_impl_Ab
      */
     public function createRequest($method, $url = null, array $options = array())
     {
+        if (extension_loaded('zlib')) {
+
+            $options['decode_content'] = 'gzip';
+        }
+
         $puzzleRequest = $this->_delegate->createRequest($method, "$url", $options);
 
         return new tubepress_http_impl_puzzle_PuzzleBasedRequest($puzzleRequest);
