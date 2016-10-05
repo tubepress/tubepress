@@ -83,8 +83,8 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
             return;
         }
 
-        /*
-         * @var tubepress_api_http_message_ResponseInterface
+        /**
+         * @var $httpResponse tubepress_api_http_message_ResponseInterface
          */
         $httpResponse = $event->getSubject();
 
@@ -99,7 +99,8 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
 
         $this->_possiblyClearCache();
 
-        $storedSuccessfully = $result->set($body->toString(), intval($this->_context->get(tubepress_api_options_Names::CACHE_LIFETIME_SECONDS)));
+        $toStore            = $body ? $body->toString() : '';
+        $storedSuccessfully = $result->set($toStore, intval($this->_context->get(tubepress_api_options_Names::CACHE_LIFETIME_SECONDS)));
 
         if (!$storedSuccessfully) {
 
