@@ -756,8 +756,8 @@ class tubepress_test_dailymotion_ioc_DailymotionExtensionTest extends tubepress_
             tubepress_dailymotion_api_Constants::OPTION_FEED_LIVE_FILTER       => 'multiSourceDropdown',
             tubepress_dailymotion_api_Constants::OPTION_FEED_PREMIUM_FILTER    => 'multiSourceDropdown',
             tubepress_dailymotion_api_Constants::OPTION_FEED_PARTNER_FILTER    => 'multiSourceDropdown',
-            tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE            => 'multiSourceDropdown',
-            tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED => 'multiSourceDropdown',
+            //tubepress_dailymotion_api_Constants::OPTION_FEED_LOCALE            => 'multiSourceDropdown',
+            //tubepress_dailymotion_api_Constants::OPTION_FEED_LANGUAGE_DETECTED => 'multiSourceDropdown',
         );
 
         foreach ($fieldMap as $id => $class) {
