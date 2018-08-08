@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2016 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2018 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress Pro.
  *
