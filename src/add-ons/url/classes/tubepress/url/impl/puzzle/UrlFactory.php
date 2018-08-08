@@ -66,7 +66,6 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFacto
         $toReturn           = 'http';
         $requiredServerVars = array(
             self::$_KEY_PORT,
-            self::$_KEY_NAME,
             self::$_KEY_URI,
         );
 
@@ -84,11 +83,26 @@ class tubepress_url_impl_puzzle_UrlFactory implements tubepress_api_url_UrlFacto
         }
 
         $toReturn .= '://';
+        $host      = '';
+
+        if (isset($_SERVER['HTTP_HOST'])) {
+
+            $hostHeaderParts = explode(':', $_SERVER['HTTP_HOST']);
+            $host            = $hostHeaderParts[0];
+
+        } elseif (isset($_SERVER[self::$_KEY_NAME])) {
+
+            $host = $_SERVER[self::$_KEY_NAME];
+
+        } elseif (isset($_SERVER['SERVER_ADDR'])) {
+
+            $host = $_SERVER['SERVER_ADDR'];
+        }
 
         if ($this->_serverVars[self::$_KEY_PORT] != '80') {
 
             $toReturn .= sprintf('%s:%s%s',
-                $this->_serverVars[self::$_KEY_NAME],
+                $host,
                 $this->_serverVars[self::$_KEY_PORT],
                 $this->_serverVars[self::$_KEY_URI]
             );
