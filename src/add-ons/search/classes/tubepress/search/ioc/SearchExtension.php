@@ -94,28 +94,6 @@ class tubepress_search_ioc_SearchExtension implements tubepress_spi_ioc_Containe
 
             ),
         ))->addArgument(array());
-
-        $toValidate = array(
-            tubepress_api_options_listeners_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
-                tubepress_api_options_Names::SEARCH_ONLY_USER,
-            ),
-        );
-
-        foreach ($toValidate as $type => $optionNames) {
-            foreach ($optionNames as $optionName) {
-                $containerBuilder->register(
-                    'regex_validator.' . $optionName,
-                    'tubepress_api_options_listeners_RegexValidatingListener'
-                )->addArgument($type)
-                 ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
-                 ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
-                 ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event'    => tubepress_api_event_Events::OPTION_SET . ".$optionName",
-                    'priority' => 100000,
-                    'method'   => 'onOption',
-                ));
-            }
-        }
     }
 
     private function _registerOptionsUi(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
