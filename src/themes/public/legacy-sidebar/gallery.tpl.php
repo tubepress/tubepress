@@ -43,7 +43,7 @@
 
                         <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::KEYWORDS]): ?>
 
-                            <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
+                            <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
                         <?php endif; ?>
 
                         <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::URL]): ?>
