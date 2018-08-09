@@ -36,9 +36,10 @@
                 <fileset dir="target/stage/tubepress/" includesfile="config/js-to-compress.txt"/>
                 <srcfile />
                 <arg value="--mangle" />
-                <arg value="--compress" />
                 <arg value="--comments" />
+                <arg value="--compress" />
                 <arg value="sequences,unsafe,conditionals,comparisons,booleans,loops,if_return,join_vars,cascade" />
+                <arg value="--" />
                 <redirector>
                     <outputmapper>
                         <mapper type="glob" from="*" to="target/stage/tubepress/*"/>
