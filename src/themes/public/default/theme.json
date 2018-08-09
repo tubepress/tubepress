@@ -16,8 +16,8 @@
     "styles" : [ "css/tubepress.css" ],
     "screenshots" : [
 
-        ["http://themes.tubepress-cdn.com/default/screenshots/1-thumbnail.png", "http://themes.tubepress-cdn.com/default/screenshots/1.png"],
-        ["http://themes.tubepress-cdn.com/default/screenshots/2-thumbnail.png", "http://themes.tubepress-cdn.com/default/screenshots/2.png"],
-        ["http://themes.tubepress-cdn.com/default/screenshots/3-thumbnail.png", "http://themes.tubepress-cdn.com/default/screenshots/3.png"]
+        ["https://d201gjdes8nfi.cloudfront.net/default/screenshots/1-thumbnail.png", "https://d201gjdes8nfi.cloudfront.net/default/screenshots/1.png"],
+        ["https://d201gjdes8nfi.cloudfront.net/default/screenshots/2-thumbnail.png", "https://d201gjdes8nfi.cloudfront.net/default/screenshots/2.png"],
+        ["https://d201gjdes8nfi.cloudfront.net/default/screenshots/3-thumbnail.png", "https://d201gjdes8nfi.cloudfront.net/default/screenshots/3.png"]
     ]
 }
