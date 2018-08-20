@@ -87,6 +87,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_spi_
                 tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED,
                 tubepress_youtube3_api_Constants::OPTION_THEME,
                 tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS,
+                tubepress_youtube3_api_Constants::OPTION_PRIVACY_ENHANCED,
             ),
 
             tubepress_api_options_ui_CategoryNames::FEED => array(
