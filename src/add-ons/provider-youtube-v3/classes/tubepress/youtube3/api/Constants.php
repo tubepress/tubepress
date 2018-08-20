@@ -23,6 +23,7 @@ class tubepress_youtube3_api_Constants
     const OPTION_SHOW_CONTROLS    = 'youtubeShowPlayerControls';
     const OPTION_SHOW_RELATED     = 'showRelated';
     const OPTION_THEME            = 'youtubePlayerTheme';
+    const OPTION_PRIVACY_ENHANCED = 'youtubePrivacyEnhanced';
 
     /**
      * @api

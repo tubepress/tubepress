@@ -230,6 +230,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE => '',
                 tubepress_youtube3_api_Constants::OPTION_RATING                     => false,
                 tubepress_youtube3_api_Constants::OPTION_RATINGS                    => false,
+                tubepress_youtube3_api_Constants::OPTION_PRIVACY_ENHANCED           => false,
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
@@ -255,6 +256,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
                 tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES    => 'Number of times favorited',                         //>(translatable)<
                 tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES        => 'Number of likes',                                   //>(translatable)<
                 tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES     => 'Number of dislikes',                                //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_PRIVACY_ENHANCED        => 'Enhanced privacy',                                  //>(translatable)<
             ),
 
             tubepress_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
@@ -273,6 +275,8 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>). Ensure that the favorites <a href="%s" target="_blank">playlist\'s privacy</a> is set to "Public".',   //>(translatable)<
                     'smosh', 'UCY30JRSgfhYXA6i6xX1erWg', 'https://support.google.com/youtube/answer/3127309'),
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE => 'A comma-separated list of YouTube video IDs in the order that you would like them to appear.',    //>(translatable)<
+                tubepress_youtube3_api_Constants::OPTION_PRIVACY_ENHANCED => sprintf('Enable <a href="%s" target="_blank">privacy-enhanced video playback</a>.',    //>(translatable)<
+                'https://support.google.com/youtube/answer/171780'),
             ),
         ))->addArgument(array(
 
@@ -283,6 +287,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
                 tubepress_youtube3_api_Constants::OPTION_SHOW_ANNOTATIONS,
                 tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS,
                 tubepress_youtube3_api_Constants::OPTION_THEME,
+                tubepress_youtube3_api_Constants::OPTION_PRIVACY_ENHANCED,
             ),
         ));
     }
@@ -362,6 +367,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_spi_ioc_Conta
             tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED     => 'bool',
             tubepress_youtube3_api_Constants::OPTION_THEME            => 'dropdown',
             tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS    => 'dropdown',
+            tubepress_youtube3_api_Constants::OPTION_PRIVACY_ENHANCED => 'bool',
 
             //Feed fields
             tubepress_youtube3_api_Constants::OPTION_FILTER          => 'multiSourceDropdown',
