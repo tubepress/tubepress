@@ -60,7 +60,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ENABLE           => false,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_AUTHOR           => null,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_DATE_SOURCE      => tubepress_wordpress_api_Constants::AUTOPOST_DATA_SOURCE_UPLOAD,
-                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => '{{ item.title }}',
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TITLE_FORMAT     => '{{ item.title|raw }}',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_POST_STATUS      => 'pending',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_TYPE             => 'post',
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_ALLOW_COMMENTS   => true,
@@ -130,6 +130,9 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_spi_ioc_Co
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_META_MAP,
                 tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE,
             ),
+            tubepress_api_options_Reference::PROPERTY_HTML_ALLOWED => array(
+                tubepress_wordpress_api_Constants::OPTION_AUTOPOST_CONTENT_TEMPLATE,
+            )
         ))->addTag(tubepress_api_options_ReferenceInterface::_);
 
         $toValidate = array(
