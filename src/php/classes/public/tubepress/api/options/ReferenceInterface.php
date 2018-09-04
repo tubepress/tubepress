@@ -103,6 +103,18 @@ interface tubepress_api_options_ReferenceInterface
     /**
      * @param $optionName string The option name.
      *
+     * @return bool True if this option value accepts raw HTML, false otherwise.
+     *
+     * @api
+     * @since 5.1.8
+     *
+     * @throws InvalidArgumentException If the option does not exist.
+     */
+    function isHtmlAllowed($optionName);
+
+    /**
+     * @param $optionName string The option name.
+     *
      * @return bool Should we store this option in persistent storage?
      *
      * @api

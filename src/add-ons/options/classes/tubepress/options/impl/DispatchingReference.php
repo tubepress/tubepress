@@ -148,6 +148,17 @@ class tubepress_options_impl_DispatchingReference implements tubepress_api_optio
     /**
      * {@inheritdoc}
      */
+    public function isHtmlAllowed($optionName)
+    {
+        $this->_assertExists($optionName);
+
+        /* @noinspection PhpUndefinedMethodInspection */
+        return $this->_nameToReferenceMap[$optionName]->isHtmlAllowed($optionName);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function isMeantToBePersisted($optionName)
     {
         $this->_assertExists($optionName);

@@ -51,6 +51,11 @@ class tubepress_api_options_Reference implements tubepress_api_options_Reference
     const PROPERTY_PRO_ONLY = 'proOnly';
 
     /**
+     * bool True if this option accepts HTML
+     */
+    const PROPERTY_HTML_ALLOWED = 'htmlAllowed';
+
+    /**
      * @var array
      */
     private $_valueMap;
@@ -242,6 +247,23 @@ class tubepress_api_options_Reference implements tubepress_api_options_Reference
         $this->_assertOptionExists($optionName);
 
         return is_bool($this->getProperty($optionName, self::PROPERTY_DEFAULT_VALUE));
+    }
+
+    /**
+     * @param $optionName string The option name.
+     *
+     * @return bool True if this option value accepts raw HTML, false otherwise.
+     *
+     * @api
+     * @since 5.1.8
+     *
+     * @throws InvalidArgumentException If the option does not exist.
+     */
+    public function isHtmlAllowed($optionName)
+    {
+        $this->_assertOptionExists($optionName);
+
+        return $this->_getOptionalProperty($optionName, self::PROPERTY_HTML_ALLOWED, false);
     }
 
     /**

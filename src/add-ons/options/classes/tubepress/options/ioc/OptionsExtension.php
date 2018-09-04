@@ -26,6 +26,7 @@ class tubepress_options_ioc_OptionsExtension implements tubepress_spi_ioc_Contai
             'tubepress_options_impl_listeners_StringMagicListener',
             'tubepress_options_impl_listeners_StringMagicListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ReferenceInterface::_))
          ->addTag(tubepress_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_api_event_Events::NVP_FROM_EXTERNAL_INPUT,
             'priority' => 100000,

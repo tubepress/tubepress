@@ -19,16 +19,24 @@ class tubepress_options_impl_listeners_StringMagicListener
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+    /**
+     * @var tubepress_api_options_ReferenceInterface
+     */
+    private $_optionsReference;
+
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_options_ReferenceInterface     $reference)
     {
-        $this->_eventDispatcher = $eventDispatcher;
+        $this->_eventDispatcher  = $eventDispatcher;
+        $this->_optionsReference = $reference;
     }
 
     public function onExternalInput(tubepress_api_event_EventInterface $event)
     {
         $value = $event->getSubject();
+        $name  = $event->getArgument('optionName');
 
-        $this->_magic($value);
+        $this->_magic($name, $value);
 
         $event->setSubject($value);
     }
@@ -36,20 +44,21 @@ class tubepress_options_impl_listeners_StringMagicListener
     public function onSet(tubepress_api_event_EventInterface $event)
     {
         $value = $event->getArgument('optionValue');
+        $name  = $event->getArgument('optionName');
 
-        $this->_magic($value);
+        $this->_magic($name, $value);
 
         $event->setArgument('optionValue', $value);
     }
 
-    private function _magic(&$value)
+    private function _magic($name, &$value)
     {
         /* If it's an array, send each element through the filter. */
         if (is_array($value)) {
 
             foreach ($value as $key => $subValue) {
 
-                $this->_magic($subValue);
+                $this->_magic($name, $subValue);
                 $value[$key] = $subValue;
             }
         }
@@ -61,7 +70,13 @@ class tubepress_options_impl_listeners_StringMagicListener
         }
 
         $value = trim($value);
-        $value = htmlspecialchars($value, ENT_NOQUOTES);
+
+        if ($this->_optionsReference->optionExists($name) &&
+            !$this->_optionsReference->isHtmlAllowed($name)) {
+
+            $value = htmlspecialchars($value, ENT_NOQUOTES);
+        }
+
         $value = $this->_booleanMagic($value);
     }
 
