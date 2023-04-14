@@ -14,7 +14,7 @@
   "require": {
     "symfony/finder"                     : "2.8.12",
     "symfony/filesystem"                 : "2.8.12",
-    "symfony/dependency-injection"       : "2.8.12",
+    "symfony/dependency-injection"       : "2.8.50",
     "symfony/class-loader"               : "2.8.12",
     "tedivm/stash"                       : "0.12.3",
     "symfony/event-dispatcher"           : "2.8.12",
