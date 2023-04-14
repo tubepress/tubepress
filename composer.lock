@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b57e08e52481d885ab2298a863cc8215",
+    "content-hash": "5118921f34f3e34334f077a94b179ba0",
     "packages": [
         {
             "name": "puzzlehttp/puzzle",
@@ -190,16 +190,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v2.8.12",
+            "version": "v2.8.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "ee9ec9ac2b046462d341e9de7c4346142d335e75"
+                "reference": "c306198fee8f872a8f5f031e6e4f6f83086992d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/ee9ec9ac2b046462d341e9de7c4346142d335e75",
-                "reference": "ee9ec9ac2b046462d341e9de7c4346142d335e75",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/c306198fee8f872a8f5f031e6e4f6f83086992d8",
+                "reference": "c306198fee8f872a8f5f031e6e4f6f83086992d8",
                 "shasum": ""
             },
             "require": {
@@ -249,7 +249,10 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-24T09:47:20+00:00"
+            "support": {
+                "source": "https://github.com/symfony/dependency-injection/tree/v2.8.50"
+            },
+            "time": "2019-04-16T11:33:46+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2563,5 +2566,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
